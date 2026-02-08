@@ -91,7 +91,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[5] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3ArbitrumAssets.rsETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT

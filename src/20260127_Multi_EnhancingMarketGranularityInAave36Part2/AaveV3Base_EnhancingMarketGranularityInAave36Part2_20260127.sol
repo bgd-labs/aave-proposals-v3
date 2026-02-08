@@ -33,7 +33,7 @@ contract AaveV3Base_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3Pa
     collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3BaseAssets.ezETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -41,7 +41,7 @@ contract AaveV3Base_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3Pa
     collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3BaseAssets.wrsETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT

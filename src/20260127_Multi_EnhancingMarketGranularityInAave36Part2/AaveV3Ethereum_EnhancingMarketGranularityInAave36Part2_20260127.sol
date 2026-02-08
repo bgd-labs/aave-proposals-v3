@@ -112,7 +112,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.sDAI_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -144,7 +144,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[6] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.sUSDe_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -160,7 +160,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[8] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_eUSDE_29MAY2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -168,7 +168,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[9] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_sUSDE_31JUL2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -176,7 +176,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[10] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_USDe_31JUL2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -184,7 +184,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[11] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_eUSDE_14AUG2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -192,7 +192,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[12] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.eUSDe_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -208,7 +208,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[14] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_sUSDE_25SEP2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -216,7 +216,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[15] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_USDe_25SEP2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -224,7 +224,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[16] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.tETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -232,7 +232,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[17] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.ezETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -248,7 +248,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[19] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -256,7 +256,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[20] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT

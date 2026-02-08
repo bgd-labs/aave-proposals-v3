@@ -27,7 +27,7 @@ contract AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127 is
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -35,7 +35,7 @@ contract AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127 is
     collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumLidoAssets.sUSDe_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -43,7 +43,7 @@ contract AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127 is
     collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumLidoAssets.rsETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -51,7 +51,7 @@ contract AaveV3EthereumLido_EnhancingMarketGranularityInAave36Part2_20260127 is
     collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumLidoAssets.tETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT

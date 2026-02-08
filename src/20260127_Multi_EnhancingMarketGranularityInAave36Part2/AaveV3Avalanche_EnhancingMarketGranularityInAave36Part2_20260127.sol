@@ -70,7 +70,7 @@ contract AaveV3Avalanche_EnhancingMarketGranularityInAave36Part2_20260127 is
     collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3AvalancheAssets.wrsETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
