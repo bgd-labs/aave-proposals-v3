@@ -77,7 +77,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
 
     // USDC
     uint256 limit = IGhoReserve(proposal.GHO_RESERVE()).getLimit(proposal.NEW_GSM_USDC());
-    assertEq(limit, proposal.USDC_GSM_RESERVE_LIMIT());
+    assertEq(limit, proposal.RESERVE_LIMIT_GSM_USDC());
 
     (uint256 excess, uint256 deficit) = IGsm4626(proposal.NEW_GSM_USDC()).getCurrentBacking();
     assertEq(excess, 0);
@@ -93,7 +93,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
 
     // USDT
     limit = IGhoReserve(proposal.GHO_RESERVE()).getLimit(proposal.NEW_GSM_USDT());
-    assertEq(limit, proposal.USDT_GSM_RESERVE_LIMIT());
+    assertEq(limit, proposal.RESERVE_LIMIT_GSM_USDT());
     (excess, deficit) = IGsm4626(proposal.NEW_GSM_USDT()).getCurrentBacking();
     assertEq(excess, 0);
     assertEq(deficit, 0);
@@ -392,13 +392,27 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     );
   }
 
+  function test_oldGsmsHaveNoBalance() public {
+    executePayload(vm, address(proposal));
+
+    assertEq(IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(GhoEthereum.GSM_USDC), 0);
+    assertEq(IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(GhoEthereum.GSM_USDT), 0);
+
+    assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(GhoEthereum.GSM_USDC), 0);
+    assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(GhoEthereum.GSM_USDT), 0);
+
+    assertEq(IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(address(proposal)), 0);
+    assertEq(IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(address(proposal)), 0);
+    assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(proposal)), 0);
+  }
+
   function test_gsmUsdtIsOperational() public {
     executePayload(vm, address(proposal));
 
     // Update exposure cap because it's currently full
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IGsm(proposal.NEW_GSM_USDT()).updateExposureCap(
-      (proposal.USDT_GSM_RESERVE_LIMIT() * 1e6) / 1e18
+      (proposal.RESERVE_LIMIT_GSM_USDT() * 1e6) / 1e18
     );
     vm.stopPrank();
 

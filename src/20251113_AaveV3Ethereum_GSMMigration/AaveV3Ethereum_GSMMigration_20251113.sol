@@ -38,8 +38,8 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   address public constant GHO_RESERVE = 0x54C58157DeF387A880AE62332D1445f03adbE7E9;
 
   // GSM Draw Limits
-  uint128 public constant USDC_GSM_RESERVE_LIMIT = 110_000_000 ether;
-  uint128 public constant USDT_GSM_RESERVE_LIMIT = 70_000_000 ether;
+  uint128 public constant RESERVE_LIMIT_GSM_USDC = 110_000_000 ether;
+  uint128 public constant RESERVE_LIMIT_GSM_USDT = 70_000_000 ether;
 
   // https://etherscan.io/address/0x3a3868898305f04bec7fea77becff04c13444112
   address public constant NEW_GSM_USDC = 0x3A3868898305f04beC7FEa77BecFf04C13444112;
@@ -118,8 +118,8 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
     IGhoReserve(GHO_RESERVE).addEntity(NEW_GSM_USDC);
     IGhoReserve(GHO_RESERVE).addEntity(NEW_GSM_USDT);
 
-    IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDC, USDC_GSM_RESERVE_LIMIT);
-    IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, USDT_GSM_RESERVE_LIMIT);
+    IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDC, RESERVE_LIMIT_GSM_USDC);
+    IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, RESERVE_LIMIT_GSM_USDT);
 
     // Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(NEW_GSM_USDC).grantRole(SWAP_FREEZER_ROLE, USDC_ORACLE_SWAP_FREEZER);
@@ -184,7 +184,7 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   function _fund(uint256 balanceUsdc, uint256 balanceUsdt) internal {
     IGhoDirectFacilitator(DIRECT_FACILITATOR).mint(
       GHO_RESERVE,
-      USDC_GSM_RESERVE_LIMIT + USDT_GSM_RESERVE_LIMIT
+      RESERVE_LIMIT_GSM_USDC + RESERVE_LIMIT_GSM_USDT
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
