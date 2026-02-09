@@ -51,8 +51,8 @@ In parallel, we propose increasing the EURS reserve factor from 50% to 99% to mi
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260208_AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3/AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3_20260208.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260208_AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3/AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3_20260208.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/907f5a959a44a563fbd69e9943cba7e810bb2160/src/20260208_AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3/AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3_20260208.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/907f5a959a44a563fbd69e9943cba7e810bb2160/src/20260208_AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3/AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3_20260208.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-increase-wbtc-liquidation-bonus-and-eurs-reserve-factor-on-polygon-v3/24029)
 
