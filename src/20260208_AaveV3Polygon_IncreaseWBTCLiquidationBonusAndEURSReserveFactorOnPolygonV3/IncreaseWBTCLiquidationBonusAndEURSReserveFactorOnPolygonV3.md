@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-increase-wbtc-liquidat
 
 ## Simple Summary
 
-This proposal recommends (i) increasing the liquidation bonus (LB) for WBTC on Aave v3 Polygon from 6.5% to 8.5%, and (ii) increasing the EURS reserve factor from 50% to 99%.
+This proposal recommends (i) increasing the liquidation bonus (LB) for WBTC on Aave v3 Polygon from 7% to 8.5%, and (ii) increasing the EURS reserve factor from 50% to 99%.
 
 ## Motivation
 
@@ -28,7 +28,7 @@ Among other marginal EURS debt positions following the same fate, the aggregate 
 
 ### EURS Peg Behavior
 
-Uniquely, the EURS market price has effectively converged to an endogenous clearing level created by the interaction of the oracle and liquidation incentives. EURS debt is valued using the EUR/USD feed (currently ~1.186), and liquidation profitability is determined by the collateral-side discount, currently 6.5% for WBTC. In an environment where EURS spot liquidity is relatively thin and supply-increasing arbitrage is limited, the accumulated liquidation flow itself becomes price-setting: the market clears when liquidators repeatedly source and recycle limited EURS liquidity while still extracting the liquidation spread. Empirically, this has produced a stable convergence point around ~\$1.24 per EURS, i.e., approximately the oracle-implied USD value adjusted by the existing liquidation bonus.
+Uniquely, the EURS market price has effectively converged to an endogenous clearing level created by the interaction of the oracle and liquidation incentives. EURS debt is valued using the EUR/USD feed (currently ~1.186), and liquidation profitability is determined by the collateral-side discount, currently 7% for WBTC. In an environment where EURS spot liquidity is relatively thin and supply-increasing arbitrage is limited, the accumulated liquidation flow itself becomes price-setting: the market clears when liquidators repeatedly source and recycle limited EURS liquidity while still extracting the liquidation spread. Empirically, this has produced a stable convergence point around ~\$1.24 per EURS, i.e., approximately the oracle-implied USD value adjusted by the existing liquidation bonus.
 
 ![image - 2026-02-08T151319.373|1860x678](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/c/ccb257750fad6bea15ba87ace6397494d4081436.png)
 
