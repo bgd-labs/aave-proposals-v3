@@ -7,7 +7,7 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
-import {BaseActivateRiskAgentPayload} from './BaseActivateRiskAgentPayload.sol';
+import {BaseActivateRiskAgentPayload, CollectorUtils, ICollector} from './BaseActivateRiskAgentPayload.sol';
 
 /**
  * @title Activate Capo Risk Agent and expand Rates Agent on more networks
@@ -18,8 +18,13 @@ import {BaseActivateRiskAgentPayload} from './BaseActivateRiskAgentPayload.sol';
 contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
   BaseActivateRiskAgentPayload
 {
+  using CollectorUtils for ICollector;
+
   address public constant CAPO_AGENT = 0xCc18Be380838956aad41FD22466085eD66aaBB46;
   uint96 public constant LINK_AMOUNT = 200 ether;
+
+  address public constant BGD_RECEIVER = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
+  uint96 public constant BGD_REIMBURSE_LINK_AMOUNT = 80 ether;
 
   function getAllowedMarkets() public pure override returns (address[] memory) {
     address[] memory markets = new address[](14);
@@ -97,5 +102,16 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
   function _grantRiskAdminPermissions(address agentAddress) internal override {
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(agentAddress);
     AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(agentAddress);
+  }
+
+  function _postExecute() internal override {
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
+        amount: BGD_REIMBURSE_LINK_AMOUNT
+      }),
+      BGD_RECEIVER
+    );
   }
 }

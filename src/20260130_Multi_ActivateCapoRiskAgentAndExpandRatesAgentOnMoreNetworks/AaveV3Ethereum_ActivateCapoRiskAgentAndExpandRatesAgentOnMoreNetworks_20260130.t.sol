@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import {AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
@@ -153,5 +154,17 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
       // check injection
       assertFalse(_checkAndPerformAutomation(config.agentHubAutomation, config.agentId));
     }
+  }
+
+  function test_BgdReceivedLinkToken() public {
+    uint256 balanceBefore = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
+      proposal.BGD_RECEIVER()
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    uint256 balanceAfter = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
+      proposal.BGD_RECEIVER()
+    );
+
+    assertEq(balanceAfter - balanceBefore, 80 ether);
   }
 }

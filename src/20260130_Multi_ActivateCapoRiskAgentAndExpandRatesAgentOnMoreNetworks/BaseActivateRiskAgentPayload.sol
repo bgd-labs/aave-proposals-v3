@@ -82,6 +82,9 @@ abstract contract BaseActivateRiskAgentPayload is IProposalGenericExecutor {
       0,
       ''
     );
+
+    // 5. execute any custom logic if needed
+    _postExecute();
   }
 
   function getAllowedMarkets() public pure virtual returns (address[] memory);
@@ -99,6 +102,9 @@ abstract contract BaseActivateRiskAgentPayload is IProposalGenericExecutor {
    * Default implementation grants to single ACL manager, Ethereum overrides for both Core and Lido
    */
   function _grantRiskAdminPermissions(address agentAddress) internal virtual;
+
+  /// @dev to be overridden on the child if any extra logic is needed
+  function _postExecute() internal virtual {}
 
   /**
    * @dev Obtains LINK tokens either from collector or assumes they're already available
