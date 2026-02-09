@@ -24,7 +24,7 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
   uint96 public constant LINK_AMOUNT = 200 ether;
 
   address public constant BGD_RECEIVER = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
-  uint96 public constant BGD_REIMBURSE_LINK_AMOUNT = 80 ether;
+  uint96 public constant BGD_REIMBURSE_LINK_AMOUNT = 108 ether;
 
   function getAllowedMarkets() public pure override returns (address[] memory) {
     address[] memory markets = new address[](14);

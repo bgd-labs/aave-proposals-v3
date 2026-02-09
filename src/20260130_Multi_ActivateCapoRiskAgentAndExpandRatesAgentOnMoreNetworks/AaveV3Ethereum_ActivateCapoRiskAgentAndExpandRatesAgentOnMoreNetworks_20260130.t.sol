@@ -165,6 +165,6 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
       proposal.BGD_RECEIVER()
     );
 
-    assertEq(balanceAfter - balanceBefore, 80 ether);
+    assertEq(balanceAfter - balanceBefore, 108 ether);
   }
 }

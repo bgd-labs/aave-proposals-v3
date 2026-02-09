@@ -35,7 +35,7 @@ The payload does the following actions:
 - Configure constrained ranges on the RangeValidationModule to strictly bound the risk param update from the Chaos Risk Oracle.
 - Give `RISK_ADMIN` role to the AgentContract which will be called by the Chaos Agent system to inject updates onto the Aave protocol.
 - Register new chainlink automation on the AgentHub Automation wrapper contract for the agents.
-- Reimburse BGD Labs with 80 LINK by withdrawing aLINK from Collector on Ethereum, which was used to fund chainlink automation on Base as Collector did not have LINK on those networks, and to fund governance automation actions.
+- Reimburse BGD Labs with 108 LINK by withdrawing aLINK from Collector on Ethereum, which was used to fund chainlink automation on Base as Collector did not have LINK on those networks, and to fund governance automation actions.
 
 **Please note: On Ethereum, the following price feeds are shared across both Core and Prime instances: wstETH, rsETH, ezETH, tETH, sUSDe so changes on the capo feed params will be applied to both instances. Since the CAPO feeds use the ACL Manager of both instances, we give the `RISK_ADMIN` role to the agent contract from both core Core and Prime instances.**
 
