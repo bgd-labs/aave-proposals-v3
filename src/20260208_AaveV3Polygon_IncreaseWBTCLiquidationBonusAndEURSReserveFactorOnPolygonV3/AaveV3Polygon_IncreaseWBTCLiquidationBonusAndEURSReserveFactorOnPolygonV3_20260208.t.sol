@@ -18,7 +18,7 @@ contract AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygon
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 82718598);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 82764267);
     proposal = new AaveV3Polygon_IncreaseWBTCLiquidationBonusAndEURSReserveFactorOnPolygonV3_20260208();
   }
 

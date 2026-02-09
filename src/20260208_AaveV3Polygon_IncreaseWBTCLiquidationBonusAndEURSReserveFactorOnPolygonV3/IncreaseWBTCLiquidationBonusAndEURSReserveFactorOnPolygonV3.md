@@ -46,7 +46,7 @@ In parallel, we propose increasing the EURS reserve factor from 50% to 99% to mi
 
 | **Parameter**     | **Instance** | **Asset** | **Current Value** | **Recommended Value** |
 | ----------------- | ------------ | --------- | ----------------- | --------------------- |
-| Liquidation Bonus | Polygon v3   | WBTC      | 6.5%              | 8.5%                  |
+| Liquidation Bonus | Polygon v3   | WBTC      | 7%                | 8.5%                  |
 | Reserve Factor    | Polygon v3   | EURS      | 50%               | 99%                   |
 
 ## References
