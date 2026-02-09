@@ -76,7 +76,9 @@
   "raw": {
     "0x4e033931ad43597d96d6bcc25c280717730b58b1": {
       "label": "AaveV3EthereumLido.POOL",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x6c3847a02c991876166c8be676e3ca84a3c105eb60433934c4091c1a7cd316ee": {
           "previousValue": "0x100000000000000000000003e800003a98000000006405dc011229fe000a0005",
@@ -102,7 +104,9 @@
     },
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xbe350a38cc5c51bfe2e30b263c389ff98a218ceae2d1822ba1ebb7c4dda05c2e": {
           "previousValue": "0x006978000a000000000002000000000000000000000000000000000000000000",

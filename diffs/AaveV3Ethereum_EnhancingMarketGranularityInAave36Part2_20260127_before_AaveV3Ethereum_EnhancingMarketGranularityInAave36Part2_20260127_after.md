@@ -92,7 +92,6 @@
 | description | value before | value after |
 | --- | --- | --- |
 | ltv | 75 % [7500] | 0 % [0] |
-| liquidationThreshold | 78 % [7800] | 0.1 % [10] |
 
 
 #### eUSDe ([0x90D2af7d622ca3141efA4d8f1F24d86E5974Cc8F](https://etherscan.io/address/0x90D2af7d622ca3141efA4d8f1F24d86E5974Cc8F))
@@ -114,7 +113,6 @@
 | description | value before | value after |
 | --- | --- | --- |
 | ltv | 72 % [7200] | 0 % [0] |
-| liquidationThreshold | 75 % [7500] | 0.1 % [10] |
 
 
 #### PT-sUSDE-25SEP2025 ([0x9F56094C450763769BA0EA9Fe2876070c0fD5F77](https://etherscan.io/address/0x9F56094C450763769BA0EA9Fe2876070c0fD5F77))
@@ -552,10 +550,6 @@
       }
     },
     "0x83F20F44975D03b1b09e64809B757c47f942BEeA": {
-      "liquidationThreshold": {
-        "from": 7800,
-        "to": 10
-      },
       "ltv": {
         "from": 7500,
         "to": 0
@@ -574,10 +568,6 @@
       }
     },
     "0x9D39A5DE30e57443BfF2A8307A4256c8797A3497": {
-      "liquidationThreshold": {
-        "from": 7500,
-        "to": 10
-      },
       "ltv": {
         "from": 7200,
         "to": 0
@@ -697,7 +687,9 @@
   "raw": {
     "0x64b761d848206f447fe2dd461b0c635ec39ebb27": {
       "label": "AaveV3Ethereum.POOL_CONFIGURATOR",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xe1bff984f6538b6102b468ba018fd2f2bf7ae9476ac90ce91dd066ba0c1ba5d2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000001964",
@@ -707,7 +699,9 @@
     },
     "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
       "label": "AaveV3Ethereum.POOL",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x066bdbce26264b7263841be9b4d62261ac0037479c4f57edb1eec82c59014963": {
           "previousValue": "0x100000000000000000000103e800000465000000096005dc851229fe1edc1d4c",
@@ -743,7 +737,7 @@
         },
         "0x23ee7987c2b58ddd8ea57eda7863183c58f952b876a40bb81749cfa95349122a": {
           "previousValue": "0x100000000000000000000003e80004c4b4000000000007d0811228d21e781d4c",
-          "newValue": "0x100000000000000000000003e80004c4b4000000000007d0811228d2000a0000"
+          "newValue": "0x100000000000000000000003e80004c4b4000000000007d0811228d21e780000"
         },
         "0x24a6d6495ab5cae2014f8b8dc5166cee765124c46ed3c651d2361ec301d2301a": {
           "previousValue": "0x100000000000000000000003e80042c1d80003d0900003e8850629041e781d4c",
@@ -843,7 +837,7 @@
         },
         "0xb587e101db980eb9a3d4491a64340bd6e10aa0a7bfd3cc48f4b5cadccf068ded": {
           "previousValue": "0x100000000000000000000003e806553f10000000000007d081122a621d4c1c20",
-          "newValue": "0x100000000000000000000003e806553f10000000000007d081122a62000a0000"
+          "newValue": "0x100000000000000000000003e806553f10000000000007d081122a621d4c0000"
         },
         "0xc00262ed55c3f8b3ae06bbb28c20fbb0e54ee84605c5c00c4ce60d963f62f803": {
           "previousValue": "0x100000000000000000000003e800000000100000000103e8811229fe000a0005",
@@ -901,7 +895,9 @@
     },
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xbe350a38cc5c51bfe2e30b263c389ff98a218ceae2d1822ba1ebb7c4dda05c2e": {
           "previousValue": "0x006977f7e2000000000002000000000000000000000000000000000000000000",

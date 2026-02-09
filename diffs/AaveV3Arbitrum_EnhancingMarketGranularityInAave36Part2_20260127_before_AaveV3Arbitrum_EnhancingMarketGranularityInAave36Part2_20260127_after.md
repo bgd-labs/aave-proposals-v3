@@ -35,7 +35,6 @@
 | description | value before | value after |
 | --- | --- | --- |
 | ltv | 73 % [7300] | 0 % [0] |
-| liquidationThreshold | 78 % [7800] | 0.1 % [10] |
 
 
 #### ARB ([0x912CE59144191C1204E64559FE8253a0e49E6548](https://arbiscan.io/address/0x912CE59144191C1204E64559FE8253a0e49E6548))
@@ -216,10 +215,6 @@
       }
     },
     "0x6c84a8f1c29108F47a79964b5Fe888D4f4D0dE40": {
-      "liquidationThreshold": {
-        "from": 7800,
-        "to": 10
-      },
       "ltv": {
         "from": 7300,
         "to": 0
@@ -273,7 +268,9 @@
   "raw": {
     "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
       "label": "AaveV3Arbitrum.POOL",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x0759a6732214d7158205bec68b5a7f67b7fdcbd877069dbbd0160859418a56f1": {
           "previousValue": "0x100000000000000000000203e8000010d880000006a401f4851229e01edc1d4c",
@@ -289,7 +286,7 @@
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a5": {
           "previousValue": "0x100000000000000000000003e800000003200000001907d0811229fe1e781c84",
-          "newValue": "0x100000000000000000000003e800000003200000001907d0811229fe000a0000"
+          "newValue": "0x100000000000000000000003e800000003200000001907d0811229fe1e780000"
         },
         "0x36ce690a3e41633995fb479a7fd89cf51578df5d336828d9f194d6be37a2ee39": {
           "previousValue": "0x100000000000000000000003e800000064000000000105dc851229fe1ce81af4",
@@ -359,7 +356,9 @@
     },
     "0x89644ca1bb8064760312ae4f03ea41b05da3637c": {
       "label": "GovernanceV3Arbitrum.PAYLOADS_CONTROLLER",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x004ef3f825c8849c73999f6e84fcb0332c1597fa3afbd85f7f1f35c7ac696bc2": {
           "previousValue": "0x00697804d8000000000002000000000000000000000000000000000000000000",
