@@ -4,11 +4,15 @@ author: "Chaos Labs (implemented by Aavechan Initiative @aci via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-increase-wbtc-liquidation-bonus-and-eurs-reserve-factor-on-polygon-v3/24029"
 ---
 
-## Overview
+## Simple Summary
 
-This proposal recommends (i) increasing the liquidation bonus (LB) for WBTC on Aave v3 Polygon from 6.5% to 8.5%, and (ii) increasing the EURS reserve factor from 50% to 99%. The primary motivation is not general liquidation efficiency, but rather a specific and persistent mode observed in the Polygon market: a large EURS-denominated debt position has remained liquidatable for an extended period of time without being meaningfully resolved due to EURS liquidity constraints. In this context, the liquidation bonus is best understood as a mechanism to import cross-chain arbitrage capacity, rather than a purely local incentive adjustment, while the reserve factor adjustment minimizes continued value leakage to deprecated suppliers and encourages capital reallocation toward peg-arbitrage activity that can increase EURS liquidity availability for liquidation flow.
+This proposal recommends (i) increasing the liquidation bonus (LB) for WBTC on Aave v3 Polygon from 6.5% to 8.5%, and (ii) increasing the EURS reserve factor from 50% to 99%.
 
-## Context and Motivation
+## Motivation
+
+The primary motivation is not general liquidation efficiency, but rather a specific and persistent mode observed in the Polygon market: a large EURS-denominated debt position has remained liquidatable for an extended period of time without being meaningfully resolved due to EURS liquidity constraints. In this context, the liquidation bonus is best understood as a mechanism to import cross-chain arbitrage capacity, rather than a purely local incentive adjustment, while the reserve factor adjustment minimizes continued value leakage to deprecated suppliers and encourages capital reallocation toward peg-arbitrage activity that can increase EURS liquidity availability for liquidation flow.
+
+## Context
 
 During the recent market drawdown over the past few days, we have observed a particularly large WBTC collateralized EURS debt position on Polygon v3 become eligible for liquidation, at an initial sheer size of 1.06M EURS (\$1.167M). Notably, EURS has been effectively **deprecated** on Aave since July 2025, which increases the importance of resolving residual exposure efficiently rather than allowing it to persist as a long-lived tail risk.
 
@@ -44,14 +48,6 @@ In parallel, we propose increasing the EURS reserve factor from 50% to 99% to mi
 | ----------------- | ------------ | --------- | ----------------- | --------------------- |
 | Liquidation Bonus | Polygon v3   | WBTC      | 6.5%              | 8.5%                  |
 | Reserve Factor    | Polygon v3   | EURS      | 50%               | 99%                   |
-
-## Next Steps
-
-We will proceed with implementing an immediate 0.5% increase in the liquidation bonus to 7% via the Risk Steward process, subject to its constraint.
-
-## Disclosure
-
-Chaos Labs has not been compensated by any third party for publishing this proposal.
 
 ## References
 
