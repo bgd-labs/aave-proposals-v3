@@ -2,14 +2,15 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3MegaEth} from 'aave-address-book/AaveV3MegaEth.sol';
+import {AaveV3MegaEth, IPoolConfigurator} from 'aave-address-book/AaveV3MegaEth.sol';
 import {MiscMegaEth} from 'aave-address-book/MiscMegaEth.sol';
 import {GovernanceV3MegaEth} from 'aave-address-book/GovernanceV3MegaEth.sol';
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IPriceOracleSentinel} from 'aave-v3-origin/contracts/interfaces/IPriceOracleSentinel.sol';
 import {AaveV3MegaEth_AaveV36MegaETHActivation_20260128} from './AaveV3MegaEth_AaveV36MegaETHActivation_20260128.sol';
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
+import {console} from 'forge-std/console.sol';
 
 /**
  * @dev Test for AaveV3MegaEth_AaveV36MegaETHActivation_20260128
@@ -58,6 +59,9 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
 
   function test_capsIncreaseByGuardian() public {
     GovV3Helpers.executePayload(vm, address(proposal));
+
+    console.log('Safe address (guardian):', MiscMegaEth.PROTOCOL_GUARDIAN);
+    console.log('To address (pool configurator)', address(AaveV3MegaEth.POOL_CONFIGURATOR));
 
     _setAndValidateCapsByGuardian(proposal.WETH(), 50_000, 46_000);
     _setAndValidateCapsByGuardian(proposal.BTCb(), 120, 1);
@@ -143,6 +147,24 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
       .getReserveCaps(asset);
     assertEq(currentBorrowCap, borrowCap);
     assertEq(currentSupplyCap, supplyCap);
+
+    bytes memory supplyCapCalldata = abi.encodeWithSelector(
+      IPoolConfigurator.setSupplyCap.selector,
+      asset,
+      supplyCap
+    );
+    bytes memory borrowCapCalldata = abi.encodeWithSelector(
+      IPoolConfigurator.setBorrowCap.selector,
+      asset,
+      borrowCap
+    );
+
+    console.log();
+    console.log('supply cap calldata', IERC20(asset).symbol(), ':');
+    console.logBytes(supplyCapCalldata);
+    console.log('borrow cap calldata', IERC20(asset).symbol(), ':');
+    console.logBytes(borrowCapCalldata);
+    console.log();
   }
 
   function _postSetup() internal {
