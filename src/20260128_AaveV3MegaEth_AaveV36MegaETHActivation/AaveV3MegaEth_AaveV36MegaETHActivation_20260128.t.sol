@@ -137,17 +137,6 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
     uint256 supplyCap,
     uint256 borrowCap
   ) internal {
-    vm.startPrank(MiscMegaEth.PROTOCOL_GUARDIAN);
-    AaveV3MegaEth.POOL_CONFIGURATOR.setSupplyCap(asset, supplyCap);
-    AaveV3MegaEth.POOL_CONFIGURATOR.setBorrowCap(asset, borrowCap);
-    vm.stopPrank();
-
-    (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3MegaEth
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveCaps(asset);
-    assertEq(currentBorrowCap, borrowCap);
-    assertEq(currentSupplyCap, supplyCap);
-
     bytes memory supplyCapCalldata = abi.encodeWithSelector(
       IPoolConfigurator.setSupplyCap.selector,
       asset,
@@ -158,6 +147,23 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
       asset,
       borrowCap
     );
+
+    vm.startPrank(MiscMegaEth.PROTOCOL_GUARDIAN);
+    (bool supplyCapUpdateStatus, ) = address(AaveV3MegaEth.POOL_CONFIGURATOR).call(
+      supplyCapCalldata
+    );
+    (bool borrowCapUpdateStatus, ) = address(AaveV3MegaEth.POOL_CONFIGURATOR).call(
+      borrowCapCalldata
+    );
+    assertTrue(supplyCapUpdateStatus);
+    assertTrue(borrowCapUpdateStatus);
+    vm.stopPrank();
+
+    (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3MegaEth
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(asset);
+    assertEq(currentBorrowCap, borrowCap);
+    assertEq(currentSupplyCap, supplyCap);
 
     console.log();
     console.log('supply cap calldata', IERC20(asset).symbol(), ':');
