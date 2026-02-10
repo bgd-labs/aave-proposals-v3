@@ -29,7 +29,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3EthereumAssets.MKR_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
+      borrowCap: EngineFlags.KEEP_CURRENT
     });
     capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3EthereumAssets.SNX_UNDERLYING,
