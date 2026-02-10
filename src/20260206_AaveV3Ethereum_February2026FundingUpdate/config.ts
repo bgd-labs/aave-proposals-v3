@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'February2026FundingUpdate',
     date: '20260206',
     author: 'TokenLogic',
-    discussion: 'https://governance.aave.com/',
+    discussion: 'https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/24030',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'AVALANCHE',
   },

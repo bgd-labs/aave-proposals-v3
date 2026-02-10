@@ -1,7 +1,7 @@
 ---
 title: "February 2026 - Funding Update"
 author: "TokenLogic"
-discussions: "https://governance.aave.com/"
+discussions: "https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/24030"
 ---
 
 ## Simple Summary
@@ -43,7 +43,7 @@ This allowance enables the AAVE acquired via buybacks to be held on the AFC SAFE
 - **Implementation**: [AaveV3Ethereum payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260206_AaveV3Ethereum_February2026FundingUpdate/AaveV3Ethereum_February2026FundingUpdate_20260206.sol)
 - **Tests**: [AaveV3Ethereum tests](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260206_AaveV3Ethereum_February2026FundingUpdate/AaveV3Ethereum_February2026FundingUpdate_20260206.t.sol)
 - **Snapshot**: Direct-to-AIP
-- **Discussion**: <https://governance.aave.com/>
+- **Discussion**: <https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/24030>
 
 ## Copyright
 

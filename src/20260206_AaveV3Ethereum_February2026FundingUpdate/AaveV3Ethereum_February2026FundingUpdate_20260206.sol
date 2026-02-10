@@ -16,7 +16,7 @@ interface IMainnetSwapSteward {
  * @title February 2026 - Funding Update
  * @author TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/XXXXX
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/24030
  */
 contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
