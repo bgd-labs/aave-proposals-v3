@@ -35,10 +35,6 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
   uint256 public constant ACI_REIMBURSE_AWETH_AMOUNT = 1.470836210916653291 ether;
   uint256 public constant TOKENLOGIC_REIMBURSE_GHO_AMOUNT = 26_000 ether;
 
-  // Aave Labs – reimbursement for aavedao.eth ENS rescue (placeholder until amount/address agreed)
-  address public constant AAVE_LABS_SAFE = address(0); // TODO: set Aave Labs SAFE address
-  uint256 public constant AAVE_LABS_REIMBURSE_ENS_AMOUNT = 0; // TODO: set amount (asset: aEthWETH assumed)
-
   uint256 public constant AFC_AAVE_AMOUNT = 100_000 ether;
   uint256 public constant AHAB_WETH_AMOUNT = 4_000 ether;
   uint256 public constant AHAB_WSTETH_AMOUNT = 1_100 ether;
@@ -61,7 +57,6 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
     _liquidityApprovals();
     _cexEarnApproval();
     _reimbursements();
-    _reimburseAaveLabsEns();
     _replenishAllowances();
   }
 
@@ -142,16 +137,6 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       TOKEN_LOGIC,
       TOKENLOGIC_REIMBURSE_GHO_AMOUNT
-    );
-  }
-
-  /// @dev Aave Labs reimbursement for aavedao.eth ENS rescue. No-op until AAVE_LABS_SAFE and AAVE_LABS_REIMBURSE_ENS_AMOUNT are set.
-  function _reimburseAaveLabsEns() internal {
-    if (AAVE_LABS_SAFE == address(0) || AAVE_LABS_REIMBURSE_ENS_AMOUNT == 0) return;
-    AaveV3Ethereum.COLLECTOR.approve(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
-      AAVE_LABS_SAFE,
-      AAVE_LABS_REIMBURSE_ENS_AMOUNT
     );
   }
 

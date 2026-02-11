@@ -21,7 +21,7 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
   AaveV3Ethereum_February2026FundingUpdate_20260206 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24_360_000);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24360000);
     proposal = new AaveV3Ethereum_February2026FundingUpdate_20260206();
   }
 
@@ -94,7 +94,7 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        MiscEthereum.ECOSYSTEM_RESERVE,
+        address(AaveV3Ethereum.COLLECTOR),
         liquiditySafe
       ),
       0
@@ -104,20 +104,6 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
 
     assertEq(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        liquiditySafe
-      ),
-      0
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        liquiditySafe
-      ),
-      proposal.LIQUIDITY_WETH_AMOUNT()
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
         MiscEthereum.ECOSYSTEM_RESERVE,
         liquiditySafe
       ),
@@ -125,10 +111,10 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        MiscEthereum.ECOSYSTEM_RESERVE,
+        address(AaveV3Ethereum.COLLECTOR),
         liquiditySafe
       ),
-      0
+      proposal.LIQUIDITY_WETH_AMOUNT()
     );
   }
 
