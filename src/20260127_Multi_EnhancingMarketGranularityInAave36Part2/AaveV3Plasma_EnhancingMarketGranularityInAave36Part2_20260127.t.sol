@@ -15,7 +15,7 @@ contract AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127_Test is P
   AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 12543763);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 13874046);
     proposal = new AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 

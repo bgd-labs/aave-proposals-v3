@@ -15,7 +15,7 @@ contract AaveV3Linea_EnhancingMarketGranularityInAave36Part2_20260127_Test is Pr
   AaveV3Linea_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('linea'), 28352877);
+    vm.createSelectFork(vm.rpcUrl('linea'), 28781423);
     proposal = new AaveV3Linea_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 

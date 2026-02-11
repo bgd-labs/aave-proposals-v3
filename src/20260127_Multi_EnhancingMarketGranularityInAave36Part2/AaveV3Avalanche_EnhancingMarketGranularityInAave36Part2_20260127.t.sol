@@ -17,7 +17,7 @@ contract AaveV3Avalanche_EnhancingMarketGranularityInAave36Part2_20260127_Test i
   AaveV3Avalanche_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 76613800);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 77799948);
     proposal = new AaveV3Avalanche_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 

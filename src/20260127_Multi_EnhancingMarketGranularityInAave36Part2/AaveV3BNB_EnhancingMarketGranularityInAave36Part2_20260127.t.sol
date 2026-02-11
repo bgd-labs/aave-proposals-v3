@@ -15,7 +15,7 @@ contract AaveV3BNB_EnhancingMarketGranularityInAave36Part2_20260127_Test is Prot
   AaveV3BNB_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 77621945);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 80577921);
     proposal = new AaveV3BNB_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 

@@ -15,7 +15,7 @@ contract AaveV3Base_EnhancingMarketGranularityInAave36Part2_20260127_Test is Pro
   AaveV3Base_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 41342635);
+    vm.createSelectFork(vm.rpcUrl('base'), 42008152);
     proposal = new AaveV3Base_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 

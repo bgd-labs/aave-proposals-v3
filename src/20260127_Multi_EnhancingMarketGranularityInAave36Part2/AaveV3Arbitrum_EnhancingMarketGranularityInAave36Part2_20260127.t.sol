@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127_Test is
   AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 425586342);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 430936679);
     proposal = new AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 

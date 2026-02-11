@@ -15,7 +15,7 @@ contract AaveV3Polygon_EnhancingMarketGranularityInAave36Part2_20260127_Test is 
   AaveV3Polygon_EnhancingMarketGranularityInAave36Part2_20260127 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 82176087);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 82842910);
     proposal = new AaveV3Polygon_EnhancingMarketGranularityInAave36Part2_20260127();
   }
 
