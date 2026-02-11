@@ -14,7 +14,7 @@ This proposal leverages the configurability improvements introduced in [Aave v3.
 
 This aims to reduce systemic exposure, simplify risk management, and enable cleaner differentiation between general market assets and those intended for correlated or high-efficiency lending environments.
 
-This AIP cover only the instances that were upgraded in part 2 and 3 of the 3.6 upgrade.
+This AIP covers only the instances that were upgraded in part 2 and 3 of the 3.6 upgrade.
 
 ## Motivation
 
