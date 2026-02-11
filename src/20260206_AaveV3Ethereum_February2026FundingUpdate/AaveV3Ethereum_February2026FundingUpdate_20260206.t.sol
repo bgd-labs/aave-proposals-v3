@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
@@ -156,7 +157,7 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
       address(AaveV3Ethereum.COLLECTOR),
       proposal.ACI_SAFE()
     );
-    uint256 allowanceTokenLogicBefore = IERC20(AaveV3EthereumAssets.GHO_A_TOKEN).allowance(
+    uint256 allowanceTokenLogicBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.TOKEN_LOGIC()
     );
@@ -169,7 +170,7 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
       address(AaveV3Ethereum.COLLECTOR),
       proposal.ACI_SAFE()
     );
-    uint256 allowanceTokenLogicAfter = IERC20(AaveV3EthereumAssets.GHO_A_TOKEN).allowance(
+    uint256 allowanceTokenLogicAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.TOKEN_LOGIC()
     );

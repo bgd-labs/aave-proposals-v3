@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IWETH} from 'aave-v3-origin/contracts/helpers/interfaces/IWETH.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -30,7 +31,8 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
   address public constant ACI_SAFE = 0xac140648435d03f784879cd789130F22Ef588Fcd;
   // https://etherscan.io/address/0xAA088dfF3dcF619664094945028d44E779F19894
   address public constant TOKEN_LOGIC = 0xAA088dfF3dcF619664094945028d44E779F19894;
-  uint256 public constant ACI_REIMBURSE_AWETH_AMOUNT = 1.441409766433707058 ether;
+
+  uint256 public constant ACI_REIMBURSE_AWETH_AMOUNT = 1.470836210916653291 ether;
   uint256 public constant TOKENLOGIC_REIMBURSE_GHO_AMOUNT = 26_000 ether;
 
   // Aave Labs – reimbursement for aavedao.eth ENS rescue (placeholder until amount/address agreed)
@@ -137,7 +139,7 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
       ACI_REIMBURSE_AWETH_AMOUNT
     );
     AaveV3Ethereum.COLLECTOR.approve(
-      IERC20(AaveV3EthereumAssets.GHO_A_TOKEN),
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       TOKEN_LOGIC,
       TOKENLOGIC_REIMBURSE_GHO_AMOUNT
     );

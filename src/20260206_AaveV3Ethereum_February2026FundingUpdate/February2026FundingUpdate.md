@@ -26,6 +26,10 @@ Additionally, this publication initiates a process to reduce DEX and CEX GHO liq
 
 Using the `MainnetSwapSteward` and a portion of the ETH received from recent liquidation volume to acquire **2M GHO**, to be deposited into the **Prime** instance.
 
+### Idle ETH
+
+Deposits idle ETH held on the Ethereum Collector into the Aave v3 Core instance.
+
 ### Operations
 
 Create allowances for the following assets to be transferred from the Treasury to the **AFC**:
@@ -36,6 +40,47 @@ Create allowances for the following assets to be transferred from the Treasury t
 - **Method**: `approve()` AAVE on the Aave Collector contract to the AFC address
 
 This allowance enables the AAVE acquired via buybacks to be held on the AFC SAFE. The allowance is larger than the current balance to facilitate future buybacks and minimise governance overhead.
+
+### Extend Ahab Capacity
+
+Extends Ahab allowances to support upcoming business initiatives and recent asset price changes:
+
+- **Asset**: `aEthWETH` (`0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`), **Amount**: `4,000`
+- **Asset**: `aEthwstETH` (`0x0B925eD163218f6662a35e0f0371Ac234f9E9371`), **Amount**: `1,100`
+- **Spender**: `Ahab` SAFE (`0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`)
+
+### Extend AAVE/wETH Liquidity
+
+Create allowances for the Aave Liquidity SAFE to deploy AAVE and wETH liquidity across DEXs:
+
+- **Asset**: `AAVE` (`0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9`), **Amount**: `40,000` (from Ecosystem Reserve)
+- **Asset**: `aEthWETH` (`0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`), **Amount**: `1,500` (from Aave Collector)
+- **Spender**: Aave Liquidity SAFE (`0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23`)
+
+### GHO CEX Liquidity
+
+Create a USDe allowance to provide inventory for supporting USDT/GHO liquidity across centralised exchanges:
+
+- **Asset**: `USDe` (`0x4c9EDD5852cd905f086C759E8383e09bff1E68B3`), **Amount**: `6,000,000`
+- **Spender**: `CEX Earn` SAFE (`0xAA12BAd4a501d45A5b771e49C2Fd415BA8BFc79d`)
+
+### MainnetSwapSteward Allowances
+
+Replenish allowances on the `MainnetSwapSteward` to support continued AAVE and GHO buybacks:
+
+| Token | Budget    |
+| ----- | --------- |
+| ETH   | 3,000     |
+| USDC  | 5,000,000 |
+| USDT  | 5,000,000 |
+| USDe  | 5,000,000 |
+| USDS  | 2,000,000 |
+| DAI   | 2,000,000 |
+
+### Reimbursements
+
+- Reimburse **1.470836210916653291 aEthWETH** to ACI (`0xac140648435d03f784879cd789130F22Ef588Fcd`) for expenses incurred supporting Aave DAO governance and incentive campaigns.
+- Reimburse **26,000 aEthLidoGHO** to TokenLogic (`0xAA088dfF3dcF619664094945028d44E779F19894`) for audit expenses incurred.
 
 ## References
 

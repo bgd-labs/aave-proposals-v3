@@ -27,18 +27,6 @@
     }
   },
   "raw": {
-    "0x00907f9921424583e7ffbfedf84f92b7b2be4977": {
-      "label": "AaveV3Ethereum.ASSETS.GHO.A_TOKEN",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0xaf64e0677d2cd0fbb2684524612bdc1bb6ace133e9dcf5b09e70b33dd6b72262": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000581767ba6189c400000"
-        }
-      }
-    },
     "0x0b925ed163218f6662a35e0f0371ac234f9e9371": {
       "label": "AaveV3Ethereum.ASSETS.wstETH.A_TOKEN",
       "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
@@ -48,6 +36,18 @@
         "0x1c9219960928272f24f6428ef210f3b2b07d28d1a5e724b7119ecc245cce49b9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x00000000000000000000000000000000000000000000003ba1910bf341b00000"
+        }
+      }
+    },
+    "0x18efe565a5373f430e2f809b97de30335b3ad96a": {
+      "label": "AaveV3EthereumLido.ASSETS.GHO.A_TOKEN",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0xaf64e0677d2cd0fbb2684524612bdc1bb6ace133e9dcf5b09e70b33dd6b72262": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000581767ba6189c400000"
         }
       }
     },
@@ -97,7 +97,7 @@
         },
         "0x81a96f7239fbb9f1975dde1bdaa5fb36a96a5292e38f3196e56065b41300efcf": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000001400ea8bb00f5432"
+          "newValue": "0x000000000000000000000000000000000000000000000000146975bdb277f8eb"
         }
       }
     },
