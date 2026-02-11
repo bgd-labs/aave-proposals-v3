@@ -34,8 +34,8 @@ ACI is not directly affiliated with Maple and did not receive compensation for t
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/2b724adf7d79b74e376cfcfc7a30f17b0233c324/src/20260130_AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/2b724adf7d79b74e376cfcfc7a30f17b0233c324/src/20260130_AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23963)
 
