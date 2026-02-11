@@ -12,7 +12,7 @@ This Direct to AIP proposal plans to update SyrupUSDC config and add a 10% Liqui
 
 AIP was executed through [AIP Onboard SyrupUSDC on Base](https://vote.onaave.com/proposal/?proposalId=437&ipfsHash=0x40b5da4af3c5e5d8048049bcb42d242a6dc5a6c89db2e351c4aa92108b753fe1).
 
-Nevertheless, by mistake the Liquidation Protocol Fee was set up to 0, despite being mentioned to be 10% by risk Services Providers and the proposal itself on Forum [Direct to AIP] Onboard syrupUSDC to Aave V3 Base Instance](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234).
+Nevertheless, by mistake the Liquidation Protocol Fee was set up to 0, despite being mentioned to be 10% by risk Services Providers and the proposal itself on Forum [[Direct to AIP] Onboard syrupUSDC to Aave V3 Base Instance](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234).
 
 This Direct to AIP will update the Liquidation Protocol fee from 0 to 10%.
 
@@ -20,7 +20,7 @@ This Direct to AIP will update the Liquidation Protocol fee from 0 to 10%.
 
 Update the Liquidation Protocol Fee from 0% to 10% for SyrupUSDC on Aave V3 Base Instance.
 
-We will also batch with this AIP a correction of last PT srUSDCe e-mode labels.
+We will also batch with this AIP a correction of last PT srUSDe e-mode labels.
 
 ## Useful Links
 

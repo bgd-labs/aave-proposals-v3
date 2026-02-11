@@ -23,14 +23,14 @@ contract AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130 is AaveV3
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 38, // replace me
+      eModeCategory: 38,
       ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       label: 'PT_srUSDe_2APR2026_sUSDe__USDT_USDe_USDC'
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 39, // replace me
+      eModeCategory: 39,
       ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
