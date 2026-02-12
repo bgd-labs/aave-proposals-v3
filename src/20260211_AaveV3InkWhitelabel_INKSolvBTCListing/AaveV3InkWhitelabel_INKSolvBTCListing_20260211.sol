@@ -17,7 +17,7 @@ contract AaveV3InkWhitelabel_INKSolvBTCListing_20260211 is AaveV3PayloadInkWhite
   using SafeERC20 for IERC20;
 
   address public constant SolvBTC = 0xaE4EFbc7736f963982aACb17EFA37fCBAb924cB3;
-  uint256 public constant SolvBTC_SEED_AMOUNT = 1e18;
+  uint256 public constant SolvBTC_SEED_AMOUNT = 0.0015e18;
   address public constant SolvBTC_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {

@@ -17,7 +17,7 @@ contract AaveV3InkWhitelabel_INKSolvBTCListing_20260211_Test is ProtocolV3TestBa
   AaveV3InkWhitelabel_INKSolvBTCListing_20260211 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 37330715);
+    vm.createSelectFork(vm.rpcUrl('ink'), 37402684);
     proposal = new AaveV3InkWhitelabel_INKSolvBTCListing_20260211();
   }
 
@@ -37,7 +37,7 @@ contract AaveV3InkWhitelabel_INKSolvBTCListing_20260211_Test is ProtocolV3TestBa
   function test_dustBinHasSolvBTCFunds() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
     address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.SolvBTC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 0.0015e18);
   }
 
   function test_SolvBTCAdmin() public {
