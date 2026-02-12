@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -20,8 +19,6 @@ interface IMainnetSwapSteward {
  * - Discussion: https://governance.aave.com/t/direct-to-aip-february-2026-funding-update/24030
  */
 contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericExecutor {
-  using SafeERC20 for IERC20;
-
   // Aave Liquidity SAFE
   // https://etherscan.io/address/0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23
   address public constant AAVE_LIQUIDITY_SAFE = 0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23;
@@ -77,7 +74,7 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
         ethBalance
       );
       IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit{value: ethBalance}();
-      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).forceApprove(
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).approve(
         address(AaveV3Ethereum.POOL),
         ethBalance
       );
