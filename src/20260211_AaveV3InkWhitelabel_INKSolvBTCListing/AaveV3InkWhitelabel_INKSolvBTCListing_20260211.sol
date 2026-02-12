@@ -30,7 +30,7 @@ contract AaveV3InkWhitelabel_INKSolvBTCListing_20260211 is AaveV3PayloadInkWhite
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: SolvBTC,
       assetSymbol: 'SolvBTC',
-      priceFeed: 0x2F4c2Ff7EcDf8658B5BF20A2aB180c6Ec3CFf648,
+      priceFeed: 0xAe48F22903d43f13f66Cc650F57Bd4654ac222cb,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
