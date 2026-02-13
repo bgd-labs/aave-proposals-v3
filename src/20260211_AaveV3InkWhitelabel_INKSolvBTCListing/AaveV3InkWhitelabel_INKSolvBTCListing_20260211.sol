@@ -59,8 +59,10 @@ contract AaveV3InkWhitelabel_INKSolvBTCListing_20260211 is AaveV3PayloadInkWhite
 
     if (lmAdmin != address(0)) {
       address aToken = AaveV3InkWhitelabel.POOL.getReserveAToken(asset);
+      address vToken = AaveV3InkWhitelabel.POOL.getReserveVariableDebtToken(asset);
       IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
       IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
     }
   }
 }
