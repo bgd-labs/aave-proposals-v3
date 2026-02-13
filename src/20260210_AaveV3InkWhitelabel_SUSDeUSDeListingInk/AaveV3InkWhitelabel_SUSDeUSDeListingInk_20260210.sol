@@ -21,7 +21,7 @@ contract AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210 is AaveV3PayloadInkWhi
   address public constant sUSDe_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   address public constant USDe = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
-  uint256 public constant USDe_SEED_AMOUNT = 100e18;
+  uint256 public constant USDe_SEED_AMOUNT = 99.99e18;
   address public constant USDe_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {

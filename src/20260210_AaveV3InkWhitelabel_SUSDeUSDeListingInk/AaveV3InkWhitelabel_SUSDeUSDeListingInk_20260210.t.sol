@@ -17,7 +17,7 @@ contract AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210_Test is ProtocolV3Test
   AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 37261897);
+    vm.createSelectFork(vm.rpcUrl('ink'), 37527761);
     proposal = new AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210();
   }
 
@@ -61,7 +61,7 @@ contract AaveV3InkWhitelabel_SUSDeUSDeListingInk_20260210_Test is ProtocolV3Test
     address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.USDe());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)),
-      100 * 10 ** 18
+      99.99 * 10 ** 18
     );
   }
 
