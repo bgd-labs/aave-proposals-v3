@@ -13,77 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/direct-to-aip-enhancing-market-granularity-in-aave-v3-6-restricting-borrowability-and-collateralization-outside-of-liquid-emodes/23592
  */
 contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadEthereum {
-  function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](13);
-
-    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.rETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.CRV_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.MKR_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: EngineFlags.KEEP_CURRENT
-    });
-    capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.SNX_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[4] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.BAL_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[5] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.UNI_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[6] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.LDO_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[7] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.ENS_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[8] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.ONE_INCH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[9] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.RPL_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[10] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.weETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[11] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.osETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[12] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.ETHx_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-
-    return capsUpdate;
-  }
   function collateralsUpdates()
     public
     pure
@@ -271,7 +200,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](16);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](14);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
@@ -306,22 +235,6 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
     borrowUpdates[4] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3EthereumAssets.MKR_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[5] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3EthereumAssets.SNX_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[6] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.BAL_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -329,7 +242,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[7] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[5] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.UNI_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -337,7 +250,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[8] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[6] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.LDO_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -345,7 +258,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[9] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[7] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.ENS_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -353,7 +266,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[10] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[8] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.ONE_INCH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -361,7 +274,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[11] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[9] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.RPL_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -369,7 +282,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[12] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[10] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -377,7 +290,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[13] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[11] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.osETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -385,7 +298,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[14] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[12] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.ETHx_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -393,7 +306,7 @@ contract AaveV3Ethereum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[15] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[13] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.FBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,

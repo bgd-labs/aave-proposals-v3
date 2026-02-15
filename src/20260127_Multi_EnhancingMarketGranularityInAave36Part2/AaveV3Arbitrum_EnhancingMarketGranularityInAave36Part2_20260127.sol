@@ -13,32 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/direct-to-aip-enhancing-market-granularity-in-aave-v3-6-restricting-borrowability-and-collateralization-outside-of-liquid-emodes/23592
  */
 contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadArbitrum {
-  function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](4);
-
-    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.rETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.ARB_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-
-    return capsUpdate;
-  }
   function collateralsUpdates()
     public
     pure
@@ -118,7 +92,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.LINK_UNDERLYING,
-      enabledToBorrow: EngineFlags.KEEP_CURRENT,
+      enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,

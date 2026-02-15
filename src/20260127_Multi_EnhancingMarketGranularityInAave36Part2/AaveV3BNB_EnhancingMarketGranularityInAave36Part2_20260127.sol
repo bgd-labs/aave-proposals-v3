@@ -14,15 +14,10 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  */
 contract AaveV3BNB_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadBNB {
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](2);
+    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3BNBAssets.WBNB_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3BNBAssets.wstETH_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
       borrowCap: 1
     });

@@ -13,27 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/direct-to-aip-enhancing-market-granularity-in-aave-v3-6-restricting-borrowability-and-collateralization-outside-of-liquid-emodes/23592
  */
 contract AaveV3Polygon_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadPolygon {
-  function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](3);
-
-    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3PolygonAssets.LINK_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3PolygonAssets.EURS_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3PolygonAssets.MaticX_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-
-    return capsUpdate;
-  }
   function collateralsUpdates()
     public
     pure
@@ -77,7 +56,7 @@ contract AaveV3Polygon_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](6);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](5);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3PolygonAssets.LINK_UNDERLYING,
@@ -112,14 +91,6 @@ contract AaveV3Polygon_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
     borrowUpdates[4] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3PolygonAssets.MaticX_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[5] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3PolygonAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
