@@ -79,6 +79,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | ltv | 66 % [6600] | 0 % [0] |
+| borrowingEnabled | true | false |
 
 
 ## Emodes changed
@@ -111,11 +112,11 @@
 
 
 
-### EMode: AAVE__USDC_USDT(id: 8)
+### EMode: AAVE__USDCn_USDT(id: 8)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | AAVE__USDC_USDT |
+| eMode.label | - | AAVE__USDCn_USDT |
 | eMode.ltv | - | 66 % |
 | eMode.liquidationThreshold | - | 73 % |
 | eMode.liquidationBonus | - | 10 % |
@@ -123,11 +124,11 @@
 | eMode.collateralBitmap | - | AAVE |
 
 
-### EMode: ARB__USDC_USDT(id: 9)
+### EMode: ARB__USDCn_USDT(id: 9)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | ARB__USDC_USDT |
+| eMode.label | - | ARB__USDCn_USDT |
 | eMode.ltv | - | 58 % |
 | eMode.liquidationThreshold | - | 63 % |
 | eMode.liquidationBonus | - | 10 % |
@@ -135,11 +136,11 @@
 | eMode.collateralBitmap | - | ARB |
 
 
-### EMode: tBTC__USDC_USDT(id: 10)
+### EMode: tBTC__USDCn_USDT(id: 10)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | tBTC__USDC_USDT |
+| eMode.label | - | tBTC__USDCn_USDT |
 | eMode.ltv | - | 72 % |
 | eMode.liquidationThreshold | - | 75 % |
 | eMode.liquidationBonus | - | 7.5 % |
@@ -158,7 +159,7 @@
         "borrowableBitmap": "4128",
         "collateralBitmap": "64",
         "eModeCategory": 8,
-        "label": "AAVE__USDC_USDT",
+        "label": "AAVE__USDCn_USDT",
         "liquidationBonus": 11000,
         "liquidationThreshold": 7300,
         "ltv": 6600
@@ -170,7 +171,7 @@
         "borrowableBitmap": "4128",
         "collateralBitmap": "16384",
         "eModeCategory": 9,
-        "label": "ARB__USDC_USDT",
+        "label": "ARB__USDCn_USDT",
         "liquidationBonus": 11000,
         "liquidationThreshold": 6300,
         "ltv": 5800
@@ -182,7 +183,7 @@
         "borrowableBitmap": "4128",
         "collateralBitmap": "524288",
         "eModeCategory": 10,
-        "label": "tBTC__USDC_USDT",
+        "label": "tBTC__USDCn_USDT",
         "liquidationBonus": 10750,
         "liquidationThreshold": 7500,
         "ltv": 7200
@@ -259,6 +260,10 @@
       }
     },
     "0xf97f4df75117a78c1A5a0DBb814Af92458539FB4": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      },
       "ltv": {
         "from": 6600,
         "to": 0
@@ -268,9 +273,7 @@
   "raw": {
     "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
       "label": "AaveV3Arbitrum.POOL",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
-      "nonceDiff": null,
       "stateDiff": {
         "0x0759a6732214d7158205bec68b5a7f67b7fdcbd877069dbbd0160859418a56f1": {
           "previousValue": "0x100000000000000000000203e8000010d8800000051401f4851229e01edc1d4c",
@@ -282,7 +285,7 @@
         },
         "0x2859d83f3ac0b6030c43a15461b481b294a95afa24590070b4c0e64400b1f9bb": {
           "previousValue": "0x100000000000000000000003e800030d40000000000107d085122af81d4c19c8",
-          "newValue": "0x100000000000000000000003e800030d40000000000107d085122af81d4c0000"
+          "newValue": "0x100000000000000000000003e800030d40000000000107d081122af81d4c0000"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a5": {
           "previousValue": "0x100000000000000000000003e800000003200000001907d0811229fe1e781c84",
@@ -314,7 +317,7 @@
         },
         "0xb6395f9c432dd8cece69c29d0bafa901e98160153dacb5e1d5fb45e8d47ba1d7": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x744254435f5f555344435f55534454000000000000000000000000000000001e"
+          "newValue": "0x744254435f5f555344436e5f5553445400000000000000000000000000000020"
         },
         "0xb6395f9c432dd8cece69c29d0bafa901e98160153dacb5e1d5fb45e8d47ba1d8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -330,7 +333,7 @@
         },
         "0xe1eef7f3dc95a7682cb02e33f0d6a7c6e59cd5f4d1f5d7b4e6308bb610481918": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x414156455f5f555344435f55534454000000000000000000000000000000001e"
+          "newValue": "0x414156455f5f555344436e5f5553445400000000000000000000000000000020"
         },
         "0xe1eef7f3dc95a7682cb02e33f0d6a7c6e59cd5f4d1f5d7b4e6308bb610481919": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -342,7 +345,7 @@
         },
         "0xe6576186fab02514991562c0b55059c5b708dacefbb0b209be6f33d8dcdcb49c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x4152425f5f555344435f5553445400000000000000000000000000000000001c"
+          "newValue": "0x4152425f5f555344436e5f55534454000000000000000000000000000000001e"
         },
         "0xe6576186fab02514991562c0b55059c5b708dacefbb0b209be6f33d8dcdcb49d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -356,9 +359,7 @@
     },
     "0x89644ca1bb8064760312ae4f03ea41b05da3637c": {
       "label": "GovernanceV3Arbitrum.PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
-      "nonceDiff": null,
       "stateDiff": {
         "0x004ef3f825c8849c73999f6e84fcb0332c1597fa3afbd85f7f1f35c7ac696bc2": {
           "previousValue": "0x00698c5940000000000002000000000000000000000000000000000000000000",

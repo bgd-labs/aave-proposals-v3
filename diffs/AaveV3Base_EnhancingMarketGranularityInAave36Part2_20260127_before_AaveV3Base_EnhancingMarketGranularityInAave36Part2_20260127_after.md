@@ -295,9 +295,7 @@
   "raw": {
     "0x2dc219e716793fb4b21548c0f009ba3af753ab01": {
       "label": "GovernanceV3Base.PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
-      "nonceDiff": null,
       "stateDiff": {
         "0x767e32fd18349f6756b14c9960d71c7fab8d03be981e4c9c8d4aa06a28b66047": {
           "previousValue": "0x00698c5992000000000002000000000000000000000000000000000000000000",
@@ -311,9 +309,7 @@
     },
     "0xa238dd80c259a72e81d7e4664a9801593f98d1c5": {
       "label": "AaveV3Base.POOL",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
-      "nonceDiff": null,
       "stateDiff": {
         "0x04e6a57294bb916b654e5f2a9be58b33bb23f83005593c07f959637b56d00d6f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
