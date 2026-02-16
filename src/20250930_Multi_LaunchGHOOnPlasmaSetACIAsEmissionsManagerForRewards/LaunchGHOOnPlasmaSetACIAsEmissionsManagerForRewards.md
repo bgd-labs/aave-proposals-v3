@@ -11,7 +11,7 @@ With the GHO lanes now activated on CCIP, this publication defines the launch pa
 
 ## Motivation
 
-This publicaiton presents the revised GHO parameter configuration for deploying the RemoteGSM and listing GHO on Aave Protocol. A joint collaboration program with Plasma, Maple Finance and Ethena, will be launched on Aave Protocol whilst separate and complimentary rewards programs will commence on Fluid and Balancer.
+This publication presents the revised GHO parameter configuration for deploying the RemoteGSM and listing GHO on Aave Protocol. A joint collaboration program with Plasma, Maple Finance and Ethena, will be launched on Aave Protocol whilst separate and complimentary rewards programs will commence on Fluid and Balancer.
 
 ### GHO Supply
 
@@ -23,7 +23,7 @@ Within the new syrupUSDT and GHO collateral eMode, users who:
 
 Will receive GHO incentives (~3.50%) such that the Total Supply yield (Native + Incentives) exceeds the native syrupUSDT yield by approximately 50bps.
 
-The above incentive strategies create GHO Supply on Aave Protocol. Sourcing the GHO is expected to at least partially flow from through the remote GSM, which deposits USDT0 into Aave whereby the DAO earns the Supply yield.
+The above incentive strategies create GHO Supply on Aave Protocol. Sourcing the GHO is expected to at least partially flow through the remote GSM, which deposits USDT0 into Aave whereby the DAO earns the Supply yield.
 
 ### GHO Demand
 
@@ -31,7 +31,7 @@ With strong GHO supply expected from the GHO incentives, GHO demand is created v
 
 This is expected to stimulate Demand for GHO on Aave Protocol with GHO expected to be a lower cost alternative to USDT0 due to the Borrow Rate configuration (150bps less than USDT at Uoptimal) and additional Sat incentives acting to offset the cost of capital for leverage users.
 
-Furthemore, additional eModes with Pendle PT assets are expected to provide sustained demand for GHO that reduces the reliance on GHO Incentive yield to attract GHO supply.
+Furthermore, additional eModes with Pendle PT assets are expected to provide sustained demand for GHO that reduces the reliance on GHO Incentive yield to attract GHO supply.
 
 ### Fluid and Balancer
 
@@ -69,43 +69,43 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## eMode Category 2
 
-| Parameter             | sUSDe | USDe | USDT | GHO |
-| --------------------- | :---: | :--: | :--: | :-: |
-| Collateral            |  Yes  | Yes  |  No  | No  |
-| Borrowable            |  No   |  No  | Yes  | Yes |
-| Max LTV               |  90%  | 90%  |  -   |  -  |
-| Liquidation Threshold |  92%  | 92%  |  -   |  -  |
-| Liquidation Bonus     | 4.0%  | 4.0% |  -   |  -  |
+| Parameter             | sUSDe | USDe | USDT0 | GHO |
+| --------------------- | :---: | :--: | :---: | :-: |
+| Collateral            |  Yes  | Yes  |  No   | No  |
+| Borrowable            |  No   |  No  |  Yes  | Yes |
+| Max LTV               |  90%  | 90%  |   -   |  -  |
+| Liquidation Threshold |  92%  | 92%  |   -   |  -  |
+| Liquidation Bonus     | 4.0%  | 4.0% |   -   |  -  |
 
 ## eMode Category - Category 5
 
-| Parameter             | PT-USDe Jan | USDT | USDe | GHO |
-| --------------------- | :---------: | :--: | :--: | :-: |
-| Collateral            |     Yes     |  No  |  No  | No  |
-| Borrowable            |     No      | Yes  | Yes  | Yes |
-| Max LTV               |    85.9%    |  -   |  -   |  -  |
-| Liquidation Threshold |    87.9%    |  -   |  -   |  -  |
-| Liquidation Bonus     |    4.9%     |  -   |  -   |  -  |
+| Parameter             | PT-USDe Jan | USDT0 | USDe | GHO |
+| --------------------- | :---------: | :---: | :--: | :-: |
+| Collateral            |     Yes     |  No   |  No  | No  |
+| Borrowable            |     No      |  Yes  | Yes  | Yes |
+| Max LTV               |    85.9%    |   -   |  -   |  -  |
+| Liquidation Threshold |    87.9%    |   -   |  -   |  -  |
+| Liquidation Bonus     |    4.9%     |   -   |  -   |  -  |
 
 ## eMode Category - Category 7
 
-| Parameter             | PT-sUSDe Jan | USDT | USDe | GHO |
-| --------------------- | :----------: | :--: | :--: | :-: |
-| Collateral            |     Yes      |  No  |  No  | No  |
-| Borrowable            |      No      | Yes  | Yes  | Yes |
-| Max LTV               |    84.4%     |  -   |  -   |  -  |
-| Liquidation Threshold |    86.4%     |  -   |  -   |  -  |
-| Liquidation Bonus     |     6.0%     |  -   |  -   |  -  |
+| Parameter             | PT-sUSDe Jan | USDT0 | USDe | GHO |
+| --------------------- | :----------: | :---: | :--: | :-: |
+| Collateral            |     Yes      |  No   |  No  | No  |
+| Borrowable            |      No      |  Yes  | Yes  | Yes |
+| Max LTV               |    84.4%     |   -   |  -   |  -  |
+| Liquidation Threshold |    86.4%     |   -   |  -   |  -  |
+| Liquidation Bonus     |     6.0%     |   -   |  -   |  -  |
 
 ## eMode Category (new)
 
-| Parameter             | GHO  | USDT |
-| --------------------- | :--: | :--: |
-| Collateral            | Yes  |  No  |
-| Borrowable            |  No  | Yes  |
-| Max LTV               | 94%  |  -   |
-| Liquidation Threshold | 96%  |  -   |
-| Liquidation Bonus     | 2.0% |  -   |
+| Parameter             | GHO  | USDT0 |
+| --------------------- | :--: | :---: |
+| Collateral            | Yes  |  No   |
+| Borrowable            |  No  |  Yes  |
+| Max LTV               | 94%  |   -   |
+| Liquidation Threshold | 96%  |   -   |
+| Liquidation Bonus     | 2.0% |   -   |
 
 ## eMode Category (new)
 
@@ -119,13 +119,13 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## eMode Category (new)
 
-| Parameter             | syrupUSDT | GHO  | USDT |
-| --------------------- | :-------: | :--: | :--: |
-| Collateral            |    Yes    | Yes  |  No  |
-| Borrowable            |    No     |  No  | Yes  |
-| Max LTV               |    90%    | 90%  |  -   |
-| Liquidation Threshold |    92%    | 92%  |  -   |
-| Liquidation Bonus     |   4.0%    | 4.0% |  -   |
+| Parameter             | syrupUSDT | GHO  | USDT0 |
+| --------------------- | :-------: | :--: | :---: |
+| Collateral            |    Yes    | Yes  |  No   |
+| Borrowable            |    No     |  No  |  Yes  |
+| Max LTV               |    90%    | 90%  |   -   |
+| Liquidation Threshold |    92%    | 92%  |   -   |
+| Liquidation Bonus     |   4.0%    | 4.0% |   -   |
 
 ### Facilitator & Bridging
 

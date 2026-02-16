@@ -57,8 +57,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   // https://plasmascan.to/address/0xd06114F714beCD6f373e5cE94E07278eF46eBF37
   address public constant NEW_GSM_USDT = 0xd06114F714beCD6f373e5cE94E07278eF46eBF37;
 
-  // https://plasmascan.to/address/0x0B60713B53Cf01Ff53111D0BC29743eF1E03C296
-  address public constant USDT_ORACLE_SWAP_FREEZER = 0x0B60713B53Cf01Ff53111D0BC29743eF1E03C296;
+  // https://plasmascan.to/address/0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2;
 
   // https://plasmascan.to/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
   address public constant FEE_STRATEGY = 0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2;

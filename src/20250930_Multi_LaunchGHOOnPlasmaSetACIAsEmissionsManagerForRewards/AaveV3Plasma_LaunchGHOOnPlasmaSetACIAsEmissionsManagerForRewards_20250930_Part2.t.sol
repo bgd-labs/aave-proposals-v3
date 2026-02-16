@@ -31,7 +31,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 12459680);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 14334640);
     proposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2();
 
     // Deal GHO that is going to be bridged from Mainnet
