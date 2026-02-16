@@ -16,6 +16,7 @@ import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
 import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
+import {IGhoDirectFacilitator} from 'src/interfaces/IGhoDirectFacilitator.sol';
 
 import {AaveV3Ethereum_GSMMigration_20251113} from './AaveV3Ethereum_GSMMigration_20251113.sol';
 
@@ -557,6 +558,23 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     assertTrue(
       gsm.hasRole(gsm.CONFIGURATOR_ROLE(), GhoEthereum.GHO_GSM_STEWARD),
       'Gho Steward not configured'
+    );
+
+    // Risk Council
+    assertTrue(
+      IGhoReserve(proposal.GHO_RESERVE()).hasRole(
+        IGhoReserve(proposal.GHO_RESERVE()).LIMIT_MANAGER_ROLE(),
+        GhoEthereum.RISK_COUNCIL
+      ),
+      'Gho Reserve role not configured for risk council'
+    );
+
+    assertTrue(
+      IGhoDirectFacilitator(proposal.DIRECT_FACILITATOR()).hasRole(
+        IGhoDirectFacilitator(proposal.DIRECT_FACILITATOR()).MINTER_ROLE(),
+        GhoEthereum.RISK_COUNCIL
+      ),
+      'Gho Direct Facilitator role not configured for risk council'
     );
   }
 

@@ -115,6 +115,17 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDC, RESERVE_LIMIT_GSM_USDC);
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, RESERVE_LIMIT_GSM_USDT);
 
+    // Grant roles to control supply of GHO
+    IGhoReserve(GHO_RESERVE).grantRole(
+      IGhoReserve(GHO_RESERVE).LIMIT_MANAGER_ROLE(),
+      GhoEthereum.RISK_COUNCIL
+    );
+
+    IGhoDirectFacilitator(DIRECT_FACILITATOR).grantRole(
+      IGhoDirectFacilitator(DIRECT_FACILITATOR).MINTER_ROLE(),
+      GhoEthereum.RISK_COUNCIL
+    );
+
     // Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(NEW_GSM_USDC).grantRole(SWAP_FREEZER_ROLE, USDC_ORACLE_SWAP_FREEZER);
     IGsm(NEW_GSM_USDT).grantRole(SWAP_FREEZER_ROLE, USDT_ORACLE_SWAP_FREEZER);
