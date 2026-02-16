@@ -130,7 +130,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     GsmConfig memory gsmUsdtConfig = GsmConfig({
       sellFee: 0, // 0.00%
       buyFee: 0.0010e4, // 0.10%
-      exposureCap: 40_000_000e6,
+      exposureCap: 55_000_000e6,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -588,7 +588,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     GsmConfig memory config
   ) internal view {
     assertEq(gsm.UNDERLYING_ASSET(), underlying, 'wrong underlying asset');
-    assertLt(gsm.getAvailableUnderlyingExposure(), config.exposureCap, 'wrong exposure cap');
+    assertEq(gsm.getExposureCap(), config.exposureCap, 'wrong exposure cap');
     assertEq(gsm.getIsFrozen(), config.isFrozen, 'wrong freeze state');
     assertEq(gsm.getIsSeized(), config.isSeized, 'wrong seized state');
 

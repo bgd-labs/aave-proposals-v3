@@ -53,12 +53,6 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x733AB16005c39d07FD3D9d1A350AA6768D10125b
   address public constant USDT_ORACLE_SWAP_FREEZER = 0x733AB16005c39d07FD3D9d1A350AA6768D10125b;
 
-  // https://etherscan.io/address/0xF009Ce2453884712707DcED6e5eA16F3e6f515E0
-  address public constant FEE_STRATEGY_USDC = 0xF009Ce2453884712707DcED6e5eA16F3e6f515E0;
-
-  // https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1
-  address public constant FEE_STRATEGY_USDT = 0x06fbDE909B43f01202E3C6207De1D27cC208AcC1;
-
   uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 80 ether;
   uint96 public constant TOTAL_LINK_AMOUNT_KEEPERS = LINK_AMOUNT_ORACLE_FREEZER_KEEPER * 2; // 2 GSMs
   uint32 public constant KEEPER_GAS_LIMIT = 150_000;
@@ -143,8 +137,8 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   }
 
   function _updateFeeStrategy() internal {
-    IGsm(NEW_GSM_USDC).updateFeeStrategy(FEE_STRATEGY_USDC);
-    IGsm(NEW_GSM_USDT).updateFeeStrategy(FEE_STRATEGY_USDT);
+    IGsm(NEW_GSM_USDC).updateFeeStrategy(IGsm(GhoEthereum.GSM_USDC).getFeeStrategy());
+    IGsm(NEW_GSM_USDT).updateFeeStrategy(IGsm(GhoEthereum.GSM_USDT).getFeeStrategy());
   }
 
   function _registerOracles() internal {

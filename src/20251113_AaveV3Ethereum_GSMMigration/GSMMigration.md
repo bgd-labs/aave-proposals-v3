@@ -21,12 +21,14 @@ To create a unified GSM paradigm for both mainnet and L2s, a newer version of th
 - Grant the Executor the `'LIQUIDATOR_ROLE'` to be able to seize the existing GSMs
 - Seize the current USDC and USDT GSMs by calling the `seize()` function.
   - This freezes actions on them and transfers the underlying tokens to the collector
-- Add the two new GSMs as facilitators on the GHO token contract
-- Add the new stataUSDC and stataUSDT GSMs as controlled facilitators on the GhoBucketSteward
+- Add the `GhoDirectFacilitator` as a facilitator on the GHO token contract
+- AAdd the `GhoDirectFacilitator` as a controlled facilitator on the`GhoBucketSteward`
 - Add new GSMs to the GSMRegistry
-- Update the FeeStrategy of the new GSMs to the existing FeeStrategy: [`0x06fbDE909B43f01202E3C6207De1D27cC208AcC1`](https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1)
+- Update the FeeStrategy of the new GSMs:
+  - USDC: [`0xF009Ce2453884712707DcED6e5eA16F3e6f515E0`](https://etherscan.io/address/0xF009Ce2453884712707DcED6e5eA16F3e6f515E0)
+  - USDT: [`0x06fbDE909B43f01202E3C6207De1D27cC208AcC1`](https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1)
 - Register new swap freeze oracles
-- With the withdrawn assets above (in the seize step), obtain stataUSDC and stataUSDT via deposit on the respective vaults
+- Transfer stataUSDC and stataUSDT from the Collector to the proposal contract
 - With the obtained stataUSDC and stataUSDT, exchange for GHO on the new respective GSMs
 - Use the obtained GHO to `burnAfterSeize()` on the current USDC and USDT GSMs. If there are any discrepancies in the amount of GHO, use GHO from the treasury to bring the minted GHO by the GSMs to zero
 - Remove existing GSMs as facilitators of the GHO token
@@ -46,7 +48,7 @@ The below details the configuration of the stataUSDC GSM.
 | Unfreeze Lower Bound     | $0.995  |
 | Unfreeze Upper Bound     | $1.005  |
 | Mint GHO Fee             |  0.00%  |
-| Burn GHO Fee             |  0.10%  |
+| Burn GHO Fee             |  0.08%  |
 
 The below details the configuration of the stataUSDT GSM.
 
