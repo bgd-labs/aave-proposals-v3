@@ -185,7 +185,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       ltv: 58_00,
       liqThreshold: 63_00,
       liqBonus: 10_00,
-      label: 'ARB__USDC_USDT',
+      label: 'ARB__USDCn_USDT',
       collaterals: collateralAssets_ARB__USDC_USDT,
       borrowables: borrowableAssets_ARB__USDC_USDT
     });
