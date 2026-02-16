@@ -201,7 +201,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       ltv: 72_00,
       liqThreshold: 75_00,
       liqBonus: 7_50,
-      label: 'tBTC__USDC_USDT',
+      label: 'tBTC__USDCn_USDT',
       collaterals: collateralAssets_TBTC__USDC_USDT,
       borrowables: borrowableAssets_TBTC__USDC_USDT
     });
