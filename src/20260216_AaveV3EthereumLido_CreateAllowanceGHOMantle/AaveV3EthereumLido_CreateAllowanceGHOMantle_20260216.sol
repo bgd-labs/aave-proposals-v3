@@ -13,11 +13,13 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/20
  */
 contract AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216 is IProposalGenericExecutor {
+  uint256 public constant GHO_ALLOWANCE = 1_500_000 ether;
+
   function execute() external {
     AaveV3EthereumLido.COLLECTOR.approve(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       GhoEthereum.GHO_LIQUIDITY_COMMITTEE,
-      1_500_000e18
+      GHO_ALLOWANCE
     );
   }
 }

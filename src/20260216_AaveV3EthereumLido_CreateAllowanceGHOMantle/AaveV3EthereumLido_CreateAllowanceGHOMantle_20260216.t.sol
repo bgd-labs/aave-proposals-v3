@@ -45,6 +45,6 @@ contract AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216_Test is ProtocolV3
       address(AaveV3EthereumLido.COLLECTOR),
       GhoEthereum.GHO_LIQUIDITY_COMMITTEE
     );
-    assertEq(allowanceAfter, 1_500_000e18);
+    assertEq(allowanceAfter, proposal.GHO_ALLOWANCE());
   }
 }
