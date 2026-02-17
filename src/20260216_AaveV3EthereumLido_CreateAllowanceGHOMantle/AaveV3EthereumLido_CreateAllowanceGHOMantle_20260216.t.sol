@@ -47,4 +47,25 @@ contract AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216_Test is ProtocolV3
     );
     assertEq(allowanceAfter, proposal.GHO_ALLOWANCE());
   }
+
+  function test_alcCanTransferFromCollector() public {
+    executePayload(vm, address(proposal));
+
+    uint256 ghoAllowance = proposal.GHO_ALLOWANCE();
+    uint256 alcBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+      GhoEthereum.GHO_LIQUIDITY_COMMITTEE
+    );
+
+    vm.prank(GhoEthereum.GHO_LIQUIDITY_COMMITTEE);
+    IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
+      address(AaveV3EthereumLido.COLLECTOR),
+      GhoEthereum.GHO_LIQUIDITY_COMMITTEE,
+      ghoAllowance
+    );
+
+    assertGe(
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(GhoEthereum.GHO_LIQUIDITY_COMMITTEE),
+      alcBalanceBefore + ghoAllowance
+    );
+  }
 }
