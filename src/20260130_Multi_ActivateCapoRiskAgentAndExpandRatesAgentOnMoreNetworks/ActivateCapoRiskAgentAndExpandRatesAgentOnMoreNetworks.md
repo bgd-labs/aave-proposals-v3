@@ -17,7 +17,7 @@ Both initiatives have been suggested by the Risk Service providers on the forumâ
 
 ### CAPO Agent (new)
 
-The CAPO system provides critical price safeguards for yield-bearing assets by defining upper bounds on exchange rates. However, when CAPO parameters remain static for extended periods, the derived maximum ratio can become increasingly detached from real-world exchange rate dynamics, creating vulnerability to price manipulations. By activating the CAPO Risk Agent on Ethereum, parameters like `snapshotRatio` and `maxYearlyRatioGrowthPercent` can be dynamically calibrated through the Risk Oracle, maintaining tight and responsive protection for yield-bearing collateral assets without requiring manual governance intervention. More details could be found on the forum post [here](https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601).
+The CAPO system provides critical price safeguards for yield-bearing assets by defining upper bounds on exchange rates. However, when CAPO parameters remain static for extended periods, the derived maximum ratio can become increasingly detached from real-world exchange rate dynamics, creating vulnerability to price manipulations. By activating the CAPO Risk Agent on Ethereum, parameters like `snapshotRatio` and `maxYearlyRatioGrowthPercent` can be dynamically calibrated through the Risk Oracle, maintaining tight and responsive protection for yield-bearing collateral assets without requiring manual governance intervention. More details can be found on the forum post [here](https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601).
 
 ### Slope2 Rates Agent (expansion on more networks)
 
