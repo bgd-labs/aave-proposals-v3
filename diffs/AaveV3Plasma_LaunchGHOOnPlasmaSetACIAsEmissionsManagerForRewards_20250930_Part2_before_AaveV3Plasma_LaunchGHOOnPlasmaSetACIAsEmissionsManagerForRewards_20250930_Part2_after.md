@@ -76,7 +76,7 @@
 | --- | --- | --- |
 | eMode.label (unchanged) | PT-USDe Stablecoins Jan 2026 | PT-USDe Stablecoins Jan 2026 |
 | eMode.ltv | 91 % | 85.9 % |
-| eMode.liquidationThreshold | 93 % | 87.9 % |
+| eMode.liquidationThreshold (unchanged) | 93 % | 93 % |
 | eMode.liquidationBonus | 2 % | 4.9 % |
 | eMode.borrowableBitmap | USDT0, USDe | USDT0, USDe, GHO |
 | eMode.collateralBitmap (unchanged) | PT-USDe-15JAN2026 | PT-USDe-15JAN2026 |
@@ -92,7 +92,7 @@
 | --- | --- | --- |
 | eMode.label (unchanged) | PT-sUSDe Stablecoins Jan 2026 | PT-sUSDe Stablecoins Jan 2026 |
 | eMode.ltv | 90 % | 84.4 % |
-| eMode.liquidationThreshold | 92 % | 86.4 % |
+| eMode.liquidationThreshold (unchanged) | 92 % | 92 % |
 | eMode.liquidationBonus | 3 % | 6 % |
 | eMode.borrowableBitmap | USDT0, USDe | USDT0, USDe, GHO |
 | eMode.collateralBitmap (unchanged) | PT-sUSDE-15JAN2026 | PT-sUSDE-15JAN2026 |
@@ -190,10 +190,6 @@
         "from": 10200,
         "to": 10490
       },
-      "liquidationThreshold": {
-        "from": 9300,
-        "to": 8790
-      },
       "ltv": {
         "from": 9100,
         "to": 8590
@@ -207,10 +203,6 @@
       "liquidationBonus": {
         "from": 10300,
         "to": 10600
-      },
-      "liquidationThreshold": {
-        "from": 9200,
-        "to": 8640
       },
       "ltv": {
         "from": 9000,
@@ -431,7 +423,7 @@
         },
         "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000080283c23f02328",
-          "newValue": "0x0000000000000000000000000000000000000000000000000080296821c020f8"
+          "newValue": "0x0000000000000000000000000000000000000000000000000080296823f020f8"
         },
         "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40b": {
           "previousValue": "0x50542d735553446520537461626c65636f696e73204a616e203230323600003a",
@@ -479,7 +471,7 @@
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8257": {
           "previousValue": "0x000000000000000000000000000000000000000000000000004027d82454238c",
-          "newValue": "0x000000000000000000000000000000000000000000000000004028fa2256218e"
+          "newValue": "0x000000000000000000000000000000000000000000000000004028fa2454218e"
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8258": {
           "previousValue": "0x50542d5553446520537461626c65636f696e73204a616e203230323600000038",

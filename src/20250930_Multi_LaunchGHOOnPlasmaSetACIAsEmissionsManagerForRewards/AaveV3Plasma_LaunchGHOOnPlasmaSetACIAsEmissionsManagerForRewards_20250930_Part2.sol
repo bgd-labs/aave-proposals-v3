@@ -229,7 +229,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 5,
       ltv: 85_90,
-      liqThreshold: 87_90,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: 4_90,
       label: EngineFlags.KEEP_CURRENT_STRING
     });
@@ -237,7 +237,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 7,
       ltv: 84_40,
-      liqThreshold: 86_40,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: 6_00,
       label: EngineFlags.KEEP_CURRENT_STRING
     });
