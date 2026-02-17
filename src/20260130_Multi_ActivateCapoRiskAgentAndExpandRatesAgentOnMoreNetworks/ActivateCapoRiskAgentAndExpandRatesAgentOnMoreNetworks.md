@@ -13,7 +13,7 @@ This proposal activates the new CAPO Risk Agent on Ethereum and expands the exis
 
 Following the successful [migration of the AGRS (Risk Stewards) infrastructure to Risk Agents](https://vote.onaave.com/proposal/?proposalId=432), which activated the Slope2 Interest Rates Agent on Ethereum Core, Linea, it feels natural to expand the Rates Agent on more networks and introduce the new CAPO agent type.
 
-The Slope2 RatesAgent expansion on more networks has also been suggested by the Risk Service providers on the forum [here](https://governance.aave.com/t/arfc-automation-of-the-slope2-parameter-via-risk-oracles/22919/9), and addition of new CapoAgent over [here](https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601/7).
+Both initiatives have been suggested by the Risk Service providers on the forum—[Slope2 RatesAgent expansion](https://governance.aave.com/t/arfc-automation-of-the-slope2-parameter-via-risk-oracles/22919/9) and [new CapoAgent addition](https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601/7)—along with the latest assets, networks, and constraints for the agents.
 
 ### CAPO Agent (new)
 
@@ -31,7 +31,7 @@ The proposal activates the [AaveCapoAgent](https://github.com/bgd-labs/aave-risk
 | -------------------------------- | --------- | ----------------------------------------------------------------------------------------------- | ---------------------------------- |
 | CAPO snapshotRatio               | Ethereum  | wstETH, weETH, rsETH, osETH, ezETH, cbETH, rETH, tETH, ETHx, LBTC, eBTC, sUSDe, syrupUSDT, sDAI | Max 3% relative change per 3 days  |
 | CAPO maxYearlyRatioGrowthPercent | Ethereum  | wstETH, weETH, rsETH, osETH, ezETH, cbETH, rETH, tETH, ETHx, LBTC, eBTC, sUSDe, syrupUSDT, sDAI | Max 10% relative change per 3 days |
-| variableRateSlope2               | Avalanche | USDC, USDt, WETHe                                                                               | Max 4% absolute change per 8 hours |
+| variableRateSlope2               | Avalanche | USDC, USDt, WETH.e                                                                              | Max 4% absolute change per 8 hours |
 | variableRateSlope2               | Arbitrum  | USDC, USDT, WETH                                                                                | Max 4% absolute change per 8 hours |
 | variableRateSlope2               | Base      | USDC, WETH                                                                                      | Max 4% absolute change per 8 hours |
 
@@ -40,10 +40,10 @@ The payload does the following actions:
 - Register new agents on the AgentHub contract by calling `registerAgent()`
 - Configure constrained ranges on the RangeValidationModule to strictly bound the risk param update from the Chaos Risk Oracle.
 - Give `RISK_ADMIN` role to the AgentContract which will be called by the Chaos Agent system to inject updates onto the Aave protocol.
-- Register new chainlink automation on the AgentHub Automation wrapper contract for the agents.
-- Reimburse BGD Labs with 108 LINK by withdrawing aLINK from Collector on Ethereum, which was used to fund chainlink automation on Base as Collector did not have LINK on those networks, and to fund governance automation actions.
+- Register new Chainlink automation on the AgentHub Automation wrapper contract for the agents.
+- Reimburse BGD Labs with 108 LINK by withdrawing aLINK from the Collector on Ethereum. BGD Labs previously funded Chainlink automation on Base out of pocket, as the Collector did not hold LINK on that network. The reimbursement also covers costs related to governance automation actions.
 
-**Please note: On Ethereum, the following price feeds are shared across both Core and Prime instances: wstETH, rsETH, ezETH, tETH, sUSDe so changes on the capo feed params will be applied to both instances. Since the CAPO feeds use the ACL Manager of both instances, we give the `RISK_ADMIN` role to the agent contract from both core Core and Prime instances.**
+**Please note: On Ethereum, the following price feeds are shared across both Core and Prime instances: wstETH, rsETH, ezETH, tETH, sUSDe so changes on the capo feed params will be applied to both instances. Since the CAPO feeds use the ACL Manager of both instances, we give the `RISK_ADMIN` role to the agent contract from both Core and Prime instances.**
 
 ## References
 
