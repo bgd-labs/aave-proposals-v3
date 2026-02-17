@@ -64,8 +64,8 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206_Test is ProtocolV3Tes
       MiscEthereum.AHAB_SAFE
     );
 
-    assertApproxEqAbs(allowanceWethBefore, 0, 1 ether);
-    assertApproxEqAbs(allowanceWstethBefore, 0, 1 ether);
+    assertEq(allowanceWethBefore, 0);
+    assertEq(allowanceWstethBefore, 0);
 
     executePayload(vm, address(proposal));
 

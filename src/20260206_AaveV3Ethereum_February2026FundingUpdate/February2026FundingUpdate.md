@@ -64,6 +64,8 @@ Create a USDe allowance to provide inventory for supporting USDT/GHO liquidity a
 - **Asset**: `USDe` (`0x4c9EDD5852cd905f086C759E8383e09bff1E68B3`), **Amount**: `6,000,000`
 - **Spender**: `CEX Earn` SAFE (`0xAA12BAd4a501d45A5b771e49C2Fd415BA8BFc79d`)
 
+The allowance exceeds the Collector's current USDe balance to support future operations.
+
 ### MainnetSwapSteward Allowances
 
 Replenish allowances on the `MainnetSwapSteward` to support continued AAVE and GHO buybacks:
