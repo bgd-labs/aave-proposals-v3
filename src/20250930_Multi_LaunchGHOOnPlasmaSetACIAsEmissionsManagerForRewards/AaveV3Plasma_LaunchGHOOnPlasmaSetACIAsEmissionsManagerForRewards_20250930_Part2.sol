@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
-import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
+import {AaveV3Plasma, AaveV3PlasmaAssets, AaveV3PlasmaEModes} from 'aave-address-book/AaveV3Plasma.sol';
 import {AaveV3PayloadPlasma} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPlasma.sol';
 import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
@@ -105,11 +105,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     AaveV3Plasma.POOL.supply(GhoPlasma.GHO_TOKEN, GHO_SEED_AMOUNT, AaveV3Plasma.DUST_BIN, 0);
 
     address aGHO = AaveV3Plasma.POOL.getReserveAToken(GhoPlasma.GHO_TOKEN);
+    address vGHO = AaveV3Plasma.POOL.getReserveVariableDebtToken(GhoPlasma.GHO_TOKEN);
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(
       GhoPlasma.GHO_TOKEN,
       GHO_LM_ADMIN
     );
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aGHO, GHO_LM_ADMIN);
+    IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(vGHO, GHO_LM_ADMIN);
 
     AaveV3Plasma.COLLECTOR.transfer(IERC20(GhoPlasma.GHO_TOKEN), GHO_RESERVE, BRIDGED_AMOUNT);
 
@@ -140,9 +142,9 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 5,
-      liqThreshold: 10,
-      liqBonus: 4_50,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
       reserveFactor: 5_00,
       supplyCap: 50_000_000,
       borrowCap: 20_000_000,
@@ -178,7 +180,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       ltv: 94_00,
       liqThreshold: 96_00,
       liqBonus: 2_00,
-      label: 'GHO/USDT0',
+      label: 'GHO__USDT0',
       collaterals: collateralAssetsOne,
       borrowables: borrowableAssetsOne
     });
@@ -193,7 +195,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 4_00,
-      label: 'syrupUSDT/GHO',
+      label: 'syrupUSDT__GHO',
       collaterals: collateralAssetsTwo,
       borrowables: borrowableAssetsTwo
     });
@@ -209,7 +211,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 4_00,
-      label: 'syrupUSDT Stables',
+      label: 'syrupUSDT_GHO__USDT0',
       collaterals: collateralAssets_syrup,
       borrowables: borrowableAssets_syrup
     });
@@ -227,7 +229,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 5,
+      eModeCategory: AaveV3PlasmaEModes.USDe_PT_USDe_15JAN2026_PT_USDe_9APR2026__USDT0_USDe,
       ltv: 85_90,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: 4_90,
@@ -235,7 +237,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     });
 
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 7,
+      eModeCategory: AaveV3PlasmaEModes.sUSDe_PT_sUSDE_15JAN2026_PT_sUSDE_9APR2026__USDT0_USDe,
       ltv: 84_40,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: 6_00,

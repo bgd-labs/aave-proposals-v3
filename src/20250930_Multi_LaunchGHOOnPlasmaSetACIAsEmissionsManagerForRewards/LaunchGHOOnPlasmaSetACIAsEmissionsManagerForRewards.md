@@ -39,6 +39,8 @@ With support from the Aave Liquidity Committee (ALC) concentrated liquidity faci
 
 ## Specification
 
+This proposal has two parts that need to be executed in sequence. Part 1 will execute first, and then Part 2 can be executed. Part 2 will always revert until Part 1 is executed as it's dependant on it.
+
 The table below illustrates the configured risk parameters for **GHO**
 
 | Parameter                 |                                      Value |
@@ -49,9 +51,9 @@ The table below illustrates the configured risk parameters for **GHO**
 | Supply Cap (GHO)          |                                 50,000,000 |
 | Borrow Cap (GHO)          |                                 20,000,000 |
 | Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                     0.05 % |
-| LT                        |                                      0.1 % |
-| Liquidation Bonus         |                                      4.5 % |
+| LTV                       |                                        0 % |
+| LT                        |                                        0 % |
+| Liquidation Bonus         |                                        0 % |
 | Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                        5 % |
 | Base Variable Borrow Rate |                                     1.25 % |
@@ -156,6 +158,8 @@ Configure stataUSDT RemoteGSM as an entity with a draw capacity of 50M GHO.
 
 In order to not allow arbitrageurs to move GHO immediately from Plasma to Mainnet, the exposure cap will initially be 10M and as Gho and USDT pegs stabilize, the risk council will gradually bring the exposure cap to 45M as originally planned.
 
+The RiskCouncil will be set as a LIMIT_MANAGER on the GhoReserve to be able to update limits of the GSM.
+
 ### GHO Steward Configuration
 
 **GhoAaveSteward**
@@ -175,10 +179,11 @@ Bridge 50M GHO from Mainnet to Plasma utilizing the newly set up AaveGhoCcipBrid
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.t.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.t.sol)
+- Implementation: [AaveV3Ethereum_Part 1](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.sol),[AaveV3Ethereum_Part 2](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.sol), [AaveV3Plasma_Part 1](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.sol), [AaveV3Plasma_Part 2](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.sol)
+- Tests: [AaveV3Ethereum_Part 1](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.t.sol), [AaveV3Ethereum_Part 2](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.t.sol), [AaveV3Plasma_Part 1](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.t.sol), [AaveV3Plasma_Part 2](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb)
 - [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6)
+- [Audit](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/TokenLogic-security-review_2025-05-05.pdf)
 
 ## Copyright
 

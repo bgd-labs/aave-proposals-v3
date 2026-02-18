@@ -18,6 +18,7 @@ import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 
+import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.sol';
 import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.sol';
 
 /**
@@ -27,22 +28,22 @@ import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025093
 contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2_Test is
   ProtocolV3TestBase
 {
+  AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1 internal part1;
   AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2 internal proposal;
   address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('plasma'), 14334640);
+    part1 = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1();
     proposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2();
 
-    // Deal GHO that is going to be bridged from Mainnet
-    // 10 GHO for seed amount already sent to Collector
     deal(GhoPlasma.GHO_TOKEN, address(AaveV3Plasma.COLLECTOR), 50_000_010 ether);
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  function test_defaultProposalExecution() public {
+  function test_defaultProposalExecution_one() public {
     defaultTest(
       'AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2',
       AaveV3Plasma.POOL,
@@ -50,19 +51,15 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     );
   }
 
+  function test_executionFailsNoFunds() public {
+    AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2 newProposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2();
+    vm.expectRevert();
+    vm.prank(GovernanceV3Plasma.EXECUTOR_LVL_1);
+    newProposal.execute();
+  }
+
   function test_bridgeLimitRestore() public {
-    // Mock the update from Part 1
-    vm.startPrank(GovernanceV3Plasma.EXECUTOR_LVL_1);
-    IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
-      CCIPChainSelectors.ETHEREUM,
-      IRateLimiter.Config({
-        isEnabled: true,
-        capacity: proposal.DEFAULT_RATE_LIMITER_CAPACITY(),
-        rate: proposal.DEFAULT_RATE_LIMITER_RATE()
-      }),
-      IRateLimiter.Config({isEnabled: true, capacity: 5_000_000 ether, rate: 4_000_000 ether})
-    );
-    vm.stopPrank();
+    executePayload(vm, address(part1));
     vm.warp(block.timestamp + 1);
 
     IRateLimiter.TokenBucket memory bucket = IUpgradeableBurnMintTokenPool(
@@ -94,12 +91,17 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   function test_GHOAdmin() public {
     executePayload(vm, address(proposal));
     address aGHO = AaveV3Plasma.POOL.getReserveAToken(GhoPlasma.GHO_TOKEN);
+    address vGHO = AaveV3Plasma.POOL.getReserveVariableDebtToken(GhoPlasma.GHO_TOKEN);
     assertEq(
       IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(GhoPlasma.GHO_TOKEN),
       proposal.GHO_LM_ADMIN()
     );
     assertEq(
       IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(aGHO),
+      proposal.GHO_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(vGHO),
       proposal.GHO_LM_ADMIN()
     );
   }
