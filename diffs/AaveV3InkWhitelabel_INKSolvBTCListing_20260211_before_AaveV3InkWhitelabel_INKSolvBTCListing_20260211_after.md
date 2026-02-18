@@ -248,7 +248,7 @@
       "stateDiff": {}
     },
     "0x6fddde45f777a4e461b0721a578b169b44579623": {
-      "label": null,
+      "label": "AaveV3InkWhitelabel.POOL_CONFIGURATOR_IMPL",
       "contract": null,
       "balanceDiff": null,
       "nonceDiff": {
