@@ -258,21 +258,21 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GhoPlasma.GHO_TOKEN,
-      eModeCategory: 2,
+      eModeCategory: AaveV3PlasmaEModes.USDe_sUSDe__USDT0,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GhoPlasma.GHO_TOKEN,
-      eModeCategory: 5,
+      eModeCategory: AaveV3PlasmaEModes.USDe_PT_USDe_15JAN2026_PT_USDe_9APR2026__USDT0_USDe,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GhoPlasma.GHO_TOKEN,
-      eModeCategory: 7,
+      eModeCategory: AaveV3PlasmaEModes.sUSDe_PT_sUSDE_15JAN2026_PT_sUSDE_9APR2026__USDT0_USDe,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.KEEP_CURRENT
