@@ -19,10 +19,11 @@ To create a unified GSM paradigm for both mainnet and L2s, a newer version of th
 - Deploy GhoReserve to hold GHO to be used by GSMs
 - Deploy new stataUSDC and stataUSDT GSM4626 from the Gho-Core repository with their respective Oracles
 - Grant the Executor the `'LIQUIDATOR_ROLE'` to be able to seize the existing GSMs
+- Grant the RiskcCouncil the `LIMIT_MANAGER_ROLE` on the GhoReserve and `MINTER_ROLE` on the GhoDirectFacilitator to manage capacity
 - Seize the current USDC and USDT GSMs by calling the `seize()` function.
   - This freezes actions on them and transfers the underlying tokens to the collector
 - Add the `GhoDirectFacilitator` as a facilitator on the GHO token contract
-- AAdd the `GhoDirectFacilitator` as a controlled facilitator on the`GhoBucketSteward`
+- Add the `GhoDirectFacilitator` as a controlled facilitator on the`GhoBucketSteward`
 - Add new GSMs to the GSMRegistry
 - Update the FeeStrategy of the new GSMs:
   - USDC: [`0xF009Ce2453884712707DcED6e5eA16F3e6f515E0`](https://etherscan.io/address/0xF009Ce2453884712707DcED6e5eA16F3e6f515E0)
@@ -70,6 +71,7 @@ The below details the configuration of the stataUSDT GSM.
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251113_AaveV3Ethereum_GSMMigration/AaveV3Ethereum_GSMMigration_20251113.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb)
 - [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/8)
+- [Audit](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20250930_Multi_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards/TokenLogic-security-review_2025-05-05.pdf)
 
 ## Copyright
 
