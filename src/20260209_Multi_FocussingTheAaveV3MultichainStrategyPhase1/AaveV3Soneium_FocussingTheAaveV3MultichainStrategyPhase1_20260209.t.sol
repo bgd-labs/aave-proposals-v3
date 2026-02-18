@@ -28,7 +28,20 @@ contract AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209_Test 
     defaultTest(
       'AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209',
       AaveV3Soneium.POOL,
-      address(proposal)
+      address(proposal),
+      false,
+      false
     );
+  }
+  /**
+
+   * @dev check instance is deprecated
+   */
+  function test_isDeprecated() public {
+    executePayload(vm, address(proposal), AaveV3Soneium.POOL);
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Soneium.POOL);
+    for (uint256 i = 0; i < configs.length; i++) {
+      assertTrue(configs[i].isFrozen, "a reserve isn't frozen");
+    }
   }
 }

@@ -30,7 +30,19 @@ contract AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209_Test i
     defaultTest(
       'AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209',
       AaveV3ZkSync.POOL,
-      address(proposal)
+      address(proposal),
+      false,
+      false
     );
+  }
+  /**
+   * @dev check instance is deprecated
+   */
+  function test_isDeprecated() public {
+    executePayload(vm, address(proposal), AaveV3ZkSync.POOL);
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3ZkSync.POOL);
+    for (uint256 i = 0; i < configs.length; i++) {
+      assertTrue(configs[i].isFrozen, "a reserve isn't frozen");
+    }
   }
 }

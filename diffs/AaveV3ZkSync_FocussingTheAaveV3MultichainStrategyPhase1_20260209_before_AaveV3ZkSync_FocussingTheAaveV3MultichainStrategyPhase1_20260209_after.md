@@ -1,12 +1,12 @@
 ## Reserve changes
 
-### Reserve altered
+### Reserves altered
 
 #### USDC ([0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4](https://explorer.zksync.io//address/0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4))
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 75 % [7500] | 0 % [0] |
 
 
@@ -14,7 +14,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 75 % [7500] | 0 % [0] |
 
 
@@ -22,14 +22,14 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 
 
 #### WETH ([0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91](https://explorer.zksync.io//address/0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91))
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 75 % [7500] | 0 % [0] |
 
 
@@ -37,7 +37,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 71 % [7100] | 0 % [0] |
 
 
@@ -45,7 +45,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 65 % [6500] | 0 % [0] |
 
 
@@ -53,7 +53,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 72.5 % [7250] | 0 % [0] |
 
 
@@ -61,7 +61,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
+| isFrozen | :x: | :white_check_mark: |
 | ltv | 0.05 % [5] | 0 % [0] |
 
 
@@ -146,7 +146,6 @@
         "to": 0
       }
     }
-  },
-  "raw": {}
+  }
 }
 ```
