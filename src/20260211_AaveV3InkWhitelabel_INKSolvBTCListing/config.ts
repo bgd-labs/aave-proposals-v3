@@ -14,7 +14,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'SolvBTC',
             decimals: 18,
-            priceFeed: '0x2F4c2Ff7EcDf8658B5BF20A2aB180c6Ec3CFf648',
+            priceFeed: '0xAe48F22903d43f13f66Cc650F57Bd4654ac222cb',
             ltv: '70',
             liqThreshold: '75',
             liqBonus: '7.5',
@@ -28,7 +28,7 @@ export const config: ConfigFile = {
             supplyCap: '50',
             borrowCap: '1',
             rateStrategyParams: {
-              optimalUtilizationRate: '0',
+              optimalUtilizationRate: '45',
               baseVariableBorrowRate: '0',
               variableRateSlope1: '10',
               variableRateSlope2: '300',
