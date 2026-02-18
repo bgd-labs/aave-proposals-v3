@@ -1,36 +1,41 @@
+## Event logs
+
+#### 0x86E2938daE289763D4e09a7e42c5cCcA62Cf9809 (AaveV3InkWhitelabel.ACL_MANAGER)
+
+| index | event |
+| --- | --- |
+| 0 | RoleGranted(role: 0x8aa855a911518ecfbe5bc3088c8f3dda7badf130faaf8ace33fdc33828e18167, account: 0x2F9fDD0D80843b21A7e2c7bfe2A6278231A5683e, sender: 0x1dF462e2712496373A347f8ad10802a5E95f053D) |
+
+#### 0x1dF462e2712496373A347f8ad10802a5E95f053D (AaveV3InkWhitelabel.ACL_ADMIN, GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1769409645, withDelegatecall: true, resultData: 0x) |
+
+#### 0x1dE9CB9420Dd1f2cCeFFf9393E126b800D413b7A (GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 13) |
+
+## Raw storage changes
+
+### 0x1de9cb9420dd1f2ccefff9393e126b800d413b7a (GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xa8f2d96126c6d0ad63adabaef7bf5cf47f163fb0c218a473d28f62312d197bcf | 0x0069770c6c000000000002000000000000000000000000000000000000000000 | 0x0069770c6c000000000003000000000000000000000000000000000000000000 |
+| 0xa8f2d96126c6d0ad63adabaef7bf5cf47f163fb0c218a473d28f62312d197bd0 | 0x000000000000000000093a8000000000000069a530ed00000000000000000000 | 0x000000000000000000093a8000000000000069a530ed00000000000069770c6d |
+
+### 0x86e2938dae289763d4e09a7e42c5ccca62cf9809 (AaveV3InkWhitelabel.ACL_MANAGER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x998bfae357d6254e94bbb27b88641da3c9a14d5ab59a520664531ad2a286c018 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+
 ## Raw diff
 
 ```json
-{
-  "raw": {
-    "0x1de9cb9420dd1f2ccefff9393e126b800d413b7a": {
-      "label": "GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0xa8f2d96126c6d0ad63adabaef7bf5cf47f163fb0c218a473d28f62312d197bcf": {
-          "previousValue": "0x0069770c6c000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0069770c6c000000000003000000000000000000000000000000000000000000"
-        },
-        "0xa8f2d96126c6d0ad63adabaef7bf5cf47f163fb0c218a473d28f62312d197bd0": {
-          "previousValue": "0x000000000000000000093a8000000000000069a530ed00000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000069a530ed00000000000069770c6d"
-        }
-      }
-    },
-    "0x86e2938dae289763d4e09a7e42c5ccca62cf9809": {
-      "label": "AaveV3InkWhitelabel.ACL_MANAGER",
-      "contract": null,
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0x998bfae357d6254e94bbb27b88641da3c9a14d5ab59a520664531ad2a286c018": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
-        }
-      }
-    }
-  }
-}
+{}
 ```
