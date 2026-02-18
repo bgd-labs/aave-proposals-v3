@@ -79,24 +79,24 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 | Liquidation Threshold |  92%  | 92%  |   -   |  -  |
 | Liquidation Bonus     | 4.0%  | 4.0% |   -   |  -  |
 
-## eMode Category - Category 5
+## eMode Category - Category 13
 
 | Parameter             | PT-USDe Jan | USDT0 | USDe | GHO |
 | --------------------- | :---------: | :---: | :--: | :-: |
 | Collateral            |     Yes     |  No   |  No  | No  |
 | Borrowable            |     No      |  Yes  | Yes  | Yes |
 | Max LTV               |    85.9%    |   -   |  -   |  -  |
-| Liquidation Threshold |    87.9%    |   -   |  -   |  -  |
+| Liquidation Threshold | Keep Current|   -   |  -   |  -  |
 | Liquidation Bonus     |    4.9%     |   -   |  -   |  -  |
 
-## eMode Category - Category 7
+## eMode Category - Category 15
 
 | Parameter             | PT-sUSDe Jan | USDT0 | USDe | GHO |
 | --------------------- | :----------: | :---: | :--: | :-: |
 | Collateral            |     Yes      |  No   |  No  | No  |
 | Borrowable            |      No      |  Yes  | Yes  | Yes |
 | Max LTV               |    84.4%     |   -   |  -   |  -  |
-| Liquidation Threshold |    86.4%     |   -   |  -   |  -  |
+| Liquidation Threshold | Keep Current |   -   |  -   |  -  |
 | Liquidation Bonus     |     6.0%     |   -   |  -   |  -  |
 
 ## eMode Category (new)
