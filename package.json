@@ -17,15 +17,15 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bgd-labs/aave-proposals-v3.git"
+    "url": "git+https://github.com/aave-dao/aave-proposals-v3.git"
   },
   "keywords": [],
   "author": "BGD labs",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bgd-labs/aave-proposals-v3/issues"
+    "url": "https://github.com/aave-dao/aave-proposals-v3/issues"
   },
-  "homepage": "https://github.com/bgd-labs/aave-proposals-v3#readme",
+  "homepage": "https://github.com/aave-dao/aave-proposals-v3#readme",
   "devDependencies": {
     "@types/node": "^22.9.0",
     "prettier": "3.5.2",
