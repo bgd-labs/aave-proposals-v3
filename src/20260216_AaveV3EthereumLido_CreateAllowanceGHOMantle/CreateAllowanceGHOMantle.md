@@ -1,7 +1,7 @@
 ---
 title: "Create Allowance GHO Mantle"
 author: "@TokenLogic"
-discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/20"
+discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119"
 ---
 
@@ -11,7 +11,7 @@ This proposal creates an allowance of 1.5M aEthLidoGHO from the Aave Collector t
 
 ## Motivation
 
-As part of the [ARFC to deploy Aave V3 on Mantle](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/20), GHO liquidity needs to be seeded on Mantle. The Aave Liquidity Committee (ALC) will manage the bridging and liquidity provisioning of GHO on Mantle using the approved aEthLidoGHO allowance from the Aave Collector.
+As part of the [ARFC to deploy Aave V3 on Mantle](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15), GHO liquidity needs to be seeded on Mantle. The Aave Liquidity Committee (ALC) will manage the bridging and liquidity provisioning of GHO on Mantle using the approved aEthLidoGHO allowance from the Aave Collector.
 
 ## Specification
 
@@ -22,7 +22,7 @@ Approve the Aave Liquidity Committee (ALC) [`0xA1c93D2687f7014Aaf588c764E3Ce80aF
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.sol)
 - Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)
-- [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/20)
+- [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15)
 
 ## Copyright
 

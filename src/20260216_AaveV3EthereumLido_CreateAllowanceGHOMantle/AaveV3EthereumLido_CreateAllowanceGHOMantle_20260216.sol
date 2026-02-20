@@ -10,7 +10,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * @title Create Allowance GHO Mantle
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119
- * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/20
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15
  */
 contract AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216 is IProposalGenericExecutor {
   uint256 public constant GHO_ALLOWANCE = 1_500_000 ether;
