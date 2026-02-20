@@ -1,48 +1,46 @@
+## Event logs
+
+#### 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12 (GhoPlasma.GHO_CCIP_TOKEN_POOL)
+
+| index | event |
+| --- | --- |
+| 0 | topics: `0x9ea3374b67bf275e6bb9c8ae68f9cae023e1c528b4b27e092f0bb209d3531c19`, data: `0x0000000000000000000000000000000000000000000000000000000000000001...` |
+| 1 | topics: `0x9ea3374b67bf275e6bb9c8ae68f9cae023e1c528b4b27e092f0bb209d3531c19`, data: `0x0000000000000000000000000000000000000000000000000000000000000001...` |
+| 2 | topics: `0x0350d63aa5f270e01729d00d627eeb8f3429772b1818c016c66a588a864f912b`, data: `0x00000000000000000000000000000000000000000000000045849994fc9c7b15...` |
+
+#### 0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A (AaveV3Plasma.ACL_ADMIN, GovernanceV3Plasma.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 3 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1771266396, withDelegatecall: true, resultData: 0x) |
+
+#### 0xe76EB348E65eF163d85ce282125FF5a7F5712A1d (GovernanceV3Plasma.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 4 | PayloadExecuted(payloadId: 17) |
+
+## Raw storage changes
+
+### 0x360d8aa8f6b09b7bc57af34db2eb84dd87bf4d12 (GhoPlasma.GHO_CCIP_TOKEN_POOL)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f7 | 0x000000000000000000000001690217ec00000000000000000000000000000000 | 0x0000000000000000000000016993615c0000000000013da329b6336471800000 |
+| 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f8 | 0x000000000000001043561a88293000000000000000013da329b6336471800000 | 0x000000000000001043561a88293000000000000000013da329b6336471800000 |
+| 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f9 | 0x000000000000000000000001697646880000000000013da2907a7df40eeea55b | 0x0000000000000000000000016993615c0000000000013da329b6336471800000 |
+| 0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0fa | 0x000000000000001043561a88293000000000000000013da329b6336471800000 | 0x00000000002d7eb3f96e070d96ffffff00000000002d7eb3f96e070d97000000 |
+
+### 0xe76eb348e65ef163d85ce282125ff5a7f5712a1d (GovernanceV3Plasma.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xfc111d09a6e2f0958402cbe16a5aef32c9d8ddb9a4df7271140de57bfed6525a | 0x006993615b000000000002000000000000000000000000000000000000000000 | 0x006993615b000000000003000000000000000000000000000000000000000000 |
+| 0xfc111d09a6e2f0958402cbe16a5aef32c9d8ddb9a4df7271140de57bfed6525b | 0x000000000000000000093a8000000000000069c185dc00000000000000000000 | 0x000000000000000000093a8000000000000069c185dc0000000000006993615c |
+
+
 ## Raw diff
 
 ```json
-{
-  "raw": {
-    "0x360d8aa8f6b09b7bc57af34db2eb84dd87bf4d12": {
-      "label": "GhoPlasma.GHO_CCIP_TOKEN_POOL",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f7": {
-          "previousValue": "0x000000000000000000000001690217ec00000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000016993615c0000000000013da329b6336471800000"
-        },
-        "0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f8": {
-          "previousValue": "0x000000000000001043561a88293000000000000000013da329b6336471800000",
-          "newValue": "0x000000000000001043561a88293000000000000000013da329b6336471800000"
-        },
-        "0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0f9": {
-          "previousValue": "0x000000000000000000000001697646880000000000013da2907a7df40eeea55b",
-          "newValue": "0x0000000000000000000000016993615c0000000000013da329b6336471800000"
-        },
-        "0xc43d59e5cc2bf8f1b992795c27c2d5bb31adadefc93354955ac0e2ca9c5be0fa": {
-          "previousValue": "0x000000000000001043561a88293000000000000000013da329b6336471800000",
-          "newValue": "0x00000000002d7eb3f96e070d96ffffff00000000002d7eb3f96e070d97000000"
-        }
-      }
-    },
-    "0xe76eb348e65ef163d85ce282125ff5a7f5712a1d": {
-      "label": "GovernanceV3Plasma.PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0xfc111d09a6e2f0958402cbe16a5aef32c9d8ddb9a4df7271140de57bfed6525a": {
-          "previousValue": "0x006993615b000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x006993615b000000000003000000000000000000000000000000000000000000"
-        },
-        "0xfc111d09a6e2f0958402cbe16a5aef32c9d8ddb9a4df7271140de57bfed6525b": {
-          "previousValue": "0x000000000000000000093a8000000000000069c185dc00000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000069c185dc0000000000006993615c"
-        }
-      }
-    }
-  }
-}
+{}
 ```
