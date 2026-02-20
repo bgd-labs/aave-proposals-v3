@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {ChainIds} from 'solidity-utils/contracts/utils/ChainHelpers.sol';
 import {EthereumScript, MetisScript, SoneiumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Metis_FocussingTheAaveV3MultichainStrategyPhase1_20260209} from './AaveV3Metis_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol';
 import {AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209} from './AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol';
@@ -72,13 +73,13 @@ contract CreateProposal is EthereumScript {
     }
 
     {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209'
-      );
-      payloads[1] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+      payloads[1] = PayloadsControllerUtils.Payload({
+        chain: ChainIds.ZKSYNC,
+        accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+        payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+        payloadId: 36
+      }); // Contract deployment: https://explorer.zksync.io/tx/0xf2dbcadc1ea2f6b3e9ed103ffb9e214508a182932b11b690017e3cde0c6ef78b
+      // Playload registration: https://explorer.zksync.io/tx/0xbcc13d6fa52784301cdf962565c6d2e368473978f943430345966f31602cfff7
     }
 
     {
