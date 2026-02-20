@@ -1,4 +1,4 @@
-import * as addressBook from '@bgd-labs/aave-address-book';
+import * as addressBook from '@aave-dao/aave-address-book';
 import {
   AssetEModeUpdate,
   BorrowUpdate,
@@ -42,6 +42,8 @@ export const V3_POOLS = [
   'AaveV3Soneium',
   'AaveV3InkWhitelabel',
   'AaveV3Plasma',
+  'AaveV3Mantle',
+  'AaveV3MegaEth',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const POOLS = [

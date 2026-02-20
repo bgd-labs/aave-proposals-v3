@@ -1,4 +1,4 @@
-import * as addressBook from '@bgd-labs/aave-address-book';
+import * as addressBook from '@aave-dao/aave-address-book';
 import {Options, PoolIdentifier, PoolIdentifierV3, V2_POOLS, VOTING_NETWORK} from './types';
 import {
   arbitrum,
@@ -18,6 +18,8 @@ import {
   soneium,
   ink,
   plasma,
+  mantle,
+  megaeth,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/toolbox';
@@ -42,6 +44,8 @@ export const AVAILABLE_CHAINS = [
   'Soneium',
   'Ink',
   'Plasma',
+  'Mantle',
+  'MegaEth',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -159,6 +163,8 @@ export const CHAIN_TO_CHAIN_ID = {
   Soneium: soneium.id,
   Ink: ink.id,
   Plasma: plasma.id,
+  Mantle: mantle.id,
+  MegaEth: megaeth.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
