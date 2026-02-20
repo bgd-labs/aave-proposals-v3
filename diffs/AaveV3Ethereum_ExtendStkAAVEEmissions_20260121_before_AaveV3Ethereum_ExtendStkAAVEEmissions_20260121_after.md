@@ -1,36 +1,42 @@
+## Event logs
+
+#### 0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9 (AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING)
+
+| index | event |
+| --- | --- |
+| 0 | Approval(owner: 0x25F2226B597E8F9514B3F68F00f494cF4f286491, spender: 0x4da27a545c0c5B758a6BA100e3a049001de870f5, value: 0 [0, 18 decimals]) |
+| 1 | Approval(owner: 0x25F2226B597E8F9514B3F68F00f494cF4f286491, spender: 0x4da27a545c0c5B758a6BA100e3a049001de870f5, value: 28,867.9499 [28867949941337150433752, 18 decimals]) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 2 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1769010995, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 3 | PayloadExecuted(payloadId: 396) |
+
+## Raw storage changes
+
+### 0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9 (AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x4aede0a4429093ac1f64f523c180bcf8485d339a34f665e9c638e9e941c7af2c | 0x0000000000000000000000000000000000000000000001286b0c8d34aafa6cd8 | 0x00000000000000000000000000000000000000000000061cef48a2b1377ba9d8 |
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xa56be8dc51e2930be3eda04b7b27b0a2f5921a68c355bb74cb7ef787bdf28fac | 0x006970f732000000000002000000000000000000000000000000000000000000 | 0x006970f732000000000003000000000000000000000000000000000000000000 |
+| 0xa56be8dc51e2930be3eda04b7b27b0a2f5921a68c355bb74cb7ef787bdf28fad | 0x000000000000000000093a80000000000000699f1bb300000000000000000000 | 0x000000000000000000093a80000000000000699f1bb30000000000006970f733 |
+
+
 ## Raw diff
 
 ```json
-{
-  "raw": {
-    "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
-      "label": "AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0x4aede0a4429093ac1f64f523c180bcf8485d339a34f665e9c638e9e941c7af2c": {
-          "previousValue": "0x0000000000000000000000000000000000000000000001286b0c8d34aafa6cd8",
-          "newValue": "0x00000000000000000000000000000000000000000000061cef48a2b1377ba9d8"
-        }
-      }
-    },
-    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
-      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0xa56be8dc51e2930be3eda04b7b27b0a2f5921a68c355bb74cb7ef787bdf28fac": {
-          "previousValue": "0x006970f732000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x006970f732000000000003000000000000000000000000000000000000000000"
-        },
-        "0xa56be8dc51e2930be3eda04b7b27b0a2f5921a68c355bb74cb7ef787bdf28fad": {
-          "previousValue": "0x000000000000000000093a80000000000000699f1bb300000000000000000000",
-          "newValue": "0x000000000000000000093a80000000000000699f1bb30000000000006970f733"
-        }
-      }
-    }
-  }
-}
+{}
 ```
