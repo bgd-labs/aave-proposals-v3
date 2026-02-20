@@ -28,7 +28,7 @@ Using the `MainnetSwapSteward` and a portion of the ETH received from recent liq
 
 ### Idle ETH
 
-Deposits idle ETH held on the Ethereum Collector into the Aave v3 Core instance.
+Deposits idle ETH held on the Ethereum Collector, received from recent liquidation volume, into the Aave v3 Core instance. The resulting aWETH is then used to fund the Ahab and Liquidity allowances detailed below.
 
 ### Operations
 
@@ -43,7 +43,7 @@ This allowance enables the AAVE acquired via buybacks to be held on the AFC SAFE
 
 ### Extend Ahab Capacity
 
-Extends Ahab allowances to support upcoming business initiatives and recent asset price changes:
+Extends Ahab allowances to support upcoming business initiatives and recent asset price changes. The aWETH allowance is sourced from the idle ETH deposited into Aave v3 Core above, where it is to be used as collateral to fund incentive programs via GHO debt:
 
 - **Asset**: `aEthWETH` (`0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`), **Amount**: `4,000`
 - **Asset**: `aEthwstETH` (`0x0B925eD163218f6662a35e0f0371Ac234f9E9371`), **Amount**: `1,100`
@@ -64,7 +64,7 @@ Create a USDe allowance to provide inventory for supporting USDT/GHO liquidity a
 - **Asset**: `USDe` (`0x4c9EDD5852cd905f086C759E8383e09bff1E68B3`), **Amount**: `6,000,000`
 - **Spender**: `CEX Earn` SAFE (`0xAA12BAd4a501d45A5b771e49C2Fd415BA8BFc79d`)
 
-The allowance exceeds the Collector's current USDe balance to support future operations.
+The Finance Steward will be used to withdraw USDe from the protocol to fund this allowance. The allowance exceeds the Collector's current USDe balance to accommodate the withdrawal and support future operations.
 
 ### MainnetSwapSteward Allowances
 
