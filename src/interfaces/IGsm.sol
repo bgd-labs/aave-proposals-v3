@@ -105,6 +105,12 @@ interface IGsm {
   function updateExposureCap(uint128 exposureCap) external;
 
   /**
+   * Sets the GhoReserve for GHO token capabilities
+   * @param ghoReserve Address of the new GhoReserve
+   */
+  function updateGhoReserve(address ghoReserve) external;
+
+  /**
    * @notice Returns the EIP712 domain separator
    * @return The EIP712 domain separator
    */
