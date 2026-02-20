@@ -5,7 +5,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {IWETH} from 'aave-v3-origin/contracts/helpers/interfaces/IWETH.sol';
+import {IWrappedTokenGatewayV3} from 'aave-v3-origin/contracts/helpers/interfaces/IWrappedTokenGatewayV3.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 interface IMainnetSwapSteward {
@@ -73,14 +73,8 @@ contract AaveV3Ethereum_February2026FundingUpdate_20260206 is IProposalGenericEx
         address(this),
         ethBalance
       );
-      IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit{value: ethBalance}();
-      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).approve(
+      IWrappedTokenGatewayV3(AaveV3Ethereum.WETH_GATEWAY).depositETH{value: ethBalance}(
         address(AaveV3Ethereum.POOL),
-        ethBalance
-      );
-      AaveV3Ethereum.POOL.deposit(
-        AaveV3EthereumAssets.WETH_UNDERLYING,
-        ethBalance,
         address(AaveV3Ethereum.COLLECTOR),
         0
       );
