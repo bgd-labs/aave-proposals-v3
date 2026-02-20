@@ -68,6 +68,10 @@ This AIP will freeze the following assets:
 | zkSync        | sUSDe     |
 | zkSync        | wrsETH    |
 
+## Disclaimer
+
+Due to explorer issues, the zkSync payload cannot currently be verified on-chain. However, its bytecode and address legitimacy can be confirmed using the deployment script.
+
 ## References
 
 - Implementation: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3Metis_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol), [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol), [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol)
