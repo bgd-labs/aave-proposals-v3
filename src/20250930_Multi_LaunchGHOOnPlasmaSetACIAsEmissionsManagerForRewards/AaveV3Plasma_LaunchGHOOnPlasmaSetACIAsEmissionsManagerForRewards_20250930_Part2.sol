@@ -219,34 +219,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     return eModeCreations;
   }
 
-  function eModeCategoriesUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
-
-    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3PlasmaEModes.USDe_PT_USDe_15JAN2026_PT_USDe_9APR2026__USDT0_USDe,
-      ltv: 85_90,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: 4_90,
-      label: EngineFlags.KEEP_CURRENT_STRING
-    });
-
-    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3PlasmaEModes.sUSDe_PT_sUSDE_15JAN2026_PT_sUSDE_9APR2026__USDT0_USDe,
-      ltv: 84_40,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: 6_00,
-      label: EngineFlags.KEEP_CURRENT_STRING
-    });
-
-    return eModeUpdates;
-  }
-
   function assetsEModeUpdates()
     public
     pure
