@@ -80,6 +80,7 @@ contract CreateProposal is EthereumScript {
         payloadId: 36
       }); // Contract deployment: https://explorer.zksync.io/tx/0xf2dbcadc1ea2f6b3e9ed103ffb9e214508a182932b11b690017e3cde0c6ef78b
       // Playload registration: https://explorer.zksync.io/tx/0xbcc13d6fa52784301cdf962565c6d2e368473978f943430345966f31602cfff7
+      // Commit used for creation: f41f13a8c
     }
 
     {
