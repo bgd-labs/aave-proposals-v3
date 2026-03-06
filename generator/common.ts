@@ -20,6 +20,7 @@ import {
   plasma,
   mantle,
   megaeth,
+  xLayer,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/toolbox';
@@ -46,6 +47,7 @@ export const AVAILABLE_CHAINS = [
   'Plasma',
   'Mantle',
   'MegaEth',
+  'XLayer',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -165,6 +167,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Plasma: plasma.id,
   Mantle: mantle.id,
   MegaEth: megaeth.id,
+  XLayer: xLayer.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
