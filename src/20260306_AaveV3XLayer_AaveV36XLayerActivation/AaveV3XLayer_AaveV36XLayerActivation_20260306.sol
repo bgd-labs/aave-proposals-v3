@@ -39,6 +39,12 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306 is AaveV3PayloadXLayer {
   address public constant xSOL = 0x505000008DE8748DBd4422ff4687a4FC9bEba15b;
   uint256 public constant xSOL_SEED_AMOUNT = 0.1e9; // 9 decimals
 
+  address public constant xBETH = 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7;
+  uint256 public constant xBETH_SEED_AMOUNT = 0.001e18;
+
+  address public constant xOKSOL = 0x14a686103854DAB7b8801E31979CAA595835B25d;
+  uint256 public constant xOKSOL_SEED_AMOUNT = 0.1e9;
+
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDG, USDG_SEED_AMOUNT);
@@ -46,13 +52,15 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306 is AaveV3PayloadXLayer {
     _supplyAndConfigureLMAdmin(WOKB, WOKB_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(xETH, xETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(xSOL, xSOL_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(xBETH, xBETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(xOKSOL, xOKSOL_SEED_AMOUNT);
 
     AaveV3XLayer.ACL_MANAGER.addPoolAdmin(MiscXLayer.PROTOCOL_GUARDIAN);
     AaveV3XLayer.ACL_MANAGER.addRiskAdmin(AaveV3XLayer.RISK_STEWARD);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](6);
+    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](8);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDT0,
@@ -192,6 +200,52 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306 is AaveV3PayloadXLayer {
         variableRateSlope2: 20_00
       })
     });
+    listings[6] = IAaveV3ConfigEngine.Listing({
+      asset: xBETH,
+      assetSymbol: 'xBETH',
+      priceFeed: 0xd07B7ef776329e284c43B41C460ab6E95e7D9b22,
+      enabledToBorrow: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
+      reserveFactor: 15_00,
+      supplyCap: 5_700,
+      borrowCap: 1,
+      debtCeiling: 0,
+      liqProtocolFee: 10_00,
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 45_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 7_00,
+        variableRateSlope2: 300_00
+      })
+    });
+    listings[7] = IAaveV3ConfigEngine.Listing({
+      asset: xOKSOL,
+      assetSymbol: 'xOKSOL',
+      priceFeed: 0x5c6f87B4e96A94c042aEC2eBCD78B2e91b770920,
+      enabledToBorrow: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
+      reserveFactor: 15_00,
+      supplyCap: 135_000,
+      borrowCap: 1,
+      debtCeiling: 0,
+      liqProtocolFee: 10_00,
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 45_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 7_00,
+        variableRateSlope2: 300_00
+      })
+    });
 
     return listings;
   }
@@ -203,7 +257,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306 is AaveV3PayloadXLayer {
     returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](4);
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](6);
 
     // xBTC Stablecoins
     address[] memory collateralAssets_xBTCStablecoinsEMode = new address[](1);
@@ -267,6 +321,36 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306 is AaveV3PayloadXLayer {
       label: 'WOKB__USDT0_USDG',
       collaterals: collateralAssets_WOKBStablecoinsEMode,
       borrowables: borrowableAssets_WOKBStablecoinsEMode
+    });
+
+    // xBETH / xETH Correlated
+    address[] memory collateralAssets_xBETHxETHEMode = new address[](1);
+    address[] memory borrowableAssets_xBETHxETHEMode = new address[](1);
+    collateralAssets_xBETHxETHEMode[0] = xBETH;
+    borrowableAssets_xBETHxETHEMode[0] = xETH;
+
+    eModeCreations[4] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 88_00,
+      liqThreshold: 90_00,
+      liqBonus: 2_00,
+      label: 'xBETH__xETH',
+      collaterals: collateralAssets_xBETHxETHEMode,
+      borrowables: borrowableAssets_xBETHxETHEMode
+    });
+
+    // xOKSOL / xSOL Correlated
+    address[] memory collateralAssets_xOKSOLxSOLEMode = new address[](1);
+    address[] memory borrowableAssets_xOKSOLxSOLEMode = new address[](1);
+    collateralAssets_xOKSOLxSOLEMode[0] = xOKSOL;
+    borrowableAssets_xOKSOLxSOLEMode[0] = xSOL;
+
+    eModeCreations[5] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 88_00,
+      liqThreshold: 90_00,
+      liqBonus: 2_00,
+      label: 'xOKSOL__xSOL',
+      collaterals: collateralAssets_xOKSOLxSOLEMode,
+      borrowables: borrowableAssets_xOKSOLxSOLEMode
     });
 
     return eModeCreations;

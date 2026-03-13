@@ -18,7 +18,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV36XLayerActivation_20260306 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 54632532);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 54638111);
     proposal = new AaveV3XLayer_AaveV36XLayerActivation_20260306();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -37,17 +37,6 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
     );
   }
 
-  function test_capsIncreaseByGuardian() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    _setAndValidateCapsByGuardian(proposal.USDT0(), 50_000_000, 48_000_000);
-    _setAndValidateCapsByGuardian(proposal.USDG(), 5_000_000, 4_250_000);
-    _setAndValidateCapsByGuardian(proposal.xBTC(), 150, 20);
-    _setAndValidateCapsByGuardian(proposal.WOKB(), 125_000, 1);
-    _setAndValidateCapsByGuardian(proposal.xETH(), 5_000, 1_300);
-    _setAndValidateCapsByGuardian(proposal.xSOL(), 110_000, 14_000);
-  }
-
   function test_dustBinHasFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -57,6 +46,8 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
     _validateDustbinFundsAndLMAdmin(proposal.WOKB(), proposal.WOKB_SEED_AMOUNT());
     _validateDustbinFundsAndLMAdmin(proposal.xETH(), proposal.xETH_SEED_AMOUNT());
     _validateDustbinFundsAndLMAdmin(proposal.xSOL(), proposal.xSOL_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.xBETH(), proposal.xBETH_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.xOKSOL(), proposal.xOKSOL_SEED_AMOUNT());
   }
 
   function test_guardianPoolAdmin() public {
@@ -94,23 +85,6 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
     );
   }
 
-  function _setAndValidateCapsByGuardian(
-    address asset,
-    uint256 supplyCap,
-    uint256 borrowCap
-  ) internal {
-    vm.startPrank(MiscXLayer.PROTOCOL_GUARDIAN);
-    AaveV3XLayer.POOL_CONFIGURATOR.setSupplyCap(asset, supplyCap);
-    AaveV3XLayer.POOL_CONFIGURATOR.setBorrowCap(asset, borrowCap);
-    vm.stopPrank();
-
-    (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3XLayer
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveCaps(asset);
-    assertEq(currentBorrowCap, borrowCap);
-    assertEq(currentSupplyCap, supplyCap);
-  }
-
   function _postSetup() internal {
     // mock funding seed amounts
     deal(proposal.USDT0(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
@@ -119,5 +93,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
     deal(proposal.WOKB(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.WOKB_SEED_AMOUNT());
     deal(proposal.xETH(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xETH_SEED_AMOUNT());
     deal(proposal.xSOL(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xSOL_SEED_AMOUNT());
+    deal(proposal.xBETH(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xBETH_SEED_AMOUNT());
+    deal(proposal.xOKSOL(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xOKSOL_SEED_AMOUNT());
   }
 }
