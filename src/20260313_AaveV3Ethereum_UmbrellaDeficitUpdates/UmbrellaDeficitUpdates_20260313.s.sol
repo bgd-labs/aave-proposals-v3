@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313} from './AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313.sol';
+import {AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313} from './AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -18,14 +19,13 @@ contract DeployEthereum is EthereumScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313).creationCode
     );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313).creationCode
+    );
 
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
@@ -36,7 +36,7 @@ contract DeployEthereum is EthereumScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
     // compose actions for validation
     {
@@ -46,6 +46,15 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313).creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum[0] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313).creationCode
+      );
+      payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
 
     // create proposal

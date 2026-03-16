@@ -51,6 +51,10 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313_Test is ProtocolV
     assertLt(crvDeficit, proposal.CRV_DEFICIT_ELIMINATION_CAP());
     assertLt(ensDeficit, proposal.ENS_DEFICIT_ELIMINATION_CAP());
 
+    // Deficit should be greater than indicated in the proposal
+    assertGt(crvDeficit, 394_356 * 1e18);
+    assertGt(ensDeficit, 5_768 * 1e18);
+
     executePayload(vm, address(proposal));
 
     assertEq(AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.CRV_UNDERLYING), 0);

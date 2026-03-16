@@ -45,7 +45,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313_Test is ProtocolV
       AaveV3EthereumAssets.WETH_UNDERLYING
     );
 
-    // Deficit should be less than indicated in the proposal
+    // Deficit should be greater than indicated in the proposal
     assertGt(usdtDeficit, 10_134 * 1e6);
     assertGt(usdcDeficit, 51_185 * 1e6);
     assertGt(wethDeficit, 8.1 * 1e18);

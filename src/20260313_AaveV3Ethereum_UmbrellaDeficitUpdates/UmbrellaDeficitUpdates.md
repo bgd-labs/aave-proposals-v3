@@ -46,6 +46,10 @@ In parallel, the DAO should clear the currently outstanding deficits through the
 
 Once cleared and offsets are raised, the proposed revenue-indexed oracle can operate from a stable reference point, with subsequent offset growth reflecting ongoing realized liquidation-linked revenue and consumption reflecting future deficit-offset usage.
 
+## Implementation design
+
+The proposal is split into two payloads. The first payload can be executed independently under normal conditions. The second payload assumes that the required tokens (CRV/ENS) will be acquired and transferred to the Collector address in parallel. It is separated to account for scenarios where the token acquisition may be delayed or unsuccessful. This ensures that the first payload can be executed on its own, without being blocked by the second, allowing for independent execution at different times.
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260313_AaveV3Ethereum_UmbrellaDeficitUpdates/AaveV3Ethereum_UmbrellaDeficitUpdates_20260313.sol)
