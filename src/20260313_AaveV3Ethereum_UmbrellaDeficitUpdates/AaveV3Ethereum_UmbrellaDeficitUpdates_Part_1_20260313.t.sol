@@ -2,25 +2,25 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Ethereum_UmbrellaDeficitUpdates_20260313} from './AaveV3Ethereum_UmbrellaDeficitUpdates_20260313.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313} from './AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_UmbrellaDeficitUpdates_20260313
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260313_AaveV3Ethereum_UmbrellaDeficitUpdates/AaveV3Ethereum_UmbrellaDeficitUpdates_20260313.t.sol -vv
+ * @dev Test for AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260313_AaveV3Ethereum_UmbrellaDeficitUpdates/AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313.t.sol -vv
  */
-contract AaveV3Ethereum_UmbrellaDeficitUpdates_20260313_Test is ProtocolV3TestBase {
-  AaveV3Ethereum_UmbrellaDeficitUpdates_20260313 internal proposal;
+contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 24640000);
-    proposal = new AaveV3Ethereum_UmbrellaDeficitUpdates_20260313();
+    proposal = new AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313();
   }
 
   /**
@@ -99,24 +99,6 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_20260313_Test is ProtocolV3TestBa
     assertEq(
       UmbrellaEthereum.UMBRELLA.getDeficitOffset(AaveV3EthereumAssets.WETH_UNDERLYING),
       proposal.WETH_DEFICIT_OFFSET()
-    );
-  }
-
-  function test_coverageManagerRole() public {
-    assertFalse(
-      IAccessControl(address(UmbrellaEthereum.UMBRELLA)).hasRole(
-        proposal.COVERAGE_MANAGER_ROLE(),
-        UmbrellaEthereum.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR
-      )
-    );
-
-    executePayload(vm, address(proposal));
-
-    assertTrue(
-      IAccessControl(address(UmbrellaEthereum.UMBRELLA)).hasRole(
-        proposal.COVERAGE_MANAGER_ROLE(),
-        UmbrellaEthereum.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR
-      )
     );
   }
 }

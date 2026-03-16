@@ -2,23 +2,21 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 
 import {UmbrellaBasePayload} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
-
 import {IUmbrellaEngineStructs as IStructs} from 'aave-umbrella/payloads/IUmbrellaEngineStructs.sol';
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
- * @title UmbrellaDeficitUpdates
+ * @title UmbrellaDeficitUpdates_Part_1
  * @author BGD Labs @bgdlabs
  * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0xfcd429c8fcb5fc44a0bea9bf078726ef48b1c76ca1039a8c6c9dff23f4547e30
  * - Discussion: https://governance.aave.com/t/arfc-revenue-indexed-deficit-offsets-for-umbrella/24000
  */
-contract AaveV3Ethereum_UmbrellaDeficitUpdates_20260313 is UmbrellaBasePayload {
+contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePayload {
   uint256 public constant USDT_DEFICIT_OFFSET = 1_600_000 * 1e6;
   uint256 public constant USDC_DEFICIT_OFFSET = 1_300_000 * 1e6;
   uint256 public constant WETH_DEFICIT_OFFSET = 77 * 1e18;
@@ -101,7 +99,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_20260313 is UmbrellaBasePayload {
   }
 
   function coverDeficitOffset() public view override returns (IStructs.CoverDeficit[] memory) {
-    // Cover deficits that don't have slashing configs (Curve, Ens)
+    // Cover deficits that for already existing Umbrella slashing configs
     IStructs.CoverDeficit[] memory coverReserveDeficits = new IStructs.CoverDeficit[](3);
 
     coverReserveDeficits[0] = IStructs.CoverDeficit({
@@ -123,14 +121,5 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_20260313 is UmbrellaBasePayload {
     });
 
     return coverReserveDeficits;
-  }
-
-  function _postExecute() internal override {
-    // Give an ability to cover reserve deficits to financialCommittee via PERMISSIONED_PAYLOADS_CONTROLLER
-    // So, they can cover reserve deficits, that don't have slashing configs (Crv, Ens)
-    IAccessControl(address(UmbrellaEthereum.UMBRELLA)).grantRole(
-      COVERAGE_MANAGER_ROLE,
-      UmbrellaEthereum.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR
-    );
   }
 }
