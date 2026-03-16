@@ -100,5 +100,9 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313_Test is ProtocolV
       UmbrellaEthereum.UMBRELLA.getDeficitOffset(AaveV3EthereumAssets.WETH_UNDERLYING),
       proposal.WETH_DEFICIT_OFFSET()
     );
+    assertEq(
+      UmbrellaEthereum.UMBRELLA.getDeficitOffset(AaveV3EthereumAssets.GHO_UNDERLYING),
+      proposal.GHO_DEFICIT_OFFSET()
+    );
   }
 }
