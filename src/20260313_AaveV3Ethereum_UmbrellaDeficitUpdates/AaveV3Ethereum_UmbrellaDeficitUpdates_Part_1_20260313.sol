@@ -22,8 +22,6 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
   uint256 public constant WETH_DEFICIT_OFFSET = 77 * 1e18;
   uint256 public constant GHO_DEFICIT_OFFSET = 115_000 * 1e18;
 
-  bytes32 public constant COVERAGE_MANAGER_ROLE = keccak256('COVERAGE_MANAGER_ROLE');
-
   constructor() UmbrellaBasePayload(UmbrellaEthereum.UMBRELLA_CONFIG_ENGINE) {}
 
   function _preExecute() internal override {
