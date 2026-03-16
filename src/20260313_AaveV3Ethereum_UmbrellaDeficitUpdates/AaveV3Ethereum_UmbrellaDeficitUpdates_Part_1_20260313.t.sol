@@ -28,7 +28,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313_Test is ProtocolV
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Ethereum_UmbrellaDeficitUpdates_20260313',
+      'AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
