@@ -1,7 +1,7 @@
 ---
 title: "Enable SVR on Base and Arbitrum"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: https://governance.aave.com/t/arfc-aave-chainlink-svr-multi-network-expansion-base-arbitrum/24241
 snapshot: TODO
 ---
 
@@ -28,7 +28,7 @@ After a successful implementation of SVR on Ethereum, we aim to expand its cover
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Ethereum_EnableSVROnBaseAndArbitrum_20260224.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Base_EnableSVROnBaseAndArbitrum_20260224.sol)
 - Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Ethereum_EnableSVROnBaseAndArbitrum_20260224.t.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224.t.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Base_EnableSVROnBaseAndArbitrum_20260224.t.sol)
   [Snapshot](TODO)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-aave-chainlink-svr-multi-network-expansion-base-arbitrum/24241)
 
 ## Copyright
 

@@ -9,7 +9,7 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
  * @title Enable SVR on Base and Arbitrum
  * @author BGD Labs @bgdlabs
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-aave-chainlink-svr-multi-network-expansion-base-arbitrum/24241
  */
 contract AaveV3Ethereum_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecutor {
   function execute() external {

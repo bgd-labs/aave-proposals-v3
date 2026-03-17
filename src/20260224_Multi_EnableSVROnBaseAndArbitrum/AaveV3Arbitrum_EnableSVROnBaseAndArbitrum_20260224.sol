@@ -10,7 +10,7 @@ import {ISvrOracleSteward} from '../interfaces/ISvrOracleSteward.sol';
  * @title Enable SVR on Base and Arbitrum
  * @author BGD Labs @bgdlabs
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-aave-chainlink-svr-multi-network-expansion-base-arbitrum/24241
  */
 contract AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecutor {
   address public constant STEWARD = 0x94E54D858e9293964b4ACd6f8938c831827a31F4;
