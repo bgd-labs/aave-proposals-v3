@@ -18,7 +18,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV36XLayerActivation_20260306 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 54638111);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 55076064);
     proposal = new AaveV3XLayer_AaveV36XLayerActivation_20260306();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -32,7 +32,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
       'AaveV3XLayer_AaveV36XLayerActivation_20260306',
       AaveV3XLayer.POOL,
       address(proposal),
-      false,
+      true,
       false
     );
   }
