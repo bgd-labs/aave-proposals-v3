@@ -36,6 +36,9 @@ import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {AaveV3Mantle} from 'aave-address-book/AaveV3Mantle.sol';
 import {GovernanceV3Mantle} from 'aave-address-book/GovernanceV3Mantle.sol';
 
+import {AaveV3XLayer} from 'aave-address-book/AaveV3XLayer.sol';
+import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
+
 /**
  * @title GhoCCIPChains
  * @author Aave Labs
@@ -76,7 +79,7 @@ library GhoCCIPChains {
    * @return An array with all the ChainInfo constants supported
    */
   function getAllChains() public pure returns (ChainInfo[] memory) {
-    ChainInfo[] memory allChains = new ChainInfo[](8);
+    ChainInfo[] memory allChains = new ChainInfo[](9);
     allChains[0] = ETHEREUM();
     allChains[1] = ARBITRUM();
     allChains[2] = BASE();
@@ -85,6 +88,7 @@ library GhoCCIPChains {
     allChains[5] = INK();
     allChains[6] = PLASMA();
     allChains[7] = MANTLE();
+    allChains[8] = XLAYER();
     return allChains;
   }
 
@@ -347,6 +351,28 @@ library GhoCCIPChains {
         owner: GovernanceV3Mantle.EXECUTOR_LVL_1,
         ccipRouter: CCIPChainRouters.MANTLE,
         linkToken: 0xfe36cF0B43aAe49fBc5cFC5c0AF22a623114E043,
+        isVersion_1_6: true
+      });
+  }
+
+  /**
+   * @notice Returns the ChainInfo constant for X-Layer
+   * @return The ChainInfo constant for X-Layer
+   */
+  function XLAYER() public pure returns (ChainInfo memory) {
+    return
+      ChainInfo({
+        chainSelector: CCIPChainSelectors.XLAYER,
+        ghoToken: 0xDe6539018B095353A40753Dc54C91C68c9487D4E,
+        ghoCCIPTokenPool: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
+        ghoBucketSteward: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
+        ghoAaveCoreSteward: 0x6e637e1E48025E51315d50ab96d5b3be1971A715,
+        ghoCCIPSteward: 0xFAdC082665577b533e62A7B0E067f884cA5C5E8F,
+        aclManager: address(AaveV3XLayer.ACL_MANAGER),
+        tokenAdminRegistry: CCIPChainTokenAdminRegistries.XLAYER,
+        owner: GovernanceV3XLayer.EXECUTOR_LVL_1,
+        ccipRouter: CCIPChainRouters.XLAYER,
+        linkToken: 0x8aF9711B44695a5A081F25AB9903DDB73aCf8FA9,
         isVersion_1_6: true
       });
   }

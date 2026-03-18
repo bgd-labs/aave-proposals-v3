@@ -31,4 +31,7 @@ library CCIPChainTokenAdminRegistries {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-mantle-1
   address constant MANTLE = 0x000A744940eB5D857c0d61d97015DFc83107404F;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
+  address constant XLAYER = 0xeCf1eAEE01E82F3388dECD7f4C3792374f3f72F3;
 }

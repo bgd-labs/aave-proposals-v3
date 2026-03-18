@@ -44,6 +44,12 @@ abstract contract AaveV3GHORemoteLaneTest_PreExecution is AaveV3GHOLaneTest {
 }
 
 abstract contract BaseAaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest {
+  event CCIPMessageSent(
+    uint64 indexed destChainSelector,
+    uint64 indexed sequenceNumber,
+    IInternal.EVM2AnyRampMessage message
+  );
+
   constructor(
     GhoCCIPChains.ChainInfo memory localChainInfo,
     GhoCCIPChains.ChainInfo memory remoteChainInfo,
@@ -87,6 +93,75 @@ abstract contract BaseAaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest
       LOCAL_TOKEN_POOL.getRemotePools(supportedChain.chainSelector)[0],
       abi.encode(supportedChain.ghoCCIPTokenPool),
       'Remote pool mismatch for supported chain'
+    );
+  }
+
+  function _isEthLane_1_6() internal view returns (bool) {
+    address onRamp = LOCAL_CCIP_ROUTER.getOnRamp(ETH_CHAIN_SELECTOR);
+    return
+      keccak256(bytes(IOnRamp_1_6(onRamp).typeAndVersion())) == keccak256(bytes('OnRamp 1.6.0'));
+  }
+
+  function _sendMessageToEth(uint256 amount, uint256 aliceBalance, uint256 bucketLevel) internal {
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory eventArg
+    ) = _getTokenMessage(
+        CCIPSendParams({
+          amount: amount,
+          sender: alice,
+          destChainSelector: ETH_CHAIN_SELECTOR,
+          destToken: address(ETH_GHO_TOKEN)
+        })
+      );
+
+    vm.expectEmit(address(LOCAL_TOKEN_POOL));
+    emit Burned(address(_localOutboundLaneToEth()), amount);
+    vm.expectEmit(address(_localOutboundLaneToEth()));
+    emit CCIPSendRequested(eventArg);
+
+    vm.prank(alice);
+    LOCAL_CCIP_ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
+
+    assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance - amount);
+    assertEq(
+      LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel,
+      bucketLevel - amount
+    );
+  }
+
+  function _sendMessageToEth_1_6(
+    uint256 amount,
+    uint256 aliceBalance,
+    uint256 bucketLevel
+  ) internal {
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2AnyRampMessage memory eventArg
+    ) = _getTokenMessage_1_6(
+        CCIPSendParams({
+          amount: amount,
+          sender: alice,
+          destChainSelector: ETH_CHAIN_SELECTOR,
+          destToken: address(ETH_GHO_TOKEN)
+        })
+      );
+
+    IOnRamp_1_6 onRamp = IOnRamp_1_6(LOCAL_CCIP_ROUTER.getOnRamp(ETH_CHAIN_SELECTOR));
+    uint64 sequenceNumber = onRamp.getExpectedNextSequenceNumber(ETH_CHAIN_SELECTOR);
+
+    vm.expectEmit(address(LOCAL_TOKEN_POOL));
+    emit Burned(address(onRamp), amount);
+    vm.expectEmit(address(onRamp));
+    emit CCIPMessageSent(ETH_CHAIN_SELECTOR, sequenceNumber, eventArg);
+
+    vm.prank(alice);
+    LOCAL_CCIP_ROUTER.ccipSend(ETH_CHAIN_SELECTOR, message);
+
+    assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance - amount);
+    assertEq(
+      LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel,
+      bucketLevel - amount
     );
   }
 
@@ -180,31 +255,11 @@ abstract contract BaseAaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest
     uint256 aliceBalance = LOCAL_GHO_TOKEN.balanceOf(alice);
     uint256 bucketLevel = LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel;
 
-    (
-      IClient.EVM2AnyMessage memory message,
-      IInternal.EVM2EVMMessage memory eventArg
-    ) = _getTokenMessage(
-        CCIPSendParams({
-          amount: amount,
-          sender: alice,
-          destChainSelector: ETH_CHAIN_SELECTOR,
-          destToken: address(ETH_GHO_TOKEN)
-        })
-      );
-
-    vm.expectEmit(address(LOCAL_TOKEN_POOL));
-    emit Burned(address(_localOutboundLaneToEth()), amount);
-    vm.expectEmit(address(_localOutboundLaneToEth()));
-    emit CCIPSendRequested(eventArg);
-
-    vm.prank(alice);
-    LOCAL_CCIP_ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
-
-    assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance - amount);
-    assertEq(
-      LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel,
-      bucketLevel - amount
-    );
+    if (_isEthLane_1_6()) {
+      _sendMessageToEth_1_6(amount, aliceBalance, bucketLevel);
+    } else {
+      _sendMessageToEth(amount, aliceBalance, bucketLevel);
+    }
   }
 
   function test_offRampViaRemoteChainSucceeds(uint256 amount) public virtual {
@@ -257,9 +312,9 @@ abstract contract BaseAaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest
     uint256 aliceBalance = LOCAL_GHO_TOKEN.balanceOf(alice);
 
     vm.expectEmit(address(LOCAL_TOKEN_POOL));
-    emit Minted(address(_localInboundLaneFromEth()), alice, amount);
+    emit Minted(address(_localInboundLaneFromEthAny()), alice, amount);
 
-    vm.prank(address(_localInboundLaneFromEth()));
+    vm.prank(address(_localInboundLaneFromEthAny()));
     LOCAL_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
@@ -327,7 +382,7 @@ abstract contract BaseAaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest
 
     bytes memory remoteTokenPoolEncoded = abi.encode(address(REMOTE_TOKEN_POOL));
 
-    vm.prank(address(_localInboundLaneFromEth()));
+    vm.prank(address(_localInboundLaneFromEthAny()));
     vm.expectRevert(
       abi.encodeWithSelector(InvalidSourcePoolAddress.selector, remoteTokenPoolEncoded)
     );
@@ -413,12 +468,6 @@ abstract contract AaveV3GHORemoteLaneTest_PostExecution is
 abstract contract AaveV3GHORemoteLane_1_6_Test_PostExecution is
   BaseAaveV3GHORemoteLaneTest_PostExecution
 {
-  event CCIPMessageSent(
-    uint64 indexed destChainSelector,
-    uint64 indexed sequenceNumber,
-    IInternal.EVM2AnyRampMessage message
-  );
-
   constructor(
     GhoCCIPChains.ChainInfo memory localChainInfo,
     GhoCCIPChains.ChainInfo memory remoteChainInfo,
@@ -443,6 +492,13 @@ abstract contract AaveV3GHORemoteLane_1_6_Test_PostExecution is
 
   function _getLocalInboundLaneFromRemoteAddress() internal view override returns (address) {
     return address(_localInboundLaneFromRemote_1_6());
+  }
+
+  function test_cannotUseRemoteChainOffRampForEthMessages() public override {
+    // In CCIP 1.6, the singleton OffRamp handles all source chains,
+    // so it is a valid offRamp for both ETH and remote chain selectors.
+    // This access control test only applies to 1.5 dedicated offRamps.
+    vm.skip(true);
   }
 
   function test_sendMessageToRemoteChainSucceeds(uint256 amount) public override {

@@ -99,9 +99,25 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     return IEVM2EVMOnRamp(_getOnRamp(ETH_CHAIN_SELECTOR));
   }
 
+  function _localOutboundLaneToEth_1_6() internal view virtual returns (IOnRamp_1_6) {
+    return IOnRamp_1_6(_getOnRamp(ETH_CHAIN_SELECTOR));
+  }
+
   // Local Chain's inbound lane from Ethereum (OffRamp address)
   function _localInboundLaneFromEth() internal view virtual returns (IEVM2EVMOffRamp_1_5) {
     return IEVM2EVMOffRamp_1_5(_getOffRamp(ETH_CHAIN_SELECTOR));
+  }
+
+  function _localInboundLaneFromEth_1_6() internal view virtual returns (IOffRamp_1_6) {
+    return IOffRamp_1_6(_getOffRamp_1_6(ETH_CHAIN_SELECTOR));
+  }
+
+  function _localInboundLaneFromEthAny() internal view virtual returns (address) {
+    // Try 1.5 first
+    address offRamp = _getOffRamp(ETH_CHAIN_SELECTOR);
+    if (offRamp != address(0)) return offRamp;
+    // Fall back to 1.6
+    return _getOffRamp_1_6(ETH_CHAIN_SELECTOR);
   }
 
   // Local Chain's outbound lane to Remote Chain (OnRamp address)

@@ -31,4 +31,7 @@ library CCIPChainSelectors {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-mantle-1
   uint64 constant MANTLE = 1556008542357238666;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
+  uint64 constant XLAYER = 3016212468291539606;
 }

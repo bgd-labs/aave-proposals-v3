@@ -338,12 +338,6 @@ abstract contract AaveV3GHOEthereumRemoteLaneTest_PostExecution is
 abstract contract AaveV3GHOEthereumRemoteLane_1_6_Test_PostExecution is
   BaseAaveV3GHOEthereumRemoteLaneTest_PostExecution
 {
-  event CCIPMessageSent(
-    uint64 indexed destChainSelector,
-    uint64 indexed sequenceNumber,
-    IInternal.EVM2AnyRampMessage message
-  );
-
   constructor(
     GhoCCIPChains.ChainInfo memory remoteChainInfo,
     uint256 blockNumber
@@ -458,7 +452,7 @@ abstract contract AaveV3GHOEthereumRemoteLane_1_6_Test_PostExecution is
     vm.expectEmit(address(LOCAL_TOKEN_POOL));
     emit Locked(address(onRamp), amount);
     vm.expectEmit(address(onRamp));
-    emit CCIPMessageSent(REMOTE_CHAIN_SELECTOR, sequenceNumber, eventArg);
+    emit CCIPMessageSent(supportedChains[chainIndex].chainSelector, sequenceNumber, eventArg);
 
     vm.prank(alice);
     LOCAL_CCIP_ROUTER.ccipSend(supportedChains[chainIndex].chainSelector, message);
