@@ -136,6 +136,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 - The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
 - The deployed pool and other permissions have been programmatically verified.
+- In addition, we have also checked the code diffs of the deployed X Layer contracts with the production instance, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/8).
 
 ## References
 
