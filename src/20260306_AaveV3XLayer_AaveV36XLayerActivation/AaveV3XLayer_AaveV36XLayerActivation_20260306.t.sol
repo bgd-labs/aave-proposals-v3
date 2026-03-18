@@ -48,6 +48,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
     _validateDustbinFundsAndLMAdmin(proposal.xSOL(), proposal.xSOL_SEED_AMOUNT());
     _validateDustbinFundsAndLMAdmin(proposal.xBETH(), proposal.xBETH_SEED_AMOUNT());
     _validateDustbinFundsAndLMAdmin(proposal.xOKSOL(), proposal.xOKSOL_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.GHO(), proposal.GHO_SEED_AMOUNT());
   }
 
   function test_guardianPoolAdmin() public {
@@ -95,5 +96,13 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
     deal(proposal.xSOL(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xSOL_SEED_AMOUNT());
     deal(proposal.xBETH(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xBETH_SEED_AMOUNT());
     deal(proposal.xOKSOL(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xOKSOL_SEED_AMOUNT());
+    deal(proposal.GHO(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
+
+    // mock increase totalSupply so the defaultTest does not complain because of `PL_SUPPLY_CAP_GT_TOTAL_SUPPLY` require
+    vm.mockCall(
+      proposal.GHO(),
+      abi.encodeWithSelector(IERC20.totalSupply.selector),
+      abi.encode(5_000_001)
+    );
   }
 }

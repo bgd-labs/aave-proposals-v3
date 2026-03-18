@@ -217,6 +217,48 @@
 | interestRate | <pre lang="mermaid">xychart-beta&#13;title "Interest Rate Model"&#13;x-axis "Utilization (%)" [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]&#13;y-axis "Rate (%)"&#13;line [0, 0.7777777777777778, 1.5555555555555556, 2.3333333333333335, 3.111111111111111, 3.888888888888889, 4.666666666666667, 5.444444444444445, 6.222222222222222, 7, 34.27272727272727, 61.54545454545455, 88.81818181818181, 116.0909090909091, 143.36363636363637, 170.63636363636363, 197.9090909090909, 225.1818181818182, 252.45454545454547, 279.72727272727275, 307]&#13;</pre> |
 
 
+#### GHO ([0xDe6539018B095353A40753Dc54C91C68c9487D4E](https://www.oklink.com/xlayer/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E))
+
+| description | value |
+| --- | --- |
+| id | 8 |
+| decimals | 18 |
+| isActive | :white_check_mark: |
+| isFrozen | :x: |
+| isPaused | :x: |
+| supplyCap | 5,000,000 GHO |
+| borrowCap | 4,800,000 GHO |
+| debtCeiling | 0 $ [0] |
+| isSiloed | :x: |
+| isFlashloanable | :white_check_mark: |
+| oracle | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://www.oklink.com/xlayer/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |
+| oracleDecimals | 8 |
+| oracleLatestAnswer | 1 $ |
+| usageAsCollateralEnabled | :x: |
+| ltv | 0 % [0] |
+| liquidationThreshold | 0 % [0] |
+| liquidationBonus | 0 % |
+| liquidationProtocolFee | 0 % [0] |
+| reserveFactor | 10 % [1000] |
+| aToken | [0x77188335A21f4C409d2CfeDe3195A7B5f28651b0](https://www.oklink.com/xlayer/address/0x77188335A21f4C409d2CfeDe3195A7B5f28651b0) |
+| aTokenName | Aave XLayer GHO |
+| aTokenSymbol | aXlrGHO |
+| variableDebtToken | [0x6a82EFFC620ec646429e8A1aE0E5DcC6C6ba30aA](https://www.oklink.com/xlayer/address/0x6a82EFFC620ec646429e8A1aE0E5DcC6C6ba30aA) |
+| variableDebtTokenName | Aave XLayer Variable Debt GHO |
+| variableDebtTokenSymbol | variableDebtXlrGHO |
+| borrowingEnabled | :white_check_mark: |
+| isBorrowableInIsolation | :x: |
+| interestRateStrategy | [0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B](https://www.oklink.com/xlayer/address/0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| aTokenUnderlyingBalance | 10 GHO [10000000000000000000] |
+| virtualBalance | 10 GHO [10000000000000000000] |
+| optimalUsageRatio | 90 % |
+| maxVariableBorrowRate | 50 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 5 % |
+| variableRateSlope2 | 45 % |
+| interestRate | <pre lang="mermaid">xychart-beta&#13;title "Interest Rate Model"&#13;x-axis "Utilization (%)" [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]&#13;y-axis "Rate (%)"&#13;line [0, 0.2777777777777778, 0.5555555555555556, 0.8333333333333334, 1.1111111111111112, 1.3888888888888888, 1.6666666666666667, 1.9444444444444444, 2.2222222222222223, 2.5, 2.7777777777777777, 3.0555555555555554, 3.3333333333333335, 3.611111111111111, 3.888888888888889, 4.166666666666667, 4.444444444444445, 4.722222222222222, 5, 27.5, 50]&#13;</pre> |
+
+
 #### xETH ([0xE7B000003A45145decf8a28FC755aD5eC5EA025A](https://www.oklink.com/xlayer/address/0xE7B000003A45145decf8a28FC755aD5eC5EA025A))
 
 | description | value |
@@ -348,51 +390,51 @@
 
 ## EMode changes
 
-### EMode: xBTC__USDT0_USDG (id: 1)
+### EMode: xBTC__USDT0_USDG_GHO (id: 1)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | xBTC__USDT0_USDG |
+| label | - | xBTC__USDT0_USDG_GHO |
 | ltv | - | 78 % |
 | liquidationThreshold | - | 81 % |
 | liquidationBonus | - | 6 % [10600] |
-| borrowableBitmap | - | USD₮0, USDG |
+| borrowableBitmap | - | USD₮0, USDG, GHO |
 | collateralBitmap | - | xBTC |
 
 
-### EMode: xETH__USDT0_USDG (id: 2)
+### EMode: xETH__USDT0_USDG_GHO (id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | xETH__USDT0_USDG |
+| label | - | xETH__USDT0_USDG_GHO |
 | ltv | - | 78 % |
 | liquidationThreshold | - | 80 % |
 | liquidationBonus | - | 6 % [10600] |
-| borrowableBitmap | - | USD₮0, USDG |
+| borrowableBitmap | - | USD₮0, USDG, GHO |
 | collateralBitmap | - | xETH |
 
 
-### EMode: xSOL__USDT0_USDG (id: 3)
+### EMode: xSOL__USDT0_USDG_GHO (id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | xSOL__USDT0_USDG |
+| label | - | xSOL__USDT0_USDG_GHO |
 | ltv | - | 65 % |
 | liquidationThreshold | - | 70 % |
 | liquidationBonus | - | 7.5 % [10750] |
-| borrowableBitmap | - | USD₮0, USDG |
+| borrowableBitmap | - | USD₮0, USDG, GHO |
 | collateralBitmap | - | xSOL |
 
 
-### EMode: WOKB__USDT0_USDG (id: 4)
+### EMode: WOKB__USDT0_USDG_GHO (id: 4)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | WOKB__USDT0_USDG |
+| label | - | WOKB__USDT0_USDG_GHO |
 | ltv | - | 50 % |
 | liquidationThreshold | - | 55 % |
 | liquidationBonus | - | 10 % [11000] |
-| borrowableBitmap | - | USD₮0, USDG |
+| borrowableBitmap | - | USD₮0, USDG, GHO |
 | collateralBitmap | - | WOKB |
 
 
@@ -434,388 +476,430 @@
 | 5 | AssetSourceUpdated(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), source: 0xF959E1B5cA535C28aD24F7f672Bf1A93900810cF) |
 | 6 | AssetSourceUpdated(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), source: 0x2c54487c1a94b753987d980f98b13E8F313A7B44) |
 | 7 | AssetSourceUpdated(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), source: 0x558891fF1823d6f38A4f2102D357C307a1B09bF6) |
+| 8 | AssetSourceUpdated(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), source: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |
 
 #### 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297
 
 | index | event |
 | --- | --- |
-| 8 | Initialized(underlyingAsset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 6, aTokenName: Aave XLayer USDT0, aTokenSymbol: aXlrUSDT0, params: 0x) |
-| 164 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals]) |
-| 165 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 9 | Initialized(underlyingAsset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 6, aTokenName: Aave XLayer USDT0, aTokenSymbol: aXlrUSDT0, params: 0x) |
+| 183 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals]) |
+| 184 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0x04837866D0cb0cd2D8F60fBCa83B4a24b3a7c8ac
 
 | index | event |
 | --- | --- |
-| 9 | Initialized(underlyingAsset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 6, debtTokenName: Aave XLayer Variable Debt USDT0, debtTokenSymbol: variableDebtXlrUSDT0, params: 0x) |
+| 10 | Initialized(underlyingAsset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 6, debtTokenName: Aave XLayer Variable Debt USDT0, debtTokenSymbol: variableDebtXlrUSDT0, params: 0x) |
 
 #### 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B
 
 | index | event |
 | --- | --- |
-| 10 | RateDataUpdate(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), optimalUsageRatio: 9000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 4000) |
-| 15 | RateDataUpdate(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), optimalUsageRatio: 8000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 4500) |
-| 20 | RateDataUpdate(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), optimalUsageRatio: 8000, baseVariableBorrowRate: 0, variableRateSlope1: 275, variableRateSlope2: 4000) |
-| 25 | RateDataUpdate(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), optimalUsageRatio: 4500, baseVariableBorrowRate: 0, variableRateSlope1: 700, variableRateSlope2: 30000) |
-| 30 | RateDataUpdate(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), optimalUsageRatio: 9000, baseVariableBorrowRate: 0, variableRateSlope1: 250, variableRateSlope2: 2000) |
-| 35 | RateDataUpdate(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), optimalUsageRatio: 8000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 2000) |
-| 40 | RateDataUpdate(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), optimalUsageRatio: 4500, baseVariableBorrowRate: 0, variableRateSlope1: 700, variableRateSlope2: 30000) |
-| 45 | RateDataUpdate(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), optimalUsageRatio: 4500, baseVariableBorrowRate: 0, variableRateSlope1: 700, variableRateSlope2: 30000) |
+| 11 | RateDataUpdate(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), optimalUsageRatio: 9000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 4000) |
+| 16 | RateDataUpdate(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), optimalUsageRatio: 8000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 4500) |
+| 21 | RateDataUpdate(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), optimalUsageRatio: 8000, baseVariableBorrowRate: 0, variableRateSlope1: 275, variableRateSlope2: 4000) |
+| 26 | RateDataUpdate(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), optimalUsageRatio: 4500, baseVariableBorrowRate: 0, variableRateSlope1: 700, variableRateSlope2: 30000) |
+| 31 | RateDataUpdate(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), optimalUsageRatio: 9000, baseVariableBorrowRate: 0, variableRateSlope1: 250, variableRateSlope2: 2000) |
+| 36 | RateDataUpdate(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), optimalUsageRatio: 8000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 2000) |
+| 41 | RateDataUpdate(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), optimalUsageRatio: 4500, baseVariableBorrowRate: 0, variableRateSlope1: 700, variableRateSlope2: 30000) |
+| 46 | RateDataUpdate(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), optimalUsageRatio: 4500, baseVariableBorrowRate: 0, variableRateSlope1: 700, variableRateSlope2: 30000) |
+| 51 | RateDataUpdate(reserve: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), optimalUsageRatio: 9000, baseVariableBorrowRate: 0, variableRateSlope1: 500, variableRateSlope2: 4500) |
 
 #### 0x1408b48B6A610948f04813EA6b2F438A6BBAd2f2 (AaveV3XLayer.POOL_CONFIGURATOR)
 
 | index | event |
 | --- | --- |
-| 11 | ReserveInitialized(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), aToken: 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x04837866D0cb0cd2D8F60fBCa83B4a24b3a7c8ac, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 12 | ReserveInterestRateDataChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000002328000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000fa0) |
-| 16 | ReserveInitialized(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), aToken: 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xE6FC328D4DECB2Ae00E711743C04612ec963be46, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 17 | ReserveInterestRateDataChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000001194) |
-| 21 | ReserveInitialized(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), aToken: 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x5F874396f28dfdBd6bA2be80F52FD013Ce388C75, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 22 | ReserveInterestRateDataChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001130000000000000000000000000000000000000000000000000000000000000fa0) |
-| 26 | ReserveInitialized(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), aToken: 0x3ea3A4038FbA5757A9A68de920b44698d7326A59, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xb20752a1D7D16E54cBaad5137ba6C0a087752803, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 27 | ReserveInterestRateDataChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002bc0000000000000000000000000000000000000000000000000000000000007530) |
-| 31 | ReserveInitialized(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), aToken: 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xB756Fc7065369602f2cCb8356283E8b997fDfe2a, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 32 | ReserveInterestRateDataChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000002328000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000007d0) |
-| 36 | ReserveInitialized(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), aToken: 0x523dCe1b164327818fc5B41278fAe41f6B5753FE, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x4aF568Cb78Ade0e45E42f9B6d3deC0ff81E788af, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 37 | ReserveInterestRateDataChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f400000000000000000000000000000000000000000000000000000000000007d0) |
-| 41 | ReserveInitialized(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), aToken: 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xe98AB0041B3BC09981D75A46aa78CC5e647a3906, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 42 | ReserveInterestRateDataChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002bc0000000000000000000000000000000000000000000000000000000000007530) |
-| 46 | ReserveInitialized(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), aToken: 0x38811564090aAb7bB455c5b771e26201a3535a01, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x3bEB61760eC29C2031843811dd5D51Bcbdb73B5e, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
-| 47 | ReserveInterestRateDataChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002bc0000000000000000000000000000000000000000000000000000000000007530) |
-| 48 | SupplyCapChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldSupplyCap: 0, newSupplyCap: 50000000) |
-| 49 | BorrowCapChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldBorrowCap: 0, newBorrowCap: 48000000) |
-| 50 | SupplyCapChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldSupplyCap: 0, newSupplyCap: 5000000) |
-| 51 | BorrowCapChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldBorrowCap: 0, newBorrowCap: 4250000) |
-| 52 | SupplyCapChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldSupplyCap: 0, newSupplyCap: 150) |
-| 53 | BorrowCapChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldBorrowCap: 0, newBorrowCap: 20) |
-| 54 | SupplyCapChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldSupplyCap: 0, newSupplyCap: 125000) |
-| 55 | BorrowCapChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldBorrowCap: 0, newBorrowCap: 1) |
-| 56 | SupplyCapChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldSupplyCap: 0, newSupplyCap: 5000) |
-| 57 | BorrowCapChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldBorrowCap: 0, newBorrowCap: 1300) |
-| 58 | SupplyCapChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldSupplyCap: 0, newSupplyCap: 110000) |
-| 59 | BorrowCapChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldBorrowCap: 0, newBorrowCap: 14000) |
-| 60 | SupplyCapChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldSupplyCap: 0, newSupplyCap: 5700) |
-| 61 | BorrowCapChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldBorrowCap: 0, newBorrowCap: 1) |
-| 62 | SupplyCapChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldSupplyCap: 0, newSupplyCap: 135000) |
-| 63 | BorrowCapChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldBorrowCap: 0, newBorrowCap: 1) |
-| 64 | ReserveBorrowing(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), enabled: true) |
-| 65 | BorrowableInIsolationChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), borrowable: false) |
-| 66 | SiloedBorrowingChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldState: false, newState: false) |
-| 67 | ReserveFactorChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldReserveFactor: 0, newReserveFactor: 1000) |
-| 69 | ReserveFlashLoaning(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), enabled: true) |
-| 70 | ReserveBorrowing(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), enabled: true) |
-| 71 | BorrowableInIsolationChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), borrowable: false) |
-| 72 | SiloedBorrowingChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldState: false, newState: false) |
-| 73 | ReserveFactorChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldReserveFactor: 0, newReserveFactor: 1000) |
-| 75 | ReserveFlashLoaning(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), enabled: true) |
-| 76 | ReserveBorrowing(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), enabled: true) |
-| 77 | BorrowableInIsolationChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), borrowable: false) |
-| 78 | SiloedBorrowingChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldState: false, newState: false) |
-| 79 | ReserveFactorChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldReserveFactor: 0, newReserveFactor: 1000) |
-| 81 | ReserveFlashLoaning(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), enabled: true) |
-| 82 | ReserveBorrowing(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), enabled: false) |
-| 83 | BorrowableInIsolationChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), borrowable: false) |
-| 84 | SiloedBorrowingChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldState: false, newState: false) |
-| 85 | ReserveFactorChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldReserveFactor: 0, newReserveFactor: 1500) |
-| 87 | ReserveFlashLoaning(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), enabled: true) |
-| 88 | ReserveBorrowing(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), enabled: true) |
-| 89 | BorrowableInIsolationChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), borrowable: false) |
-| 90 | SiloedBorrowingChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldState: false, newState: false) |
-| 91 | ReserveFactorChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldReserveFactor: 0, newReserveFactor: 1500) |
-| 93 | ReserveFlashLoaning(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), enabled: true) |
-| 94 | ReserveBorrowing(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), enabled: true) |
-| 95 | BorrowableInIsolationChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), borrowable: false) |
-| 96 | SiloedBorrowingChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldState: false, newState: false) |
-| 97 | ReserveFactorChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldReserveFactor: 0, newReserveFactor: 1500) |
-| 99 | ReserveFlashLoaning(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), enabled: true) |
-| 100 | ReserveBorrowing(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), enabled: false) |
-| 101 | BorrowableInIsolationChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), borrowable: false) |
-| 102 | SiloedBorrowingChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldState: false, newState: false) |
-| 103 | ReserveFactorChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldReserveFactor: 0, newReserveFactor: 1500) |
-| 105 | ReserveFlashLoaning(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), enabled: true) |
-| 106 | ReserveBorrowing(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), enabled: false) |
-| 107 | BorrowableInIsolationChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), borrowable: false) |
-| 108 | SiloedBorrowingChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldState: false, newState: false) |
-| 109 | ReserveFactorChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldReserveFactor: 0, newReserveFactor: 1500) |
-| 111 | ReserveFlashLoaning(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), enabled: true) |
-| 112 | CollateralConfigurationChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), ltv: 7000, liquidationThreshold: 7500, liquidationBonus: 10750) |
-| 114 | DebtCeilingChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldDebtCeiling: 0, newDebtCeiling: 0) |
-| 115 | LiquidationProtocolFeeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldFee: 0, newFee: 1000) |
-| 116 | LiquidationProtocolFeeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldFee: 0, newFee: 1000) |
-| 117 | CollateralConfigurationChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), ltv: 7000, liquidationThreshold: 7500, liquidationBonus: 10750) |
-| 119 | DebtCeilingChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldDebtCeiling: 0, newDebtCeiling: 0) |
-| 120 | LiquidationProtocolFeeChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldFee: 0, newFee: 1000) |
-| 121 | LiquidationProtocolFeeChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldFee: 0, newFee: 1000) |
-| 122 | CollateralConfigurationChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), ltv: 7000, liquidationThreshold: 7500, liquidationBonus: 10750) |
-| 124 | DebtCeilingChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldDebtCeiling: 0, newDebtCeiling: 0) |
-| 125 | LiquidationProtocolFeeChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldFee: 0, newFee: 1500) |
-| 126 | CollateralConfigurationChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), ltv: 6000, liquidationThreshold: 6500, liquidationBonus: 10750) |
-| 128 | DebtCeilingChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldDebtCeiling: 0, newDebtCeiling: 0) |
-| 129 | LiquidationProtocolFeeChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldFee: 0, newFee: 1000) |
-| 130 | CollateralConfigurationChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), ltv: 6700, liquidationThreshold: 7200, liquidationBonus: 10750) |
-| 132 | DebtCeilingChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldDebtCeiling: 0, newDebtCeiling: 0) |
-| 133 | LiquidationProtocolFeeChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldFee: 0, newFee: 1000) |
-| 134 | CollateralConfigurationChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), ltv: 5500, liquidationThreshold: 6000, liquidationBonus: 10750) |
-| 136 | DebtCeilingChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldDebtCeiling: 0, newDebtCeiling: 0) |
-| 137 | LiquidationProtocolFeeChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldFee: 0, newFee: 1000) |
-| 138 | EModeCategoryAdded(categoryId: 1, ltv: 7800, liquidationThreshold: 8100, liquidationBonus: 10600, oracle: 0x0000000000000000000000000000000000000000, label: xBTC__USDT0_USDG) |
-| 139 | AssetCollateralInEModeChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), categoryId: 1, collateral: true) |
-| 140 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 1, borrowable: true) |
-| 141 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 1, borrowable: true) |
-| 142 | EModeCategoryAdded(categoryId: 2, ltv: 7800, liquidationThreshold: 8000, liquidationBonus: 10600, oracle: 0x0000000000000000000000000000000000000000, label: xETH__USDT0_USDG) |
-| 143 | AssetCollateralInEModeChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), categoryId: 2, collateral: true) |
-| 144 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 2, borrowable: true) |
-| 145 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 2, borrowable: true) |
-| 146 | EModeCategoryAdded(categoryId: 3, ltv: 6500, liquidationThreshold: 7000, liquidationBonus: 10750, oracle: 0x0000000000000000000000000000000000000000, label: xSOL__USDT0_USDG) |
-| 147 | AssetCollateralInEModeChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), categoryId: 3, collateral: true) |
-| 148 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 3, borrowable: true) |
-| 149 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 3, borrowable: true) |
-| 150 | EModeCategoryAdded(categoryId: 4, ltv: 5000, liquidationThreshold: 5500, liquidationBonus: 11000, oracle: 0x0000000000000000000000000000000000000000, label: WOKB__USDT0_USDG) |
-| 151 | AssetCollateralInEModeChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), categoryId: 4, collateral: true) |
-| 152 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 4, borrowable: true) |
-| 153 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 4, borrowable: true) |
-| 154 | EModeCategoryAdded(categoryId: 5, ltv: 8800, liquidationThreshold: 9000, liquidationBonus: 10200, oracle: 0x0000000000000000000000000000000000000000, label: xBETH__xETH) |
-| 155 | AssetCollateralInEModeChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), categoryId: 5, collateral: true) |
-| 156 | AssetBorrowableInEModeChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), categoryId: 5, borrowable: true) |
-| 157 | EModeCategoryAdded(categoryId: 6, ltv: 8800, liquidationThreshold: 9000, liquidationBonus: 10200, oracle: 0x0000000000000000000000000000000000000000, label: xOKSOL__xSOL) |
-| 158 | AssetCollateralInEModeChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), categoryId: 6, collateral: true) |
-| 159 | AssetBorrowableInEModeChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), categoryId: 6, borrowable: true) |
+| 12 | ReserveInitialized(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), aToken: 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x04837866D0cb0cd2D8F60fBCa83B4a24b3a7c8ac, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 13 | ReserveInterestRateDataChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000002328000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000fa0) |
+| 17 | ReserveInitialized(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), aToken: 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xE6FC328D4DECB2Ae00E711743C04612ec963be46, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 18 | ReserveInterestRateDataChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000001194) |
+| 22 | ReserveInitialized(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), aToken: 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x5F874396f28dfdBd6bA2be80F52FD013Ce388C75, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 23 | ReserveInterestRateDataChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001130000000000000000000000000000000000000000000000000000000000000fa0) |
+| 27 | ReserveInitialized(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), aToken: 0x3ea3A4038FbA5757A9A68de920b44698d7326A59, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xb20752a1D7D16E54cBaad5137ba6C0a087752803, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 28 | ReserveInterestRateDataChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002bc0000000000000000000000000000000000000000000000000000000000007530) |
+| 32 | ReserveInitialized(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), aToken: 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xB756Fc7065369602f2cCb8356283E8b997fDfe2a, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 33 | ReserveInterestRateDataChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000002328000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000007d0) |
+| 37 | ReserveInitialized(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), aToken: 0x523dCe1b164327818fc5B41278fAe41f6B5753FE, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x4aF568Cb78Ade0e45E42f9B6d3deC0ff81E788af, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 38 | ReserveInterestRateDataChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f400000000000000000000000000000000000000000000000000000000000007d0) |
+| 42 | ReserveInitialized(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), aToken: 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0xe98AB0041B3BC09981D75A46aa78CC5e647a3906, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 43 | ReserveInterestRateDataChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002bc0000000000000000000000000000000000000000000000000000000000007530) |
+| 47 | ReserveInitialized(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), aToken: 0x38811564090aAb7bB455c5b771e26201a3535a01, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x3bEB61760eC29C2031843811dd5D51Bcbdb73B5e, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 48 | ReserveInterestRateDataChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002bc0000000000000000000000000000000000000000000000000000000000007530) |
+| 52 | ReserveInitialized(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), aToken: 0x77188335A21f4C409d2CfeDe3195A7B5f28651b0, stableDebtToken: 0x0000000000000000000000000000000000000000, variableDebtToken: 0x6a82EFFC620ec646429e8A1aE0E5DcC6C6ba30aA, interestRateStrategyAddress: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B) |
+| 53 | ReserveInterestRateDataChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), strategy: 0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B, data: 0x0000000000000000000000000000000000000000000000000000000000002328000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000001194) |
+| 54 | SupplyCapChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldSupplyCap: 0, newSupplyCap: 50000000) |
+| 55 | BorrowCapChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldBorrowCap: 0, newBorrowCap: 48000000) |
+| 56 | SupplyCapChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldSupplyCap: 0, newSupplyCap: 5000000) |
+| 57 | BorrowCapChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldBorrowCap: 0, newBorrowCap: 4250000) |
+| 58 | SupplyCapChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldSupplyCap: 0, newSupplyCap: 150) |
+| 59 | BorrowCapChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldBorrowCap: 0, newBorrowCap: 20) |
+| 60 | SupplyCapChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldSupplyCap: 0, newSupplyCap: 125000) |
+| 61 | BorrowCapChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldBorrowCap: 0, newBorrowCap: 1) |
+| 62 | SupplyCapChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldSupplyCap: 0, newSupplyCap: 5000) |
+| 63 | BorrowCapChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldBorrowCap: 0, newBorrowCap: 1300) |
+| 64 | SupplyCapChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldSupplyCap: 0, newSupplyCap: 110000) |
+| 65 | BorrowCapChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldBorrowCap: 0, newBorrowCap: 14000) |
+| 66 | SupplyCapChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldSupplyCap: 0, newSupplyCap: 5700) |
+| 67 | BorrowCapChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldBorrowCap: 0, newBorrowCap: 1) |
+| 68 | SupplyCapChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldSupplyCap: 0, newSupplyCap: 135000) |
+| 69 | BorrowCapChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldBorrowCap: 0, newBorrowCap: 1) |
+| 70 | SupplyCapChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), oldSupplyCap: 0, newSupplyCap: 5000000) |
+| 71 | BorrowCapChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), oldBorrowCap: 0, newBorrowCap: 4800000) |
+| 72 | ReserveBorrowing(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), enabled: true) |
+| 73 | BorrowableInIsolationChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), borrowable: false) |
+| 74 | SiloedBorrowingChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldState: false, newState: false) |
+| 75 | ReserveFactorChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldReserveFactor: 0, newReserveFactor: 1000) |
+| 77 | ReserveFlashLoaning(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), enabled: true) |
+| 78 | ReserveBorrowing(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), enabled: true) |
+| 79 | BorrowableInIsolationChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), borrowable: false) |
+| 80 | SiloedBorrowingChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldState: false, newState: false) |
+| 81 | ReserveFactorChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldReserveFactor: 0, newReserveFactor: 1000) |
+| 83 | ReserveFlashLoaning(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), enabled: true) |
+| 84 | ReserveBorrowing(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), enabled: true) |
+| 85 | BorrowableInIsolationChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), borrowable: false) |
+| 86 | SiloedBorrowingChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldState: false, newState: false) |
+| 87 | ReserveFactorChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldReserveFactor: 0, newReserveFactor: 1000) |
+| 89 | ReserveFlashLoaning(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), enabled: true) |
+| 90 | ReserveBorrowing(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), enabled: false) |
+| 91 | BorrowableInIsolationChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), borrowable: false) |
+| 92 | SiloedBorrowingChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldState: false, newState: false) |
+| 93 | ReserveFactorChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldReserveFactor: 0, newReserveFactor: 1500) |
+| 95 | ReserveFlashLoaning(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), enabled: true) |
+| 96 | ReserveBorrowing(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), enabled: true) |
+| 97 | BorrowableInIsolationChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), borrowable: false) |
+| 98 | SiloedBorrowingChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldState: false, newState: false) |
+| 99 | ReserveFactorChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldReserveFactor: 0, newReserveFactor: 1500) |
+| 101 | ReserveFlashLoaning(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), enabled: true) |
+| 102 | ReserveBorrowing(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), enabled: true) |
+| 103 | BorrowableInIsolationChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), borrowable: false) |
+| 104 | SiloedBorrowingChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldState: false, newState: false) |
+| 105 | ReserveFactorChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldReserveFactor: 0, newReserveFactor: 1500) |
+| 107 | ReserveFlashLoaning(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), enabled: true) |
+| 108 | ReserveBorrowing(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), enabled: false) |
+| 109 | BorrowableInIsolationChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), borrowable: false) |
+| 110 | SiloedBorrowingChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldState: false, newState: false) |
+| 111 | ReserveFactorChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldReserveFactor: 0, newReserveFactor: 1500) |
+| 113 | ReserveFlashLoaning(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), enabled: true) |
+| 114 | ReserveBorrowing(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), enabled: false) |
+| 115 | BorrowableInIsolationChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), borrowable: false) |
+| 116 | SiloedBorrowingChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldState: false, newState: false) |
+| 117 | ReserveFactorChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldReserveFactor: 0, newReserveFactor: 1500) |
+| 119 | ReserveFlashLoaning(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), enabled: true) |
+| 120 | ReserveBorrowing(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), enabled: true) |
+| 121 | BorrowableInIsolationChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), borrowable: false) |
+| 122 | SiloedBorrowingChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), oldState: false, newState: false) |
+| 123 | ReserveFactorChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), oldReserveFactor: 0, newReserveFactor: 1000) |
+| 125 | ReserveFlashLoaning(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), enabled: true) |
+| 126 | CollateralConfigurationChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), ltv: 7000, liquidationThreshold: 7500, liquidationBonus: 10750) |
+| 128 | DebtCeilingChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldDebtCeiling: 0, newDebtCeiling: 0) |
+| 129 | LiquidationProtocolFeeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), oldFee: 0, newFee: 1000) |
+| 130 | LiquidationProtocolFeeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), oldFee: 0, newFee: 1000) |
+| 131 | CollateralConfigurationChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), ltv: 7000, liquidationThreshold: 7500, liquidationBonus: 10750) |
+| 133 | DebtCeilingChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldDebtCeiling: 0, newDebtCeiling: 0) |
+| 134 | LiquidationProtocolFeeChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), oldFee: 0, newFee: 1000) |
+| 135 | LiquidationProtocolFeeChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), oldFee: 0, newFee: 1000) |
+| 136 | CollateralConfigurationChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), ltv: 7000, liquidationThreshold: 7500, liquidationBonus: 10750) |
+| 138 | DebtCeilingChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldDebtCeiling: 0, newDebtCeiling: 0) |
+| 139 | LiquidationProtocolFeeChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), oldFee: 0, newFee: 1500) |
+| 140 | CollateralConfigurationChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), ltv: 6000, liquidationThreshold: 6500, liquidationBonus: 10750) |
+| 142 | DebtCeilingChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldDebtCeiling: 0, newDebtCeiling: 0) |
+| 143 | LiquidationProtocolFeeChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), oldFee: 0, newFee: 1000) |
+| 144 | CollateralConfigurationChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), ltv: 6700, liquidationThreshold: 7200, liquidationBonus: 10750) |
+| 146 | DebtCeilingChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldDebtCeiling: 0, newDebtCeiling: 0) |
+| 147 | LiquidationProtocolFeeChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), oldFee: 0, newFee: 1000) |
+| 148 | CollateralConfigurationChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), ltv: 5500, liquidationThreshold: 6000, liquidationBonus: 10750) |
+| 150 | DebtCeilingChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldDebtCeiling: 0, newDebtCeiling: 0) |
+| 151 | LiquidationProtocolFeeChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), oldFee: 0, newFee: 1000) |
+| 152 | LiquidationProtocolFeeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), oldFee: 0, newFee: 0) |
+| 153 | EModeCategoryAdded(categoryId: 1, ltv: 7800, liquidationThreshold: 8100, liquidationBonus: 10600, oracle: 0x0000000000000000000000000000000000000000, label: xBTC__USDT0_USDG_GHO) |
+| 154 | AssetCollateralInEModeChanged(asset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), categoryId: 1, collateral: true) |
+| 155 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 1, borrowable: true) |
+| 156 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 1, borrowable: true) |
+| 157 | AssetBorrowableInEModeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), categoryId: 1, borrowable: true) |
+| 158 | EModeCategoryAdded(categoryId: 2, ltv: 7800, liquidationThreshold: 8000, liquidationBonus: 10600, oracle: 0x0000000000000000000000000000000000000000, label: xETH__USDT0_USDG_GHO) |
+| 159 | AssetCollateralInEModeChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), categoryId: 2, collateral: true) |
+| 160 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 2, borrowable: true) |
+| 161 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 2, borrowable: true) |
+| 162 | AssetBorrowableInEModeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), categoryId: 2, borrowable: true) |
+| 163 | EModeCategoryAdded(categoryId: 3, ltv: 6500, liquidationThreshold: 7000, liquidationBonus: 10750, oracle: 0x0000000000000000000000000000000000000000, label: xSOL__USDT0_USDG_GHO) |
+| 164 | AssetCollateralInEModeChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), categoryId: 3, collateral: true) |
+| 165 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 3, borrowable: true) |
+| 166 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 3, borrowable: true) |
+| 167 | AssetBorrowableInEModeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), categoryId: 3, borrowable: true) |
+| 168 | EModeCategoryAdded(categoryId: 4, ltv: 5000, liquidationThreshold: 5500, liquidationBonus: 11000, oracle: 0x0000000000000000000000000000000000000000, label: WOKB__USDT0_USDG_GHO) |
+| 169 | AssetCollateralInEModeChanged(asset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), categoryId: 4, collateral: true) |
+| 170 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 4, borrowable: true) |
+| 171 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 4, borrowable: true) |
+| 172 | AssetBorrowableInEModeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), categoryId: 4, borrowable: true) |
+| 173 | EModeCategoryAdded(categoryId: 5, ltv: 8800, liquidationThreshold: 9000, liquidationBonus: 10200, oracle: 0x0000000000000000000000000000000000000000, label: xBETH__xETH) |
+| 174 | AssetCollateralInEModeChanged(asset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), categoryId: 5, collateral: true) |
+| 175 | AssetBorrowableInEModeChanged(asset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), categoryId: 5, borrowable: true) |
+| 176 | EModeCategoryAdded(categoryId: 6, ltv: 8800, liquidationThreshold: 9000, liquidationBonus: 10200, oracle: 0x0000000000000000000000000000000000000000, label: xOKSOL__xSOL) |
+| 177 | AssetCollateralInEModeChanged(asset: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), categoryId: 6, collateral: true) |
+| 178 | AssetBorrowableInEModeChanged(asset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), categoryId: 6, borrowable: true) |
 
 #### 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223
 
 | index | event |
 | --- | --- |
-| 13 | Initialized(underlyingAsset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 6, aTokenName: Aave XLayer USDG, aTokenSymbol: aXlrUSDG, params: 0x) |
-| 173 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals]) |
-| 174 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 14 | Initialized(underlyingAsset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 6, aTokenName: Aave XLayer USDG, aTokenSymbol: aXlrUSDG, params: 0x) |
+| 192 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals]) |
+| 193 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000 [10000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0xE6FC328D4DECB2Ae00E711743C04612ec963be46
 
 | index | event |
 | --- | --- |
-| 14 | Initialized(underlyingAsset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 6, debtTokenName: Aave XLayer Variable Debt USDG, debtTokenSymbol: variableDebtXlrUSDG, params: 0x) |
+| 15 | Initialized(underlyingAsset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 6, debtTokenName: Aave XLayer Variable Debt USDG, debtTokenSymbol: variableDebtXlrUSDG, params: 0x) |
 
 #### 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e
 
 | index | event |
 | --- | --- |
-| 18 | Initialized(underlyingAsset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 8, aTokenName: Aave XLayer xBTC, aTokenSymbol: aXlrxBTC, params: 0x) |
-| 181 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000 [10000, 0 decimals]) |
-| 182 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000 [10000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 19 | Initialized(underlyingAsset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 8, aTokenName: Aave XLayer xBTC, aTokenSymbol: aXlrxBTC, params: 0x) |
+| 200 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000 [10000, 0 decimals]) |
+| 201 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000 [10000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0x5F874396f28dfdBd6bA2be80F52FD013Ce388C75
 
 | index | event |
 | --- | --- |
-| 19 | Initialized(underlyingAsset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 8, debtTokenName: Aave XLayer Variable Debt xBTC, debtTokenSymbol: variableDebtXlrxBTC, params: 0x) |
+| 20 | Initialized(underlyingAsset: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 8, debtTokenName: Aave XLayer Variable Debt xBTC, debtTokenSymbol: variableDebtXlrxBTC, params: 0x) |
 
 #### 0x3ea3A4038FbA5757A9A68de920b44698d7326A59
 
 | index | event |
 | --- | --- |
-| 23 | Initialized(underlyingAsset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer WOKB, aTokenSymbol: aXlrWOKB, params: 0x) |
-| 190 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000,000 [1000000000000000000, 0 decimals]) |
-| 191 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000,000 [1000000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 24 | Initialized(underlyingAsset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer WOKB, aTokenSymbol: aXlrWOKB, params: 0x) |
+| 209 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000,000 [1000000000000000000, 0 decimals]) |
+| 210 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000,000 [1000000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0xb20752a1D7D16E54cBaad5137ba6C0a087752803
 
 | index | event |
 | --- | --- |
-| 24 | Initialized(underlyingAsset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt WOKB, debtTokenSymbol: variableDebtXlrWOKB, params: 0x) |
+| 25 | Initialized(underlyingAsset: 0xe538905cf8410324e03A5A23C1c177a474D59b2b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt WOKB, debtTokenSymbol: variableDebtXlrWOKB, params: 0x) |
 
 #### 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD
 
 | index | event |
 | --- | --- |
-| 28 | Initialized(underlyingAsset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer xETH, aTokenSymbol: aXlrxETH, params: 0x) |
-| 198 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals]) |
-| 199 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 29 | Initialized(underlyingAsset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer xETH, aTokenSymbol: aXlrxETH, params: 0x) |
+| 217 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals]) |
+| 218 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0xB756Fc7065369602f2cCb8356283E8b997fDfe2a
 
 | index | event |
 | --- | --- |
-| 29 | Initialized(underlyingAsset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt xETH, debtTokenSymbol: variableDebtXlrxETH, params: 0x) |
+| 30 | Initialized(underlyingAsset: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt xETH, debtTokenSymbol: variableDebtXlrxETH, params: 0x) |
 
 #### 0x523dCe1b164327818fc5B41278fAe41f6B5753FE
 
 | index | event |
 | --- | --- |
-| 33 | Initialized(underlyingAsset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 9, aTokenName: Aave XLayer xSOL, aTokenSymbol: aXlrxSOL, params: 0x) |
-| 207 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals]) |
-| 208 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 34 | Initialized(underlyingAsset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 9, aTokenName: Aave XLayer xSOL, aTokenSymbol: aXlrxSOL, params: 0x) |
+| 226 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals]) |
+| 227 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0x4aF568Cb78Ade0e45E42f9B6d3deC0ff81E788af
 
 | index | event |
 | --- | --- |
-| 34 | Initialized(underlyingAsset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 9, debtTokenName: Aave XLayer Variable Debt xSOL, debtTokenSymbol: variableDebtXlrxSOL, params: 0x) |
+| 35 | Initialized(underlyingAsset: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 9, debtTokenName: Aave XLayer Variable Debt xSOL, debtTokenSymbol: variableDebtXlrxSOL, params: 0x) |
 
 #### 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32
 
 | index | event |
 | --- | --- |
-| 38 | Initialized(underlyingAsset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer xBETH, aTokenSymbol: aXlrxBETH, params: 0x) |
-| 216 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals]) |
-| 217 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 39 | Initialized(underlyingAsset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer xBETH, aTokenSymbol: aXlrxBETH, params: 0x) |
+| 235 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals]) |
+| 236 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 1,000,000,000,000,000 [1000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0xe98AB0041B3BC09981D75A46aa78CC5e647a3906
 
 | index | event |
 | --- | --- |
-| 39 | Initialized(underlyingAsset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt xBETH, debtTokenSymbol: variableDebtXlrxBETH, params: 0x) |
+| 40 | Initialized(underlyingAsset: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt xBETH, debtTokenSymbol: variableDebtXlrxBETH, params: 0x) |
 
 #### 0x38811564090aAb7bB455c5b771e26201a3535a01
 
 | index | event |
 | --- | --- |
-| 43 | Initialized(underlyingAsset: 0x14a686103854DAB7b8801E31979CAA595835B25d, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 9, aTokenName: Aave XLayer xOKSOL, aTokenSymbol: aXlrxOKSOL, params: 0x) |
-| 225 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals]) |
-| 226 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 44 | Initialized(underlyingAsset: 0x14a686103854DAB7b8801E31979CAA595835B25d, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 9, aTokenName: Aave XLayer xOKSOL, aTokenSymbol: aXlrxOKSOL, params: 0x) |
+| 244 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals]) |
+| 245 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000 [100000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0x3bEB61760eC29C2031843811dd5D51Bcbdb73B5e
 
 | index | event |
 | --- | --- |
-| 44 | Initialized(underlyingAsset: 0x14a686103854DAB7b8801E31979CAA595835B25d, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 9, debtTokenName: Aave XLayer Variable Debt xOKSOL, debtTokenSymbol: variableDebtXlrxOKSOL, params: 0x) |
+| 45 | Initialized(underlyingAsset: 0x14a686103854DAB7b8801E31979CAA595835B25d, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 9, debtTokenName: Aave XLayer Variable Debt xOKSOL, debtTokenSymbol: variableDebtXlrxOKSOL, params: 0x) |
+
+#### 0x77188335A21f4C409d2CfeDe3195A7B5f28651b0
+
+| index | event |
+| --- | --- |
+| 49 | Initialized(underlyingAsset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer GHO, aTokenSymbol: aXlrGHO, params: 0x) |
+| 253 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000,000,000,000,000 [10000000000000000000, 0 decimals]) |
+| 254 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 10,000,000,000,000,000,000 [10000000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+
+#### 0x6a82EFFC620ec646429e8A1aE0E5DcC6C6ba30aA
+
+| index | event |
+| --- | --- |
+| 50 | Initialized(underlyingAsset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, debtTokenDecimals: 18, debtTokenName: Aave XLayer Variable Debt GHO, debtTokenSymbol: variableDebtXlrGHO, params: 0x) |
 
 #### 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116 (AaveV3XLayer.POOL)
 
 | index | event |
 | --- | --- |
-| 68 | ReserveDataUpdated(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 74 | ReserveDataUpdated(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 80 | ReserveDataUpdated(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 86 | ReserveDataUpdated(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 92 | ReserveDataUpdated(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 98 | ReserveDataUpdated(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 104 | ReserveDataUpdated(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 110 | ReserveDataUpdated(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 113 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000779ded0c9e1022225f8e0630b35a9b54be713736`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| 118 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000b7c00000bcdeef966b20b3d884b98e64d2b06b4f`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| 123 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000e7b000003a45145decf8a28fc755ad5ec5ea025a`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| 127 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000505000008de8748dbd4422ff4687a4fc9beba15b`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| 131 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000afeab3b85b6a56cf5f02317f0f7a23340eb983d7`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| 135 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x00000000000000000000000014a686103854dab7b8801e31979caa595835b25d`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
-| 161 | ReserveDataUpdated(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 166 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000779ded0c9e1022225f8e0630b35a9b54be713736`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
-| 167 | Supply(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 10 [10000000, 6 decimals]) |
-| 171 | ReserveDataUpdated(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 175 | Supply(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 10 [10000000, 6 decimals]) |
-| 179 | ReserveDataUpdated(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 183 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000b7c00000bcdeef966b20b3d884b98e64d2b06b4f`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
-| 184 | Supply(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.0001 [10000, 8 decimals]) |
-| 188 | ReserveDataUpdated(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 192 | Supply(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 1 [1000000000000000000, 18 decimals]) |
-| 196 | ReserveDataUpdated(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 200 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000e7b000003a45145decf8a28fc755ad5ec5ea025a`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
-| 201 | Supply(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.001 [1000000000000000, 18 decimals]) |
-| 205 | ReserveDataUpdated(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 209 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000505000008de8748dbd4422ff4687a4fc9beba15b`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
-| 210 | Supply(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.1 [100000000, 9 decimals]) |
-| 214 | ReserveDataUpdated(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 218 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000afeab3b85b6a56cf5f02317f0f7a23340eb983d7`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
-| 219 | Supply(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.001 [1000000000000000, 18 decimals]) |
-| 223 | ReserveDataUpdated(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 227 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x00000000000000000000000014a686103854dab7b8801e31979caa595835b25d`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
-| 228 | Supply(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.1 [100000000, 9 decimals]) |
+| 76 | ReserveDataUpdated(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 82 | ReserveDataUpdated(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 88 | ReserveDataUpdated(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 94 | ReserveDataUpdated(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 100 | ReserveDataUpdated(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 106 | ReserveDataUpdated(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 112 | ReserveDataUpdated(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 118 | ReserveDataUpdated(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 124 | ReserveDataUpdated(reserve: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 127 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000779ded0c9e1022225f8e0630b35a9b54be713736`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 132 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000b7c00000bcdeef966b20b3d884b98e64d2b06b4f`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 137 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000e7b000003a45145decf8a28fc755ad5ec5ea025a`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 141 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000505000008de8748dbd4422ff4687a4fc9beba15b`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 145 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x000000000000000000000000afeab3b85b6a56cf5f02317f0f7a23340eb983d7`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 149 | topics: `0xaef84d3b40895fd58c561f3998000f0583abb992a52fbdc99ace8e8de4d676a5`, `0x00000000000000000000000014a686103854dab7b8801e31979caa595835b25d`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
+| 180 | ReserveDataUpdated(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 185 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000779ded0c9e1022225f8e0630b35a9b54be713736`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
+| 186 | Supply(reserve: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 10 [10000000, 6 decimals]) |
+| 190 | ReserveDataUpdated(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 194 | Supply(reserve: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 10 [10000000, 6 decimals]) |
+| 198 | ReserveDataUpdated(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 202 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000b7c00000bcdeef966b20b3d884b98e64d2b06b4f`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
+| 203 | Supply(reserve: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f (symbol: xBTC), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.0001 [10000, 8 decimals]) |
+| 207 | ReserveDataUpdated(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 211 | Supply(reserve: 0xe538905cf8410324e03A5A23C1c177a474D59b2b (symbol: WOKB), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 1 [1000000000000000000, 18 decimals]) |
+| 215 | ReserveDataUpdated(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 219 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000e7b000003a45145decf8a28fc755ad5ec5ea025a`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
+| 220 | Supply(reserve: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A (symbol: xETH), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.001 [1000000000000000, 18 decimals]) |
+| 224 | ReserveDataUpdated(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 228 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000505000008de8748dbd4422ff4687a4fc9beba15b`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
+| 229 | Supply(reserve: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b (symbol: xSOL), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.1 [100000000, 9 decimals]) |
+| 233 | ReserveDataUpdated(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 237 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x000000000000000000000000afeab3b85b6a56cf5f02317f0f7a23340eb983d7`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
+| 238 | Supply(reserve: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7 (symbol: xBETH), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.001 [1000000000000000, 18 decimals]) |
+| 242 | ReserveDataUpdated(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 246 | topics: `0x00058a56ea94653cdf4f152d227ace22d4c00ad99e2a43f58cb7d9e3feb295f2`, `0x00000000000000000000000014a686103854dab7b8801e31979caa595835b25d`, `0x000000000000000000000000f1910d5abaedd330d2c235e6608d519b660097a6`, data: `0x` |
+| 247 | Supply(reserve: 0x14a686103854DAB7b8801E31979CAA595835B25d (symbol: xOKSOL), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 0.1 [100000000, 9 decimals]) |
+| 251 | ReserveDataUpdated(reserve: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 0, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 255 | Supply(reserve: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 10 [10000000000000000000, 18 decimals]) |
 
 #### 0x779Ded0c9e1022225f8E0630b35a9b54bE713736
 
 | index | event |
 | --- | --- |
-| 160 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 10 [10000000, 6 decimals]) |
-| 162 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297, value: 10 [10000000, 6 decimals]) |
-| 163 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0 [0, 6 decimals]) |
+| 179 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 10 [10000000, 6 decimals]) |
+| 181 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297, value: 10 [10000000, 6 decimals]) |
+| 182 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0 [0, 6 decimals]) |
 
 #### 0x8b78174D19d40Ce5dC1d12309F95088756c5BEc4 (AaveV3XLayer.EMISSION_MANAGER)
 
 | index | event |
 | --- | --- |
-| 168 | EmissionAdminUpdated(reward: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 169 | EmissionAdminUpdated(reward: 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 176 | EmissionAdminUpdated(reward: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 177 | EmissionAdminUpdated(reward: 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 185 | EmissionAdminUpdated(reward: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 186 | EmissionAdminUpdated(reward: 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 193 | EmissionAdminUpdated(reward: 0xe538905cf8410324e03A5A23C1c177a474D59b2b, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 194 | EmissionAdminUpdated(reward: 0x3ea3A4038FbA5757A9A68de920b44698d7326A59, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 202 | EmissionAdminUpdated(reward: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 203 | EmissionAdminUpdated(reward: 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 211 | EmissionAdminUpdated(reward: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 212 | EmissionAdminUpdated(reward: 0x523dCe1b164327818fc5B41278fAe41f6B5753FE, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 220 | EmissionAdminUpdated(reward: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 221 | EmissionAdminUpdated(reward: 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 229 | EmissionAdminUpdated(reward: 0x14a686103854DAB7b8801E31979CAA595835B25d, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
-| 230 | EmissionAdminUpdated(reward: 0x38811564090aAb7bB455c5b771e26201a3535a01, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 187 | EmissionAdminUpdated(reward: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 188 | EmissionAdminUpdated(reward: 0xF356ae412dB5df43BD3a10746f7ad4e1C4De4297, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 195 | EmissionAdminUpdated(reward: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 196 | EmissionAdminUpdated(reward: 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 204 | EmissionAdminUpdated(reward: 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 205 | EmissionAdminUpdated(reward: 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 212 | EmissionAdminUpdated(reward: 0xe538905cf8410324e03A5A23C1c177a474D59b2b, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 213 | EmissionAdminUpdated(reward: 0x3ea3A4038FbA5757A9A68de920b44698d7326A59, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 221 | EmissionAdminUpdated(reward: 0xE7B000003A45145decf8a28FC755aD5eC5EA025A, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 222 | EmissionAdminUpdated(reward: 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 230 | EmissionAdminUpdated(reward: 0x505000008DE8748DBd4422ff4687a4FC9bEba15b, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 231 | EmissionAdminUpdated(reward: 0x523dCe1b164327818fc5B41278fAe41f6B5753FE, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 239 | EmissionAdminUpdated(reward: 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 240 | EmissionAdminUpdated(reward: 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 248 | EmissionAdminUpdated(reward: 0x14a686103854DAB7b8801E31979CAA595835B25d, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 249 | EmissionAdminUpdated(reward: 0x38811564090aAb7bB455c5b771e26201a3535a01, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 256 | EmissionAdminUpdated(reward: 0xDe6539018B095353A40753Dc54C91C68c9487D4E, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
+| 257 | EmissionAdminUpdated(reward: 0x77188335A21f4C409d2CfeDe3195A7B5f28651b0, oldAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xac140648435d03f784879cd789130F22Ef588Fcd) |
 
 #### 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8
 
 | index | event |
 | --- | --- |
-| 170 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 10 [10000000, 6 decimals]) |
-| 172 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223, value: 10 [10000000, 6 decimals]) |
+| 189 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 10 [10000000, 6 decimals]) |
+| 191 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x228765a3C18065C923F23a0CCb6c7cEFB3eA2223, value: 10 [10000000, 6 decimals]) |
 
 #### 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f
 
 | index | event |
 | --- | --- |
-| 178 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.0001 [10000, 8 decimals]) |
-| 180 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e, value: 0.0001 [10000, 8 decimals]) |
+| 197 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.0001 [10000, 8 decimals]) |
+| 199 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xF5F9d4e9e2AFe7E0b193d291Befb41d61930464e, value: 0.0001 [10000, 8 decimals]) |
 
 #### 0xe538905cf8410324e03A5A23C1c177a474D59b2b
 
 | index | event |
 | --- | --- |
-| 187 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 1 [1000000000000000000, 18 decimals]) |
-| 189 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x3ea3A4038FbA5757A9A68de920b44698d7326A59, value: 1 [1000000000000000000, 18 decimals]) |
+| 206 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 1 [1000000000000000000, 18 decimals]) |
+| 208 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x3ea3A4038FbA5757A9A68de920b44698d7326A59, value: 1 [1000000000000000000, 18 decimals]) |
 
 #### 0xE7B000003A45145decf8a28FC755aD5eC5EA025A
 
 | index | event |
 | --- | --- |
-| 195 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.001 [1000000000000000, 18 decimals]) |
-| 197 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD, value: 0.001 [1000000000000000, 18 decimals]) |
+| 214 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.001 [1000000000000000, 18 decimals]) |
+| 216 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xe6639ba6c1d79Be6d4c776E4c17504538d1719cD, value: 0.001 [1000000000000000, 18 decimals]) |
 
 #### 0x505000008DE8748DBd4422ff4687a4FC9bEba15b
 
 | index | event |
 | --- | --- |
-| 204 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.1 [100000000, 9 decimals]) |
-| 206 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x523dCe1b164327818fc5B41278fAe41f6B5753FE, value: 0.1 [100000000, 9 decimals]) |
+| 223 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.1 [100000000, 9 decimals]) |
+| 225 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x523dCe1b164327818fc5B41278fAe41f6B5753FE, value: 0.1 [100000000, 9 decimals]) |
 
 #### 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7
 
 | index | event |
 | --- | --- |
-| 213 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.001 [1000000000000000, 18 decimals]) |
-| 215 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32, value: 0.001 [1000000000000000, 18 decimals]) |
+| 232 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.001 [1000000000000000, 18 decimals]) |
+| 234 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xe9e78053f1Ef084f8cD01dBE8ccE95c6b0944d32, value: 0.001 [1000000000000000, 18 decimals]) |
 
 #### 0x14a686103854DAB7b8801E31979CAA595835B25d
 
 | index | event |
 | --- | --- |
-| 222 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.1 [100000000, 9 decimals]) |
-| 224 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x38811564090aAb7bB455c5b771e26201a3535a01, value: 0.1 [100000000, 9 decimals]) |
+| 241 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 0.1 [100000000, 9 decimals]) |
+| 243 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x38811564090aAb7bB455c5b771e26201a3535a01, value: 0.1 [100000000, 9 decimals]) |
+
+#### 0xDe6539018B095353A40753Dc54C91C68c9487D4E
+
+| index | event |
+| --- | --- |
+| 250 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 10 [10000000000000000000, 18 decimals]) |
+| 252 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0x77188335A21f4C409d2CfeDe3195A7B5f28651b0, value: 10 [10000000000000000000, 18 decimals]) |
 
 #### 0xc8f2720Fa7D857576d82e6aEca8EdC4869E9190e (AaveV3XLayer.ACL_MANAGER)
 
 | index | event |
 | --- | --- |
-| 231 | RoleGranted(role: 0x12ad05bde78c5ab75238ce885307f96ecd482bb402ef831f99e7018a0f169b7b, account: 0xD0D1CcB0391aADF1EaD96814ce7ab4008Ebdb336, sender: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19) |
-| 232 | RoleGranted(role: 0x8aa855a911518ecfbe5bc3088c8f3dda7badf130faaf8ace33fdc33828e18167, account: 0xb5970A521073ADE4836dD4A24854Eb387a67c5C8, sender: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19) |
+| 258 | RoleGranted(role: 0x12ad05bde78c5ab75238ce885307f96ecd482bb402ef831f99e7018a0f169b7b, account: 0xD0D1CcB0391aADF1EaD96814ce7ab4008Ebdb336, sender: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19) |
+| 259 | RoleGranted(role: 0x8aa855a911518ecfbe5bc3088c8f3dda7badf130faaf8ace33fdc33828e18167, account: 0xb5970A521073ADE4836dD4A24854Eb387a67c5C8, sender: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19) |
 
 #### 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19 (AaveV3XLayer.ACL_ADMIN, GovernanceV3XLayer.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 233 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1773845100, withDelegatecall: true, resultData: 0x) |
+| 260 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1773845100, withDelegatecall: true, resultData: 0x) |
 
 #### 0x80e11cB895a23C901a990239E5534054C66476B5 (GovernanceV3XLayer.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 234 | PayloadExecuted(payloadId: 1) |
+| 261 | PayloadExecuted(payloadId: 1) |
 
 ## Raw storage changes
 
@@ -836,7 +920,7 @@
 
 ### 0x1408b48b6a610948f04813ea6b2f438a6bbad2f2 (AaveV3XLayer.POOL_CONFIGURATOR)
 
-**Nonce diff**: 1 → 17
+**Nonce diff**: 1 → 19
 
 ### 0x14a686103854dab7b8801e31979caa595835b25d
 
@@ -848,7 +932,7 @@
 
 ### 0x186f45b6e33fcf531c1542509b199646eb7fa968
 
-**Nonce diff**: 1 → 17
+**Nonce diff**: 1 → 19
 
 ### 0x228765a3c18065c923f23a0ccb6c7cefb3ea2223
 
@@ -869,7 +953,7 @@
 
 ### 0x2b16e93bdb1897f517881b3c388babd0c62c6cdc (AaveV3XLayer.POOL_CONFIGURATOR_IMPL)
 
-**Nonce diff**: 1 → 17
+**Nonce diff**: 1 → 19
 
 ### 0x38811564090aab7bb455c5b771e26201a3535a01
 
@@ -925,6 +1009,7 @@
 
 | slot | previous value | new value |
 | --- | --- | --- |
+| 0x06c66b7924601dffeb1b739766fd63935589cf524651c000d78cce76296c15a1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000001194000001f4000000002328 |
 | 0x150765baaaaa409f61490895e134ba822d38f284c011002cc90b8b4b17f4748c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000007d0000000fa000000002328 |
 | 0x871b782eaa55e89a8f1b237a2fc694088ea472a9b0a22119e70a1e2605a8a0bd | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000007530000002bc000000001194 |
 | 0x908deb63f56248587552092760736576aba97594f4391a8d1e531801aa2672e7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000007d0000001f4000000001f40 |
@@ -997,6 +1082,38 @@
 | 0x000000000000000000000000000000000000000000000000000000000000003d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000008 |
 | 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000f9e48edc704bdf494309ca457bcea4c0696f591d |
 
+### 0x6a82effc620ec646429e8a1ae0e5dcc6c6ba30aa
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000005 |
+| 0x0000000000000000000000000000000000000000000000000000000000000001 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0x0000000000000000000000000000000000000000000000000000000000000035 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x5718ece591a1853b8230a3d1e62481d41222d31d004a8b1c3d4afaa550406d37 |
+| 0x0000000000000000000000000000000000000000000000000000000000000037 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000de6539018b095353a40753dc54c91c68c9487d4e |
+| 0x000000000000000000000000000000000000000000000000000000000000003b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x4161766520584c61796572205661726961626c6520446562742047484f00003a |
+| 0x000000000000000000000000000000000000000000000000000000000000003c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x7661726961626c6544656274586c7247484f0000000000000000000000000024 |
+| 0x000000000000000000000000000000000000000000000000000000000000003d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000012 |
+| 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000f9e48edc704bdf494309ca457bcea4c0696f591d |
+
+### 0x77188335a21f4c409d2cfede3195a7b5f28651b0
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000005 |
+| 0x0000000000000000000000000000000000000000000000000000000000000001 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0x0000000000000000000000000000000000000000000000000000000000000036 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000008ac7230489e80000 |
+| 0x0000000000000000000000000000000000000000000000000000000000000037 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x4161766520584c617965722047484f000000000000000000000000000000001e |
+| 0x0000000000000000000000000000000000000000000000000000000000000038 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x61586c7247484f0000000000000000000000000000000000000000000000000e |
+| 0x0000000000000000000000000000000000000000000000000000000000000039 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000012 |
+| 0x000000000000000000000000000000000000000000000000000000000000003b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xac3679089a61fdd433908599dbe2c80262fd519416b5f419045822e8043d0095 |
+| 0x000000000000000000000000000000000000000000000000000000000000003d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000de6539018b095353a40753dc54c91c68c9487d4e |
+| 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000384c8c9e2a201975b2ef3415b96d2204826034ae |
+| 0x473cf0248ecddf202451fa89ab3da9988ceed14db7348837558bf51968a25485 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000033b2e3c9fd0803ce800000000000000000000008ac7230489e80000 |
+
 ### 0x779ded0c9e1022225f8e0630b35a9b54be713736
 
 | slot | previous value | new value |
@@ -1027,9 +1144,11 @@
 | 0x5b690ca3b3397213e1a11cb8614a642cc10ffe2fcf2b58758b7fbaf0dbc043f1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0x5e3b6da06c092beee7f219ed7dde4ae8cbeff08f18b6b079fe0d580da813f788 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0x69e31da273b83e81f9cbab021687675a356e216a4c7dbd5dd9bbd1ff36c585f9 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
+| 0x70c02106c78851460ec28708c9d55f6f87a2d88de041c6421c715ba385137893 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0x9cb0220c0a77f176b527e440eb37fb4392295f37132ab9c5c8fd22344609e23f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0xb41f85be88b5b16e897c23b50163499329d0a6b4c5b00549eb884fae69d9962b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0xbe3f1e7a84cd70ee47904d84e9b8f6cfd49bc22c511a9f10bd89c9840f613adb | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
+| 0xcc13e1ea237b08ef9f8a5e685e68009e394a1e994f535d090f979e0fc72565b4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0xf2f80efb8d3f86a8d6780a845a1272adb1efa38d22646068ce79b56f3a58f0b6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 | 0xfcd7f43370f2b74da490237103b282d609551e66a3fc2b78091b9b767b003369 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd |
 
@@ -1037,6 +1156,7 @@
 
 | slot | previous value | new value |
 | --- | --- | --- |
+| 0x06c66b7924601dffeb1b739766fd63935589cf524651c000d78cce76296c15a1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000002ce400703dacc37b7edfa99d228b8e70a4d3831b |
 | 0x150765baaaaa409f61490895e134ba822d38f284c011002cc90b8b4b17f4748c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000008b85b50535551f8e8cdaf78da235b5cf1005907b |
 | 0x871b782eaa55e89a8f1b237a2fc694088ea472a9b0a22119e70a1e2605a8a0bd | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000004ff345b18a2bf894f8627f41501fbf30d5c5e7be |
 | 0x908deb63f56248587552092760736576aba97594f4391a8d1e531801aa2672e7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000f959e1b5ca535c28ad24f7f672bf1a93900810cf |
@@ -1099,14 +1219,23 @@
 | 0xa859bba7cf07b1052a7b2f4187426dc8f197a966ab32efd72caf8c6b006834cc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 | 0xaf08ce8313710e5d4a6750e7da215e214a053482bc1412ea1bba9f7426117e88 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 
+### 0xde6539018b095353a40753dc54c91c68c9487d4e
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0da7672cbf008e97a0220b5e0a8c9df60168b67835168d7731b44d68977e4609 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000008ac7230489e80000 |
+| 0x94ba576d4ccfbedb706ae098306e28dd907403a4f178fbd8e72cec544167dcb8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xdc51a1ae72cec9b60d4b84ed0f237080aa86c82d635d76b5f48d1a10cca3899a | 0x0000000000000000000000000000000000000000000000008ac7230489e80000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+
 ### 0xe3f3caefdd7180f884c01e57f65df979af84f116 (AaveV3XLayer.POOL)
 
 | slot | previous value | new value |
 | --- | --- | --- |
-| 0x000000000000000000000000000000000000000000000000000000000000003b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000080000000000000000 |
+| 0x000000000000000000000000000000000000000000000000000000000000003b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000090000000000000000 |
 | 0x01290583d43e205f46f8d824d1236df318521e471f570a5b36fa1844856e40d6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000008027d823282260 |
 | 0x01290583d43e205f46f8d824d1236df318521e471f570a5b36fa1844856e40d7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x784f4b534f4c5f5f78534f4c0000000000000000000000000000000000000018 |
 | 0x01290583d43e205f46f8d824d1236df318521e471f570a5b36fa1844856e40d8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000020 |
+| 0x05725f7419f52ac606bc65a60e5ab85095522694ed898882d2777964ee382600 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000de6539018b095353a40753dc54c91c68c9487d4e |
 | 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x100000000000000000000003e800000009600000001403e8850829fe1d4c1b58 |
 | 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
 | 0x10578d58a12d0152f0877bbc9af0d1b6686547c76d02514be0417b027e072c2d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
@@ -1141,8 +1270,8 @@
 | 0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8258 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x78424554485f5f78455448000000000000000000000000000000000000000016 |
 | 0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8259 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000010 |
 | 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000000000000000082af8157c1388 |
-| 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x574f4b425f5f55534454305f5553444700000000000000000000000000000020 |
-| 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x574f4b425f5f55534454305f555344475f47484f000000000000000000000028 |
+| 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000103 |
 | 0x54824a82ba60c3ac6052adc5bc5d6e2f90940e5fde639dff08ef678c0426b77d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x100000000000000000000003e800001e84800000000105dc8112000000000000 |
 | 0x54824a82ba60c3ac6052adc5bc5d6e2f90940e5fde639dff08ef678c0426b77e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
 | 0x54824a82ba60c3ac6052adc5bc5d6e2f90940e5fde639dff08ef678c0426b77f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
@@ -1159,8 +1288,8 @@
 | 0x5aa1c3b170878647e977dcccefc526a9b1bbd784882a6469111d3ca4c57e1090 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000038d7ea4c6800000000000000000000000000000000000 |
 | 0x5aa1c3b170878647e977dcccefc526a9b1bbd784882a6469111d3ca4c57e1091 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
 | 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000001029681f401e78 |
-| 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x784554485f5f55534454305f5553444700000000000000000000000000000020 |
-| 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x784554485f5f55534454305f555344475f47484f000000000000000000000028 |
+| 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000103 |
 | 0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be74f8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x100000000000000000000003e8002faf080002dc6c0003e8850629fe1d4c1b58 |
 | 0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be74f9 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
 | 0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be74fa | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
@@ -1170,11 +1299,11 @@
 | 0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be7500 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000098968000000000000000000000000000000000 |
 | 0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be7501 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
 | 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3155 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000002029fe1b581964 |
-| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x78534f4c5f5f55534454305f5553444700000000000000000000000000000020 |
-| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x78534f4c5f5f55534454305f555344475f47484f000000000000000000000028 |
+| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000103 |
 | 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb0 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000429681fa41e78 |
-| 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x784254435f5f55534454305f5553444700000000000000000000000000000020 |
-| 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x784254435f5f55534454305f555344475f47484f000000000000000000000028 |
+| 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000103 |
 | 0xb1a91c321da43af5e30005076b50e91efb621eac8ae94c00b62da9953171c436 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x100000000000000000000003e800001adb00000036b005dc850929fe19641770 |
 | 0xb1a91c321da43af5e30005076b50e91efb621eac8ae94c00b62da9953171c437 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
 | 0xb1a91c321da43af5e30005076b50e91efb621eac8ae94c00b62da9953171c438 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
@@ -1185,6 +1314,13 @@
 | 0xb1a91c321da43af5e30005076b50e91efb621eac8ae94c00b62da9953171c43f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
 | 0xbc2f57311c21670184a5dbcdfc5939827a8f57c97f69166be8694e2ce000cebc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000e538905cf8410324e03a5a23c1c177a474d59b2b |
 | 0xc082cfcdc2bfeeffb970c9772df3384f481b69fbc495624ec92a9254cc4b32f0 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000004ae46a509f6b1d9056937ba4500cb143933d2dc8 |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f94e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x100000000000000000000000000004c4b40000493e0003e88512000000000000 |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f94f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f950 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f951 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000080069baba6c00000000000000000000000000000000 |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f952 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000077188335a21f4c409d2cfede3195a7b5f28651b0 |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f954 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000006a82effc620ec646429e8a1ae0e5dcc6c6ba30aa |
+| 0xce7b6c3db0282efbfdc85c6bd3387a79dbcac8afaebd69177f62aaa8a081f956 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000008ac7230489e8000000000000000000000000000000000000 |
 | 0xd0104c7e2b491238f3a3e172b7a353587a7c17ea9ec99c1b61f10b6f6f69e5fc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x100000000000000000000003e8000020f5800000000105dc810929fe1770157c |
 | 0xd0104c7e2b491238f3a3e172b7a353587a7c17ea9ec99c1b61f10b6f6f69e5fd | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
 | 0xd0104c7e2b491238f3a3e172b7a353587a7c17ea9ec99c1b61f10b6f6f69e5fe | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 |
@@ -1317,10 +1453,10 @@
     "1": {
       "from": null,
       "to": {
-        "borrowableBitmap": "3",
+        "borrowableBitmap": "259",
         "collateralBitmap": "4",
         "eModeCategory": 1,
-        "label": "xBTC__USDT0_USDG",
+        "label": "xBTC__USDT0_USDG_GHO",
         "liquidationBonus": 10600,
         "liquidationThreshold": 8100,
         "ltv": 7800
@@ -1329,10 +1465,10 @@
     "2": {
       "from": null,
       "to": {
-        "borrowableBitmap": "3",
+        "borrowableBitmap": "259",
         "collateralBitmap": "16",
         "eModeCategory": 2,
-        "label": "xETH__USDT0_USDG",
+        "label": "xETH__USDT0_USDG_GHO",
         "liquidationBonus": 10600,
         "liquidationThreshold": 8000,
         "ltv": 7800
@@ -1341,10 +1477,10 @@
     "3": {
       "from": null,
       "to": {
-        "borrowableBitmap": "3",
+        "borrowableBitmap": "259",
         "collateralBitmap": "32",
         "eModeCategory": 3,
-        "label": "xSOL__USDT0_USDG",
+        "label": "xSOL__USDT0_USDG_GHO",
         "liquidationBonus": 10750,
         "liquidationThreshold": 7000,
         "ltv": 6500
@@ -1353,10 +1489,10 @@
     "4": {
       "from": null,
       "to": {
-        "borrowableBitmap": "3",
+        "borrowableBitmap": "259",
         "collateralBitmap": "8",
         "eModeCategory": 4,
-        "label": "WOKB__USDT0_USDG",
+        "label": "WOKB__USDT0_USDG_GHO",
         "liquidationBonus": 11000,
         "liquidationThreshold": 5500,
         "ltv": 5000
@@ -1578,6 +1714,43 @@
         "virtualBalance": "1000000000000000"
       }
     },
+    "0xDe6539018B095353A40753Dc54C91C68c9487D4E": {
+      "from": null,
+      "to": {
+        "aToken": "0x77188335A21f4C409d2CfeDe3195A7B5f28651b0",
+        "aTokenName": "Aave XLayer GHO",
+        "aTokenSymbol": "aXlrGHO",
+        "aTokenUnderlyingBalance": "10000000000000000000",
+        "borrowCap": 4800000,
+        "borrowingEnabled": true,
+        "debtCeiling": 0,
+        "decimals": 18,
+        "id": 8,
+        "interestRateStrategy": "0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 0,
+        "liquidationProtocolFee": 0,
+        "liquidationThreshold": 0,
+        "ltv": 0,
+        "oracle": "0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B",
+        "oracleDecimals": 8,
+        "oracleLatestAnswer": "100000000",
+        "reserveFactor": 1000,
+        "supplyCap": 5000000,
+        "symbol": "GHO",
+        "underlying": "0xDe6539018B095353A40753Dc54C91C68c9487D4E",
+        "usageAsCollateralEnabled": false,
+        "variableDebtToken": "0x6a82EFFC620ec646429e8A1aE0E5DcC6C6ba30aA",
+        "variableDebtTokenName": "Aave XLayer Variable Debt GHO",
+        "variableDebtTokenSymbol": "variableDebtXlrGHO",
+        "virtualBalance": "10000000000000000000"
+      }
+    },
     "0xE7B000003A45145decf8a28FC755aD5eC5EA025A": {
       "from": null,
       "to": {
@@ -1747,6 +1920,17 @@
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "70000000000000000000000000",
         "variableRateSlope2": "3000000000000000000000000000"
+      }
+    },
+    "0xDe6539018B095353A40753Dc54C91C68c9487D4E": {
+      "from": null,
+      "to": {
+        "address": "0x3eFfeBDD435217A8B485dfaEFDecf766F2a3c05B",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "500000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "variableRateSlope1": "50000000000000000000000000",
+        "variableRateSlope2": "450000000000000000000000000"
       }
     },
     "0xE7B000003A45145decf8a28FC755aD5eC5EA025A": {
