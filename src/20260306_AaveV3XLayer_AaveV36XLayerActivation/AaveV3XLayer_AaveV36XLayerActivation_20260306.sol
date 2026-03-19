@@ -28,19 +28,19 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306 is AaveV3PayloadXLayer {
   uint256 public constant USDG_SEED_AMOUNT = 10e6;
 
   address public constant xBTC = 0xb7C00000bcDEeF966b20B3D884B98E64d2b06b4f;
-  uint256 public constant xBTC_SEED_AMOUNT = 0.0001e8;
+  uint256 public constant xBTC_SEED_AMOUNT = 0.0002e8;
 
   address public constant WOKB = 0xe538905cf8410324e03A5A23C1c177a474D59b2b;
-  uint256 public constant WOKB_SEED_AMOUNT = 1e18;
+  uint256 public constant WOKB_SEED_AMOUNT = 0.1e18;
 
   address public constant xETH = 0xE7B000003A45145decf8a28FC755aD5eC5EA025A;
-  uint256 public constant xETH_SEED_AMOUNT = 0.001e18;
+  uint256 public constant xETH_SEED_AMOUNT = 0.005e18;
 
   address public constant xSOL = 0x505000008DE8748DBd4422ff4687a4FC9bEba15b;
   uint256 public constant xSOL_SEED_AMOUNT = 0.1e9; // 9 decimals
 
   address public constant xBETH = 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7;
-  uint256 public constant xBETH_SEED_AMOUNT = 0.001e18;
+  uint256 public constant xBETH_SEED_AMOUNT = 0.005e18;
 
   address public constant xOKSOL = 0x14a686103854DAB7b8801E31979CAA595835B25d;
   uint256 public constant xOKSOL_SEED_AMOUNT = 0.1e9;
