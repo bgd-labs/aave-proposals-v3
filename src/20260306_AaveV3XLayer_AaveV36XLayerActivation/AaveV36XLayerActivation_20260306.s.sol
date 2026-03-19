@@ -25,7 +25,7 @@ contract DeployXLayer is XLayerScript {
     actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
-    // GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(actions);
   }
 }
 
