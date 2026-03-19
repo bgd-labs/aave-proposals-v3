@@ -9,7 +9,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x251c520f1f1da82871684
 
 This proposal allows the Aave governance to activate the Aave V3 XLayer pool (3.6) by completing all the initial setup and listing USDT0, USDG, xBTC, WOKB, xETH, xSOL, xBETH, xOKSOL, GHO as suggested by the risk service providers engaged with the DAO on the governance forum.
 
-All the Aave XLayer V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3XLayer.sol).
+All the Aave XLayer V3 addresses can be found in the [aave-address-book](https://github.com/aave-dao/aave-address-book/blob/main/src/AaveV3XLayer.sol).
 
 ## Motivation
 
