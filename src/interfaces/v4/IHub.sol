@@ -11,6 +11,12 @@ interface IHub {
   }
 
   function getAssetCount() external view returns (uint256);
+  function getAssetId(address underlying) external view returns (uint256);
   function isSpokeListed(uint256 assetId, address spoke) external view returns (bool);
-  function getSpokeConfig(uint256 assetId, address spoke) external view returns (SpokeConfig memory);
+  function getSpokeCount(uint256 assetId) external view returns (uint256);
+  function getSpokeAddress(uint256 assetId, uint256 index) external view returns (address);
+  function getSpokeConfig(
+    uint256 assetId,
+    address spoke
+  ) external view returns (SpokeConfig memory);
 }

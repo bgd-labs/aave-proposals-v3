@@ -10,6 +10,25 @@ library AaveV4EthereumAddresses {
   address internal constant PLUS_HUB = 0x85F9b1d60f9F6fbD51006EA2E20Cde1A670A8eB4;
   address internal constant PRIME_HUB = 0x502B96A1A31572264e27474C2f1439E7FB69b6E8;
 
+  function getHubs() internal pure returns (address[3] memory) {
+    return [CORE_HUB, PLUS_HUB, PRIME_HUB];
+  }
+
+  function getSpokes() internal pure returns (address[10] memory) {
+    return [
+      MAIN_SPOKE,
+      BLUECHIP_SPOKE,
+      ETHENA_CORRELATED_SPOKE,
+      ETHENA_ECOSYSTEM_SPOKE,
+      ETHERFI_ESPOKE,
+      FOREX_SPOKE,
+      GOLD_SPOKE,
+      KELP_ESPOKE,
+      LIDO_ESPOKE,
+      LOMBARD_BTC_SPOKE
+    ];
+  }
+
   address internal constant MAIN_SPOKE = 0x47b880030329821412d614EAe2da68856E87C3fb;
   address internal constant BLUECHIP_SPOKE = 0x20f09138d51a85B075659ec325c66Da4Ca663Dea;
   address internal constant ETHENA_CORRELATED_SPOKE = 0xA76fdE0bFF53ffcd5f3FbE84133C22F37C9E6Cf3;
@@ -34,12 +53,22 @@ library AaveV4EthereumAddresses {
 
   address internal constant MAIN_SPOKE_ORACLE = 0xE0A6f410BC26f80825332b9D95Fa8c2D01393e0c;
   address internal constant BLUECHIP_SPOKE_ORACLE = 0xc9d3721dbe8521d897b2bB1507CBAd4D2332B8Fa;
-  address internal constant ETHENA_CORRELATED_SPOKE_ORACLE = 0x4fe69aC37FEA7f084E367Dea3129EC5577E295E6;
-  address internal constant ETHENA_ECOSYSTEM_SPOKE_ORACLE = 0x28014ee8a9B7606B7ad23E2318f6901cF44ce137;
+  address internal constant ETHENA_CORRELATED_SPOKE_ORACLE =
+    0x4fe69aC37FEA7f084E367Dea3129EC5577E295E6;
+  address internal constant ETHENA_ECOSYSTEM_SPOKE_ORACLE =
+    0x28014ee8a9B7606B7ad23E2318f6901cF44ce137;
   address internal constant ETHERFI_ESPOKE_ORACLE = 0x127A56eB5FCCb4242dAC35186f4e488194b2b692;
   address internal constant FOREX_SPOKE_ORACLE = 0x4e23b4041d4BB45f2703BD4C319886163D082ae1;
   address internal constant GOLD_SPOKE_ORACLE = 0x2039AA935fB2E93694d5108003F8CE65305b8DDe;
   address internal constant KELP_ESPOKE_ORACLE = 0x3d4E05Cf6348a6D9575DE739eAcf2F4B327120EC;
   address internal constant LIDO_ESPOKE_ORACLE = 0x06b5Ed7D3A277b64b69F8694fC2073aE3b59ea3D;
   address internal constant LOMBARD_BTC_SPOKE_ORACLE = 0x4596a9CF34412e583660b28838bcEeE5Ff4Fc6dC;
+
+  // Underlying assets not in AaveV3EthereumAssets
+  address internal constant RLUSD = 0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD;
+  address internal constant USDG = 0xe343167631d89B6Ffc58B88d6b7fB0228795491D;
+  address internal constant frxUSD = 0xCAcd6fd266aF91b8AeD52aCCc382b4e165586E29;
+  address internal constant XAUt = 0x68749665FF8D2d112Fa859AA293F07A622782F38;
+  address internal constant PT_sUSDE_7MAY2026 = 0x3de0ff76E8b528C092d47b9DaC775931cef80F49;
+  address internal constant PT_USDe_7MAY2026 = 0xAeBf0Bb9f57E89260d57f31AF34eB58657d96Ce0;
 }
