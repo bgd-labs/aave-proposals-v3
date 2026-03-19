@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@aave-dao/aave-address-book": "^4.47.0",
-    "@aave-dao/aave-helpers-js": "^1.0.9",
+    "@aave-dao/aave-helpers-js": "^1.0.11",
     "@bgd-labs/toolbox": "^0.2.5",
     "@inquirer/prompts": "^8.0.0",
     "@inquirer/testing": "^2.1.37",
