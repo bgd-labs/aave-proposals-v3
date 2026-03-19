@@ -50,7 +50,7 @@ contract AaveV3Base_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecu
   }
 
   function getSvrOracles() public pure returns (ISvrOracleSteward.AssetOracle[] memory) {
-    ISvrOracleSteward.AssetOracle[] memory configInput = new ISvrOracleSteward.AssetOracle[](13);
+    ISvrOracleSteward.AssetOracle[] memory configInput = new ISvrOracleSteward.AssetOracle[](14);
     configInput[0] = ISvrOracleSteward.AssetOracle({
       asset: AaveV3BaseAssets.WETH_UNDERLYING,
       svrOracle: ChainlinkBase.AAVE_SVR_ETH__USD
@@ -102,6 +102,10 @@ contract AaveV3Base_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecu
     configInput[12] = ISvrOracleSteward.AssetOracle({
       asset: AaveV3BaseAssets.tBTC_UNDERLYING,
       svrOracle: ChainlinkBase.AAVE_SVR_BTC__USD
+    });
+    configInput[13] = ISvrOracleSteward.AssetOracle({
+      asset: AaveV3BaseAssets.syrupUSDC_UNDERLYING,
+      svrOracle: SVR_syrupUSDC_USD
     });
     return configInput;
   }
