@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {IHub} from '../interfaces/v4/IHub.sol';
-import {ISpoke} from '../interfaces/v4/ISpoke.sol';
+import {IHub} from './interfaces/IHub.sol';
+import {ISpoke} from './interfaces/ISpoke.sol';
 import {AaveV4EthereumAddresses} from './AaveV4EthereumAddresses.sol';
 
 /**

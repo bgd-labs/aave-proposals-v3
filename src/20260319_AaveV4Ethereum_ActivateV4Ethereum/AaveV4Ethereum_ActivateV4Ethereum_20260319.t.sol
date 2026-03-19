@@ -4,10 +4,10 @@ pragma solidity ^0.8.0;
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {IHub} from '../interfaces/v4/IHub.sol';
-import {IHubConfigurator} from '../interfaces/v4/IHubConfigurator.sol';
-import {AaveV4Ethereum_ActivateV4Ethereum_20260319} from './AaveV4Ethereum_ActivateV4Ethereum_20260319.sol';
+import {IHub} from './interfaces/IHub.sol';
+import {IHubConfigurator} from './interfaces/IHubConfigurator.sol';
 import {AaveV4EthereumAddresses} from './AaveV4EthereumAddresses.sol';
+import {AaveV4Ethereum_ActivateV4Ethereum_20260319} from './AaveV4Ethereum_ActivateV4Ethereum_20260319.sol';
 
 /**
  * @dev Test for AaveV4Ethereum_ActivateV4Ethereum_20260319

@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {IHub} from '../interfaces/v4/IHub.sol';
-import {IHubConfigurator} from '../interfaces/v4/IHubConfigurator.sol';
+import {IHub} from './interfaces/IHub.sol';
+import {IHubConfigurator} from './interfaces/IHubConfigurator.sol';
 import {AaveV4EthereumAddresses} from './AaveV4EthereumAddresses.sol';
 
 /**

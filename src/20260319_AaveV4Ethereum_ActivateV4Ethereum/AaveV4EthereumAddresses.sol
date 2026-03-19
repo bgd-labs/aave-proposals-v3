@@ -10,25 +10,6 @@ library AaveV4EthereumAddresses {
   address internal constant PLUS_HUB = 0x85F9b1d60f9F6fbD51006EA2E20Cde1A670A8eB4;
   address internal constant PRIME_HUB = 0x502B96A1A31572264e27474C2f1439E7FB69b6E8;
 
-  function getHubs() internal pure returns (address[3] memory) {
-    return [CORE_HUB, PLUS_HUB, PRIME_HUB];
-  }
-
-  function getSpokes() internal pure returns (address[10] memory) {
-    return [
-      MAIN_SPOKE,
-      BLUECHIP_SPOKE,
-      ETHENA_CORRELATED_SPOKE,
-      ETHENA_ECOSYSTEM_SPOKE,
-      ETHERFI_ESPOKE,
-      FOREX_SPOKE,
-      GOLD_SPOKE,
-      KELP_ESPOKE,
-      LIDO_ESPOKE,
-      LOMBARD_BTC_SPOKE
-    ];
-  }
-
   address internal constant MAIN_SPOKE = 0x47b880030329821412d614EAe2da68856E87C3fb;
   address internal constant BLUECHIP_SPOKE = 0x20f09138d51a85B075659ec325c66Da4Ca663Dea;
   address internal constant ETHENA_CORRELATED_SPOKE = 0xA76fdE0bFF53ffcd5f3FbE84133C22F37C9E6Cf3;
@@ -71,4 +52,23 @@ library AaveV4EthereumAddresses {
   address internal constant XAUt = 0x68749665FF8D2d112Fa859AA293F07A622782F38;
   address internal constant PT_sUSDE_7MAY2026 = 0x3de0ff76E8b528C092d47b9DaC775931cef80F49;
   address internal constant PT_USDe_7MAY2026 = 0xAeBf0Bb9f57E89260d57f31AF34eB58657d96Ce0;
+
+  function getHubs() internal pure returns (address[3] memory) {
+    return [CORE_HUB, PLUS_HUB, PRIME_HUB];
+  }
+
+  function getSpokes() internal pure returns (address[10] memory) {
+    return [
+      MAIN_SPOKE,
+      BLUECHIP_SPOKE,
+      ETHENA_CORRELATED_SPOKE,
+      ETHENA_ECOSYSTEM_SPOKE,
+      ETHERFI_ESPOKE,
+      FOREX_SPOKE,
+      GOLD_SPOKE,
+      KELP_ESPOKE,
+      LIDO_ESPOKE,
+      LOMBARD_BTC_SPOKE
+    ];
+  }
 }
