@@ -18,7 +18,7 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV36XLayerActivation_20260306 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 55076064);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 55148336);
     proposal = new AaveV3XLayer_AaveV36XLayerActivation_20260306();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -88,14 +88,6 @@ contract AaveV3XLayer_AaveV36XLayerActivation_20260306_Test is ProtocolV3TestBas
 
   function _postSetup() internal {
     // mock funding seed amounts
-    deal(proposal.USDT0(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
-    deal(proposal.USDG(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.USDG_SEED_AMOUNT());
-    deal(proposal.xBTC(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xBTC_SEED_AMOUNT());
-    deal(proposal.WOKB(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.WOKB_SEED_AMOUNT());
-    deal(proposal.xETH(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xETH_SEED_AMOUNT());
-    deal(proposal.xSOL(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xSOL_SEED_AMOUNT());
-    deal(proposal.xBETH(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xBETH_SEED_AMOUNT());
-    deal(proposal.xOKSOL(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.xOKSOL_SEED_AMOUNT());
     deal(proposal.GHO(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
 
     // mock increase totalSupply so the defaultTest does not complain because of `PL_SUPPLY_CAP_GT_TOTAL_SUPPLY` require
