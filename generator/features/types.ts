@@ -49,6 +49,7 @@ export interface AssetEModeUpdatePartial {
   eModeCategory: string;
   collateral: BooleanSelectValues;
   borrowable: BooleanSelectValues;
+  ltvzero: BooleanSelectValues;
 }
 
 export interface AssetEModeUpdate extends AssetEModeUpdatePartial, AssetSelector {}
@@ -87,10 +88,7 @@ export interface RateStrategyUpdate extends AssetSelector {
 }
 
 export interface Listing
-  extends CollateralUpdatePartial,
-    BorrowUpdatePartial,
-    CapsUpdatePartial,
-    PriceFeedUpdatePartial {
+  extends CollateralUpdatePartial, BorrowUpdatePartial, CapsUpdatePartial, PriceFeedUpdatePartial {
   asset: Hex;
   assetSymbol: string;
   rateStrategyParams: RateStrategyParams;

@@ -215,6 +215,15 @@ if (options.configFile) {
         return true;
       },
     });
+  } else if (options.author.includes('TTT')) {
+    const author = await input({
+      message: 'Skyward proposal, please provide the name this proposal should be attributed to',
+      validate(input) {
+        if (input.length == 0) return "Author name can't be empty";
+        return true;
+      },
+    });
+    options.author = options.author.replace('TTT', author);
   }
 
   if (!options.discussion && whitelabelPools.length == 0) {
@@ -233,10 +242,10 @@ if (options.configFile) {
     options.votingNetwork = await select({
       message: 'Select network where voting should takes place for the proposal',
       choices: Object.values(VOTING_NETWORK).map((v) => ({
-        name: v != VOTING_NETWORK.POLYGON ? v : VOTING_NETWORK.POLYGON + ' (DEFAULT)',
+        name: v != VOTING_NETWORK.AVALANCHE ? v : VOTING_NETWORK.AVALANCHE + ' (DEFAULT)',
         value: v,
       })),
-      default: VOTING_NETWORK.POLYGON,
+      default: VOTING_NETWORK.AVALANCHE,
     });
   }
 
