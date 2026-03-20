@@ -50,11 +50,11 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.AAVE_UNDERLYING, 'AAVE');
 
     // Borrowable only
-    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
-    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING, 'EURC');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.USDG, 'USDG');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.RLUSD, 'RLUSD');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.frxUSD, 'frxUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING, 'EURC');
   }
 
   function test_lidoSpokeConfiguration() public view {
@@ -74,6 +74,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(borrowable, 1, 'Lido eSpoke: wrong borrowable count');
 
     _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.wstETH_UNDERLYING, 'wstETH');
+
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
   }
 
@@ -94,6 +95,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(borrowable, 1, 'EtherFi eSpoke: wrong borrowable count');
 
     _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.weETH_UNDERLYING, 'weETH');
+
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
   }
 
@@ -114,6 +116,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(borrowable, 1, 'Kelp eSpoke: wrong borrowable count');
 
     _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.rsETH_UNDERLYING, 'rsETH');
+
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
   }
 
@@ -134,6 +137,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(borrowable, 2, 'Lombard Spoke: wrong borrowable count');
 
     _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.LBTC_UNDERLYING, 'LBTC');
+
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WBTC_UNDERLYING, 'WBTC');
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.cbBTC_UNDERLYING, 'cbBTC');
   }
@@ -155,6 +159,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(borrowable, 7, 'Gold Spoke: wrong borrowable count');
 
     _assertOnlyCollateral(spoke, hub, AaveV4EthereumAddresses.XAUt, 'XAUt');
+
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING, 'USDT');
     _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING, 'USDC');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.USDG, 'USDG');
@@ -186,10 +191,10 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING, 'EURC');
 
     // Borrowable only
-    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.USDG, 'USDG');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.RLUSD, 'RLUSD');
     _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.frxUSD, 'frxUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
   }
 
   // ---------------------------------------------------------------------------
@@ -272,16 +277,6 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(coreCollateral, 0, 'Ethena Ecosystem: Core Hub should have no collateral');
     assertEq(coreBorrowable, 3, 'Ethena Ecosystem: wrong Core Hub borrowable count');
 
-    // Plus Hub: collateral only
-    _assertOnlyCollateral(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING, 'plussUSDe');
-    _assertOnlyCollateral(
-      spoke,
-      plusHub,
-      AaveV4EthereumAddresses.PT_sUSDE_7MAY2026,
-      'plusPT_sUSDE'
-    );
-    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_USDe_7MAY2026, 'plusPT_USDe');
-
     // Plus Hub: collateral + borrowable
     _assertCollateralAndBorrowable(
       spoke,
@@ -289,6 +284,16 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
       AaveV3EthereumAssets.USDe_UNDERLYING,
       'plusUSDe'
     );
+
+    // Plus Hub: collateral only
+    _assertOnlyCollateral(
+      spoke,
+      plusHub,
+      AaveV4EthereumAddresses.PT_sUSDE_7MAY2026,
+      'plusPT_sUSDE'
+    );
+    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_USDe_7MAY2026, 'plusPT_USDe');
+    _assertOnlyCollateral(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING, 'plussUSDe');
 
     // Plus Hub: borrowable only
     _assertOnlyBorrowable(spoke, plusHub, AaveV3EthereumAssets.USDT_UNDERLYING, 'plusUSDT');
@@ -317,13 +322,13 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 4, 'Ethena Correlated: wrong collateral count');
     assertEq(borrowable, 1, 'Ethena Correlated: wrong borrowable count');
 
-    // Collateral only
-    _assertOnlyCollateral(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING, 'sUSDe');
-    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_sUSDE_7MAY2026, 'PT_sUSDE');
-    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_USDe_7MAY2026, 'PT_USDe');
-
     // Collateral + borrowable
     _assertCollateralAndBorrowable(spoke, plusHub, AaveV3EthereumAssets.USDe_UNDERLYING, 'USDe');
+
+    // Collateral only
+    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_sUSDE_7MAY2026, 'PT_sUSDE');
+    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_USDe_7MAY2026, 'PT_USDe');
+    _assertOnlyCollateral(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING, 'sUSDe');
   }
 
   // ---------------------------------------------------------------------------
