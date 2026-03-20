@@ -26,9 +26,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
 
   function _preExecute() internal override {
     // Move funds from collector for the deficit coverage during `coverDeficitOffset()`
-    uint256 amountOfAUsdt = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.USDT_UNDERLYING
-    );
+    uint256 amountOfAUsdt = _getCappedDeficitToCover(AaveV3EthereumAssets.USDT_UNDERLYING);
 
     AaveV3Ethereum.COLLECTOR.transfer(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
@@ -36,9 +34,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
       amountOfAUsdt
     );
 
-    uint256 amountOfAUsdc = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.USDC_UNDERLYING
-    );
+    uint256 amountOfAUsdc = _getCappedDeficitToCover(AaveV3EthereumAssets.USDC_UNDERLYING);
 
     AaveV3Ethereum.COLLECTOR.transfer(
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
@@ -46,9 +42,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
       amountOfAUsdc
     );
 
-    uint256 amountOfAWeth = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
+    uint256 amountOfAWeth = _getCappedDeficitToCover(AaveV3EthereumAssets.WETH_UNDERLYING);
 
     AaveV3Ethereum.COLLECTOR.transfer(
       IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
@@ -64,7 +58,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
     // we need to set deficit including funds that will be used for coverage
 
     uint256 usdtDeficitOffset = USDT_DEFICIT_OFFSET +
-      AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.USDT_UNDERLYING);
+      _getCappedDeficitToCover(AaveV3EthereumAssets.USDT_UNDERLYING);
 
     newDeficitOffsets[0] = IStructs.SetDeficitOffset({
       reserve: AaveV3EthereumAssets.USDT_UNDERLYING,
@@ -72,7 +66,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
     });
 
     uint256 usdcDeficitOffset = USDC_DEFICIT_OFFSET +
-      AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.USDC_UNDERLYING);
+      _getCappedDeficitToCover(AaveV3EthereumAssets.USDC_UNDERLYING);
 
     newDeficitOffsets[1] = IStructs.SetDeficitOffset({
       reserve: AaveV3EthereumAssets.USDC_UNDERLYING,
@@ -80,7 +74,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
     });
 
     uint256 wethDeficitOffset = WETH_DEFICIT_OFFSET +
-      AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.WETH_UNDERLYING);
+      _getCappedDeficitToCover(AaveV3EthereumAssets.WETH_UNDERLYING);
 
     newDeficitOffsets[2] = IStructs.SetDeficitOffset({
       reserve: AaveV3EthereumAssets.WETH_UNDERLYING,
@@ -102,22 +96,31 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 is UmbrellaBasePa
 
     coverReserveDeficits[0] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.USDT_UNDERLYING,
-      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.USDT_UNDERLYING),
+      amount: _getCappedDeficitToCover(AaveV3EthereumAssets.USDT_UNDERLYING),
       approve: true
     });
 
     coverReserveDeficits[1] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.USDC_UNDERLYING,
-      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.USDC_UNDERLYING),
+      amount: _getCappedDeficitToCover(AaveV3EthereumAssets.USDC_UNDERLYING),
       approve: true
     });
 
     coverReserveDeficits[2] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.WETH_UNDERLYING,
-      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.WETH_UNDERLYING),
+      amount: _getCappedDeficitToCover(AaveV3EthereumAssets.WETH_UNDERLYING),
       approve: true
     });
 
     return coverReserveDeficits;
+  }
+
+  function _getCappedDeficitToCover(address reserve) internal view returns (uint256) {
+    // Could be any, potentially can be greater than deficitOffset initially set
+    uint256 reserveDeficit = AaveV3Ethereum.POOL.getReserveDeficit(reserve);
+    // deficitOffset, which is restricted with values set during Umbrella Activation (e.g. 100k for USDT, USDC, 50 for WETH)
+    uint256 deficitOffset = UmbrellaEthereum.UMBRELLA.getDeficitOffset(reserve);
+    // Use min in case if significant deficit will be created during payload activation window
+    return reserveDeficit < deficitOffset ? reserveDeficit : deficitOffset;
   }
 }

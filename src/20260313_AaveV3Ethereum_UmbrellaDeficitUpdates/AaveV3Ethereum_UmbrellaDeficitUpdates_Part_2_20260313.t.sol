@@ -16,20 +16,8 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313_Test is ProtocolV
   AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24640000);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24699000);
     proposal = new AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313();
-
-    // We manually increase balance, because swap will be made in parallel
-    deal(
-      AaveV3EthereumAssets.CRV_UNDERLYING,
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.CRV_DEFICIT_ELIMINATION_CAP()
-    );
-    deal(
-      AaveV3EthereumAssets.ENS_UNDERLYING,
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.ENS_DEFICIT_ELIMINATION_CAP()
-    );
   }
 
   /**

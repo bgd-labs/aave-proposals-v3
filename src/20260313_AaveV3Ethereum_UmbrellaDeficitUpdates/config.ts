@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'BGD Labs @bgdlabs',
     pools: ['AaveV3Ethereum'],
-    title: 'UmbrellaDeficitUpdates',
+    title: 'Umbrella Deficit Updates',
     shortName: 'UmbrellaDeficitUpdates',
     date: '20260313',
     discussion:

@@ -19,7 +19,7 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313_Test is ProtocolV
   AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24640000);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24699000);
     proposal = new AaveV3Ethereum_UmbrellaDeficitUpdates_Part_1_20260313();
   }
 

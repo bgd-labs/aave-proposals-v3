@@ -1,5 +1,5 @@
 ---
-title: "UmbrellaDeficitUpdates"
+title: "Umbrella Deficit Updates"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/arfc-revenue-indexed-deficit-offsets-for-umbrella/24000"
 snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xfcd429c8fcb5fc44a0bea9bf078726ef48b1c76ca1039a8c6c9dff23f4547e30"
@@ -10,8 +10,6 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xfcd429c8fcb5fc44a0bea
 Umbrella makes deficit handling explicit and mechanically enforceable. Once a reserve deficit is realized on-chain, the protocol applies a senior, DAO-backed first-loss layer (the deficitOffset) before any impairment is passed through to Umbrella stakers. Conceptually, the deficitOffset is the protocol’s equity buffer: it is the amount of realized loss the DAO is willing to absorb in that reserve before invoking the backstop.
 
 The core issue is not the existence of this equity layer, but its calibration. Today, deficitOffset is not systematically linked to the protocol’s own realized upside from the same liquidation machinery that occasionally generates deficits. This disconnect is notable because liquidation recapture has never been intended as “free revenue” in isolation. Protocol liquidation fees and, more recently, SVR, have always served a dual purpose: they are mechanisms through which the protocol internalizes part of the liquidation surplus, not only to align incentives, but also to strengthen the system’s ability to absorb future losses. In other words, liquidation-linked profitability has always been conceptually part of the protocol’s security and coverage loop; an earnings stream meant to reinforce resilience over time.
-
-This paper proposes a Risk Oracle that updates deficitOffset per reserve as a function of realized liquidation-linked recapture, specifically liquidation protocol fees and SVR, attributed to the debt reserve whose positions are being unwound. The objective is to convert realized liquidation profitability into continuously “earned” first-loss capacity, rather than treating deficitOffset as a static governance parameter that can drift away from the protocol’s actual earnings power and incentive intent.
 
 ## Motivation
 
@@ -40,11 +38,9 @@ In parallel, the DAO should clear the currently outstanding deficits through the
 | :------ | :-----------: | :-------------: | :-----------------: |
 | USDT    | Ethereum Core |     10,134      |       10,134        |
 | USDC    | Ethereum Core |     51,185      |       51,185        |
-| WETH    | Ethereum Core |       8,1       |       18,320        |
+| WETH    | Ethereum Core |       8.1       |       18,320        |
 | CRV     | Ethereum Core |     394,356     |       111,980       |
 | ENS     | Ethereum Core |      5,768      |       39,400        |
-
-Once cleared and offsets are raised, the proposed revenue-indexed oracle can operate from a stable reference point, with subsequent offset growth reflecting ongoing realized liquidation-linked revenue and consumption reflecting future deficit-offset usage.
 
 ## Implementation design
 
