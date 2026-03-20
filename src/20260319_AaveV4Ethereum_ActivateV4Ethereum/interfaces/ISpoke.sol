@@ -27,6 +27,7 @@ interface ISpoke {
   }
 
   function getReserveCount() external view returns (uint256);
+  function getReserveId(address hub, uint256 assetId) external view returns (uint256);
   function getReserve(uint256 reserveId) external view returns (Reserve memory);
   function getReserveConfig(uint256 reserveId) external view returns (ReserveConfig memory);
   function getDynamicReserveConfig(

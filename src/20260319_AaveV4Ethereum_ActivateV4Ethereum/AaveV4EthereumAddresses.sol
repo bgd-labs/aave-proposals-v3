@@ -57,7 +57,7 @@ library AaveV4EthereumAddresses {
     return [CORE_HUB, PLUS_HUB, PRIME_HUB];
   }
 
-  function getSpokes() internal pure returns (address[10] memory) {
+  function getSpokes() internal pure returns (address[11] memory) {
     return [
       MAIN_SPOKE,
       BLUECHIP_SPOKE,
@@ -68,7 +68,8 @@ library AaveV4EthereumAddresses {
       GOLD_SPOKE,
       KELP_ESPOKE,
       LIDO_ESPOKE,
-      LOMBARD_BTC_SPOKE
+      LOMBARD_BTC_SPOKE,
+      TREASURY_SPOKE
     ];
   }
 }

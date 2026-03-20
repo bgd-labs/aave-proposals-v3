@@ -1,7 +1,7 @@
 ---
 title: "Aave V4 Ethereum Activation"
 author: "Aave Labs"
-discussions: "TODO"
+discussions: "https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293"
 ---
 
 ## Simple Summary
