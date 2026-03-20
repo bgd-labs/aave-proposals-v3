@@ -14,6 +14,6 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 contract AaveV3Ethereum_EnableSVROnBaseAndArbitrum_20260224 is IProposalGenericExecutor {
   function execute() external {
     AaveV3Ethereum.ACL_MANAGER.removeAssetListingAdmin(AaveV3Ethereum.SVR_STEWARD);
-    AaveV3Ethereum.ACL_MANAGER.removeAssetListingAdmin(AaveV3EthereumLido.SVR_STEWARD);
+    AaveV3EthereumLido.ACL_MANAGER.removeAssetListingAdmin(AaveV3EthereumLido.SVR_STEWARD);
   }
 }
