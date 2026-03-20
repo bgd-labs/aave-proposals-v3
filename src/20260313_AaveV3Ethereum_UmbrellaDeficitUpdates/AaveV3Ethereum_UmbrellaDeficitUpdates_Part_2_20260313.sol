@@ -21,8 +21,8 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313 is UmbrellaBasePayload {
   using CollectorUtils for *;
 
-  uint256 public constant CRV_DEFICIT_ELIMINATION_CAP = 394_500 * 1e18; // Swap result + some underlying dust in collector
-  uint256 public constant ENS_DEFICIT_ELIMINATION_CAP = 5_769 * 1e18; // Swap result + some underlying dust in collector
+  uint256 public constant CRV_DEFICIT_ELIMINATION_CAP = 394_500 * 1e18;
+  uint256 public constant ENS_DEFICIT_ELIMINATION_CAP = 5_769 * 1e18;
 
   constructor() UmbrellaBasePayload(UmbrellaEthereum.UMBRELLA_CONFIG_ENGINE) {}
 
@@ -34,22 +34,6 @@ contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313 is UmbrellaBasePa
     uint256 ensDeficit = _getDeficitEliminationAmount(
       AaveV3EthereumAssets.ENS_UNDERLYING,
       ENS_DEFICIT_ELIMINATION_CAP
-    );
-
-    // Even floor rounding won't be a problem during deposit, because Collector has some aCrv/aEns
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.CRV_UNDERLYING,
-        amount: crvDeficit
-      })
-    );
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.ENS_UNDERLYING,
-        amount: ensDeficit
-      })
     );
 
     // Transfer aTokens for reserve deficit elimination
