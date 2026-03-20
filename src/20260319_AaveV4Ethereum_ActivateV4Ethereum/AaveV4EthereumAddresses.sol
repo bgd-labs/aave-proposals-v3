@@ -21,6 +21,7 @@ library AaveV4EthereumAddresses {
   address internal constant LIDO_ESPOKE = 0x39299bc53cff6EA0bf9183EfCC4074e4b57504b1;
   address internal constant LOMBARD_BTC_SPOKE = 0x9A93D44e38c8505f24cCDFaEb2FbdfC1eba25c1C;
   address internal constant TREASURY_SPOKE = 0x4f3647C9675723822BC618ad9b15802f6c893f06;
+  // TODO: Add tokenization spoke address once available
 
   address internal constant CONFIG_POSITION_MANAGER = 0x9D1C7d6f920f8915677B276b6AB6bD63e3E4baC8;
   address internal constant GIVER_POSITION_MANAGER = 0x8C774A8C22e66aC06E71a28d75dc265EC2509756;
@@ -57,7 +58,8 @@ library AaveV4EthereumAddresses {
     return [CORE_HUB, PLUS_HUB, PRIME_HUB];
   }
 
-  function getSpokes() internal pure returns (address[10] memory) {
+  // TODO: Add tokenization spoke to this list once available
+  function getSpokes() internal pure returns (address[11] memory) {
     return [
       MAIN_SPOKE,
       BLUECHIP_SPOKE,
@@ -68,7 +70,8 @@ library AaveV4EthereumAddresses {
       GOLD_SPOKE,
       KELP_ESPOKE,
       LIDO_ESPOKE,
-      LOMBARD_BTC_SPOKE
+      LOMBARD_BTC_SPOKE,
+      TREASURY_SPOKE
     ];
   }
 }

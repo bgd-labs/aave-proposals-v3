@@ -1,12 +1,13 @@
 ---
 title: "Aave V4 Ethereum Activation"
 author: "Aave Labs"
-discussions: "TODO"
+discussions: "https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293"
+snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x55e85a32828da36122b9c8d50548696d7c748fd41c775f5bf06bdf0f2e32a265"
 ---
 
 ## Simple Summary
 
-Activates all spokes on all hubs (Core, Plus, Prime) for all listed assets on Aave V4 Ethereum. Additionally, the treasury spoke and tokenization spoke are activated for every asset on every hub.
+Activates all spokes on all hubs (Core, Plus, Prime) for all listed assets on Aave V4 Ethereum. Additionally, the treasury spoke is activated for every asset on every hub.
 
 ## Motivation
 
@@ -16,15 +17,15 @@ As part of the Aave V4 deployment on Ethereum, all spokes need to be activated o
 
 For each hub (Core, Plus, Prime) and each asset, the proposal:
 
-1. Activates each of the 10 spokes where they are listed via `updateSpokeActive` on the Hub Configurator.
-2. Adds and activates the treasury spoke for every asset on every hub. If not yet listed, it is added via `addSpoke` with unlimited `addCap` and zero `drawCap`. If already listed, it is activated via `updateSpokeActive`.
-3. Adds and activates the tokenization spoke for every asset on every hub, following the same pattern as the treasury spoke.
+1. Activates each of the 11 spokes (including the treasury spoke and tokenization spoke) where they are listed via `updateSpokeActive` on the Hub Configurator.
 
 | Hub       | Address                                    |
 | --------- | ------------------------------------------ |
 | Core Hub  | 0xDA21DF2D9297f3E1CB564A54190a2984DF42B934 |
 | Plus Hub  | 0x85F9b1d60f9F6fbD51006EA2E20Cde1A670A8eB4 |
 | Prime Hub | 0x502B96A1A31572264e27474C2f1439E7FB69b6E8 |
+
+<!-- TODO: Include the tokenization spoke once its address is available -->
 
 | Spoke                   | Address                                    |
 | ----------------------- | ------------------------------------------ |
@@ -44,6 +45,8 @@ For each hub (Core, Plus, Prime) and each asset, the proposal:
 
 - Implementation: [AaveV4Ethereum_ActivateV4Ethereum_20260319](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4Ethereum_ActivateV4Ethereum_20260319.sol)
 - Tests: [AaveV4Ethereum_ActivateV4Ethereum_20260319_Test](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4Ethereum_ActivateV4Ethereum_20260319.t.sol)
+- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x55e85a32828da36122b9c8d50548696d7c748fd41c775f5bf06bdf0f2e32a265)
+- [Discussion](https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293)
 
 ## Copyright
 

@@ -36,71 +36,25 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 9, 'Main Spoke: wrong collateral count');
     assertEq(borrowable, 10, 'Main Spoke: wrong borrowable count');
 
-    // Verify specific known tokens
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'WETH should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'WETH should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.wstETH_UNDERLYING),
-      'wstETH should be collateral'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.weETH_UNDERLYING),
-      'weETH should be collateral'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.WBTC_UNDERLYING),
-      'WBTC should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.WBTC_UNDERLYING),
-      'WBTC should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.cbBTC_UNDERLYING),
-      'cbBTC should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.cbBTC_UNDERLYING),
-      'cbBTC should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.LINK_UNDERLYING),
-      'LINK should be collateral'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.AAVE_UNDERLYING),
-      'AAVE should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING),
-      'GHO should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING),
-      'EURC should be borrowable'
-    );
+    // Collateral + borrowable
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.WBTC_UNDERLYING, 'WBTC');
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.cbBTC_UNDERLYING, 'cbBTC');
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING, 'USDT');
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING, 'USDC');
+
+    // Collateral only
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.wstETH_UNDERLYING, 'wstETH');
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.weETH_UNDERLYING, 'weETH');
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.LINK_UNDERLYING, 'LINK');
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.AAVE_UNDERLYING, 'AAVE');
+
+    // Borrowable only
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.USDG, 'USDG');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.RLUSD, 'RLUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.frxUSD, 'frxUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING, 'EURC');
   }
 
   function test_lidoSpokeConfiguration() public view {
@@ -119,28 +73,18 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 1, 'Lido eSpoke: wrong collateral count');
     assertEq(borrowable, 1, 'Lido eSpoke: wrong borrowable count');
 
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.wstETH_UNDERLYING),
-      'wstETH should be collateral'
-    );
-    assertFalse(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.wstETH_UNDERLYING),
-      'wstETH should not be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'WETH should be borrowable'
-    );
-    assertFalse(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'WETH should not be collateral'
-    );
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.wstETH_UNDERLYING, 'wstETH');
+
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
   }
 
   function test_etherfiSpokeConfiguration() public view {
     address spoke = AaveV4EthereumAddresses.ETHERFI_ESPOKE;
     address hub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // EtherFi eSpoke: 2 reserves on Core Hub
+    // Collateral (1): weETH
+    // Borrowable (1): wETH
     (uint256 total, uint256 onHub, uint256 collateral, uint256 borrowable) = _countReserves(
       spoke,
       hub
@@ -150,20 +94,18 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 1, 'EtherFi eSpoke: wrong collateral count');
     assertEq(borrowable, 1, 'EtherFi eSpoke: wrong borrowable count');
 
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.weETH_UNDERLYING),
-      'weETH should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'WETH should be borrowable'
-    );
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.weETH_UNDERLYING, 'weETH');
+
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
   }
 
   function test_kelpSpokeConfiguration() public view {
     address spoke = AaveV4EthereumAddresses.KELP_ESPOKE;
     address hub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // Kelp eSpoke: 2 reserves on Core Hub
+    // Collateral (1): rsETH
+    // Borrowable (1): wETH
     (uint256 total, uint256 onHub, uint256 collateral, uint256 borrowable) = _countReserves(
       spoke,
       hub
@@ -173,20 +115,18 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 1, 'Kelp eSpoke: wrong collateral count');
     assertEq(borrowable, 1, 'Kelp eSpoke: wrong borrowable count');
 
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.rsETH_UNDERLYING),
-      'rsETH should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'WETH should be borrowable'
-    );
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.rsETH_UNDERLYING, 'rsETH');
+
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WETH_UNDERLYING, 'WETH');
   }
 
   function test_lombardSpokeConfiguration() public view {
     address spoke = AaveV4EthereumAddresses.LOMBARD_BTC_SPOKE;
     address hub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // Lombard BTC Spoke: 3 reserves on Core Hub
+    // Collateral (1): LBTC
+    // Borrowable (2): wBTC, cbBTC
     (uint256 total, uint256 onHub, uint256 collateral, uint256 borrowable) = _countReserves(
       spoke,
       hub
@@ -196,24 +136,19 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 1, 'Lombard Spoke: wrong collateral count');
     assertEq(borrowable, 2, 'Lombard Spoke: wrong borrowable count');
 
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.LBTC_UNDERLYING),
-      'LBTC should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.WBTC_UNDERLYING),
-      'WBTC should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.cbBTC_UNDERLYING),
-      'cbBTC should be borrowable'
-    );
+    _assertOnlyCollateral(spoke, hub, AaveV3EthereumAssets.LBTC_UNDERLYING, 'LBTC');
+
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.WBTC_UNDERLYING, 'WBTC');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.cbBTC_UNDERLYING, 'cbBTC');
   }
 
   function test_goldSpokeConfiguration() public view {
     address spoke = AaveV4EthereumAddresses.GOLD_SPOKE;
     address hub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // Gold Spoke: 8 reserves on Core Hub
+    // Collateral (1): XAUt
+    // Borrowable (7): USDT, USDC, USDG, RLUSD, frxUSD, GHO, EURC
     (uint256 total, uint256 onHub, uint256 collateral, uint256 borrowable) = _countReserves(
       spoke,
       hub
@@ -223,28 +158,24 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 1, 'Gold Spoke: wrong collateral count');
     assertEq(borrowable, 7, 'Gold Spoke: wrong borrowable count');
 
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING),
-      'GHO should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING),
-      'EURC should be borrowable'
-    );
+    _assertOnlyCollateral(spoke, hub, AaveV4EthereumAddresses.XAUt, 'XAUt');
+
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING, 'USDT');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING, 'USDC');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.USDG, 'USDG');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.RLUSD, 'RLUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.frxUSD, 'frxUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING, 'EURC');
   }
 
   function test_forexSpokeConfiguration() public view {
     address spoke = AaveV4EthereumAddresses.FOREX_SPOKE;
     address hub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // Forex Spoke: 7 reserves on Core Hub
+    // Collateral (3): USDT, USDC, EURC
+    // Borrowable (7): USDT, USDC, USDG, RLUSD, frxUSD, GHO, EURC
     (uint256 total, uint256 onHub, uint256 collateral, uint256 borrowable) = _countReserves(
       spoke,
       hub
@@ -254,34 +185,16 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 3, 'Forex Spoke: wrong collateral count');
     assertEq(borrowable, 7, 'Forex Spoke: wrong borrowable count');
 
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be borrowable'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING),
-      'EURC should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING),
-      'EURC should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING),
-      'GHO should be borrowable'
-    );
+    // Collateral + borrowable
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.USDT_UNDERLYING, 'USDT');
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.USDC_UNDERLYING, 'USDC');
+    _assertCollateralAndBorrowable(spoke, hub, AaveV3EthereumAssets.EURC_UNDERLYING, 'EURC');
+
+    // Borrowable only
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.USDG, 'USDG');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.RLUSD, 'RLUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV4EthereumAddresses.frxUSD, 'frxUSD');
+    _assertOnlyBorrowable(spoke, hub, AaveV3EthereumAssets.GHO_UNDERLYING, 'GHO');
   }
 
   // ---------------------------------------------------------------------------
@@ -293,6 +206,9 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     address primeHub = AaveV4EthereumAddresses.PRIME_HUB;
     address coreHub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // Bluechip Spoke: 11 total reserves
+    // Prime Hub (7): collateral wETH, wstETH, wBTC, cbBTC; borrowable USDT, USDC, GHO
+    // Core Hub (4): borrowable coreUSDT, coreUSDC, corefrxUSD, coreEURC
     uint256 totalCount = ISpoke(spoke).getReserveCount();
     assertEq(totalCount, 11, 'Bluechip Spoke: wrong total reserve count');
 
@@ -312,49 +228,22 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(coreCollateral, 0, 'Bluechip Spoke: Core Hub should have no collateral');
     assertEq(coreBorrowable, 4, 'Bluechip Spoke: wrong Core Hub borrowable count');
 
-    // Verify specific tokens on Prime Hub
-    assertTrue(
-      _isCollateralOnHub(spoke, primeHub, AaveV3EthereumAssets.WETH_UNDERLYING),
-      'wETH should be collateral on Prime'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, primeHub, AaveV3EthereumAssets.wstETH_UNDERLYING),
-      'wstETH should be collateral on Prime'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, primeHub, AaveV3EthereumAssets.WBTC_UNDERLYING),
-      'wBTC should be collateral on Prime'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, primeHub, AaveV3EthereumAssets.cbBTC_UNDERLYING),
-      'cbBTC should be collateral on Prime'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, primeHub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be borrowable on Prime'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, primeHub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be borrowable on Prime'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, primeHub, AaveV3EthereumAssets.GHO_UNDERLYING),
-      'GHO should be borrowable on Prime'
-    );
+    // Prime Hub: collateral only
+    _assertOnlyCollateral(spoke, primeHub, AaveV3EthereumAssets.WETH_UNDERLYING, 'primeWETH');
+    _assertOnlyCollateral(spoke, primeHub, AaveV3EthereumAssets.wstETH_UNDERLYING, 'primewstETH');
+    _assertOnlyCollateral(spoke, primeHub, AaveV3EthereumAssets.WBTC_UNDERLYING, 'primeWBTC');
+    _assertOnlyCollateral(spoke, primeHub, AaveV3EthereumAssets.cbBTC_UNDERLYING, 'primecbBTC');
 
-    // Verify cross-hub borrowables on Core Hub
-    assertTrue(
-      _isBorrowableOnHub(spoke, coreHub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'coreUSDT should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, coreHub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'coreUSDC should be borrowable'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, coreHub, AaveV3EthereumAssets.EURC_UNDERLYING),
-      'coreEURC should be borrowable'
-    );
+    // Prime Hub: borrowable only
+    _assertOnlyBorrowable(spoke, primeHub, AaveV3EthereumAssets.USDT_UNDERLYING, 'primeUSDT');
+    _assertOnlyBorrowable(spoke, primeHub, AaveV3EthereumAssets.USDC_UNDERLYING, 'primeUSDC');
+    _assertOnlyBorrowable(spoke, primeHub, AaveV3EthereumAssets.GHO_UNDERLYING, 'primeGHO');
+
+    // Core Hub: borrowable only (cross-hub)
+    _assertOnlyBorrowable(spoke, coreHub, AaveV3EthereumAssets.USDT_UNDERLYING, 'coreUSDT');
+    _assertOnlyBorrowable(spoke, coreHub, AaveV3EthereumAssets.USDC_UNDERLYING, 'coreUSDC');
+    _assertOnlyBorrowable(spoke, coreHub, AaveV4EthereumAddresses.frxUSD, 'corefrxUSD');
+    _assertOnlyBorrowable(spoke, coreHub, AaveV3EthereumAssets.EURC_UNDERLYING, 'coreEURC');
   }
 
   // ---------------------------------------------------------------------------
@@ -366,6 +255,9 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     address plusHub = AaveV4EthereumAddresses.PLUS_HUB;
     address coreHub = AaveV4EthereumAddresses.CORE_HUB;
 
+    // Ethena Ecosystem Spoke: 10 total reserves
+    // Plus Hub (7): collateral PT-sUSDe, PT-USDe, sUSDe, USDe; borrowable USDT, USDC, USDe, GHO
+    // Core Hub (3): borrowable coreUSDT, coreUSDC, corefrxUSD
     uint256 totalCount = ISpoke(spoke).getReserveCount();
     assertEq(totalCount, 10, 'Ethena Ecosystem: wrong total reserve count');
 
@@ -385,47 +277,42 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(coreCollateral, 0, 'Ethena Ecosystem: Core Hub should have no collateral');
     assertEq(coreBorrowable, 3, 'Ethena Ecosystem: wrong Core Hub borrowable count');
 
-    // Verify specific tokens on Plus Hub
-    assertTrue(
-      _isCollateralOnHub(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING),
-      'sUSDe should be collateral on Plus'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, plusHub, AaveV3EthereumAssets.USDe_UNDERLYING),
-      'USDe should be collateral on Plus'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, plusHub, AaveV3EthereumAssets.USDe_UNDERLYING),
-      'USDe should be borrowable on Plus'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, plusHub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'USDT should be borrowable on Plus'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, plusHub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'USDC should be borrowable on Plus'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, plusHub, AaveV3EthereumAssets.GHO_UNDERLYING),
-      'GHO should be borrowable on Plus'
+    // Plus Hub: collateral + borrowable
+    _assertCollateralAndBorrowable(
+      spoke,
+      plusHub,
+      AaveV3EthereumAssets.USDe_UNDERLYING,
+      'plusUSDe'
     );
 
-    // Verify cross-hub borrowables on Core Hub
-    assertTrue(
-      _isBorrowableOnHub(spoke, coreHub, AaveV3EthereumAssets.USDT_UNDERLYING),
-      'coreUSDT should be borrowable'
+    // Plus Hub: collateral only
+    _assertOnlyCollateral(
+      spoke,
+      plusHub,
+      AaveV4EthereumAddresses.PT_sUSDE_7MAY2026,
+      'plusPT_sUSDE'
     );
-    assertTrue(
-      _isBorrowableOnHub(spoke, coreHub, AaveV3EthereumAssets.USDC_UNDERLYING),
-      'coreUSDC should be borrowable'
-    );
+    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_USDe_7MAY2026, 'plusPT_USDe');
+    _assertOnlyCollateral(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING, 'plussUSDe');
+
+    // Plus Hub: borrowable only
+    _assertOnlyBorrowable(spoke, plusHub, AaveV3EthereumAssets.USDT_UNDERLYING, 'plusUSDT');
+    _assertOnlyBorrowable(spoke, plusHub, AaveV3EthereumAssets.USDC_UNDERLYING, 'plusUSDC');
+    _assertOnlyBorrowable(spoke, plusHub, AaveV3EthereumAssets.GHO_UNDERLYING, 'plusGHO');
+
+    // Core Hub: borrowable only (cross-hub)
+    _assertOnlyBorrowable(spoke, coreHub, AaveV3EthereumAssets.USDT_UNDERLYING, 'coreUSDT');
+    _assertOnlyBorrowable(spoke, coreHub, AaveV3EthereumAssets.USDC_UNDERLYING, 'coreUSDC');
+    _assertOnlyBorrowable(spoke, coreHub, AaveV4EthereumAddresses.frxUSD, 'corefrxUSD');
   }
 
   function test_ethenaCorrelatedSpokeConfiguration() public view {
     address spoke = AaveV4EthereumAddresses.ETHENA_CORRELATED_SPOKE;
     address plusHub = AaveV4EthereumAddresses.PLUS_HUB;
 
+    // Ethena Correlated Spoke: 4 reserves on Plus Hub
+    // Collateral (4): PT-sUSDe, PT-USDe, sUSDe, USDe
+    // Borrowable (1): USDe
     (uint256 total, uint256 onHub, uint256 collateral, uint256 borrowable) = _countReserves(
       spoke,
       plusHub
@@ -435,22 +322,13 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
     assertEq(collateral, 4, 'Ethena Correlated: wrong collateral count');
     assertEq(borrowable, 1, 'Ethena Correlated: wrong borrowable count');
 
-    assertTrue(
-      _isCollateralOnHub(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING),
-      'sUSDe should be collateral'
-    );
-    assertTrue(
-      _isCollateralOnHub(spoke, plusHub, AaveV3EthereumAssets.USDe_UNDERLYING),
-      'USDe should be collateral'
-    );
-    assertTrue(
-      _isBorrowableOnHub(spoke, plusHub, AaveV3EthereumAssets.USDe_UNDERLYING),
-      'USDe should be borrowable'
-    );
-    assertFalse(
-      _isBorrowableOnHub(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING),
-      'sUSDe should not be borrowable'
-    );
+    // Collateral + borrowable
+    _assertCollateralAndBorrowable(spoke, plusHub, AaveV3EthereumAssets.USDe_UNDERLYING, 'USDe');
+
+    // Collateral only
+    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_sUSDE_7MAY2026, 'PT_sUSDE');
+    _assertOnlyCollateral(spoke, plusHub, AaveV4EthereumAddresses.PT_USDe_7MAY2026, 'PT_USDe');
+    _assertOnlyCollateral(spoke, plusHub, AaveV3EthereumAssets.sUSDe_UNDERLYING, 'sUSDe');
   }
 
   // ---------------------------------------------------------------------------
@@ -492,15 +370,48 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
   // Helpers
   // ---------------------------------------------------------------------------
 
+  function _assertCollateralAndBorrowable(
+    address spoke,
+    address hub,
+    address underlying,
+    string memory name
+  ) internal view {
+    (bool isCollateral, bool isBorrowable) = _getReserveFlags(spoke, hub, underlying);
+    assertTrue(isCollateral, string.concat(name, ' should be collateral'));
+    assertTrue(isBorrowable, string.concat(name, ' should be borrowable'));
+  }
+
+  function _assertOnlyCollateral(
+    address spoke,
+    address hub,
+    address underlying,
+    string memory name
+  ) internal view {
+    (bool isCollateral, bool isBorrowable) = _getReserveFlags(spoke, hub, underlying);
+    assertTrue(isCollateral, string.concat(name, ' should be collateral'));
+    assertFalse(isBorrowable, string.concat(name, ' should not be borrowable'));
+  }
+
+  function _assertOnlyBorrowable(
+    address spoke,
+    address hub,
+    address underlying,
+    string memory name
+  ) internal view {
+    (bool isCollateral, bool isBorrowable) = _getReserveFlags(spoke, hub, underlying);
+    assertFalse(isCollateral, string.concat(name, ' should not be collateral'));
+    assertTrue(isBorrowable, string.concat(name, ' should be borrowable'));
+  }
+
   function _countReserves(
     address spoke,
     address hub
-  )
-    internal
-    view
-    returns (uint256 total, uint256 onHub, uint256 collateralCount, uint256 borrowableCount)
-  {
-    total = ISpoke(spoke).getReserveCount();
+  ) internal view returns (uint256, uint256, uint256, uint256) {
+    uint256 total = ISpoke(spoke).getReserveCount();
+    uint256 onHub;
+    uint256 collateralCount;
+    uint256 borrowableCount;
+
     for (uint256 i = 0; i < total; ++i) {
       ISpoke.Reserve memory r = ISpoke(spoke).getReserve(i);
       if (r.hub != hub) continue;
@@ -515,46 +426,25 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
       ISpoke.ReserveConfig memory cfg = ISpoke(spoke).getReserveConfig(i);
       if (cfg.borrowable) ++borrowableCount;
     }
+
+    return (total, onHub, collateralCount, borrowableCount);
   }
 
-  function _findReserve(
+  function _getReserveFlags(
     address spoke,
     address hub,
     address underlying
-  ) internal view returns (bool found, uint256 reserveId) {
-    uint256 count = ISpoke(spoke).getReserveCount();
-    for (uint256 i = 0; i < count; ++i) {
-      ISpoke.Reserve memory r = ISpoke(spoke).getReserve(i);
-      if (r.hub == hub && r.underlying == underlying) {
-        return (true, i);
-      }
-    }
-    return (false, 0);
-  }
+  ) internal view returns (bool, bool) {
+    uint256 assetId = IHub(hub).getAssetId(underlying);
+    uint256 reserveId = ISpoke(spoke).getReserveId(hub, assetId);
+    ISpoke.Reserve memory r = ISpoke(spoke).getReserve(reserveId);
 
-  function _isCollateralOnHub(
-    address spoke,
-    address hub,
-    address underlying
-  ) internal view returns (bool) {
-    (bool found, uint256 id) = _findReserve(spoke, hub, underlying);
-    if (!found) return false;
-    ISpoke.Reserve memory r = ISpoke(spoke).getReserve(id);
     ISpoke.DynamicReserveConfig memory dynCfg = ISpoke(spoke).getDynamicReserveConfig(
-      id,
+      reserveId,
       r.dynamicConfigKey
     );
-    return dynCfg.collateralFactor > 0;
-  }
+    ISpoke.ReserveConfig memory cfg = ISpoke(spoke).getReserveConfig(reserveId);
 
-  function _isBorrowableOnHub(
-    address spoke,
-    address hub,
-    address underlying
-  ) internal view returns (bool) {
-    (bool found, uint256 id) = _findReserve(spoke, hub, underlying);
-    if (!found) return false;
-    ISpoke.ReserveConfig memory cfg = ISpoke(spoke).getReserveConfig(id);
-    return cfg.borrowable;
+    return (dynCfg.collateralFactor > 0, cfg.borrowable);
   }
 }

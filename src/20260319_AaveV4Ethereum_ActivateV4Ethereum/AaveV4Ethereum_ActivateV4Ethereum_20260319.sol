@@ -9,7 +9,8 @@ import {AaveV4EthereumAddresses} from './AaveV4EthereumAddresses.sol';
 /**
  * @title Aave V4 Ethereum - Activate Spokes
  * @author Aave Labs
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293
+ * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x55e85a32828da36122b9c8d50548696d7c748fd41c775f5bf06bdf0f2e32a265
  */
 contract AaveV4Ethereum_ActivateV4Ethereum_20260319 is IProposalGenericExecutor {
   function execute() external override {

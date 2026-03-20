@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IAccessManager} from './interfaces/IAccessManager.sol';
 import {IHub} from './interfaces/IHub.sol';
 import {IHubConfigurator} from './interfaces/IHubConfigurator.sol';
 import {AaveV4EthereumAddresses} from './AaveV4EthereumAddresses.sol';
@@ -20,17 +21,16 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV3TestBase {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 24693869);
     proposal = new AaveV4Ethereum_ActivateV4Ethereum_20260319();
 
-    // Mock AccessManager to authorize the governance executor on the hub configurator
-    vm.mockCall(
-      AaveV4EthereumAddresses.ACCESS_MANAGER,
-      abi.encodeWithSelector(
-        bytes4(keccak256('canCall(address,address,bytes4)')),
-        GovernanceV3Ethereum.EXECUTOR_LVL_1,
-        AaveV4EthereumAddresses.HUB_CONFIGURATOR
-      ),
-      abi.encode(true, uint32(0))
+    // TODO: This should be done outside AIP?
+    // Grant the governance executor role 200 to call functions on the hub configurator
+    vm.prank(0x9Fdf83e26ABb83d97424F5851F61601d9B8264e1);
+    IAccessManager(AaveV4EthereumAddresses.ACCESS_MANAGER).grantRole(
+      200,
+      GovernanceV3Ethereum.EXECUTOR_LVL_1,
+      0
     );
 
+    // TODO: This is just for testing, remove when we have final deployed contracts
     // Deactivate all spokes so we start from a clean inactive state
     _deactivateAllSpokes();
   }
@@ -50,6 +50,22 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV3TestBase {
     _assertAllSpokesActiveOnHub(AaveV4EthereumAddresses.PRIME_HUB);
   }
 
+  function _deactivateAllSpokes() internal {
+    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
+    address[11] memory spokes = AaveV4EthereumAddresses.getSpokes();
+
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    for (uint256 h = 0; h < hubs.length; ++h) {
+      for (uint256 s = 0; s < spokes.length; ++s) {
+        IHubConfigurator(AaveV4EthereumAddresses.HUB_CONFIGURATOR).deactivateSpoke(
+          hubs[h],
+          spokes[s]
+        );
+      }
+    }
+    vm.stopPrank();
+  }
+
   function test_allSpokesInactiveBeforeExecution() public view {
     address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
 
@@ -66,37 +82,14 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV3TestBase {
     }
   }
 
-  function _deactivateAllSpokes() internal {
-    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
+  function _assertAllSpokesActiveOnHub(address hub_) internal view {
+    IHub hub = IHub(hub_);
 
-    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    for (uint256 h = 0; h < hubs.length; ++h) {
-      uint256 assetCount = IHub(hubs[h]).getAssetCount();
-      for (uint256 a = 0; a < assetCount; ++a) {
-        uint256 spokeCount = IHub(hubs[h]).getSpokeCount(a);
-        for (uint256 s = 0; s < spokeCount; ++s) {
-          address spoke = IHub(hubs[h]).getSpokeAddress(a, s);
-          IHubConfigurator(AaveV4EthereumAddresses.HUB_CONFIGURATOR).updateSpokeActive(
-            hubs[h],
-            a,
-            spoke,
-            false
-          );
-        }
-      }
-    }
-    vm.stopPrank();
-  }
-
-  function _assertAllSpokesActiveOnHub(address hub) internal view {
-    uint256 assetCount = IHub(hub).getAssetCount();
-    assertGt(assetCount, 0, 'Hub should have at least one asset');
-
-    for (uint256 a = 0; a < assetCount; ++a) {
-      uint256 spokeCount = IHub(hub).getSpokeCount(a);
+    for (uint256 a = 0; a < hub.getAssetCount(); ++a) {
+      uint256 spokeCount = hub.getSpokeCount(a);
       for (uint256 s = 0; s < spokeCount; ++s) {
-        address spoke = IHub(hub).getSpokeAddress(a, s);
-        IHub.SpokeConfig memory config = IHub(hub).getSpokeConfig(a, spoke);
+        address spoke = hub.getSpokeAddress(a, s);
+        IHub.SpokeConfig memory config = hub.getSpokeConfig(a, spoke);
         assertTrue(config.active, 'Spoke should be active after execution');
       }
     }
