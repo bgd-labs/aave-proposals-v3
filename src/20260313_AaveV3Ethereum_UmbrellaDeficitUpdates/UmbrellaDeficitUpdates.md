@@ -11,6 +11,8 @@ Umbrella makes deficit handling explicit and mechanically enforceable. Once a re
 
 The core issue is not the existence of this equity layer, but its calibration. Today, deficitOffset is not systematically linked to the protocol’s own realized upside from the same liquidation machinery that occasionally generates deficits. This disconnect is notable because liquidation recapture has never been intended as “free revenue” in isolation. Protocol liquidation fees and, more recently, SVR, have always served a dual purpose: they are mechanisms through which the protocol internalizes part of the liquidation surplus, not only to align incentives, but also to strengthen the system’s ability to absorb future losses. In other words, liquidation-linked profitability has always been conceptually part of the protocol’s security and coverage loop; an earnings stream meant to reinforce resilience over time.
 
+This proposal increases the Umbrella Deficit Offset on USDC, USDT, WETH, GHO and covers existing deficit on CRV, ENS, USDC, USDT and WETH.
+
 ## Motivation
 
 Aave liquidations are often discussed as a pure solvency mechanism, but economically, they function as a decentralized execution engine. The protocol effectively delegates liquidation execution to third parties through a liquidation bonus, and in return, the system obtains two meaningful forms of realized value: protocol-level liquidation fees and value recaptured through SVR. In aggregate, liquidation activity therefore exhibits a familiar risk-return structure: frequent, generally positive cash flows punctuated by rare tail losses when liquidation is incomplete, delayed, or occurs under adverse microstructure.

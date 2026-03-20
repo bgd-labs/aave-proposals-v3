@@ -3,8 +3,6 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
-import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
-
 import {UmbrellaBasePayload} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
 import {IUmbrellaEngineStructs as IStructs} from 'aave-umbrella/payloads/IUmbrellaEngineStructs.sol';
 
@@ -19,8 +17,6 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
  * - Discussion: https://governance.aave.com/t/arfc-revenue-indexed-deficit-offsets-for-umbrella/24000
  */
 contract AaveV3Ethereum_UmbrellaDeficitUpdates_Part_2_20260313 is UmbrellaBasePayload {
-  using CollectorUtils for *;
-
   uint256 public constant CRV_DEFICIT_ELIMINATION_CAP = 394_500 * 1e18;
   uint256 public constant ENS_DEFICIT_ELIMINATION_CAP = 5_769 * 1e18;
 
