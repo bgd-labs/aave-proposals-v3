@@ -1,6 +1,13 @@
 # GHO Launch abstraction
 
-Guide on how to use the GHO Launch abstraction to launch GHO on a new chain. Let's say we have a chain called "Foo" and we want to launch GHO on it.
+Guide on how to use the GHO Launch abstraction to launch GHO on a new chain. This guide uses a hypothetical chain called "Foo" as an example.
+
+## Steps
+
+1. [Add the new chain to the CCIP constants](#1-add-the-new-chain-to-the-ccip-constants)
+2. [Add remote lanes to existing CCIP pools](#2-add-remote-lanes-to-existing-ccip-pools)
+3. [Launch GHO on the new chain](#3-launch-gho-on-the-new-chain)
+4. [List GHO on the new chain](#4-list-gho-on-the-new-chain)
 
 ## 1. Add the new chain to the CCIP constants
 
@@ -48,7 +55,7 @@ contract Ethereum_Foo_AaveV3GHOLane_YYYYMMDD is AaveV3GHOLane {
 }
 ```
 
-You can override the `_defaultRateLimiterConfig` if a different rate limiter config is desired, or simply pass a different custom rate limiter config like this:
+You can override the `_defaultRateLimiterConfig` if you need a different rate limiter config, or simply pass a custom rate limiter config like this:
 
 ```solidity
 contract Ethereum_Foo_AaveV3GHOLane_YYYYMMDD is AaveV3GHOLane {
@@ -82,11 +89,11 @@ contract Ethereum_Foo_AaveV3GHOLane_YYYYMMDD is AaveV3GHOLane {
 
 ### Testing of Remote GHO Lanes
 
-You can inherit `AaveV3GHORemoteLaneTest_PreExecution` and `AaveV3GHORemoteLaneTest_PostExecution` for pre and post proposal execution tests respectively, then override the required functions.
+Inherit `AaveV3GHORemoteLaneTest_PreExecution` and `AaveV3GHORemoteLaneTest_PostExecution` for pre and post proposal execution tests respectively, then override the required functions.
 
-For the case of the Ethereum remote lane, you need to inherit `AaveV3GHOEthereumRemoteLaneTest_PreExecution` and `AaveV3GHOEthereumRemoteLaneTest_PostExecution` instead, as they have special test cases for the Ethereum chain.
+For **Ethereum** remote lane, inherit `AaveV3GHOEthereumRemoteLaneTest_PreExecution` and `AaveV3GHOEthereumRemoteLaneTest_PostExecution` instead, as they have special test cases for the Ethereum chain.
 
-For the case of the Arbitrum remote lane, you will need to override the `_assertAgainstSupportedChain` function and make a special case when asserting against the Ethereum chain, given that it has two pools for the Ethereum chain selector:
+For **Arbitrum** remote lane, override the `_assertAgainstSupportedChain` function and make a special case when asserting against the Ethereum chain, given that it has two pools for the Ethereum chain selector:
 
 ```solidity
 function _assertAgainstSupportedChain(
@@ -124,7 +131,7 @@ contract AaveV3Foo_GHOFooLaunch_YYYYMMDD is AaveV3GHOLaunch {
 }
 ```
 
-If the local lanes to add should be different, you can override the `lanesToAdd` function and set your custom lanes to add.
+If you need different local lanes, override the `lanesToAdd` function and set your custom lanes to add.
 
 In addition, `AaveV3GHOLaunch` has each step defined as an internal function that can be overridden to either skip some step or modify it to have some custom logic.
 
@@ -146,4 +153,4 @@ You can inherit `AaveV3GHOLaunchTest_PreExecution` and `AaveV3GHOLaunchTest_Post
 
 ## 4. List GHO on the new chain
 
-This abstraction is already done by the AaveV3Payload base contracts. You can inherit the one for the new chain from the `aave-helpers` repository, for example `AaveV3PayloadFoo`, and then inherit the `newListings` function in order to list GHO on the new chain. The `_preExecute` and `_postExecute` hooks can be overridden to include some extra custom logic. For example, it is common to override the `_postExecute` hook to set up the Emissions Admin in the Emissions Manager.
+This abstraction is provided by the AaveV3Payload base contracts. You can inherit the one for the new chain from the `aave-helpers` repository, for example `AaveV3PayloadFoo`, and then inherit the `newListings` function in order to list GHO on the new chain. The `_preExecute` and `_postExecute` hooks can be overridden to include some extra custom logic. For example, it is common to override the `_postExecute` hook to set up the Emissions Admin in the Emissions Manager.

@@ -25,4 +25,13 @@ library CCIPChainTokenAdminRegistries {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
   address constant INK = 0xEb062d21c713A3d940BB0FaECFdC387d6Ea23697;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet
+  address constant PLASMA = 0xc23071a8AE83671f37bdA1DaDBC745a9780f632A;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-mantle-1
+  address constant MANTLE = 0x000A744940eB5D857c0d61d97015DFc83107404F;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
+  address constant XLAYER = 0xeCf1eAEE01E82F3388dECD7f4C3792374f3f72F3;
 }

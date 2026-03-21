@@ -1,4 +1,4 @@
-import * as addressBook from '@bgd-labs/aave-address-book';
+import * as addressBook from '@aave-dao/aave-address-book';
 import {Options, PoolIdentifier, PoolIdentifierV3, V2_POOLS, VOTING_NETWORK} from './types';
 import {
   arbitrum,
@@ -18,6 +18,9 @@ import {
   soneium,
   ink,
   plasma,
+  mantle,
+  megaeth,
+  xLayer,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/toolbox';
@@ -42,6 +45,9 @@ export const AVAILABLE_CHAINS = [
   'Soneium',
   'Ink',
   'Plasma',
+  'Mantle',
+  'MegaEth',
+  'XLayer',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -52,7 +58,10 @@ export function getAssets(pool: PoolIdentifier): string[] {
 export function getEModes(pool: PoolIdentifierV3): {value: string; id: number}[] {
   return Object.keys(addressBook[pool].E_MODES).map((key) => ({
     // map the complex type to a string as used in the sol libs
-    value: addressBook[pool].E_MODES[key].label.toUpperCase().replace(/[^A-Z0-9]+/gi, '_'),
+    value: addressBook[pool].E_MODES[key].label
+      .replace(/\s*\/\s*/g, '__') // a / b
+      .replace(/[^\w\ ]/gi, ' ') //  replaces all non-alphanumeric with empty string
+      .replace(/ +/gi, '_'), //  Convert spaces to dashes
     id: key as unknown as number,
   }));
 }
@@ -156,6 +165,9 @@ export const CHAIN_TO_CHAIN_ID = {
   Soneium: soneium.id,
   Ink: ink.id,
   Plasma: plasma.id,
+  Mantle: mantle.id,
+  MegaEth: megaeth.id,
+  XLayer: xLayer.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {

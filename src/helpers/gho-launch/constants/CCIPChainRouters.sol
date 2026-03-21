@@ -25,4 +25,13 @@ library CCIPChainRouters {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
   address constant INK = 0xca7c90A52B44E301AC01Cb5EB99b2fD99339433A;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet
+  address constant PLASMA = 0xcDca5D374e46A6DDDab50bD2D9acB8c796eC35C3;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-mantle-1
+  address constant MANTLE = 0x670052635a9850bb45882Cb2eCcF66bCff0F41B7;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
+  address constant XLAYER = 0xF2b6Cb7867EB5502C3249dD37D7bc1Cc148e5232;
 }
