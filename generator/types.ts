@@ -1,123 +1,168 @@
-import {Hex} from 'viem';
-import {NumberInputValues, PercentInputValues} from '../prompts';
-import {BooleanSelectValues} from '../prompts/boolPrompt';
+import * as addressBook from '@aave-dao/aave-address-book';
+import {
+  AssetEModeUpdate,
+  BorrowUpdate,
+  CapsUpdate,
+  CollateralUpdate,
+  EModeCategoryUpdate,
+  Listing,
+  ListingWithCustomImpl,
+  PriceFeedUpdate,
+  RateStrategyUpdate,
+  FreezeUpdate,
+  EmissionUpdate,
+  EModeCategoryCreation,
+} from './features/types';
+import {FlashBorrower} from './features/flashBorrower';
 
-export interface AssetSelector {
-  asset: string;
+export const V2_POOLS = [
+  'AaveV2Ethereum',
+  'AaveV2EthereumAMM',
+  'AaveV2Polygon',
+  'AaveV2Avalanche',
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export const V3_POOLS = [
+  'AaveV3Ethereum',
+  'AaveV3EthereumLido',
+  'AaveV3EthereumEtherFi',
+  'AaveV3Polygon',
+  'AaveV3Avalanche',
+  'AaveV3Optimism',
+  'AaveV3Arbitrum',
+  'AaveV3Metis',
+  'AaveV3Base',
+  'AaveV3Gnosis',
+  'AaveV3Scroll',
+  'AaveV3BNB',
+  'AaveV3ZkSync',
+  'AaveV3Linea',
+  'AaveV3Celo',
+  'AaveV3Sonic',
+  'AaveV3Soneium',
+  'AaveV3InkWhitelabel',
+  'AaveV3Plasma',
+  'AaveV3Mantle',
+  'AaveV3MegaEth',
+  'AaveV3XLayer',
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export const POOLS = [
+  ...V2_POOLS,
+  ...V3_POOLS,
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export type PoolIdentifier = (typeof POOLS)[number];
+export type PoolIdentifierV3 = (typeof V3_POOLS)[number];
+
+export interface Options {
+  force?: boolean;
+  pools: PoolIdentifier[];
+  title: string;
+  votingNetwork?: VOTING_NETWORK;
+  // automatically generated shortName from title
+  shortName: string;
+  author: string;
+  discussion: string;
+  snapshot: string;
+  configFile?: string;
+  date: string;
 }
 
-export interface TokenImplementations {
-  aToken: Hex;
-  vToken: Hex;
-  sToken: Hex;
+export type PoolConfigs = Partial<Record<PoolIdentifier, PoolConfig>>;
+
+export type CodeArtifact = {
+  code?: {
+    constants?: string[];
+    fn?: string[];
+    execute?: string[];
+  };
+  test?: {
+    fn?: string[];
+  };
+  aip?: {
+    specification: string[];
+  };
+};
+
+export enum FEATURE {
+  ASSET_LISTING = 'ASSET_LISTING',
+  ASSET_LISTING_CUSTOM = 'ASSET_LISTING_CUSTOM',
+  BORROWS_UPDATE = 'BORROWS_UPDATE',
+  CAPS_UPDATE = 'CAPS_UPDATE',
+  COLLATERALS_UPDATE = 'COLLATERALS_UPDATE',
+  EMODES_ASSETS = 'EMODES_ASSETS',
+  EMODES_UPDATES = 'EMODES_UPDATES',
+  EMODES_CREATION = 'EMODES_CREATION',
+  FLASH_BORROWER = 'FLASH_BORROWER',
+  PRICE_FEEDS_UPDATE = 'PRICE_FEEDS_UPDATE',
+  RATE_UPDATE_V3 = 'RATE_UPDATE_V3',
+  RATE_UPDATE_V2 = 'RATE_UPDATE_V2',
+  FREEZE = 'FREEZE',
+  EMISSION = 'EMISSION',
+  OTHERS = 'OTHERS',
 }
 
-export interface CapsUpdatePartial {
-  supplyCap: NumberInputValues;
-  borrowCap: NumberInputValues;
+export enum VOTING_NETWORK {
+  POLYGON = 'POLYGON',
+  ETHEREUM = 'ETHEREUM',
+  AVALANCHE = 'AVALANCHE',
 }
 
-export interface CapsUpdate extends CapsUpdatePartial, AssetSelector {}
-
-export interface BorrowUpdatePartial {
-  enabledToBorrow: BooleanSelectValues;
-  flashloanable: BooleanSelectValues;
-  borrowableInIsolation: BooleanSelectValues;
-  withSiloedBorrowing: BooleanSelectValues;
-  reserveFactor: PercentInputValues;
+export interface FeatureModule<T extends {} = {}> {
+  description: string;
+  value: FEATURE;
+  cli: (args: {options: Options; pool: PoolIdentifier; cache: PoolCache}) => Promise<T>;
+  build: (args: {options: Options; pool: PoolIdentifier; cache: PoolCache; cfg: T}) => CodeArtifact;
 }
 
-export interface BorrowUpdate extends BorrowUpdatePartial, AssetSelector {}
+export const ENGINE_FLAGS = {
+  KEEP_CURRENT: 'KEEP_CURRENT',
+  KEEP_CURRENT_STRING: 'KEEP_CURRENT_STRING',
+  KEEP_CURRENT_ADDRESS: 'KEEP_CURRENT_ADDRESS',
+  ENABLED: 'ENABLED',
+  DISABLED: 'DISABLED',
+} as const;
 
-export interface CollateralUpdatePartial {
-  ltv: PercentInputValues;
-  liqThreshold: PercentInputValues;
-  liqBonus: PercentInputValues;
-  debtCeiling: NumberInputValues;
-  liqProtocolFee: PercentInputValues;
+export const AVAILABLE_VERSIONS = {V2: 'V2', V3: 'V3'} as const;
+
+export type ConfigFile = {
+  rootOptions: Options;
+  poolOptions: Partial<Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>>;
+};
+
+export type PoolCache = {blockNumber: number};
+
+export interface PoolConfig {
+  artifacts: CodeArtifact[];
+  configs: {
+    [FEATURE.ASSET_LISTING]?: Listing[];
+    [FEATURE.ASSET_LISTING_CUSTOM]?: ListingWithCustomImpl[];
+    [FEATURE.BORROWS_UPDATE]?: BorrowUpdate[];
+    [FEATURE.CAPS_UPDATE]?: CapsUpdate[];
+    [FEATURE.COLLATERALS_UPDATE]?: CollateralUpdate[];
+    [FEATURE.EMODES_ASSETS]?: AssetEModeUpdate[];
+    [FEATURE.EMODES_CREATION]?: EModeCategoryCreation[];
+    [FEATURE.EMODES_UPDATES]?: EModeCategoryUpdate[];
+    [FEATURE.FLASH_BORROWER]?: FlashBorrower;
+    [FEATURE.PRICE_FEEDS_UPDATE]?: PriceFeedUpdate[];
+    [FEATURE.RATE_UPDATE_V3]?: RateStrategyUpdate[]; // TODO: type could be improved
+    [FEATURE.RATE_UPDATE_V2]?: RateStrategyUpdate[];
+    [FEATURE.FREEZE]?: FreezeUpdate[];
+    [FEATURE.EMISSION]?: EmissionUpdate[];
+    [FEATURE.OTHERS]?: {};
+  };
+  cache: PoolCache;
 }
 
-export interface CollateralUpdate extends CollateralUpdatePartial, AssetSelector {}
+export type Scripts = {
+  defaultScript: string;
+  zkSyncScript?: string;
+};
 
-export interface PriceFeedUpdatePartial {
-  priceFeed: Hex;
-}
-
-export interface PriceFeedUpdate extends PriceFeedUpdatePartial, AssetSelector {}
-
-export interface AssetEModeUpdatePartial {
-  eModeCategory: string;
-  collateral: BooleanSelectValues;
-  borrowable: BooleanSelectValues;
-  ltvzero: BooleanSelectValues;
-}
-
-export interface AssetEModeUpdate extends AssetEModeUpdatePartial, AssetSelector {}
-
-export interface EModeCategoryPartial {
-  ltv: NumberInputValues;
-  liqThreshold: NumberInputValues;
-  liqBonus: NumberInputValues;
-  label: string;
-}
-
-export interface EModeCategoryUpdate extends EModeCategoryPartial {
-  // library accessor or new id
-  eModeCategory: string | number;
-}
-
-export interface EModeCategoryCreation extends EModeCategoryPartial {
-  borrowableAssets: string[];
-  collateralAssets: string[];
-}
-
-export interface RateStrategyParams {
-  optimalUtilizationRate: string;
-  baseVariableBorrowRate: string;
-  variableRateSlope1: string;
-  variableRateSlope2: string;
-  stableRateSlope1?: string;
-  stableRateSlope2?: string;
-  baseStableRateOffset?: string;
-  stableRateExcessOffset?: string;
-  optimalStableToTotalDebtRatio?: string;
-}
-
-export interface RateStrategyUpdate extends AssetSelector {
-  params: RateStrategyParams;
-}
-
-export interface Listing
-  extends CollateralUpdatePartial,
-    BorrowUpdatePartial,
-    CapsUpdatePartial,
-    PriceFeedUpdatePartial {
-  asset: Hex;
-  assetSymbol: string;
-  rateStrategyParams: RateStrategyParams;
-  eModeCategory: string;
-  decimals: number;
-  admin?: Hex | '';
-}
-
-export interface ListingWithCustomImpl {
-  base: Listing;
-  implementations: TokenImplementations;
-}
-
-export interface TokenStream {
-  asset: Hex;
-  receiver: Hex;
-  duration: string;
-  amount: string;
-}
-
-export interface FreezeUpdate extends AssetSelector {
-  shouldBeFrozen: boolean;
-}
-
-export interface EmissionUpdate {
-  asset: Hex;
-  symbol: string;
-  admin: Hex;
-}
+export type Files = {
+  jsonConfig: string;
+  scripts: Scripts;
+  aip: string;
+  payloads: {pool: PoolIdentifier; payload: string; test: string; contractName: string}[];
+};
