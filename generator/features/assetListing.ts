@@ -13,8 +13,7 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {getClient} from '@bgd-labs/toolbox';
-import {IERC20Detailed_ABI} from '@bgd-labs/aave-address-book/abis';
+import {getClient, IERC20Metadata_ABI} from '@bgd-labs/toolbox';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -24,7 +23,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
 
   const chain = getPoolChain(pool);
   const erc20 = getContract({
-    abi: IERC20Detailed_ABI,
+    abi: IERC20Metadata_ABI,
     client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
     address: asset,
   });
@@ -113,13 +112,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           return listingConstant;
         }),
         execute: cfg.map((cfg) => {
-          let listingExe = `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);\n`;
-          listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, ${pool}.DUST_BIN, 0);\n`;
-          if (isAddress(cfg.admin)) {
-            listingExe += `\naddress a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(${cfg.assetSymbol});\n`;
-            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
-            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
-          }
+          let listingExe = `_supplyAndConfigureLMAdmin(${cfg.assetSymbol},${cfg.assetSymbol}_SEED_AMOUNT,${isAddress(cfg.admin) ? `${cfg.assetSymbol}_LM_ADMIN` : 'address(0)'});\n`;
           return listingExe;
         }),
         fn: [
@@ -137,6 +130,18 @@ export const assetListing: FeatureModule<Listing[]> = {
             .join('\n')}
 
           return listings;
+        }`,
+          `function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
+          IERC20(asset).forceApprove(address(${pool}.POOL), seedAmount);
+          ${pool}.POOL.supply(asset, seedAmount, address(${pool}.DUST_BIN), 0);
+
+          if (lmAdmin != address(0)) {
+            address aToken = ${pool}.POOL.getReserveAToken(asset);
+            address vToken = ${pool}.POOL.getReserveVariableDebtToken(asset);
+            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
+            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
+	  }
         }`,
         ],
       },
