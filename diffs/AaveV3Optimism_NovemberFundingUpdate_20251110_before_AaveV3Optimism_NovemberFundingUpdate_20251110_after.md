@@ -1,0 +1,52 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x0e1a3af1f9cc76a62ed31ededca291e63632e7c4": {
+      "label": "GovernanceV3Optimism.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xca1941ffd2876354dca11a76468fb85895321380bff6312dcbd61b110f22031e": {
+          "previousValue": "0x00691b6a1c000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00691b6a1c000000000003000000000000000000000000000000000000000000"
+        },
+        "0xca1941ffd2876354dca11a76468fb85895321380bff6312dcbd61b110f22031f": {
+          "previousValue": "0x000000000000000000093a8000000000000069498e9d00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000069498e9d000000000000691b6a1d"
+        }
+      }
+    },
+    "0x4200000000000000000000000000000000000006": {
+      "label": "AaveV3Optimism.ASSETS.WETH.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x52a4b996c6a936f6861f619f421edf04ef515c8a41541c139e7204104df9f373": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000a922b2ad8812c0000"
+        }
+      }
+    },
+    "0x92bac115d89ca17fd02ed9357ceca32842acb4c2": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x52a4b996c6a936f6861f619f421edf04ef515c8a41541c139e7204104df9f373": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000ba58e545582d4600000"
+        }
+      }
+    },
+    "0xdfa2d3a0d32f870d87f8a0d7aa6b9cdeb7bc5adb": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000003": {
+          "previousValue": "0x00000000000000000000000058f98be02c4ffb675af8857013a9c0dfa5750d04",
+          "newValue": "0x000000000000000000000000b2289e329d2f85f1ed31adbb30ea345278f21bcf"
+        }
+      }
+    }
+  }
+}
+```

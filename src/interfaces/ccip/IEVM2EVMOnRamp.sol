@@ -5,6 +5,51 @@ pragma solidity ^0.8.0;
 import {IInternal} from './IInternal.sol';
 import {ITypeAndVersion} from './ITypeAndVersion.sol';
 
+interface IOnRamp_1_6 is ITypeAndVersion {
+  /// @dev Struct that contains the static configuration.
+  /// RMN depends on this struct, if changing, please notify the RMN maintainers.
+  // solhint-disable-next-line gas-struct-packing
+  struct StaticConfig {
+    uint64 chainSelector; // ────╮ Source chain selector.
+    address rmnRemote; // ────╯ RMN remote address.
+    address nonceManager; //       Nonce manager address.
+    address tokenAdminRegistry; // Token admin registry address.
+  }
+
+  /// @dev Struct that contains the dynamic configuration
+  // solhint-disable-next-line gas-struct-packing
+  struct DynamicConfig {
+    address feeQuoter; // FeeQuoter address.
+    bool reentrancyGuardEntered; // Reentrancy protection.
+    address messageInterceptor; // Optional message interceptor to validate messages. Zero address = no interceptor.
+    address feeAggregator; // Fee aggregator address.
+    address allowlistAdmin; // authorized admin to add or remove allowed senders.
+  }
+
+  /// @notice Returns the dynamic onRamp config.
+  /// @return dynamicConfig the configuration.
+  function getDynamicConfig() external view returns (DynamicConfig memory dynamicConfig);
+
+  /// @notice Returns the static onRamp config.
+  /// @dev RMN depends on this function, if modified, please notify the RMN maintainers.
+  /// @return staticConfig the static configuration.
+  function getStaticConfig() external view returns (StaticConfig memory);
+
+  /// @notice Gets the next sequence number to be used in the onRamp
+  /// @param destChainSelector The destination chain selector.
+  /// @return the next sequence number to be used
+  function getExpectedNextSequenceNumber(uint64 destChainSelector) external view returns (uint64);
+
+  /// @notice Get the pool for a specific token
+  /// @param destChainSelector The destination chain selector
+  /// @param sourceToken The source chain token to get the pool for
+  /// @return pool Token pool
+  function getPoolBySourceToken(
+    uint64 destChainSelector,
+    address sourceToken
+  ) external view returns (address);
+}
+
 interface IEVM2EVMOnRamp is ITypeAndVersion {
   struct TokenTransferFeeConfig {
     uint32 minFeeUSDCents; // ──────────╮ Minimum fee to charge per token transfer, multiples of 0.01 USD
