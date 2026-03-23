@@ -14,7 +14,7 @@ import {AaveV4EthereumAddresses} from './AaveV4EthereumAddresses.sol';
  */
 contract AaveV4Ethereum_ActivateV4Ethereum_20260319 is IProposalGenericExecutor {
   function execute() external override {
-    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
+    address[] memory hubs = AaveV4EthereumAddresses.getHubs();
 
     for (uint256 h = 0; h < hubs.length; ++h) {
       uint256 assetCount = IHub(hubs[h]).getAssetCount();

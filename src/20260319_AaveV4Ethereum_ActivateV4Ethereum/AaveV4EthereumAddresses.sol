@@ -22,6 +22,7 @@ library AaveV4EthereumAddresses {
   address internal constant LOMBARD_BTC_SPOKE = 0x9A93D44e38c8505f24cCDFaEb2FbdfC1eba25c1C;
   address internal constant TREASURY_SPOKE = 0x4f3647C9675723822BC618ad9b15802f6c893f06;
   // TODO: Add tokenization spoke address once available
+  address internal constant TOKENIZATION_SPOKE = address(0);
 
   address internal constant CONFIG_POSITION_MANAGER = 0x9D1C7d6f920f8915677B276b6AB6bD63e3E4baC8;
   address internal constant GIVER_POSITION_MANAGER = 0x8C774A8C22e66aC06E71a28d75dc265EC2509756;
@@ -54,24 +55,48 @@ library AaveV4EthereumAddresses {
   address internal constant PT_sUSDE_7MAY2026 = 0x3de0ff76E8b528C092d47b9DaC775931cef80F49;
   address internal constant PT_USDe_7MAY2026 = 0xAeBf0Bb9f57E89260d57f31AF34eB58657d96Ce0;
 
-  function getHubs() internal pure returns (address[3] memory) {
-    return [CORE_HUB, PLUS_HUB, PRIME_HUB];
+  function getHubs() internal pure returns (address[] memory hubs) {
+    hubs = new address[](3);
+    hubs[0] = CORE_HUB;
+    hubs[1] = PLUS_HUB;
+    hubs[2] = PRIME_HUB;
+    return hubs;
   }
 
-  // TODO: Add tokenization spoke to this list once available
-  function getSpokes() internal pure returns (address[11] memory) {
-    return [
-      MAIN_SPOKE,
-      BLUECHIP_SPOKE,
-      ETHENA_CORRELATED_SPOKE,
-      ETHENA_ECOSYSTEM_SPOKE,
-      ETHERFI_ESPOKE,
-      FOREX_SPOKE,
-      GOLD_SPOKE,
-      KELP_ESPOKE,
-      LIDO_ESPOKE,
-      LOMBARD_BTC_SPOKE,
-      TREASURY_SPOKE
-    ];
+  function getTokenizationSpokes() internal pure returns (address[] memory spokes) {
+    spokes = new address[](1);
+    spokes[0] = TOKENIZATION_SPOKE;
+    return spokes;
+  }
+
+  function getSpokes() internal pure returns (address[] memory spokes) {
+    spokes = new address[](11);
+    spokes[0] = MAIN_SPOKE;
+    spokes[1] = BLUECHIP_SPOKE;
+    spokes[2] = ETHENA_CORRELATED_SPOKE;
+    spokes[3] = ETHENA_ECOSYSTEM_SPOKE;
+    spokes[4] = ETHERFI_ESPOKE;
+    spokes[5] = FOREX_SPOKE;
+    spokes[6] = GOLD_SPOKE;
+    spokes[7] = KELP_ESPOKE;
+    spokes[8] = LIDO_ESPOKE;
+    spokes[9] = LOMBARD_BTC_SPOKE;
+    spokes[10] = TREASURY_SPOKE;
+    return spokes;
+  }
+
+  function getUserSpokes() internal pure returns (address[] memory spokes) {
+    spokes = new address[](10);
+    spokes[0] = MAIN_SPOKE;
+    spokes[1] = BLUECHIP_SPOKE;
+    spokes[2] = ETHENA_CORRELATED_SPOKE;
+    spokes[3] = ETHENA_ECOSYSTEM_SPOKE;
+    spokes[4] = ETHERFI_ESPOKE;
+    spokes[5] = FOREX_SPOKE;
+    spokes[6] = GOLD_SPOKE;
+    spokes[7] = KELP_ESPOKE;
+    spokes[8] = LIDO_ESPOKE;
+    spokes[9] = LOMBARD_BTC_SPOKE;
+    return spokes;
   }
 }

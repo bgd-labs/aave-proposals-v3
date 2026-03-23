@@ -336,7 +336,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
   // ---------------------------------------------------------------------------
 
   function test_treasurySpokeListedOnAllHubsForAllAssets() public view {
-    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
+    address[] memory hubs = AaveV4EthereumAddresses.getHubs();
     address treasurySpoke = AaveV4EthereumAddresses.TREASURY_SPOKE;
 
     for (uint256 h = 0; h < hubs.length; ++h) {
@@ -353,7 +353,7 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
   }
 
   function test_treasurySpokeHasCorrectCaps() public view {
-    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
+    address[] memory hubs = AaveV4EthereumAddresses.getHubs();
     address treasurySpoke = AaveV4EthereumAddresses.TREASURY_SPOKE;
 
     for (uint256 h = 0; h < hubs.length; ++h) {

@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV4TestBase} from 'src/helpers/v4/tests/utils/ProtocolV4TestBase.sol';
 import {IAccessManager} from './interfaces/IAccessManager.sol';
 import {IHub} from './interfaces/IHub.sol';
 import {IHubConfigurator} from './interfaces/IHubConfigurator.sol';
@@ -14,7 +14,7 @@ import {AaveV4Ethereum_ActivateV4Ethereum_20260319} from './AaveV4Ethereum_Activ
  * @dev Test for AaveV4Ethereum_ActivateV4Ethereum_20260319
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4Ethereum_ActivateV4Ethereum_20260319.t.sol -vv
  */
-contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV3TestBase {
+contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV4TestBase {
   AaveV4Ethereum_ActivateV4Ethereum_20260319 internal proposal;
 
   function setUp() public {
@@ -32,42 +32,31 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV3TestBase {
 
     // TODO: This is just for testing, remove when we have final deployed contracts
     // Deactivate all spokes so we start from a clean inactive state
+    // todo: remove this once we migrate from dry run to final deploymennt
     _deactivateAllSpokes();
   }
 
-  function test_allSpokesActiveOnCoreHub() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    _assertAllSpokesActiveOnHub(AaveV4EthereumAddresses.CORE_HUB);
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV4Ethereum_ActivateV4Ethereum_20260319',
+      AaveV4EthereumAddresses.getUserSpokes(),
+      address(proposal)
+    );
   }
 
-  function test_allSpokesActiveOnPlusHub() public {
+  function test_allSpokesActiveOnAllHubs() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertAllSpokesActiveOnHub(AaveV4EthereumAddresses.PLUS_HUB);
-  }
-
-  function test_allSpokesActiveOnPrimeHub() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    _assertAllSpokesActiveOnHub(AaveV4EthereumAddresses.PRIME_HUB);
-  }
-
-  function _deactivateAllSpokes() internal {
-    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
-    address[11] memory spokes = AaveV4EthereumAddresses.getSpokes();
-
-    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    address[] memory hubs = AaveV4EthereumAddresses.getHubs();
     for (uint256 h = 0; h < hubs.length; ++h) {
-      for (uint256 s = 0; s < spokes.length; ++s) {
-        IHubConfigurator(AaveV4EthereumAddresses.HUB_CONFIGURATOR).deactivateSpoke(
-          hubs[h],
-          spokes[s]
-        );
-      }
+      _assertAllSpokesActiveOnHub(hubs[h]);
     }
-    vm.stopPrank();
   }
 
   function test_allSpokesInactiveBeforeExecution() public view {
-    address[3] memory hubs = AaveV4EthereumAddresses.getHubs();
+    address[] memory hubs = AaveV4EthereumAddresses.getHubs();
 
     for (uint256 h = 0; h < hubs.length; ++h) {
       uint256 assetCount = IHub(hubs[h]).getAssetCount();
@@ -80,6 +69,22 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV3TestBase {
         }
       }
     }
+  }
+
+  function _deactivateAllSpokes() internal {
+    address[] memory hubs = AaveV4EthereumAddresses.getHubs();
+    address[] memory spokes = AaveV4EthereumAddresses.getSpokes();
+
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    for (uint256 h = 0; h < hubs.length; ++h) {
+      for (uint256 s = 0; s < spokes.length; ++s) {
+        IHubConfigurator(AaveV4EthereumAddresses.HUB_CONFIGURATOR).deactivateSpoke(
+          hubs[h],
+          spokes[s]
+        );
+      }
+    }
+    vm.stopPrank();
   }
 
   function _assertAllSpokesActiveOnHub(address hub_) internal view {
