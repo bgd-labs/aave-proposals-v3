@@ -37,7 +37,6 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV4TestBase {
    * @dev executes the generic test suite including e2e
    */
   function test_defaultProposalExecution() public {
-    _executePayload();
     defaultTest(
       'AaveV4Ethereum_ActivateV4Ethereum_20260319',
       AaveV4EthereumSpokes.getUserSpokes(),
@@ -63,17 +62,17 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV4TestBase {
   }
 
   function test_allSpokesActiveOnCoreHub() public {
-    _executePayload();
+    executePayload(vm, address(proposal));
     _assertAllSpokesActiveOnHub(AaveV4EthereumHubs.CORE_HUB);
   }
 
   function test_allSpokesActiveOnPlusHub() public {
-    _executePayload();
+    executePayload(vm, address(proposal));
     _assertAllSpokesActiveOnHub(AaveV4EthereumHubs.PLUS_HUB);
   }
 
   function test_allSpokesActiveOnPrimeHub() public {
-    _executePayload();
+    executePayload(vm, address(proposal));
     _assertAllSpokesActiveOnHub(AaveV4EthereumHubs.PRIME_HUB);
   }
 
@@ -300,14 +299,6 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV4TestBase {
     for (uint256 spokeIdx; spokeIdx < tokenizationSpokes.length; ++spokeIdx) {
       _assertProxyAdminOwner(tokenizationSpokes[spokeIdx], DEPLOYER);
     }
-  }
-
-  function _executePayload() internal {
-    GovV3Helpers.executePayload(
-      vm,
-      address(proposal),
-      address(GovV3Helpers.getPayloadsController(ChainIds.MAINNET))
-    );
   }
 
   // TODO: Remove once deployer roles are revoked on the deployed contracts

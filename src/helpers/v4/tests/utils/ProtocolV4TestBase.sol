@@ -9,9 +9,10 @@ import {IHub} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/interfaces/IH
 import {ITokenizationSpoke} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/interfaces/ITokenizationSpoke.sol';
 import {INativeTokenGateway} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/interfaces/INativeTokenGateway.sol';
 import {ISignatureGateway} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/interfaces/ISignatureGateway.sol';
-import {AaveV4EthereumPositionManagers, AaveV4EthereumTokenizationSpokes} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4EthereumAddresses.sol';
+import {AaveV4EthereumPositionManagers, AaveV4EthereumTokenizationSpokes, AaveV4EthereumHubs} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4EthereumAddresses.sol';
+import {GovV3Helpers, ChainIds} from 'aave-helpers/src/GovV3Helpers.sol';
 import {Types} from './Types.sol';
-import {GatewayScenarios} from './GatewayScenarios.sol';
+import {SnapshotV4} from './SnapshotV4.sol';
 
 /// @title ProtocolV4TestBase
 /// @notice E2E test base for Aave V4 hub/spoke architecture.
@@ -19,18 +20,78 @@ import {GatewayScenarios} from './GatewayScenarios.sol';
 ///         Tests deposit, mint, withdraw, redeem for each tokenization spoke.
 ///         Tests NativeTokenGateway and SignatureGateway for each spoke.
 ///         Loops over all good collaterals and uses randomized amounts.
-contract ProtocolV4TestBase is GatewayScenarios {
+contract ProtocolV4TestBase is SnapshotV4 {
   using SafeERC20 for IERC20;
 
-  /// @notice Run e2e tests on a single spoke, optionally executing a payload first.
+  /// @notice Run the full V4 test suite: snapshot before, execute payload, snapshot after, diff, then e2e.
   function defaultTest(
-    string memory /* reportName */,
+    string memory reportName,
     ISpoke[] memory spokes,
     address[] memory tokenizationSpokes,
-    address /* payload */
+    address payload
   ) public {
-    e2eTestAllSpokes(spokes);
-    e2eTestAllTokenizationSpokes(tokenizationSpokes);
+    return defaultTest(reportName, spokes, tokenizationSpokes, payload, true);
+  }
+
+  function defaultTest(
+    string memory reportName,
+    ISpoke[] memory spokes,
+    address[] memory tokenizationSpokes,
+    address payload,
+    bool runE2E
+  ) public {
+    if (payload != address(0)) {
+      _snapshotDiffAndExecute(reportName, spokes, payload);
+    }
+
+    if (runE2E) {
+      e2eTestAllSpokes(spokes);
+      e2eTestAllTokenizationSpokes(tokenizationSpokes);
+    }
+  }
+
+  function _snapshotDiffAndExecute(
+    string memory reportName,
+    ISpoke[] memory spokes,
+    address payload
+  ) private {
+    IHub[] memory hubs = AaveV4EthereumHubs.getHubs();
+    string memory beforeName = string.concat(reportName, '_before');
+    string memory afterName = string.concat(reportName, '_after');
+
+    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(spokes, hubs);
+    writeV4SnapshotJson(beforeName, snapshotBefore);
+
+    (string memory rawDiff, string memory logsJson) = _executePayloadWithRecording(payload);
+
+    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(spokes, hubs);
+    writeV4SnapshotJson(afterName, snapshotAfter);
+
+    string memory afterPath = string.concat('./reports/', afterName, '.json');
+    vm.writeJson(rawDiff, afterPath, '$.raw');
+    vm.writeJson(logsJson, afterPath, '$.logs');
+
+    diffV4Snapshots(reportName, snapshotBefore, snapshotAfter);
+  }
+
+  function _executePayloadWithRecording(
+    address payload
+  ) private returns (string memory rawDiff, string memory logsJson) {
+    uint256 startGas = gasleft();
+    vm.startStateDiffRecording();
+    vm.recordLogs();
+
+    GovV3Helpers.executePayload(
+      vm,
+      payload,
+      address(GovV3Helpers.getPayloadsController(ChainIds.MAINNET))
+    );
+
+    uint256 gasUsed = startGas - gasleft();
+    assertLt(gasUsed, (block.gaslimit * 95) / 100, 'BLOCK_GAS_LIMIT_EXCEEDED');
+
+    rawDiff = vm.getStateDiffJson();
+    logsJson = vm.getRecordedLogsJson();
   }
 
   /// @notice Test all reserves on every spoke in the array.

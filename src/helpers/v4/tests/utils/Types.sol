@@ -49,4 +49,74 @@ library Types {
     uint32 maxLiquidationBonus; // BPS
     uint16 liquidationFee; // BPS
   }
+
+  struct SpokeReserveSnapshot {
+    address spokeAddress;
+    uint256 reserveId;
+    address underlying;
+    string symbol;
+    address hub;
+    uint16 assetId;
+    uint8 decimals;
+    // ReserveConfig
+    uint24 collateralRisk;
+    bool paused;
+    bool frozen;
+    bool borrowable;
+    bool receiveSharesEnabled;
+    // DynamicReserveConfig (latest key)
+    uint32 dynamicConfigKey;
+    uint16 collateralFactor;
+    uint32 maxLiquidationBonus;
+    uint16 liquidationFee;
+    // Oracle
+    address oracleAddress;
+    address priceSource;
+    uint256 oraclePrice;
+  }
+
+  struct SpokeLiquidationSnapshot {
+    address spokeAddress;
+    uint128 targetHealthFactor;
+    uint64 healthFactorForMaxBonus;
+    uint16 liquidationBonusFactor;
+    uint16 maxUserReservesLimit;
+  }
+
+  struct HubAssetSnapshot {
+    address hubAddress;
+    uint256 assetId;
+    address underlying;
+    string symbol;
+    uint8 decimals;
+    uint16 liquidityFee;
+    address irStrategy;
+    address feeReceiver;
+    address reinvestmentController;
+    // IR params
+    uint16 optimalUsageRatio;
+    uint32 baseDrawnRate;
+    uint32 rateGrowthBeforeOptimal;
+    uint32 rateGrowthAfterOptimal;
+    uint256 maxDrawnRate;
+  }
+
+  struct HubSpokeCapSnapshot {
+    address hubAddress;
+    uint256 assetId;
+    string assetSymbol;
+    address spokeAddress;
+    uint40 addCap;
+    uint40 drawCap;
+    uint24 riskPremiumThreshold;
+    bool active;
+    bool halted;
+  }
+
+  struct V4Snapshot {
+    SpokeReserveSnapshot[] spokeReserves;
+    SpokeLiquidationSnapshot[] spokeLiquidationConfigs;
+    HubAssetSnapshot[] hubAssets;
+    HubSpokeCapSnapshot[] hubSpokeCaps;
+  }
 }

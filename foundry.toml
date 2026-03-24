@@ -10,9 +10,11 @@ bytecode_hash = 'none'
 libs = ['lib']
 remappings = []
 ffi = true
+gas_limit = 9223372036854775807
 fs_permissions = [
   { access = "read-write", path = "./reports" },
   { access = "read", path = "./zkout" },
+  { access = "read-write", path = "./diffs" },
 ]
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
@@ -41,7 +43,6 @@ zksolc = '1.5.13'
 out = 'out/prague'
 evm_version = 'prague'
 cache_path = 'cache/prague'
-gas_limit = 9223372036854775807
 
 [profile.deploy]
 out = 'out/shanghai'
