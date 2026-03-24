@@ -41,6 +41,7 @@ zksolc = '1.5.13'
 out = 'out/prague'
 evm_version = 'prague'
 cache_path = 'cache/prague'
+gas_limit = 9223372036854775807
 
 [profile.deploy]
 out = 'out/shanghai'
