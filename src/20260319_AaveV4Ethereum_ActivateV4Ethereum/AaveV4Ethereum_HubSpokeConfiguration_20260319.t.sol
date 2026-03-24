@@ -2,13 +2,10 @@
 pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers, ChainIds} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {IAccessManagerEnumerable} from './interfaces/IAccessManagerEnumerable.sol';
 import {IHub} from './interfaces/IHub.sol';
 import {ISpoke} from './interfaces/ISpoke.sol';
-import {Roles} from './Roles.sol';
 import {AaveV4EthereumAddresses, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumTokenizationSpokes} from './AaveV4EthereumAddresses.sol';
 import {AaveV4Ethereum_ActivateV4Ethereum_20260319} from './AaveV4Ethereum_ActivateV4Ethereum_20260319.sol';
 
@@ -17,13 +14,8 @@ import {AaveV4Ethereum_ActivateV4Ethereum_20260319} from './AaveV4Ethereum_Activ
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4Ethereum_HubSpokeConfiguration_20260319.t.sol -vv
  */
 contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
-  address internal constant DEPLOYER = 0xB00A89E5C8756bA8629846eEF8a4a9C71Ad1930A;
-
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24723214);
-
-    // TODO: Remove once new deployed contracts have the correct configuration phase roles
-    _grantConfigurationPhaseRoles();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24729090);
 
     // Execute the activation proposal
     GovV3Helpers.executePayload(
@@ -592,19 +584,6 @@ contract AaveV4Ethereum_HubSpokeConfiguration_20260319_Test is Test {
   // ---------------------------------------------------------------------------
   // Helpers
   // ---------------------------------------------------------------------------
-
-  // TODO: Remove once new deployed contracts have the correct configuration phase roles already set.
-  function _grantConfigurationPhaseRoles() internal {
-    IAccessManagerEnumerable accessManager = IAccessManagerEnumerable(
-      AaveV4EthereumAddresses.ACCESS_MANAGER
-    );
-    address executor = GovernanceV3Ethereum.EXECUTOR_LVL_1;
-
-    vm.startPrank(DEPLOYER);
-    accessManager.grantRole(Roles.HUB_CONFIGURATOR_ROLE, executor, 0);
-    accessManager.grantRole(Roles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, executor, 0);
-    vm.stopPrank();
-  }
 
   function _assertTokenizationSpokeActive(
     IHub hub,
