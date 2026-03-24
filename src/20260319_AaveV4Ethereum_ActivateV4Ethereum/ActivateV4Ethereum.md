@@ -35,10 +35,10 @@ The table below provides the full list of contract addresses:
 | Spoke                   | Address                                    |
 | ----------------------- | ------------------------------------------ |
 | Main Spoke              | 0x94e7A5dCbE816e498b89aB752661904E2F56c485 |
-| Lido eMode Spoke        | 0xe1900480ac69f0B296841Cd01cC37546d92F35Cd |
-| EtherFi eMode Spoke     | 0xbF10BDfE177dE0336aFD7fcCF80A904E15386219 |
-| Kelp eMode Spoke        | 0x3131FE68C4722e726fe6B2819ED68e514395B9a4 |
-| Lombard BTC eMode Spoke | 0x7EC68b5695e803e98a21a9A05d744F28b0a7753D |
+| Lido Spoke              | 0xe1900480ac69f0B296841Cd01cC37546d92F35Cd |
+| EtherFi Spoke           | 0xbF10BDfE177dE0336aFD7fcCF80A904E15386219 |
+| Kelp Spoke              | 0x3131FE68C4722e726fe6B2819ED68e514395B9a4 |
+| Lombard BTC Spoke       | 0x7EC68b5695e803e98a21a9A05d744F28b0a7753D |
 | Gold Spoke              | 0x65407b940966954b23dfA3caA5C0702bB42984DC |
 | Forex Spoke             | 0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1 |
 | Bluechip Spoke          | 0x973a023A77420ba610f06b3858aD991Df6d85A08 |
