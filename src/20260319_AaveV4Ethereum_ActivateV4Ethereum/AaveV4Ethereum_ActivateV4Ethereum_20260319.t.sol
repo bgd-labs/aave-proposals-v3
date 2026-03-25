@@ -305,12 +305,12 @@ contract AaveV4Ethereum_ActivateV4Ethereum_20260319_Test is ProtocolV4TestBase {
     _assertZeroRoleHolders(roleId);
   }
 
+  /// @dev HubDeficitEliminatorRole - not granted to any account
   function test_hasRole_HubDeficitEliminatorRole() public view {
     uint64 roleId = Roles.HUB_DEFICIT_ELIMINATOR_ROLE;
 
     _assertTempAddrsDoNotHaveRole(roleId);
-    _assertDoesNotHaveRole(roleId, GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    _assertDoesNotHaveRole(roleId, SECURITY_COUNCIL);
+    _assertZeroRoleHolders(roleId);
   }
 
   /// @dev HubConfiguratorDomainAdminRole - DAO
