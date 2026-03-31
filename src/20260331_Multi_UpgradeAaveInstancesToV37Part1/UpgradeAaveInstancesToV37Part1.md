@@ -34,10 +34,17 @@ After the cleanup, the payload upgrades the core protocol contracts:
 
 Part 1 is applied on the following networks: **Sonic, Optimism, Gnosis, Scroll, Celo, MegaEth, XLayer and Ethereum (EtherFi)**. Part 2 will follow shortly.
 
+An additional action is included on mainnet which:
+
+- transfers TO'DO $ as aUSDT to a BGD Labs address
+
+to reimburse the cost of the audits.
+
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Ethereum_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3Optimism](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Optimism_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3Gnosis](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Gnosis_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Scroll_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3Celo](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Celo_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3Sonic](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Sonic_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3MegaEth_UpgradeAaveInstancesToV37Part1_20260331.sol), [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3XLayer_UpgradeAaveInstancesToV37Part1_20260331.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Ethereum_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3Optimism](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Optimism_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3Gnosis](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Gnosis_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Scroll_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3Celo](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Celo_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3Sonic](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3Sonic_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3MegaEth_UpgradeAaveInstancesToV37Part1_20260331.t.sol), [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part1/AaveV3XLayer_UpgradeAaveInstancesToV37Part1_20260331.t.sol)
+- [Implementation](https://github.com/bgd-labs/protocol-v3.7-upgrade/blob/main/src/UpgradePayload.sol)
+- [Tests](https://github.com/bgd-labs/protocol-v3.7-upgrade/tree/main/test)
+- [Diffs](https://github.com/bgd-labs/protocol-v3.7-upgrade/tree/main/diffs/code)
 - [Snapshot](https://snapshot.org/#/aavedao.eth/proposal/0x2cdd27eda22b36ddde2303c3d69859f74b330eb93661e632700d18c6095335a8)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-aave-v3-7/24075)
 
