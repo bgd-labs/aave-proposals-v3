@@ -36,7 +36,8 @@ Part 1 is applied on the following networks: **Sonic, Optimism, Gnosis, Scroll, 
 
 An additional action is included on mainnet which:
 
-- transfers TO'DO $ as aUSDT to a BGD Labs address
+- transfers 62'422 $ as aUSDT to BGD Labs
+- transfers 12'240 $ as GHO to Certora
 
 to reimburse the cost of the audits.
 
