@@ -17,7 +17,7 @@ The consequence of this configuration is that users seeking to post a combinatio
 
 To address this without reverting the risk isolation improvements introduced at launch, Chaos Labs recommends assigning general market collateral parameters to WETH, BTC.b, and wstETH. These parameters will be set at a more conservative LTV and liquidation threshold than their eMode equivalents, reflecting the fact that collateral composition in the main pool is unconstrained and liquidation pathways are consequently less predictable. This configuration preserves the eMode structure and its associated parameterization advantages in full; eMode users retain access to higher capital efficiency within their designated correlated environments, while opening a functional cross-margin path for users who prefer flexibility over efficiency.
 
-### On-Chain Liquidity
+#### On-Chain Liquidity
 
 A key input to the parameterization of general market configurations is the accessible liquidity available to liquidators under stressed conditions. While the reported TVL figures for WETH and BTC.b pools on MegaETH appear meaningful in nominal terms, approximately $30M and $2M TVL respectively, both AMM pools are deployed with full-range liquidity, which materially reduces the effective depth available at price levels relevant to liquidation execution.
 
