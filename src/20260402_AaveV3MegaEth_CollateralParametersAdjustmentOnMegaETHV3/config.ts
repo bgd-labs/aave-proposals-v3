@@ -42,7 +42,7 @@ export const config: ConfigFile = {
         ],
         EMODES_UPDATES: [
           {
-            eModeCategory: 'AaveV3MegaEthEModes.WETH__USDT0_USDm',
+            eModeCategory: 'AaveV3MegaEthEModes.wstETH__USDT0_USDm',
             ltv: '78.5',
             liqThreshold: '81',
             liqBonus: '6.5',

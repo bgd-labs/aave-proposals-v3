@@ -59,7 +59,7 @@ contract AaveV3MegaEth_CollateralParametersAdjustmentOnMegaETHV3_20260402 is Aav
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3MegaEthEModes.WETH__USDT0_USDm,
+      eModeCategory: AaveV3MegaEthEModes.wstETH__USDT0_USDm,
       ltv: 78_50,
       liqThreshold: 81_00,
       liqBonus: 6_50,
