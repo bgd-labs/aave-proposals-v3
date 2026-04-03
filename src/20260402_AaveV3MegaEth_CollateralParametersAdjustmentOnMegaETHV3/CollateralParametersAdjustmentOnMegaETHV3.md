@@ -2,7 +2,6 @@
 title: "Collateral Parameters Adjustment on MegaETH v3"
 author: "Chaos Labs (implemented by Aave Labs)"
 discussions: "https://governance.aave.com/t/direct-to-aip-collateral-parameters-adjustment-on-aave-v3-megaeth-instance/24334"
-snapshot: direct-to-aip
 ---
 
 ## Simple Summary
