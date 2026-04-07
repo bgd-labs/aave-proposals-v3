@@ -39,8 +39,7 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
   }
 
   function _upfrontAmount() internal {
-    // create 5M units aEthLidoGHO Allowance on the Collector Contract
-    AaveV3EthereumLido.COLLECTOR.transfer(
+    AaveV3EthereumLido.COLLECTOR.approve(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       AAVE_LABS,
       UPFRONT_AGHO_AMOUNT
@@ -48,7 +47,6 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
   }
 
   function _stablecoinSteams() internal {
-    // create 5M units aEthLidoGHO Stream from the Collector Contract over 6 month duration
     AaveV3EthereumLido.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
         underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
@@ -59,7 +57,6 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
       })
     );
 
-    // create 15M units aEthLidoGHO Stream from the Collector Contract over 12 month duration
     AaveV3EthereumLido.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
         underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
@@ -72,7 +69,6 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
   }
 
   function _aaveStream() internal {
-    // create 75,000 units AAVE Stream from the Ecosystem Reserve over 48 month duration
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.createStream({
       collector: MiscEthereum.ECOSYSTEM_RESERVE,
       recipient: AAVE_LABS,

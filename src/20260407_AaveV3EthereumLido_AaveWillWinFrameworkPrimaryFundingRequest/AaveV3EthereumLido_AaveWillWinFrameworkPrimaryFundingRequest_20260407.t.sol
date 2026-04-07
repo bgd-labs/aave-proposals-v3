@@ -23,9 +23,6 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407_T
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 24828043);
     proposal = new AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407();
-
-    // assuming treasury has been supplemented with the respective base amount
-    _seedGho(proposal.UPFRONT_AGHO_AMOUNT());
   }
 
   /**
@@ -40,14 +37,25 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407_T
   }
 
   function test_upfrontAmount() public {
+    address source = address(AaveV3EthereumLido.COLLECTOR);
     IERC20 token = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN);
     address receiver = proposal.AAVE_LABS();
+    uint256 amount = proposal.UPFRONT_AGHO_AMOUNT();
 
-    uint256 balanceBefore = token.balanceOf(receiver);
+    uint256 allowanceBefore = token.allowance({owner: source, spender: receiver});
     executePayload(vm, address(proposal));
+    uint256 allowanceAfter = token.allowance({owner: source, spender: receiver});
+
+    assertEq(allowanceAfter - allowanceBefore, amount);
+
+    // assuming treasury has been supplemented with the respective amount
+    _seedGho(amount);
+    uint256 balanceBefore = token.balanceOf(receiver);
+    vm.prank(receiver);
+    assertTrue(token.transferFrom(source, receiver, amount));
     uint256 balanceAfter = token.balanceOf(receiver);
 
-    assertApproxEqAbs(balanceAfter - balanceBefore, proposal.UPFRONT_AGHO_AMOUNT(), 1);
+    assertApproxEqAbs(balanceAfter - balanceBefore, amount, 1);
   }
 
   function test_stream_one() public {
