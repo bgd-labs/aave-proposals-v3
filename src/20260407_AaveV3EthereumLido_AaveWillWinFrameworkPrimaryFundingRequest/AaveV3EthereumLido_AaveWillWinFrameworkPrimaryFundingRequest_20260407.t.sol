@@ -43,13 +43,15 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407_T
     uint256 amount = proposal.UPFRONT_AGHO_AMOUNT();
 
     uint256 allowanceBefore = token.allowance({owner: source, spender: receiver});
-    executePayload(vm, address(proposal));
-    uint256 allowanceAfter = token.allowance({owner: source, spender: receiver});
+    assertEq(allowanceBefore, 0); // allowance is not overwritten
 
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceAfter = token.allowance({owner: source, spender: receiver});
     assertEq(allowanceAfter - allowanceBefore, amount);
 
     // assuming treasury has been supplemented with the respective amount
-    _seedGho(amount);
+    _seedGhoOnLidoInstance(amount);
     uint256 balanceBefore = token.balanceOf(receiver);
     vm.prank(receiver);
     assertTrue(token.transferFrom(source, receiver, amount));
@@ -131,7 +133,7 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407_T
     assertApproxEqAbs(streamBalance, streamedAmount, 1);
 
     // assuming treasury has been supplemented with the respective amount
-    _seedGho(streamedAmount);
+    _seedGhoOnLidoInstance(streamedAmount);
 
     uint256 balanceBefore = token.balanceOf(receiver);
     vm.prank(receiver);
@@ -141,7 +143,7 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407_T
     assertApproxEqAbs(balanceAfter, balanceBefore + streamedAmount, 1);
   }
 
-  function _seedGho(uint256 amount) internal {
+  function _seedGhoOnLidoInstance(uint256 amount) internal {
     deal2(AaveV3EthereumLidoAssets.GHO_UNDERLYING, address(this), amount);
     IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).approve(
       address(AaveV3EthereumLido.POOL),
