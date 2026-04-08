@@ -2,12 +2,12 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
+import {IPendlePriceCapAdapter} from 'src/interfaces/IPendlePriceCapAdapter.sol';
 
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407} from './AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407.sol';
 
@@ -60,5 +60,19 @@ contract AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407_Test is Protocol
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(vPT_USDG_28MAY2026),
       proposal.PT_USDG_28MAY2026_LM_ADMIN()
     );
+  }
+
+  function test_oracle_config() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address underlying = proposal.PT_USDG_28MAY2026();
+    address base = AaveV3EthereumAssets.USDG_UNDERLYING;
+    IPendlePriceCapAdapter source = IPendlePriceCapAdapter(
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(underlying)
+    );
+
+    assertEq(source.ASSET_TO_USD_AGGREGATOR(), AaveV3Ethereum.ORACLE.getSourceOfAsset(base));
+    assertEq(source.MAX_DISCOUNT_RATE_PER_YEAR(), 18.82e16);
+    assertEq(source.discountRatePerYear(), 5.12e16);
   }
 }
