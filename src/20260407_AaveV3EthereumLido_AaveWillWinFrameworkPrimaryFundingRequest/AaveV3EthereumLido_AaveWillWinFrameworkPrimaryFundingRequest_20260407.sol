@@ -34,7 +34,7 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
 
   function execute() external {
     _upfrontAmount();
-    _stablecoinSteams();
+    _stablecoinStreams();
     _aaveStream();
   }
 
@@ -46,7 +46,7 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
     );
   }
 
-  function _stablecoinSteams() internal {
+  function _stablecoinStreams() internal {
     AaveV3EthereumLido.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
         underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
