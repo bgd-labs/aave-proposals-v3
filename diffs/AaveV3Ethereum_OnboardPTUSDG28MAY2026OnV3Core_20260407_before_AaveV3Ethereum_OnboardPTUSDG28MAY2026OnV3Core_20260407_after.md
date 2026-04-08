@@ -116,7 +116,6 @@
 | 19 | AssetBorrowableInEModeChanged(asset: 0x4c9EDD5852cd905f086C759E8383e09bff1E68B3 (symbol: USDe), categoryId: 46, borrowable: true) |
 | 20 | AssetBorrowableInEModeChanged(asset: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 (symbol: USDC), categoryId: 46, borrowable: true) |
 | 21 | AssetBorrowableInEModeChanged(asset: 0xe343167631d89B6Ffc58B88d6b7fB0228795491D (symbol: USDG), categoryId: 46, borrowable: true) |
-| 32 | LiquidationProtocolFeeChanged(asset: 0x9db38D74a0D29380899aD354121DfB521aDb0548 (symbol: PT-USDG-28MAY2026), oldFee: 1000, newFee: 1000) |
 
 #### 0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2 (AaveV3Ethereum.POOL)
 
@@ -138,13 +137,13 @@
 
 | index | event |
 | --- | --- |
-| 33 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1775581307, withDelegatecall: true, resultData: 0x) |
+| 32 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1775581307, withDelegatecall: true, resultData: 0x) |
 
 #### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 34 | PayloadExecuted(payloadId: 426) |
+| 33 | PayloadExecuted(payloadId: 426) |
 
 ## Raw storage changes
 

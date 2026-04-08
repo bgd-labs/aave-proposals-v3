@@ -43,6 +43,9 @@ contract AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407_Test is Protocol
   function test_PT_USDG_28MAY2026Admin() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aPT_USDG_28MAY2026 = AaveV3Ethereum.POOL.getReserveAToken(proposal.PT_USDG_28MAY2026());
+    address vPT_USDG_28MAY2026 = AaveV3Ethereum.POOL.getReserveVariableDebtToken(
+      proposal.PT_USDG_28MAY2026()
+    );
     assertEq(
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(
         proposal.PT_USDG_28MAY2026()
@@ -51,6 +54,10 @@ contract AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407_Test is Protocol
     );
     assertEq(
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(aPT_USDG_28MAY2026),
+      proposal.PT_USDG_28MAY2026_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(vPT_USDG_28MAY2026),
       proposal.PT_USDG_28MAY2026_LM_ADMIN()
     );
   }

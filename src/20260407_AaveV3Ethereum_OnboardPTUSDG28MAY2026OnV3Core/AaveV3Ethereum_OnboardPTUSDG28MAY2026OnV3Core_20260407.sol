@@ -100,8 +100,6 @@ contract AaveV3Ethereum_OnboardPTUSDG28MAY2026OnV3Core_20260407 is AaveV3Payload
       PT_USDG_28MAY2026_SEED_AMOUNT,
       PT_USDG_28MAY2026_LM_ADMIN
     );
-
-    AaveV3Ethereum.POOL_CONFIGURATOR.setLiquidationProtocolFee(PT_USDG_28MAY2026, 10_00);
   }
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
