@@ -19,7 +19,7 @@ contract AaveV3EthereumLido_AaveWillWinFrameworkPrimaryFundingRequest_20260407 i
 {
   using CollectorUtils for ICollector;
 
-  address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
+  address public constant AAVE_LABS = 0x488c053F07391dC78b12Da7107eb22aF77A255a1;
 
   uint256 public constant UPFRONT_AGHO_AMOUNT = 5_000_000e18;
 

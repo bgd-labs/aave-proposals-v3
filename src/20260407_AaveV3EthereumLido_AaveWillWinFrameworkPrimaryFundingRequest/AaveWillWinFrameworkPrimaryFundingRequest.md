@@ -23,7 +23,7 @@ This proposal approves the following funding actions:
 
 ### 1. Primary Stablecoin Grant
 
-Approve a total primary grant of **$25,000,000 in stablecoins** to [Aave Labs](https://etherscan.io/address/0x1c037b3C22240048807cC9d7111be5d455F640bd), structured as follows:
+Approve a total primary grant of **$25,000,000 in stablecoins** to Aave Labs, structured as follows:
 
 - Allowance for 5M units aEthLidoGHO from the Collector Contract upon AIP execution
 - Stream for 5M units aEthLidoGHO from the Collector Contract over 6 month duration
@@ -31,6 +31,8 @@ Approve a total primary grant of **$25,000,000 in stablecoins** to [Aave Labs](h
 - Stream for 75,000 units AAVE from the Ecosystem Reserve over 48 month duration
 
 Any unspent portion of the primary grant at the end of the 12-month period shall be returned to the DAO treasury or otherwise handled through a subsequent DAO-approved budget decision.
+
+The Aave Labs recipient address is: [0x488c053F07391dC78b12Da7107eb22aF77A255a1](https://etherscan.io/address/0x488c053F07391dC78b12Da7107eb22aF77A255a1).
 
 ### 2. AAVE Token Allocation
 
