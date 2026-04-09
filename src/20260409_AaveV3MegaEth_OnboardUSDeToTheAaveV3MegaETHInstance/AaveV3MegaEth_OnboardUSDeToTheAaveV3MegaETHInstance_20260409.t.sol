@@ -11,12 +11,7 @@ import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409} from './AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.sol';
-
-interface IPriceCapAdapterStable {
-  function isCapped() external view returns (bool);
-  function getPriceCap() external view returns (int256);
-  function ASSET_TO_USD_AGGREGATOR() external view returns (address);
-}
+import {IPriceCapAdapterStable} from '../interfaces/IPriceCapAdapterStable.sol';
 
 /**
  * @dev Test for AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409
