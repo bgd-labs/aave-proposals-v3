@@ -32,37 +32,6 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409 is AaveV3P
     );
   }
 
-  function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT, LM_ADMIN);
-  }
-
-  function eModeCategoryCreations()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
-  {
-    IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
-
-    address[] memory collateralAssets_USDeStablecoins = new address[](1);
-    address[] memory borrowableAssets_USDeStablecoins = new address[](2);
-
-    collateralAssets_USDeStablecoins[0] = USDe;
-    borrowableAssets_USDeStablecoins[0] = AaveV3MegaEthAssets.USDT0_UNDERLYING;
-    borrowableAssets_USDeStablecoins[1] = AaveV3MegaEthAssets.USDm_UNDERLYING;
-
-    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 90_00,
-      liqThreshold: 93_00,
-      liqBonus: 2_00,
-      label: 'USDe__Stablecoins',
-      collaterals: collateralAssets_USDeStablecoins,
-      borrowables: borrowableAssets_USDeStablecoins
-    });
-
-    return eModeCreations;
-  }
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
@@ -92,6 +61,39 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409 is AaveV3P
 
     return listings;
   }
+
+  function eModeCategoryCreations()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryCreation[]
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
+
+    address[] memory collateralAssets_USDeStablecoins = new address[](1);
+    address[] memory borrowableAssets_USDeStablecoins = new address[](2);
+
+    collateralAssets_USDeStablecoins[0] = USDe;
+    borrowableAssets_USDeStablecoins[0] = AaveV3MegaEthAssets.USDT0_UNDERLYING;
+    borrowableAssets_USDeStablecoins[1] = AaveV3MegaEthAssets.USDm_UNDERLYING;
+
+    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 90_00,
+      liqThreshold: 93_00,
+      liqBonus: 2_00,
+      label: 'USDe__USDT0_USDm',
+      collaterals: collateralAssets_USDeStablecoins,
+      borrowables: borrowableAssets_USDeStablecoins
+    });
+
+    return eModeCreations;
+  }
+
+  function _postExecute() internal override {
+    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT, LM_ADMIN);
+  }
+
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
     IERC20(asset).forceApprove(address(AaveV3MegaEth.POOL), seedAmount);
     AaveV3MegaEth.POOL.supply(asset, seedAmount, address(AaveV3MegaEth.DUST_BIN), 0);

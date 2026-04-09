@@ -66,7 +66,7 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409_Test is Pr
   function test_eMode_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint8 eModeId = _findEModeCategoryId('USDe__Stablecoins');
+    uint8 eModeId = _findEModeCategoryId('USDe__USDT0_USDm');
 
     address user = address(505);
     uint256 supplyAmount = IERC20(proposal.USDe()).balanceOf(address(AaveV3MegaEth.COLLECTOR));
@@ -118,6 +118,51 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409_Test is Pr
       IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(vUSDe),
       proposal.LM_ADMIN()
     );
+  }
+
+  function test_oracleConfiguration() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      AaveV3MegaEth.ORACLE.getSourceOfAsset(proposal.USDe()),
+      0x6B00ffb3852E87c13b7f56660a7dfF64191180B3
+    );
+    assertGt(AaveV3MegaEth.ORACLE.getAssetPrice(proposal.USDe()), 0);
+  }
+
+  function test_reserveParameters() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    (
+      uint256 decimals,
+      uint256 ltv,
+      uint256 liquidationThreshold,
+      uint256 liquidationBonus,
+      uint256 reserveFactor,
+      ,
+      bool borrowingEnabled,
+      ,
+      bool isActive,
+
+    ) = AaveV3MegaEth.AAVE_PROTOCOL_DATA_PROVIDER.getReserveConfigurationData(proposal.USDe());
+
+    assertEq(decimals, 18);
+    assertEq(ltv, 0);
+    assertEq(liquidationThreshold, 0);
+    assertEq(liquidationBonus, 0);
+    assertEq(reserveFactor, 2500);
+    assertTrue(borrowingEnabled);
+    assertTrue(isActive);
+
+    (uint256 borrowCap, uint256 supplyCap) = AaveV3MegaEth
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(proposal.USDe());
+    assertEq(supplyCap, 50_000_000);
+    assertEq(borrowCap, 40_000_000);
+
+    assertTrue(AaveV3MegaEth.AAVE_PROTOCOL_DATA_PROVIDER.getFlashLoanEnabled(proposal.USDe()));
+
+    assertEq(AaveV3MegaEth.AAVE_PROTOCOL_DATA_PROVIDER.getDebtCeiling(proposal.USDe()), 0);
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
