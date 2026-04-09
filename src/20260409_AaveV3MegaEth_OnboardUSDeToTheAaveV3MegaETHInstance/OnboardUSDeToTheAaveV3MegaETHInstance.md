@@ -50,7 +50,7 @@ This proposal recommends onboarding the following asset to the Aave V3 MegaETH i
 
 ### Price Feed
 
-LlamaRisk recommends pricing USDe using the Chainlink USDT/USD feed covered via a stable cap adapter, consistent with the approach used across Aave instances for USDe-denominated assets.
+A Cap Adapter using the USDT price feed has been deployed for USDe, with the configuration aligned with the LlamaRisk recommendations. Adapter implementation reference: https://github.com/aave-dao/aave-price-feeds/pull/150
 
 ## References
 

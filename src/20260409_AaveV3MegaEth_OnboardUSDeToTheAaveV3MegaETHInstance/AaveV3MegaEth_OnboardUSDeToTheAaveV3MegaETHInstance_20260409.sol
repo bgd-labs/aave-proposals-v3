@@ -8,6 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
+import {GovernanceV3MegaEth} from 'aave-address-book/GovernanceV3MegaEth.sol';
 
 /**
  * @title Onboard USDe to the Aave V3 MegaETH Instance
@@ -21,8 +22,18 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409 is AaveV3P
   address public constant USDe = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
   uint256 public constant USDe_SEED_AMOUNT = 1e18;
 
+  address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+
+  function _preExecute() internal override {
+    AaveV3MegaEth.COLLECTOR.transfer(
+      IERC20(USDe),
+      GovernanceV3MegaEth.EXECUTOR_LVL_1,
+      USDe_SEED_AMOUNT
+    );
+  }
+
   function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT, address(0));
+    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT, LM_ADMIN);
   }
 
   function eModeCategoryCreations()
@@ -45,7 +56,7 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409 is AaveV3P
       ltv: 90_00,
       liqThreshold: 93_00,
       liqBonus: 2_00,
-      label: 'USDe-Stablecoins',
+      label: 'USDe__Stablecoins',
       collaterals: collateralAssets_USDeStablecoins,
       borrowables: borrowableAssets_USDeStablecoins
     });
