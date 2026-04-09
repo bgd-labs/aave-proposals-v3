@@ -12,6 +12,12 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409} from './AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.sol';
 
+interface IPriceCapAdapterStable {
+  function isCapped() external view returns (bool);
+  function getPriceCap() external view returns (int256);
+  function ASSET_TO_USD_AGGREGATOR() external view returns (address);
+}
+
 /**
  * @dev Test for AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260409_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.t.sol -vv
@@ -128,6 +134,18 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409_Test is Pr
       0x6B00ffb3852E87c13b7f56660a7dfF64191180B3
     );
     assertGt(AaveV3MegaEth.ORACLE.getAssetPrice(proposal.USDe()), 0);
+
+    IPriceCapAdapterStable adapter = IPriceCapAdapterStable(
+      AaveV3MegaEth.ORACLE.getSourceOfAsset(proposal.USDe())
+    );
+    assertFalse(adapter.isCapped());
+    assertEq(adapter.getPriceCap(), 1.04e8);
+    assertEq(
+      adapter.ASSET_TO_USD_AGGREGATOR(),
+      IPriceCapAdapterStable(
+        AaveV3MegaEth.ORACLE.getSourceOfAsset(AaveV3MegaEthAssets.USDT0_UNDERLYING)
+      ).ASSET_TO_USD_AGGREGATOR()
+    );
   }
 
   function test_reserveParameters() public {
