@@ -3,17 +3,16 @@ pragma solidity ^0.8.0;
 
 import {Vm} from 'forge-std/Vm.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs} from 'aave-address-book/AaveV4Ethereum.sol';
+import {IHub} from 'aave-address-book/AaveV4.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV4TestBase} from 'src/helpers/v4/tests/utils/ProtocolV4TestBase.sol';
-import {ISpoke} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/interfaces/ISpoke.sol';
 import {AaveV4EthereumSpokes, AaveV4EthereumTokenizationSpokes} from 'src/20260319_AaveV4Ethereum_ActivateV4Ethereum/AaveV4EthereumAddresses.sol';
 
 import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
 import {IFeeSharesMinterBase} from 'src/interfaces/IFeeSharesMinterBase.sol';
-import {IHub} from './dependencies/IHub.sol';
-import {IAccessManager} from './dependencies/IAccessManager.sol';
 import {AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409} from './AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409.sol';
 
 /**
@@ -42,19 +41,18 @@ contract AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409_Test is ProtocolV
   }
 
   function test_hubAssetCounts() public view {
-    assertEq(proposal.CORE_HUB().getAssetCount(), 17, 'Core Hub asset count');
-    assertEq(proposal.PLUS_HUB().getAssetCount(), 7, 'Plus Hub asset count');
-    assertEq(proposal.PRIME_HUB().getAssetCount(), 7, 'Prime Hub asset count');
+    assertEq(AaveV4EthereumHubs.CORE_HUB.getAssetCount(), 17, 'Core Hub asset count');
+    assertEq(AaveV4EthereumHubs.PLUS_HUB.getAssetCount(), 7, 'Plus Hub asset count');
+    assertEq(AaveV4EthereumHubs.PRIME_HUB.getAssetCount(), 7, 'Prime Hub asset count');
 
-    uint256 totalAssets = proposal.CORE_HUB().getAssetCount() +
-      proposal.PLUS_HUB().getAssetCount() +
-      proposal.PRIME_HUB().getAssetCount();
+    uint256 totalAssets = AaveV4EthereumHubs.CORE_HUB.getAssetCount() +
+      AaveV4EthereumHubs.PLUS_HUB.getAssetCount() +
+      AaveV4EthereumHubs.PRIME_HUB.getAssetCount();
     assertEq(totalAssets, proposal.TOTAL_KEEPERS(), 'Total assets across all hubs');
   }
 
   function test_feeMinterRoleGranted() public {
-    IAccessManager accessManager = proposal.ACCESS_MANAGER();
-    uint64 roleId = proposal.HUB_FEE_MINTER_ROLE();
+    uint64 roleId = Roles.HUB_FEE_MINTER_ROLE;
 
     vm.recordLogs();
     executePayload(vm, address(proposal));
@@ -62,7 +60,7 @@ contract AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409_Test is ProtocolV
 
     address minterAddress = _getMinterAddressFromLogs(logs);
 
-    (bool hasRole, ) = accessManager.hasRole(roleId, minterAddress);
+    (bool hasRole, ) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(roleId, minterAddress);
     assertTrue(hasRole, 'FeeSharesMinter should have HUB_FEE_MINTER_ROLE');
   }
 
@@ -111,7 +109,11 @@ contract AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409_Test is ProtocolV
     address minterAddress = _getMinterAddressFromLogs(logs);
     IFeeSharesMinterBase minter = IFeeSharesMinterBase(minterAddress);
 
-    IHub[3] memory hubs = [proposal.CORE_HUB(), proposal.PLUS_HUB(), proposal.PRIME_HUB()];
+    IHub[3] memory hubs = [
+      AaveV4EthereumHubs.CORE_HUB,
+      AaveV4EthereumHubs.PLUS_HUB,
+      AaveV4EthereumHubs.PRIME_HUB
+    ];
     for (uint256 i; i < hubs.length; ++i) {
       uint256 assetCount = hubs[i].getAssetCount();
       for (uint256 assetId; assetId < assetCount; ++assetId) {
@@ -131,7 +133,7 @@ contract AaveV4Ethereum_RegisterFeeSharesMinterKeeper_20260409_Test is ProtocolV
 
     address minterAddress = _getMinterAddressFromLogs(logs);
     IFeeSharesMinterBase minter = IFeeSharesMinterBase(minterAddress);
-    IHub hub = proposal.CORE_HUB();
+    IHub hub = AaveV4EthereumHubs.CORE_HUB;
     uint256 assetId = 0;
 
     skip(20000 days);

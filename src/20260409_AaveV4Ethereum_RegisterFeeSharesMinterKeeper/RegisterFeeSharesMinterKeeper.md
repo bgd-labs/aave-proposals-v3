@@ -16,11 +16,11 @@ TODO
 ## Specification
 
 - Deploy the FeeSharesMinterBase contract owned by the governance executor
-- Grant the `HUB_FEE_MINTER_ROLE` (ID 102) to the FeeSharesMinterBase via the V4 AccessManager
+- Grant the `HUB_FEE_MINTER_ROLE` to the FeeSharesMinterBase via the V4 AccessManager
 - Configure all hub assets with a 5% minimum accrued fees threshold
 - Withdraw 200 LINK from the Aave V3 Collector
 - Register a Chainlink keeper for each asset on each V4 hub (Core, Plus, Prime) — 31 keepers total
-- LINK is distributed evenly across all keepers, each configured with a 500,000 gas limit
+- LINK is distributed evenly across all keepers, each configured with a 100,000 gas limit
 
 ## References
 
