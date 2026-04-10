@@ -76,7 +76,9 @@ contract FeeSharesMinterBase is IFeeSharesMinterBase, Ownable2Step, Rescuable {
     return owner();
   }
 
-  function maxRescue(address) public pure override(IRescuableBase, RescuableBase) returns (uint256) {
+  function maxRescue(
+    address
+  ) public pure override(IRescuableBase, RescuableBase) returns (uint256) {
     return type(uint256).max;
   }
 }
