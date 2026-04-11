@@ -25,13 +25,13 @@ contract AaveV3Scroll_DeprecateAaveV3Scroll_20260411_Test is ProtocolV3TestBase 
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Scroll_DeprecateAaveV3Scroll_20260411',
-      AaveV3Scroll.POOL,
-      address(proposal),
-      false,
-      false
-    );
+    defaultTest({
+      reportName: 'AaveV3Scroll_DeprecateAaveV3Scroll_20260411',
+      pool: AaveV3Scroll.POOL,
+      payload: address(proposal),
+      runE2E: false,
+      runSeatbelt: false
+    });
   }
 
   function test_frozenFlag() public {
