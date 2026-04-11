@@ -2,21 +2,22 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
+import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, ScrollScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Scroll_OffboardInstance_20260410} from './AaveV3Scroll_OffboardInstance_20260410.sol';
+import {AaveV3Scroll_DeprecateAaveV3Scroll_20260411} from './AaveV3Scroll_DeprecateAaveV3Scroll_20260411.sol';
 
 /**
  * @dev Deploy Scroll
- * deploy-command: make deploy-ledger contract=src/20260410_AaveV3Scroll_OffboardInstance/OffboardInstance_20260410.s.sol:DeployScroll chain=scroll
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OffboardInstance_20260410.s.sol/534352/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/DeprecateAaveV3Scroll_20260411.s.sol:DeployScroll chain=scroll
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/DeprecateAaveV3Scroll_20260411.s.sol/534352/run-latest.json
  */
 contract DeployScroll is ScrollScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Scroll_OffboardInstance_20260410).creationCode
+      type(AaveV3Scroll_DeprecateAaveV3Scroll_20260411).creationCode
     );
 
     // compose action
@@ -31,7 +32,7 @@ contract DeployScroll is ScrollScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20260410_AaveV3Scroll_OffboardInstance/OffboardInstance_20260410.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/DeprecateAaveV3Scroll_20260411.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -43,7 +44,7 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsScroll[0] = GovV3Helpers.buildAction(
-        type(AaveV3Scroll_OffboardInstance_20260410).creationCode
+        type(AaveV3Scroll_DeprecateAaveV3Scroll_20260411).creationCode
       );
       payloads[0] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
     }
@@ -56,7 +57,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20260410_AaveV3Scroll_OffboardInstance/OffboardInstance.md'
+        'src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/DeprecateAaveV3Scroll.md'
       )
     );
   }

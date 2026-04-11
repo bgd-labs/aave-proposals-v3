@@ -6,6 +6,7 @@
     "lint": "prettier . --check",
     "lint:fix": "prettier . --write",
     "generate": "vite-node generator/cli",
+    "generate:aave-labs": "vite-node generator/cli -- -a 'Aave Labs'",
     "generate:bgd": "vite-node generator/cli -- -a 'BGD Labs @bgdlabs'",
     "generate:aci": "vite-node generator/cli -- -a 'Aavechan Initiative @aci'",
     "generate:aci-sky": "vite-node generator/cli -- -a 'TTT (implemented by Aavechan Initiative @aci via Skyward)'",

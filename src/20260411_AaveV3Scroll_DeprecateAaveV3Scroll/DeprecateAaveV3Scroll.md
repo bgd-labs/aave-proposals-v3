@@ -1,13 +1,12 @@
 ---
-title: "Offboard Aave V3 Scroll Instance"
+title: "DeprecateAaveV3Scroll"
 author: "Aave Labs"
-discussions: "todo"
-snapshot: "direct-to-aip"
+discussions: "https://governance.aave.com/t/direct-to-aip-aave-v3-scroll-instance-deprecation/24432"
 ---
 
 ## Simple Summary
 
-This proposal initiates the offboarding of the Aave V3 Scroll instance by freezing all reserves and increasing reserve factors to encourage position wind-down.
+Following the Risk Stewards cap reduction executed on April 10, 2026, this proposal completes the deprecation of Aave V3 on Scroll by freezing all assets and increasing the reserve factor on select assets.
 
 ## Motivation
 
@@ -39,10 +38,10 @@ The proposal executes the following changes on the Aave V3 Scroll instance:
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/c20ccdd41d142635b07b4ec65efc15e0f3d9ec1c/src/20260410_AaveV3Scroll_OffboardInstance/AaveV3Scroll_OffboardInstance_20260410.sol)
-- Tests: [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/c20ccdd41d142635b07b4ec65efc15e0f3d9ec1c/src/20260410_AaveV3Scroll_OffboardInstance/AaveV3Scroll_OffboardInstance_20260410.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/AaveV3Scroll_DeprecateAaveV3Scroll_20260411.sol)
+- Tests: [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/AaveV3Scroll_DeprecateAaveV3Scroll_20260411.t.sol)
 - Snapshot: Direct-To-AIP
-- Discussion: TODO
+- [Discussion](https://governance.aave.com/t/direct-to-aip-aave-v3-scroll-instance-deprecation/24432)
 
 ## Copyright
 
