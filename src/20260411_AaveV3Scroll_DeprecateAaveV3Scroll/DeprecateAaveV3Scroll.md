@@ -1,5 +1,5 @@
 ---
-title: "DeprecateAaveV3Scroll"
+title: "Deprecate Aave V3 Scroll Instance"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-aave-v3-scroll-instance-deprecation/24432"
 ---

@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave Labs',
     pools: ['AaveV3Scroll'],
-    title: 'DeprecateAaveV3Scroll',
+    title: 'Deprecate Aave V3 Scroll Instance',
     shortName: 'DeprecateAaveV3Scroll',
     date: '20260411',
     discussion:
