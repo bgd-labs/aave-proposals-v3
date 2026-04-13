@@ -48,14 +48,18 @@ This proposal recommends onboarding the following asset to the Aave V3 MegaETH i
 | Liquidation Threshold |  93% |    — |     — |
 | Liquidation Bonus     | 2.0% |    — |     — |
 
-### Price Feed
+### Oracle
 
-A Cap Adapter using the USDT price feed has been deployed for USDe, with the configuration aligned with the LlamaRisk recommendations. Adapter implementation reference: https://github.com/aave-dao/aave-price-feeds/pull/150
+| Parameter         | Value                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Contract          | [PriceCapAdapterStable](https://mega.etherscan.io/address/0x6B00ffb3852E87c13b7f56660a7dfF64191180B3) |
+| Underlying Oracle | [USDT / USD](https://mega.etherscan.io/address/0xA533f4164d8d9F8C3995FC83F2f022a622d1765D)            |
+| Capped Price      | 1.04 USD                                                                                              |
 
 ## References
 
-- Implementation: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/c589695716d5b3f76ea133b541c84510395668a9/src/20260409_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.sol)
-- Tests: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/c589695716d5b3f76ea133b541c84510395668a9/src/20260409_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.t.sol)
+- Implementation: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260409_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.sol)
+- Tests: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260409_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260409.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-to-the-aave-v3-megaeth-instance/24389)
 
