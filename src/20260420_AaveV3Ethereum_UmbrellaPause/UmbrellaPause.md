@@ -1,17 +1,23 @@
 ---
 title: "Umbrella Pause"
 author: "Aave Labs"
-discussions: TODO
-snapshot: TODO
+discussions: https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595
+snapshot: https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595
 ---
 
 ## Simple Summary
 
-This proposal pauses the `stkwaWETH` Umbrella stake token on the Ethereum instance.
+This proposal pauses the stkwaWETH Umbrella stake token on the Ethereum instance.
 
 ## Motivation
 
-Pausing the WETH stake token places its portion of the Umbrella backstop into a safe state while the DAO assesses the system. While paused, no deposits, withdrawals, or slashing can occur on `stkwaWETH`. Rescue of arbitrary tokens remains available. The stablecoin stake tokens (`stkwaUSDC`, `stkwaUSDT`, `stkGHO`) are left untouched.
+The appropriate Umbrella response depends on how the rsETH shortfall is ultimately recognized.
+
+If losses are recognized in a way that impacts Ethereum Core WETH, the WETH Umbrella module becomes a live coverage surface. In that case, allowing the module to remain fully active creates avoidable coordination risk while the situation is still being assessed. A large share of the currently staked aWETH has already entered cooldown, which increases the chance of further exits before the DAO has clarity on whether the module may be needed for coverage.
+
+Pausing the Umbrella stake token places the system into a precautionary safe state while the DAO completes that assessment. In the paused state, deposits, withdrawals, transfers, and slashing are blocked, while rewards distribution continues. This also means the module is no longer treated as slashable for automatic deficit coverage, so any use of those funds would require explicit governance action.
+
+If losses remain isolated outside Ethereum Core, Umbrella may not need to be used. Even in that case, moving the stake tokens into a paused state is a prudent temporary control until the exposure path is fully resolved.
 
 ## Specification
 
@@ -25,8 +31,8 @@ The proposal calls `pauseStk(stk)` on the Umbrella contract (`0xD400fc38ED473289
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260420_AaveV3Ethereum_UmbrellaPause/AaveV3Ethereum_UmbrellaPause_20260420.sol)
 - Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260420_AaveV3Ethereum_UmbrellaPause/AaveV3Ethereum_UmbrellaPause_20260420.t.sol)
-- [Snapshot](TODO)
-- [Discussion](TODO)
+- [Snapshot](https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595)
 
 ## Copyright
 
