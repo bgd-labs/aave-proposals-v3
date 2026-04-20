@@ -12,9 +12,6 @@ import {UmbrellaEthereum, UmbrellaEthereumAssets} from 'aave-address-book/Umbrel
  */
 contract AaveV3Ethereum_UmbrellaPause_20260420 is IProposalGenericExecutor {
   function execute() external override {
-    UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_USDC_V1);
-    UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_USDT_V1);
     UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
-    UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_GHO_V1);
   }
 }

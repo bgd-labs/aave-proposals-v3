@@ -43,33 +43,15 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
   }
 
   function test_stkTokensPaused() public {
-    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_USDC_V1).paused());
-    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_USDT_V1).paused());
     assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
-    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_GHO_V1).paused());
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_USDC_V1).paused());
-    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_USDT_V1).paused());
     assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
-    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_GHO_V1).paused());
-  }
-
-  function test_stkWaUSDC() public {
-    _testStkTokenActions(UmbrellaEthereumAssets.STK_WA_USDC_V1);
-  }
-
-  function test_stkWaUSDT() public {
-    _testStkTokenActions(UmbrellaEthereumAssets.STK_WA_USDT_V1);
   }
 
   function test_stkWaWETH() public {
     _testStkTokenActions(UmbrellaEthereumAssets.STK_WA_WETH_V1);
-  }
-
-  function test_stkGHO() public {
-    _testStkTokenActions(UmbrellaEthereumAssets.STK_GHO_V1);
   }
 
   function _testStkTokenActions(address stkToken) internal {
