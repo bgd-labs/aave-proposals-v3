@@ -6,17 +6,23 @@
 | --- | --- |
 | 0 | topics: `0x62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a258`, data: `0x000000000000000000000000d400fc38ed4732893174325693a63c30ee3881a8` |
 
+#### 0xD400fc38ED4732893174325693a63C30ee3881a8 (UmbrellaEthereum.UMBRELLA)
+
+| index | event |
+| --- | --- |
+| 1 | RoleGranted(role: 0x3bb181d5689164b4d72d34b056228c95b51f3fb0f6dbdb7f9ddba5f91c6821dd, account: 0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30, sender: 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A) |
+
 #### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1776767951, withDelegatecall: true, resultData: 0x) |
+| 2 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1776767951, withDelegatecall: true, resultData: 0x) |
 
 #### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 2 | PayloadExecuted(payloadId: 428) |
+| 3 | PayloadExecuted(payloadId: 428) |
 
 ## Raw storage changes
 
@@ -25,6 +31,12 @@
 | slot | previous value | new value |
 | --- | --- | --- |
 | 0xcd5ed15c6e187e77e9aee88184c21f4f2182ab5827cb3b7e07fbedcd63f03300 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+### 0xd400fc38ed4732893174325693a63c30ee3881a8 (UmbrellaEthereum.UMBRELLA)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xf2adf1e0ec3e7566dbdeb3cfe084ce6e43a07e7486d208a482d2de178f8e29e7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 
 ### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
 

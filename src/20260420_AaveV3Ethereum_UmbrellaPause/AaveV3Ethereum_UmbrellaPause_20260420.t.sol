@@ -3,12 +3,16 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_UmbrellaPause_20260420} from './AaveV3Ethereum_UmbrellaPause_20260420.sol';
 import {UmbrellaEthereum, UmbrellaEthereumAssets} from 'aave-address-book/UmbrellaEthereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IUmbrellaStakeToken} from 'aave-umbrella/stakeToken/interfaces/IUmbrellaStakeToken.sol';
 import {IERC4626StakeToken} from 'aave-umbrella/stakeToken/interfaces/IERC4626StakeToken.sol';
+import {UmbrellaConfiguration} from 'aave-umbrella/umbrella/UmbrellaConfiguration.sol';
+import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {PausableUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/utils/PausableUpgradeable.sol';
 import {ERC4626Upgradeable} from 'openzeppelin-contracts-upgradeable/contracts/token/ERC20/extensions/ERC4626Upgradeable.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -28,12 +32,16 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
   address internal user;
   uint256 internal userPrivateKey;
   address internal user2;
+  bytes32 internal PAUSE_GUARDIAN_ROLE;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 24927750);
     proposal = new AaveV3Ethereum_UmbrellaPause_20260420();
     (user, userPrivateKey) = makeAddrAndKey('user');
     user2 = makeAddr('user2');
+
+    PAUSE_GUARDIAN_ROLE = UmbrellaConfiguration(address(UmbrellaEthereum.UMBRELLA))
+      .PAUSE_GUARDIAN_ROLE();
   }
 
   /**
@@ -53,6 +61,32 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
 
   function test_stkWaWETH() public {
     _testStkTokenActions(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+  }
+
+  function test_protocolGuardianGrantedPauseRole() public {
+    IAccessControl umbrella = IAccessControl(address(UmbrellaEthereum.UMBRELLA));
+
+    assertFalse(umbrella.hasRole(PAUSE_GUARDIAN_ROLE, MiscEthereum.PROTOCOL_GUARDIAN));
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertTrue(umbrella.hasRole(PAUSE_GUARDIAN_ROLE, MiscEthereum.PROTOCOL_GUARDIAN));
+
+    // guardian can now unpause/pause directly, without governance
+    vm.startPrank(MiscEthereum.PROTOCOL_GUARDIAN);
+    UmbrellaEthereum.UMBRELLA.unpauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    vm.stopPrank();
+
+    // governance can also still pause/unpause
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    UmbrellaEthereum.UMBRELLA.unpauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    vm.stopPrank();
   }
 
   /// @dev user stakes + starts cooldown, then pause lands, then the full cooldown elapses.
