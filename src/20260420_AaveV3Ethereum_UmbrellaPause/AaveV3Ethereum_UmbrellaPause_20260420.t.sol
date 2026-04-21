@@ -30,7 +30,7 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
   address internal user2;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24921270);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24927750);
     proposal = new AaveV3Ethereum_UmbrellaPause_20260420();
     (user, userPrivateKey) = makeAddrAndKey('user');
     user2 = makeAddr('user2');
