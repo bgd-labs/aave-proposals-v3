@@ -5,7 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {UmbrellaEthereum, UmbrellaEthereumAssets} from 'aave-address-book/UmbrellaEthereum.sol';
 
 /**
- * @title Umbrella Pause
+ * @title rsETH Incident: Umbrella WETH Pause
  * @author Aave Labs
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595

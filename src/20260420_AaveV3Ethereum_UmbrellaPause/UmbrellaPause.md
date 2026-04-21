@@ -1,5 +1,5 @@
 ---
-title: "Umbrella Pause"
+title: "rsETH Incident: Umbrella WETH Pause"
 author: "Aave Labs"
 discussions: https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595
 ---
