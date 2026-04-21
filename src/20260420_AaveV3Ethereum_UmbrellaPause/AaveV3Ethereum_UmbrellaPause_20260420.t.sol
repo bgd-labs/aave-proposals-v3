@@ -12,7 +12,6 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IUmbrellaStakeToken} from 'aave-umbrella/stakeToken/interfaces/IUmbrellaStakeToken.sol';
 import {IERC4626StakeToken} from 'aave-umbrella/stakeToken/interfaces/IERC4626StakeToken.sol';
 import {UmbrellaConfiguration} from 'aave-umbrella/umbrella/UmbrellaConfiguration.sol';
-import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {PausableUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/utils/PausableUpgradeable.sol';
 import {ERC4626Upgradeable} from 'openzeppelin-contracts-upgradeable/contracts/token/ERC20/extensions/ERC4626Upgradeable.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -22,7 +21,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260420_AaveV3Ethereum_UmbrellaPause/AaveV3Ethereum_UmbrellaPause_20260420.t.sol -vv
  */
 contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
-  // private constant in StakeToken
+  // re-declared here because it's a private constant in StakeToken
   bytes32 internal constant COOLDOWN_WITH_PERMIT_TYPEHASH =
     keccak256(
       'CooldownWithPermit(address user,address caller,uint256 cooldownNonce,uint256 deadline)'
@@ -51,7 +50,7 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
     defaultTest('AaveV3Ethereum_UmbrellaPause_20260420', AaveV3Ethereum.POOL, address(proposal));
   }
 
-  function test_stkTokensPaused() public {
+  function test_stkWaWETHPaused() public {
     assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
 
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -59,33 +58,36 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
     assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
   }
 
-  function test_stkWaWETH() public {
+  function test_stkWaWETHActions() public {
     _testStkTokenActions(UmbrellaEthereumAssets.STK_WA_WETH_V1);
   }
 
   function test_protocolGuardianGrantedPauseRole() public {
-    IAccessControl umbrella = IAccessControl(address(UmbrellaEthereum.UMBRELLA));
+    UmbrellaConfiguration umbrellaConfiguration = UmbrellaConfiguration(
+      address(UmbrellaEthereum.UMBRELLA)
+    );
+    PausableUpgradeable stkToken = PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1);
 
-    assertFalse(umbrella.hasRole(PAUSE_GUARDIAN_ROLE, MiscEthereum.PROTOCOL_GUARDIAN));
+    assertFalse(umbrellaConfiguration.hasRole(PAUSE_GUARDIAN_ROLE, MiscEthereum.PROTOCOL_GUARDIAN));
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    assertTrue(umbrella.hasRole(PAUSE_GUARDIAN_ROLE, MiscEthereum.PROTOCOL_GUARDIAN));
+    assertTrue(umbrellaConfiguration.hasRole(PAUSE_GUARDIAN_ROLE, MiscEthereum.PROTOCOL_GUARDIAN));
 
     // guardian can now unpause/pause directly, without governance
     vm.startPrank(MiscEthereum.PROTOCOL_GUARDIAN);
     UmbrellaEthereum.UMBRELLA.unpauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
-    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    assertFalse(stkToken.paused());
     UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
-    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    assertTrue(stkToken.paused());
     vm.stopPrank();
 
     // governance can also still pause/unpause
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     UmbrellaEthereum.UMBRELLA.unpauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
-    assertFalse(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    assertFalse(stkToken.paused());
     UmbrellaEthereum.UMBRELLA.pauseStk(UmbrellaEthereumAssets.STK_WA_WETH_V1);
-    assertTrue(PausableUpgradeable(UmbrellaEthereumAssets.STK_WA_WETH_V1).paused());
+    assertTrue(stkToken.paused());
     vm.stopPrank();
   }
 
@@ -119,11 +121,18 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
     assertEq(stk.maxRedeem(user), 0);
     assertEq(stk.maxWithdraw(user), 0);
 
+    uint256 randomShares = vm.randomUint(1, shares);
+
     vm.startPrank(user);
     vm.expectRevert(
-      abi.encodeWithSelector(ERC4626Upgradeable.ERC4626ExceededMaxRedeem.selector, user, shares, 0)
+      abi.encodeWithSelector(
+        ERC4626Upgradeable.ERC4626ExceededMaxRedeem.selector,
+        user,
+        randomShares,
+        0
+      )
     );
-    stk.redeem({shares: shares, receiver: user, owner: user});
+    stk.redeem({shares: randomShares, receiver: user, owner: user});
 
     vm.expectRevert(
       abi.encodeWithSelector(ERC4626Upgradeable.ERC4626ExceededMaxWithdraw.selector, user, 1, 0)
@@ -142,7 +151,7 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
     assertEq(stk.maxRedeem(user), 0);
     assertEq(stk.getMaxSlashableAssets(), 0);
 
-    // slash: only Umbrella can call; pause guard fires after onlyOwner
+    // slash not allowed while paused
     vm.expectRevert(PausableUpgradeable.EnforcedPause.selector);
     vm.prank(address(UmbrellaEthereum.UMBRELLA));
     stk.slash({destination: user, amount: 1});
