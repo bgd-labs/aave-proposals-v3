@@ -7,8 +7,8 @@ import {UmbrellaEthereum, UmbrellaEthereumAssets} from 'aave-address-book/Umbrel
 /**
  * @title Umbrella Pause
  * @author Aave Labs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: Direct-to-AIP
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-pause-stkwaweth-umbrella-staked-token-on-ethereum-v3/24595
  */
 contract AaveV3Ethereum_UmbrellaPause_20260420 is IProposalGenericExecutor {
   function execute() external override {
