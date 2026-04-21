@@ -11,6 +11,7 @@ import {IUmbrellaStakeToken} from 'aave-umbrella/stakeToken/interfaces/IUmbrella
 import {IERC4626StakeToken} from 'aave-umbrella/stakeToken/interfaces/IERC4626StakeToken.sol';
 import {PausableUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/utils/PausableUpgradeable.sol';
 import {ERC4626Upgradeable} from 'openzeppelin-contracts-upgradeable/contracts/token/ERC20/extensions/ERC4626Upgradeable.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_UmbrellaPause_20260420
@@ -52,6 +53,49 @@ contract AaveV3Ethereum_UmbrellaPause_20260420_Test is ProtocolV3TestBase {
 
   function test_stkWaWETH() public {
     _testStkTokenActions(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+  }
+
+  /// @dev user stakes + starts cooldown, then pause lands, then the full cooldown elapses.
+  /// Even though the user would otherwise be in the withdrawal window, redeem/withdraw are blocked.
+  function test_CooldownedUserCannotWithdrawWhilePaused() public {
+    IUmbrellaStakeToken stk = IUmbrellaStakeToken(UmbrellaEthereumAssets.STK_WA_WETH_V1);
+    address underlying = stk.asset();
+    uint256 amount = 1e18;
+
+    // user stakes and starts cooldown, pre-pause
+    deal(underlying, user, amount);
+    vm.startPrank(user);
+    IERC20(underlying).approve(address(stk), amount);
+    uint256 shares = stk.deposit({assets: amount, receiver: user});
+    stk.cooldown();
+    vm.stopPrank();
+
+    IERC4626StakeToken.CooldownSnapshot memory snapshot = stk.getStakerCooldown(user);
+    assertGt(snapshot.amount, 0);
+    assertGt(snapshot.endOfCooldown, block.timestamp);
+
+    // pause while the user is in cooldown
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    // warp past endOfCooldown — without the pause, user would now be able to redeem
+    vm.warp(snapshot.endOfCooldown + 1);
+    assertLt(block.timestamp, uint256(snapshot.endOfCooldown) + uint256(snapshot.withdrawalWindow));
+
+    // paused -> max* views return 0 and redeem/withdraw revert
+    assertEq(stk.maxRedeem(user), 0);
+    assertEq(stk.maxWithdraw(user), 0);
+
+    vm.startPrank(user);
+    vm.expectRevert(
+      abi.encodeWithSelector(ERC4626Upgradeable.ERC4626ExceededMaxRedeem.selector, user, shares, 0)
+    );
+    stk.redeem({shares: shares, receiver: user, owner: user});
+
+    vm.expectRevert(
+      abi.encodeWithSelector(ERC4626Upgradeable.ERC4626ExceededMaxWithdraw.selector, user, 1, 0)
+    );
+    stk.withdraw({assets: 1, receiver: user, owner: user});
+    vm.stopPrank();
   }
 
   function _testStkTokenActions(address stkToken) internal {
