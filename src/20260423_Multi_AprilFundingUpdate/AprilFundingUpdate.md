@@ -154,13 +154,18 @@ Add cbBTC as a swappable asset, with corresponding oracle.
 Add LINK as a swappable asset, with corresponding oracle.
 Add 1Inch to WETH path.
 Add SNX to WETH path.
+Add UNI to WETH path.
+
+### Update Stream
+
+Cancel StreamID `100015` due to misconfiguration. The respective Service Provider will refund the portion of AAVE tokens corresponding to the remaining stream duration.
 
 ### Reimbursements
 
-Reimburse 21,322 GHO to TokenLogic for GhoRouter audit expenses incurred.
+Reimburse 21,322.38 GHO to TokenLogic for GhoRouter audit expenses incurred.
 
 Asset: GHO: `0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f`
-Amount: 21,322
+Amount: 21,322.38
 Spender: TokenLogic `0xAA088dfF3dcF619664094945028d44E779F19894`
 
 Create 1M aEthLidoGHO allowance to Aave Labs in order to reimburse for on-going audit costs.
@@ -175,6 +180,8 @@ Method: `approve()` the above assets on the Collector.
 - 5,000 GHO to `0xa9E6B917F3e0a89664d648B6DF474AB88D0D15ff`
 - $500 GHO to `0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18` (immunefi.eth).
   This is the fee corresponding to 10% of the previous bounty.
+
+  Reference: https://governance.aave.com/t/bgd-request-for-bounty-payout-march-2026/24364
 
 ## References
 
