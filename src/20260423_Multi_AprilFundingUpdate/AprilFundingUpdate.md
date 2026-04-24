@@ -18,7 +18,7 @@ This publication addresses near-term operational requirements, consolidates asse
 
 The MainnetSwapSteward will continue executing a rolling GHO acquisition strategy to maintain adequate runway, support AAVE buybacks, and preserve sufficient budget to fund ongoing growth initiatives.
 
-Reimburse TokenLogic for costs incurred in facilitating the audit of one PR intended to streamline the UX for moving from USDC or USDT to GHO or sGHO. The Gho Router contract allows users to swap routes, use GSMs (Gho Stability Modules), and enter/exit sGHO. The total cost of ChainSecurity’s audit was 21,322 GHO.
+Reimburse TokenLogic for costs incurred in facilitating the audit of one PR intended to streamline the UX for moving from USDC or USDT to GHO or sGHO. The Gho Router contract allows users to swap underlying or stata tokens for GHO, use GSMs (Gho Stability Modules), and enter/exit sGHO. The total cost of ChainSecurity’s audit was 21,322 GHO.
 
 ## Specification
 
@@ -137,6 +137,7 @@ Method: `approve()` on the Aave Collector contract to the ahab address
 | Token | Amount |
 | ----- | ------ |
 | WBTC  | 80     |
+| cbBTC | 7      |
 | ETH   | 10k    |
 | LINK  | 60k    |
 | USDC  | 10M    |
