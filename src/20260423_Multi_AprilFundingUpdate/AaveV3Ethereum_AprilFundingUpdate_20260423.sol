@@ -23,7 +23,7 @@ interface IMainnetSwapSteward {
 contract AaveV3Ethereum_AprilFundingUpdate_20260423 is IProposalGenericExecutor {
   // https://etherscan.io/address/0xAA088dfF3dcF619664094945028d44E779F19894
   address public constant TOKEN_LOGIC = 0xAA088dfF3dcF619664094945028d44E779F19894;
-  uint256 public constant REIMBURSEMENTS_GHO_AMOUNT = 21_322 ether;
+  uint256 public constant REIMBURSEMENTS_GHO_AMOUNT = 21_322.38 ether;
 
   // https://etherscan.io/address/0xaaf400e4bbc38b5e2136c1a36946bf841a357307
   address public constant AAVE_LABS = 0xAAf400e4Bbc38B5E2136C1a36946Bf841A357307;
@@ -43,8 +43,6 @@ contract AaveV3Ethereum_AprilFundingUpdate_20260423 is IProposalGenericExecutor 
   uint256 public constant TYDRO_ALLOWANCE = 200_000 ether;
 
   uint256 public constant OLD_STREAM = 100015;
-  // https://etherscan.io/address/0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0
-  address public constant STREAM_RECIPIENT = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
 
   // https://etherscan.io/address/0xa9E6B917F3e0a89664d648B6DF474AB88D0D15ff
   address public constant BUGBOUNTY_RECEIVER = 0xa9E6B917F3e0a89664d648B6DF474AB88D0D15ff;

@@ -55,6 +55,8 @@ The holdings shall be consolidated into USDT, USDC and WETH before being deposit
 
 ### Base
 
+Wrap native ETH to wETH.
+
 To support asset bridging, an Allowance will be created, enabling the AFC to bridge the following assets from Base to Ethereum.
 
 Amount: 625 WETH `0x4200000000000000000000000000000000000006`
@@ -117,6 +119,8 @@ Method: `approve()` the above assets on the Ecosystem Reserve contract to the AF
 
 ### Funding Flexibility
 
+Wrap native ETH to wETH.
+
 To support continued operations and provide flexible funding optionality, create the following Allowance.
 
 Amount: 25k WETH `0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`
@@ -144,9 +148,9 @@ Method: `approve()` on the Aave Collector contract to the ahab address
 Reference: [MainnetSwapSteward forum post](https://governance.aave.com/t/arfc-steward-deployment-mainnetswapsteward-and-rewardssteward/23070).
 
 Alongside these budgets, add ability to swap tokens to WETH.
-Add WBTC as a swappable asset.
-Add cbBTC as a swappable asset.
-Add LINK as a swappable asset.
+Add WBTC as a swappable asset, with corresponding oracle.
+Add cbBTC as a swappable asset, with corresponding oracle.
+Add LINK as a swappable asset, with corresponding oracle.
 Add 1Inch to WETH path.
 Add SNX to WETH path.
 
