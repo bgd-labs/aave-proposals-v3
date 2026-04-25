@@ -39,8 +39,6 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425 is AaveV3P
       assetSymbol: 'USDe',
       priceFeed: 0x6B00ffb3852E87c13b7f56660a7dfF64191180B3,
       enabledToBorrow: EngineFlags.ENABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.DISABLED,
       ltv: 0,
       liqThreshold: 0,
@@ -48,7 +46,6 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425 is AaveV3P
       reserveFactor: 25_00,
       supplyCap: 50_000_000,
       borrowCap: 40_000_000,
-      debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 85_00,
@@ -83,7 +80,8 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425 is AaveV3P
       liqBonus: 2_00,
       label: 'USDe__USDT0_USDm',
       collaterals: collaterals,
-      borrowables: borrowables
+      borrowables: borrowables,
+      isolated: false
     });
 
     return eModeCreations;

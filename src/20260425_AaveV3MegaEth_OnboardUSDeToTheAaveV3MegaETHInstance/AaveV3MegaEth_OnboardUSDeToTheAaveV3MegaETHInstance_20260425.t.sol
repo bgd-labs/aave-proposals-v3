@@ -122,15 +122,15 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425_Test is Pr
 
     assertEq(
       IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(proposal.USDe()),
-      proposal.LM_ADMIN()
+      proposal.USDe_LM_ADMIN()
     );
     assertEq(
       IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(aUSDe),
-      proposal.LM_ADMIN()
+      proposal.USDe_LM_ADMIN()
     );
     assertEq(
       IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(vUSDe),
-      proposal.LM_ADMIN()
+      proposal.USDe_LM_ADMIN()
     );
   }
 
