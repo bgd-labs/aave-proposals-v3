@@ -4,37 +4,57 @@ author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-usde-to-the-aave-v3-megaeth-instance/24389"
 ---
 
-## Simple Summary
+## Summary
+
+This proposal seeks to onboard USDe to the Aave V3 MegaETH instance. The asset is already established across multiple Aave deployments, and on MegaETH it is expected to support stablecoin borrowing and yield-oriented usage with an initial onchain liquidity base already seeded for the market.
 
 ## Motivation
 
-## Specification
+USDe has clear user demand and strategic relevance for the MegaETH deployment. Listing it would expand the stablecoin and yield-oriented collateral set available on the instance, improve market completeness early in the market’s lifecycle, and align MegaETH more closely with assets already familiar to a broad segment of DeFi users. LlamaRisk also notes that the MegaETH setup is designed so supplied USDe offers yield passthrough, making the asset functionally similar to sUSDe exposure for looping strategies without requiring a separate sUSDe listing.
 
-The table below illustrates the configured risk parameters for **USDe**
+## Technical Specifications
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (USDe)         |                                 50,000,000 |
-| Borrow Cap (USDe)         |                                 40,000,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       25 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        3 % |
-| Variable Slope 2          |                                       12 % |
-| Uoptimal                  |                                       85 % |
-| Flashloanable             |                                   DISABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x6B00ffb3852E87c13b7f56660a7dfF64191180B3 |
+This proposal recommends onboarding the following asset to the Aave V3 MegaETH instance:
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://mega.etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDe and the corresponding aToken.
+- USDe
+
+### Asset Configuration
+
+| Parameter                 |             USDe |
+| ------------------------- | ---------------: |
+| Isolation Mode            |               No |
+| Borrowable                |              Yes |
+| Collateral Enabled        | No (E-Mode only) |
+| Supply Cap                |       50,000,000 |
+| Borrow Cap                |       40,000,000 |
+| Debt Ceiling              |              N/A |
+| LTV                       |                — |
+| Liquidation Threshold     |                — |
+| Liquidation Bonus         |                — |
+| Liquidation Protocol Fee  |              10% |
+| Reserve Factor            |              25% |
+| Base Variable Borrow Rate |               0% |
+| Variable Rate Slope 1     |               4% |
+| Variable Rate Slope 2     |              12% |
+| Optimal Utilization       |              85% |
+
+### USDe-Stablecoins E-Mode
+
+| Parameter             | USDe | USDm | USDT0 |
+| --------------------- | ---: | ---: | ----: |
+| Collateral            |  Yes |   No |    No |
+| Borrowable            |   No |  Yes |   Yes |
+| Max LTV               |  90% |    — |     — |
+| Liquidation Threshold |  93% |    — |     — |
+| Liquidation Bonus     | 2.0% |    — |     — |
+
+### Oracle
+
+| Parameter         | Value                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Contract          | [PriceCapAdapterStable](https://mega.etherscan.io/address/0x6B00ffb3852E87c13b7f56660a7dfF64191180B3) |
+| Underlying Oracle | [USDT / USD](https://mega.etherscan.io/address/0xA533f4164d8d9F8C3995FC83F2f022a622d1765D)            |
+| Capped Price      | 1.04 USD                                                                                              |
 
 ## References
 

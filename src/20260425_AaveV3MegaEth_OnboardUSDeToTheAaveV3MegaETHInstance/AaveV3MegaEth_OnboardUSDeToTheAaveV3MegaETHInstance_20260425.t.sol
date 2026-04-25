@@ -42,19 +42,6 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425_Test is Pr
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3MegaEth.DUST_BIN)), 10 ** 18);
   }
 
-  function test_USDeAdmin() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    address aUSDe = AaveV3MegaEth.POOL.getReserveAToken(proposal.USDe());
-    assertEq(
-      IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(proposal.USDe()),
-      proposal.USDe_LM_ADMIN()
-    );
-    assertEq(
-      IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(aUSDe),
-      proposal.USDe_LM_ADMIN()
-    );
-  }
-
   function test_borrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
