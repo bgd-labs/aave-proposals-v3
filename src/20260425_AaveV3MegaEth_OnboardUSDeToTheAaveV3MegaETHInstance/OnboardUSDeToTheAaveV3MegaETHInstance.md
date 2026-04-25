@@ -58,8 +58,8 @@ This proposal recommends onboarding the following asset to the Aave V3 MegaETH i
 
 ## References
 
-- Implementation: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260425_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425.sol)
-- Tests: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260425_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425.t.sol)
+- Implementation: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/e153ea814e4a0aa86132decf76f0c5cc439b6677/src/20260425_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425.sol)
+- Tests: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/e153ea814e4a0aa86132decf76f0c5cc439b6677/src/20260425_AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance/AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-to-the-aave-v3-megaeth-instance/24389)
 
