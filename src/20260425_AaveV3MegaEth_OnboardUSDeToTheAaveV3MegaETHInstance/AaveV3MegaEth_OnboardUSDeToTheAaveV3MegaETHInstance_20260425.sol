@@ -20,7 +20,7 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425 is AaveV3P
   using SafeERC20 for IERC20;
 
   address public constant USDe = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
-  uint256 public constant USDe_SEED_AMOUNT = 1e18;
+  uint256 public constant USDe_SEED_AMOUNT = 100e18;
   address public constant USDe_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _preExecute() internal override {
