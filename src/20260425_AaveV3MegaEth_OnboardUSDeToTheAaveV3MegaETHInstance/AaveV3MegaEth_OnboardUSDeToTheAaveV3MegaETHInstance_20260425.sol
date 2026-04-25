@@ -81,7 +81,7 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425 is AaveV3P
       label: 'USDe__USDT0_USDm',
       collaterals: collaterals,
       borrowables: borrowables,
-      isolated: false
+      isolated: true
     });
 
     return eModeCreations;
