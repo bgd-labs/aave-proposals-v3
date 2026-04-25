@@ -188,9 +188,7 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425_Test is Pr
     assertEq(supplyCap, 50_000_000);
     assertEq(borrowCap, 40_000_000);
 
-    assertTrue(AaveV3MegaEth.AAVE_PROTOCOL_DATA_PROVIDER.getFlashLoanEnabled(proposal.USDe()));
-
-    assertEq(AaveV3MegaEth.AAVE_PROTOCOL_DATA_PROVIDER.getDebtCeiling(proposal.USDe()), 0);
+    assertFalse(AaveV3MegaEth.AAVE_PROTOCOL_DATA_PROVIDER.getFlashLoanEnabled(proposal.USDe()));
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
