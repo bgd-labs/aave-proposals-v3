@@ -23,6 +23,8 @@ contract AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425_Test is Pr
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('megaeth'), 14310184);
     proposal = new AaveV3MegaEth_OnboardUSDeToTheAaveV3MegaETHInstance_20260425();
+
+    deal2(proposal.USDe(), address(AaveV3MegaEth.COLLECTOR), proposal.USDe_SEED_AMOUNT());
   }
 
   /**
