@@ -47,7 +47,7 @@ In connection with this transition, the remaining portion of the 30-day stream p
 - all remaining outstanding work will then be brought to completion before departure;
 - Supply Cap, Borrow Cap, Interest Rate Risk Oracles, and PT Risk Oracles for existing PTs will be shut down immediately;
 - the outstanding stream will be canceled immediately;
-- 30 days' worth of revenue will serve as the final transition-period compensation.
+- the remaining portion of the 30-day transition period, calculated from April 8, 2026 until May 8, 2026, will serve as the final transition-period compensation.
 
 We believe this framework gives the DAO sufficient continuity, predictability, and time to transfer responsibilities in an orderly manner.
 
@@ -73,7 +73,7 @@ The Chainlink Automation upkeeps registered under the AgentHub automation contra
 
 ### Stream cancellation and bulk payment
 
-The stream 100073 will be canceled (if not already done) and an amount equivalent to 30 days of said stream will be transferred from the collector to the following Chaos Labs operated wallet: [0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0](https://etherscan.io/address/0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0)
+The stream 100073 will be canceled (if not already done) and an amount equivalent to the remaining transition period (from proposal execution to April 8 + 30 days) will be transferred from the collector to the following Chaos Labs operated wallet: [0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0](https://etherscan.io/address/0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0)
 
 ## References
 

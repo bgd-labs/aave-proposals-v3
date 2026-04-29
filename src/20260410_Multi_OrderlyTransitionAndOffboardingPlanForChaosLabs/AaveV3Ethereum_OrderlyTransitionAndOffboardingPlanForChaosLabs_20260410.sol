@@ -39,6 +39,7 @@ contract AaveV3Ethereum_OrderlyTransitionAndOffboardingPlanForChaosLabs_20260410
       MiscEthereum.AGENT_HUB_AUTOMATION
     );
 
+    // Payment only if executed within the 30-day transition window (ends 2026-05-08)
     if (FORUM_POST_TIMESTAMP + 30 days > block.timestamp) {
       uint256 second_left = (FORUM_POST_TIMESTAMP + 30 days) - block.timestamp;
       // bulk transfer
