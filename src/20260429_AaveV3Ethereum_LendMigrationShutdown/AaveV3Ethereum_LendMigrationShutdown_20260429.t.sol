@@ -9,6 +9,7 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IInitializableAdminUpgradeabilityProxy} from 'src/interfaces/IInitializableAdminUpgradeabilityProxy.sol';
+import {ILendToAaveMigrator} from 'src/interfaces/ILendToAaveMigrator.sol';
 import {AaveV3Ethereum_LendMigrationShutdown_20260429} from './AaveV3Ethereum_LendMigrationShutdown_20260429.sol';
 
 /**
@@ -19,11 +20,18 @@ contract AaveV3Ethereum_LendMigrationShutdown_20260429_Test is ProtocolV3TestBas
   IERC20 public constant AAVE = IERC20(AaveV2EthereumAssets.AAVE_UNDERLYING);
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
 
+  address public constant LEND_TO_AAVE_MIGRATOR_PROXY = 0x317625234562B1526Ea2FaC4030Ea499C5291de4;
+  address public immutable NEW_LEND_TO_AAVE_MIGRATOR_IMPL =
+    0x79B59F16F373477ea9CbcF90d39DE473210Ff6e4;
+
   AaveV3Ethereum_LendMigrationShutdown_20260429 internal proposal;
+
+  ILendToAaveMigrator internal migrator;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 24985073);
     proposal = new AaveV3Ethereum_LendMigrationShutdown_20260429();
+    migrator = ILendToAaveMigrator(LEND_TO_AAVE_MIGRATOR_PROXY);
   }
 
   /**
@@ -41,9 +49,40 @@ contract AaveV3Ethereum_LendMigrationShutdown_20260429_Test is ProtocolV3TestBas
     uint256 preMigratorAaveBalance = AAVE.balanceOf(proposal.LEND_TO_AAVE_MIGRATOR_PROXY());
     uint256 preCollectorAaveBalance = AAVE.balanceOf(COLLECTOR);
 
+    vm.expectEmit(address(migrator));
+    emit ILendToAaveMigrator.AaveTokensRescued(
+      address(migrator),
+      COLLECTOR,
+      preMigratorAaveBalance
+    );
     executePayload(vm, address(proposal));
 
     assertEq(AAVE.balanceOf(proposal.LEND_TO_AAVE_MIGRATOR_PROXY()), 0);
     assertEq(AAVE.balanceOf(COLLECTOR), preCollectorAaveBalance + preMigratorAaveBalance);
+  }
+
+  function test_revision_updated() public {
+    assertEq(IInitializableAdminUpgradeabilityProxy(address(migrator)).REVISION(), 2);
+
+    executePayload(vm, address(proposal));
+
+    assertEq(IInitializableAdminUpgradeabilityProxy(address(migrator)).REVISION(), 3);
+  }
+
+  function test_migration_shutdown() public {
+    assertTrue(migrator.migrationStarted());
+
+    executePayload(vm, address(proposal));
+
+    assertTrue(migrator.migrationStarted());
+    assertTrue(migrator.migrationEnded());
+
+    vm.expectRevert(ILendToAaveMigrator.MigrationClosed.selector);
+    migrator.migrateFromLEND(1);
+  }
+
+  function test_payload_immutables() public view {
+    assertEq(proposal.LEND_TO_AAVE_MIGRATOR_IMPL(), NEW_LEND_TO_AAVE_MIGRATOR_IMPL);
+    assertEq(proposal.LEND_TO_AAVE_MIGRATOR_PROXY(), LEND_TO_AAVE_MIGRATOR_PROXY);
   }
 }
