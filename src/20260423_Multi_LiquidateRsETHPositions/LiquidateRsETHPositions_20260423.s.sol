@@ -23,12 +23,22 @@ import {AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423} from './arbitrum/Aa
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
-    GovV3Helpers.deployDeterministic(
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423).creationCode
     );
-    GovV3Helpers.deployDeterministic(
+    address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423).creationCode
     );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
   }
 }
 
@@ -39,24 +49,38 @@ contract DeployEthereum is EthereumScript {
  */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
-    GovV3Helpers.deployDeterministic(
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423).creationCode
     );
-    GovV3Helpers.deployDeterministic(
+    address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423).creationCode
     );
-    GovV3Helpers.deployDeterministic(
+    address payload2 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423).creationCode
     );
-    GovV3Helpers.deployDeterministic(
+    address payload3 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423).creationCode
     );
-    GovV3Helpers.deployDeterministic(
+    address payload4 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423).creationCode
     );
-    GovV3Helpers.deployDeterministic(
+    address payload5 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423).creationCode
     );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](6);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
+    actions[2] = GovV3Helpers.buildAction(payload2);
+    actions[3] = GovV3Helpers.buildAction(payload3);
+    actions[4] = GovV3Helpers.buildAction(payload4);
+    actions[5] = GovV3Helpers.buildAction(payload5);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
   }
 }
 
