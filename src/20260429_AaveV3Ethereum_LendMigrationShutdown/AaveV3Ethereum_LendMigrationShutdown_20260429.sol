@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IProxyAdminOzV4} from 'solidity-utils/contracts/transparent-proxy/interfaces/IProxyAdminOzV4.sol';
+import {ILendToAaveMigrator} from 'src/interfaces/ILendToAaveMigrator.sol';
 
 /**
  * @title Lend Migration Shutdown
@@ -23,7 +24,7 @@ contract AaveV3Ethereum_LendMigrationShutdown_20260429 is IProposalGenericExecut
     IProxyAdminOzV4(MiscEthereum.PROXY_ADMIN).upgradeAndCall(
       LEND_TO_AAVE_MIGRATOR_PROXY,
       LEND_TO_AAVE_MIGRATOR_IMPL,
-      abi.encodeWithSignature('initialize()')
+      abi.encodeWithSelector(ILendToAaveMigrator.initialize.selector)
     );
   }
 }

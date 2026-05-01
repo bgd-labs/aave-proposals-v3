@@ -8,6 +8,7 @@ interface ILendToAaveMigrator {
   error MigrationClosed();
   error ZeroAddress();
 
+  function initialize() external;
   function migrationStarted() external view returns (bool);
   function migrationEnded() external view returns (bool);
   function migrateFromLEND(uint256) external;
