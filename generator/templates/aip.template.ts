@@ -50,7 +50,7 @@ ${Object.keys(configs)
     options.snapshot
       ? options.snapshot.toLowerCase() != 'direct-to-aip'
         ? `\n- [Snapshot](${options.snapshot})`
-        : '\n- Snapshot: Direct-to-AIP'
+        : ''
       : '\n[Snapshot](TODO)'
   }
 - [Discussion](${options.discussion || 'TODO'})
