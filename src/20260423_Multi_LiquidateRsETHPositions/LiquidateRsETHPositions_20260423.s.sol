@@ -15,7 +15,7 @@ import {AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423} from './arbitrum/Aa
 import {AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423} from './arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.sol';
 import {AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423} from './arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.sol';
 import {AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423} from './arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.sol';
-
+import 'forge-std/console.sol';
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_20260423.s.sol:DeployEthereum chain=mainnet
@@ -24,21 +24,31 @@ import {AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423} from './arbitrum/Aa
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
+    address payload0 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423).creationCode
     );
-    address payload1 = GovV3Helpers.deployDeterministic(
+    address payload1 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423).creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload0);
 
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload1);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
   }
 }
 
@@ -50,37 +60,84 @@ contract DeployEthereum is EthereumScript {
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
+    address payload0 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423).creationCode
     );
-    address payload1 = GovV3Helpers.deployDeterministic(
+    address payload1 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423).creationCode
     );
-    address payload2 = GovV3Helpers.deployDeterministic(
+    address payload2 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423).creationCode
     );
-    address payload3 = GovV3Helpers.deployDeterministic(
+    address payload3 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423).creationCode
     );
-    address payload4 = GovV3Helpers.deployDeterministic(
+    address payload4 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423).creationCode
     );
-    address payload5 = GovV3Helpers.deployDeterministic(
+    address payload5 = GovV3Helpers.predictDeterministicAddress(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423).creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](6);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-    actions[2] = GovV3Helpers.buildAction(payload2);
-    actions[3] = GovV3Helpers.buildAction(payload3);
-    actions[4] = GovV3Helpers.buildAction(payload4);
-    actions[5] = GovV3Helpers.buildAction(payload5);
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload0);
 
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload1);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload2);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload3);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload4);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      actions[0] = GovV3Helpers.buildAction(payload5);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
   }
 }
 
