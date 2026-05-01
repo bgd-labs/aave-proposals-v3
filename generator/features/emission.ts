@@ -67,10 +67,13 @@ export const emissionUpdates: FeatureModule<EmissionUpdate[]> = {
     const response: CodeArtifact = {
       code: {
         constants: cfg
-          .map((cfg) => [
-            `address public constant ${cfg.symbol} = ${translateJsAddressToSol(cfg.asset)};`,
-            `address public constant ${cfg.symbol}_ADMIN = ${translateJsAddressToSol(cfg.admin)};`,
-          ])
+          .map((cfg) => {
+            const chainId = CHAIN_TO_CHAIN_ID[getPoolChain(pool)];
+            return [
+              `// ${getExplorerLink(chainId, cfg.asset)}\naddress public constant ${cfg.symbol} = ${translateJsAddressToSol(cfg.asset)};`,
+              `// ${getExplorerLink(chainId, cfg.admin)}\naddress public constant ${cfg.symbol}_ADMIN = ${translateJsAddressToSol(cfg.admin)};`,
+            ];
+          })
           .flat(),
         execute: cfg.map(
           (cfg) =>

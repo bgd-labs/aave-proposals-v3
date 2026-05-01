@@ -64,7 +64,7 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
 function generateAssetListingSol(cfg: Listing) {
   return `asset: ${cfg.assetSymbol},
   assetSymbol: "${cfg.assetSymbol}",
-  priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
+  priceFeed: ${cfg.assetSymbol}_PRICE_FEED,
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
   borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
   withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
@@ -104,9 +104,16 @@ export const assetListing: FeatureModule<Listing[]> = {
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
-          let listingConstant = `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};\n`;
+          const chainId = CHAIN_TO_CHAIN_ID[getPoolChain(pool)];
+          let listingConstant = `// ${getExplorerLink(chainId, cfg.asset)}\n`;
+          listingConstant += `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};\n`;
           listingConstant += `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};\n`;
+          if (isAddress(cfg.priceFeed)) {
+            listingConstant += `// ${getExplorerLink(chainId, cfg.priceFeed)}\n`;
+          }
+          listingConstant += `address public constant ${cfg.assetSymbol}_PRICE_FEED = ${translateJsAddressToSol(cfg.priceFeed)};\n`;
           if (isAddress(cfg.admin)) {
+            listingConstant += `// ${getExplorerLink(chainId, cfg.admin)}\n`;
             listingConstant += `address public constant ${cfg.assetSymbol}_LM_ADMIN = ${translateJsAddressToSol(cfg.admin)};\n`;
           }
           return listingConstant;
@@ -231,12 +238,16 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
   build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
-        constants: cfg.map(
-          (cfg) =>
-            `address public constant ${cfg.base.assetSymbol} = ${translateJsAddressToSol(
-              cfg.base.asset,
-            )};`,
-        ),
+        constants: cfg.map((cfg) => {
+          const chainId = CHAIN_TO_CHAIN_ID[getPoolChain(pool)];
+          let listingConstant = `// ${getExplorerLink(chainId, cfg.base.asset)}\n`;
+          listingConstant += `address public constant ${cfg.base.assetSymbol} = ${translateJsAddressToSol(cfg.base.asset)};\n`;
+          if (isAddress(cfg.base.priceFeed)) {
+            listingConstant += `// ${getExplorerLink(chainId, cfg.base.priceFeed)}\n`;
+          }
+          listingConstant += `address public constant ${cfg.base.assetSymbol}_PRICE_FEED = ${translateJsAddressToSol(cfg.base.priceFeed)};\n`;
+          return listingConstant;
+        }),
         execute: cfg.map(
           (cfg) =>
             `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${pool}.POOL), 10 ** ${cfg.base.decimals});

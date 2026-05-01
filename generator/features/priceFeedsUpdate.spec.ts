@@ -12,6 +12,7 @@ describe('feature: priceFeedsUpdates', () => {
       pool: 'AaveV3Ethereum',
       cfg: priceFeedsUpdateConfig,
       cache: {blockNumber: 42},
+      configs: {},
     });
     expect(output).toMatchSnapshot();
   });
@@ -26,6 +27,7 @@ describe('feature: priceFeedsUpdates', () => {
             pool: 'AaveV3Ethereum',
             cfg: priceFeedsUpdateConfig,
             cache: {blockNumber: 42},
+            configs: {[FEATURE.PRICE_FEEDS_UPDATE]: priceFeedsUpdateConfig},
           }),
         ],
         configs: {[FEATURE.PRICE_FEEDS_UPDATE]: priceFeedsUpdateConfig},

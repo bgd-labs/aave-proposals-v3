@@ -12,6 +12,7 @@ describe('feature: rateUpdatesV2', () => {
       pool: 'AaveV2EthereumAMM',
       cfg: rateUpdateV2,
       cache: {blockNumber: 42},
+      configs: {},
     });
     expect(output).toMatchSnapshot();
   });
@@ -25,6 +26,7 @@ describe('feature: rateUpdatesV2', () => {
             pool: 'AaveV2EthereumAMM',
             cfg: rateUpdateV2,
             cache: {blockNumber: 42},
+            configs: {[FEATURE.RATE_UPDATE_V2]: rateUpdateV2},
           }),
         ],
         configs: {[FEATURE.RATE_UPDATE_V2]: rateUpdateV2},
