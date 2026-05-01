@@ -15,7 +15,7 @@ import {AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423} from './arbitrum/Aa
 import {AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423} from './arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423.sol';
 import {AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423} from './arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423.sol';
 import {AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423} from './arbitrum/AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423.sol';
-import 'forge-std/console.sol';
+
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20260423_Multi_LiquidateRsETHPositions/LiquidateRsETHPositions_20260423.s.sol:DeployEthereum chain=mainnet
@@ -24,10 +24,10 @@ import 'forge-std/console.sol';
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.predictDeterministicAddress(
+    address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_LiquidateRsETHPositionUser1_20260423).creationCode
     );
-    address payload1 = GovV3Helpers.predictDeterministicAddress(
+    address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_LiquidateRsETHPositionUser2_20260423).creationCode
     );
 
@@ -60,22 +60,22 @@ contract DeployEthereum is EthereumScript {
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.predictDeterministicAddress(
+    address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser1_20260423).creationCode
     );
-    address payload1 = GovV3Helpers.predictDeterministicAddress(
+    address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser2_20260423).creationCode
     );
-    address payload2 = GovV3Helpers.predictDeterministicAddress(
+    address payload2 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser3_20260423).creationCode
     );
-    address payload3 = GovV3Helpers.predictDeterministicAddress(
+    address payload3 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser4_20260423).creationCode
     );
-    address payload4 = GovV3Helpers.predictDeterministicAddress(
+    address payload4 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser5_20260423).creationCode
     );
-    address payload5 = GovV3Helpers.predictDeterministicAddress(
+    address payload5 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_LiquidateRsETHPositionUser6_20260423).creationCode
     );
 
