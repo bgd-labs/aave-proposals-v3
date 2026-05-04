@@ -24,7 +24,7 @@ contract AaveV3Ethereum_LendMigrationShutdown_20260429 is IProposalGenericExecut
     IProxyAdminOzV4(MiscEthereum.PROXY_ADMIN).upgradeAndCall(
       LEND_TO_AAVE_MIGRATOR_PROXY,
       LEND_TO_AAVE_MIGRATOR_IMPL,
-      abi.encodeWithSelector(ILendToAaveMigrator.initialize.selector)
+      abi.encodeCall(ILendToAaveMigrator.initialize, ())
     );
   }
 }

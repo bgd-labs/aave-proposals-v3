@@ -19,7 +19,7 @@ Moving these tokens back to the DAO treasury makes them available for future gov
 
 ## Specification
 
-The execution of this proposal marks the deadline for LEND->AAVE migrations and redirects the remaining AAVE to the Aave DAO treasury.
+The execution of this proposal marks the deadline for LEND->AAVE migrations and redirects the remaining AAVE to the Aave DAO Ecosystem Reserve.
 
 | Item                        | Action                                                                                                                      |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -27,7 +27,6 @@ The execution of this proposal marks the deadline for LEND->AAVE migrations and 
 | Contract shutdown           | Once this Proposal is executed                                                                                              |
 | Asset redirection           | All remaining AAVE inside the migration contract redistributed back to the Aave DAO treasury, through the Ecosystem Reserve |
 | Communication               | Service providers run a final communication campaign with the closing date                                                  |
-| Follow-up                   | A subsequent ARFC will propose distribution of the recovered AAVE for growth and ecosystem incentives                       |
 
 ## References
 
