@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import 'forge-std/Test.sol';
@@ -18,18 +19,18 @@ import {AaveV3Ethereum_LendMigrationShutdown_20260429} from './AaveV3Ethereum_Le
  */
 contract AaveV3Ethereum_LendMigrationShutdown_20260429_Test is ProtocolV3TestBase {
   IERC20 public constant AAVE = IERC20(AaveV2EthereumAssets.AAVE_UNDERLYING);
-  address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
+  address public constant ECOSYSTEM_RESERVE = MiscEthereum.ECOSYSTEM_RESERVE;
 
   address public constant LEND_TO_AAVE_MIGRATOR_PROXY = 0x317625234562B1526Ea2FaC4030Ea499C5291de4;
   address public immutable NEW_LEND_TO_AAVE_MIGRATOR_IMPL =
-    0x79B59F16F373477ea9CbcF90d39DE473210Ff6e4;
+    0x2Da544ae1EA4E19b680E7A39520c64E5D35c0345;
 
   AaveV3Ethereum_LendMigrationShutdown_20260429 internal proposal;
 
   ILendToAaveMigrator internal migrator;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24985073);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25022080);
     proposal = new AaveV3Ethereum_LendMigrationShutdown_20260429();
     migrator = ILendToAaveMigrator(LEND_TO_AAVE_MIGRATOR_PROXY);
   }
@@ -47,18 +48,21 @@ contract AaveV3Ethereum_LendMigrationShutdown_20260429_Test is ProtocolV3TestBas
 
   function test_rescue_AAVE_balance() public {
     uint256 preMigratorAaveBalance = AAVE.balanceOf(proposal.LEND_TO_AAVE_MIGRATOR_PROXY());
-    uint256 preCollectorAaveBalance = AAVE.balanceOf(COLLECTOR);
+    uint256 preEcosystemReserveAaveBalance = AAVE.balanceOf(ECOSYSTEM_RESERVE);
 
     vm.expectEmit(address(migrator));
     emit ILendToAaveMigrator.AaveTokensRescued(
       address(migrator),
-      COLLECTOR,
+      ECOSYSTEM_RESERVE,
       preMigratorAaveBalance
     );
     executePayload(vm, address(proposal));
 
     assertEq(AAVE.balanceOf(proposal.LEND_TO_AAVE_MIGRATOR_PROXY()), 0);
-    assertEq(AAVE.balanceOf(COLLECTOR), preCollectorAaveBalance + preMigratorAaveBalance);
+    assertEq(
+      AAVE.balanceOf(ECOSYSTEM_RESERVE),
+      preEcosystemReserveAaveBalance + preMigratorAaveBalance
+    );
   }
 
   function test_revision_updated() public {

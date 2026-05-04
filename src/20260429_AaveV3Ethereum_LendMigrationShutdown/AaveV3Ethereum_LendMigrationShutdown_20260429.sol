@@ -17,7 +17,7 @@ contract AaveV3Ethereum_LendMigrationShutdown_20260429 is IProposalGenericExecut
   address public constant LEND_TO_AAVE_MIGRATOR_PROXY = 0x317625234562B1526Ea2FaC4030Ea499C5291de4;
 
   /// @notice Address of the new LendToAaveMigrator implementation to upgrade to
-  address public immutable LEND_TO_AAVE_MIGRATOR_IMPL = 0x79B59F16F373477ea9CbcF90d39DE473210Ff6e4;
+  address public immutable LEND_TO_AAVE_MIGRATOR_IMPL = 0x2Da544ae1EA4E19b680E7A39520c64E5D35c0345;
 
   /// @inheritdoc IProposalGenericExecutor
   function execute() external {

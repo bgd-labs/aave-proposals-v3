@@ -32,7 +32,7 @@ The execution of this proposal marks the deadline for LEND->AAVE migrations and 
 ## References
 
 - [LEND to AAVE Migrator on Etherscan](https://etherscan.io/address/0x317625234562b1526ea2fac4030ea499c5291de4)
-- [New LendToAaveMigrator Implementation](https://etherscan.io/address/0x79B59F16F373477ea9CbcF90d39DE473210Ff6e4#code)
+- [New LendToAaveMigrator Implementation](https://etherscan.io/address/0x2da544ae1ea4e19b680e7a39520c64e5d35c0345#code)
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260429_AaveV3Ethereum_LendMigrationShutdown/AaveV3Ethereum_LendMigrationShutdown_20260429.sol)
 - Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260429_AaveV3Ethereum_LendMigrationShutdown/AaveV3Ethereum_LendMigrationShutdown_20260429.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x4d9eb143c46a637dbf98d63ad00a6e53739a9b6affc0eed7d3cd35680500afaa)
