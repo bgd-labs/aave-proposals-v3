@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave Labs',
-    pools: ['AaveV3Ethereum'],
+    pools: ['AaveV3Ethereum', 'AaveV3Plasma'],
     title: '',
     shortName: 'AgentHubCancel',
     date: '20260505',
@@ -13,5 +13,6 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25027892}},
+    AaveV3Plasma: {configs: {OTHERS: {}}, cache: {blockNumber: 21142710}},
   },
 };
