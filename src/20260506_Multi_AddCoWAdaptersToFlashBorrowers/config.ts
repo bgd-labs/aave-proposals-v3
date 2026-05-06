@@ -44,7 +44,7 @@ export const config: ConfigFile = {
     },
     AaveV3Gnosis: {
       configs: {FLASH_BORROWER: {address: '0xdeCC46a4b09162F5369c5C80383AAa9159bCf192'}},
-      cache: {blockNumber: 46034287},
+      cache: {blockNumber: 45935000},
     },
     AaveV3BNB: {
       configs: {FLASH_BORROWER: {address: '0xdeCC46a4b09162F5369c5C80383AAa9159bCf192'}},

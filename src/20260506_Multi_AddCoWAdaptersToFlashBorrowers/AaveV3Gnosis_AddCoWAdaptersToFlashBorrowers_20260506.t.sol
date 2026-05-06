@@ -16,7 +16,7 @@ contract AaveV3Gnosis_AddCoWAdaptersToFlashBorrowers_20260506_Test is ProtocolV3
   AaveV3Gnosis_AddCoWAdaptersToFlashBorrowers_20260506 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 46034287);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 45935000);
     proposal = new AaveV3Gnosis_AddCoWAdaptersToFlashBorrowers_20260506();
   }
 

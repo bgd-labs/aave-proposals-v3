@@ -1,0 +1,41 @@
+## Event logs
+
+#### 0xa72636CbcAa8F5FF95B2cc47F3CDEe83F3294a0B (AaveV3Arbitrum.ACL_MANAGER)
+
+| index | event |
+| --- | --- |
+| 0 | RoleGranted(role: 0x939b8dfb57ecef2aea54a93a15e86768b9d4089f1ba61c245e6ec980695f4ca4, account: 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192, sender: 0xFF1137243698CaA18EE364Cc966CF0e02A4e6327) |
+
+#### 0xFF1137243698CaA18EE364Cc966CF0e02A4e6327 (AaveV3Arbitrum.ACL_ADMIN, GovernanceV3Arbitrum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1778064620, withDelegatecall: true, resultData: 0x) |
+
+#### 0x89644CA1bB8064760312AE4F03ea41b05dA3637C (GovernanceV3Arbitrum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 127) |
+
+## Raw storage changes
+
+### 0x89644ca1bb8064760312ae4f03ea41b05da3637c (GovernanceV3Arbitrum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xbb77812a8fa7fa6a572953fea9126358f3aec9cde938b0c1788d783c38ffd2cb | 0x0069fb1ceb000000000002000000000000000000000000000000000000000000 | 0x0069fb1ceb000000000003000000000000000000000000000000000000000000 |
+| 0xbb77812a8fa7fa6a572953fea9126358f3aec9cde938b0c1788d783c38ffd2cc | 0x000000000000000000093a800000000000006a29416c00000000000000000000 | 0x000000000000000000093a800000000000006a29416c00000000000069fb1cec |
+
+### 0xa72636cbcaa8f5ff95b2cc47f3cdee83f3294a0b (AaveV3Arbitrum.ACL_MANAGER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x176cf82e48229db86e84c0ac6dae046d81639711be1c9b63e0d0eda525170356 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+
+## Raw diff
+
+```json
+{}
+```
