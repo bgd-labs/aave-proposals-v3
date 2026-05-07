@@ -1,5 +1,4 @@
 import {readFileSync, writeFileSync} from 'node:fs';
-import {format as formatWithPrettier} from 'prettier';
 
 type CapoPrice = {
   referencePrice: number;
@@ -27,7 +26,7 @@ type Price = {
   date: string;
 };
 
-export async function generateCapoReport(snapshot: CapoSnapshot): Promise<string> {
+export function generateCapoReport(snapshot: CapoSnapshot): string {
   // map to dates and formatted values
 
   let prices: Price[] = [];
@@ -86,7 +85,7 @@ export async function generateCapoReport(snapshot: CapoSnapshot): Promise<string
 
   content += `* Max day-to-day yearly % indicates the maximum growth between two emissions as an annualized percentage. \n`;
 
-  return formatWithPrettier(content, {parser: 'markdown'});
+  return content;
 }
 
 function formatTimestamp(timestampInSec: number) {
@@ -131,7 +130,7 @@ function parseArgs(args: string[]) {
   return {inputPath, outputPath};
 }
 
-async function main() {
+function main() {
   const {inputPath, outputPath} = parseArgs(process.argv.slice(2));
 
   if (!inputPath || !outputPath) {
@@ -139,13 +138,15 @@ async function main() {
   }
 
   const snapshot = JSON.parse(readFileSync(inputPath, 'utf8')) as CapoSnapshot;
-  const content = await generateCapoReport(snapshot);
+  const content = generateCapoReport(snapshot);
   writeFileSync(outputPath, content);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
+  try {
+    main();
+  } catch (error) {
     console.error(error);
     process.exit(1);
-  });
+  }
 }
