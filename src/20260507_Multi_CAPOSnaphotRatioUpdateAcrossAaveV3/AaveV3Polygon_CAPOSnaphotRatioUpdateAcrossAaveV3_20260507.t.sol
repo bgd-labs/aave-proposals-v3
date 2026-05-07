@@ -1,0 +1,86 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+
+import 'forge-std/Test.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
+import {AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507.sol';
+
+/**
+ * @dev Test for AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnaphotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
+ */
+contract AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
+  ProtocolV3TestBase,
+  CAPOUpdateBaseTest
+{
+  AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('polygon'), 86535455);
+    proposal = new AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507();
+  }
+
+  function _executePayload() internal override {
+    GovV3Helpers.executePayload(vm, address(proposal));
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507',
+      AaveV3Polygon.POOL,
+      address(proposal)
+    );
+  }
+
+  function test_postExecution_MaticX() public {
+    _runPostExecutionAssertions(
+      OracleExpectation({
+        label: 'MaticX',
+        adapter: AaveV3PolygonAssets.MaticX_ORACLE,
+        expectedSnapshotRatio: proposal.MaticX_SNAPSHOT_RATIO(),
+        expectedSnapshotTimestamp: proposal.MaticX_SNAPSHOT_TIMESTAMP(),
+        expectedMaxYearlyGrowthPercent: _preservedGrowth(AaveV3PolygonAssets.MaticX_ORACLE)
+      })
+    );
+  }
+
+  function test_postExecution_wstETH() public {
+    _runPostExecutionAssertions(
+      OracleExpectation({
+        label: 'wstETH',
+        adapter: AaveV3PolygonAssets.wstETH_ORACLE,
+        expectedSnapshotRatio: proposal.wstETH_SNAPSHOT_RATIO(),
+        expectedSnapshotTimestamp: proposal.wstETH_SNAPSHOT_TIMESTAMP(),
+        expectedMaxYearlyGrowthPercent: _preservedGrowth(AaveV3PolygonAssets.wstETH_ORACLE)
+      })
+    );
+  }
+
+  function test_retrospective_MaticX() public {
+    _runRetrospective(AaveV3PolygonAssets.MaticX_ORACLE, 'MaticX');
+  }
+
+  function test_retrospective_wstETH() public {
+    _runRetrospective(AaveV3PolygonAssets.wstETH_ORACLE, 'wstETH');
+  }
+
+  function _runRetrospective(address adapter, string memory symbol) internal {
+    _runRetrospectiveAndReport({
+      adapterAddr: adapter,
+      retrospectiveDays: 30,
+      network: 'polygon',
+      reportName: string.concat(
+        'AaveV3Polygon_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_',
+        symbol,
+        '_Capo'
+      )
+    });
+  }
+}
