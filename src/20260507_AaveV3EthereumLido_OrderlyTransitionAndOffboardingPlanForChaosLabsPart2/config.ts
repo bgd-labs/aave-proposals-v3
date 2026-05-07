@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    author: 'ChaosLabs (implemented by Aavechan Initiative @aci via Skyward)',
+    author: 'ChaosLabs (performed by Skyward)',
     pools: ['AaveV3EthereumLido'],
     title: 'Orderly Transition and Offboarding Plan for Chaos Labs part2',
     shortName: 'OrderlyTransitionAndOffboardingPlanForChaosLabsPart2',
