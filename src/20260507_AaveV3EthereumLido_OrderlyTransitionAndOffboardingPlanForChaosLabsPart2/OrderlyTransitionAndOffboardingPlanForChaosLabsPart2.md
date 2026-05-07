@@ -25,6 +25,7 @@ In summary, the addresses associated with the current 2/2 multisig for manual Ri
 ## Specification
 
 This AIP will cancel the stream 100073 from the [Aave Prime collector](https://etherscan.io/address/0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c#writeProxyContract#F2)
+
 ## References
 
 - Implementation: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.sol)

@@ -18,17 +18,6 @@ contract AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2
   uint256 public constant AMOUNT_PER_SECOND = 80859969558599695; // from stream 100073
   uint256 public constant FORUM_POST_TIMESTAMP = 1775606400;
   function execute() external {
-    try AaveV3EthereumLido.COLLECTOR.cancelStream(PREVIOUS_STREAM) {} catch {}
-
-    // Payment only if executed within the 30-day transition window (ends 2026-05-08)
-    if (FORUM_POST_TIMESTAMP + 30 days > block.timestamp) {
-      uint256 second_left = (FORUM_POST_TIMESTAMP + 30 days) - block.timestamp;
-      // bulk transfer
-      AaveV3EthereumLido.COLLECTOR.transfer(
-        IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
-        CHAOS_LABS,
-        AMOUNT_PER_SECOND * second_left
-      );
-    }
+    AaveV3EthereumLido.COLLECTOR.cancelStream(PREVIOUS_STREAM);
   }
 }
