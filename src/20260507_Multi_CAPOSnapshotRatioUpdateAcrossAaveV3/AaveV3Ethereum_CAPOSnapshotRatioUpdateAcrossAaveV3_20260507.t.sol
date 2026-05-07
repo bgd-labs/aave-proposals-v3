@@ -7,21 +7,21 @@ import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
-import {AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507.sol';
+import {AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnaphotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
+ * @dev Test for AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
  */
-contract AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
+contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
 {
-  AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507 internal proposal;
+  AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 25044803);
-    proposal = new AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507();
+    proposal = new AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
   function _executePayload() internal override {
@@ -33,7 +33,7 @@ contract AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507',
+      'AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
@@ -157,7 +157,7 @@ contract AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
       retrospectiveDays: 30,
       network: 'mainnet',
       reportName: string.concat(
-        'AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_',
+        'AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_',
         symbol,
         '_Capo'
       )

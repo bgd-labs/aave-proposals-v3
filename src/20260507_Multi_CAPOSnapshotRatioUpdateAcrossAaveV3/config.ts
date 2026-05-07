@@ -11,8 +11,8 @@ export const config: ConfigFile = {
       'AaveV3Plasma',
       'AaveV3Mantle',
     ],
-    title: 'CAPO SnaphotRatio Update Across Aave V3',
-    shortName: 'CAPOSnaphotRatioUpdateAcrossAaveV3',
+    title: 'CAPO SnapshotRatio Update Across Aave V3',
+    shortName: 'CAPOSnapshotRatioUpdateAcrossAaveV3',
     date: '20260507',
     author: 'Llama Risk (implemented by Aave Labs)',
     discussion:

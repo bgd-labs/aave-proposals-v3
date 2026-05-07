@@ -7,21 +7,21 @@ import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
-import {AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507.sol';
+import {AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
 /**
- * @dev Test for AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnaphotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
+ * @dev Test for AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
  */
-contract AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
+contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
 {
-  AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507 internal proposal;
+  AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('gnosis'), 46056118);
-    proposal = new AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507();
+    proposal = new AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
   function _executePayload() internal override {
@@ -33,7 +33,7 @@ contract AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507',
+      'AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3Gnosis.POOL,
       address(proposal)
     );
@@ -77,7 +77,7 @@ contract AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
       retrospectiveDays: 30,
       network: 'gnosis',
       reportName: string.concat(
-        'AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_',
+        'AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_',
         symbol,
         '_Capo'
       )

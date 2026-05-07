@@ -7,12 +7,12 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 
 /**
- * @title CAPO SnaphotRatio Update Across Aave V3
+ * @title CAPO SnapshotRatio Update Across Aave V3
  * @author Llama Risk (implemented by Aave Labs)
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-capo-snapshotratio-update-across-aave-v3/24854
  */
-contract AaveV3Ethereum_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
+contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
   uint104 public constant sUSDe_SNAPSHOT_RATIO = 1227131992751411096;
   uint48 public constant sUSDe_SNAPSHOT_TIMESTAMP = 1776098039;
   uint16 public constant sUSDe_MAX_YEARLY_RATIO_GROWTH_PERCENT = 11_17;

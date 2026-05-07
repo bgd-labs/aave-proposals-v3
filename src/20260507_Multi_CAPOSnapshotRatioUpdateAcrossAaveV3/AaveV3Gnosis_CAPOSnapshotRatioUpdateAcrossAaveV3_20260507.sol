@@ -6,12 +6,12 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 
 /**
- * @title CAPO SnaphotRatio Update Across Aave V3
+ * @title CAPO SnapshotRatio Update Across Aave V3
  * @author Llama Risk (implemented by Aave Labs)
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-capo-snapshotratio-update-across-aave-v3/24854
  */
-contract AaveV3Gnosis_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
+contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
   uint104 public constant wstETH_SNAPSHOT_RATIO = 1231706743820320505;
   uint48 public constant wstETH_SNAPSHOT_TIMESTAMP = 1776087290;
 

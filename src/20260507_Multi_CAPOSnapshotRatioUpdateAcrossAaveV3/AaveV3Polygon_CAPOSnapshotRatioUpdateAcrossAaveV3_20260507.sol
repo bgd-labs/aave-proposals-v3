@@ -1,33 +1,34 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
+
 /**
- * @title CAPO SnaphotRatio Update Across Aave V3
+ * @title CAPO SnapshotRatio Update Across Aave V3
  * @author Llama Risk (implemented by Aave Labs)
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-capo-snapshotratio-update-across-aave-v3/24854
  */
-contract AaveV3Avalanche_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
-  uint104 public constant sAVAX_SNAPSHOT_RATIO = 1258004893989529449;
-  uint48 public constant sAVAX_SNAPSHOT_TIMESTAMP = 1776080367;
+contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
+  uint104 public constant MaticX_SNAPSHOT_RATIO = 1184553336304744130;
+  uint48 public constant MaticX_SNAPSHOT_TIMESTAMP = 1776095251;
 
-  uint104 public constant sUSDe_SNAPSHOT_RATIO = 1227006247957361173;
-  uint48 public constant sUSDe_SNAPSHOT_TIMESTAMP = 1776080378;
+  uint104 public constant wstETH_SNAPSHOT_RATIO = 1231787423404290591;
+  uint48 public constant wstETH_SNAPSHOT_TIMESTAMP = 1776095275;
 
   function execute() external {
     _updateSnapshotRatio(
-      AaveV3AvalancheAssets.sAVAX_ORACLE,
-      sAVAX_SNAPSHOT_RATIO,
-      sAVAX_SNAPSHOT_TIMESTAMP
+      AaveV3PolygonAssets.MaticX_ORACLE,
+      MaticX_SNAPSHOT_RATIO,
+      MaticX_SNAPSHOT_TIMESTAMP
     );
 
     _updateSnapshotRatio(
-      AaveV3AvalancheAssets.sUSDe_ORACLE,
-      sUSDe_SNAPSHOT_RATIO,
-      sUSDe_SNAPSHOT_TIMESTAMP
+      AaveV3PolygonAssets.wstETH_ORACLE,
+      wstETH_SNAPSHOT_RATIO,
+      wstETH_SNAPSHOT_TIMESTAMP
     );
   }
 
