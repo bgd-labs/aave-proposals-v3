@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Complete Offboarding Plan for Chaos Labs"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399"
 ---
