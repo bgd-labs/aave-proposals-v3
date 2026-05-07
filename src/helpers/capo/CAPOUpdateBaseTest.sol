@@ -283,13 +283,15 @@ abstract contract CAPOUpdateBaseTest is Test {
   function _generateMdReport(string memory sourcePath, string memory reportName) private {
     string memory outPath = string(abi.encodePacked('./diffs/', reportName, '.md'));
 
-    string[] memory inputs = new string[](6);
-    inputs[0] = './node_modules/.bin/tsx';
-    inputs[1] = './src/helpers/capo/capo-report.ts';
-    inputs[2] = '-i';
-    inputs[3] = sourcePath;
-    inputs[4] = '-o';
-    inputs[5] = outPath;
+    string[] memory inputs = new string[](8);
+    inputs[0] = 'npx';
+    inputs[1] = '--yes';
+    inputs[2] = 'tsx';
+    inputs[3] = './src/helpers/capo/capo-report.ts';
+    inputs[4] = '-i';
+    inputs[5] = sourcePath;
+    inputs[6] = '-o';
+    inputs[7] = outPath;
     vm.ffi(inputs);
   }
 }
