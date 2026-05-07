@@ -61,4 +61,15 @@ contract AaveV3Ethereum_ChaosAgentHubOffboarding_20260505_Test is ProtocolV3Test
     vm.expectRevert();
     AaveV3EthereumLido.COLLECTOR.getStream(streamId);
   }
+
+  function test_payload_execution_on_cancelled_stream() public {
+    uint256 streamId = proposal.PREVIOUS_STREAM();
+
+    (, address recipient, , , , , , ) = AaveV3EthereumLido.COLLECTOR.getStream(streamId);
+
+    vm.prank(recipient);
+    AaveV3EthereumLido.COLLECTOR.cancelStream(streamId);
+
+    executePayload(vm, address(proposal));
+  }
 }
