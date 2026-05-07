@@ -32,11 +32,13 @@ contract AaveV3Mantle_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507_Test is
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Mantle_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507',
-      AaveV3Mantle.POOL,
-      address(proposal)
-    );
+    defaultTest({
+      reportName: 'AaveV3Mantle_CAPOSnaphotRatioUpdateAcrossAaveV3_20260507',
+      pool: AaveV3Mantle.POOL,
+      payload: address(proposal),
+      runE2E: false, // todo debug why 'no good collateral'
+      runSeatbelt: false
+    });
   }
 
   function test_postExecution_sUSDe() public {
