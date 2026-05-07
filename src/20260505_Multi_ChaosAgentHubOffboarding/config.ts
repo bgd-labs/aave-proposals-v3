@@ -4,7 +4,7 @@ export const config: ConfigFile = {
     author: 'Aave Labs',
     pools: ['AaveV3Ethereum', 'AaveV3Plasma'],
     title: '',
-    shortName: 'AgentHubCancel',
+    shortName: 'ChaosAgentHubOffboarding',
     date: '20260505',
     discussion:
       'https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399',
@@ -12,7 +12,7 @@ export const config: ConfigFile = {
     votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25027892}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25041964}},
     AaveV3Plasma: {configs: {OTHERS: {}}, cache: {blockNumber: 21142710}},
   },
 };

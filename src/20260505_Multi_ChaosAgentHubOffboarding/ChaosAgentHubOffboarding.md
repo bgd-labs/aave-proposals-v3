@@ -36,8 +36,8 @@ The payload will:
 ## References
 
 - Original AIP: [Orderly Transition and Offboarding Plan for Chaos Labs](https://app.aave.com/governance/v3/proposal/?proposalId=479)
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_AgentHubCancel/AaveV3Ethereum_AgentHubCancel_20260505.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_AgentHubCancel/AaveV3Plasma_AgentHubCancel_20260505.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_AgentHubCancel/AaveV3Ethereum_AgentHubCancel_20260505.t.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_AgentHubCancel/AaveV3Plasma_AgentHubCancel_20260505.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Ethereum_ChaosAgentHubOffboarding_20260505.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Plasma_ChaosAgentHubOffboarding_20260505.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Ethereum_ChaosAgentHubOffboarding_20260505.t.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Plasma_ChaosAgentHubOffboarding_20260505.t.sol)
 
 ## Copyright
 

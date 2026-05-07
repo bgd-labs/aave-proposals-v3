@@ -7,26 +7,30 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Ethereum_AgentHubCancel_20260505} from './AaveV3Ethereum_AgentHubCancel_20260505.sol';
+import {AaveV3Ethereum_ChaosAgentHubOffboarding_20260505} from './AaveV3Ethereum_ChaosAgentHubOffboarding_20260505.sol';
 import {IAgentHub} from '../interfaces/chaos-agents/IAgentHub.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_AgentHubCancel_20260505
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260505_AaveV3Ethereum_AgentHubCancel/AaveV3Ethereum_AgentHubCancel_20260505.t.sol -vv
+ * @dev Test for AaveV3Ethereum_ChaosAgentHubOffboarding_20260505
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Ethereum_ChaosAgentHubOffboarding_20260505.t.sol -vv
  */
-contract AaveV3Ethereum_AgentHubCancel_20260505_Test is ProtocolV3TestBase {
-  AaveV3Ethereum_AgentHubCancel_20260505 internal proposal;
+contract AaveV3Ethereum_ChaosAgentHubOffboarding_20260505_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_ChaosAgentHubOffboarding_20260505 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 25027892);
-    proposal = new AaveV3Ethereum_AgentHubCancel_20260505();
+    proposal = new AaveV3Ethereum_ChaosAgentHubOffboarding_20260505();
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Ethereum_AgentHubCancel_20260505', AaveV3Ethereum.POOL, address(proposal));
+    defaultTest(
+      'AaveV3Ethereum_ChaosAgentHubOffboarding_20260505',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
   }
 
   function test_agentsDisabledAndRiskAdminRevoked() public {

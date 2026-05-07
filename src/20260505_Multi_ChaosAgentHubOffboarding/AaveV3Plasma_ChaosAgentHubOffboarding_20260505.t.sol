@@ -6,26 +6,30 @@ import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Plasma_AgentHubCancel_20260505} from './AaveV3Plasma_AgentHubCancel_20260505.sol';
+import {AaveV3Plasma_ChaosAgentHubOffboarding_20260505} from './AaveV3Plasma_ChaosAgentHubOffboarding_20260505.sol';
 import {IAgentHub} from '../interfaces/chaos-agents/IAgentHub.sol';
 
 /**
- * @dev Test for AaveV3Plasma_AgentHubCancel_20260505
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260505_Multi_AgentHubCancel/AaveV3Plasma_AgentHubCancel_20260505.t.sol -vv
+ * @dev Test for AaveV3Plasma_ChaosAgentHubOffboarding_20260505
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Plasma_ChaosAgentHubOffboarding_20260505.t.sol -vv
  */
-contract AaveV3Plasma_AgentHubCancel_20260505_Test is ProtocolV3TestBase {
-  AaveV3Plasma_AgentHubCancel_20260505 internal proposal;
+contract AaveV3Plasma_ChaosAgentHubOffboarding_20260505_Test is ProtocolV3TestBase {
+  AaveV3Plasma_ChaosAgentHubOffboarding_20260505 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('plasma'), 21142710);
-    proposal = new AaveV3Plasma_AgentHubCancel_20260505();
+    proposal = new AaveV3Plasma_ChaosAgentHubOffboarding_20260505();
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Plasma_AgentHubCancel_20260505', AaveV3Plasma.POOL, address(proposal));
+    defaultTest(
+      'AaveV3Plasma_ChaosAgentHubOffboarding_20260505',
+      AaveV3Plasma.POOL,
+      address(proposal)
+    );
   }
 
   function test_agentsDisabledAndRiskAdminRevoked() public {
