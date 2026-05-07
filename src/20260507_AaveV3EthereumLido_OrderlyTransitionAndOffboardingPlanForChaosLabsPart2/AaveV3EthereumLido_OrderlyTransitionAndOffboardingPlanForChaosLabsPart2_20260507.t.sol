@@ -32,4 +32,12 @@ contract AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2
       address(proposal)
     );
   }
+
+  function test_streamCanceled() public {
+    uint256 streamID = proposal.PREVIOUS_STREAM();
+    AaveV3EthereumLido.COLLECTOR.getStream(streamID);
+    executePayload(vm, address(proposal));
+    vm.expectRevert();
+    AaveV3EthereumLido.COLLECTOR.getStream(streamID);
+  }
 }
