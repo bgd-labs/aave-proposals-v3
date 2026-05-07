@@ -1,4 +1,3 @@
-import {formatUnits} from 'viem';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {format as formatWithPrettier} from 'prettier';
 
@@ -28,7 +27,7 @@ type Price = {
   date: string;
 };
 
-export async function generateCapoReport(snapshot: CapoSnapshot) {
+export async function generateCapoReport(snapshot: CapoSnapshot): Promise<string> {
   // map to dates and formatted values
 
   let prices: Price[] = [];
@@ -87,8 +86,7 @@ export async function generateCapoReport(snapshot: CapoSnapshot) {
 
   content += `* Max day-to-day yearly % indicates the maximum growth between two emissions as an annualized percentage. \n`;
 
-  const formatted = formatWithPrettier(content, {parser: 'markdown'});
-  return await Promise.resolve(formatted);
+  return formatWithPrettier(content, {parser: 'markdown'});
 }
 
 function formatTimestamp(timestampInSec: number) {
@@ -102,6 +100,16 @@ function formatTimestamp(timestampInSec: number) {
     day: '2-digit',
     timeZone: 'GMT',
   }).format(date);
+}
+
+function formatUnits(value: bigint, decimals: number): string {
+  const negative = value < 0n;
+  const abs = negative ? -value : value;
+  const str = abs.toString().padStart(decimals + 1, '0');
+  const head = str.slice(0, str.length - decimals);
+  const tail = str.slice(str.length - decimals).replace(/0+$/, '');
+  const result = tail.length > 0 ? `${head}.${tail}` : head;
+  return negative ? `-${result}` : result;
 }
 
 function parseArgs(args: string[]) {
