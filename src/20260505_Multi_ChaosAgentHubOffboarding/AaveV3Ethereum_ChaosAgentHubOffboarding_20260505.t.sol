@@ -50,4 +50,15 @@ contract AaveV3Ethereum_ChaosAgentHubOffboarding_20260505_Test is ProtocolV3Test
       );
     }
   }
+
+  function test_streamCanceled() public {
+    uint256 streamId = proposal.PREVIOUS_STREAM();
+
+    AaveV3EthereumLido.COLLECTOR.getStream(streamId);
+
+    executePayload(vm, address(proposal));
+
+    vm.expectRevert();
+    AaveV3EthereumLido.COLLECTOR.getStream(streamId);
+  }
 }

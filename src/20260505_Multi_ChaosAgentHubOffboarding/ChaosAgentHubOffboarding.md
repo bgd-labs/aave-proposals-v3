@@ -30,7 +30,7 @@ This proposal executes a follow-up payload to complete the AgentHub offboarding 
 
 The payload will:
 
-- On Ethereum mainnet, remove the remaining Agent permissions that were not removed after the related Robots were canceled through emergency action.
+- On Ethereum mainnet, remove the remaining Agent permissions that were not removed after the related Robots were canceled through emergency action & cancel stream `100073` (if not already canceled before execution of this payload).
 - On Plasma, remove the Agent permissions.
 
 ## References
