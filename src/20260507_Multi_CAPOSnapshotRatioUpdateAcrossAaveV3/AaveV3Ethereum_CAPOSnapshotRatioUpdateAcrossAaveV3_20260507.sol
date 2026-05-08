@@ -35,51 +35,51 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposa
   uint48 public constant cbETH_SNAPSHOT_TIMESTAMP = 1776097967;
 
   function execute() external {
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.sUSDe_ORACLE, // prime uses the same feed
       sUSDe_SNAPSHOT_RATIO,
       sUSDe_SNAPSHOT_TIMESTAMP,
       sUSDe_MAX_YEARLY_RATIO_GROWTH_PERCENT
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.rETH_ORACLE,
       rETH_SNAPSHOT_RATIO,
       rETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.weETH_ORACLE,
       weETH_SNAPSHOT_RATIO,
       weETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.ETHx_ORACLE,
       ETHx_SNAPSHOT_RATIO,
       ETHx_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.osETH_ORACLE,
       osETH_SNAPSHOT_RATIO,
       osETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.ezETH_ORACLE, // prime uses the same feed
       ezETH_SNAPSHOT_RATIO,
       ezETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3EthereumAssets.cbETH_ORACLE,
       cbETH_SNAPSHOT_RATIO,
       cbETH_SNAPSHOT_TIMESTAMP
     );
   }
 
-  function _updateSnapshotRatio(
+  function _updateCapParameters(
     address priceCapAdapter,
     uint104 newSnapshotRatio,
     uint48 newSnapshotTimestamp
@@ -94,7 +94,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposa
     IPriceCapAdapter(priceCapAdapter).setCapParameters(params);
   }
 
-  function _updateSnapshotRatio(
+  function _updateCapParameters(
     address priceCapAdapter,
     uint104 newSnapshotRatio,
     uint48 newSnapshotTimestamp,

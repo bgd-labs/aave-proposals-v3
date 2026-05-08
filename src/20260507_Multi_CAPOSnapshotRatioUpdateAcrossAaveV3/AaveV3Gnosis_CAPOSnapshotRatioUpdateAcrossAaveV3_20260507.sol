@@ -19,20 +19,20 @@ contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalG
   uint48 public constant sDAI_SNAPSHOT_TIMESTAMP = 1776087275;
 
   function execute() external {
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3GnosisAssets.wstETH_ORACLE,
       wstETH_SNAPSHOT_RATIO,
       wstETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3GnosisAssets.sDAI_ORACLE,
       sDAI_SNAPSHOT_RATIO,
       sDAI_SNAPSHOT_TIMESTAMP
     );
   }
 
-  function _updateSnapshotRatio(
+  function _updateCapParameters(
     address priceCapAdapter,
     uint104 newSnapshotRatio,
     uint48 newSnapshotTimestamp

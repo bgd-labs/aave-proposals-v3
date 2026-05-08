@@ -19,20 +19,20 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposal
   uint48 public constant wstETH_SNAPSHOT_TIMESTAMP = 1776095275;
 
   function execute() external {
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3PolygonAssets.MaticX_ORACLE,
       MaticX_SNAPSHOT_RATIO,
       MaticX_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3PolygonAssets.wstETH_ORACLE,
       wstETH_SNAPSHOT_RATIO,
       wstETH_SNAPSHOT_TIMESTAMP
     );
   }
 
-  function _updateSnapshotRatio(
+  function _updateCapParameters(
     address priceCapAdapter,
     uint104 newSnapshotRatio,
     uint48 newSnapshotTimestamp

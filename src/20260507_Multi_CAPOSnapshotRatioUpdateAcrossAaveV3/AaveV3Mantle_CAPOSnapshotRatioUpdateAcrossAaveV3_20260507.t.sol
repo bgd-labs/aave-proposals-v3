@@ -37,7 +37,7 @@ contract AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
       pool: AaveV3Mantle.POOL,
       payload: address(proposal),
       runE2E: false, // todo debug why 'no good collateral'
-      runSeatbelt: false
+      runSeatbelt: true
     });
   }
 

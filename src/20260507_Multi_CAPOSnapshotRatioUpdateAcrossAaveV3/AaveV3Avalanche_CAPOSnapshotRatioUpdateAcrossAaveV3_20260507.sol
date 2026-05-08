@@ -18,20 +18,20 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IPropos
   uint48 public constant sUSDe_SNAPSHOT_TIMESTAMP = 1776080378;
 
   function execute() external {
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3AvalancheAssets.sAVAX_ORACLE,
       sAVAX_SNAPSHOT_RATIO,
       sAVAX_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3AvalancheAssets.sUSDe_ORACLE,
       sUSDe_SNAPSHOT_RATIO,
       sUSDe_SNAPSHOT_TIMESTAMP
     );
   }
 
-  function _updateSnapshotRatio(
+  function _updateCapParameters(
     address priceCapAdapter,
     uint104 newSnapshotRatio,
     uint48 newSnapshotTimestamp

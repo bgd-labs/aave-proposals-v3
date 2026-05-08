@@ -22,26 +22,26 @@ contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGe
   uint48 public constant weETH_SNAPSHOT_TIMESTAMP = 1776040278;
 
   function execute() external {
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3LineaAssets.wstETH_ORACLE,
       wstETH_SNAPSHOT_RATIO,
       wstETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3LineaAssets.ezETH_ORACLE,
       ezETH_SNAPSHOT_RATIO,
       ezETH_SNAPSHOT_TIMESTAMP
     );
 
-    _updateSnapshotRatio(
+    _updateCapParameters(
       AaveV3LineaAssets.weETH_ORACLE,
       weETH_SNAPSHOT_RATIO,
       weETH_SNAPSHOT_TIMESTAMP
     );
   }
 
-  function _updateSnapshotRatio(
+  function _updateCapParameters(
     address priceCapAdapter,
     uint104 newSnapshotRatio,
     uint48 newSnapshotTimestamp
