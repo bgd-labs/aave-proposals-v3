@@ -1,56 +1,60 @@
+## Event logs
+
+#### 0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a (AaveV3Ethereum.ASSETS.USDT.A_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, value: 9.6299 [9629966, 6 decimals]) |
+| 1 | Mint(caller: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, onBehalfOf: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, value: 9.6299 [9629966, 6 decimals], balanceIncrease: 9629966, index: 1.1579 [1157984208345134257479266467, 27 decimals]) |
+| 2 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF, value: 299.9696 [299969614, 6 decimals]) |
+| 3 | Mint(caller: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, onBehalfOf: 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF, value: 299.9696 [299969614, 6 decimals], balanceIncrease: 299969614, index: 1.1579 [1157984208345134257479266467, 27 decimals]) |
+| 4 | Transfer(from: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, to: 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF, value: 62,422 [62422000000, 6 decimals]) |
+| 5 | BalanceTransfer(from: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, to: 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF, value: 53,905.7437 [53905743749, 6 decimals], index: 1157984208345134257479266467) |
+
+#### 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f (AaveV3Ethereum.ASSETS.GHO.UNDERLYING, AaveV3EthereumHorizon.ASSETS.GHO.UNDERLYING, AaveV3EthereumLido.ASSETS.GHO.UNDERLYING, GhoEthereum.GHO_TOKEN, UmbrellaEthereum.UMBRELLA_STAKE_ASSETS.STK_GHO_V1.UNDERLYING)
+
+| index | event |
+| --- | --- |
+| 6 | Transfer(from: 0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c, to: 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8, value: 12,240 [12240000000000000000000, 18 decimals]) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 7 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1774989287, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 8 | PayloadExecuted(payloadId: 423) |
+
+## Raw storage changes
+
+### 0x23878914efe38d27c4d67ab83ed1b93a74d4086a (AaveV3Ethereum.ASSETS.USDT.A_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x14a553e31736f19e3e380cf55bfb2f82dfd6d880cd07235affb68d8d3e0cac4d | 0x0000000003bddbecc76f9c0013fbb52c0000000000000000000002692d6d72a5 | 0x0000000003bddcb1b836ba47ae1eb0a300000000000000000000025ca0651320 |
+| 0xf57a0f05777e493f6eb3a9303c3f677c25a62ed0fdbf9d58a277df4680f70afb | 0x0000000003bb60fad80444207c60a73b00000000000000000000001743bd31ea | 0x0000000003bddcb1b836ba47ae1eb0a3000000000000000000000023d0c5916f |
+
+### 0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f (AaveV3Ethereum.ASSETS.GHO.UNDERLYING, AaveV3EthereumHorizon.ASSETS.GHO.UNDERLYING, AaveV3EthereumLido.ASSETS.GHO.UNDERLYING, GhoEthereum.GHO_TOKEN, UmbrellaEthereum.UMBRELLA_STAKE_ASSETS.STK_GHO_V1.UNDERLYING)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x1523217c4b07de374edaab82dd137508368abb580fb66aedbf032086a67e1f8f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000297881f6db35d400000 |
+| 0x3107e6fb53c93683833e8824cc59e9c9f27821bf7d710a977a825c1959995195 | 0x00000000000000000000000000000000000000000003f5622bffd99ca7e44f6a | 0x00000000000000000000000000000000000000000003f2caa3e06be94aa44f6a |
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x9d7fa11d66f08447c82032df6dc0254c550ed916116e61c531eaa4be3840dd1c | 0x0069cc2fe6000000000002000000000000000000000000000000000000000000 | 0x0069cc2fe6000000000003000000000000000000000000000000000000000000 |
+| 0x9d7fa11d66f08447c82032df6dc0254c550ed916116e61c531eaa4be3840dd1d | 0x000000000000000000093a8000000000000069fa546700000000000000000000 | 0x000000000000000000093a8000000000000069fa546700000000000069cc2fe7 |
+
+
 ## Raw diff
 
 ```json
-{
-  "raw": {
-    "0x23878914efe38d27c4d67ab83ed1b93a74d4086a": {
-      "label": "AaveV3Ethereum.ASSETS.USDT.A_TOKEN",
-      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0x14a553e31736f19e3e380cf55bfb2f82dfd6d880cd07235affb68d8d3e0cac4d": {
-          "previousValue": "0x0000000003b8aef89cc7c0dabdb6271c00000000000000000000082b866d4079",
-          "newValue": "0x0000000003b8b197a01f79441b710fc600000000000000000000081487887a84"
-        },
-        "0xf57a0f05777e493f6eb3a9303c3f677c25a62ed0fdbf9d58a277df4680f70afb": {
-          "previousValue": "0x0000000003b66881510165be08b9632c00000000000000000000000149e53516",
-          "newValue": "0x0000000003b8b197a01f79441b710fc600000000000000000000001848c9fb0b"
-        }
-      }
-    },
-    "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f": {
-      "label": "AaveV3Ethereum.ASSETS.GHO.UNDERLYING, AaveV3EthereumHorizon.ASSETS.GHO.UNDERLYING, AaveV3EthereumLido.ASSETS.GHO.UNDERLYING, GhoEthereum.GHO_TOKEN, UmbrellaEthereum.UMBRELLA_STAKE_ASSETS.STK_GHO_V1.UNDERLYING",
-      "contract": null,
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0x1523217c4b07de374edaab82dd137508368abb580fb66aedbf032086a67e1f8f": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000001d75462dcc513f13",
-          "newValue": "0x0000000000000000000000000000000000000000000006701a351c136f513f13"
-        },
-        "0x3107e6fb53c93683833e8824cc59e9c9f27821bf7d710a977a825c1959995195": {
-          "previousValue": "0x00000000000000000000000000000000000000000001fa37cc57983e78a07dc4",
-          "newValue": "0x00000000000000000000000000000000000000000001f3c7cf97c258d5a07dc4"
-        }
-      }
-    },
-    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
-      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
-      "balanceDiff": null,
-      "nonceDiff": null,
-      "stateDiff": {
-        "0x9f77e4f63f470e3320849240e1f97ff5165a9bf5349321bf5a55674b74146a4e": {
-          "previousValue": "0x0069577726000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0069577726000000000003000000000000000000000000000000000000000000"
-        },
-        "0x9f77e4f63f470e3320849240e1f97ff5165a9bf5349321bf5a55674b74146a4f": {
-          "previousValue": "0x000000000000000000093a8000000000000069859ba700000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000069859ba700000000000069577727"
-        }
-      }
-    }
-  }
-}
+{}
 ```
