@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Ethereum_IncreaseCaps_20260409_Test} from './AaveV4Ethereum_IncreaseCaps_20260409.t.sol';
+import {AaveV4Ethereum_IncreaseCaps_20260415_Test} from './AaveV4Ethereum_IncreaseCaps_20260415.t.sol';
 
 /**
  * @dev Fork test - forks from a block where the payload has already been executed.
  * Verifies post-execution state: caps, credit lines, and e2e flows.
  * Skipped when RPC_TENDERLY_VTESTNET is not set.
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260409_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260409_Fork.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260415_AaveV4Ethereum_IncreaseCaps/AaveV4Ethereum_IncreaseCaps_20260415_Fork.t.sol -vv
  */
-contract AaveV4Ethereum_IncreaseCaps_20260409_ForkTest is
-  AaveV4Ethereum_IncreaseCaps_20260409_Test
+contract AaveV4Ethereum_IncreaseCaps_20260415_ForkTest is
+  AaveV4Ethereum_IncreaseCaps_20260415_Test
 {
   function setUp() public override {
     string memory rpcUrl = vm.envOr('RPC_TENDERLY_VTESTNET', string(''));
@@ -26,7 +26,6 @@ contract AaveV4Ethereum_IncreaseCaps_20260409_ForkTest is
   function test_caps_primeHub_before() public override {}
   function test_caps_plusHub_before() public override {}
   function test_creditLines_before() public override {}
-  function test_executorHasRoleBeforeExecution() public view override {}
 
   /// @dev No-op, payload already executed on the fork.
   function _executePayload() internal override {}

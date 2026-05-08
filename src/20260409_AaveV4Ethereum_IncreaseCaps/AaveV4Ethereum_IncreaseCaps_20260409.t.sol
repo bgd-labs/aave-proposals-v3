@@ -4,12 +4,12 @@ pragma solidity ^0.8.0;
 import {IHub, IHubConfigurator, IAccessManagerEnumerable} from 'aave-address-book/AaveV4.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
-import {Roles} from 'aave-helpers/lib/aave-address-book/lib/aave-v4/src/deployments/utils/libraries/Roles.sol';
-import {AaveV4ConfigEngine} from 'aave-helpers/lib/aave-address-book/lib/aave-v4/src/config-engine/AaveV4ConfigEngine.sol';
-import 'aave-helpers/src/ProtocolV4TestBase.sol';
+import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4EthereumSpokeHelpers, AaveV4EthereumTokenizationSpokeHelpers} from 'aave-helpers/src/dependencies/v4/AaveV4EthereumHelpers.sol';
 
 import {AaveV4Ethereum_IncreaseCaps_20260409} from './AaveV4Ethereum_IncreaseCaps_20260409.sol';
+
+import 'aave-helpers/src/ProtocolV4TestBase.sol';
 
 /**
  * @dev Test for AaveV4Ethereum_IncreaseCaps_20260409
@@ -19,7 +19,6 @@ contract AaveV4Ethereum_IncreaseCaps_20260409_Test is ProtocolV4TestBase {
   AaveV4Ethereum_IncreaseCaps_20260409 internal payload;
 
   IAccessManagerEnumerable internal constant ACCESS_MANAGER = AaveV4Ethereum.ACCESS_MANAGER;
-  IHubConfigurator internal constant HUB_CONFIGURATOR = AaveV4Ethereum.HUB_CONFIGURATOR;
 
   address internal constant SECURITY_COUNCIL = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
   address internal constant EXECUTOR = 0x14339e2178A954d5FB839D5Ff31644fE0F25F517;
