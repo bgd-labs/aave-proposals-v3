@@ -75,7 +75,26 @@ contract AaveV4Ethereum_IncreaseCaps_20260409_Test is ProtocolV4TestBase {
     vm.writeJson(rawDiff, afterPath, '$.raw');
     vm.writeJson(logsJson, afterPath, '$.logs');
 
-    diffV4Snapshots(reportName, snapshotBefore, snapshotAfter);
+    // WORKAROUND: @aave-dao/aave-helpers-js@^1.0.1 does not have
+    // `diff-v4-snapshots` published yet
+    {
+      string memory diffOutPath = string.concat(
+        './diffs/',
+        reportName,
+        '_before_',
+        reportName,
+        '_after.md'
+      );
+      string[] memory inputs = new string[](7);
+      inputs[0] = 'node';
+      inputs[1] = 'lib/aave-helpers/packages/aave-helpers-js/dist/cli.mjs';
+      inputs[2] = 'diff-v4-snapshots';
+      inputs[3] = string.concat('./reports/', beforeName, '.json');
+      inputs[4] = string.concat('./reports/', afterName, '.json');
+      inputs[5] = '-o';
+      inputs[6] = diffOutPath;
+      vm.ffi(inputs);
+    }
   }
 
   // ================================================================

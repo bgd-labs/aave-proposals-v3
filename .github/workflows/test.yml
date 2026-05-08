@@ -33,6 +33,12 @@ jobs:
         with:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
 
+      # WORKAROUND: build the V4 diff CLI from the aave-helpers submodule.
+      # Needed before the aave-helpers-js package is updated
+      - name: Build V4 diff CLI from submodule
+        working-directory: lib/aave-helpers
+        run: npx -y pnpm install
+
       # we simply use foundry zk for all jobs in this repo
       - name: Run Foundry setup
         uses: bgd-labs/github-workflows/.github/actions/foundry-setup@main
