@@ -9,4 +9,21 @@ interface IPendlePriceCapAdapter {
    * @return discountRatePerYear The discount rate for the asset pricing
    */
   function discountRatePerYear() external view returns (uint64 discountRatePerYear);
+
+  /**
+   * @notice Returns the current discount on PT tokens
+   * @dev The discount amount is always inside [0; `PERCENTAGE_FACTOR`) range
+   * @return currentDiscount Current discount amount for the asset pricing
+   */
+  function getCurrentDiscount() external view returns (uint256 currentDiscount);
+
+  /**
+   * @notice Price feed for (ASSET / USD) pair
+   */
+  function ASSET_TO_USD_AGGREGATOR() external view returns (address);
+
+  /**
+   * @notice The maximum implied APY rate that is set for a given asset before maturity occurs
+   */
+  function MAX_DISCOUNT_RATE_PER_YEAR() external view returns (uint64);
 }
