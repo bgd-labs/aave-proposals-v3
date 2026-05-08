@@ -16,7 +16,16 @@ interface IAaveCLRobotOperator {
     bytes calldata triggerConfig
   ) external returns (uint256);
 
+  struct KeeperInfo {
+    address upkeep;
+    bytes checkData;
+  }
+
   function cancel(uint256 id) external;
 
   function withdrawLink(uint256 id) external;
+
+  function getKeepersList() external view returns (uint256[] memory);
+
+  function getKeeperInfo(uint256 id) external view returns (KeeperInfo memory);
 }
