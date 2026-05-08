@@ -12,7 +12,7 @@ export const config: ConfigFile = {
       'AaveV3Linea',
       'AaveV3Plasma',
     ],
-    title: 'Add CoW Factories to flashBorrowers',
+    title: 'Add CoW Swap Adapters to flashBorrowers',
     shortName: 'AddCoWFactoriesToFlashBorrowers',
     date: '20260506',
     author: 'Aave Labs',

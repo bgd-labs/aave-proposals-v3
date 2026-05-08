@@ -1,5 +1,5 @@
 ---
-title: "Add CoW Factories to flashBorrowers"
+title: "Add CoW Swap Adapters to flashBorrowers"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-whitelist-cow-protocol-adapters-as-flash-borrowers-on-aave-v3/24467"
 ---
