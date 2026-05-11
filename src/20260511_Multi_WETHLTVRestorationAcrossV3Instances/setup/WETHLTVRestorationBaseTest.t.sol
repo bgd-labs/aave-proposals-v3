@@ -7,6 +7,7 @@ import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataT
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {EModeConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/EModeConfiguration.sol';
 import {PercentageMath} from 'aave-v3-origin/contracts/protocol/libraries/math/PercentageMath.sol';
+import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import 'forge-std/Test.sol';
@@ -16,7 +17,8 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
 
   uint256 internal constant WETH_SUPPLY_AMOUNT = 1 ether;
-  uint256 internal constant BORROW_SAFETY_MARGIN_BPS = 9900;
+  uint256 internal constant BORROW_UNDER_LTV_BPS = 99_00;
+  uint256 internal constant BORROW_OVER_LTV_BPS = 101_00;
 
   struct EmodeSnapshot {
     uint8 categoryId;
@@ -87,12 +89,21 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
       underlying: borrowAsset
     });
 
-    uint256 borrowAmount = _maxBorrowAtLtv({
+    uint256 underLtvBorrow = _borrowAmountAtLtv({
       pool: pool,
       collateralConfig: wethConfig,
       borrowConfig: borrowConfig,
       collateralAmount: WETH_SUPPLY_AMOUNT,
-      ltvBps: _expectedLtv()
+      ltvBps: _expectedLtv(),
+      marginBps: BORROW_UNDER_LTV_BPS
+    });
+    uint256 overLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateralConfig: wethConfig,
+      borrowConfig: borrowConfig,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedLtv(),
+      marginBps: BORROW_OVER_LTV_BPS
     });
 
     address user = makeAddr('defaultBorrowUser');
@@ -100,10 +111,10 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
     uint256 snapshot = vm.snapshotState();
     _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.startPrank(user);
-    vm.expectRevert();
+    vm.expectRevert(Errors.LtvValidationFailed.selector);
     pool.borrow({
       asset: borrowAsset,
-      amount: borrowAmount,
+      amount: underLtvBorrow,
       interestRateMode: 2,
       referralCode: 0,
       onBehalfOf: user
@@ -113,18 +124,35 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
 
     GovV3Helpers.executePayload({vm: vm, payloadAddress: _proposal()});
 
+    snapshot = vm.snapshotState();
     _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.prank(user);
     pool.setUserUseReserveAsCollateral({asset: weth, useAsCollateral: true});
-    _borrow({config: borrowConfig, pool: pool, user: user, amount: borrowAmount});
+    _borrow({config: borrowConfig, pool: pool, user: user, amount: underLtvBorrow});
+    vm.revertToState(snapshot);
+
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    vm.prank(user);
+    pool.setUserUseReserveAsCollateral({asset: weth, useAsCollateral: true});
+    vm.startPrank(user);
+    vm.expectRevert(Errors.CollateralCannotCoverNewBorrow.selector);
+    pool.borrow({
+      asset: borrowAsset,
+      amount: overLtvBorrow,
+      interestRateMode: 2,
+      referralCode: 0,
+      onBehalfOf: user
+    });
+    vm.stopPrank();
   }
 
-  function _maxBorrowAtLtv(
+  function _borrowAmountAtLtv(
     IPool pool,
     ReserveConfig memory collateralConfig,
     ReserveConfig memory borrowConfig,
     uint256 collateralAmount,
-    uint256 ltvBps
+    uint256 ltvBps,
+    uint256 marginBps
   ) internal view returns (uint256) {
     IAaveOracle oracle = IAaveOracle(pool.ADDRESSES_PROVIDER().getPriceOracle());
     uint256 collateralPrice = oracle.getAssetPrice(collateralConfig.underlying);
@@ -133,7 +161,7 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
       (10 ** collateralConfig.decimals);
     uint256 maxBorrowValueBase = (collateralValueBase * ltvBps) / PercentageMath.PERCENTAGE_FACTOR;
     uint256 maxBorrowInAsset = (maxBorrowValueBase * (10 ** borrowConfig.decimals)) / borrowPrice;
-    return (maxBorrowInAsset * BORROW_SAFETY_MARGIN_BPS) / PercentageMath.PERCENTAGE_FACTOR;
+    return (maxBorrowInAsset * marginBps) / PercentageMath.PERCENTAGE_FACTOR;
   }
 
   function _assertWethReserveBefore(ReserveConfig memory wethBefore) internal view {

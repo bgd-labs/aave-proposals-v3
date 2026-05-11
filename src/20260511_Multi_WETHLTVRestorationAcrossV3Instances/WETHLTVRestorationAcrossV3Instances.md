@@ -1,9 +1,8 @@
 ---
-
-## title: "WETH LTV Restoration Across V3 Instances"
-
+title: "WETH LTV Restoration Across V3 Instances"
 author: "Aave Labs"
-discussions: "[https://governance.aave.com/t/direct-to-aip-weth-unfreeze-and-ltv-restoration-across-aave-v3-instances/24878](https://governance.aave.com/t/direct-to-aip-weth-unfreeze-and-ltv-restoration-across-aave-v3-instances/24878)"
+discussions: "https://governance.aave.com/t/direct-to-aip-weth-unfreeze-and-ltv-restoration-across-aave-v3-instances/24878"
+---
 
 ## Simple Summary
 
