@@ -229,54 +229,17 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
     assertEq(wethBefore.debtCeiling, wethAfter.debtCeiling);
   }
 
-  function _expectedWethEmodeCount() internal view virtual returns (uint256) {
-    return 0;
-  }
-
   function _assertEmodesBefore(EmodeSnapshot[] memory emodesBefore) internal view virtual {
-    assertEq(emodesBefore.length, _expectedWethEmodeCount());
-    for (uint256 i = 0; i < emodesBefore.length; i++) {
-      _assertSingleEmodeBefore(emodesBefore[i]);
-    }
-  }
-
-  function _assertSingleEmodeBefore(EmodeSnapshot memory emode) internal view virtual {
-    assertFalse(emode.isLtvZero);
-    assertGt(emode.effectiveLtv, 0);
+    assertEq(emodesBefore.length, 0);
   }
 
   function _assertEmodesAfter(
     IPool pool,
     uint256 reserveId,
-    EmodeSnapshot[] memory emodesBefore
+    EmodeSnapshot[] memory
   ) internal view virtual {
     EmodeSnapshot[] memory emodesAfter = _captureWethEmodes(pool, reserveId);
-    assertEq(emodesAfter.length, emodesBefore.length);
-    for (uint256 i = 0; i < emodesBefore.length; i++) {
-      _assertSingleEmodeAfter(emodesBefore[i], emodesAfter[i]);
-    }
-  }
-
-  function _assertSingleEmodeAfter(
-    EmodeSnapshot memory emodeBefore,
-    EmodeSnapshot memory emodeAfter
-  ) internal view virtual {
-    _assertEmodeConfigInvariant(emodeBefore, emodeAfter);
-    assertEq(emodeAfter.isLtvZero, emodeBefore.isLtvZero);
-    assertFalse(emodeAfter.isLtvZero);
-    assertEq(emodeAfter.effectiveLtv, emodeBefore.effectiveLtv);
-    assertGt(emodeAfter.effectiveLtv, 0);
-  }
-
-  function _assertEmodeConfigInvariant(
-    EmodeSnapshot memory emodeBefore,
-    EmodeSnapshot memory emodeAfter
-  ) internal pure {
-    assertEq(emodeAfter.categoryLtv, emodeBefore.categoryLtv);
-    assertEq(emodeAfter.categoryLt, emodeBefore.categoryLt);
-    assertEq(emodeAfter.categoryLb, emodeBefore.categoryLb);
-    assertEq(emodeAfter.collateralBitmap, emodeBefore.collateralBitmap);
-    assertEq(emodeAfter.borrowableBitmap, emodeBefore.borrowableBitmap);
+    assertEq(emodesAfter.length, 0);
   }
 
   function _captureWethEmodes(

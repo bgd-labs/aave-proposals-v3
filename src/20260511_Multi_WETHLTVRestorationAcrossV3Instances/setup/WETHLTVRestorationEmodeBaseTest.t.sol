@@ -116,13 +116,14 @@ abstract contract WETHLTVRestorationEmodeBaseTest is WETHLTVRestorationBaseTest 
     vm.stopPrank();
   }
 
-  function _expectedWethEmodeCount() internal pure override returns (uint256) {
-    return 1;
-  }
-
   function _assertEmodesBefore(EmodeSnapshot[] memory emodesBefore) internal view override {
-    super._assertEmodesBefore(emodesBefore);
-    _assertChangedEmodePresent(emodesBefore);
+    assertEq(emodesBefore.length, 1);
+    EmodeSnapshot memory emode = emodesBefore[0];
+    assertEq(emode.categoryId, _changedEmodeId());
+    assertEq(emode.categoryLtv, _expectedChangedEmodeLtv());
+    assertEq(emode.categoryLt, _expectedChangedEmodeLt());
+    assertTrue(emode.isLtvZero);
+    assertEq(emode.effectiveLtv, 0);
   }
 
   function _assertEmodesAfter(
@@ -130,47 +131,26 @@ abstract contract WETHLTVRestorationEmodeBaseTest is WETHLTVRestorationBaseTest 
     uint256 reserveId,
     EmodeSnapshot[] memory emodesBefore
   ) internal view override {
-    super._assertEmodesAfter(pool, reserveId, emodesBefore);
-    _assertChangedEmodePresent(_captureWethEmodes(pool, reserveId));
-  }
+    assertEq(emodesBefore.length, 1);
+    EmodeSnapshot[] memory emodesAfter = _captureWethEmodes(pool, reserveId);
+    assertEq(emodesAfter.length, 1);
 
-  function _assertChangedEmodePresent(EmodeSnapshot[] memory emodes) internal view {
-    uint8 changedEmodeId = _changedEmodeId();
-    for (uint256 i = 0; i < emodes.length; i++) {
-      if (emodes[i].categoryId == changedEmodeId) {
-        return;
-      }
-    }
-    revert('changed e-mode not found in WETH e-modes');
-  }
+    EmodeSnapshot memory beforeEmode = emodesBefore[0];
+    EmodeSnapshot memory afterEmode = emodesAfter[0];
 
-  function _assertSingleEmodeBefore(EmodeSnapshot memory emode) internal view override {
-    if (emode.categoryId == _changedEmodeId()) {
-      assertTrue(emode.isLtvZero);
-      assertEq(emode.effectiveLtv, 0);
-      _assertChangedEmodeHardcoded(emode);
-    } else {
-      super._assertSingleEmodeBefore(emode);
-    }
-  }
+    assertEq(afterEmode.categoryId, _changedEmodeId());
 
-  function _assertSingleEmodeAfter(
-    EmodeSnapshot memory emodeBefore,
-    EmodeSnapshot memory emodeAfter
-  ) internal view override {
-    if (emodeAfter.categoryId == _changedEmodeId()) {
-      _assertEmodeConfigInvariant(emodeBefore, emodeAfter);
-      _assertChangedEmodeHardcoded(emodeAfter);
-      assertFalse(emodeAfter.isLtvZero);
-      assertGt(emodeAfter.effectiveLtv, 0);
-      assertEq(emodeAfter.effectiveLtv, emodeAfter.categoryLtv);
-    } else {
-      super._assertSingleEmodeAfter(emodeBefore, emodeAfter);
-    }
-  }
+    assertEq(afterEmode.categoryLtv, beforeEmode.categoryLtv);
+    assertEq(afterEmode.categoryLt, beforeEmode.categoryLt);
+    assertEq(afterEmode.categoryLb, beforeEmode.categoryLb);
+    assertEq(afterEmode.collateralBitmap, beforeEmode.collateralBitmap);
+    assertEq(afterEmode.borrowableBitmap, beforeEmode.borrowableBitmap);
 
-  function _assertChangedEmodeHardcoded(EmodeSnapshot memory emode) internal view {
-    assertEq(emode.categoryLtv, _expectedChangedEmodeLtv());
-    assertEq(emode.categoryLt, _expectedChangedEmodeLt());
+    assertEq(afterEmode.categoryLtv, _expectedChangedEmodeLtv());
+    assertEq(afterEmode.categoryLt, _expectedChangedEmodeLt());
+
+    assertFalse(afterEmode.isLtvZero);
+    assertGt(afterEmode.effectiveLtv, 0);
+    assertEq(afterEmode.effectiveLtv, afterEmode.categoryLtv);
   }
 }
