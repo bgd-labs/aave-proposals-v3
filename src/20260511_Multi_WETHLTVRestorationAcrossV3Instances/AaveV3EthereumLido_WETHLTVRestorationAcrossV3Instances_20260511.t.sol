@@ -57,7 +57,7 @@ contract AaveV3EthereumLido_WETHLTVRestorationAcrossV3Instances_20260511_Test is
     return EXPECTED_LB;
   }
 
-  function _changedEmodeId() internal pure override returns (uint8) {
-    return 0;
+  function _defaultBorrowAsset() internal pure override returns (address) {
+    return AaveV3EthereumLidoAssets.USDC_UNDERLYING;
   }
 }

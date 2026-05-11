@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
 
-import {WETHLTVRestorationBaseTest} from './setup/WETHLTVRestorationBaseTest.t.sol';
+import {WETHLTVRestorationEmodeBaseTest} from './setup/WETHLTVRestorationEmodeBaseTest.t.sol';
 import {AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511} from './AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511.sol';
 
 /**
@@ -12,12 +12,14 @@ import {AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511} from './Aav
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260511_Multi_WETHLTVRestorationAcrossV3Instances/AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511.t.sol -vv
  */
 contract AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511_Test is
-  WETHLTVRestorationBaseTest
+  WETHLTVRestorationEmodeBaseTest
 {
   uint8 internal constant ETH_EMODE_ID = 2;
   uint256 internal constant EXPECTED_LTV = 80_00;
   uint256 internal constant EXPECTED_LT = 84_00;
   uint256 internal constant EXPECTED_LB = 105_00;
+  uint256 internal constant EXPECTED_EMODE_LTV = 93_00;
+  uint256 internal constant EXPECTED_EMODE_LT = 95_00;
 
   AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511 internal proposal;
 
@@ -64,5 +66,21 @@ contract AaveV3Arbitrum_WETHLTVRestorationAcrossV3Instances_20260511_Test is
 
   function _changedEmodeId() internal pure override returns (uint8) {
     return ETH_EMODE_ID;
+  }
+
+  function _expectedChangedEmodeLtv() internal pure override returns (uint256) {
+    return EXPECTED_EMODE_LTV;
+  }
+
+  function _expectedChangedEmodeLt() internal pure override returns (uint256) {
+    return EXPECTED_EMODE_LT;
+  }
+
+  function _defaultBorrowAsset() internal pure override returns (address) {
+    return AaveV3ArbitrumAssets.USDCn_UNDERLYING;
+  }
+
+  function _emodeBorrowAsset() internal pure override returns (address) {
+    return AaveV3ArbitrumAssets.WETH_UNDERLYING;
   }
 }
