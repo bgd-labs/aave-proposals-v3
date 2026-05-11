@@ -8,6 +8,7 @@ import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/
 import {EModeConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/EModeConfiguration.sol';
 import {PercentageMath} from 'aave-v3-origin/contracts/protocol/libraries/math/PercentageMath.sol';
 import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
+import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import 'forge-std/Test.sol';
@@ -29,16 +30,6 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
     uint128 borrowableBitmap;
     bool isLtvZero;
     uint256 effectiveLtv;
-  }
-
-  struct BorrowSetup {
-    IPool pool;
-    address weth;
-    address borrowAsset;
-    ReserveConfig wethConfig;
-    ReserveConfig borrowConfig;
-    uint256 underLtvBorrow;
-    uint256 overLtvBorrow;
   }
 
   function _pool() internal view virtual returns (IPool);
@@ -88,14 +79,29 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
   }
 
   function test_defaultBorrow_revertsBeforeAip() public {
-    BorrowSetup memory s = _defaultBorrowSetup();
+    IPool pool = _pool();
+    address weth = _weth();
+    address borrowAsset = _defaultBorrowAsset();
+    ReserveConfig memory wethConfig = _findReserveConfig({
+      configs: _getReservesConfigs(pool),
+      underlying: weth
+    });
+    uint256 underLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateral: weth,
+      borrowAsset: borrowAsset,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedLtv(),
+      marginBps: BORROW_UNDER_LTV_BPS
+    });
+
     address user = makeAddr('defaultBorrowUser');
-    _deposit({config: s.wethConfig, pool: s.pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.startPrank(user);
     vm.expectRevert(Errors.LtvValidationFailed.selector);
-    s.pool.borrow({
-      asset: s.borrowAsset,
-      amount: s.underLtvBorrow,
+    pool.borrow({
+      asset: borrowAsset,
+      amount: underLtvBorrow,
       interestRateMode: 2,
       referralCode: 0,
       onBehalfOf: user
@@ -104,29 +110,61 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
   }
 
   function test_defaultBorrow_atLtv() public {
-    BorrowSetup memory s = _defaultBorrowSetup();
+    IPool pool = _pool();
+    address weth = _weth();
+    address borrowAsset = _defaultBorrowAsset();
+    ReserveConfig[] memory configs = _getReservesConfigs(pool);
+    ReserveConfig memory wethConfig = _findReserveConfig({configs: configs, underlying: weth});
+    ReserveConfig memory borrowConfig = _findReserveConfig({
+      configs: configs,
+      underlying: borrowAsset
+    });
+    uint256 underLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateral: weth,
+      borrowAsset: borrowAsset,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedLtv(),
+      marginBps: BORROW_UNDER_LTV_BPS
+    });
+
     GovV3Helpers.executePayload({vm: vm, payloadAddress: _proposal()});
 
     address user = makeAddr('defaultBorrowUser');
-    _deposit({config: s.wethConfig, pool: s.pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.prank(user);
-    s.pool.setUserUseReserveAsCollateral({asset: s.weth, useAsCollateral: true});
-    _borrow({config: s.borrowConfig, pool: s.pool, user: user, amount: s.underLtvBorrow});
+    pool.setUserUseReserveAsCollateral({asset: weth, useAsCollateral: true});
+    _borrow({config: borrowConfig, pool: pool, user: user, amount: underLtvBorrow});
   }
 
   function test_defaultBorrow_revertsOverLtv() public {
-    BorrowSetup memory s = _defaultBorrowSetup();
+    IPool pool = _pool();
+    address weth = _weth();
+    address borrowAsset = _defaultBorrowAsset();
+    ReserveConfig memory wethConfig = _findReserveConfig({
+      configs: _getReservesConfigs(pool),
+      underlying: weth
+    });
+    uint256 overLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateral: weth,
+      borrowAsset: borrowAsset,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedLtv(),
+      marginBps: BORROW_OVER_LTV_BPS
+    });
+
     GovV3Helpers.executePayload({vm: vm, payloadAddress: _proposal()});
 
     address user = makeAddr('defaultBorrowUser');
-    _deposit({config: s.wethConfig, pool: s.pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.prank(user);
-    s.pool.setUserUseReserveAsCollateral({asset: s.weth, useAsCollateral: true});
+    pool.setUserUseReserveAsCollateral({asset: weth, useAsCollateral: true});
     vm.startPrank(user);
     vm.expectRevert(Errors.CollateralCannotCoverNewBorrow.selector);
-    s.pool.borrow({
-      asset: s.borrowAsset,
-      amount: s.overLtvBorrow,
+    pool.borrow({
+      asset: borrowAsset,
+      amount: overLtvBorrow,
       interestRateMode: 2,
       referralCode: 0,
       onBehalfOf: user
@@ -134,46 +172,22 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
     vm.stopPrank();
   }
 
-  function _defaultBorrowSetup() internal view returns (BorrowSetup memory s) {
-    s.pool = _pool();
-    s.weth = _weth();
-    s.borrowAsset = _defaultBorrowAsset();
-    ReserveConfig[] memory configs = _getReservesConfigs(s.pool);
-    s.wethConfig = _findReserveConfig({configs: configs, underlying: s.weth});
-    s.borrowConfig = _findReserveConfig({configs: configs, underlying: s.borrowAsset});
-    s.underLtvBorrow = _borrowAmountAtLtv({
-      pool: s.pool,
-      collateralConfig: s.wethConfig,
-      borrowConfig: s.borrowConfig,
-      collateralAmount: WETH_SUPPLY_AMOUNT,
-      ltvBps: _expectedLtv(),
-      marginBps: BORROW_UNDER_LTV_BPS
-    });
-    s.overLtvBorrow = _borrowAmountAtLtv({
-      pool: s.pool,
-      collateralConfig: s.wethConfig,
-      borrowConfig: s.borrowConfig,
-      collateralAmount: WETH_SUPPLY_AMOUNT,
-      ltvBps: _expectedLtv(),
-      marginBps: BORROW_OVER_LTV_BPS
-    });
-  }
-
   function _borrowAmountAtLtv(
     IPool pool,
-    ReserveConfig memory collateralConfig,
-    ReserveConfig memory borrowConfig,
+    address collateral,
+    address borrowAsset,
     uint256 collateralAmount,
     uint256 ltvBps,
     uint256 marginBps
   ) internal view returns (uint256) {
     IAaveOracle oracle = IAaveOracle(pool.ADDRESSES_PROVIDER().getPriceOracle());
-    uint256 collateralPrice = oracle.getAssetPrice(collateralConfig.underlying);
-    uint256 borrowPrice = oracle.getAssetPrice(borrowConfig.underlying);
-    uint256 collateralValueBase = (collateralAmount * collateralPrice) /
-      (10 ** collateralConfig.decimals);
+    uint256 collateralPrice = oracle.getAssetPrice(collateral);
+    uint256 borrowPrice = oracle.getAssetPrice(borrowAsset);
+    uint256 collateralDecimals = IERC20Metadata(collateral).decimals();
+    uint256 borrowDecimals = IERC20Metadata(borrowAsset).decimals();
+    uint256 collateralValueBase = (collateralAmount * collateralPrice) / (10 ** collateralDecimals);
     uint256 maxBorrowValueBase = (collateralValueBase * ltvBps) / PercentageMath.PERCENTAGE_FACTOR;
-    uint256 maxBorrowInAsset = (maxBorrowValueBase * (10 ** borrowConfig.decimals)) / borrowPrice;
+    uint256 maxBorrowInAsset = (maxBorrowValueBase * (10 ** borrowDecimals)) / borrowPrice;
     return (maxBorrowInAsset * marginBps) / PercentageMath.PERCENTAGE_FACTOR;
   }
 

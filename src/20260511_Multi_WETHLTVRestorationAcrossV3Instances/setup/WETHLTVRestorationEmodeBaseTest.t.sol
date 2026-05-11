@@ -18,18 +18,32 @@ abstract contract WETHLTVRestorationEmodeBaseTest is WETHLTVRestorationBaseTest 
   function _emodeBorrowAsset() internal view virtual returns (address);
 
   function test_emodeBorrow_revertsBeforeAip() public {
-    BorrowSetup memory s = _emodeBorrowSetup();
+    IPool pool = _pool();
+    address weth = _weth();
+    address borrowAsset = _emodeBorrowAsset();
     uint8 emodeId = _changedEmodeId();
+    ReserveConfig memory wethConfig = _findReserveConfig({
+      configs: _getReservesConfigs(pool),
+      underlying: weth
+    });
+    uint256 underLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateral: weth,
+      borrowAsset: borrowAsset,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedChangedEmodeLtv(),
+      marginBps: BORROW_UNDER_LTV_BPS
+    });
 
     address user = makeAddr('emodeBorrowUser');
-    _deposit({config: s.wethConfig, pool: s.pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.prank(user);
-    s.pool.setUserEMode(emodeId);
+    pool.setUserEMode(emodeId);
     vm.startPrank(user);
     vm.expectRevert(Errors.LtvValidationFailed.selector);
-    s.pool.borrow({
-      asset: s.borrowAsset,
-      amount: s.underLtvBorrow,
+    pool.borrow({
+      asset: borrowAsset,
+      amount: underLtvBorrow,
       interestRateMode: 2,
       referralCode: 0,
       onBehalfOf: user
@@ -38,61 +52,68 @@ abstract contract WETHLTVRestorationEmodeBaseTest is WETHLTVRestorationBaseTest 
   }
 
   function test_emodeBorrow_atLtv() public {
-    BorrowSetup memory s = _emodeBorrowSetup();
+    IPool pool = _pool();
+    address weth = _weth();
+    address borrowAsset = _emodeBorrowAsset();
     uint8 emodeId = _changedEmodeId();
+    ReserveConfig[] memory configs = _getReservesConfigs(pool);
+    ReserveConfig memory wethConfig = _findReserveConfig({configs: configs, underlying: weth});
+    ReserveConfig memory borrowConfig = _findReserveConfig({
+      configs: configs,
+      underlying: borrowAsset
+    });
+    uint256 underLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateral: weth,
+      borrowAsset: borrowAsset,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedChangedEmodeLtv(),
+      marginBps: BORROW_UNDER_LTV_BPS
+    });
+
     GovV3Helpers.executePayload({vm: vm, payloadAddress: _proposal()});
 
     address user = makeAddr('emodeBorrowUser');
-    _deposit({config: s.wethConfig, pool: s.pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.prank(user);
-    s.pool.setUserEMode(emodeId);
-    _borrow({config: s.borrowConfig, pool: s.pool, user: user, amount: s.underLtvBorrow});
+    pool.setUserEMode(emodeId);
+    _borrow({config: borrowConfig, pool: pool, user: user, amount: underLtvBorrow});
   }
 
   function test_emodeBorrow_revertsOverLtv() public {
-    BorrowSetup memory s = _emodeBorrowSetup();
+    IPool pool = _pool();
+    address weth = _weth();
+    address borrowAsset = _emodeBorrowAsset();
     uint8 emodeId = _changedEmodeId();
+    ReserveConfig memory wethConfig = _findReserveConfig({
+      configs: _getReservesConfigs(pool),
+      underlying: weth
+    });
+    uint256 overLtvBorrow = _borrowAmountAtLtv({
+      pool: pool,
+      collateral: weth,
+      borrowAsset: borrowAsset,
+      collateralAmount: WETH_SUPPLY_AMOUNT,
+      ltvBps: _expectedChangedEmodeLtv(),
+      marginBps: BORROW_OVER_LTV_BPS
+    });
+
     GovV3Helpers.executePayload({vm: vm, payloadAddress: _proposal()});
 
     address user = makeAddr('emodeBorrowUser');
-    _deposit({config: s.wethConfig, pool: s.pool, user: user, amount: WETH_SUPPLY_AMOUNT});
+    _deposit({config: wethConfig, pool: pool, user: user, amount: WETH_SUPPLY_AMOUNT});
     vm.prank(user);
-    s.pool.setUserEMode(emodeId);
+    pool.setUserEMode(emodeId);
     vm.startPrank(user);
     vm.expectRevert(Errors.CollateralCannotCoverNewBorrow.selector);
-    s.pool.borrow({
-      asset: s.borrowAsset,
-      amount: s.overLtvBorrow,
+    pool.borrow({
+      asset: borrowAsset,
+      amount: overLtvBorrow,
       interestRateMode: 2,
       referralCode: 0,
       onBehalfOf: user
     });
     vm.stopPrank();
-  }
-
-  function _emodeBorrowSetup() internal view returns (BorrowSetup memory s) {
-    s.pool = _pool();
-    s.weth = _weth();
-    s.borrowAsset = _emodeBorrowAsset();
-    ReserveConfig[] memory configs = _getReservesConfigs(s.pool);
-    s.wethConfig = _findReserveConfig({configs: configs, underlying: s.weth});
-    s.borrowConfig = _findReserveConfig({configs: configs, underlying: s.borrowAsset});
-    s.underLtvBorrow = _borrowAmountAtLtv({
-      pool: s.pool,
-      collateralConfig: s.wethConfig,
-      borrowConfig: s.borrowConfig,
-      collateralAmount: WETH_SUPPLY_AMOUNT,
-      ltvBps: _expectedChangedEmodeLtv(),
-      marginBps: BORROW_UNDER_LTV_BPS
-    });
-    s.overLtvBorrow = _borrowAmountAtLtv({
-      pool: s.pool,
-      collateralConfig: s.wethConfig,
-      borrowConfig: s.borrowConfig,
-      collateralAmount: WETH_SUPPLY_AMOUNT,
-      ltvBps: _expectedChangedEmodeLtv(),
-      marginBps: BORROW_OVER_LTV_BPS
-    });
   }
 
   function _expectedWethEmodeCount() internal pure override returns (uint256) {
