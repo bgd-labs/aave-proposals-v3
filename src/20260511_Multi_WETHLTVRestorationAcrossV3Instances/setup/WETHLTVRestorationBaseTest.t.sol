@@ -233,7 +233,7 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
     return 0;
   }
 
-  function _assertEmodesBefore(EmodeSnapshot[] memory emodesBefore) internal view {
+  function _assertEmodesBefore(EmodeSnapshot[] memory emodesBefore) internal view virtual {
     assertEq(emodesBefore.length, _expectedWethEmodeCount());
     for (uint256 i = 0; i < emodesBefore.length; i++) {
       _assertSingleEmodeBefore(emodesBefore[i]);
@@ -249,7 +249,7 @@ abstract contract WETHLTVRestorationBaseTest is ProtocolV3TestBase {
     IPool pool,
     uint256 reserveId,
     EmodeSnapshot[] memory emodesBefore
-  ) internal view {
+  ) internal view virtual {
     EmodeSnapshot[] memory emodesAfter = _captureWethEmodes(pool, reserveId);
     assertEq(emodesAfter.length, emodesBefore.length);
     for (uint256 i = 0; i < emodesBefore.length; i++) {

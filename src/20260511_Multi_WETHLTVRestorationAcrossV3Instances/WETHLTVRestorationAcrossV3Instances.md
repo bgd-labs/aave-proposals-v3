@@ -1,5 +1,5 @@
 ---
-title: "WETH LTV Restoration Across V3 Instances"
+title: "rsETH Incident: WETH LTV Restoration Across V3 Instances"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-weth-unfreeze-and-ltv-restoration-across-aave-v3-instances/24878"
 ---
@@ -46,17 +46,6 @@ The precaution also implicitly set the LTV-zero flag on WETH in the ETH-correlat
 | Base          | 1         | ETH correlated | **90.00%** | 93.00%         |
 
 After the flag is unset on these markets, the effective WETH E-Mode LTV reverts to the eMode category cap: 93% on Ethereum Core and Arbitrum, 90% on Base.
-
-### WETH Unfreeze on L2s via Protocol Guardian
-
-The Aave Protocol Guardian will imminently lift the WETH freeze on the four L2 instances where it remains frozen:
-
-- Aave V3 Arbitrum
-- Aave V3 Base
-- Aave V3 Mantle
-- Aave V3 Linea
-
-Other WETH reserves are already unfrozen (except from deprecated instances).
 
 ## References
 

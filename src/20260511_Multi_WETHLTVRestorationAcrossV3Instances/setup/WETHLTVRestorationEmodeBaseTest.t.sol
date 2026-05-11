@@ -120,6 +120,30 @@ abstract contract WETHLTVRestorationEmodeBaseTest is WETHLTVRestorationBaseTest 
     return 1;
   }
 
+  function _assertEmodesBefore(EmodeSnapshot[] memory emodesBefore) internal view override {
+    super._assertEmodesBefore(emodesBefore);
+    _assertChangedEmodePresent(emodesBefore);
+  }
+
+  function _assertEmodesAfter(
+    IPool pool,
+    uint256 reserveId,
+    EmodeSnapshot[] memory emodesBefore
+  ) internal view override {
+    super._assertEmodesAfter(pool, reserveId, emodesBefore);
+    _assertChangedEmodePresent(_captureWethEmodes(pool, reserveId));
+  }
+
+  function _assertChangedEmodePresent(EmodeSnapshot[] memory emodes) internal view {
+    uint8 changedEmodeId = _changedEmodeId();
+    for (uint256 i = 0; i < emodes.length; i++) {
+      if (emodes[i].categoryId == changedEmodeId) {
+        return;
+      }
+    }
+    revert('changed e-mode not found in WETH e-modes');
+  }
+
   function _assertSingleEmodeBefore(EmodeSnapshot memory emode) internal view override {
     if (emode.categoryId == _changedEmodeId()) {
       assertTrue(emode.isLtvZero);
