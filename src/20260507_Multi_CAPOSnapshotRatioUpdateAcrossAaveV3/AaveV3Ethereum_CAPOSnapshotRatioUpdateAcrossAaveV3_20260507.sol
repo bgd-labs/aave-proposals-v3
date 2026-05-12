@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
+import {CAPOUpdateBasePayload} from 'src/helpers/capo/CAPOUpdateBasePayload.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
@@ -11,7 +10,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-capo-snapshotratio-update-across-aave-v3/24854
  */
-contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
+contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is CAPOUpdateBasePayload {
   uint104 public constant sUSDe_SNAPSHOT_RATIO = 1227131992751411096;
   uint48 public constant sUSDe_SNAPSHOT_TIMESTAMP = 1776098039;
   uint16 public constant sUSDe_MAX_YEARLY_RATIO_GROWTH_PERCENT = 11_17;
@@ -77,34 +76,5 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposa
       cbETH_SNAPSHOT_RATIO,
       cbETH_SNAPSHOT_TIMESTAMP
     );
-  }
-
-  function _updateCapParameters(
-    address priceCapAdapter,
-    uint104 newSnapshotRatio,
-    uint48 newSnapshotTimestamp
-  ) internal {
-    uint256 maxYearlyRatioGrowthPercent = IPriceCapAdapter(priceCapAdapter)
-      .getMaxYearlyGrowthRatePercent();
-    IPriceCapAdapter.PriceCapUpdateParams memory params = IPriceCapAdapter.PriceCapUpdateParams({
-      snapshotRatio: newSnapshotRatio,
-      snapshotTimestamp: newSnapshotTimestamp,
-      maxYearlyRatioGrowthPercent: uint16(maxYearlyRatioGrowthPercent) // existing value should safely fit
-    });
-    IPriceCapAdapter(priceCapAdapter).setCapParameters(params);
-  }
-
-  function _updateCapParameters(
-    address priceCapAdapter,
-    uint104 newSnapshotRatio,
-    uint48 newSnapshotTimestamp,
-    uint16 maxYearlyRatioGrowthPercent
-  ) internal {
-    IPriceCapAdapter.PriceCapUpdateParams memory params = IPriceCapAdapter.PriceCapUpdateParams({
-      snapshotRatio: newSnapshotRatio,
-      snapshotTimestamp: newSnapshotTimestamp,
-      maxYearlyRatioGrowthPercent: maxYearlyRatioGrowthPercent
-    });
-    IPriceCapAdapter(priceCapAdapter).setCapParameters(params);
   }
 }

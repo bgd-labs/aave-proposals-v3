@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -9,12 +10,6 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
 import {AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
-/**
- * @dev Test for AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
- * The Lido (Prime) market shares the sUSDe and ezETH CAPO adapters with Ethereum Core,
- * so a single AaveV3Ethereum payload updates both markets.
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
- */
 contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
@@ -30,9 +25,18 @@ contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
+  function _network() internal pure override returns (string memory) {
+    return 'mainnet';
+  }
+
+  function _reportPrefix() internal pure override returns (string memory) {
+    return 'AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507';
+  }
+
+  function _pool() internal pure override returns (IPool) {
+    return AaveV3EthereumLido.POOL;
+  }
+
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
@@ -65,24 +69,27 @@ contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     );
   }
 
+  function test_snapshotAnchored_sUSDe() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumLidoAssets.sUSDe_ORACLE,
+      proposal.sUSDe_SNAPSHOT_RATIO(),
+      proposal.sUSDe_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_ezETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumLidoAssets.ezETH_ORACLE,
+      proposal.ezETH_SNAPSHOT_RATIO(),
+      proposal.ezETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
   function test_retrospective_sUSDe() public {
     _runRetrospective(AaveV3EthereumLidoAssets.sUSDe_ORACLE, 'sUSDe');
   }
 
   function test_retrospective_ezETH() public {
     _runRetrospective(AaveV3EthereumLidoAssets.ezETH_ORACLE, 'ezETH');
-  }
-
-  function _runRetrospective(address adapter, string memory symbol) internal {
-    _runRetrospectiveAndReport({
-      adapterAddr: adapter,
-      retrospectiveDays: 30,
-      network: 'mainnet',
-      reportName: string.concat(
-        'AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_',
-        symbol,
-        '_Capo'
-      )
-    });
   }
 }

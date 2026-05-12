@@ -3,14 +3,20 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 
-import {BasicIACLManager} from 'aave-address-book/AaveV3.sol';
+import {BasicIACLManager, IPool, IAaveOracle, DataTypes} from 'aave-address-book/AaveV3.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {BlockUtils} from './utils/BlockUtils.sol';
 
 abstract contract CAPOUpdateBaseTest is Test {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   uint256 internal constant SECONDS_PER_DAY = 86400;
   uint256 internal constant SECONDS_PER_YEAR = 365 days;
   uint256 internal constant PERCENTAGE_FACTOR = 1e4;
+  uint256 internal constant MAX_SPREAD_BPS_OF_CURRENT = 200;
+  uint256 internal constant MIN_SPREAD_REDUCTION_BPS = 5000;
+  uint256 internal constant RETROSPECTIVE_DAYS = 30;
 
   struct OracleExpectation {
     string label;
@@ -34,16 +40,198 @@ abstract contract CAPOUpdateBaseTest is Test {
 
   function _executePayload() internal virtual;
 
+  function _network() internal view virtual returns (string memory);
+
+  function _reportPrefix() internal view virtual returns (string memory);
+
+  function _pool() internal view virtual returns (IPool);
+
+  function test_dynamicSnapshotAnchored_allChangedAdapters() public {
+    IPool pool = _pool();
+    IAaveOracle oracle = IAaveOracle(pool.ADDRESSES_PROVIDER().getPriceOracle());
+    address[] memory reserves = pool.getReservesList();
+
+    address[] memory capoAdapters = new address[](reserves.length);
+    uint256[] memory preSnapshotRatios = new uint256[](reserves.length);
+    uint256[] memory preSnapshotTimestamps = new uint256[](reserves.length);
+    uint256[] memory preMaxYearlyGrowths = new uint256[](reserves.length);
+    uint256 capoCount = 0;
+
+    for (uint256 i = 0; i < reserves.length; i++) {
+      if (!_isReserveActive(pool, reserves[i])) continue;
+
+      address adapter = oracle.getSourceOfAsset(reserves[i]);
+      if (adapter == address(0)) continue;
+      if (!_isPriceCapAdapter(adapter)) continue;
+
+      capoAdapters[capoCount] = adapter;
+      preSnapshotRatios[capoCount] = IPriceCapAdapter(adapter).getSnapshotRatio();
+      preSnapshotTimestamps[capoCount] = IPriceCapAdapter(adapter).getSnapshotTimestamp();
+      preMaxYearlyGrowths[capoCount] = IPriceCapAdapter(adapter).getMaxYearlyGrowthRatePercent();
+      capoCount++;
+    }
+
+    _executePayload();
+
+    uint256[] memory postSnapshotRatios = new uint256[](capoCount);
+    uint256[] memory postSnapshotTimestamps = new uint256[](capoCount);
+    uint256[] memory postMaxYearlyGrowths = new uint256[](capoCount);
+    for (uint256 i = 0; i < capoCount; i++) {
+      postSnapshotRatios[i] = IPriceCapAdapter(capoAdapters[i]).getSnapshotRatio();
+      postSnapshotTimestamps[i] = IPriceCapAdapter(capoAdapters[i]).getSnapshotTimestamp();
+      postMaxYearlyGrowths[i] = IPriceCapAdapter(capoAdapters[i]).getMaxYearlyGrowthRatePercent();
+    }
+
+    uint256 changedCount = 0;
+    for (uint256 i = 0; i < capoCount; i++) {
+      bool changed = postSnapshotRatios[i] != preSnapshotRatios[i] ||
+        postSnapshotTimestamps[i] != preSnapshotTimestamps[i] ||
+        postMaxYearlyGrowths[i] != preMaxYearlyGrowths[i];
+      if (!changed) continue;
+
+      _runSnapshotAnchoredTest(capoAdapters[i], postSnapshotRatios[i], postSnapshotTimestamps[i]);
+      changedCount++;
+    }
+
+    assertGt(changedCount, 0, 'no CAPO adapters were updated by the payload');
+  }
+
+  function test_assetSourcesUnchanged_forActiveReserves() public {
+    IPool pool = _pool();
+    IAaveOracle oracle = IAaveOracle(pool.ADDRESSES_PROVIDER().getPriceOracle());
+    address[] memory reserves = pool.getReservesList();
+
+    address[] memory sourcesBefore = new address[](reserves.length);
+    for (uint256 i = 0; i < reserves.length; i++) {
+      if (!_isReserveActive(pool, reserves[i])) continue;
+      sourcesBefore[i] = oracle.getSourceOfAsset(reserves[i]);
+    }
+
+    _executePayload();
+
+    for (uint256 i = 0; i < reserves.length; i++) {
+      if (!_isReserveActive(pool, reserves[i])) continue;
+      assertEq(
+        oracle.getSourceOfAsset(reserves[i]),
+        sourcesBefore[i],
+        'oracle source changed for an active reserve'
+      );
+    }
+  }
+
+  function _isReserveActive(IPool pool, address asset) internal view returns (bool) {
+    DataTypes.ReserveConfigurationMap memory config = pool.getConfiguration(asset);
+    return config.getActive();
+  }
+
+  function _isPriceCapAdapter(address adapter) internal view returns (bool) {
+    try IPriceCapAdapter(adapter).getSnapshotRatio() returns (uint256) {
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   function _runPostExecutionAssertions(OracleExpectation memory e) internal {
+    IPriceCapAdapter adapter = IPriceCapAdapter(e.adapter);
+    uint256 oldMaxRatio = _getMaxRatio(adapter);
+    uint256 currentRatio = uint256(adapter.getRatio());
     _executePayload();
     _assertSnapshotApplied(e);
     _assertLatestAnswerSane(e.adapter);
     _assertConfiguration(e.adapter);
+    _assertSpreadTightened(e.adapter, oldMaxRatio, currentRatio);
     _assertCapTriggers(e.adapter);
   }
 
+  function _runRetrospective(address adapter, string memory symbol) internal {
+    _runRetrospectiveAndReport({
+      adapterAddr: adapter,
+      retrospectiveDays: RETROSPECTIVE_DAYS,
+      network: _network(),
+      reportName: string.concat(_reportPrefix(), '_', symbol, '_Capo')
+    });
+  }
+
+  function _runSnapshotAnchoredTest(
+    address adapter,
+    uint256 expectedSnapshotRatio,
+    uint256 expectedSnapshotTimestamp
+  ) internal {
+    uint256 historicalBlock = _findBlockByExactTimestamp(expectedSnapshotTimestamp);
+    vm.createSelectFork(vm.rpcUrl(_network()), historicalBlock);
+    assertEq(
+      block.timestamp,
+      expectedSnapshotTimestamp,
+      'cast find-block did not return a block with exact timestamp match'
+    );
+    uint256 historicalRatio = uint256(IPriceCapAdapter(adapter).getRatio());
+    assertEq(
+      historicalRatio,
+      expectedSnapshotRatio,
+      'snapshot ratio does not match on-chain ratio at snapshot timestamp'
+    );
+  }
+
+  function _findBlockByExactTimestamp(uint256 ts) internal returns (uint256) {
+    string memory rpc = vm.rpcUrl(_network());
+    string[] memory inputs = new string[](3);
+    inputs[0] = 'sh';
+    inputs[1] = '-c';
+    inputs[2] = string.concat(
+      'printf "n:" && cast find-block ',
+      vm.toString(ts),
+      ' --rpc-url ',
+      rpc
+    );
+    bytes memory raw = vm.ffi(inputs);
+    return vm.parseUint(_stripPrefixAndTrim(raw, 2));
+  }
+
+  function _stripPrefixAndTrim(
+    bytes memory raw,
+    uint256 prefixLen
+  ) internal pure returns (string memory) {
+    uint256 end = raw.length;
+    while (
+      end > prefixLen &&
+      (raw[end - 1] == 0x0a || raw[end - 1] == 0x0d || raw[end - 1] == 0x20 || raw[end - 1] == 0x09)
+    ) {
+      end--;
+    }
+    bytes memory trimmed = new bytes(end - prefixLen);
+    for (uint256 i = 0; i < trimmed.length; i++) {
+      trimmed[i] = raw[prefixLen + i];
+    }
+    return string(trimmed);
+  }
+
+  function _assertSpreadTightened(
+    address adapter,
+    uint256 oldMaxRatio,
+    uint256 currentRatio
+  ) internal view {
+    uint256 newMaxRatio = _getMaxRatio(IPriceCapAdapter(adapter));
+    assertGt(oldMaxRatio, currentRatio, 'pre-AIP cap upper bound was not above current ratio');
+    assertLt(newMaxRatio, oldMaxRatio, 'cap upper bound (max ratio) did not tighten');
+
+    uint256 oldSpread = oldMaxRatio - currentRatio;
+    uint256 newSpread = newMaxRatio > currentRatio ? newMaxRatio - currentRatio : 0;
+
+    assertLe(
+      newSpread * PERCENTAGE_FACTOR,
+      currentRatio * MAX_SPREAD_BPS_OF_CURRENT,
+      'new spread exceeds max allowed bps of current ratio'
+    );
+
+    assertLe(
+      newSpread * PERCENTAGE_FACTOR,
+      oldSpread * (PERCENTAGE_FACTOR - MIN_SPREAD_REDUCTION_BPS),
+      'spread reduction is below minimum threshold'
+    );
+  }
+
   function _preservedGrowth(address adapter) internal view returns (uint16) {
-    // cast down should be safe
     return uint16(IPriceCapAdapter(adapter).getMaxYearlyGrowthRatePercent());
   }
 
@@ -127,7 +315,7 @@ abstract contract CAPOUpdateBaseTest is Test {
     assertEq(maxRatio / (ratioDecimals * 10), 0);
   }
 
-  function _getMaxRatio(IPriceCapAdapter adapter) private view returns (uint256) {
+  function _getMaxRatio(IPriceCapAdapter adapter) internal view returns (uint256) {
     return
       adapter.getSnapshotRatio() +
       adapter.getMaxRatioGrowthPerSecond() *

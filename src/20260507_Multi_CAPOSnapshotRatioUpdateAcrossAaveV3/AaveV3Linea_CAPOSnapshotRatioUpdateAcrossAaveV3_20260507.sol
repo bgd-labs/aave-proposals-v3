@@ -2,8 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3LineaAssets} from 'aave-address-book/AaveV3Linea.sol';
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
+import {CAPOUpdateBasePayload} from 'src/helpers/capo/CAPOUpdateBasePayload.sol';
 
 /**
  * @title CAPO SnapshotRatio Update Across Aave V3
@@ -11,7 +10,7 @@ import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-capo-snapshotratio-update-across-aave-v3/24854
  */
-contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGenericExecutor {
+contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is CAPOUpdateBasePayload {
   uint104 public constant wstETH_SNAPSHOT_RATIO = 1231706743820320505;
   uint48 public constant wstETH_SNAPSHOT_TIMESTAMP = 1776040336;
 
@@ -39,20 +38,5 @@ contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 is IProposalGe
       weETH_SNAPSHOT_RATIO,
       weETH_SNAPSHOT_TIMESTAMP
     );
-  }
-
-  function _updateCapParameters(
-    address priceCapAdapter,
-    uint104 newSnapshotRatio,
-    uint48 newSnapshotTimestamp
-  ) internal {
-    uint256 maxYearlyRatioGrowthPercent = IPriceCapAdapter(priceCapAdapter)
-      .getMaxYearlyGrowthRatePercent();
-    IPriceCapAdapter.PriceCapUpdateParams memory params = IPriceCapAdapter.PriceCapUpdateParams({
-      snapshotRatio: newSnapshotRatio,
-      snapshotTimestamp: newSnapshotTimestamp,
-      maxYearlyRatioGrowthPercent: uint16(maxYearlyRatioGrowthPercent) // existing value should safely fit
-    });
-    IPriceCapAdapter(priceCapAdapter).setCapParameters(params);
   }
 }

@@ -2,6 +2,9 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumEtherFiAssets} from 'aave-address-book/AaveV3EthereumEtherFi.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
+import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -9,10 +12,6 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
 import {AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
-/**
- * @dev Test for AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
- */
 contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
@@ -28,9 +27,18 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
+  function _network() internal pure override returns (string memory) {
+    return 'mainnet';
+  }
+
+  function _reportPrefix() internal pure override returns (string memory) {
+    return 'AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507';
+  }
+
+  function _pool() internal pure override returns (IPool) {
+    return AaveV3Ethereum.POOL;
+  }
+
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
@@ -123,6 +131,76 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     );
   }
 
+  function test_unaffected_EtherFi_weETH() public {
+    IPriceCapAdapter etherFiWeETH = IPriceCapAdapter(AaveV3EthereumEtherFiAssets.weETH_ORACLE);
+    uint256 snapshotRatioBefore = etherFiWeETH.getSnapshotRatio();
+    uint256 snapshotTimestampBefore = etherFiWeETH.getSnapshotTimestamp();
+    uint256 maxYearlyGrowthBefore = etherFiWeETH.getMaxYearlyGrowthRatePercent();
+    assertGt(snapshotRatioBefore, 0, 'precondition: EtherFi weETH adapter should be initialized');
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(etherFiWeETH.getSnapshotRatio(), snapshotRatioBefore);
+    assertEq(etherFiWeETH.getSnapshotTimestamp(), snapshotTimestampBefore);
+    assertEq(etherFiWeETH.getMaxYearlyGrowthRatePercent(), maxYearlyGrowthBefore);
+  }
+
+  function test_snapshotAnchored_sUSDe() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.sUSDe_ORACLE,
+      proposal.sUSDe_SNAPSHOT_RATIO(),
+      proposal.sUSDe_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_rETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.rETH_ORACLE,
+      proposal.rETH_SNAPSHOT_RATIO(),
+      proposal.rETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_weETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.weETH_ORACLE,
+      proposal.weETH_SNAPSHOT_RATIO(),
+      proposal.weETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_ETHx() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.ETHx_ORACLE,
+      proposal.ETHx_SNAPSHOT_RATIO(),
+      proposal.ETHx_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_osETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.osETH_ORACLE,
+      proposal.osETH_SNAPSHOT_RATIO(),
+      proposal.osETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_ezETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.ezETH_ORACLE,
+      proposal.ezETH_SNAPSHOT_RATIO(),
+      proposal.ezETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_cbETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3EthereumAssets.cbETH_ORACLE,
+      proposal.cbETH_SNAPSHOT_RATIO(),
+      proposal.cbETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
   function test_retrospective_sUSDe() public {
     _runRetrospective(AaveV3EthereumAssets.sUSDe_ORACLE, 'sUSDe');
   }
@@ -149,18 +227,5 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
 
   function test_retrospective_cbETH() public {
     _runRetrospective(AaveV3EthereumAssets.cbETH_ORACLE, 'cbETH');
-  }
-
-  function _runRetrospective(address adapter, string memory symbol) internal {
-    _runRetrospectiveAndReport({
-      adapterAddr: adapter,
-      retrospectiveDays: 30,
-      network: 'mainnet',
-      reportName: string.concat(
-        'AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_',
-        symbol,
-        '_Capo'
-      )
-    });
   }
 }

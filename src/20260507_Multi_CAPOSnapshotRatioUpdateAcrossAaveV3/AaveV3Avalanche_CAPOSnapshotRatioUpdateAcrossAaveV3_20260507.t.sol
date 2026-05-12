@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -9,10 +10,6 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
 import {AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
-/**
- * @dev Test for AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
- */
 contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
@@ -28,9 +25,18 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
+  function _network() internal pure override returns (string memory) {
+    return 'avalanche';
+  }
+
+  function _reportPrefix() internal pure override returns (string memory) {
+    return 'AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507';
+  }
+
+  function _pool() internal pure override returns (IPool) {
+    return AaveV3Avalanche.POOL;
+  }
+
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
@@ -63,24 +69,27 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     );
   }
 
+  function test_snapshotAnchored_sAVAX() public {
+    _runSnapshotAnchoredTest(
+      AaveV3AvalancheAssets.sAVAX_ORACLE,
+      proposal.sAVAX_SNAPSHOT_RATIO(),
+      proposal.sAVAX_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_sUSDe() public {
+    _runSnapshotAnchoredTest(
+      AaveV3AvalancheAssets.sUSDe_ORACLE,
+      proposal.sUSDe_SNAPSHOT_RATIO(),
+      proposal.sUSDe_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
   function test_retrospective_sAVAX() public {
     _runRetrospective(AaveV3AvalancheAssets.sAVAX_ORACLE, 'sAVAX');
   }
 
   function test_retrospective_sUSDe() public {
     _runRetrospective(AaveV3AvalancheAssets.sUSDe_ORACLE, 'sUSDe');
-  }
-
-  function _runRetrospective(address adapter, string memory symbol) internal {
-    _runRetrospectiveAndReport({
-      adapterAddr: adapter,
-      retrospectiveDays: 30,
-      network: 'avalanche',
-      reportName: string.concat(
-        'AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_',
-        symbol,
-        '_Capo'
-      )
-    });
   }
 }

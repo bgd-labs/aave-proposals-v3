@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -9,10 +10,6 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
 import {AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
-/**
- * @dev Test for AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
- */
 contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
@@ -28,9 +25,18 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     GovV3Helpers.executePayload(vm, address(proposal));
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
+  function _network() internal pure override returns (string memory) {
+    return 'polygon';
+  }
+
+  function _reportPrefix() internal pure override returns (string memory) {
+    return 'AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507';
+  }
+
+  function _pool() internal pure override returns (IPool) {
+    return AaveV3Polygon.POOL;
+  }
+
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
@@ -63,24 +69,27 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     );
   }
 
+  function test_snapshotAnchored_MaticX() public {
+    _runSnapshotAnchoredTest(
+      AaveV3PolygonAssets.MaticX_ORACLE,
+      proposal.MaticX_SNAPSHOT_RATIO(),
+      proposal.MaticX_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
+  function test_snapshotAnchored_wstETH() public {
+    _runSnapshotAnchoredTest(
+      AaveV3PolygonAssets.wstETH_ORACLE,
+      proposal.wstETH_SNAPSHOT_RATIO(),
+      proposal.wstETH_SNAPSHOT_TIMESTAMP()
+    );
+  }
+
   function test_retrospective_MaticX() public {
     _runRetrospective(AaveV3PolygonAssets.MaticX_ORACLE, 'MaticX');
   }
 
   function test_retrospective_wstETH() public {
     _runRetrospective(AaveV3PolygonAssets.wstETH_ORACLE, 'wstETH');
-  }
-
-  function _runRetrospective(address adapter, string memory symbol) internal {
-    _runRetrospectiveAndReport({
-      adapterAddr: adapter,
-      retrospectiveDays: 30,
-      network: 'polygon',
-      reportName: string.concat(
-        'AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_',
-        symbol,
-        '_Capo'
-      )
-    });
   }
 }
