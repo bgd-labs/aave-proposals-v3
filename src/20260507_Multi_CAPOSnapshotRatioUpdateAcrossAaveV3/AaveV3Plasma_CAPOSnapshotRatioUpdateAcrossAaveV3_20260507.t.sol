@@ -37,11 +37,25 @@ contract AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     return AaveV3Plasma.POOL;
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3Plasma.POOL,
       address(proposal)
+    );
+  }
+
+  function test_addressBookOraclesMatchLive() public view {
+    _assertAddressBookOracleMatchesLive(
+      AaveV3PlasmaAssets.sUSDe_UNDERLYING,
+      AaveV3PlasmaAssets.sUSDe_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3PlasmaAssets.weETH_UNDERLYING,
+      AaveV3PlasmaAssets.weETH_ORACLE
     );
   }
 

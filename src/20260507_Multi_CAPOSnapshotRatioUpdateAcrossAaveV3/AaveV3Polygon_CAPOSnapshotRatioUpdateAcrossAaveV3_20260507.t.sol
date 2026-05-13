@@ -37,11 +37,25 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     return AaveV3Polygon.POOL;
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3Polygon.POOL,
       address(proposal)
+    );
+  }
+
+  function test_addressBookOraclesMatchLive() public view {
+    _assertAddressBookOracleMatchesLive(
+      AaveV3PolygonAssets.MaticX_UNDERLYING,
+      AaveV3PolygonAssets.MaticX_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3PolygonAssets.wstETH_UNDERLYING,
+      AaveV3PolygonAssets.wstETH_ORACLE
     );
   }
 

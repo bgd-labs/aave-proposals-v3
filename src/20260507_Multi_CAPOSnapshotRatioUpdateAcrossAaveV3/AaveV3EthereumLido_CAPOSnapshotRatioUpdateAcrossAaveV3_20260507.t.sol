@@ -37,11 +37,25 @@ contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     return AaveV3EthereumLido.POOL;
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3EthereumLido.POOL,
       address(proposal)
+    );
+  }
+
+  function test_addressBookOraclesMatchLive() public view {
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumLidoAssets.sUSDe_UNDERLYING,
+      AaveV3EthereumLidoAssets.sUSDe_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
+      AaveV3EthereumLidoAssets.ezETH_ORACLE
     );
   }
 

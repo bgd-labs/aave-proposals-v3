@@ -119,6 +119,44 @@ abstract contract CAPOUpdateBaseTest is Test {
     }
   }
 
+  function test_assetPricesUnchanged_forActiveReserves() public {
+    IPool pool = _pool();
+    IAaveOracle oracle = IAaveOracle(pool.ADDRESSES_PROVIDER().getPriceOracle());
+    address[] memory reserves = pool.getReservesList();
+
+    uint256[] memory pricesBefore = new uint256[](reserves.length);
+    for (uint256 i = 0; i < reserves.length; i++) {
+      if (!_isReserveActive(pool, reserves[i])) continue;
+      pricesBefore[i] = oracle.getAssetPrice(reserves[i]);
+    }
+
+    _executePayload();
+
+    for (uint256 i = 0; i < reserves.length; i++) {
+      if (!_isReserveActive(pool, reserves[i])) continue;
+      assertEq(
+        oracle.getAssetPrice(reserves[i]),
+        pricesBefore[i],
+        'asset price changed for an active reserve'
+      );
+    }
+  }
+
+  // Sanity-check that the address-book `*_ORACLE` constant for an asset matches the oracle
+  // wired in the live `IAaveOracle`. Address-book entries are flat constants and not
+  // enumerable from Solidity, so callers pass the (underlying, oracle) pairs explicitly.
+  function _assertAddressBookOracleMatchesLive(
+    address underlying,
+    address addressBookOracle
+  ) internal view {
+    IAaveOracle oracle = IAaveOracle(_pool().ADDRESSES_PROVIDER().getPriceOracle());
+    assertEq(
+      oracle.getSourceOfAsset(underlying),
+      addressBookOracle,
+      'address-book oracle does not match live source for asset'
+    );
+  }
+
   function _isReserveActive(IPool pool, address asset) internal view returns (bool) {
     DataTypes.ReserveConfigurationMap memory config = pool.getConfiguration(asset);
     return config.getActive();

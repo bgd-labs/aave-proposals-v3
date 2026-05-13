@@ -39,11 +39,45 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     return AaveV3Ethereum.POOL;
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3Ethereum.POOL,
       address(proposal)
+    );
+  }
+
+  function test_addressBookOraclesMatchLive() public view {
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.sUSDe_UNDERLYING,
+      AaveV3EthereumAssets.sUSDe_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.rETH_UNDERLYING,
+      AaveV3EthereumAssets.rETH_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.weETH_UNDERLYING,
+      AaveV3EthereumAssets.weETH_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.ETHx_UNDERLYING,
+      AaveV3EthereumAssets.ETHx_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.osETH_UNDERLYING,
+      AaveV3EthereumAssets.osETH_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.ezETH_UNDERLYING,
+      AaveV3EthereumAssets.ezETH_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3EthereumAssets.cbETH_UNDERLYING,
+      AaveV3EthereumAssets.cbETH_ORACLE
     );
   }
 

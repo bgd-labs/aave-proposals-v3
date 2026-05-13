@@ -2,7 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Mantle, AaveV3MantleAssets} from 'aave-address-book/AaveV3Mantle.sol';
-import {IPool} from 'aave-address-book/AaveV3.sol';
+import {IPool, DataTypes} from 'aave-address-book/AaveV3.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -14,6 +15,8 @@ contract AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
 {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
@@ -37,14 +40,33 @@ contract AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     return AaveV3Mantle.POOL;
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
   function test_defaultProposalExecution() public {
+    _enableMantleE2ECollateral();
     defaultTest({
       reportName: 'AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       pool: AaveV3Mantle.POOL,
-      payload: address(proposal),
-      runE2E: false, // todo debug why 'no good collateral'
-      runSeatbelt: true
+      payload: address(proposal)
     });
+  }
+
+  function _enableMantleE2ECollateral() internal {
+    address asset = AaveV3MantleAssets.WMNT_UNDERLYING;
+    DataTypes.ReserveConfigurationMap memory config = AaveV3Mantle.POOL.getConfiguration(asset);
+    assertGt(AaveV3Mantle.POOL.getConfiguration(asset).getDebtCeiling(), 0);
+    config.setDebtCeiling(0);
+    bytes32 slot = keccak256(abi.encode(asset, 52));
+    vm.store(address(AaveV3Mantle.POOL), slot, bytes32(config.data));
+    assertEq(AaveV3Mantle.POOL.getConfiguration(asset).getDebtCeiling(), 0);
+  }
+
+  function test_addressBookOraclesMatchLive() public view {
+    _assertAddressBookOracleMatchesLive(
+      AaveV3MantleAssets.sUSDe_UNDERLYING,
+      AaveV3MantleAssets.sUSDe_ORACLE
+    );
   }
 
   function test_postExecution_sUSDe() public {

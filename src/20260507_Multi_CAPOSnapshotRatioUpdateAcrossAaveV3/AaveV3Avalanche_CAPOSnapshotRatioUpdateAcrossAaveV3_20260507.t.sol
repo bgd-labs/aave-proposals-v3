@@ -37,11 +37,25 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
     return AaveV3Avalanche.POOL;
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507',
       AaveV3Avalanche.POOL,
       address(proposal)
+    );
+  }
+
+  function test_addressBookOraclesMatchLive() public view {
+    _assertAddressBookOracleMatchesLive(
+      AaveV3AvalancheAssets.sAVAX_UNDERLYING,
+      AaveV3AvalancheAssets.sAVAX_ORACLE
+    );
+    _assertAddressBookOracleMatchesLive(
+      AaveV3AvalancheAssets.sUSDe_UNDERLYING,
+      AaveV3AvalancheAssets.sUSDe_ORACLE
     );
   }
 
