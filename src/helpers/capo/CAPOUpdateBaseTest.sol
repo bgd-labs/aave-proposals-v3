@@ -142,9 +142,6 @@ abstract contract CAPOUpdateBaseTest is Test {
     }
   }
 
-  // Sanity-check that the address-book `*_ORACLE` constant for an asset matches the oracle
-  // wired in the live `IAaveOracle`. Address-book entries are flat constants and not
-  // enumerable from Solidity, so callers pass the (underlying, oracle) pairs explicitly.
   function _assertAddressBookOracleMatchesLive(
     address underlying,
     address addressBookOracle

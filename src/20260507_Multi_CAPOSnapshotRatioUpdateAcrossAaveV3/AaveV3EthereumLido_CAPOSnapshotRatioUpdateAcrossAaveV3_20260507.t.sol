@@ -10,6 +10,12 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
 import {AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
+/**
+ * @dev Test for AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
+ * The Lido (Prime) market shares the sUSDe and ezETH CAPO adapters with Ethereum Core,
+ * so a single AaveV3Ethereum payload updates both markets.
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
+ */
 contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest

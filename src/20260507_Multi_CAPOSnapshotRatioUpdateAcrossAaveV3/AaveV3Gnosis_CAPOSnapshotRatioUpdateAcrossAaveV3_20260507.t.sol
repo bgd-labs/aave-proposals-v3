@@ -10,6 +10,10 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3Test
 import {CAPOUpdateBaseTest} from 'src/helpers/capo/CAPOUpdateBaseTest.sol';
 import {AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507} from './AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.sol';
 
+/**
+ * @dev Test for AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_Multi_CAPOSnapshotRatioUpdateAcrossAaveV3/AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507.t.sol -vv
+ */
 contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   ProtocolV3TestBase,
   CAPOUpdateBaseTest
