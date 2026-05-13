@@ -20,7 +20,7 @@ contract AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25041854);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25088476);
     proposal = new AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507();
   }
 
