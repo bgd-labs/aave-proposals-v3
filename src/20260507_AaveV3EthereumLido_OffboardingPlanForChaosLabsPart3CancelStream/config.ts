@@ -3,9 +3,9 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'ChaosLabs (performed by Skyward)',
     pools: ['AaveV3EthereumLido'],
-    title: 'Orderly Transition and Offboarding Plan for Chaos Labs part2',
-    shortName: 'OrderlyTransitionAndOffboardingPlanForChaosLabsPart2',
-    date: '20260507',
+    title: 'Offboarding Plan for Chaos Labs part 3: Cancel stream 100073',
+    shortName: 'AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream',
+    date: '20260513',
     discussion:
       'https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399',
     snapshot: 'direct-to-AIP',
