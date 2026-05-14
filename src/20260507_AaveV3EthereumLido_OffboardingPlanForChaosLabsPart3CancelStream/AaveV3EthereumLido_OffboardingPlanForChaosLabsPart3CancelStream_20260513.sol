@@ -10,7 +10,7 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
  * - Snapshot: direct-to-AIP
  * - Discussion: https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399
  */
-contract AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507 is
+contract AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513 is
   IProposalGenericExecutor
 {
   uint256 public constant PREVIOUS_STREAM = 100073;

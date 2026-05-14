@@ -5,19 +5,18 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507} from './AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.sol';
+import {AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513} from './AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.s.sol/1/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20260507_AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream/OffboardingPlanForChaosLabsPart3CancelStream_20260513.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OffboardingPlanForChaosLabsPart3CancelStream_20260513.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507)
-        .creationCode
+      type(AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513).creationCode
     );
 
     // compose action
@@ -32,7 +31,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20260507_AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream/OffboardingPlanForChaosLabsPart3CancelStream_20260513.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -44,8 +43,7 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsEthereum[0] = GovV3Helpers.buildAction(
-        type(AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507)
-          .creationCode
+        type(AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513).creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
@@ -58,7 +56,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/OrderlyTransitionAndOffboardingPlanForChaosLabsPart2.md'
+        'src/20260507_AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream/OffboardingPlanForChaosLabsPart3CancelStream_20260513.md'
       )
     );
   }

@@ -5,23 +5,22 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507} from './AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.sol';
+import {AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513} from './AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513.sol';
 
 /**
- * @dev Test for AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.t.sol -vv
+ * @dev Test for AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260507_AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream/AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513.t.sol -vv
  */
-contract AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507_Test is
+contract AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513_Test is
   ProtocolV3TestBase
 {
   address internal constant CHAOS_LABS_RECIPIENT = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
 
-  AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507
-    internal proposal;
+  AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 25088476);
-    proposal = new AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507();
+    proposal = new AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513();
   }
 
   /**
@@ -29,7 +28,7 @@ contract AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507',
+      'AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513',
       AaveV3EthereumLido.POOL,
       address(proposal)
     );

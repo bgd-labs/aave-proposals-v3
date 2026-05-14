@@ -20,8 +20,8 @@ Cancel stream `100073` on the [Aave Prime collector](https://etherscan.io/addres
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260507_AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2/AaveV3EthereumLido_OrderlyTransitionAndOffboardingPlanForChaosLabsPart2_20260507.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260507_AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream/AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260507_AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream/AaveV3EthereumLido_OffboardingPlanForChaosLabsPart3CancelStream_20260513.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399)
 
