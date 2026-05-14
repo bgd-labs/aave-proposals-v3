@@ -5,7 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 
 /**
- * @title Orderly Transition and Offboarding Plan for Chaos Labs part2
+ * @title Offboarding Plan for Chaos Labs part 3: Cancel stream 100073
  * @author ChaosLabs (performed by Skyward)
  * - Snapshot: direct-to-AIP
  * - Discussion: https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399
