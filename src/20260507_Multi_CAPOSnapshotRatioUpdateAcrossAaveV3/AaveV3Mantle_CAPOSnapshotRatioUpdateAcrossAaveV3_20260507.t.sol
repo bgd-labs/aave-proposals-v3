@@ -96,4 +96,12 @@ contract AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_sUSDe() public {
     _runRetrospective(AaveV3MantleAssets.sUSDe_ORACLE, 'sUSDe');
   }
+
+  function test_priceApproxEq_sUSDe() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3MantleAssets.sUSDe_UNDERLYING,
+      1.23e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
 }

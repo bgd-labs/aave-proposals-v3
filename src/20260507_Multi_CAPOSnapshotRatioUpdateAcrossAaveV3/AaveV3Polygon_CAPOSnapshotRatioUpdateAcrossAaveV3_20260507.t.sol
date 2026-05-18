@@ -110,4 +110,28 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_wstETH() public {
     _runRetrospective(AaveV3PolygonAssets.wstETH_ORACLE, 'wstETH');
   }
+
+  function test_priceApproxEq_MaticX() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3PolygonAssets.MaticX_UNDERLYING,
+      0.117e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_wstETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3PolygonAssets.wstETH_UNDERLYING,
+      2838e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_supplyBorrowNearLtv_wstETH_USDC() public {
+    _runSupplyBorrowNearLtv({
+      collateralAsset: AaveV3PolygonAssets.wstETH_UNDERLYING,
+      collateralAmount: 50 ether,
+      debtAsset: AaveV3PolygonAssets.USDC_UNDERLYING
+    });
+  }
 }

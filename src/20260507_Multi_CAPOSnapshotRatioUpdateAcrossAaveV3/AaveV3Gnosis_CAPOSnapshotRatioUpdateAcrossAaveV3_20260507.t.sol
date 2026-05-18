@@ -110,4 +110,28 @@ contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_sDAI() public {
     _runRetrospective(AaveV3GnosisAssets.sDAI_ORACLE, 'sDAI');
   }
+
+  function test_priceApproxEq_wstETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3GnosisAssets.wstETH_UNDERLYING,
+      2828e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_sDAI() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3GnosisAssets.sDAI_UNDERLYING,
+      1.238e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_supplyBorrowNearLtv_wstETH_USDC() public {
+    _runSupplyBorrowNearLtv({
+      collateralAsset: AaveV3GnosisAssets.wstETH_UNDERLYING,
+      collateralAmount: 10 ether,
+      debtAsset: AaveV3GnosisAssets.USDC_UNDERLYING
+    });
+  }
 }

@@ -112,4 +112,20 @@ contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_ezETH() public {
     _runRetrospective(AaveV3EthereumLidoAssets.ezETH_ORACLE, 'ezETH');
   }
+
+  function test_priceApproxEq_sUSDe() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumLidoAssets.sUSDe_UNDERLYING,
+      1.23e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_ezETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
+      2476e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
 }

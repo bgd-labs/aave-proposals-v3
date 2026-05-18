@@ -266,4 +266,76 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_cbETH() public {
     _runRetrospective(AaveV3EthereumAssets.cbETH_ORACLE, 'cbETH');
   }
+
+  function test_priceApproxEq_sUSDe() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.sUSDe_UNDERLYING,
+      1.23e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_rETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.rETH_UNDERLYING,
+      2673e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_weETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.weETH_UNDERLYING,
+      2515e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_ETHx() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.ETHx_UNDERLYING,
+      2502e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_osETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.osETH_UNDERLYING,
+      2461e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_ezETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.ezETH_UNDERLYING,
+      2476e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_cbETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3EthereumAssets.cbETH_UNDERLYING,
+      2596e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_supplyBorrowNearLtv_rETH_USDC() public {
+    _runSupplyBorrowNearLtv({
+      collateralAsset: AaveV3EthereumAssets.rETH_UNDERLYING,
+      collateralAmount: 100 ether,
+      debtAsset: AaveV3EthereumAssets.USDC_UNDERLYING
+    });
+  }
+
+  function test_supplyBorrowNearLtv_weETH_USDC() public {
+    _runSupplyBorrowNearLtv({
+      collateralAsset: AaveV3EthereumAssets.weETH_UNDERLYING,
+      collateralAmount: 100 ether,
+      debtAsset: AaveV3EthereumAssets.USDC_UNDERLYING
+    });
+  }
 }

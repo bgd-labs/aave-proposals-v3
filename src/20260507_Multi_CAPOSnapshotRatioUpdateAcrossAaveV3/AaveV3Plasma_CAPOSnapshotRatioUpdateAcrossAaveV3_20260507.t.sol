@@ -110,4 +110,28 @@ contract AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_weETH() public {
     _runRetrospective(AaveV3PlasmaAssets.weETH_ORACLE, 'weETH');
   }
+
+  function test_priceApproxEq_sUSDe() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3PlasmaAssets.sUSDe_UNDERLYING,
+      1.23e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_weETH() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3PlasmaAssets.weETH_UNDERLYING,
+      2509e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_supplyBorrowNearLtv_weETH_USDT0() public {
+    _runSupplyBorrowNearLtv({
+      collateralAsset: AaveV3PlasmaAssets.weETH_UNDERLYING,
+      collateralAmount: 10 ether,
+      debtAsset: AaveV3PlasmaAssets.USDT0_UNDERLYING
+    });
+  }
 }

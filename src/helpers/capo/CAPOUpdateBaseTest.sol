@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {BasicIACLManager, IPool, IAaveOracle, DataTypes} from 'aave-address-book/AaveV3.sol';
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
@@ -17,6 +19,9 @@ abstract contract CAPOUpdateBaseTest is Test {
   uint256 internal constant MAX_SPREAD_BPS_OF_CURRENT = 200;
   uint256 internal constant MIN_SPREAD_REDUCTION_BPS = 5000;
   uint256 internal constant RETROSPECTIVE_DAYS = 30;
+  uint256 internal constant HEALTH_FACTOR_BASE = 1e18;
+  // 0.5% (50 bps), expressed as the 18-decimal fixed-point fraction used by `assertApproxEqRel`.
+  uint256 internal constant PRICE_APPROX_EQ_TOLERANCE = 0.005e18;
 
   struct OracleExpectation {
     string label;
@@ -61,7 +66,7 @@ abstract contract CAPOUpdateBaseTest is Test {
       if (!_isReserveActive(pool, reserves[i])) continue;
 
       address adapter = oracle.getSourceOfAsset(reserves[i]);
-      if (adapter == address(0)) continue;
+      assertTrue(adapter != address(0), 'source of asset is address(0)');
       if (!_isPriceCapAdapter(adapter)) continue;
 
       capoAdapters[capoCount] = adapter;
@@ -154,6 +159,72 @@ abstract contract CAPOUpdateBaseTest is Test {
     );
   }
 
+  function _assertOraclePriceApproxEq(
+    address asset,
+    uint256 expectedPrice,
+    uint256 maxPercentDelta
+  ) internal view {
+    IAaveOracle oracle = IAaveOracle(_pool().ADDRESSES_PROVIDER().getPriceOracle());
+    assertApproxEqRel(
+      oracle.getAssetPrice(asset),
+      expectedPrice,
+      maxPercentDelta,
+      'oracle price out of expected tolerance'
+    );
+  }
+
+  function _runSupplyBorrowNearLtv(
+    address collateralAsset,
+    uint256 collateralAmount,
+    address debtAsset
+  ) internal {
+    IPool pool = _pool();
+    IAaveOracle oracle = IAaveOracle(pool.ADDRESSES_PROVIDER().getPriceOracle());
+    address user = makeAddr('CAPONearLtvBorrower');
+
+    DataTypes.ReserveConfigurationMap memory cfg = pool.getConfiguration(collateralAsset);
+    uint256 ltv = cfg.getLtv();
+    uint256 liquidationThreshold = cfg.getLiquidationThreshold();
+    uint256 collateralPrice = oracle.getAssetPrice(collateralAsset);
+    uint256 collateralUnit = 10 ** IERC20Metadata(collateralAsset).decimals();
+    uint256 expectedAvailableBorrowsBase = (collateralAmount * collateralPrice * ltv) /
+      (collateralUnit * PERCENTAGE_FACTOR);
+
+    deal(collateralAsset, user, collateralAmount);
+
+    vm.startPrank(user);
+    IERC20(collateralAsset).approve(address(pool), collateralAmount);
+    pool.supply(collateralAsset, collateralAmount, user, 0);
+    pool.setUserUseReserveAsCollateral(collateralAsset, true);
+
+    (, , uint256 availableBorrowsBase, , , ) = pool.getUserAccountData(user);
+    assertApproxEqRel(
+      availableBorrowsBase,
+      expectedAvailableBorrowsBase,
+      0.001e18,
+      'available borrows deviated from collateral * ltv'
+    );
+
+    uint256 debtUnit = 10 ** IERC20Metadata(debtAsset).decimals();
+    uint256 borrowAmount = (availableBorrowsBase * 99_00 * debtUnit) /
+      (PERCENTAGE_FACTOR * oracle.getAssetPrice(debtAsset));
+
+    pool.borrow(debtAsset, borrowAmount, 2, 0, user);
+    vm.stopPrank();
+
+    // Borrowing 99% of available power => HF = liquidationThreshold / (0.99 * ltv).
+    uint256 expectedHf = (liquidationThreshold * PERCENTAGE_FACTOR * HEALTH_FACTOR_BASE) /
+      (99_00 * ltv);
+
+    (, , , , , uint256 hfBefore) = pool.getUserAccountData(user);
+    assertApproxEqRel(hfBefore, expectedHf, 0.001e18, 'pre-payload HF off expected');
+
+    _executePayload();
+
+    (, , , , , uint256 hfAfter) = pool.getUserAccountData(user);
+    assertApproxEqRel(hfAfter, hfBefore, 0.001e18, 'post-payload HF drifted');
+  }
+
   function _isReserveActive(IPool pool, address asset) internal view returns (bool) {
     DataTypes.ReserveConfigurationMap memory config = pool.getConfiguration(asset);
     return config.getActive();
@@ -196,7 +267,7 @@ abstract contract CAPOUpdateBaseTest is Test {
     uint256 historicalBlock = _findBlockByExactTimestamp(expectedSnapshotTimestamp);
     vm.createSelectFork(vm.rpcUrl(_network()), historicalBlock);
     assertEq(
-      block.timestamp,
+      vm.getBlockTimestamp(),
       expectedSnapshotTimestamp,
       'cast find-block did not return a block with exact timestamp match'
     );
@@ -354,7 +425,7 @@ abstract contract CAPOUpdateBaseTest is Test {
     return
       adapter.getSnapshotRatio() +
       adapter.getMaxRatioGrowthPerSecond() *
-      (block.timestamp - adapter.getSnapshotTimestamp());
+      (vm.getBlockTimestamp() - adapter.getSnapshotTimestamp());
   }
 
   function _runRetrospectiveAndReport(
@@ -384,7 +455,7 @@ abstract contract CAPOUpdateBaseTest is Test {
         dayToDayGrowth = _calculateGrowthPercent(
           ratio,
           _retrospectivePrices[i - 1].ratio,
-          block.timestamp,
+          vm.getBlockTimestamp(),
           _retrospectivePrices[i - 1].timestamp
         );
       }
@@ -394,7 +465,7 @@ abstract contract CAPOUpdateBaseTest is Test {
         smoothedGrowth = _calculateGrowthPercent(
           ratio,
           _retrospectivePrices[i - snapshotDelayDays].ratio,
-          block.timestamp,
+          vm.getBlockTimestamp(),
           _retrospectivePrices[i - snapshotDelayDays].timestamp
         );
       }
@@ -404,7 +475,7 @@ abstract contract CAPOUpdateBaseTest is Test {
           sourcePrice: price,
           referencePrice: referencePrice,
           blockNumber: currentBlock,
-          timestamp: block.timestamp,
+          timestamp: vm.getBlockTimestamp(),
           ratio: ratio,
           dayToDayGrowth: dayToDayGrowth,
           smoothedGrowth: smoothedGrowth

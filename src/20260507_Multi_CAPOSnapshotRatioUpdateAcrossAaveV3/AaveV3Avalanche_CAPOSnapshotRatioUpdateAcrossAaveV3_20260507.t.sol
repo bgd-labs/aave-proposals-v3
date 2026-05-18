@@ -110,4 +110,28 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_retrospective_sUSDe() public {
     _runRetrospective(AaveV3AvalancheAssets.sUSDe_ORACLE, 'sUSDe');
   }
+
+  function test_priceApproxEq_sAVAX() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3AvalancheAssets.sAVAX_UNDERLYING,
+      11.99e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_priceApproxEq_sUSDe() public view {
+    _assertOraclePriceApproxEq(
+      AaveV3AvalancheAssets.sUSDe_UNDERLYING,
+      1.23e8,
+      PRICE_APPROX_EQ_TOLERANCE
+    );
+  }
+
+  function test_supplyBorrowNearLtv_sAVAX_USDC() public {
+    _runSupplyBorrowNearLtv({
+      collateralAsset: AaveV3AvalancheAssets.sAVAX_UNDERLYING,
+      collateralAmount: 500 ether,
+      debtAsset: AaveV3AvalancheAssets.USDC_UNDERLYING
+    });
+  }
 }
