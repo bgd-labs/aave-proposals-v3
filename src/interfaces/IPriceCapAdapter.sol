@@ -42,4 +42,9 @@ interface IPriceCapAdapter {
    * @notice Returns the max yearly ratio growth
    */
   function getMaxYearlyGrowthRatePercent() external view returns (uint256);
+
+  /**
+   * @notice Returns the address of the base asset to USD Chainlink aggregator
+   */
+  function BASE_TO_USD_AGGREGATOR() external view returns (address);
 }
