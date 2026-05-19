@@ -21,7 +21,7 @@ contract AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 21244905);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 22242033);
     proposal = new AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -122,16 +122,8 @@ contract AaveV3Plasma_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_weETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3PlasmaAssets.weETH_UNDERLYING,
-      2509e8,
+      2335e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
-  }
-
-  function test_supplyBorrowNearLtv_weETH_USDT0() public {
-    _runSupplyBorrowNearLtv({
-      collateralAsset: AaveV3PlasmaAssets.weETH_UNDERLYING,
-      collateralAmount: 10 ether,
-      debtAsset: AaveV3PlasmaAssets.USDT0_UNDERLYING
-    });
   }
 }

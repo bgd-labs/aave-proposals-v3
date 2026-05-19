@@ -21,7 +21,7 @@ contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 46056118);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 46250763);
     proposal = new AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -114,7 +114,7 @@ contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_wstETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3GnosisAssets.wstETH_UNDERLYING,
-      2828e8,
+      2634e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -122,16 +122,16 @@ contract AaveV3Gnosis_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_sDAI() public view {
     _assertOraclePriceApproxEq(
       AaveV3GnosisAssets.sDAI_UNDERLYING,
-      1.238e8,
+      1.24e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
 
-  function test_supplyBorrowNearLtv_wstETH_USDC() public {
+  function test_supplyBorrowNearLtv_wstETH_WXDAI() public {
     _runSupplyBorrowNearLtv({
       collateralAsset: AaveV3GnosisAssets.wstETH_UNDERLYING,
       collateralAmount: 10 ether,
-      debtAsset: AaveV3GnosisAssets.USDC_UNDERLYING
+      debtAsset: AaveV3GnosisAssets.WXDAI_UNDERLYING
     });
   }
 }

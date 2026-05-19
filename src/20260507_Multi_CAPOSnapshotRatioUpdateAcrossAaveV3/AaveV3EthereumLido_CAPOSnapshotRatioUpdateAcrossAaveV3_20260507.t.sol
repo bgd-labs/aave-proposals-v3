@@ -23,7 +23,7 @@ contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25044803);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25127618);
     proposal = new AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -124,7 +124,7 @@ contract AaveV3EthereumLido_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_ezETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
-      2476e8,
+      2303e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }

@@ -21,7 +21,7 @@ contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('linea'), 30547773);
+    vm.createSelectFork(vm.rpcUrl('linea'), 30700219);
     proposal = new AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -142,7 +142,7 @@ contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_wstETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3LineaAssets.wstETH_UNDERLYING,
-      2832e8,
+      2629e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -150,7 +150,7 @@ contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_ezETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3LineaAssets.ezETH_UNDERLYING,
-      2472e8,
+      2295e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -158,7 +158,7 @@ contract AaveV3Linea_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_weETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3LineaAssets.weETH_UNDERLYING,
-      2511e8,
+      2331e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }

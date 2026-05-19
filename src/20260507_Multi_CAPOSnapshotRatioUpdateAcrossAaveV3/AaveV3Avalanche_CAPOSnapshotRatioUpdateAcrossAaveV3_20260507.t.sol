@@ -21,7 +21,7 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 84842911);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 85814183);
     proposal = new AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -114,7 +114,7 @@ contract AaveV3Avalanche_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_sAVAX() public view {
     _assertOraclePriceApproxEq(
       AaveV3AvalancheAssets.sAVAX_UNDERLYING,
-      11.99e8,
+      11.7e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }

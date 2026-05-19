@@ -24,7 +24,7 @@ contract AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 95023228);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 95521792);
     proposal = new AaveV3Mantle_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 

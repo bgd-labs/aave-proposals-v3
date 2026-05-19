@@ -23,7 +23,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25044803);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25127618);
     proposal = new AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -278,7 +278,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_rETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumAssets.rETH_UNDERLYING,
-      2673e8,
+      2485e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -286,7 +286,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_weETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumAssets.weETH_UNDERLYING,
-      2515e8,
+      2339e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -294,7 +294,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_ETHx() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumAssets.ETHx_UNDERLYING,
-      2502e8,
+      2326e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -302,7 +302,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_osETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumAssets.osETH_UNDERLYING,
-      2461e8,
+      2288e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -310,7 +310,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_ezETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumAssets.ezETH_UNDERLYING,
-      2476e8,
+      2303e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -318,7 +318,7 @@ contract AaveV3Ethereum_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_cbETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3EthereumAssets.cbETH_UNDERLYING,
-      2596e8,
+      2415e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }

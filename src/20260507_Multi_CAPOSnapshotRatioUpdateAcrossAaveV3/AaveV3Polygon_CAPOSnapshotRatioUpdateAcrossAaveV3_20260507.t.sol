@@ -21,7 +21,7 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 86535455);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 87105250);
     proposal = new AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507();
   }
 
@@ -114,7 +114,7 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_MaticX() public view {
     _assertOraclePriceApproxEq(
       AaveV3PolygonAssets.MaticX_UNDERLYING,
-      0.117e8,
+      0.1086e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
@@ -122,16 +122,16 @@ contract AaveV3Polygon_CAPOSnapshotRatioUpdateAcrossAaveV3_20260507_Test is
   function test_priceApproxEq_wstETH() public view {
     _assertOraclePriceApproxEq(
       AaveV3PolygonAssets.wstETH_UNDERLYING,
-      2838e8,
+      2638e8,
       PRICE_APPROX_EQ_TOLERANCE
     );
   }
 
-  function test_supplyBorrowNearLtv_wstETH_USDC() public {
+  function test_supplyBorrowNearLtv_wstETH_USDCn() public {
     _runSupplyBorrowNearLtv({
       collateralAsset: AaveV3PolygonAssets.wstETH_UNDERLYING,
       collateralAmount: 50 ether,
-      debtAsset: AaveV3PolygonAssets.USDC_UNDERLYING
+      debtAsset: AaveV3PolygonAssets.USDCn_UNDERLYING
     });
   }
 }
