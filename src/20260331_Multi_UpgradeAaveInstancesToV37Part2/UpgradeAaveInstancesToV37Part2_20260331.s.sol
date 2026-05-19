@@ -3,24 +3,44 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 
-import {EthereumScript, PolygonScript, AvalancheScript, ArbitrumScript, BaseScript, BNBScript, LineaScript, PlasmaScript, MantleScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, ArbitrumScript, OptimismScript, BaseScript, BNBScript, ScrollScript, GnosisScript, LineaScript, SonicScript, CeloScript, InkScript, PlasmaScript, MantleScript, MegaEthScript, XLayerScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {Deployments} from './Deployments.sol';
+import {AaveV3Ethereum_RiskStewardsUpdate_20260331} from './AaveV3Ethereum_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Polygon_RiskStewardsUpdate_20260331} from './AaveV3Polygon_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Avalanche_RiskStewardsUpdate_20260331} from './AaveV3Avalanche_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Arbitrum_RiskStewardsUpdate_20260331} from './AaveV3Arbitrum_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Optimism_RiskStewardsUpdate_20260331} from './AaveV3Optimism_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Base_RiskStewardsUpdate_20260331} from './AaveV3Base_RiskStewardsUpdate_20260331.sol';
+import {AaveV3BNB_RiskStewardsUpdate_20260331} from './AaveV3BNB_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Scroll_RiskStewardsUpdate_20260331} from './AaveV3Scroll_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Gnosis_RiskStewardsUpdate_20260331} from './AaveV3Gnosis_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Linea_RiskStewardsUpdate_20260331} from './AaveV3Linea_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Sonic_RiskStewardsUpdate_20260331} from './AaveV3Sonic_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Celo_RiskStewardsUpdate_20260331} from './AaveV3Celo_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Ink_RiskStewardsUpdate_20260331} from './AaveV3Ink_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Plasma_RiskStewardsUpdate_20260331} from './AaveV3Plasma_RiskStewardsUpdate_20260331.sol';
+import {AaveV3Mantle_RiskStewardsUpdate_20260331} from './AaveV3Mantle_RiskStewardsUpdate_20260331.sol';
+import {AaveV3MegaEth_RiskStewardsUpdate_20260331} from './AaveV3MegaEth_RiskStewardsUpdate_20260331.sol';
+import {AaveV3XLayer_RiskStewardsUpdate_20260331} from './AaveV3XLayer_RiskStewardsUpdate_20260331.sol';
 
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
-    // compose action
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_RiskStewardsUpdate_20260331).creationCode
+    );
+
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
     actions[0] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
     actions[1] = GovV3Helpers.buildAction(Deployments.MAINNET_CORE);
+    actions[2] = GovV3Helpers.buildAction(riskStewardsUpdate);
 
-    // register action at payloadsController
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -28,16 +48,18 @@ contract DeployEthereum is EthereumScript {
 /**
  * @dev Deploy Polygon
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployPolygon chain=polygon
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/137/run-latest.json
  */
 contract DeployPolygon is PolygonScript {
   function run() external broadcast {
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.POLYGON);
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Polygon_RiskStewardsUpdate_20260331).creationCode
+    );
 
-    // register action at payloadsController
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.POLYGON);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -49,12 +71,15 @@ contract DeployPolygon is PolygonScript {
  */
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.AVALANCHE);
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Avalanche_RiskStewardsUpdate_20260331).creationCode
+    );
 
-    // register action at payloadsController
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.AVALANCHE);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -66,12 +91,34 @@ contract DeployAvalanche is AvalancheScript {
  */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
-    // compose action
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Arbitrum_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.ARBITRUM);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Optimism
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployOptimism chain=optimism
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/10/run-latest.json
+ */
+contract DeployOptimism is OptimismScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Optimism_RiskStewardsUpdate_20260331).creationCode
+    );
+
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.ARBITRUM);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
 
-    // register action at payloadsController
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -83,12 +130,15 @@ contract DeployArbitrum is ArbitrumScript {
  */
 contract DeployBase is BaseScript {
   function run() external broadcast {
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.BASE);
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Base_RiskStewardsUpdate_20260331).creationCode
+    );
 
-    // register action at payloadsController
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.BASE);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -100,12 +150,53 @@ contract DeployBase is BaseScript {
  */
 contract DeployBNB is BNBScript {
   function run() external broadcast {
-    // compose action
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3BNB_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.BNB);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Scroll
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployScroll chain=scroll
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/534352/run-latest.json
+ */
+contract DeployScroll is ScrollScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Scroll_RiskStewardsUpdate_20260331).creationCode
+    );
+
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.BNB);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
 
-    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Gnosis
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployGnosis chain=gnosis
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/100/run-latest.json
+ */
+contract DeployGnosis is GnosisScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Gnosis_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -117,13 +208,78 @@ contract DeployBNB is BNBScript {
  */
 contract DeployLinea is LineaScript {
   function run() external broadcast {
-    // compose action
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Linea_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.LINEA);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Sonic
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeploySonic chain=sonic
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/146/run-latest.json
+ */
+contract DeploySonic is SonicScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Sonic_RiskStewardsUpdate_20260331).creationCode
+    );
+
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.LINEA);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
 
-    // register action at payloadsController
     GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Celo
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployCelo chain=celo
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/42220/run-latest.json
+ */
+contract DeployCelo is CeloScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Celo_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Ink
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployInk chain=ink
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/57073/run-latest.json
+ */
+contract DeployInk is InkScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ink_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+
+    actions[0] = GovV3Helpers.buildAction(Deployments.INK);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
+    GovV3Helpers.createPermissionedPayloadCalldata(
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER,
+      actions
+    );
   }
 }
 
@@ -134,12 +290,15 @@ contract DeployLinea is LineaScript {
  */
 contract DeployPlasma is PlasmaScript {
   function run() external broadcast {
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.PLASMA);
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Plasma_RiskStewardsUpdate_20260331).creationCode
+    );
 
-    // register action at payloadsController
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.PLASMA);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -151,12 +310,53 @@ contract DeployPlasma is PlasmaScript {
  */
 contract DeployMantle is MantleScript {
   function run() external broadcast {
-    // compose action
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3Mantle_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(Deployments.MANTLE);
+    actions[1] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy MegaEth
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployMegaEth chain=megaeth
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/6342/run-latest.json
+ */
+contract DeployMegaEth is MegaEthScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3MegaEth_RiskStewardsUpdate_20260331).creationCode
+    );
+
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Deployments.MANTLE);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
 
-    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy XLayer
+ * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployXLayer chain=xlayer
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/196/run-latest.json
+ */
+contract DeployXLayer is XLayerScript {
+  function run() external broadcast {
+    address riskStewardsUpdate = GovV3Helpers.deployDeterministic(
+      type(AaveV3XLayer_RiskStewardsUpdate_20260331).creationCode
+    );
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(riskStewardsUpdate);
+
     GovV3Helpers.createPayload(actions);
   }
 }
@@ -167,75 +367,162 @@ contract DeployMantle is MantleScript {
  */
 contract CreateProposal is EthereumScript {
   function run() external {
-    // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](9);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](16);
 
-    // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
       actionsEthereum[0] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
       actionsEthereum[1] = GovV3Helpers.buildAction(Deployments.MAINNET_CORE);
+      actionsEthereum[2] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_RiskStewardsUpdate_20260331).creationCode
+      );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsPolygon[0] = GovV3Helpers.buildAction(Deployments.POLYGON);
+      actionsPolygon[1] = GovV3Helpers.buildAction(
+        type(AaveV3Polygon_RiskStewardsUpdate_20260331).creationCode
+      );
       payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsAvalanche[0] = GovV3Helpers.buildAction(Deployments.AVALANCHE);
+      actionsAvalanche[1] = GovV3Helpers.buildAction(
+        type(AaveV3Avalanche_RiskStewardsUpdate_20260331).creationCode
+      );
       payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsArbitrum[0] = GovV3Helpers.buildAction(Deployments.ARBITRUM);
+      actionsArbitrum[1] = GovV3Helpers.buildAction(
+        type(AaveV3Arbitrum_RiskStewardsUpdate_20260331).creationCode
+      );
       payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsOptimism[0] = GovV3Helpers.buildAction(
+        type(AaveV3Optimism_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[4] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsBase[0] = GovV3Helpers.buildAction(Deployments.BASE);
-      payloads[4] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      actionsBase[1] = GovV3Helpers.buildAction(
+        type(AaveV3Base_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsBNB[0] = GovV3Helpers.buildAction(Deployments.BNB);
-      payloads[5] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+      actionsBNB[1] = GovV3Helpers.buildAction(
+        type(AaveV3BNB_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[6] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsScroll[0] = GovV3Helpers.buildAction(
+        type(AaveV3Scroll_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[7] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsGnosis[0] = GovV3Helpers.buildAction(
+        type(AaveV3Gnosis_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[8] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsLinea[0] = GovV3Helpers.buildAction(Deployments.LINEA);
-      payloads[6] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+      actionsLinea[1] = GovV3Helpers.buildAction(
+        type(AaveV3Linea_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[9] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsSonic[0] = GovV3Helpers.buildAction(
+        type(AaveV3Sonic_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[10] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsCelo[0] = GovV3Helpers.buildAction(
+        type(AaveV3Celo_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[11] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsPlasma[0] = GovV3Helpers.buildAction(Deployments.PLASMA);
-      payloads[7] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      actionsPlasma[1] = GovV3Helpers.buildAction(
+        type(AaveV3Plasma_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[12] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsMantle = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsMantle = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsMantle[0] = GovV3Helpers.buildAction(Deployments.MANTLE);
-      payloads[8] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
+      actionsMantle[1] = GovV3Helpers.buildAction(
+        type(AaveV3Mantle_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[13] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
     }
 
-    // create proposal
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsMegaEth = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsMegaEth[0] = GovV3Helpers.buildAction(
+        type(AaveV3MegaEth_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[14] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsXLayer = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsXLayer[0] = GovV3Helpers.buildAction(
+        type(AaveV3XLayer_RiskStewardsUpdate_20260331).creationCode
+      );
+      payloads[15] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
+    }
+
     vm.startBroadcast();
     GovV3Helpers.createProposal(
       vm,
