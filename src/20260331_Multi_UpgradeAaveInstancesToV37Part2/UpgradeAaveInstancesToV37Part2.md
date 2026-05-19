@@ -34,6 +34,15 @@ After the cleanup, the payload upgrades the core protocol contracts:
 
 Part 2 is applied on the following networks: **Ethereum (Core, Lido), Polygon, Avalanche, Arbitrum, Base, BNB, Linea, Plasma and Mantle**.
 
+In addition to the v3.7 implementation upgrade, this proposal also updates the RiskSteward to a freshly deployed v3.7-compatible steward. The previously deployed stewards have their `RISK_ADMIN` role on the corresponding `ACL_MANAGER` revoked, and the newly deployed stewards get it granted, via:
+
+- `ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD)`
+- `ACL_MANAGER.removeRiskAdmin(OLD_RISK_STEWARD)`
+
+The new stewards are wired in across the following instances: **Ethereum (Core, Prime, EtherFi), Polygon, Avalanche, Arbitrum, Optimism, Base, BNB, Scroll, Gnosis, Linea, Sonic, Celo, Plasma, Mantle, MegaEth, XLayer**.
+
+Additionally, on the instances where GHO is listed as a reserve, GHO is blacklisted on the new RiskSteward via `setAddressRestricted(GHO_UNDERLYING, true)`, since GHO is managed by its own dedicated stewards. The instances where this is applied are: **Ethereum Core, Ethereum Prime, Arbitrum, Avalanche, Base, Gnosis, Mantle, Plasma and XLayer**.
+
 ## References
 
 - [Implementation](https://github.com/bgd-labs/protocol-v3.7-upgrade/blob/main/src/UpgradePayload.sol)

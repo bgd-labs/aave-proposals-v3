@@ -67,7 +67,6 @@ contract DeployPolygon is PolygonScript {
 /**
  * @dev Deploy Avalanche
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployAvalanche chain=avalanche
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/43114/run-latest.json
  */
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
@@ -87,7 +86,6 @@ contract DeployAvalanche is AvalancheScript {
 /**
  * @dev Deploy Arbitrum
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployArbitrum chain=arbitrum
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/42161/run-latest.json
  */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
@@ -107,7 +105,6 @@ contract DeployArbitrum is ArbitrumScript {
 /**
  * @dev Deploy Optimism
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployOptimism chain=optimism
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/10/run-latest.json
  */
 contract DeployOptimism is OptimismScript {
   function run() external broadcast {
@@ -126,7 +123,6 @@ contract DeployOptimism is OptimismScript {
 /**
  * @dev Deploy Base
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployBase chain=base
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/8453/run-latest.json
  */
 contract DeployBase is BaseScript {
   function run() external broadcast {
@@ -146,7 +142,6 @@ contract DeployBase is BaseScript {
 /**
  * @dev Deploy BNB
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployBNB chain=bnb
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/56/run-latest.json
  */
 contract DeployBNB is BNBScript {
   function run() external broadcast {
@@ -166,7 +161,6 @@ contract DeployBNB is BNBScript {
 /**
  * @dev Deploy Scroll
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployScroll chain=scroll
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/534352/run-latest.json
  */
 contract DeployScroll is ScrollScript {
   function run() external broadcast {
@@ -185,7 +179,6 @@ contract DeployScroll is ScrollScript {
 /**
  * @dev Deploy Gnosis
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployGnosis chain=gnosis
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/100/run-latest.json
  */
 contract DeployGnosis is GnosisScript {
   function run() external broadcast {
@@ -204,7 +197,6 @@ contract DeployGnosis is GnosisScript {
 /**
  * @dev Deploy Linea
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployLinea chain=linea
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/59144/run-latest.json
  */
 contract DeployLinea is LineaScript {
   function run() external broadcast {
@@ -224,7 +216,6 @@ contract DeployLinea is LineaScript {
 /**
  * @dev Deploy Sonic
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeploySonic chain=sonic
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/146/run-latest.json
  */
 contract DeploySonic is SonicScript {
   function run() external broadcast {
@@ -243,7 +234,6 @@ contract DeploySonic is SonicScript {
 /**
  * @dev Deploy Celo
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployCelo chain=celo
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/42220/run-latest.json
  */
 contract DeployCelo is CeloScript {
   function run() external broadcast {
@@ -262,7 +252,6 @@ contract DeployCelo is CeloScript {
 /**
  * @dev Deploy Ink
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployInk chain=ink
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/57073/run-latest.json
  */
 contract DeployInk is InkScript {
   function run() external broadcast {
@@ -286,7 +275,6 @@ contract DeployInk is InkScript {
 /**
  * @dev Deploy Plasma
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployPlasma chain=plasma
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/9745/run-latest.json
  */
 contract DeployPlasma is PlasmaScript {
   function run() external broadcast {
@@ -306,7 +294,6 @@ contract DeployPlasma is PlasmaScript {
 /**
  * @dev Deploy Mantle
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployMantle chain=mantle
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/5000/run-latest.json
  */
 contract DeployMantle is MantleScript {
   function run() external broadcast {
@@ -326,7 +313,6 @@ contract DeployMantle is MantleScript {
 /**
  * @dev Deploy MegaEth
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployMegaEth chain=megaeth
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/6342/run-latest.json
  */
 contract DeployMegaEth is MegaEthScript {
   function run() external broadcast {
@@ -345,7 +331,6 @@ contract DeployMegaEth is MegaEthScript {
 /**
  * @dev Deploy XLayer
  * deploy-command: make deploy-ledger contract=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/UpgradeAaveInstancesToV37Part2_20260331.s.sol:DeployXLayer chain=xlayer
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV37Part2_20260331.s.sol/196/run-latest.json
  */
 contract DeployXLayer is XLayerScript {
   function run() external broadcast {
