@@ -34,7 +34,7 @@ After the cleanup, the payload upgrades the core protocol contracts:
 
 Part 2 is applied on the following networks: **Ethereum (Core, Lido), Polygon, Avalanche, Arbitrum, Base, BNB, Linea, Plasma and Mantle**.
 
-In addition to the v3.7 implementation upgrade, this proposal also updates the RiskSteward to a freshly deployed v3.7-compatible steward. The previously deployed stewards have their `RISK_ADMIN` role on the corresponding `ACL_MANAGER` revoked, and the newly deployed stewards get it granted, via:
+Alongside the v3.7 implementation upgrade, this proposal also replaces the current RiskSteward with a newly deployed steward compatible with v3.7. As part of the transition, the existing stewards will have their RISK_ADMIN role revoked on the corresponding ACL_MANAGER, and the new stewards will be granted the role via:
 
 - `ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD)`
 - `ACL_MANAGER.removeRiskAdmin(OLD_RISK_STEWARD)`
