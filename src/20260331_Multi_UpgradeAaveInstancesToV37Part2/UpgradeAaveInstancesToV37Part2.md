@@ -43,6 +43,10 @@ The new stewards are wired in across the following instances: **Ethereum (Core, 
 
 Additionally, on the instances where GHO is listed as a reserve, GHO is blacklisted on the new RiskSteward via `setAddressRestricted(GHO_UNDERLYING, true)`, since GHO is managed by its own dedicated stewards. The instances where this is applied are: **Ethereum Core, Ethereum Prime, Arbitrum, Avalanche, Base, Gnosis, Mantle, Plasma and XLayer**.
 
+The original proposal has been reviewed by `Certora` at [be21f7354a7e378393515ffd4ebf2d60ca2fcea0](https://github.com/aave-dao/aave-proposals-v3/commit/be21f7354a7e378393515ffd4ebf2d60ca2fcea0).
+Since than it has been amended with the RiskSteward migration, which has been reviewed by `Certora` as well.
+The proposal diff can be found [here](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260331_Multi_UpgradeAaveInstancesToV37Part2/git.diff).
+
 ## References
 
 - [Implementation](https://github.com/bgd-labs/protocol-v3.7-upgrade/blob/main/src/UpgradePayload.sol)
