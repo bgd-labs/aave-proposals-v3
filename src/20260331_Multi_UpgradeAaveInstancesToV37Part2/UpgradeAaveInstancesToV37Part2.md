@@ -50,7 +50,6 @@ Additionally, on the instances where GHO is listed as a reserve, GHO is blacklis
 - [Diffs](https://github.com/bgd-labs/protocol-v3.7-upgrade/tree/main/diffs/code)
 - [Snapshot](https://snapshot.org/#/aavedao.eth/proposal/0x2cdd27eda22b36ddde2303c3d69859f74b330eb93661e632700d18c6095335a8)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-aave-v3-7/24075)
--
 
 ## Copyright
 
