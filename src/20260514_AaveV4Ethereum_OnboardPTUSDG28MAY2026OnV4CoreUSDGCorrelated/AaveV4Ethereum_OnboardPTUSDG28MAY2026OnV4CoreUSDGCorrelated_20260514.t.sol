@@ -3,20 +3,19 @@ pragma solidity ^0.8.0;
 
 import {Vm} from 'forge-std/Vm.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumPositionManagers, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IAaveOracle, IAccessManagerEnumerable, IHub, ISpoke, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4EthereumSpokeHelpers, AaveV4EthereumTokenizationSpokeHelpers} from './dependencies/v4/AaveV4EthereumHelpers.sol';
-import {Types} from './dependencies/v4/Types.sol';
+import {Types} from 'aave-helpers/src/dependencies/v4/Types.sol';
 import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
 import {AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514.sol';
-import {ProtocolV4TestBase} from './dependencies/ProtocolV4TestBase.sol';
+import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
 
 /**
  * @dev Test for AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514
@@ -55,23 +54,25 @@ contract AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514_Te
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    ISpoke[] memory existingSpokes = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    ISpoke[] memory existingSpokes = AaveV4EthereumGetters.getAllSpokes();
     ISpoke[] memory spokes = new ISpoke[](existingSpokes.length);
     uint256 j;
     for (uint256 i; i < existingSpokes.length; ++i) {
-      // KELP_E_SPOKE has no usable collateral at this fork block, breaking the V4 e2e harness.
-      if (existingSpokes[i] == AaveV4EthereumSpokes.KELP_E_SPOKE) continue;
+      // KELP_ESPOKE has no usable collateral at this fork block, breaking the V4 e2e harness.
+      if (existingSpokes[i] == AaveV4EthereumSpokes.KELP_ESPOKE) continue;
       spokes[j++] = existingSpokes[i];
     }
     spokes[j] = USDG_CORRELATED_SPOKE;
 
-    address[] memory existingTokSpokes = AaveV4EthereumTokenizationSpokeHelpers
-      .getTokenizationSpokes();
-    address[] memory tokenizationSpokes = new address[](existingTokSpokes.length + 1);
+    ITokenizationSpoke[] memory existingTokSpokes = AaveV4EthereumGetters
+      .getAllTokenizationSpokes();
+    ITokenizationSpoke[] memory tokenizationSpokes = new ITokenizationSpoke[](
+      existingTokSpokes.length + 1
+    );
     for (uint256 i; i < existingTokSpokes.length; ++i) {
       tokenizationSpokes[i] = existingTokSpokes[i];
     }
-    tokenizationSpokes[existingTokSpokes.length] = _discoverTokenizationSpoke();
+    tokenizationSpokes[existingTokSpokes.length] = ITokenizationSpoke(_discoverTokenizationSpoke());
 
     defaultTest({
       reportName: 'AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514',
@@ -315,7 +316,7 @@ contract AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514_Te
     assertFalse(usdgCfg.receiveSharesEnabled);
     assertEq(
       IAaveOracle(USDG_CORRELATED_SPOKE.ORACLE()).getReserveSource(usdgReserveId),
-      AaveV4EthereumSpokePriceFeeds.MAIN_USDG_PRICE_FEED
+      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED
     );
   }
 

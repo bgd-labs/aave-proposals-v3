@@ -9,7 +9,7 @@ import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
-import {AaveV4PayloadEthereum} from './dependencies/AaveV4PayloadEthereum.sol';
+import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 
 /**
  * @title Onboard PT-USDG-28MAY2026 on V4 Core / USDG Correlated
@@ -203,7 +203,7 @@ contract AaveV4Ethereum_OnboardPTUSDG28MAY2026OnV4CoreUSDGCorrelated_20260514 is
       spoke: address(USDG_CORRELATED_SPOKE),
       hub: address(AaveV4EthereumHubs.CORE_HUB),
       underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
-      priceSource: AaveV4EthereumSpokePriceFeeds.MAIN_USDG_PRICE_FEED,
+      priceSource: AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: RESERVE_COLLATERAL_RISK,
         paused: false,
