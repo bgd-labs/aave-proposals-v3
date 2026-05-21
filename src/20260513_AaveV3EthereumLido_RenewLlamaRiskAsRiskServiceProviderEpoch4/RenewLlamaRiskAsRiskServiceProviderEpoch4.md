@@ -35,11 +35,11 @@ LlamaRisk is currently a team of 16 contributors and expects to scale to 20+ con
 
 The approved compensation structure is:
 
-| Component | Amount | Payment Method |
-| --- | ---: | --- |
-| Upfront payment | 1,500,000 GHO | Immediate payment |
+| Component        |        Amount | Payment Method              |
+| ---------------- | ------------: | --------------------------- |
+| Upfront payment  | 1,500,000 GHO | Immediate payment           |
 | Streamed payment | 1,500,000 GHO | Linear stream over one year |
-| Streamed payment | 5,000 AAVE | Linear stream over one year |
+| Streamed payment |    5,000 AAVE | Linear stream over one year |
 
 The current GHO stream with ID `100071` will be terminated.
 
