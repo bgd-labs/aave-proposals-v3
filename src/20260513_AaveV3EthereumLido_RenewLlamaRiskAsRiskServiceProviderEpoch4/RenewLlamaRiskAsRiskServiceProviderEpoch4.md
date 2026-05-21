@@ -55,8 +55,6 @@ Under this engagement, LlamaRisk will continue supporting Aave risk operations a
 
 The full scope, rationale, and budget were discussed through the ARFC process and approved by Snapshot. This AIP implements the approved renewal terms.
 
-## Motivation
-
 ## Specification
 
 The payload performs the following actions on Ethereum mainnet:
