@@ -1,11 +1,11 @@
 import {checkbox, select} from '@inquirer/prompts';
-import {ENGINE_FLAGS, PoolIdentifier} from './types';
+import {ENGINE_FLAGS, MarketIdentifier} from './types';
 import {getEModes} from './common';
 
 // TRANSLATIONS
-function translateEModeToEModeLib(value: string, pool: PoolIdentifier) {
+function translateEModeToEModeLib(value: string, market: MarketIdentifier) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
-  return `${pool}EModes.${value}`;
+  return `${market}EModes.${value}`;
 }
 
 // PROMPTS
@@ -25,37 +25,37 @@ export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 export type NumberInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
 interface EModeSelectPrompt<T extends boolean> extends GenericPrompt<T> {
-  pool: PoolIdentifier;
+  market: MarketIdentifier;
 }
 
 export async function eModeSelect<T extends boolean>({
   message,
   disableKeepCurrent,
-  pool,
+  market,
 }: EModeSelectPrompt<T>) {
-  const eModes = getEModes(pool as any);
+  const eModes = getEModes(market as any);
   if (eModes.length != 0) {
     const eMode = await select({
       message,
       choices: eModes,
     });
-    return translateEModeToEModeLib(eMode, pool);
+    return translateEModeToEModeLib(eMode, market);
   } else {
-    console.log('No e-mode category active on the current pool');
+    console.log('No e-mode category active on the current market');
     return '0';
   }
 }
 
-export async function eModesSelect<T extends boolean>({message, pool}: EModeSelectPrompt<T>) {
-  const eModes = getEModes(pool as any);
+export async function eModesSelect<T extends boolean>({message, market}: EModeSelectPrompt<T>) {
+  const eModes = getEModes(market as any);
   if (eModes.length != 0) {
     const values = await checkbox({
       message,
       choices: eModes,
       required: true,
     });
-    return values.map((mode) => translateEModeToEModeLib(mode, pool));
+    return values.map((mode) => translateEModeToEModeLib(mode, market));
   } else {
-    console.log('No e-mode category active on the current pool');
+    console.log('No e-mode category active on the current market');
   }
 }

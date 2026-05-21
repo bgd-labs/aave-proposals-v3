@@ -1,4 +1,4 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {eModesSelect} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {stringOrKeepCurrent} from '../prompts/stringPrompt';
@@ -16,11 +16,11 @@ async function fetchEmodeCategoryUpdate<T extends boolean>(
   };
 }
 
-async function subCli(pool: PoolIdentifier) {
+async function subCli(market: MarketIdentifier) {
   const answers: EmodeUpdates = [];
   const eModeCategories = await eModesSelect({
     message: 'Select the eModes you want to amend',
-    pool,
+    market,
   });
 
   if (eModeCategories) {
@@ -38,11 +38,11 @@ type EmodeUpdates = EModeCategoryUpdate[];
 export const eModeUpdates: FeatureModule<EmodeUpdates> = {
   value: FEATURE.EMODES_UPDATES,
   description: 'eModeCategoriesUpdates (altering eModes)',
-  async cli({pool}) {
-    const response: EmodeUpdates = await subCli(pool);
+  async cli({market}) {
+    const response: EmodeUpdates = await subCli(market);
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [

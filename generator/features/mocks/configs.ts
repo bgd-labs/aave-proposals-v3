@@ -2,7 +2,7 @@ import {Options} from '../../types';
 import {EModeCategoryUpdate, Listing, PriceFeedUpdate, RateStrategyUpdate} from '../types';
 
 export const MOCK_OPTIONS: Options = {
-  pools: ['AaveV3Ethereum'],
+  markets: ['AaveV3Ethereum'],
   title: 'test',
   shortName: 'Test',
   date: '20231023',

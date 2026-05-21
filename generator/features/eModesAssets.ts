@@ -1,4 +1,4 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {eModeSelect} from '../prompts';
 import {AssetEModeUpdate} from './types';
 import {
@@ -8,11 +8,11 @@ import {
 } from '../prompts/assetsSelectPrompt';
 import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
 
-async function subCli(pool: PoolIdentifier, additionalAssets: string[]) {
-  console.log(`Fetching information for Emode assets on ${pool}`);
+async function subCli(market: MarketIdentifier, additionalAssets: string[]) {
+  console.log(`Fetching information for Emode assets on ${market}`);
   const assets = await assetsSelectPrompt({
     message: 'Select the assets you want to amend eMode for',
-    pool,
+    market,
     additionalAssets,
   });
   const answers: EmodeAssetUpdates = [];
@@ -23,7 +23,7 @@ async function subCli(pool: PoolIdentifier, additionalAssets: string[]) {
       eModeCategory: await eModeSelect({
         message: `Select the eMode you want to assign to ${asset}`,
         disableKeepCurrent: true,
-        pool,
+        market,
       }),
       collateral: await boolPrompt({
         message: `Should the asset ${asset} be enabled as collateral inside the EMode?`,
@@ -44,11 +44,11 @@ type EmodeAssetUpdates = AssetEModeUpdate[];
 export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
   value: FEATURE.EMODES_ASSETS,
   description: 'assetsEModeUpdates (setting eMode for an asset)',
-  async cli({pool, configs}) {
-    const response: EmodeAssetUpdates = await subCli(pool, getNewListingSymbols(configs));
+  async cli({market, configs}) {
+    const response: EmodeAssetUpdates = await subCli(market, getNewListingSymbols(configs));
     return response;
   },
-  build({pool, cfg, configs}) {
+  build({market, cfg, configs}) {
     const newListings = new Set(getNewListingSymbols(configs));
     const response: CodeArtifact = {
       code: {
@@ -61,7 +61,7 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `assetEModeUpdates[${ix}] = IAaveV3ConfigEngine.AssetEModeUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool, newListings)},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market, newListings)},
                eModeCategory: ${cfg.eModeCategory},
                borrowable: ${translateJsBoolToSol(cfg.borrowable)},
                collateral: ${translateJsBoolToSol(cfg.collateral)},

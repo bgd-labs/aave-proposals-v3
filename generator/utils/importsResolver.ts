@@ -3,7 +3,7 @@
  * Therefore instead of maintaining imports, we just extract them from the generated code instead.
  */
 
-import {POOLS} from '../types';
+import {MARKETS} from '../types';
 
 const GovernanceImports = [
   'GovV3Helpers',
@@ -19,27 +19,31 @@ const GovernanceImports = [
 function generateAddressBookImports(code: string) {
   const imports: string[] = [];
   let root = '';
-  // lookbehind for I to not match interfaces like IAaveV3ConfigEngine
-  const addressBookMatch = code.match(/(?<!I)(AaveV[2..3][A-Za-z]+)(?<!(Assets)|(EModes))\b\./);
-  if (addressBookMatch && (POOLS as readonly string[]).includes(addressBookMatch[1])) {
-    imports.push(addressBookMatch[1]);
-    root = addressBookMatch[1];
-  }
-  const assetsMatch = code.match(/(AaveV[2..3][A-Za-z]+)Assets\./);
-  if (assetsMatch) {
-    imports.push(assetsMatch[1] + 'Assets');
-    root = assetsMatch[1];
-  }
-  const eModesMatch = code.match(/(AaveV[2..3][A-Za-z]+)EModes\./);
-  if (eModesMatch) {
-    imports.push(eModesMatch[1] + 'EModes');
-    root = eModesMatch[1];
+  const V4_SUFFIXES = [
+    'Assets',
+    'EModes',
+    'Hubs',
+    'Spokes',
+    'SpokePriceFeeds',
+    'TokenizationSpokes',
+    'PositionManagers',
+    'ExternalLibraries',
+    'Getters',
+  ];
+  const suffixAlt = V4_SUFFIXES.join('|');
+  const addressBookRe = new RegExp(`(?<!I)(AaveV[234][A-Za-z]+?)(?:${suffixAlt})?\\.`, 'g');
+  for (const m of code.matchAll(addressBookRe)) {
+    const base = m[1];
+    if (!(MARKETS as readonly string[]).includes(base)) continue;
+    const full = m[0].slice(0, -1);
+    if (!imports.includes(full)) imports.push(full);
+    root = base;
   }
   if (imports.length > 0) return `import {${imports}} from 'aave-address-book/${root}.sol';\n`;
 }
 
 function generateEngineImport(code: string) {
-  const matches = [...code.matchAll(/Aave(V[2..3])Payload([A-Za-z]+)/g)].flat();
+  const matches = [...code.matchAll(/Aave(V[234])Payload([A-Za-z]+)/g)].flat();
   if (matches.length > 0)
     return `import {${matches[0]}} from 'aave-helpers/src/${matches[1].toLowerCase()}-config-engine/${
       matches[0]
@@ -78,20 +82,41 @@ export function prefixWithImports(code: string) {
   if (configEngineImport) {
     imports += configEngineImport;
   }
-  // shared config engine imports
-  if (findMatch(code, 'EngineFlags')) {
+  if (findMatch(code, 'IAaveV4ConfigEngine')) {
+    imports += `import {IAaveV4ConfigEngine} from 'aave-address-book/AaveV4.sol';\n`;
+    imports += `import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';\n`;
+  } else if (findMatch(code, 'EngineFlags')) {
     imports += `import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';\n`;
   }
-  // v3 config engine imports
   if (findMatch(code, 'IAaveV3ConfigEngine')) {
     imports += `import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';\n`;
   }
-  // v2 config engine imports
   if (findMatch(code, 'IAaveV2ConfigEngine')) {
     imports += `import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';\n`;
   }
   if (findMatch(code, 'IV2RateStrategyFactory')) {
     imports += `import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';\n`;
+  }
+  if (findMatch(code, '\\bIHub\\b')) {
+    imports += `import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';\n`;
+  }
+  if (findMatch(code, '\\bISpoke\\b')) {
+    imports += `import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';\n`;
+  }
+  if (findMatch(code, '\\bIHubConfigurator\\b')) {
+    imports += `import {IHubConfigurator} from 'aave-v4/hub/interfaces/IHubConfigurator.sol';\n`;
+  }
+  if (findMatch(code, '\\bISpokeConfigurator\\b')) {
+    imports += `import {ISpokeConfigurator} from 'aave-v4/spoke/interfaces/ISpokeConfigurator.sol';\n`;
+  }
+  if (findMatch(code, '\\bIAssetInterestRateStrategy\\b')) {
+    imports += `import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';\n`;
+  }
+  if (findMatch(code, '\\bIAccessManager\\b')) {
+    imports += `import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';\n`;
+  }
+  if (findMatch(code, '\\bIPositionManagerBase\\b')) {
+    imports += `import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';\n`;
   }
   // common imports
   if (findMatch(code, 'IERC20')) {

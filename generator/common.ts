@@ -1,5 +1,12 @@
 import * as addressBook from '@aave-dao/aave-address-book';
-import {Options, PoolIdentifier, PoolIdentifierV3, V2_POOLS, VOTING_NETWORK} from './types';
+import {
+  Options,
+  MarketIdentifier,
+  MarketIdentifierV3,
+  V2_MARKETS,
+  V4_MARKETS,
+  VOTING_NETWORK,
+} from './types';
 import {
   arbitrum,
   avalanche,
@@ -50,15 +57,15 @@ export const AVAILABLE_CHAINS = [
   'XLayer',
 ] as const;
 
-export function getAssets(pool: PoolIdentifier): string[] {
-  const assets = addressBook[pool].ASSETS;
+export function getAssets(market: MarketIdentifier): string[] {
+  const assets = addressBook[market].ASSETS;
   return Object.keys(assets);
 }
 
-export function getEModes(pool: PoolIdentifierV3): {value: string; id: number}[] {
-  return Object.keys(addressBook[pool].E_MODES).map((key) => ({
+export function getEModes(market: MarketIdentifierV3): {value: string; id: number}[] {
+  return Object.keys(addressBook[market].E_MODES).map((key) => ({
     // map the complex type to a string as used in the sol libs
-    value: addressBook[pool].E_MODES[key].label
+    value: addressBook[market].E_MODES[key].label
       .replace(/\s*\/\s*/g, '__') // a / b
       .replace(/[^\w\ ]/gi, ' ') //  replaces all non-alphanumeric with empty string
       .replace(/ +/gi, '_'), //  Convert spaces to dashes
@@ -66,21 +73,27 @@ export function getEModes(pool: PoolIdentifierV3): {value: string; id: number}[]
   }));
 }
 
-export function isV2Pool(pool: PoolIdentifier) {
-  return V2_POOLS.includes(pool as any);
+export function isV2Market(market: MarketIdentifier) {
+  return V2_MARKETS.includes(market as any);
 }
 
-export function isWhitelabelPool(pool: PoolIdentifier) {
-  return pool.toLowerCase().includes('whitelabel');
+export function isV4Market(market: MarketIdentifier) {
+  return V4_MARKETS.includes(market as any);
 }
 
-export function getVersion(pool: PoolIdentifier) {
-  return isV2Pool(pool) ? 'V2' : 'V3';
+export function isWhitelabelMarket(market: MarketIdentifier) {
+  return market.toLowerCase().includes('whitelabel');
 }
 
-export function getPoolChain(pool: PoolIdentifier) {
-  const chain = AVAILABLE_CHAINS.find((chain) => pool.indexOf(chain) !== -1);
-  if (!chain) throw new Error('cannot find chain for pool');
+export function getVersion(market: MarketIdentifier) {
+  if (isV2Market(market)) return 'V2';
+  if (isV4Market(market)) return 'V4';
+  return 'V3';
+}
+
+export function getMarketChain(market: MarketIdentifier) {
+  const chain = AVAILABLE_CHAINS.find((chain) => market.indexOf(chain) !== -1);
+  if (!chain) throw new Error('cannot find chain for market');
   return chain;
 }
 
@@ -116,7 +129,7 @@ export function getVotingPortal(votingNetwork?: VOTING_NETWORK) {
  * @returns
  */
 export function generateFolderName(options: Options) {
-  return `${options.date}_${options.pools.length === 1 ? options.pools[0] : 'Multi'}_${
+  return `${options.date}_${options.markets.length === 1 ? options.markets[0] : 'Multi'}_${
     options.shortName
   }`;
 }
@@ -127,8 +140,8 @@ export function generateFolderName(options: Options) {
  * @param {*} chain
  * @returns
  */
-export function generateContractName(options: Options, pool?: PoolIdentifier) {
-  let name = pool ? `${pool}_` : '';
+export function generateContractName(options: Options, market?: MarketIdentifier) {
+  let name = market ? `${market}_` : '';
   name += `${options.shortName}`;
   name += `_${options.date}`;
   return name;

@@ -18,11 +18,11 @@ async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
 export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
   value: FEATURE.PRICE_FEEDS_UPDATE,
   description: 'PriceFeedsUpdates (replacing priceFeeds)',
-  async cli({pool}) {
+  async cli({market}) {
     const response: PriceFeedUpdate[] = [];
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
     for (const asset of assets) {
       console.log(`collecting info for ${asset}`);
@@ -30,7 +30,7 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -42,7 +42,7 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `priceFeedUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                priceFeed: ${translateJsAddressToSol(cfg.priceFeed)}
              });`,
             )

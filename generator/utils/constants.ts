@@ -1,5 +1,5 @@
-import {isWhitelabelPool} from '../common';
-import {PoolIdentifier} from '../types';
+import {isWhitelabelMarket} from '../common';
+import {MarketIdentifier} from '../types';
 
 export function prefixWithPragma(code: string) {
   return (
@@ -8,9 +8,9 @@ export function prefixWithPragma(code: string) {
   );
 }
 
-export function testExecuteProposal(pool: PoolIdentifier) {
-  if (!isWhitelabelPool(pool)) {
+export function testExecuteProposal(market: MarketIdentifier) {
+  if (!isWhitelabelMarket(market)) {
     return `GovV3Helpers.executePayload(vm,address(proposal));`;
   }
-  return `executePayload(vm,address(proposal),${pool}.POOL);`;
+  return `executePayload(vm,address(proposal),${market}.POOL);`;
 }

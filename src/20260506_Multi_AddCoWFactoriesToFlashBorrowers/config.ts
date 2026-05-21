@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: [
+    markets: [
       'AaveV3Ethereum',
       'AaveV3Polygon',
       'AaveV3Avalanche',
@@ -21,7 +21,7 @@ export const config: ConfigFile = {
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },
-  poolOptions: {
+  marketOptions: {
     AaveV3Ethereum: {
       configs: {FLASH_BORROWER: {address: '0xdeCC46a4b09162F5369c5C80383AAa9159bCf192'}},
       cache: {blockNumber: 25035497},

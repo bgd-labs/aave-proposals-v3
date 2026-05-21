@@ -40,19 +40,19 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
   value: FEATURE.BORROWS_UPDATE,
   description:
     'BorrowsUpdates (enabledToBorrow, flashloanable, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
-  async cli({pool}) {
+  async cli({market}) {
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
     const response: BorrowUpdates = [];
     for (const asset of assets) {
-      console.log(`Fetching information for BorrowUpdates on ${pool} ${asset}`);
+      console.log(`Fetching information for BorrowUpdates on ${market} ${asset}`);
       response.push({...(await fetchBorrowUpdate(false)), asset});
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -64,7 +64,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
                flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
                borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
