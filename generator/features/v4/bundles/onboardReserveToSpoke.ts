@@ -5,14 +5,12 @@ import {addressPrompt} from '../../../prompts/addressPrompt';
 import {
   hubKeys,
   spokeKeys,
-  assetKeys,
   hubLibAccessor,
   spokeLibAccessor,
-  assetLibAccessor,
   positionManagerKeys,
   positionManagerLibAccessor,
-  getV4Book,
 } from '../marketBook';
+import {selectAsset} from '../assetSelect';
 import {
   readSpokeReserves,
   isReserveListedOnSpoke,
@@ -61,7 +59,7 @@ async function liquidationPrompt(spokeAcc: string): Promise<V4SpokeLiquidationCo
 async function hubAssetListingPrompt(
   m: MarketIdentifierV4,
   hub: string,
-  asset: string,
+  underlying: string,
 ): Promise<V4HubAssetListing> {
   const feeReceiver = await addressPrompt({
     message: 'Fee receiver (Spoke address)',
@@ -91,7 +89,7 @@ async function hubAssetListingPrompt(
   return {
     hubLib: hubLibAccessor(m, hub),
     hub,
-    underlying: assetLibAccessor(m, asset),
+    underlying,
     feeReceiver: feeReceiver as `0x${string}`,
     liquidityFee,
     irStrategy: irStrategy as `0x${string}`,
@@ -111,7 +109,6 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
     'Bundle: onboard a reserve to a Spoke (full flow: hub registration, listing, liquidation, position manager)',
   async cli({market, cache}) {
     const m = market as MarketIdentifierV4;
-    const book = getV4Book(m);
     const hubAssetListings: V4HubAssetListing[] = [];
     const listings: V4SpokeReserveListing[] = [];
     const updates: V4SpokeReserveConfigUpdate[] = [];
@@ -128,18 +125,15 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
         message: 'Select spoke',
         choices: spokeKeys(m).map((k) => ({name: k, value: k})),
       });
-      const asset = await select({
-        message: 'Select asset',
-        choices: assetKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const underlying = book.ASSETS[asset].UNDERLYING as `0x${string}`;
+      const asset = await selectAsset(m);
+      const underlying = asset.underlying;
 
       const reserves = await readSpokeReserves(m, spoke, cache.blockNumber);
       const existing = isReserveListedOnSpoke(reserves, underlying);
 
       if (existing) {
         console.log(
-          `${asset} is already listed on ${spoke} (reserveId=${existing.reserveId}). Falling back to config update.`,
+          `${asset.label} is already listed on ${spoke} (reserveId=${existing.reserveId}). Falling back to config update.`,
         );
         const wantsUpdate = await confirm({
           message: 'Apply a reserve config update?',
@@ -150,10 +144,10 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
             spokeLib: spokeLibAccessor(m, spoke),
             spoke: spokeLibAccessor(m, spoke),
             hub: hubLibAccessor(m, hub),
-            underlying: assetLibAccessor(m, asset),
+            underlying: asset.expr,
             priceSource: keepCurrentAddress(),
             collateralRisk: keepCurrent(),
-            paused: existing.paused ? keepCurrent() : keepCurrent(),
+            paused: existing.paused ? disabled() : keepCurrent(),
             frozen: existing.frozen ? disabled() : keepCurrent(),
             borrowable: existing.borrowable ? keepCurrent() : enabled(),
             receiveSharesEnabled: keepCurrent(),
@@ -164,12 +158,12 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
         const onHub = isAssetListedOnHub(hubAssets, underlying);
         if (!onHub) {
           console.log(
-            `${asset} is not registered on hub ${hub}. Collecting hub asset listing parameters first.`,
+            `${asset.label} is not registered on hub ${hub}. Collecting hub asset listing parameters first.`,
           );
-          hubAssetListings.push(await hubAssetListingPrompt(m, hub, asset));
+          hubAssetListings.push(await hubAssetListingPrompt(m, hub, asset.expr));
         }
         const registerOnHub = await confirm({
-          message: `Register ${asset} on hub ${hub} for spoke ${spoke}?`,
+          message: `Register ${asset.label} on hub ${hub} for spoke ${spoke}?`,
           default: true,
         });
         if (registerOnHub) {
@@ -179,15 +173,18 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
             spoke: spokeLibAccessor(m, spoke),
             assets: [
               {
-                underlying: assetLibAccessor(m, asset),
+                underlying: asset.expr,
                 addCap:
-                  (await numberPrompt({message: `${asset} addCap (uint40, whole units)`})) || '0',
+                  (await numberPrompt({message: `${asset.label} addCap (uint40, whole units)`})) ||
+                  '0',
                 drawCap:
-                  (await numberPrompt({message: `${asset} drawCap (uint40, whole units)`})) || '0',
+                  (await numberPrompt({message: `${asset.label} drawCap (uint40, whole units)`})) ||
+                  '0',
                 riskPremiumThreshold:
-                  (await numberPrompt({message: `${asset} riskPremiumThreshold (bps)`})) || '0',
-                active: await confirm({message: `${asset} active?`, default: true}),
-                halted: await confirm({message: `${asset} halted?`, default: false}),
+                  (await numberPrompt({message: `${asset.label} riskPremiumThreshold (bps)`})) ||
+                  '0',
+                active: await confirm({message: `${asset.label} active?`, default: true}),
+                halted: await confirm({message: `${asset.label} halted?`, default: false}),
               },
             ],
           });
@@ -197,7 +194,7 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
           spokeLib: spokeLibAccessor(m, spoke),
           spoke: spokeLibAccessor(m, spoke),
           hub: hubLibAccessor(m, hub),
-          underlying: assetLibAccessor(m, asset),
+          underlying: asset.expr,
           priceSource: priceSource as `0x${string}`,
           config: {
             collateralRisk: (await numberPrompt({message: 'collateralRisk (bps)'})) || '0',

@@ -21,7 +21,7 @@ import {
   disabled,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, solAddress} from '../testHelpers';
+import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumberPrompt(message: string): Promise<Sentinel> {
   const value = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -88,7 +88,7 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.SpokeConfigUpdate({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
-        underlying: ${solAddress(c.underlying)},
+        underlying: ${checksumAddress(c.underlying)},
         spoke: address(${c.spoke}),
         addCap: ${renderSentinel(c.addCap)},
         drawCap: ${renderSentinel(c.drawCap)},
@@ -130,7 +130,7 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       return `function test_hubSpokeConfigUpdate_${hubKey}_${spokeKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(${c.spoke}));
         ${asserts.join('\n        ')}
       }`;

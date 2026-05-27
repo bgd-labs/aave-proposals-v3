@@ -10,7 +10,7 @@ import {
   spokeLibAccessor,
   assetLibAccessor,
 } from '../marketBook';
-import {shortKey, solAddress} from '../testHelpers';
+import {shortKey, checksumAddress} from '../testHelpers';
 
 export const spokeDynamicReserveConfigAddition: FeatureModule<
   V4SpokeDynamicReserveConfigAddition[]
@@ -57,7 +57,7 @@ export const spokeDynamicReserveConfigAddition: FeatureModule<
         spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
-        underlying: ${solAddress(c.underlying)},
+        underlying: ${checksumAddress(c.underlying)},
         dynamicConfig: ISpoke.DynamicReserveConfig({
           collateralFactor: ${c.dynamicConfig.collateralFactor},
           maxLiquidationBonus: ${c.dynamicConfig.maxLiquidationBonus},
@@ -72,7 +72,7 @@ export const spokeDynamicReserveConfigAddition: FeatureModule<
         GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke spoke = ISpoke(address(${c.spoke}));
         IHub hub = IHub(address(${c.hub}));
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 reserveId = spoke.getReserveId(address(hub), assetId);
         ISpoke.Reserve memory reserve = spoke.getReserve(reserveId);
         ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, reserve.dynamicConfigKey);

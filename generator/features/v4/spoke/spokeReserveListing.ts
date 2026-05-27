@@ -3,24 +3,14 @@ import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../..
 import {V4SpokeReserveListing} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-} from '../marketBook';
+import {hubKeys, spokeKeys, hubLibAccessor, spokeLibAccessor} from '../marketBook';
 import {buildAddressConstant} from '../constants';
-import {solAddress} from '../testHelpers';
+import {assetIdentifier, checksumAddress} from '../testHelpers';
+import {selectAsset} from '../assetSelect';
 
-function priceFeedConstantName(spokeAccessor: string, assetAccessor: string): string {
+function priceFeedConstantName(spokeAccessor: string, underlying: string): string {
   const spokeKey = spokeAccessor.split('.').pop()!;
-  const assetKey = assetAccessor
-    .split('.')
-    .pop()!
-    .replace(/_UNDERLYING$/, '');
-  return `${spokeKey}_${assetKey}_PRICE_FEED`;
+  return `${spokeKey}_${assetIdentifier(underlying)}_PRICE_FEED`;
 }
 
 export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
@@ -39,16 +29,13 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         message: 'Select spoke',
         choices: spokeKeys(m).map((k) => ({name: k, value: k})),
       });
-      const asset = await select({
-        message: 'Select asset',
-        choices: assetKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const asset = await selectAsset(m);
       const priceSource = await addressPrompt({message: 'Price source', required: true});
       response.push({
         spokeLib: spokeLibAccessor(m, spoke),
         spoke: spokeLibAccessor(m, spoke),
         hub: hubLibAccessor(m, hub),
-        underlying: assetLibAccessor(m, asset),
+        underlying: asset.expr,
         priceSource: priceSource as `0x${string}`,
         config: {
           collateralRisk: (await numberPrompt({message: 'collateralRisk (bps, uint24)'})) || '0',
@@ -78,7 +65,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
-        underlying: ${solAddress(c.underlying)},
+        underlying: ${checksumAddress(c.underlying)},
         priceSource: ${priceFeedConstantName(c.spoke, c.underlying)},
         config: ISpoke.ReserveConfig({
           collateralRisk: uint24(${c.config.collateralRisk}),
@@ -96,19 +83,16 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
     );
     const testFns = cfg.map((c) => {
       const spokeKey = c.spoke.split('.').pop()!;
-      const assetKey = c.underlying
-        .split('.')
-        .pop()!
-        .replace(/_UNDERLYING$/, '');
+      const assetKey = assetIdentifier(c.underlying);
       return `function test_spokeReserveListing_${spokeKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke spoke = ISpoke(address(${c.spoke}));
         IHub hub = IHub(address(${c.hub}));
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 reserveId = spoke.getReserveId(address(hub), assetId);
         ISpoke.Reserve memory reserve = spoke.getReserve(reserveId);
         ISpoke.ReserveConfig memory cfg = spoke.getReserveConfig(reserveId);
-        assertEq(reserve.underlying, ${solAddress(c.underlying)}, 'underlying mismatch');
+        assertEq(reserve.underlying, ${checksumAddress(c.underlying)}, 'underlying mismatch');
         assertEq(uint256(cfg.collateralRisk), uint256(${c.config.collateralRisk}), 'collateralRisk mismatch');
         assertEq(cfg.paused, ${c.config.paused}, 'paused mismatch');
         assertEq(cfg.frozen, ${c.config.frozen}, 'frozen mismatch');

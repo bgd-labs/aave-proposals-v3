@@ -103,12 +103,6 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, '\\bISpoke\\b')) {
     imports += `import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';\n`;
   }
-  if (findMatch(code, '\\bIHubConfigurator\\b')) {
-    imports += `import {IHubConfigurator} from 'aave-v4/hub/interfaces/IHubConfigurator.sol';\n`;
-  }
-  if (findMatch(code, '\\bISpokeConfigurator\\b')) {
-    imports += `import {ISpokeConfigurator} from 'aave-v4/spoke/interfaces/ISpokeConfigurator.sol';\n`;
-  }
   if (findMatch(code, '\\bIAssetInterestRateStrategy\\b')) {
     imports += `import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';\n`;
   }

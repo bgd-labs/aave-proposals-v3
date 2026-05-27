@@ -12,7 +12,7 @@ import {
 } from '../marketBook';
 import {keepCurrent, literal, renderSentinel} from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, solAddress} from '../testHelpers';
+import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -61,7 +61,7 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
         spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
-        underlying: ${solAddress(c.underlying)},
+        underlying: ${checksumAddress(c.underlying)},
         dynamicConfigKey: ${c.dynamicConfigKey},
         collateralFactor: ${renderSentinel(c.collateralFactor)},
         maxLiquidationBonus: ${renderSentinel(c.maxLiquidationBonus)},
@@ -91,7 +91,7 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
         GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke spoke = ISpoke(address(${c.spoke}));
         IHub hub = IHub(address(${c.hub}));
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 reserveId = spoke.getReserveId(address(hub), assetId);
         ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(${c.dynamicConfigKey}));
         ${asserts.join('\n        ')}

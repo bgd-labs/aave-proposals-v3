@@ -3,8 +3,7 @@ import {
   generateFolderName,
   getChainAlias,
   getMarketChain,
-  isV2Market,
-  isV4Market,
+  getTestBase,
   isWhitelabelMarket,
 } from '../common';
 import {Options, MarketConfig, MarketIdentifier} from '../types';
@@ -19,12 +18,7 @@ export const testTemplate = (
   const folderName = generateFolderName(options);
   const chain = getMarketChain(market);
   const contractName = generateContractName(options, market);
-  const v4 = isV4Market(market);
-  const testBase = v4
-    ? 'ProtocolV4TestBase'
-    : isV2Market(market)
-      ? 'ProtocolV2TestBase'
-      : 'ProtocolV3TestBase';
+  const {v4, testBase} = getTestBase(market);
 
   const functions = marketConfig.artifacts
     .map((artifact) => artifact.test?.fn)

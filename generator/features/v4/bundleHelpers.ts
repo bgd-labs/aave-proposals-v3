@@ -1,4 +1,30 @@
-import {CodeArtifact} from '../../types';
+import {CodeArtifact, MarketConfig, V4GetterEntry} from '../../types';
+
+export function mergeV4Getters(artifacts: MarketConfig['artifacts']): string {
+  const merged: Record<string, V4GetterEntry> = {};
+  for (const artifact of artifacts) {
+    const getters = artifact.code?.v4Getters;
+    if (!getters) continue;
+    for (const [name, value] of Object.entries(getters)) {
+      if (!merged[name]) {
+        merged[name] = {returnType: value.returnType, entries: []};
+      }
+      merged[name].entries.push(...value.entries);
+    }
+  }
+  return Object.entries(merged)
+    .map(([name, value]) => {
+      const lines = value.entries
+        .map((entry, ix) => entry.replace(/__INDEX__/g, ix.toString()))
+        .join('\n');
+      return `function ${name}() public pure override returns (${value.returnType}[] memory) {
+        ${value.returnType}[] memory items = new ${value.returnType}[](${value.entries.length});
+        ${lines}
+        return items;
+      }`;
+    })
+    .join('\n');
+}
 
 export function mergeArtifact(target: CodeArtifact, source: CodeArtifact) {
   target.code = target.code ?? {};
@@ -24,5 +50,9 @@ export function mergeArtifact(target: CodeArtifact, source: CodeArtifact) {
   if (source.test?.fn) {
     target.test = target.test ?? {};
     target.test.fn = [...(target.test.fn ?? []), ...source.test.fn];
+  }
+  if (source.aip?.specification) {
+    target.aip = target.aip ?? {specification: []};
+    target.aip.specification = [...(target.aip.specification ?? []), ...source.aip.specification];
   }
 }

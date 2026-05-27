@@ -4,6 +4,7 @@ import {
   MarketIdentifier,
   MarketIdentifierV3,
   V2_MARKETS,
+  V3_MARKETS,
   V4_MARKETS,
   VOTING_NETWORK,
 } from './types';
@@ -77,6 +78,10 @@ export function isV2Market(market: MarketIdentifier) {
   return V2_MARKETS.includes(market as any);
 }
 
+export function isV3Market(market: MarketIdentifier) {
+  return V3_MARKETS.includes(market as any);
+}
+
 export function isV4Market(market: MarketIdentifier) {
   return V4_MARKETS.includes(market as any);
 }
@@ -87,8 +92,16 @@ export function isWhitelabelMarket(market: MarketIdentifier) {
 
 export function getVersion(market: MarketIdentifier) {
   if (isV2Market(market)) return 'V2';
+  if (isV3Market(market)) return 'V3';
   if (isV4Market(market)) return 'V4';
-  return 'V3';
+  throw new Error(`unknown market version for ${market}`);
+}
+
+export function getTestBase(market: MarketIdentifier): {v4: boolean; testBase: string} {
+  if (isV2Market(market)) return {v4: false, testBase: 'ProtocolV2TestBase'};
+  if (isV3Market(market)) return {v4: false, testBase: 'ProtocolV3TestBase'};
+  if (isV4Market(market)) return {v4: true, testBase: 'ProtocolV4TestBase'};
+  throw new Error(`unknown market version for ${market}`);
 }
 
 export function getMarketChain(market: MarketIdentifier) {

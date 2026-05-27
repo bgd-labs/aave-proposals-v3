@@ -2,7 +2,7 @@ import {select, checkbox} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubAssetHalt} from '../../types';
 import {hubKeys, assetKeys, hubLibAccessor, assetLibAccessor} from '../marketBook';
-import {shortKey, solAddress} from '../testHelpers';
+import {shortKey, checksumAddress} from '../testHelpers';
 
 export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
   value: FEATURE.V4_HUB_ASSET_HALT,
@@ -29,7 +29,7 @@ export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetHalt({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
-        underlying: ${solAddress(c.underlying)}
+        underlying: ${checksumAddress(c.underlying)}
       });`,
     );
     const testFns = cfg.map((c) => {
@@ -38,7 +38,7 @@ export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
       return `function test_hubAssetHalt_${hubKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 spokeCount = hub.getSpokeCount(assetId);
         for (uint256 i; i < spokeCount; i++) {
           address spoke = hub.getSpokeAddress(assetId, i);

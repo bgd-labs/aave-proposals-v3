@@ -19,7 +19,7 @@ jobs:
       - uses: bgd-labs/github-workflows/.github/actions/setup-node@main
 
       - name: Enforce linting
-        run: npm run lint --check
+        run: pnpm lint
 
   test-sol:
     name: Foundry build n test

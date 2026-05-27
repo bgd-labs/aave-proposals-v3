@@ -7,7 +7,7 @@
 npm install
 
 # Run the generator
-npm run generate
+pnpm generate
 ```
 
 The generator will interactively prompt for:
@@ -22,7 +22,7 @@ The generator will interactively prompt for:
 ## Command-Line Options
 
 ```bash
-npm run generate -- [options]
+pnpm generate -- [options]
 
 Options:
   -p, --markets <markets...>       Target markets (AaveV3Ethereum, AaveV3Arbitrum, etc.)
@@ -40,7 +40,7 @@ Options:
 **Example**:
 
 ```bash
-npm run generate -- \
+pnpm generate -- \
   --markets AaveV3Ethereum AaveV3Arbitrum \
   --title "Increase WETH Supply Cap" \
   --author "Risk DAO"
@@ -48,7 +48,7 @@ npm run generate -- \
 
 ## Interactive Mode
 
-After running `npm run generate`, an interactive mode will be opened. Select required options from the list in 3 following steps: market selection, metadata entry, and feature selection.
+After running `pnpm generate`, an interactive mode will be opened. Select required options from the list in 3 following steps: market selection, metadata entry, and feature selection.
 
 **Note**: Cannot mix whitelabel markets with regular markets (step 1).
 
@@ -101,10 +101,10 @@ The generator automatically creates a `config.ts` file in each proposal director
 
 ```bash
 # Use existing config to regenerate files
-npm run generate -- -c src/YYYYMMDD_Chain_Title/config.ts
+pnpm generate -- -c src/YYYYMMDD_Chain_Title/config.ts
 
 # Update block numbers for fresh fork tests
-npm run generate -- -c src/YYYYMMDD_Chain_Title/config.ts --update
+pnpm generate -- -c src/YYYYMMDD_Chain_Title/config.ts --update
 ```
 
 ## Related Documentation

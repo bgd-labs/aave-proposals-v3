@@ -7,6 +7,7 @@ import {
   getMarketChain,
   isWhitelabelMarket,
   isV2Market,
+  isV3Market,
   isV4Market,
   pascalCase,
 } from './common';
@@ -155,8 +156,9 @@ const FEATURE_MODULES_V4: FeatureModule[] = [
 
 function getFeatureModules(market: MarketIdentifier): FeatureModule[] {
   if (isV2Market(market)) return FEATURE_MODULES_V2;
+  if (isV3Market(market)) return FEATURE_MODULES_V3;
   if (isV4Market(market)) return FEATURE_MODULES_V4;
-  return FEATURE_MODULES_V3;
+  throw new Error(`unknown market version for ${market}`);
 }
 
 async function generateDeterministicMarketCache(market: MarketIdentifier): Promise<MarketCache> {

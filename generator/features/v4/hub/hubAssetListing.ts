@@ -3,18 +3,15 @@ import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../..
 import {V4HubAssetListing} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {hubKeys, assetKeys, hubLibAccessor, assetLibAccessor, getV4Book} from '../marketBook';
-import {literal} from '../sentinels';
+import {hubKeys, hubLibAccessor} from '../marketBook';
+import {literal, renderSentinel} from '../sentinels';
 import {buildAddressConstant} from '../constants';
-import {solAddress} from '../testHelpers';
+import {assetIdentifier, checksumAddress} from '../testHelpers';
+import {selectAsset} from '../assetSelect';
 
-function hubAssetKey(hubAccessor: string, assetAccessor: string) {
+function hubAssetKey(hubAccessor: string, underlying: string) {
   const hubKey = hubAccessor.split('.').pop()!;
-  const assetKey = assetAccessor
-    .split('.')
-    .pop()!
-    .replace(/_UNDERLYING$/, '');
-  return {hubKey, assetKey};
+  return {hubKey, assetKey: assetIdentifier(underlying)};
 }
 
 export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
@@ -22,7 +19,6 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
   description: 'Hub: list a new asset (with optional TokenizationSpoke)',
   async cli({market}) {
     const m = market as MarketIdentifierV4;
-    const book = getV4Book(m);
     const response: V4HubAssetListing[] = [];
     let more = true;
     while (more) {
@@ -30,10 +26,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
         message: 'Select hub',
         choices: hubKeys(m).map((k) => ({name: k, value: k})),
       });
-      const asset = await select({
-        message: 'Select asset',
-        choices: assetKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const asset = await selectAsset(m);
       const feeReceiver = await addressPrompt({
         message: 'Fee receiver (Spoke address)',
         required: true,
@@ -64,7 +57,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       response.push({
         hubLib: hubLibAccessor(m, hub),
         hub: hub,
-        underlying: assetLibAccessor(m, asset),
+        underlying: asset.expr,
         feeReceiver: feeReceiver as `0x${string}`,
         liquidityFee,
         irStrategy: irStrategy as `0x${string}`,
@@ -91,15 +84,15 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       return `items[__INDEX__] = IAaveV4ConfigEngine.AssetListing({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
-        underlying: ${solAddress(c.underlying)},
+        underlying: ${checksumAddress(c.underlying)},
         feeReceiver: ${feeReceiverName},
         liquidityFee: ${c.liquidityFee.replace(/\B(?=(\d{3})+(?!\d))/g, '_')},
         irStrategy: ${irStrategyName},
         irData: IAssetInterestRateStrategy.InterestRateData({
-          optimalUsageRatio: uint16(${(c.irData.optimalUsageRatio as any).value}),
-          baseDrawnRate: uint32(${(c.irData.baseDrawnRate as any).value}),
-          rateGrowthBeforeOptimal: uint32(${(c.irData.rateGrowthBeforeOptimal as any).value}),
-          rateGrowthAfterOptimal: uint32(${(c.irData.rateGrowthAfterOptimal as any).value})
+          optimalUsageRatio: uint16(${renderSentinel(c.irData.optimalUsageRatio)}),
+          baseDrawnRate: uint32(${renderSentinel(c.irData.baseDrawnRate)}),
+          rateGrowthBeforeOptimal: uint32(${renderSentinel(c.irData.rateGrowthBeforeOptimal)}),
+          rateGrowthAfterOptimal: uint32(${renderSentinel(c.irData.rateGrowthAfterOptimal)})
         }),
         tokenization: IAaveV4ConfigEngine.TokenizationSpokeConfig({
           addCap: ${c.tokenization ? c.tokenization.addCap : '0'},
@@ -116,14 +109,14 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       return `function test_hubAssetListing_${hubKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
-        assertTrue(hub.isUnderlyingListed(${solAddress(c.underlying)}), 'asset not listed');
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        assertTrue(hub.isUnderlyingListed(${checksumAddress(c.underlying)}), 'asset not listed');
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         IHub.Asset memory asset = hub.getAsset(assetId);
         IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
         assertEq(cfg.feeReceiver, proposal.${feeReceiverName}(), 'feeReceiver mismatch');
         assertEq(cfg.irStrategy, proposal.${irStrategyName}(), 'irStrategy mismatch');
         assertEq(uint256(cfg.liquidityFee), uint256(${liquidityFee}), 'liquidityFee mismatch');
-        assertEq(asset.underlying, ${solAddress(c.underlying)}, 'underlying mismatch');
+        assertEq(asset.underlying, ${checksumAddress(c.underlying)}, 'underlying mismatch');
       }`;
     });
     const response: CodeArtifact = {

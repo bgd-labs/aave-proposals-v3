@@ -10,7 +10,7 @@ import {
   spokeLibAccessor,
   assetLibAccessor,
 } from '../marketBook';
-import {shortKey, solAddress} from '../testHelpers';
+import {shortKey, checksumAddress} from '../testHelpers';
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
   value: FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION,
@@ -61,7 +61,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       const inner = c.assets
         .map(
           (a, jx) => `subAssets[${jx}] = IAaveV4ConfigEngine.SpokeAssetConfig({
-            underlying: ${solAddress(a.underlying)},
+            underlying: ${checksumAddress(a.underlying)},
             config: IHub.SpokeConfig({
               addCap: ${a.addCap},
               drawCap: ${a.drawCap},
@@ -93,7 +93,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
           `function test_hubSpokeToAssetsAddition_${hubKey}_${spokeKey}_${assetKey}() public {
             GovV3Helpers.executePayload(vm, address(proposal));
             IHub hub = IHub(address(${c.hubLib}));
-            uint256 assetId = hub.getAssetId(${solAddress(a.underlying)});
+            uint256 assetId = hub.getAssetId(${checksumAddress(a.underlying)});
             assertTrue(hub.isSpokeListed(assetId, address(${c.spoke})), 'spoke not listed');
             IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(${c.spoke}));
             assertEq(uint256(cfg.addCap), uint256(${a.addCap}), 'addCap mismatch');

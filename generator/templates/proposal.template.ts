@@ -1,33 +1,8 @@
 import {generateContractName, getVersion, isWhitelabelMarket} from '../common';
-import {FEATURE, Options, MarketConfig, MarketIdentifier, V4GetterEntry} from '../types';
+import {FEATURE, Options, MarketConfig, MarketIdentifier} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
-
-function mergeV4Getters(artifacts: MarketConfig['artifacts']): string {
-  const merged: Record<string, V4GetterEntry> = {};
-  for (const artifact of artifacts) {
-    const getters = artifact.code?.v4Getters;
-    if (!getters) continue;
-    for (const [name, value] of Object.entries(getters)) {
-      if (!merged[name]) {
-        merged[name] = {returnType: value.returnType, entries: []};
-      }
-      merged[name].entries.push(...value.entries);
-    }
-  }
-  return Object.entries(merged)
-    .map(([name, value]) => {
-      const lines = value.entries
-        .map((entry, ix) => entry.replace(/__INDEX__/g, ix.toString()))
-        .join('\n');
-      return `function ${name}() public pure override returns (${value.returnType}[] memory) {
-        ${value.returnType}[] memory items = new ${value.returnType}[](${value.entries.length});
-        ${lines}
-        return items;
-      }`;
-    })
-    .join('\n');
-}
+import {mergeV4Getters} from '../features/v4/bundleHelpers';
 
 function dedupeLines(blocks: string[]): string[] {
   const seen = new Set<string>();

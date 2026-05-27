@@ -13,7 +13,7 @@ import {
   renderSentinel,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, solAddress} from '../testHelpers';
+import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -79,7 +79,7 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetConfigUpdate({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
-        underlying: ${solAddress(c.underlying)},
+        underlying: ${checksumAddress(c.underlying)},
         liquidityFee: ${renderSentinel(c.liquidityFee)},
         feeReceiver: ${renderSentinel(c.feeReceiver)},
         irStrategy: ${renderSentinel(c.irStrategy)},
@@ -119,7 +119,7 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
       return `function test_hubAssetConfigUpdate_${hubKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
-        uint256 assetId = hub.getAssetId(${solAddress(c.underlying)});
+        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
         ${asserts.join('\n        ')}
       }`;
