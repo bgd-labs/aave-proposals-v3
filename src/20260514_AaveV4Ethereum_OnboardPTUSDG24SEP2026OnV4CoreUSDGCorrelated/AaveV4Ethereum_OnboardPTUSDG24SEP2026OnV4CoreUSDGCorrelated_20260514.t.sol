@@ -8,6 +8,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IAaveOracle, IAccessManagerEnumerable, IHub, ISpoke, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
+import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
@@ -126,6 +127,14 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
     assertEq(config.liquidityFee, 0);
     assertEq(config.irStrategy, CORE_HUB_IR_STRATEGY);
     assertEq(config.reinvestmentController, address(0));
+
+    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
+      config.irStrategy
+    ).getInterestRateData(assetId);
+    assertEq(irData.optimalUsageRatio, 99_00);
+    assertEq(irData.baseDrawnRate, 0);
+    assertEq(irData.rateGrowthBeforeOptimal, 0);
+    assertEq(irData.rateGrowthAfterOptimal, 0);
   }
 
   function test_spokeDeployment_reservesAfterPayload() public {
@@ -158,6 +167,10 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
       keccak256(bytes(ITokenizationSpoke(tokenizationSpoke).symbol())),
       keccak256(bytes(proposal.TOKENIZATION_SPOKE_SYMBOL()))
     );
+
+    uint256 assetId = CORE_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    IHub.SpokeConfig memory tokConfig = CORE_HUB.getSpokeConfig(assetId, tokenizationSpoke);
+    assertEq(tokConfig.addCap, 0, 'TokenizationSpoke addCap should be 0');
   }
 
   function test_spokeRegistrationsAndCaps() public {
@@ -217,6 +230,13 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
       IAaveOracle(USDG_CORRELATED_SPOKE.ORACLE()).getReserveSource(usdgReserveId),
       AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED
     );
+    ISpoke.DynamicReserveConfig memory usdgDyn = USDG_CORRELATED_SPOKE.getDynamicReserveConfig(
+      usdgReserveId,
+      0
+    );
+    assertEq(usdgDyn.collateralFactor, 0);
+    assertEq(usdgDyn.maxLiquidationBonus, 100_00);
+    assertEq(usdgDyn.liquidationFee, 0);
   }
 
   function test_liquidationConfig() public {
@@ -248,7 +268,9 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   function test_priceFeed_withinExpectedBounds() public view {
     int256 price = IChainlinkAggregator(PT_USDG_24SEP2026_PRICE_FEED).latestAnswer();
 
-    assertGt(price, int256(0.95e8), 'PT-USDG price below expected lower bound');
+    // At fork block (~mid-May 2026) with discountRatePerYear = 4.5% and ~4 months to maturity,
+    // the expected discount is ~1.5%, so price ~ 0.985e8. Anything below 0.98e8 indicates drift.
+    assertGt(price, int256(0.98e8), 'PT-USDG price below expected lower bound');
     assertLe(price, int256(1e8), 'PT-USDG price above par');
   }
 
@@ -268,6 +290,17 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
       adapter.MAX_DISCOUNT_RATE_PER_YEAR(),
       0.1038e18,
       'maxDiscountRatePerYear should be 10.38%'
+    );
+  }
+
+  function test_priceFeed_discountFollowsLinearFormula() public view {
+    IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(PT_USDG_24SEP2026_PRICE_FEED);
+    uint256 timeToMaturity = adapter.MATURITY() - block.timestamp;
+    uint256 expectedDiscount = (uint256(adapter.discountRatePerYear()) * timeToMaturity) / 365 days;
+    assertEq(
+      adapter.getCurrentDiscount(),
+      expectedDiscount,
+      'discount should equal discountRatePerYear * timeToMaturity / SECONDS_PER_YEAR'
     );
   }
 

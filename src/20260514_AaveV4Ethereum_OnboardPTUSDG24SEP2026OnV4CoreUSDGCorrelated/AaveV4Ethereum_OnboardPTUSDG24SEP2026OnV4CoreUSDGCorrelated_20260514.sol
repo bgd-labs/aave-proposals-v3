@@ -31,7 +31,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
   address internal constant CORE_HUB_IR_STRATEGY = 0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f;
 
   string internal constant TOKEN_NAME = 'PT_USDG_24SEP2026';
-  uint256 public constant TOKENIZATION_SPOKE_ADD_CAP = 0;
+  uint256 internal constant TOKENIZATION_SPOKE_ADD_CAP = 0;
 
   function spoke() public pure override returns (address) {
     return USDG_CORRELATED_SPOKE;
