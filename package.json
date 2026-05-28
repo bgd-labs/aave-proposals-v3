@@ -35,7 +35,7 @@
     "vitest": "^4.0.0"
   },
   "dependencies": {
-    "@aave-dao/aave-address-book": "^4.49.2",
+    "@aave-dao/aave-address-book": "^4.49.9",
     "@aave-dao/aave-helpers-js": "^1.0.13",
     "@bgd-labs/toolbox": "^0.2.5",
     "@inquirer/prompts": "^8.0.0",
@@ -46,6 +46,7 @@
     "dotenv": "^16.4.7",
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
+    "tsx": "^4.21.0",
     "viem": "^2.45.0"
   },
   "lint-staged": {

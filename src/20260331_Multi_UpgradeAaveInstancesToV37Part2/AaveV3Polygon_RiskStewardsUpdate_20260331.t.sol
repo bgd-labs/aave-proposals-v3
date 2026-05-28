@@ -1,0 +1,48 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import 'forge-std/Test.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
+import {AaveV3Polygon_RiskStewardsUpdate_20260331} from './AaveV3Polygon_RiskStewardsUpdate_20260331.sol';
+import {RiskStewardUpdateBaseTest} from './RiskStewardUpdateBaseTest.sol';
+
+/**
+ * @dev Test for AaveV3Polygon_RiskStewardsUpdate_20260331
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260331_Multi_UpgradeAaveInstancesToV37Part2/AaveV3Polygon_RiskStewardsUpdate_20260331.t.sol -vv
+ */
+contract AaveV3Polygon_RiskStewardsUpdate_20260331_Test is
+  ProtocolV3TestBase,
+  RiskStewardUpdateBaseTest
+{
+  AaveV3Polygon_RiskStewardsUpdate_20260331 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('polygon'), 87122972);
+    proposal = new AaveV3Polygon_RiskStewardsUpdate_20260331();
+  }
+
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV3Polygon_RiskStewardsUpdate_20260331', AaveV3Polygon.POOL, address(proposal));
+  }
+
+  function test_configParity() public view {
+    _verifyConfigParity(AaveV3Polygon.RISK_STEWARD, proposal.NEW_RISK_STEWARD());
+  }
+
+  function test_immutablesParity() public view {
+    _verifyImmutablesParity(AaveV3Polygon.RISK_STEWARD, proposal.NEW_RISK_STEWARD());
+  }
+
+  function test_riskAdminRotated() public {
+    executePayload(vm, address(proposal));
+    assertTrue(
+      AaveV3Polygon.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()),
+      'new steward not risk admin'
+    );
+    assertFalse(
+      AaveV3Polygon.ACL_MANAGER.isRiskAdmin(AaveV3Polygon.RISK_STEWARD),
+      'old steward still risk admin'
+    );
+  }
+}

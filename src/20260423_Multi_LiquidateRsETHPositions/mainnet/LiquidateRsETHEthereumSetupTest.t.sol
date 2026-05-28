@@ -37,7 +37,7 @@ abstract contract LiquidateRsETHEthereumSetupTest is LiquidateRsETHPositionsSetu
     return GovernanceV3Ethereum.EXECUTOR_LVL_1;
   }
 
-  function test_staticWethDebt() public {
+  function test_staticWethDebt() public view {
     address vWeth = _vDebtTokenOf(_weth());
     assertEq(
       proposal.wethScaledDebt(),

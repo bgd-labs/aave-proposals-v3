@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {AggregatorInterface} from 'aave-v3-origin/contracts/dependencies/chainlink/AggregatorInterface.sol';
+import {BasicIACLManager} from 'aave-address-book/AaveV3.sol';
+
 interface IPriceCapAdapter {
   /**
    * @notice Parameters to update price cap
@@ -42,4 +45,26 @@ interface IPriceCapAdapter {
    * @notice Returns the max yearly ratio growth
    */
   function getMaxYearlyGrowthRatePercent() external view returns (uint256);
+
+  /**
+   * @notice Returns the capped LST/USD price
+   */
+  function latestAnswer() external view returns (int256);
+
+  /**
+   * @notice Returns whether the current ratio exceeds the snapshot-bounded max ratio
+   */
+  function isCapped() external view returns (bool);
+
+  function ACL_MANAGER() external view returns (BasicIACLManager);
+
+  function description() external view returns (string memory);
+
+  function decimals() external view returns (uint8);
+
+  function BASE_TO_USD_AGGREGATOR() external view returns (AggregatorInterface);
+
+  function MINIMUM_SNAPSHOT_DELAY() external view returns (uint48);
+
+  function RATIO_DECIMALS() external view returns (uint8);
 }
