@@ -14,15 +14,15 @@ import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
 
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
-import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.sol';
+import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514.sol';
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol';
 import {AaveV4PayloadEthereumSpokeForkTestBase} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol';
 
 /**
- * @dev Test for AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.t.sol -vv
+ * @dev Test for AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514.t.sol -vv
  */
-contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Test is
+contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Test is
   AaveV4PayloadEthereumSpokeForkTestBase
 {
   IAccessManagerEnumerable internal constant ACCESS_MANAGER = AaveV4Ethereum.ACCESS_MANAGER;
@@ -43,11 +43,11 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   uint256 internal constant PT_USDG_24SEP2026_SUPPLY_CAP = 15_000_000;
   uint256 internal constant USDG_BORROW_CAP = 13_000_000;
 
-  AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 internal proposal;
+  AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 25193380);
-    proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514();
+    proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514();
   }
 
   /**
@@ -75,7 +75,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
     tokenizationSpokes[existingTokSpokes.length] = ITokenizationSpoke(_discoverTokenizationSpoke());
 
     defaultTest({
-      reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514',
+      reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514',
       spokes: spokes,
       tokenizationSpokes: tokenizationSpokes,
       payload: address(proposal)

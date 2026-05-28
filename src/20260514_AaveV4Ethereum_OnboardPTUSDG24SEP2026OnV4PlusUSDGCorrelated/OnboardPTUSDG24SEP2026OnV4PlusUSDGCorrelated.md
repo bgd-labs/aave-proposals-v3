@@ -49,8 +49,8 @@ The listing is structured as a dedicated correlated spoke on the Plus Hub (joini
 
 ## References
 
-- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.sol)
-- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514.t.sol)
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514.t.sol)
 - Snapshot: Direct-To-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3)
 

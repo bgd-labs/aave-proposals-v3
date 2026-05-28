@@ -8,7 +8,7 @@ import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.s
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {IAaveOracle, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
+import {IAaveOracle, ISignatureGateway, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
 import {AaveV4Ethereum, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -174,23 +174,99 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     for (uint256 i; i < cases.length; ++i) _runConfigPositionManagerSetCollateral(cases[i], i);
   }
 
-  function test_signatureGateway_supplyOnBehalfOfNewSpoke() public virtual {
+  function test_signatureGateway_onBehalfOfNewSpoke() public virtual {
     GovV3Helpers.executePayload(vm, address(_payload()));
     _registerSpokeOnPositionManagers();
     ReserveTestCase[] memory cases = _reserveTestCases();
-    Types.ReserveInfo[] memory reserves = _getReserveInfo(ISpoke(_payload().spoke()));
+    ISpoke spokeContract = ISpoke(_payload().spoke());
+    Types.ReserveInfo[] memory reserves = _getReserveInfo(spokeContract);
     for (uint256 i; i < cases.length; ++i) {
       Types.ReserveInfo memory collateralInfo = _findReserveInfo(
         reserves,
         cases[i].collateralUnderlying
       );
+      Types.ReserveInfo memory borrowInfo = _findReserveInfo(reserves, cases[i].borrowUnderlying);
+      // Supply/withdraw on the collateral leg (non-borrowable; borrow branch skipped inside).
       _testSignatureGateway({
         gateway: AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY,
-        spoke: ISpoke(_payload().spoke()),
+        spoke: spokeContract,
         reserveInfo: collateralInfo,
         collateralInfo: collateralInfo
       });
+      // Borrow/repay against the collateral leg — works for cross-hub credit lines where the
+      // borrow asset isn't suppliable to the spoke directly (the spoke draws via the credit
+      // line at borrow time).
+      _testSignatureGatewayBorrowFlow({
+        gateway: AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY,
+        spoke: spokeContract,
+        borrowInfo: borrowInfo,
+        collateralInfo: collateralInfo
+      });
     }
+  }
+
+  /// @dev Supply collateral + borrow + repay via SignatureGateway. Assumes the borrow asset
+  ///      already has liquidity (e.g. via a cross-hub credit line or pre-existing local supply).
+  function _testSignatureGatewayBorrowFlow(
+    ISignatureGateway gateway,
+    ISpoke spoke,
+    Types.ReserveInfo memory borrowInfo,
+    Types.ReserveInfo memory collateralInfo
+  ) internal {
+    uint256 privateKey = vm.randomUint(1, type(uint248).max);
+    address user = vm.addr(privateKey);
+
+    vm.prank(user);
+    spoke.setUserPositionManager(address(gateway), true);
+
+    address oracleAddr = spoke.ORACLE();
+    uint256 borrowDollars = vm.randomUint(1_000, 10_000);
+    uint256 borrowAmount = _getTokenAmountByDollarValue(oracleAddr, borrowInfo, borrowDollars);
+    uint256 collateralAmount = _getTokenAmountByDollarValue(
+      oracleAddr,
+      collateralInfo,
+      borrowDollars * 3
+    );
+
+    _sigSupply({
+      gateway: gateway,
+      spoke: spoke,
+      reserveInfo: collateralInfo,
+      privateKey: privateKey,
+      user: user,
+      amount: collateralAmount
+    });
+    _sigSetUsingAsCollateral({
+      gateway: gateway,
+      spoke: spoke,
+      reserveInfo: collateralInfo,
+      privateKey: privateKey,
+      user: user
+    });
+    _sigBorrow({
+      gateway: gateway,
+      spoke: spoke,
+      reserveInfo: borrowInfo,
+      privateKey: privateKey,
+      user: user,
+      amount: borrowAmount
+    });
+    _sigRepay({
+      gateway: gateway,
+      spoke: spoke,
+      reserveInfo: borrowInfo,
+      privateKey: privateKey,
+      user: user,
+      amount: vm.randomUint(1, borrowAmount)
+    });
+    _sigRepay({
+      gateway: gateway,
+      spoke: spoke,
+      reserveInfo: borrowInfo,
+      privateKey: privateKey,
+      user: user,
+      amount: type(uint256).max
+    });
   }
 
   function test_tokenizationSpoke_depositRevertsWhileAddCapZero() public virtual {

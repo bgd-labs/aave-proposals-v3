@@ -12,7 +12,7 @@ import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEther
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3
  */
-contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
+contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514 is
   AaveV4PayloadEthereumSpoke
 {
   // https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9
