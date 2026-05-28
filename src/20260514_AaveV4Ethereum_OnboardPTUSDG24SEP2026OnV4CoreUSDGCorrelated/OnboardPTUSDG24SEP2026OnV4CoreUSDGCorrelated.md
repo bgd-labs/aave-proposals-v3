@@ -1,18 +1,18 @@
 ---
-title: "Onboard PT-USDG-24SEP2026 on V4 Core / USDG Correlated"
+title: "Onboard PT-USDG-24SEP2026 on V4 Plus / USDG Correlated"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3"
 ---
 
 ## Simple Summary
 
-This AIP proposes to onboard PT-USDG-24SEP2026 to Aave V4 on Ethereum, listed on a new USDG Correlated spoke that draws USDG liquidity from the Core Hub.
+This AIP proposes to onboard PT-USDG-24SEP2026 to Aave V4 on Ethereum, listed on a new USDG Correlated spoke anchored on the Plus Hub that draws USDG liquidity from the Core Hub.
 
 ## Motivation
 
 PT-USDG-24SEP2026 is the next listed maturity in the USDG-backed PT series. With PT-USDG-28MAY2026 reaching expiry on May 28, 2026, the September pool serves as the natural rollover destination for the ~$105.1M of PT-USDG collateral currently held on Aave V3 Core. Onboarding it preserves fixed-rate exposure for existing borrowers and continues the supported PT roadmap on Aave.
 
-The listing is structured as a dedicated correlated spoke. PT-USDG collateral suppliers borrow USDG via a cross-hub credit line into Core, where USDG is already a native asset. The Draw Cap on Core defines the explicit containment boundary for Core USDG suppliers' exposure to the new spoke, and the correlated designation enables a tighter Collateral Factor than a general-purpose configuration.
+The listing is structured as a dedicated correlated spoke on the Plus Hub (joining the existing Ethena Ecosystem and Ethena Correlated spokes). PT-USDG collateral suppliers borrow USDG via a cross-hub credit line into Core, where USDG is already a native asset. The Draw Cap on Core defines the explicit containment boundary for Core USDG suppliers' exposure to the new spoke, and the correlated designation enables a tighter Collateral Factor than a general-purpose configuration.
 
 ## Specification
 

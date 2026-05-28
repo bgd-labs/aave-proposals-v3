@@ -23,10 +23,13 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
   using SafeERC20 for IERC20;
 
   /// @dev One parametrised collateral/borrow flow on the spoke being onboarded.
+  ///      Collateral and borrow reserves may live on different hubs (cross-hub credit lines on
+  ///      correlated spokes), so the hub is specified per leg.
   struct ReserveTestCase {
-    IHub hub;
+    IHub collateralHub;
     address collateralUnderlying;
     address collateralPriceFeed;
+    IHub borrowHub;
     address borrowUnderlying;
     uint256 supplyAmount;
     uint256 borrowAmount;
@@ -555,10 +558,13 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     ReserveTestCase memory testCase
   ) internal view returns (uint256 collateralReserveId, uint256 borrowReserveId) {
     ISpoke spokeContract = ISpoke(_payload().spoke());
-    uint256 collateralAssetId = testCase.hub.getAssetId(testCase.collateralUnderlying);
-    uint256 borrowAssetId = testCase.hub.getAssetId(testCase.borrowUnderlying);
-    collateralReserveId = spokeContract.getReserveId(address(testCase.hub), collateralAssetId);
-    borrowReserveId = spokeContract.getReserveId(address(testCase.hub), borrowAssetId);
+    uint256 collateralAssetId = testCase.collateralHub.getAssetId(testCase.collateralUnderlying);
+    uint256 borrowAssetId = testCase.borrowHub.getAssetId(testCase.borrowUnderlying);
+    collateralReserveId = spokeContract.getReserveId(
+      address(testCase.collateralHub),
+      collateralAssetId
+    );
+    borrowReserveId = spokeContract.getReserveId(address(testCase.borrowHub), borrowAssetId);
   }
 
   /// @dev Probes each candidate spoke (skipping the payload spoke and treasury) with `name()` —

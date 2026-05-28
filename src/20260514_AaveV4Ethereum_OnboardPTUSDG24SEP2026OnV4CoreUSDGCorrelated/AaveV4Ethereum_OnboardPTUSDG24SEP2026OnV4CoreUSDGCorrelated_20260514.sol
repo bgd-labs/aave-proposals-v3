@@ -7,7 +7,7 @@ import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4Ethereum
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol';
 
 /**
- * @title Onboard PT-USDG-24SEP2026 on V4 Core / USDG Correlated
+ * @title Onboard PT-USDG-24SEP2026 on V4 Plus / USDG Correlated
  * @author Aave Labs
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3
@@ -26,9 +26,9 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
   address internal constant PT_USDG_24SEP2026_PRICE_FEED =
     0xD2417d928B7649feb50E61D9cCA38e56EFB34902;
 
-  // Same IR strategy already used by every other asset on CORE_HUB.
-  // https://etherscan.io/address/0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f
-  address internal constant CORE_HUB_IR_STRATEGY = 0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f;
+  // Same IR strategy already used by every other asset on PLUS_HUB.
+  // https://etherscan.io/address/0x31280650661b8443723fa9739b3A164E3696af48
+  address internal constant PLUS_HUB_IR_STRATEGY = 0x31280650661b8443723fa9739b3A164E3696af48;
 
   string internal constant TOKEN_NAME = 'PT_USDG_24SEP2026';
   uint256 internal constant TOKENIZATION_SPOKE_ADD_CAP = 0;
@@ -38,11 +38,11 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
   }
 
   function TOKENIZATION_SPOKE_NAME() public pure returns (string memory) {
-    return _tokenizationName(AaveV4EthereumHubs.CORE_HUB, TOKEN_NAME);
+    return _tokenizationName(AaveV4EthereumHubs.PLUS_HUB, TOKEN_NAME);
   }
 
   function TOKENIZATION_SPOKE_SYMBOL() public pure returns (string memory) {
-    return _tokenizationSymbol(AaveV4EthereumHubs.CORE_HUB, TOKEN_NAME);
+    return _tokenizationSymbol(AaveV4EthereumHubs.PLUS_HUB, TOKEN_NAME);
   }
 
   function _preExecute() internal override {
@@ -56,13 +56,13 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
   function _hubAssetListings() internal pure override returns (HubAssetListing[] memory) {
     HubAssetListing[] memory listings = new HubAssetListing[](1);
     listings[0] = HubAssetListing({
-      hub: AaveV4EthereumHubs.CORE_HUB,
+      hub: AaveV4EthereumHubs.PLUS_HUB,
       underlying: PT_USDG_24SEP2026_UNDERLYING,
       liquidityFee: 0,
-      irStrategy: CORE_HUB_IR_STRATEGY,
+      irStrategy: PLUS_HUB_IR_STRATEGY,
       irData: _nonBorrowableIRData(),
       tokenization: _tokenization(
-        AaveV4EthereumHubs.CORE_HUB,
+        AaveV4EthereumHubs.PLUS_HUB,
         TOKEN_NAME,
         TOKENIZATION_SPOKE_ADD_CAP
       )
@@ -73,7 +73,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
   function _spokeAssetConfigs() internal pure override returns (SpokeAssetConfig[] memory) {
     SpokeAssetConfig[] memory configs = new SpokeAssetConfig[](2);
     configs[0] = SpokeAssetConfig({
-      hub: AaveV4EthereumHubs.CORE_HUB,
+      hub: AaveV4EthereumHubs.PLUS_HUB,
       underlying: PT_USDG_24SEP2026_UNDERLYING,
       addCap: 15_000_000,
       drawCap: 0,
@@ -92,7 +92,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514 is
   function _spokeReserves() internal pure override returns (ReserveListing[] memory) {
     ReserveListing[] memory listings = new ReserveListing[](2);
     listings[0] = ReserveListing({
-      hub: AaveV4EthereumHubs.CORE_HUB,
+      hub: AaveV4EthereumHubs.PLUS_HUB,
       underlying: PT_USDG_24SEP2026_UNDERLYING,
       priceSource: PT_USDG_24SEP2026_PRICE_FEED,
       collateralRisk: 0,

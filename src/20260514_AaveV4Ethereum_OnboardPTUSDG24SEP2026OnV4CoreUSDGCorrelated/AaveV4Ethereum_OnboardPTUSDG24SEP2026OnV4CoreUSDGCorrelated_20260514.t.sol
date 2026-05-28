@@ -27,6 +27,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
 {
   IAccessManagerEnumerable internal constant ACCESS_MANAGER = AaveV4Ethereum.ACCESS_MANAGER;
 
+  IHub internal constant PLUS_HUB = AaveV4EthereumHubs.PLUS_HUB;
   IHub internal constant CORE_HUB = AaveV4EthereumHubs.CORE_HUB;
 
   ISpoke internal constant USDG_CORRELATED_SPOKE =
@@ -37,7 +38,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   address internal constant PT_USDG_24SEP2026_PRICE_FEED =
     0xD2417d928B7649feb50E61D9cCA38e56EFB34902;
 
-  address internal constant CORE_HUB_IR_STRATEGY = 0xAD88791B0F81D1FA242f637eB05bee0cbc53fe2f;
+  address internal constant PLUS_HUB_IR_STRATEGY = 0x31280650661b8443723fa9739b3A164E3696af48;
 
   uint256 internal constant PT_USDG_24SEP2026_SUPPLY_CAP = 15_000_000;
   uint256 internal constant USDG_BORROW_CAP = 13_000_000;
@@ -115,17 +116,17 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
     );
   }
 
-  function test_assetListingOnCoreHub() public {
+  function test_assetListingOnPlusHub() public {
     vm.expectRevert();
-    CORE_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint256 assetId = CORE_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
-    IHub.AssetConfig memory config = CORE_HUB.getAssetConfig(assetId);
+    uint256 assetId = PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    IHub.AssetConfig memory config = PLUS_HUB.getAssetConfig(assetId);
     assertEq(config.feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE));
     assertEq(config.liquidityFee, 0);
-    assertEq(config.irStrategy, CORE_HUB_IR_STRATEGY);
+    assertEq(config.irStrategy, PLUS_HUB_IR_STRATEGY);
     assertEq(config.reinvestmentController, address(0));
 
     IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
@@ -145,8 +146,8 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   function test_tokenizationSpokeDeployedAndRegistered() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    address tokenizationSpoke = _findTokenizationSpoke(CORE_HUB, PT_USDG_24SEP2026_UNDERLYING);
-    assertTrue(tokenizationSpoke != address(0), 'TokenizationSpoke not registered on CORE_HUB');
+    address tokenizationSpoke = _findTokenizationSpoke(PLUS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    assertTrue(tokenizationSpoke != address(0), 'TokenizationSpoke not registered on PLUS_HUB');
 
     address proxyAdmin = address(
       uint160(uint256(vm.load(tokenizationSpoke, ERC1967Utils.ADMIN_SLOT)))
@@ -157,7 +158,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
       'TokenizationSpoke ProxyAdmin owner should be the PayloadsController'
     );
 
-    assertEq(ITokenizationSpoke(tokenizationSpoke).hub(), address(CORE_HUB));
+    assertEq(ITokenizationSpoke(tokenizationSpoke).hub(), address(PLUS_HUB));
     assertEq(ITokenizationSpoke(tokenizationSpoke).asset(), PT_USDG_24SEP2026_UNDERLYING);
     assertEq(
       keccak256(bytes(ITokenizationSpoke(tokenizationSpoke).name())),
@@ -168,8 +169,8 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
       keccak256(bytes(proposal.TOKENIZATION_SPOKE_SYMBOL()))
     );
 
-    uint256 assetId = CORE_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
-    IHub.SpokeConfig memory tokConfig = CORE_HUB.getSpokeConfig(assetId, tokenizationSpoke);
+    uint256 assetId = PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    IHub.SpokeConfig memory tokConfig = PLUS_HUB.getSpokeConfig(assetId, tokenizationSpoke);
     assertEq(tokConfig.addCap, 0, 'TokenizationSpoke addCap should be 0');
   }
 
@@ -177,7 +178,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
     GovV3Helpers.executePayload(vm, address(proposal));
 
     (uint256 ptAssetId, uint256 usdgAssetId) = _assetIds();
-    IHub.SpokeConfig memory ptConfig = CORE_HUB.getSpokeConfig(
+    IHub.SpokeConfig memory ptConfig = PLUS_HUB.getSpokeConfig(
       ptAssetId,
       address(USDG_CORRELATED_SPOKE)
     );
@@ -202,6 +203,18 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
     GovV3Helpers.executePayload(vm, address(proposal));
 
     (uint256 ptReserveId, uint256 usdgReserveId) = _localReserveIds();
+
+    assertEq(
+      address(USDG_CORRELATED_SPOKE.getReserve(ptReserveId).hub),
+      address(PLUS_HUB),
+      'PT-USDG reserve should be anchored to PLUS_HUB'
+    );
+    assertEq(
+      address(USDG_CORRELATED_SPOKE.getReserve(usdgReserveId).hub),
+      address(CORE_HUB),
+      'USDG reserve should be anchored to CORE_HUB (cross-hub credit line)'
+    );
+
     ISpoke.ReserveConfig memory ptConfig = USDG_CORRELATED_SPOKE.getReserveConfig(ptReserveId);
     assertEq(ptConfig.collateralRisk, 0);
     assertFalse(ptConfig.paused);
@@ -340,14 +353,14 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
     vm.clearMockedCalls();
   }
 
-  function test_coreHubIRStrategyMatchesExistingAsset() public view {
-    address existingIrStrategy = CORE_HUB
-      .getAssetConfig(CORE_HUB.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING))
+  function test_plusHubIRStrategyMatchesExistingAsset() public view {
+    address existingIrStrategy = PLUS_HUB
+      .getAssetConfig(PLUS_HUB.getAssetId(AaveV4EthereumAssets.USDe_UNDERLYING))
       .irStrategy;
     assertEq(
-      CORE_HUB_IR_STRATEGY,
+      PLUS_HUB_IR_STRATEGY,
       existingIrStrategy,
-      'Hardcoded CORE_HUB IR strategy drifted from the live USDG asset config'
+      'Hardcoded PLUS_HUB IR strategy drifted from the live USDe asset config'
     );
   }
 
@@ -380,18 +393,18 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   function _discoverTokenizationSpoke() internal returns (address tokenizationSpoke) {
     uint256 snapshotId = vm.snapshotState();
     GovV3Helpers.executePayload(vm, address(proposal));
-    tokenizationSpoke = _findTokenizationSpoke(CORE_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    tokenizationSpoke = _findTokenizationSpoke(PLUS_HUB, PT_USDG_24SEP2026_UNDERLYING);
     vm.revertToState(snapshotId);
   }
 
   function _assetIds() internal view returns (uint256 ptAssetId, uint256 usdgAssetId) {
-    ptAssetId = CORE_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    ptAssetId = PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
     usdgAssetId = CORE_HUB.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
   }
 
   function _localReserveIds() internal view returns (uint256 ptReserveId, uint256 usdgReserveId) {
     (uint256 ptAssetId, uint256 usdgAssetId) = _assetIds();
-    ptReserveId = USDG_CORRELATED_SPOKE.getReserveId(address(CORE_HUB), ptAssetId);
+    ptReserveId = USDG_CORRELATED_SPOKE.getReserveId(address(PLUS_HUB), ptAssetId);
     usdgReserveId = USDG_CORRELATED_SPOKE.getReserveId(address(CORE_HUB), usdgAssetId);
   }
 
@@ -402,9 +415,10 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   function _reserveTestCases() internal pure override returns (ReserveTestCase[] memory) {
     ReserveTestCase[] memory cases = new ReserveTestCase[](1);
     cases[0] = ReserveTestCase({
-      hub: AaveV4EthereumHubs.CORE_HUB,
+      collateralHub: AaveV4EthereumHubs.PLUS_HUB,
       collateralUnderlying: PT_USDG_24SEP2026_UNDERLYING,
       collateralPriceFeed: PT_USDG_24SEP2026_PRICE_FEED,
+      borrowHub: AaveV4EthereumHubs.CORE_HUB,
       borrowUnderlying: AaveV4EthereumAssets.USDG_UNDERLYING,
       supplyAmount: 500_000 * 1e6,
       borrowAmount: 460_000 * 1e6,
@@ -419,7 +433,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4CoreUSDGCorrelated_20260514_Te
   function _tokenizationTestCases() internal pure override returns (TokenizationTestCase[] memory) {
     TokenizationTestCase[] memory cases = new TokenizationTestCase[](1);
     cases[0] = TokenizationTestCase({
-      hub: AaveV4EthereumHubs.CORE_HUB,
+      hub: AaveV4EthereumHubs.PLUS_HUB,
       underlying: PT_USDG_24SEP2026_UNDERLYING,
       depositAmount: 100_000 * 1e6,
       spokeAssetIdAddCap: 1_000_000
