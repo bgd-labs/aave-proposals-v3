@@ -26,4 +26,9 @@ interface IPendlePriceCapAdapter {
    * @notice The maximum implied APY rate that is set for a given asset before maturity occurs
    */
   function MAX_DISCOUNT_RATE_PER_YEAR() external view returns (uint64);
+
+  /**
+   * @notice Asset maturity timestamp
+   */
+  function MATURITY() external view returns (uint256);
 }
