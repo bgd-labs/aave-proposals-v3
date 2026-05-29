@@ -43,7 +43,7 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
     }
   }
 
-  function _assertSpokeImplIsCanonical(address spokeProxy) internal {
+  function _assertSpokeImplIsCanonical(address spokeProxy) internal view {
     bytes32 implementationSlot = vm.load(spokeProxy, ERC1967Utils.IMPLEMENTATION_SLOT);
     address implementation = address(uint160(uint256(implementationSlot)));
     require(implementation != address(0), 'spoke impl slot is zero');
@@ -103,7 +103,7 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
     }
   }
 
-  function _canonicalSpokeSignatures() internal returns (string[] memory) {
+  function _canonicalSpokeSignatures() internal view returns (string[] memory) {
     bytes memory code = vm.getDeployedCode(_canonicalSpokeArtifact());
     string memory path = vm.getArtifactPathByDeployedCode(code);
     string memory json = vm.readFile(path);
