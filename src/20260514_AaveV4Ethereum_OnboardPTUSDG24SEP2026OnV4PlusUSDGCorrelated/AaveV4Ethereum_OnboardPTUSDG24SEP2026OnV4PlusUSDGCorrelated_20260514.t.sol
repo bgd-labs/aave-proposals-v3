@@ -91,20 +91,16 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
     GovV3Helpers.executePayload(vm, address(proposal));
     Vm.Log[] memory logs = vm.getRecordedLogs();
 
-    bytes32 expectedRoleTopic = bytes32(uint256(Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE));
-    bytes32 expectedAccountTopic = bytes32(uint256(uint160(executor)));
-
-    bool grantedSeen;
-    for (uint256 i; i < logs.length; ++i) {
-      Vm.Log memory entry = logs[i];
-      if (entry.emitter != address(ACCESS_MANAGER) || entry.topics.length < 3) continue;
-      if (entry.topics[1] != expectedRoleTopic || entry.topics[2] != expectedAccountTopic) continue;
-      if (entry.topics[0] == IAccessManager.RoleGranted.selector) grantedSeen = true;
-    }
-    assertTrue(
-      grantedSeen,
-      'RoleGranted(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR_LVL_1) missing'
-    );
+    bytes32[] memory indexedArgs = new bytes32[](2);
+    indexedArgs[0] = bytes32(uint256(Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE));
+    indexedArgs[1] = bytes32(uint256(uint160(executor)));
+    _assertEventEmitted({
+      logs: logs,
+      emitter: address(ACCESS_MANAGER),
+      selector: IAccessManager.RoleGranted.selector,
+      indexedArgs: indexedArgs,
+      errMsg: 'RoleGranted(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR_LVL_1) missing'
+    });
 
     (bool afterRole, ) = ACCESS_MANAGER.hasRole(
       Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE,

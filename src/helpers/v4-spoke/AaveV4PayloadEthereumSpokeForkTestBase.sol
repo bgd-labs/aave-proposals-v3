@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
 import {Types} from 'aave-helpers/src/dependencies/v4/Types.sol';
+import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
@@ -629,6 +630,20 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
   function _reserveTestCases() internal view virtual returns (ReserveTestCase[] memory);
 
   function _tokenizationTestCases() internal view virtual returns (TokenizationTestCase[] memory);
+
+  /// @dev Subclasses must pin the trusted canonical SpokeInstance impl address.
+  function _canonicalSpokeImplementation() internal view virtual returns (address);
+
+  function _assertSpokeImplIsCanonical(address spokeProxy) internal view {
+    bytes32 implementationSlot = vm.load(spokeProxy, ERC1967Utils.IMPLEMENTATION_SLOT);
+    address implementation = address(uint160(uint256(implementationSlot)));
+    require(implementation != address(0), 'spoke impl slot is zero');
+    require(implementation.code.length > 0, 'spoke impl has no code');
+    require(
+      implementation == _canonicalSpokeImplementation(),
+      string.concat('spoke impl is not canonical: ', vm.toString(implementation))
+    );
+  }
 
   function _reserveIdsFor(
     ReserveTestCase memory testCase
