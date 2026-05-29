@@ -22,7 +22,6 @@ const ASSET = 'AaveV4EthereumAssets.WETH_UNDERLYING';
 const RESERVE_ASSET = 'AaveV4EthereumAssets.USDC_UNDERLYING';
 const PM = '0x1111111111111111111111111111111111111111';
 const ADDR = '0x2222222222222222222222222222222222222222';
-const AUTH = 'AaveV4Ethereum.ACCESS_MANAGER';
 
 const OPTS: Options = {
   markets: ['AaveV4Ethereum'],
@@ -194,9 +193,7 @@ describe('feature: v4 use-cases smoke test', () => {
     };
 
     const wirePmCfg = {
-      targetFunctionRoles: [
-        {authority: AUTH, target: PM as `0x${string}`, selectors: ['0x12345678'], roleId: '1'},
-      ],
+      targetFunctionRoles: [{target: PM as `0x${string}`, selectors: ['0x12345678'], roleId: '1'}],
       spokeActivations: [
         {spokeLib: SPOKE, spoke: SPOKE, positionManager: PM as `0x${string}`, active: true},
       ],
@@ -206,7 +203,6 @@ describe('feature: v4 use-cases smoke test', () => {
     const manageRoleCfg = {
       memberships: [
         {
-          authority: AUTH,
           roleId: '1',
           account: ADDR as `0x${string}`,
           granted: true,
@@ -215,7 +211,6 @@ describe('feature: v4 use-cases smoke test', () => {
       ],
       updates: [
         {
-          authority: AUTH,
           roleId: '1',
           admin: keepCurrentUint64(),
           guardian: literal('2'),

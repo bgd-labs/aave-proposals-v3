@@ -31,7 +31,6 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
       const grantDelay = await uint32SentinelPrompt('New grant delay (uint32, seconds)');
       const label = await input({message: 'New label (empty = keep current)'});
       response.push({
-        authority: 'AaveV4Ethereum.ACCESS_MANAGER',
         roleId,
         admin,
         guardian,
@@ -42,10 +41,10 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
     }
     return response;
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.RoleUpdate({
-        authority: address(${c.authority}),
+        authority: address(${market}.ACCESS_MANAGER),
         roleId: ${c.roleId},
         admin: ${renderSentinel(c.admin)},
         guardian: ${renderSentinel(c.guardian)},
@@ -58,17 +57,17 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
       const asserts: string[] = [];
       if (isLiteral(c.admin)) {
         asserts.push(
-          `assertEq(uint256(IAccessManager(address(${c.authority})).getRoleAdmin(uint64(${c.roleId}))), uint256(${literalValue(c.admin)}), 'admin mismatch');`,
+          `assertEq(uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getRoleAdmin(uint64(${c.roleId}))), uint256(${literalValue(c.admin)}), 'admin mismatch');`,
         );
       }
       if (isLiteral(c.guardian)) {
         asserts.push(
-          `assertEq(uint256(IAccessManager(address(${c.authority})).getRoleGuardian(uint64(${c.roleId}))), uint256(${literalValue(c.guardian)}), 'guardian mismatch');`,
+          `assertEq(uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getRoleGuardian(uint64(${c.roleId}))), uint256(${literalValue(c.guardian)}), 'guardian mismatch');`,
         );
       }
       if (isLiteral(c.grantDelay)) {
         asserts.push(
-          `assertEq(uint256(IAccessManager(address(${c.authority})).getRoleGrantDelay(uint64(${c.roleId}))), uint256(${literalValue(c.grantDelay)}), 'grantDelay mismatch');`,
+          `assertEq(uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getRoleGrantDelay(uint64(${c.roleId}))), uint256(${literalValue(c.grantDelay)}), 'grantDelay mismatch');`,
         );
       }
       return `function test_accessManagerRoleUpdate_${fnSuffix}() public {

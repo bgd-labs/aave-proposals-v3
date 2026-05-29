@@ -82,7 +82,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       constants.push(buildAddressConstant(market, feeReceiverName, c.feeReceiver));
       constants.push(buildAddressConstant(market, irStrategyName, c.irStrategy));
       return `items[__INDEX__] = IAaveV4ConfigEngine.AssetListing({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)},
         feeReceiver: ${feeReceiverName},

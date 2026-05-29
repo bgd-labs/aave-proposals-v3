@@ -1,6 +1,6 @@
 import {expect, describe, it} from 'vitest';
-import {mergeArtifact, mergeV4Getters} from './bundleHelpers';
-import {CodeArtifact} from '../../types';
+import {mergeArtifact, finalizeV4Artifacts} from './bundleHelpers';
+import {CodeArtifact, MarketConfig} from '../../types';
 
 describe('mergeArtifact', () => {
   it('merges code, test and aip artifacts from a source into a target', () => {
@@ -29,15 +29,35 @@ describe('mergeArtifact', () => {
   });
 });
 
-describe('mergeV4Getters', () => {
-  it('combines entries for a shared getter and indexes them', () => {
-    const out = mergeV4Getters([
-      {code: {v4Getters: {getList: {returnType: 'T', entries: ['items[__INDEX__] = a;']}}}},
-      {code: {v4Getters: {getList: {returnType: 'T', entries: ['items[__INDEX__] = b;']}}}},
-    ]);
+describe('finalizeV4Artifacts', () => {
+  it('combines entries for a shared getter, indexes them, and emits a single fn artifact', () => {
+    const marketConfig: MarketConfig = {
+      configs: {},
+      artifacts: [
+        {code: {v4Getters: {getList: {returnType: 'T', entries: ['items[__INDEX__] = a;']}}}},
+        {code: {v4Getters: {getList: {returnType: 'T', entries: ['items[__INDEX__] = b;']}}}},
+      ],
+      cache: {blockNumber: 0},
+    };
+    finalizeV4Artifacts(marketConfig);
+    expect(marketConfig.artifacts[0].code!.v4Getters).toBeUndefined();
+    expect(marketConfig.artifacts[1].code!.v4Getters).toBeUndefined();
+    const appended = marketConfig.artifacts[2];
+    expect(appended.code!.fn).toHaveLength(1);
+    const out = appended.code!.fn![0];
     expect(out).toContain('function getList() public pure override returns (T[] memory)');
     expect(out).toContain('new T[](2)');
     expect(out).toContain('items[0] = a;');
     expect(out).toContain('items[1] = b;');
+  });
+
+  it('is a no-op when no artifact has v4Getters', () => {
+    const marketConfig: MarketConfig = {
+      configs: {},
+      artifacts: [{code: {fn: ['function f() {}']}}],
+      cache: {blockNumber: 0},
+    };
+    finalizeV4Artifacts(marketConfig);
+    expect(marketConfig.artifacts).toHaveLength(1);
   });
 });

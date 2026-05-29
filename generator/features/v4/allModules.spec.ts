@@ -61,7 +61,6 @@ const SPOKE = 'AaveV4EthereumSpokes.MAIN_SPOKE';
 const ASSET = 'AaveV4EthereumAssets.WETH_UNDERLYING';
 const PM = '0x1111111111111111111111111111111111111111';
 const ADDR = '0x2222222222222222222222222222222222222222';
-const AUTH = 'AaveV4Ethereum.ACCESS_MANAGER';
 
 const OPTS: Options = {
   markets: ['AaveV4Ethereum'],
@@ -227,12 +226,11 @@ const spokePositionManagerUpdateCfg: V4SpokePositionManagerUpdate[] = [
 ];
 
 const roleMembershipCfg: V4RoleMembership[] = [
-  {authority: AUTH, roleId: '1', account: ADDR, granted: true, executionDelay: '0'},
+  {roleId: '1', account: ADDR, granted: true, executionDelay: '0'},
 ];
 
 const roleUpdateCfg: V4RoleUpdate[] = [
   {
-    authority: AUTH,
     roleId: '1',
     admin: keepCurrentUint64(),
     guardian: literal('2'),
@@ -242,12 +240,10 @@ const roleUpdateCfg: V4RoleUpdate[] = [
 ];
 
 const targetFunctionRoleUpdateCfg: V4TargetFunctionRoleUpdate[] = [
-  {authority: AUTH, target: ADDR, selectors: ['0x12345678'], roleId: '1'},
+  {target: ADDR, selectors: ['0x12345678'], roleId: '1'},
 ];
 
-const targetAdminDelayUpdateCfg: V4TargetAdminDelayUpdate[] = [
-  {authority: AUTH, target: ADDR, newDelay: '3600'},
-];
+const targetAdminDelayUpdateCfg: V4TargetAdminDelayUpdate[] = [{target: ADDR, newDelay: '3600'}];
 
 const pmSpokeRegistrationCfg: V4PMSpokeRegistration[] = [
   {positionManager: PM, spoke: SPOKE, registered: true},

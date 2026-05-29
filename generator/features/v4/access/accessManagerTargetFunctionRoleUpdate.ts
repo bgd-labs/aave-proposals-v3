@@ -21,7 +21,6 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
         .map((s) => s.trim())
         .filter(Boolean);
       response.push({
-        authority: 'AaveV4Ethereum.ACCESS_MANAGER',
         target: target as `0x${string}`,
         selectors,
         roleId,
@@ -45,7 +44,7 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
         bytes4[] memory selectors = new bytes4[](${c.selectors.length});
         ${c.selectors.map((s, jx) => `selectors[${jx}] = bytes4(${s});`).join('\n')}
         items[__INDEX__] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
-          authority: address(${c.authority}),
+          authority: address(${market}.ACCESS_MANAGER),
           target: ${targetExpr},
           selectors: selectors,
           roleId: ${c.roleId}
@@ -62,7 +61,7 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
           `function test_accessManagerTargetFunctionRoleUpdate_${sanitizeIdentifier(c.roleId)}_${ix}_${jx}() public {
             GovV3Helpers.executePayload(vm, address(proposal));
             assertEq(
-              uint256(IAccessManager(address(${c.authority})).getTargetFunctionRole(${targetExpr}, bytes4(${s}))),
+              uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getTargetFunctionRole(${targetExpr}, bytes4(${s}))),
               uint256(${c.roleId}),
               'selector role mismatch'
             );

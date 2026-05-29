@@ -62,7 +62,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
     );
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.ReserveListing({
-        spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+        spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
         underlying: ${checksumAddress(c.underlying)},

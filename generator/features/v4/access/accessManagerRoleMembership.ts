@@ -20,7 +20,6 @@ export const accessManagerRoleMembership: FeatureModule<V4RoleMembership[]> = {
         ? await input({message: 'Execution delay (seconds, uint32)', default: '0'})
         : '0';
       response.push({
-        authority: 'AaveV4Ethereum.ACCESS_MANAGER',
         roleId,
         account: account as `0x${string}`,
         granted,
@@ -36,7 +35,7 @@ export const accessManagerRoleMembership: FeatureModule<V4RoleMembership[]> = {
       const accountName = `ROLE_${sanitizeIdentifier(c.roleId)}_ACCOUNT_${ix}`;
       constants.push(buildAddressConstant(market, accountName, c.account));
       return `items[__INDEX__] = IAaveV4ConfigEngine.RoleMembership({
-        authority: address(${c.authority}),
+        authority: address(${market}.ACCESS_MANAGER),
         roleId: ${c.roleId},
         account: ${accountName},
         granted: ${c.granted},
@@ -52,7 +51,7 @@ export const accessManagerRoleMembership: FeatureModule<V4RoleMembership[]> = {
         : `assertFalse(isMember, 'account should not have role');`;
       return `function test_accessManagerRoleMembership_${fnSuffix}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
-        (bool isMember, uint32 executionDelay) = IAccessManager(address(${c.authority})).hasRole(
+        (bool isMember, uint32 executionDelay) = IAccessManager(address(${market}.ACCESS_MANAGER)).hasRole(
           uint64(${c.roleId}),
           proposal.${accountName}()
         );

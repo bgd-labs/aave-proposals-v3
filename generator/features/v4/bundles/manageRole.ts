@@ -39,7 +39,6 @@ export const manageRole: FeatureModule<BundleCfg> = {
         ? await input({message: 'Execution delay (seconds, uint32)', default: '0'})
         : '0';
       result.memberships.push({
-        authority: 'AaveV4Ethereum.ACCESS_MANAGER',
         roleId,
         account: account as `0x${string}`,
         granted: grant,
@@ -52,7 +51,6 @@ export const manageRole: FeatureModule<BundleCfg> = {
       });
       if (wantMeta) {
         result.updates.push({
-          authority: 'AaveV4Ethereum.ACCESS_MANAGER',
           roleId,
           admin: await sentinelUint64('New admin role (uint64)'),
           guardian: await sentinelUint64('New guardian role (uint64)'),

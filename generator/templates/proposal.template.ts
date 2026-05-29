@@ -2,7 +2,6 @@ import {generateContractName, getVersion, isWhitelabelMarket} from '../common';
 import {FEATURE, Options, MarketConfig, MarketIdentifier} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
-import {mergeV4Getters} from '../features/v4/bundleHelpers';
 
 function dedupeLines(blocks: string[]): string[] {
   const seen = new Set<string>();
@@ -33,15 +32,10 @@ export const proposalTemplate = (
       .flat()
       .filter((f): f is string => f !== undefined),
   ).join('\n');
-  const v4GettersMerged = mergeV4Getters(marketConfig.artifacts);
-  const functions = [
-    ...marketConfig.artifacts
-      .map((artifact) => artifact.code?.fn)
-      .flat()
-      .filter((f) => f !== undefined),
-    v4GettersMerged,
-  ]
-    .filter((f) => f)
+  const functions = marketConfig.artifacts
+    .map((artifact) => artifact.code?.fn)
+    .flat()
+    .filter((f) => f !== undefined)
     .join('\n');
   const innerExecute = marketConfig.artifacts
     .map((artifact) => artifact.code?.execute)

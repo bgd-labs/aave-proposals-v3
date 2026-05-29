@@ -36,10 +36,10 @@ export const spokePositionManagerUpdate: FeatureModule<V4SpokePositionManagerUpd
     }
     return response;
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.PositionManagerUpdate({
-        spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+        spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         positionManager: address(${c.positionManager}),
         active: ${c.active}

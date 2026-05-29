@@ -218,7 +218,6 @@ export const config: ConfigFile = {
         ],
         V4_AM_ROLE_MEMBERSHIP: [
           {
-            authority: 'AaveV4Ethereum.ACCESS_MANAGER',
             roleId: '1',
             account: '0x2222222222222222222222222222222222222222',
             granted: true,
@@ -227,7 +226,6 @@ export const config: ConfigFile = {
         ],
         V4_AM_ROLE_UPDATE: [
           {
-            authority: 'AaveV4Ethereum.ACCESS_MANAGER',
             roleId: '1',
             admin: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT64'},
             guardian: {kind: 'literal', value: '2'},
@@ -237,18 +235,13 @@ export const config: ConfigFile = {
         ],
         V4_AM_TARGET_FUNCTION_ROLE_UPDATE: [
           {
-            authority: 'AaveV4Ethereum.ACCESS_MANAGER',
             target: '0x2222222222222222222222222222222222222222',
             selectors: ['0x12345678'],
             roleId: '1',
           },
         ],
         V4_AM_TARGET_ADMIN_DELAY_UPDATE: [
-          {
-            authority: 'AaveV4Ethereum.ACCESS_MANAGER',
-            target: '0x2222222222222222222222222222222222222222',
-            newDelay: '3600',
-          },
+          {target: '0x2222222222222222222222222222222222222222', newDelay: '3600'},
         ],
         V4_PM_SPOKE_REGISTRATION: [
           {

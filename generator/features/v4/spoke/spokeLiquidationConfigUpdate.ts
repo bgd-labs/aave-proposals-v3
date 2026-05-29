@@ -36,10 +36,10 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
     }
     return response;
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.LiquidationConfigUpdate({
-        spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+        spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         targetHealthFactor: ${renderSentinel(c.targetHealthFactor)},
         healthFactorForMaxBonus: ${renderSentinel(c.healthFactorForMaxBonus)},

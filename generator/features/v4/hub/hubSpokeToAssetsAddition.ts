@@ -56,7 +56,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
     }
     return response;
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map((c) => {
       const inner = c.assets
         .map(
@@ -76,7 +76,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         IAaveV4ConfigEngine.SpokeAssetConfig[] memory subAssets = new IAaveV4ConfigEngine.SpokeAssetConfig[](${c.assets.length});
         ${inner}
         items[__INDEX__] = IAaveV4ConfigEngine.SpokeToAssetsAddition({
-          hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+          hubConfigurator: ${market}.HUB_CONFIGURATOR,
           hub: address(${c.hubLib}),
           spoke: address(${c.spoke}),
           assets: subAssets

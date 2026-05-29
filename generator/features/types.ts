@@ -286,7 +286,6 @@ export interface V4SpokePositionManagerUpdate {
 }
 
 export interface V4RoleMembership {
-  authority: string;
   roleId: string;
   account: Hex;
   granted: boolean;
@@ -294,7 +293,6 @@ export interface V4RoleMembership {
 }
 
 export interface V4RoleUpdate {
-  authority: string;
   roleId: string;
   admin: Sentinel;
   guardian: Sentinel;
@@ -303,14 +301,12 @@ export interface V4RoleUpdate {
 }
 
 export interface V4TargetFunctionRoleUpdate {
-  authority: string;
   target: Hex;
   selectors: string[];
   roleId: string;
 }
 
 export interface V4TargetAdminDelayUpdate {
-  authority: string;
   target: Hex;
   newDelay: string;
 }

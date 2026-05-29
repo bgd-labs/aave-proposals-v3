@@ -1,8 +1,8 @@
 import {CodeArtifact, MarketConfig, V4GetterEntry} from '../../types';
 
-export function mergeV4Getters(artifacts: MarketConfig['artifacts']): string {
+export function finalizeV4Artifacts(marketConfig: MarketConfig): void {
   const merged: Record<string, V4GetterEntry> = {};
-  for (const artifact of artifacts) {
+  for (const artifact of marketConfig.artifacts) {
     const getters = artifact.code?.v4Getters;
     if (!getters) continue;
     for (const [name, value] of Object.entries(getters)) {
@@ -11,19 +11,22 @@ export function mergeV4Getters(artifacts: MarketConfig['artifacts']): string {
       }
       merged[name].entries.push(...value.entries);
     }
+    delete artifact.code!.v4Getters;
   }
-  return Object.entries(merged)
-    .map(([name, value]) => {
-      const lines = value.entries
-        .map((entry, ix) => entry.replace(/__INDEX__/g, ix.toString()))
-        .join('\n');
-      return `function ${name}() public pure override returns (${value.returnType}[] memory) {
+  const names = Object.keys(merged);
+  if (names.length === 0) return;
+  const fn = names.map((name) => {
+    const value = merged[name];
+    const lines = value.entries
+      .map((entry, ix) => entry.replace(/__INDEX__/g, ix.toString()))
+      .join('\n');
+    return `function ${name}() public pure override returns (${value.returnType}[] memory) {
         ${value.returnType}[] memory items = new ${value.returnType}[](${value.entries.length});
         ${lines}
         return items;
       }`;
-    })
-    .join('\n');
+  });
+  marketConfig.artifacts.push({code: {fn}});
 }
 
 export function mergeArtifact(target: CodeArtifact, source: CodeArtifact) {

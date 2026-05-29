@@ -44,7 +44,6 @@ export const wirePositionManager: FeatureModule<BundleCfg> = {
         .map((s) => s.trim())
         .filter(Boolean);
       result.targetFunctionRoles.push({
-        authority: 'AaveV4Ethereum.ACCESS_MANAGER',
         target: pmAccessor,
         selectors,
         roleId,

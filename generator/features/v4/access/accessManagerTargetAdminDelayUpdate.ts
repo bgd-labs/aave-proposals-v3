@@ -14,7 +14,6 @@ export const accessManagerTargetAdminDelayUpdate: FeatureModule<V4TargetAdminDel
       const target = await addressPrompt({message: 'Target contract address', required: true});
       const newDelay = await input({message: 'New admin delay (seconds, uint32)'});
       response.push({
-        authority: 'AaveV4Ethereum.ACCESS_MANAGER',
         target: target as `0x${string}`,
         newDelay,
       });
@@ -39,7 +38,7 @@ export const accessManagerTargetAdminDelayUpdate: FeatureModule<V4TargetAdminDel
         ? `TARGET_ADMIN_DELAY_TARGET_${ix}`
         : `address(${c.target})`;
       return `items[__INDEX__] = IAaveV4ConfigEngine.TargetAdminDelayUpdate({
-        authority: address(${c.authority}),
+        authority: address(${market}.ACCESS_MANAGER),
         target: ${targetExpr},
         newDelay: ${c.newDelay}
       });`;
@@ -49,7 +48,7 @@ export const accessManagerTargetAdminDelayUpdate: FeatureModule<V4TargetAdminDel
         `function test_accessManagerTargetAdminDelayUpdate_${ix}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         assertEq(
-          uint256(IAccessManager(address(${c.authority})).getTargetAdminDelay(${targetExprs[ix]})),
+          uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getTargetAdminDelay(${targetExprs[ix]})),
           uint256(${c.newDelay}),
           'targetAdminDelay mismatch'
         );

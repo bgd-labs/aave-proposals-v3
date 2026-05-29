@@ -187,7 +187,6 @@ export const config: ConfigFile = {
         V4_USECASE_WIRE_POSITION_MANAGER: {
           targetFunctionRoles: [
             {
-              authority: 'AaveV4Ethereum.ACCESS_MANAGER',
               target: '0x1111111111111111111111111111111111111111',
               selectors: ['0x12345678'],
               roleId: '1',
@@ -212,7 +211,6 @@ export const config: ConfigFile = {
         V4_USECASE_MANAGE_ROLE: {
           memberships: [
             {
-              authority: 'AaveV4Ethereum.ACCESS_MANAGER',
               roleId: '1',
               account: '0x2222222222222222222222222222222222222222',
               granted: true,
@@ -221,7 +219,6 @@ export const config: ConfigFile = {
           ],
           updates: [
             {
-              authority: 'AaveV4Ethereum.ACCESS_MANAGER',
               roleId: '1',
               admin: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT64'},
               guardian: {kind: 'literal', value: '2'},

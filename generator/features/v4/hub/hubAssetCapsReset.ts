@@ -24,10 +24,10 @@ export const hubAssetCapsReset: FeatureModule<V4HubAssetCapsReset[]> = {
       underlying: assetLibAccessor(m, asset),
     }));
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetCapsReset({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)}
       });`,

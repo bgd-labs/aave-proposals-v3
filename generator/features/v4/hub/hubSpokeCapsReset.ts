@@ -24,10 +24,10 @@ export const hubSpokeCapsReset: FeatureModule<V4HubSpokeCapsReset[]> = {
       spoke: spokeLibAccessor(m, spoke),
     }));
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.SpokeCapsReset({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         spoke: address(${c.spoke})
       });`,

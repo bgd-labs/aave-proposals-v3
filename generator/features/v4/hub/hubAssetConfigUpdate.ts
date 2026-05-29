@@ -74,10 +74,10 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
     }
     return response;
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetConfigUpdate({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)},
         liquidityFee: ${renderSentinel(c.liquidityFee)},

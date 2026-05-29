@@ -55,10 +55,10 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
     }
     return response;
   },
-  build({cfg}) {
+  build({market, cfg}) {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IAaveV4ConfigEngine.DynamicReserveConfigUpdate({
-        spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+        spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
         underlying: ${checksumAddress(c.underlying)},

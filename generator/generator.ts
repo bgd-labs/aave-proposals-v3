@@ -9,6 +9,7 @@ import prettier from 'prettier';
 import {generateScript} from './templates/script.template';
 import {generateZkSyncScript} from './templates/zksync.script.template';
 import {generateAIP} from './templates/aip.template';
+import {finalizeV4Artifacts} from './features/v4/bundleHelpers';
 
 const prettierSolCfg = await prettier.resolveConfig('foo.sol');
 const prettierMDCfg = await prettier.resolveConfig('foo.md');
@@ -42,6 +43,7 @@ export async function generateFiles(
   async function createPayloadAndTest(options: Options, market: MarketIdentifier) {
     const contractName = generateContractName(options, market);
     const testCode = testTemplate(options, marketConfigs[market]!, market);
+    finalizeV4Artifacts(marketConfigs[market]!);
 
     return {
       market,
