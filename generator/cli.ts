@@ -85,11 +85,11 @@ const FEATURE_MODULES_V3 = [
   borrowsUpdates,
   flashBorrower,
   priceFeedsUpdates,
+  assetListing,
+  assetListingCustom,
   eModeCreations,
   eModeUpdates,
   eModeAssets,
-  assetListing,
-  assetListingCustom,
   freezeUpdates,
   emissionUpdates,
   PLACEHOLDER_MODULE,
@@ -125,6 +125,7 @@ async function fetchPoolOptions(pool: PoolIdentifier) {
       options,
       pool,
       cache: poolConfigs[pool]!.cache,
+      configs: poolConfigs[pool]!.configs,
     });
     poolConfigs[pool]!.artifacts.push(
       module.build({
@@ -132,6 +133,7 @@ async function fetchPoolOptions(pool: PoolIdentifier) {
         pool,
         cfg: poolConfigs[pool]!.configs[feature],
         cache: poolConfigs[pool]!.cache,
+        configs: poolConfigs[pool]!.configs,
       }),
     );
   }
@@ -160,6 +162,7 @@ if (options.configFile) {
             pool,
             cfg: poolConfigs[pool]!.configs[feature],
             cache: poolConfigs[pool]!.cache,
+            configs: poolConfigs[pool]!.configs,
           }),
         );
       }

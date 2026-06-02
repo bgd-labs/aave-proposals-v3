@@ -112,8 +112,19 @@ export enum VOTING_NETWORK {
 export interface FeatureModule<T extends {} = {}> {
   description: string;
   value: FEATURE;
-  cli: (args: {options: Options; pool: PoolIdentifier; cache: PoolCache}) => Promise<T>;
-  build: (args: {options: Options; pool: PoolIdentifier; cache: PoolCache; cfg: T}) => CodeArtifact;
+  cli: (args: {
+    options: Options;
+    pool: PoolIdentifier;
+    cache: PoolCache;
+    configs: PoolConfig['configs'];
+  }) => Promise<T>;
+  build: (args: {
+    options: Options;
+    pool: PoolIdentifier;
+    cache: PoolCache;
+    cfg: T;
+    configs: PoolConfig['configs'];
+  }) => CodeArtifact;
 }
 
 export const ENGINE_FLAGS = {

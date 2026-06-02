@@ -5,6 +5,7 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {
   assetsSelectPrompt,
+  getNewListingSymbols,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {pascalCase} from '../common';
@@ -32,15 +33,20 @@ export async function fetchEmodeCategoryData<T extends boolean>(
   };
 }
 
-async function fetchEmodeCategoryCreation(pool: PoolIdentifier): Promise<EModeCategoryCreation> {
+async function fetchEmodeCategoryCreation(
+  pool: PoolIdentifier,
+  additionalAssets: string[],
+): Promise<EModeCategoryCreation> {
   const eModeData = await fetchEmodeCategoryData(true);
   const collateralAssets = await assetsSelectPrompt({
     message: 'Select the assets you want to add as collateral',
     pool,
+    additionalAssets,
   });
   const borrowableAssets = await assetsSelectPrompt({
     message: 'Select the assets you want to add as borrowable',
     pool,
+    additionalAssets,
   });
   return {
     ...eModeData,
@@ -49,13 +55,13 @@ async function fetchEmodeCategoryCreation(pool: PoolIdentifier): Promise<EModeCa
   };
 }
 
-async function subCli(pool: PoolIdentifier) {
+async function subCli(pool: PoolIdentifier, additionalAssets: string[]) {
   const answers: EmodeCreations = [];
   let more: boolean = true;
   console.log(`Fetching information for Emode creation on ${pool}`);
 
   while (more) {
-    answers.push(await fetchEmodeCategoryCreation(pool));
+    answers.push(await fetchEmodeCategoryCreation(pool, additionalAssets));
     more = await confirm({message: 'Do you want to add another emode category?', default: false});
   }
 
@@ -67,11 +73,12 @@ type EmodeCreations = EModeCategoryCreation[];
 export const eModeCreations: FeatureModule<EmodeCreations> = {
   value: FEATURE.EMODES_CREATION,
   description: 'eModeCategoriesCreation (adding eModes)',
-  async cli({pool}) {
-    const response: EmodeCreations = await subCli(pool);
+  async cli({pool, configs}) {
+    const response: EmodeCreations = await subCli(pool, getNewListingSymbols(configs));
     return response;
   },
-  build({pool, cfg}) {
+  build({pool, cfg, configs}) {
+    const newListings = new Set(getNewListingSymbols(configs));
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -89,13 +96,13 @@ export const eModeCreations: FeatureModule<EmodeCreations> = {
               ${cfg.collateralAssets
                 .map(
                   (asset, i) =>
-                    `collateralAssets_${pascalCase(cfg.label)}[${i}] = ${translateAssetToAssetLibUnderlying(asset, pool)};`,
+                    `collateralAssets_${pascalCase(cfg.label)}[${i}] = ${translateAssetToAssetLibUnderlying(asset, pool, newListings)};`,
                 )
                 .join('\n')}
               ${cfg.borrowableAssets
                 .map(
                   (asset, i) =>
-                    `borrowableAssets_${pascalCase(cfg.label)}[${i}] = ${translateAssetToAssetLibUnderlying(asset, pool)};`,
+                    `borrowableAssets_${pascalCase(cfg.label)}[${i}] = ${translateAssetToAssetLibUnderlying(asset, pool, newListings)};`,
                 )
                 .join('\n')}
 

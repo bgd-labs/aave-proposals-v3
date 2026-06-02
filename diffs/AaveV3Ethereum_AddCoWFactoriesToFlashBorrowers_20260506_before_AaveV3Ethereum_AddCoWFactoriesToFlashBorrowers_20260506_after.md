@@ -1,0 +1,41 @@
+## Event logs
+
+#### 0xc2aaCf6553D20d1e9d78E365AAba8032af9c85b0 (AaveV3Ethereum.ACL_MANAGER)
+
+| index | event |
+| --- | --- |
+| 0 | RoleGranted(role: 0x939b8dfb57ecef2aea54a93a15e86768b9d4089f1ba61c245e6ec980695f4ca4, account: 0xdeCC46a4b09162F5369c5C80383AAa9159bCf192, sender: 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1778064587, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 434) |
+
+## Raw storage changes
+
+### 0xc2aacf6553d20d1e9d78e365aaba8032af9c85b0 (AaveV3Ethereum.ACL_MANAGER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x176cf82e48229db86e84c0ac6dae046d81639711be1c9b63e0d0eda525170356 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xd9dfff8f854ea860e5807c7e774d66714188d81dc80b79abefa0870464b7901a | 0x0069fb1cca000000000002000000000000000000000000000000000000000000 | 0x0069fb1cca000000000003000000000000000000000000000000000000000000 |
+| 0xd9dfff8f854ea860e5807c7e774d66714188d81dc80b79abefa0870464b7901b | 0x000000000000000000093a800000000000006a29414b00000000000000000000 | 0x000000000000000000093a800000000000006a29414b00000000000069fb1ccb |
+
+
+## Raw diff
+
+```json
+{}
+```

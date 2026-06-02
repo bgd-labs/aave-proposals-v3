@@ -2,6 +2,7 @@ import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {Hex} from 'viem';
 import {testExecuteProposal} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {CHAIN_TO_CHAIN_ID, getExplorerLink, getPoolChain} from '../common';
 
 export type FlashBorrower = {
   address: Hex;
@@ -24,7 +25,7 @@ export const flashBorrower: FeatureModule<FlashBorrower> = {
     const response: CodeArtifact = {
       code: {
         constants: [
-          `address public constant NEW_FLASH_BORROWER = ${translateJsAddressToSol(cfg.address)};`,
+          `// ${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.address)}\naddress public constant NEW_FLASH_BORROWER = ${translateJsAddressToSol(cfg.address)};`,
         ],
         execute: [`${pool}.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);`],
       },

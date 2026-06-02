@@ -4,4 +4,3 @@
 [submodule "lib/aave-helpers"]
 	path = lib/aave-helpers
 	url = https://github.com/aave-dao/aave-helpers
-	branch = v3.7-alt-fixes
