@@ -11,6 +11,7 @@ import {IGranularGuardianAccessControl} from 'src/interfaces/IGranularGuardian.s
  * - Discussion: https://governance.aave.com/t/direct-to-aip-grant-aave-labs-retry-role-on-a-di/25020
  */
 contract AaveV3Ethereum_MaintenanceGrantALRETRY_ROLEOnADI_20260602 is IProposalGenericExecutor {
+  // https://etherscan.io/address/0x4Ab2Bed1d667260dB34244Ba412817651C2dD52b
   address public constant AAVE_LABS_GUARDIAN = 0x4Ab2Bed1d667260dB34244Ba412817651C2dD52b;
 
   function execute() external {
