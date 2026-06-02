@@ -49,6 +49,9 @@ out = 'out/shanghai'
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
 
+[lint]
+lint_on_build = false
+
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
