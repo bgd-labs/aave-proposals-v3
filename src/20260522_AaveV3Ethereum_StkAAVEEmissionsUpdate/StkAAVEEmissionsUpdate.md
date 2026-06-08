@@ -21,8 +21,8 @@ Call `configureAssets` on the stkAAVE Safety Module (`0x4da27a545c0c5B758a6BA100
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/368cd645e49bab4b2686d17bd52f961c9fcb932f/src/20260522_AaveV3Ethereum_StkAAVEEmissionsUpdate/AaveV3Ethereum_StkAAVEEmissionsUpdate_20260522.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/368cd645e49bab4b2686d17bd52f961c9fcb932f/src/20260522_AaveV3Ethereum_StkAAVEEmissionsUpdate/AaveV3Ethereum_StkAAVEEmissionsUpdate_20260522.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260522_AaveV3Ethereum_StkAAVEEmissionsUpdate/AaveV3Ethereum_StkAAVEEmissionsUpdate_20260522.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260522_AaveV3Ethereum_StkAAVEEmissionsUpdate/AaveV3Ethereum_StkAAVEEmissionsUpdate_20260522.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xd416e6cb09416cc4effdd2ad869373db2ac005ea63e7d7baeec0db4934281352)
 - [Discussion](https://governance.aave.com/t/arfc-stkaave-emissions-update/24945)
 
