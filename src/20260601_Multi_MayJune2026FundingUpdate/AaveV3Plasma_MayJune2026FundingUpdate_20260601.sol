@@ -13,7 +13,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/direct-to-aip-may-june-2026-funding-update/25000
  */
 contract AaveV3Plasma_MayJune2026FundingUpdate_20260601 is IProposalGenericExecutor {
-  uint256 public constant AFC_SAFE_A_USDT0_ALLOWANCE = 3_000_000e6; // 3M aUSDT, 6 decimals
+  uint256 public constant AFC_SAFE_A_USDT0_ALLOWANCE = 3_000_000e6; // 3M aUSDT0, 6 decimals
 
   function execute() external {
     AaveV3Plasma.COLLECTOR.approve(

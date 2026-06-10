@@ -21,11 +21,9 @@ import {AaveV3Ethereum_MayJune2026FundingUpdate_20260601} from './AaveV3Ethereum
 contract AaveV3Ethereum_MayJune2026FundingUpdate_20260601_Test is ProtocolV3TestBase {
   AaveV3Ethereum_MayJune2026FundingUpdate_20260601 internal proposal;
 
-  uint256 internal constant EXPECTED_TOTAL_USDC_PAYMENTS = 8_250e6; // 9350 USDC, 6 decimals
-  uint256 internal constant EXPECTED_TOTAL_GHO_PAYMENTS = 1_100 ether; // 1100 GHO, 6 decimals
+  uint256 internal constant EXPECTED_TOTAL_GHO_PAYMENTS = 9_350 ether; // 9350 GHO, 18 decimals
 
   function setUp() public {
-    // TODO: update block number after witdrawing USDC.
     vm.createSelectFork(vm.rpcUrl('mainnet'), 25274433);
     proposal = new AaveV3Ethereum_MayJune2026FundingUpdate_20260601();
   }
@@ -205,36 +203,28 @@ contract AaveV3Ethereum_MayJune2026FundingUpdate_20260601_Test is ProtocolV3Test
     );
   }
 
-  function test_securityResearcherUsdcPayment() public {
+  function test_securityResearcherGhoPayment() public {
     address receiver = proposal.SECURITY_RESEARCHER();
-    uint256 amount = proposal.SECURITY_RESEARCHER_USDC_PAYMENT_AMOUNT();
-    address usdc = AaveV3EthereumAssets.USDC_UNDERLYING;
+    uint256 amount = proposal.SECURITY_RESEARCHER_GHO_PAYMENT_AMOUNT();
+    address gho = AaveV3EthereumAssets.GHO_UNDERLYING;
 
-    uint256 receiverBefore = IERC20(usdc).balanceOf(receiver);
+    uint256 receiverBefore = IERC20(gho).balanceOf(receiver);
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      IERC20(usdc).balanceOf(receiver),
-      receiverBefore + amount,
-      'receiver balance mismatch'
-    );
+    assertEq(IERC20(gho).balanceOf(receiver), receiverBefore + amount, 'receiver balance mismatch');
   }
 
-  function test_immunefiUsdcPayment() public {
+  function test_immunefiGhoPayment() public {
     address receiver = proposal.IMMUNEFI();
-    uint256 amount = proposal.IMMUNEFI_USDC_PAYMENT_AMOUNT();
-    address usdc = AaveV3EthereumAssets.USDC_UNDERLYING;
+    uint256 amount = proposal.IMMUNEFI_GHO_PAYMENT_AMOUNT();
+    address gho = AaveV3EthereumAssets.GHO_UNDERLYING;
 
-    uint256 receiverBefore = IERC20(usdc).balanceOf(receiver);
+    uint256 receiverBefore = IERC20(gho).balanceOf(receiver);
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      IERC20(usdc).balanceOf(receiver),
-      receiverBefore + amount,
-      'receiver balance mismatch'
-    );
+    assertEq(IERC20(gho).balanceOf(receiver), receiverBefore + amount, 'receiver balance mismatch');
   }
 
   function test_aaveV4BountySherlockGhoPayment() public {
@@ -249,29 +239,12 @@ contract AaveV3Ethereum_MayJune2026FundingUpdate_20260601_Test is ProtocolV3Test
     assertEq(IERC20(gho).balanceOf(receiver), receiverBefore + amount, 'receiver balance mismatch');
   }
 
-  function test_collectorTotalUsdcPayments() public {
-    address collector = address(AaveV3Ethereum.COLLECTOR);
-    address usdc = AaveV3EthereumAssets.USDC_UNDERLYING;
-    uint256 totalWithdrawn = proposal.SECURITY_RESEARCHER_USDC_PAYMENT_AMOUNT() +
-      proposal.IMMUNEFI_USDC_PAYMENT_AMOUNT();
-
-    assertEq(totalWithdrawn, EXPECTED_TOTAL_USDC_PAYMENTS, 'total USDC payments mismatch');
-
-    uint256 collectorUsdcBefore = IERC20(usdc).balanceOf(collector);
-
-    executePayload(vm, address(proposal));
-
-    assertEq(
-      IERC20(usdc).balanceOf(collector),
-      collectorUsdcBefore - totalWithdrawn,
-      'USDC balance mismatch: the collector should have transferred out USDC payments'
-    );
-  }
-
   function test_collectorTotalGhoPayments() public {
     address collector = address(AaveV3Ethereum.COLLECTOR);
     address gho = AaveV3EthereumAssets.GHO_UNDERLYING;
-    uint256 totalWithdrawn = proposal.AAVE_V4_BOUNTY_SHERLOCK_GHO_PAYMENT_AMOUNT();
+    uint256 totalWithdrawn = proposal.SECURITY_RESEARCHER_GHO_PAYMENT_AMOUNT() +
+      proposal.IMMUNEFI_GHO_PAYMENT_AMOUNT() +
+      proposal.AAVE_V4_BOUNTY_SHERLOCK_GHO_PAYMENT_AMOUNT();
 
     assertEq(totalWithdrawn, EXPECTED_TOTAL_GHO_PAYMENTS, 'total GHO payments mismatch');
 
@@ -282,7 +255,7 @@ contract AaveV3Ethereum_MayJune2026FundingUpdate_20260601_Test is ProtocolV3Test
     assertEq(
       IERC20(gho).balanceOf(collector),
       collectorGhoBefore - totalWithdrawn,
-      'USDC balance mismatch: the collector should have transferred out GHO payments'
+      'GHO balance mismatch: the collector should have transferred out GHO payments'
     );
   }
 

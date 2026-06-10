@@ -29,11 +29,11 @@ contract AaveV3Ethereum_MayJune2026FundingUpdate_20260601 is IProposalGenericExe
 
   // https://etherscan.io/address/0xcC7383b24631d8BfC8571dbF9c81d6D094688628
   address public constant SECURITY_RESEARCHER = 0xcC7383b24631d8BfC8571dbF9c81d6D094688628;
-  uint256 public constant SECURITY_RESEARCHER_USDC_PAYMENT_AMOUNT = 7_500e6; // 7,500 USDC, 6 decimals
+  uint256 public constant SECURITY_RESEARCHER_GHO_PAYMENT_AMOUNT = 7_500 ether; // 7,500 GHO, 18 decimals
 
   // https://etherscan.io/address/0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18
   address public constant IMMUNEFI = 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18;
-  uint256 public constant IMMUNEFI_USDC_PAYMENT_AMOUNT = 750e6; // 750 USDC, 6 decimals
+  uint256 public constant IMMUNEFI_GHO_PAYMENT_AMOUNT = 750 ether; // 750 GHO, 18 decimals
 
   // https://etherscan.io/address/0x666B8EbFbF4D5f0CE56962a25635CfF563F13161
   address public constant AAVE_V4_BOUNTY_SHERLOCK = 0x666B8EbFbF4D5f0CE56962a25635CfF563F13161;
@@ -121,18 +121,16 @@ contract AaveV3Ethereum_MayJune2026FundingUpdate_20260601 is IProposalGenericExe
       AAVE_LABS_A_GHO_PAYMENT_AMOUNT
     );
 
-    // The collector usually holds aUSDC, but it is assumed that the required USDC amount for these payments is
-    // available before executing the proposal.
     AaveV3Ethereum.COLLECTOR.transfer(
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING),
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       SECURITY_RESEARCHER,
-      SECURITY_RESEARCHER_USDC_PAYMENT_AMOUNT
+      SECURITY_RESEARCHER_GHO_PAYMENT_AMOUNT
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING),
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       IMMUNEFI,
-      IMMUNEFI_USDC_PAYMENT_AMOUNT
+      IMMUNEFI_GHO_PAYMENT_AMOUNT
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
