@@ -89,8 +89,8 @@ Reimburse Aave Labs for costs incurred in facilitating the audit of Aave Pro, Aa
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/108e1b5e5ec4c7b2708179e4c69f9824d2216472/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Ethereum_MayJune2026FundingUpdate_20260601.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/108e1b5e5ec4c7b2708179e4c69f9824d2216472/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Plasma_MayJune2026FundingUpdate_20260601.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/108e1b5e5ec4c7b2708179e4c69f9824d2216472/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Ethereum_MayJune2026FundingUpdate_20260601.t.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/108e1b5e5ec4c7b2708179e4c69f9824d2216472/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Plasma_MayJune2026FundingUpdate_20260601.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Ethereum_MayJune2026FundingUpdate_20260601.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Plasma_MayJune2026FundingUpdate_20260601.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Ethereum_MayJune2026FundingUpdate_20260601.t.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260601_Multi_MayJune2026FundingUpdate/AaveV3Plasma_MayJune2026FundingUpdate_20260601.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-may-june-2026-funding-update/25000)
 
 ## Copyright
