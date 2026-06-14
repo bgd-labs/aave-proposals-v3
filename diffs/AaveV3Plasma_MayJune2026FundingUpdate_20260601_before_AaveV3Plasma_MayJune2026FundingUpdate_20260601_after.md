@@ -1,0 +1,41 @@
+## Event logs
+
+#### 0x5D72a9d9A9510Cd8cBdBA12aC62593A58930a948 (AaveV3Plasma.ASSETS.USDT0.A_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | Approval(owner: 0x5E2d083417D12d4B0824E14Ecd48D26831F4Da7D, spender: 0x22740deBa78d5a0c24C58C740e3715ec29de1bFa, value: 3,000,000 [3000000000000, 6 decimals]) |
+
+#### 0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A (AaveV3Plasma.ACL_ADMIN, GovernanceV3Plasma.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1780316523, withDelegatecall: true, resultData: 0x) |
+
+#### 0xe76EB348E65eF163d85ce282125FF5a7F5712A1d (GovernanceV3Plasma.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 29) |
+
+## Raw storage changes
+
+### 0x5d72a9d9a9510cd8cbdba12ac62593a58930a948 (AaveV3Plasma.ASSETS.USDT0.A_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x23af8921dab9a0f0d17588c38193b8188203c904944ab58a588ce20db9207eef | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000002ba7def3000 |
+
+### 0xe76eb348e65ef163d85ce282125ff5a7f5712a1d (GovernanceV3Plasma.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x4ba0d371c59a4c8176901cb7799ecdd8b41b974be3a1349b5d0a9ff9aaa230d9 | 0x006a1d796a000000000002000000000000000000000000000000000000000000 | 0x006a1d796a000000000003000000000000000000000000000000000000000000 |
+| 0x4ba0d371c59a4c8176901cb7799ecdd8b41b974be3a1349b5d0a9ff9aaa230da | 0x000000000000000000093a800000000000006a4b9deb00000000000000000000 | 0x000000000000000000093a800000000000006a4b9deb0000000000006a1d796b |
+
+
+## Raw diff
+
+```json
+{}
+```
