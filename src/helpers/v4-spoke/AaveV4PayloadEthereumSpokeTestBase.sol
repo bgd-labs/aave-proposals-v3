@@ -6,12 +6,11 @@ import {Vm} from 'forge-std/Vm.sol';
 // solhint-disable-next-line no-unused-import
 import {SpokeInstance} from 'aave-v4/spoke/instances/SpokeInstance.sol'; // forces artifact build for vm.getDeployedCode
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4PayloadEthereumSpoke} from './AaveV4PayloadEthereumSpoke.sol';
+import {AaveV4PayloadEthereumSpoke} from './AaveV4PayloadSpoke.sol';
 
 abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
-  /// @dev keccak256 of the alphabetically-sorted `methodIdentifiers` keys from the locally-
-  ///      compiled SpokeInstance artifact. Captured by running the test with bytes32(0); the
-  ///      failure logs the actual hash and the full signature list. Re-pin on aave-v4 bumps.
+  /// @dev keccak256 of the sorted SpokeInstance `methodIdentifiers`. Re-pin on aave-v4 bumps; a
+  ///      mismatch logs the actual hash and signature list.
   bytes32 internal constant CANONICAL_SPOKE_ABI_HASH =
     0x2eb338fb28a7172a4895f0baa27c978c48682ba77a0a74e483da7409da0ee22a;
 
@@ -116,9 +115,8 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
     return leftBytes.length < rightBytes.length;
   }
 
-  /// @dev Asserts that `logs` contains an event from `emitter` whose topic[0] equals `selector`
-  ///      and whose indexed topics (topic[1..]) match `indexedArgs` as a prefix. Topics beyond
-  ///      `indexedArgs.length` and the non-indexed payload are not constrained.
+  /// @dev Asserts `logs` contains an event from `emitter` with topic[0] == `selector` and indexed
+  ///      topics matching `indexedArgs` as a prefix.
   function _assertEventEmitted(
     Vm.Log[] memory logs,
     address emitter,

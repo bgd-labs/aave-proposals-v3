@@ -2,15 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
-import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4ConfigEngine.sol';
-import {AaveV4Payload} from 'aave-v4/config-engine/AaveV4Payload.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
 
-import {RoleUpdatesLib} from '../helpers/v4-config-engine/RoleUpdatesLib.sol';
-import {AaveV4PayloadEthereumHub} from '../helpers/v4-hub/AaveV4PayloadEthereumHub.sol';
-import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol';
+import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke.sol';
 
 /**
  * @title Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / USDG Pendle
@@ -19,7 +15,6 @@ import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEther
  * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3
  */
 contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
-  AaveV4PayloadEthereumHub,
   AaveV4PayloadEthereumSpoke
 {
   // Freshly-deployed isolated Paxos Hub, sharing the protocol AccessManager
@@ -60,63 +55,6 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
     IHub[] memory hubs = new IHub[](1);
     hubs[0] = PAXOS_HUB;
     return hubs;
-  }
-
-  // ─── Disambiguation of the config-engine hooks both bases inherit ───
-
-  function hubAssetListings()
-    public
-    view
-    override(AaveV4PayloadEthereumHub, AaveV4Payload)
-    returns (IAaveV4ConfigEngine.AssetListing[] memory)
-  {
-    return AaveV4PayloadEthereumHub.hubAssetListings();
-  }
-
-  function hubSpokeToAssetsAdditions()
-    public
-    view
-    override(AaveV4PayloadEthereumSpoke, AaveV4Payload)
-    returns (IAaveV4ConfigEngine.SpokeToAssetsAddition[] memory)
-  {
-    return AaveV4PayloadEthereumSpoke.hubSpokeToAssetsAdditions();
-  }
-
-  function spokeReserveListings()
-    public
-    view
-    override(AaveV4PayloadEthereumSpoke, AaveV4Payload)
-    returns (IAaveV4ConfigEngine.ReserveListing[] memory)
-  {
-    return AaveV4PayloadEthereumSpoke.spokeReserveListings();
-  }
-
-  function spokeLiquidationConfigUpdates()
-    public
-    view
-    override(AaveV4PayloadEthereumSpoke, AaveV4Payload)
-    returns (IAaveV4ConfigEngine.LiquidationConfigUpdate[] memory)
-  {
-    return AaveV4PayloadEthereumSpoke.spokeLiquidationConfigUpdates();
-  }
-
-  function spokePositionManagerUpdates()
-    public
-    view
-    override(AaveV4PayloadEthereumSpoke, AaveV4Payload)
-    returns (IAaveV4ConfigEngine.PositionManagerUpdate[] memory)
-  {
-    return AaveV4PayloadEthereumSpoke.spokePositionManagerUpdates();
-  }
-
-  /// @dev Merges the Hub-role and Spoke-role updates into the single array the engine consumes.
-  function accessManagerTargetFunctionRoleUpdates()
-    public
-    view
-    override(AaveV4PayloadEthereumHub, AaveV4PayloadEthereumSpoke)
-    returns (IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory)
-  {
-    return RoleUpdatesLib.merge(_hubTargetFunctionRoleUpdates(), _spokeTargetFunctionRoleUpdates());
   }
 
   function _preExecute() internal override {
@@ -252,8 +190,6 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       });
   }
 
-  /// @dev IR data for the natively-suppliable, borrowable stablecoins (USDC, USDT) on the Paxos
-  ///      Hub: 0% base, 92% optimal usage, 4% slope below optimal, 20% slope above optimal.
   function _borrowableStablecoinIRData()
     private
     pure

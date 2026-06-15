@@ -7,11 +7,10 @@ import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4Ethereum} from 'aave-address-book/AaveV4Ethereum.sol';
 
-import {AaveV4PayloadEthereumHub} from './AaveV4PayloadEthereumHub.sol';
+import {AaveV4PayloadHub} from './AaveV4PayloadHub.sol';
 
-/// @dev Reusable, payload-agnostic checks for any proposal that configures Hubs through the config
-///      engine. Keeps the new-Hub bring-up assertions in one place so individual proposals don't
-///      re-implement them. On-chain (post-execution) assertions live in the fork test base.
+/// @dev Reusable, payload-agnostic checks for any proposal that configures Hubs. On-chain
+///      (post-execution) assertions live in the fork test base.
 abstract contract AaveV4PayloadEthereumHubTestBase is Test {
   function test_hubAssetListings_useCanonicalConfiguratorAndFeeReceiver() public view {
     IAaveV4ConfigEngine.AssetListing[] memory listings = _hubPayload().hubAssetListings();
@@ -29,9 +28,7 @@ abstract contract AaveV4PayloadEthereumHubTestBase is Test {
     }
   }
 
-  /// @dev Each freshly-deployed Hub must have its restricted selectors mapped to the three Hub
-  ///      roles, exactly as the genesis deployment wires Core/Plus/Prime. Proposals that only list
-  ///      assets on an existing Hub return an empty `newHubs()`, so this asserts nothing for them.
+  /// @dev Each new Hub must map its restricted selectors to the three Hub roles, as genesis does.
   function test_newHubRoleWiring_matchesGenesis() public view {
     IHub[] memory hubs = _hubPayload().newHubs();
     IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory updates = _hubPayload()
@@ -82,5 +79,5 @@ abstract contract AaveV4PayloadEthereumHubTestBase is Test {
     revert('hub role mapping missing');
   }
 
-  function _hubPayload() internal view virtual returns (AaveV4PayloadEthereumHub);
+  function _hubPayload() internal view virtual returns (AaveV4PayloadHub);
 }

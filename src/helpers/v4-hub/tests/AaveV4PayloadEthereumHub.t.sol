@@ -6,7 +6,7 @@ import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs} from 'aave-address-book/AaveV4Ethereum.sol';
 
-import {AaveV4PayloadEthereumHub} from '../AaveV4PayloadEthereumHub.sol';
+import {AaveV4PayloadHub, AaveV4PayloadEthereumHub} from '../AaveV4PayloadHub.sol';
 import {AaveV4PayloadEthereumHubTestBase} from '../AaveV4PayloadEthereumHubTestBase.sol';
 import {MockHubProposal} from './MockHubProposal.sol';
 
@@ -47,8 +47,7 @@ contract AaveV4PayloadEthereumHubTest is AaveV4PayloadEthereumHubTestBase {
     assertEq(uint256(updates[2].roleId), uint256(Roles.HUB_DEFICIT_ELIMINATOR_ROLE));
   }
 
-  /// @dev `_hubName` must resolve the override (new hub), the genesis hubs from the base, and
-  ///      revert on an unknown hub so a misconfigured tokenization name can't be silently produced.
+  /// @dev `_hubName` resolves the new-hub override and the genesis hubs, and reverts on unknown.
   function test_hubName_resolvesKnownHubsAndRevertsOnUnknown() public {
     assertEq(payload.exposedHubName(payload.newHubs()[0]), 'Mock');
     assertEq(payload.exposedHubName(AaveV4EthereumHubs.CORE_HUB), 'Core');
@@ -59,7 +58,7 @@ contract AaveV4PayloadEthereumHubTest is AaveV4PayloadEthereumHubTestBase {
     payload.exposedHubName(IHub(address(0xdead)));
   }
 
-  function _hubPayload() internal view override returns (AaveV4PayloadEthereumHub) {
+  function _hubPayload() internal view override returns (AaveV4PayloadHub) {
     return payload;
   }
 }

@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {AaveV4EthereumHubs} from 'aave-address-book/AaveV4Ethereum.sol';
 
-import {AaveV4PayloadEthereumSpoke} from '../AaveV4PayloadEthereumSpoke.sol';
+import {AaveV4PayloadEthereumSpoke} from '../AaveV4PayloadSpoke.sol';
 
 contract MockSpokeProposal is AaveV4PayloadEthereumSpoke {
   address internal constant SPOKE = address(0x7777777777777777777777777777777777777777);
@@ -14,6 +15,15 @@ contract MockSpokeProposal is AaveV4PayloadEthereumSpoke {
 
   function spoke() public pure override returns (address) {
     return SPOKE;
+  }
+
+  // Spoke-only: no new hub, no hub asset listings.
+  function newHubs() public pure override returns (IHub[] memory) {
+    return new IHub[](0);
+  }
+
+  function _hubAssetListings() internal pure override returns (HubAssetListing[] memory) {
+    return new HubAssetListing[](0);
   }
 
   function _spokeAssetConfigs() internal pure override returns (SpokeAssetConfig[] memory) {
@@ -72,8 +82,7 @@ contract MockSpokeProposal is AaveV4PayloadEthereumSpoke {
   }
 }
 
-/// @dev Spoke payload registering several assets on the SAME hub, to exercise the per-hub grouping
-///      in `hubSpokeToAssetsAdditions` (two assets on Core, one on Plus → two grouped additions).
+/// @dev Two assets on Core + one on Plus, to exercise per-hub grouping in hubSpokeToAssetsAdditions.
 contract MockMultiAssetSpokeProposal is AaveV4PayloadEthereumSpoke {
   address internal constant SPOKE = address(0x8888888888888888888888888888888888888888);
   address internal constant CORE_ASSET_A = address(0xA1);
@@ -82,6 +91,14 @@ contract MockMultiAssetSpokeProposal is AaveV4PayloadEthereumSpoke {
 
   function spoke() public pure override returns (address) {
     return SPOKE;
+  }
+
+  function newHubs() public pure override returns (IHub[] memory) {
+    return new IHub[](0);
+  }
+
+  function _hubAssetListings() internal pure override returns (HubAssetListing[] memory) {
+    return new HubAssetListing[](0);
   }
 
   function _spokeAssetConfigs() internal pure override returns (SpokeAssetConfig[] memory) {

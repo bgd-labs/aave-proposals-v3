@@ -18,10 +18,10 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
 
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
 import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol';
-import {AaveV4PayloadEthereumHub} from '../helpers/v4-hub/AaveV4PayloadEthereumHub.sol';
+import {AaveV4PayloadHub} from '../helpers/v4-hub/AaveV4PayloadHub.sol';
 import {AaveV4PayloadEthereumHubForkTestBase} from '../helpers/v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol';
 import {TokenizationSpokeLib} from '../helpers/v4-hub/TokenizationSpokeLib.sol';
-import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol';
+import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke.sol';
 import {AaveV4PayloadEthereumSpokeForkTestBase} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol';
 
 /**
@@ -124,9 +124,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     );
   }
 
-  /// @dev The generic Hub fork base asserts the new-Hub role wiring, the HubConfigurator reach and
-  ///      the listing structure (IR strategy, fee receiver, liquidity fee). This pins the
-  ///      proposal-specific interest-rate parameters per asset on the Paxos Hub.
+  /// @dev Pins the per-asset interest-rate parameters on the Paxos Hub.
   function test_assetListingIRData() public {
     vm.expectRevert();
     PAXOS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
@@ -144,9 +142,8 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     );
   }
 
-  /// @dev Exactly three assets are natively listed on the Paxos Hub (PT-USDG, USDC, USDT). USDG is
-  ///      sourced from the Core Hub via the credit line and must never be listed on Paxos — pinned
-  ///      both in the payload's listing set and on-chain after execution.
+  /// @dev Only PT-USDG, USDC and USDT are natively listed on Paxos; USDG (Core credit line) must
+  ///      never be a Paxos asset.
   function test_hubAssetListings_excludeUSDG() public {
     IAaveV4ConfigEngine.AssetListing[] memory listings = proposal.hubAssetListings();
     assertEq(listings.length, 3, 'expected exactly three Paxos Hub asset listings');
@@ -389,9 +386,8 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     );
   }
 
-  /// @dev The on-chain HubEngine library embeds a possibly older TokenizationSpokeInstance
-  /// creation code than our local copy, so CREATE2 prediction via TokenizationSpokeDeployer
-  /// is unreliable. Snapshot, run the payload, read the new spoke off the hub, revert.
+  /// @dev CREATE2 prediction is unreliable (HubEngine may embed older TokenizationSpoke creation
+  ///      code), so discover the spoke by running the payload behind a snapshot, then reverting.
   function _discoverTokenizationSpoke() internal returns (address tokenizationSpoke) {
     uint256 snapshotId = vm.snapshotState();
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -490,15 +486,12 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     return proposal;
   }
 
-  function _hubPayload() internal view override returns (AaveV4PayloadEthereumHub) {
+  function _hubPayload() internal view override returns (AaveV4PayloadHub) {
     return proposal;
   }
 
-  /// @dev Three borrow legs, all against PT-USDG collateral on the Paxos Hub:
-  ///      - USDG drawn from the Core Hub via the cross-hub credit line (no seed: Core already has
-  ///        USDG liquidity).
-  ///      - USDC and USDT natively listed on the Paxos Hub. They have no depositors at the fork
-  ///        block, so each is seeded with liquidity first (`borrowLiquiditySeed`).
+  /// @dev Three borrow legs against PT-USDG collateral: USDG (Core credit line, no seed), and
+  ///      native USDC/USDT (seeded, since they have no depositors at the fork block).
   function _reserveTestCases() internal pure override returns (ReserveTestCase[] memory) {
     ReserveTestCase[] memory cases = new ReserveTestCase[](3);
     cases[0] = ReserveTestCase({

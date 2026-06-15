@@ -14,16 +14,15 @@ import {AaveV4PayloadEthereumHubTestBase} from './AaveV4PayloadEthereumHubTestBa
 import {TokenizationSpokeLib} from './TokenizationSpokeLib.sol';
 
 /// @dev On-chain (post-execution) bring-up assertions for any payload that lists assets on Hubs,
-///      including those that deploy a new Hub. Reused by every Hub/Spoke onboarding proposal.
+///      including those that deploy a new Hub.
 abstract contract AaveV4PayloadEthereumHubForkTestBase is
   AaveV4PayloadEthereumHubTestBase,
   ProtocolV4TestBase
 {
   IAccessManagerEnumerable internal constant HUB_ACCESS_MANAGER = AaveV4Ethereum.ACCESS_MANAGER;
 
-  /// @dev The new-Hub role wiring is written to `AaveV4Ethereum.ACCESS_MANAGER`, so each new Hub
-  ///      must actually be governed by it. Guards against onboarding a Hub deployed with its own
-  ///      AccessManager, which would otherwise be wired on the wrong authority.
+  /// @dev The role wiring targets `AaveV4Ethereum.ACCESS_MANAGER`, so each new Hub must be governed
+  ///      by it; otherwise the wiring lands on the wrong authority.
   function test_newHubs_governedBySharedAccessManager() public view virtual {
     IHub[] memory hubs = _hubPayload().newHubs();
     for (uint256 i; i < hubs.length; ++i) {
@@ -88,9 +87,8 @@ abstract contract AaveV4PayloadEthereumHubForkTestBase is
     }
   }
 
-  /// @dev A TokenizationSpoke is deployed and registered on the Hub for a listed asset iff the
-  ///      listing declares a non-empty tokenization name and symbol. This pins both directions:
-  ///      an empty config (e.g. `_noTokenization()`) must leave no TokenizationSpoke on the Hub.
+  /// @dev A TokenizationSpoke must exist for a listing iff its tokenization name/symbol are
+  ///      non-empty; an empty config (`_noTokenization()`) must leave none on the Hub.
   function test_hubTokenizationSpokesMatchListings() public virtual {
     IAaveV4ConfigEngine.AssetListing[] memory listings = _hubPayload().hubAssetListings();
     GovV3Helpers.executePayload(vm, address(_hubPayload()));

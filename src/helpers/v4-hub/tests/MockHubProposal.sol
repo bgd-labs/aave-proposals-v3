@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 
-import {AaveV4PayloadEthereumHub} from '../AaveV4PayloadEthereumHub.sol';
+import {AaveV4PayloadEthereumHub} from '../AaveV4PayloadHub.sol';
 
 /// @dev Hub-only payload that lists an asset on a freshly-deployed Hub, used to exercise the Hub
 ///      test base in isolation.

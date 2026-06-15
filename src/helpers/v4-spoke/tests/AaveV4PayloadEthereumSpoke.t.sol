@@ -5,7 +5,7 @@ import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4Confi
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
 
-import {AaveV4PayloadEthereumSpoke} from '../AaveV4PayloadEthereumSpoke.sol';
+import {AaveV4PayloadEthereumSpoke} from '../AaveV4PayloadSpoke.sol';
 import {AaveV4PayloadEthereumSpokeTestBase} from '../AaveV4PayloadEthereumSpokeTestBase.sol';
 import {MockSpokeProposal, MockMultiAssetSpokeProposal} from './MockSpokeProposal.sol';
 
@@ -37,8 +37,7 @@ contract AaveV4PayloadEthereumSpokeTest is AaveV4PayloadEthereumSpokeTestBase {
     assertEq(additions[1].assets[0].config.drawCap, 1_000_000);
   }
 
-  /// @dev `hubSpokeToAssetsAdditions` must group all assets sharing a hub into one addition. The
-  ///      base mock uses one asset per hub; this pins the multi-asset-per-hub branch.
+  /// @dev Pins that assets sharing a hub are grouped into one addition.
   function test_hubSpokeToAssetsAdditions_groupsMultipleAssetsPerHub() public {
     MockMultiAssetSpokeProposal multi = new MockMultiAssetSpokeProposal();
     IAaveV4ConfigEngine.SpokeToAssetsAddition[] memory additions = multi

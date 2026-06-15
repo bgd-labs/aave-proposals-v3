@@ -24,9 +24,8 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
 {
   using SafeERC20 for IERC20;
 
-  /// @dev One parametrised collateral/borrow flow on the spoke being onboarded.
-  ///      Collateral and borrow reserves may live on different hubs (cross-hub credit lines on
-  ///      correlated spokes), so the hub is specified per leg.
+  /// @dev One parametrised collateral/borrow flow. The hub is specified per leg, since collateral
+  ///      and borrow reserves may live on different hubs (cross-hub credit lines).
   struct ReserveTestCase {
     IHub collateralHub;
     address collateralUnderlying;
@@ -39,15 +38,12 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     int256 unhealthyCollateralPrice;
     uint256 partialLiquidationDebtAmount;
     uint256 healthyLiquidationDebtAmount;
-    // Liquidity to seed into the borrow reserve before the test borrows. Leave 0 when the borrow
-    // asset already has liquidity (e.g. a cross-hub credit line draws from another hub's pool);
-    // set > 0 for a natively-listed borrowable that nobody has supplied to yet, so the borrow
-    // legs revert for the intended reason (HF) and not for lack of liquidity. Must only be set for
-    // reserves that are suppliable to the spoke (receiveSharesEnabled).
+    // Liquidity to seed into the borrow reserve before borrowing. 0 when the asset already has
+    // liquidity (cross-hub credit line); > 0 for a native borrowable with no depositors yet, so
+    // borrows revert on HF rather than on liquidity. Only set for spoke-suppliable reserves.
     uint256 borrowLiquiditySeed;
-    // Whether the borrow asset implements EIP-2612 `permit`. The SignatureGateway flow signs a
-    // permit to pull the repay amount, so it can only run against permit-capable borrowables
-    // (e.g. USDT has no permit). Other flows (direct approvals, Giver/Taker/Config PMs) ignore it.
+    // Whether the borrow asset implements EIP-2612 `permit`. The SignatureGateway flow needs it;
+    // non-permit tokens (e.g. USDT) are skipped there and covered by the other flows.
     bool borrowSupportsPermit;
   }
 
@@ -59,8 +55,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     uint256 spokeAssetIdAddCap;
   }
 
-  /// @dev Address of the SECURITY_COUNCIL that owns each PositionManager. Used to register a new
-  ///      spoke on each PM since `registerSpoke` is `onlyOwner` and out of governance reach.
+  /// @dev Owner of each PositionManager; used to `registerSpoke` (onlyOwner, out of gov reach).
   address internal constant SECURITY_COUNCIL = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
 
   function test_spokeDeployment_isCanonicalSpokeImplementation() public virtual {
@@ -193,9 +188,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     ISpoke spokeContract = ISpoke(_payload().spoke());
     Types.ReserveInfo[] memory reserves = _getReserveInfo(spokeContract);
     for (uint256 i; i < cases.length; ++i) {
-      // The SignatureGateway pulls funds via an EIP-2612 permit signature, so it can only be
-      // exercised against permit-capable borrow assets. Non-permit tokens (e.g. USDT) are covered
-      // by the direct-approval and Giver/Taker/Config PM flows instead.
+      // SignatureGateway needs EIP-2612 permit; non-permit borrow assets are skipped here.
       if (!cases[i].borrowSupportsPermit) continue;
       Types.ReserveInfo memory collateralInfo = _findReserveInfo(
         reserves,
@@ -203,16 +196,12 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
       );
       Types.ReserveInfo memory borrowInfo = _findReserveInfo(reserves, cases[i].borrowUnderlying);
       _seedBorrowLiquidity(cases[i], i);
-      // Supply/withdraw on the collateral leg (non-borrowable; borrow branch skipped inside).
       _testSignatureGateway({
         gateway: AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY,
         spoke: spokeContract,
         reserveInfo: collateralInfo,
         collateralInfo: collateralInfo
       });
-      // Borrow/repay against the collateral leg — works for cross-hub credit lines where the
-      // borrow asset isn't suppliable to the spoke directly (the spoke draws via the credit
-      // line at borrow time).
       _testSignatureGatewayBorrowFlow({
         gateway: AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY,
         spoke: spokeContract,
@@ -222,8 +211,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     }
   }
 
-  /// @dev Supply collateral + borrow + repay via SignatureGateway. Assumes the borrow asset
-  ///      already has liquidity (e.g. via a cross-hub credit line or pre-existing local supply).
+  /// @dev Supply collateral + borrow + repay via SignatureGateway; assumes borrow liquidity exists.
   function _testSignatureGatewayBorrowFlow(
     ISignatureGateway gateway,
     ISpoke spoke,
@@ -679,9 +667,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     borrowReserveId = spokeContract.getReserveId(address(testCase.borrowHub), borrowAssetId);
   }
 
-  /// @dev Seeds `borrowLiquiditySeed` of the borrow asset into the spoke so natively-listed
-  ///      borrowables (no pre-existing depositors) have liquidity to borrow against. No-op when
-  ///      the seed is zero (cross-hub credit lines draw from the source hub's existing pool).
+  /// @dev Seeds `borrowLiquiditySeed` of the borrow asset into the spoke; no-op when the seed is 0.
   function _seedBorrowLiquidity(ReserveTestCase memory testCase, uint256 index) internal {
     if (testCase.borrowLiquiditySeed == 0) return;
     address seeder = makeAddr(string.concat('borrowSeeder_', vm.toString(index)));
