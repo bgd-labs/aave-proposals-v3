@@ -14,19 +14,19 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
   bytes32 internal constant CANONICAL_SPOKE_ABI_HASH =
     0x2eb338fb28a7172a4895f0baa27c978c48682ba77a0a74e483da7409da0ee22a;
 
-  function test_assumption_canonicalSpokeABI_unchanged() public {
+  function test_assumption_canonicalSpokeABI_unchanged() public view {
     _assertCanonicalSpokeABI(CANONICAL_SPOKE_ABI_HASH);
   }
 
-  function test_assumption_spokeConfiguratorSelectors_areOnCanonicalSpoke() public {
+  function test_assumption_spokeConfiguratorSelectors_areOnCanonicalSpoke() public view {
     _assertSelectorsAreOnCanonicalSpoke(Roles.getSpokeConfiguratorRoleSelectors());
   }
 
-  function test_assumption_spokeUserPositionUpdaterSelectors_areOnCanonicalSpoke() public {
+  function test_assumption_spokeUserPositionUpdaterSelectors_areOnCanonicalSpoke() public view {
     _assertSelectorsAreOnCanonicalSpoke(Roles.getSpokePositionUpdaterRoleSelectors());
   }
 
-  function test_assumption_selectorGroupsAreDisjoint() public view {
+  function test_assumption_selectorGroupsAreDisjoint() public pure {
     bytes4[] memory configuratorSelectors = Roles.getSpokeConfiguratorRoleSelectors();
     bytes4[] memory updaterSelectors = Roles.getSpokePositionUpdaterRoleSelectors();
     for (uint256 i; i < configuratorSelectors.length; ++i) {
@@ -39,7 +39,7 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
     }
   }
 
-  function _assertCanonicalSpokeABI(bytes32 expectedHash) internal {
+  function _assertCanonicalSpokeABI(bytes32 expectedHash) internal view {
     string[] memory signatures = _canonicalSpokeSignatures();
     bytes32 actualHash = _hashSignatures(signatures);
     if (actualHash != expectedHash) {
@@ -52,7 +52,7 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
     }
   }
 
-  function _assertSelectorsAreOnCanonicalSpoke(bytes4[] memory wrapperSelectors) internal {
+  function _assertSelectorsAreOnCanonicalSpoke(bytes4[] memory wrapperSelectors) internal view {
     string[] memory signatures = _canonicalSpokeSignatures();
     bytes4[] memory canonicalSelectors = new bytes4[](signatures.length);
     for (uint256 i; i < signatures.length; ++i) {
@@ -123,7 +123,7 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
     bytes32 selector,
     bytes32[] memory indexedArgs,
     string memory errMsg
-  ) internal {
+  ) internal pure {
     for (uint256 i; i < logs.length; ++i) {
       Vm.Log memory entry = logs[i];
       if (entry.emitter != emitter) continue;
