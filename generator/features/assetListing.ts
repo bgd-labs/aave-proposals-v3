@@ -160,11 +160,13 @@ export const assetListing: FeatureModule<Listing[]> = {
             assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.DUST_BIN)), 10 ** ${cfg.decimals});
           }\n`;
           if (isAddress(cfg.admin)) {
-            listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
+            listingTest += `\nfunction test_${cfg.assetSymbol}LMAdmin() public {
 	      ${testExecuteProposal(pool)}
               address a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+              address v${cfg.assetSymbol} = ${pool}.POOL.getReserveVariableDebtToken(proposal.${cfg.assetSymbol}());
 	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(v${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	    }\n`;
           }
           return listingTest;
