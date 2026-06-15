@@ -25,10 +25,6 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 is AaveV3Pa
   address public constant PT_sUSDE_22OCT2026_PRICE_FEED =
     0x9c823f4e19Ef68347810a9C139619273b8282b7e;
 
-  function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(PT_sUSDE_22OCT2026, PT_sUSDE_22OCT2026_SEED_AMOUNT, address(0));
-  }
-
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
@@ -55,18 +51,7 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 is AaveV3Pa
 
     return listings;
   }
-  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
-    IERC20(asset).forceApprove(address(AaveV3Plasma.POOL), seedAmount);
-    AaveV3Plasma.POOL.supply(asset, seedAmount, address(AaveV3Plasma.DUST_BIN), 0);
 
-    if (lmAdmin != address(0)) {
-      address aToken = AaveV3Plasma.POOL.getReserveAToken(asset);
-      address vToken = AaveV3Plasma.POOL.getReserveVariableDebtToken(asset);
-      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
-      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
-      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
-    }
-  }
   function eModeCategoryCreations()
     public
     pure
@@ -113,5 +98,18 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 is AaveV3Pa
     });
 
     return eModeCreations;
+  }
+
+  function _postExecute() internal override {
+    IERC20(PT_sUSDE_22OCT2026).forceApprove(
+      address(AaveV3Plasma.POOL),
+      PT_sUSDE_22OCT2026_SEED_AMOUNT
+    );
+    AaveV3Plasma.POOL.supply(
+      PT_sUSDE_22OCT2026,
+      PT_sUSDE_22OCT2026_SEED_AMOUNT,
+      address(AaveV3Plasma.DUST_BIN),
+      0
+    );
   }
 }
