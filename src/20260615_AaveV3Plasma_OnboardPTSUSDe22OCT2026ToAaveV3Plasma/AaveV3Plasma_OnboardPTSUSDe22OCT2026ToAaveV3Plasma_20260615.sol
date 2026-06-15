@@ -34,7 +34,7 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 is AaveV3Pa
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: PT_sUSDE_22OCT2026,
-      assetSymbol: 'PT-sUSDE-22OCT2026',
+      assetSymbol: 'PT_sUSDE_22OCT2026',
       priceFeed: PT_sUSDE_22OCT2026_PRICE_FEED,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.DISABLED,
