@@ -2,23 +2,19 @@
 pragma solidity ^0.8.0;
 
 import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4ConfigEngine.sol';
-import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 
+/// @dev Base payload for configuring a Spoke through the V4 config engine: registering the Spoke
+///      on Hub assets (cross-hub credit lines included), listing its reserves, liquidation config
+///      and position managers, plus the AccessManager wiring for a freshly-deployed Spoke.
+///
+///      Independent from `AaveV4PayloadEthereumHub`; a payload that also configures Hubs inherits
+///      both and merges their `accessManagerTargetFunctionRoleUpdates()`.
 abstract contract AaveV4PayloadEthereumSpoke is AaveV4PayloadEthereum {
-  struct HubAssetListing {
-    IHub hub;
-    address underlying;
-    uint256 liquidityFee;
-    address irStrategy;
-    IAssetInterestRateStrategy.InterestRateData irData;
-    IAaveV4ConfigEngine.TokenizationSpokeConfig tokenization;
-  }
-
   struct SpokeAssetConfig {
     IHub hub;
     address underlying;
@@ -47,34 +43,10 @@ abstract contract AaveV4PayloadEthereumSpoke is AaveV4PayloadEthereum {
 
   function spoke() public view virtual returns (address);
 
-  function hubAssetListings()
-    public
-    view
-    override
-    returns (IAaveV4ConfigEngine.AssetListing[] memory)
-  {
-    HubAssetListing[] memory entries = _hubAssetListings();
-    IAaveV4ConfigEngine.AssetListing[] memory listings = new IAaveV4ConfigEngine.AssetListing[](
-      entries.length
-    );
-    for (uint256 i; i < entries.length; ++i) {
-      listings[i] = IAaveV4ConfigEngine.AssetListing({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
-        hub: address(entries[i].hub),
-        underlying: entries[i].underlying,
-        feeReceiver: address(AaveV4Ethereum.TREASURY_SPOKE),
-        liquidityFee: entries[i].liquidityFee,
-        irStrategy: entries[i].irStrategy,
-        irData: entries[i].irData,
-        tokenization: entries[i].tokenization
-      });
-    }
-    return listings;
-  }
-
   function hubSpokeToAssetsAdditions()
     public
     view
+    virtual
     override
     returns (IAaveV4ConfigEngine.SpokeToAssetsAddition[] memory)
   {
@@ -138,6 +110,7 @@ abstract contract AaveV4PayloadEthereumSpoke is AaveV4PayloadEthereum {
   function spokeReserveListings()
     public
     view
+    virtual
     override
     returns (IAaveV4ConfigEngine.ReserveListing[] memory)
   {
@@ -173,6 +146,7 @@ abstract contract AaveV4PayloadEthereumSpoke is AaveV4PayloadEthereum {
   function spokeLiquidationConfigUpdates()
     public
     view
+    virtual
     override
     returns (IAaveV4ConfigEngine.LiquidationConfigUpdate[] memory)
   {
@@ -192,6 +166,7 @@ abstract contract AaveV4PayloadEthereumSpoke is AaveV4PayloadEthereum {
   function spokePositionManagerUpdates()
     public
     view
+    virtual
     override
     returns (IAaveV4ConfigEngine.PositionManagerUpdate[] memory)
   {
@@ -228,116 +203,42 @@ abstract contract AaveV4PayloadEthereumSpoke is AaveV4PayloadEthereum {
   function accessManagerTargetFunctionRoleUpdates()
     public
     view
+    virtual
     override
     returns (IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory)
   {
-    bytes4[] memory configuratorSelectors = spokeConfiguratorSelectors();
-    bytes4[] memory updaterSelectors = spokeUserPositionUpdaterSelectors();
+    return _spokeTargetFunctionRoleUpdates();
+  }
 
-    uint256 updateCount;
-    if (configuratorSelectors.length > 0) ++updateCount;
-    if (updaterSelectors.length > 0) ++updateCount;
-
-    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[]
-      memory updates = new IAaveV4ConfigEngine.TargetFunctionRoleUpdate[](updateCount);
+  /// @dev Maps the new Spoke's gated selectors to the Spoke roles on the shared AccessManager,
+  ///      mirroring `AaveV4SpokeRolesProcedure`. Selector sets come from `Roles`, the deployment's
+  ///      source of truth, exactly as the Hub-role wiring sources them.
+  function _spokeTargetFunctionRoleUpdates()
+    internal
+    view
+    returns (IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory)
+  {
     address spokeAddress = spoke();
-    uint256 updateIndex;
-    if (configuratorSelectors.length > 0) {
-      updates[updateIndex++] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
-        authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-        target: spokeAddress,
-        selectors: configuratorSelectors,
-        roleId: Roles.SPOKE_CONFIGURATOR_ROLE
-      });
-    }
-    if (updaterSelectors.length > 0) {
-      updates[updateIndex++] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
-        authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-        target: spokeAddress,
-        selectors: updaterSelectors,
-        roleId: Roles.SPOKE_USER_POSITION_UPDATER_ROLE
-      });
-    }
+    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[]
+      memory updates = new IAaveV4ConfigEngine.TargetFunctionRoleUpdate[](2);
+    updates[0] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
+      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
+      target: spokeAddress,
+      selectors: Roles.getSpokeConfiguratorRoleSelectors(),
+      roleId: Roles.SPOKE_CONFIGURATOR_ROLE
+    });
+    updates[1] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
+      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
+      target: spokeAddress,
+      selectors: Roles.getSpokePositionUpdaterRoleSelectors(),
+      roleId: Roles.SPOKE_USER_POSITION_UPDATER_ROLE
+    });
     return updates;
   }
-
-  /// @dev Source of truth: functions on `Spoke.sol` carrying the `restricted` modifier. The
-  ///      companion assumption test pins the full ABI hash; keep this in sync on aave-v4 bumps.
-  function spokeConfiguratorSelectors() public pure virtual returns (bytes4[] memory) {
-    bytes4[] memory selectors = new bytes4[](7);
-    selectors[0] = ISpoke.addDynamicReserveConfig.selector;
-    selectors[1] = ISpoke.addReserve.selector;
-    selectors[2] = ISpoke.updateDynamicReserveConfig.selector;
-    selectors[3] = ISpoke.updateLiquidationConfig.selector;
-    selectors[4] = ISpoke.updatePositionManager.selector;
-    selectors[5] = ISpoke.updateReserveConfig.selector;
-    selectors[6] = ISpoke.updateReservePriceSource.selector;
-    return selectors;
-  }
-
-  /// @dev These functions are not `restricted` on Spoke.sol; they call `_checkCanCall` inline
-  ///      when the caller isn't an active position manager for `onBehalfOf`.
-  function spokeUserPositionUpdaterSelectors() public pure virtual returns (bytes4[] memory) {
-    bytes4[] memory selectors = new bytes4[](2);
-    selectors[0] = ISpoke.updateUserDynamicConfig.selector;
-    selectors[1] = ISpoke.updateUserRiskPremium.selector;
-    return selectors;
-  }
-
-  function _hubAssetListings() internal view virtual returns (HubAssetListing[] memory);
 
   function _spokeAssetConfigs() internal view virtual returns (SpokeAssetConfig[] memory);
 
   function _spokeReserves() internal view virtual returns (ReserveListing[] memory);
 
   function _spokeLiquidation() internal view virtual returns (LiquidationConfigUpdate memory);
-
-  function _hubName(IHub hub) internal pure returns (string memory) {
-    if (hub == AaveV4EthereumHubs.CORE_HUB) return 'Core';
-    if (hub == AaveV4EthereumHubs.PLUS_HUB) return 'Plus';
-    if (hub == AaveV4EthereumHubs.PRIME_HUB) return 'Prime';
-    revert('AaveV4PayloadEthereumSpoke: unknown hub');
-  }
-
-  function _tokenizationName(
-    IHub hub,
-    string memory tokenName
-  ) internal pure returns (string memory) {
-    return string.concat('Wrapped Aave ', _hubName(hub), ' ', tokenName);
-  }
-
-  function _tokenizationSymbol(
-    IHub hub,
-    string memory tokenName
-  ) internal pure returns (string memory) {
-    return string.concat('wa', _hubName(hub), tokenName);
-  }
-
-  function _tokenization(
-    IHub hub,
-    string memory tokenName,
-    uint256 addCap
-  ) internal pure returns (IAaveV4ConfigEngine.TokenizationSpokeConfig memory) {
-    return
-      IAaveV4ConfigEngine.TokenizationSpokeConfig({
-        addCap: addCap,
-        name: _tokenizationName(hub, tokenName),
-        symbol: _tokenizationSymbol(hub, tokenName)
-      });
-  }
-
-  /// @dev IR data preset for collateral-only assets that should never accrue borrow interest.
-  function _nonBorrowableIRData()
-    internal
-    pure
-    returns (IAssetInterestRateStrategy.InterestRateData memory)
-  {
-    return
-      IAssetInterestRateStrategy.InterestRateData({
-        optimalUsageRatio: 99_00,
-        baseDrawnRate: 0,
-        rateGrowthBeforeOptimal: 0,
-        rateGrowthAfterOptimal: 0
-      });
-  }
 }

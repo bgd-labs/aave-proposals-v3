@@ -11,23 +11,9 @@ contract MockSpokeProposal is AaveV4PayloadEthereumSpoke {
   address internal constant COLLATERAL_FEED = address(0x2222222222222222222222222222222222222222);
   address internal constant BORROW = address(0x3333333333333333333333333333333333333333);
   address internal constant BORROW_FEED = address(0x4444444444444444444444444444444444444444);
-  address internal constant IR_STRATEGY = address(0x5555555555555555555555555555555555555555);
 
   function spoke() public pure override returns (address) {
     return SPOKE;
-  }
-
-  function _hubAssetListings() internal pure override returns (HubAssetListing[] memory) {
-    HubAssetListing[] memory listings = new HubAssetListing[](1);
-    listings[0] = HubAssetListing({
-      hub: AaveV4EthereumHubs.CORE_HUB,
-      underlying: COLLATERAL,
-      liquidityFee: 0,
-      irStrategy: IR_STRATEGY,
-      irData: _nonBorrowableIRData(),
-      tokenization: _tokenization(AaveV4EthereumHubs.CORE_HUB, 'MOCK', 0)
-    });
-    return listings;
   }
 
   function _spokeAssetConfigs() internal pure override returns (SpokeAssetConfig[] memory) {

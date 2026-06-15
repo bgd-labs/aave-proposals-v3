@@ -12,42 +12,53 @@ import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestR
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
-import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514.sol';
+import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.sol';
+import {AaveV4PayloadEthereumHub} from '../helpers/v4-hub/AaveV4PayloadEthereumHub.sol';
+import {AaveV4PayloadEthereumHubForkTestBase} from '../helpers/v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol';
+import {TokenizationSpokeLib} from '../helpers/v4-hub/TokenizationSpokeLib.sol';
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol';
 import {AaveV4PayloadEthereumSpokeForkTestBase} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol';
 
 /**
- * @dev Test for AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514.t.sol -vv
+ * @dev Test for AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.t.sol -vv
  */
-contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Test is
-  AaveV4PayloadEthereumSpokeForkTestBase
+contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514_Test is
+  AaveV4PayloadEthereumSpokeForkTestBase,
+  AaveV4PayloadEthereumHubForkTestBase
 {
+  using SafeERC20 for IERC20;
+
   IAccessManagerEnumerable internal constant ACCESS_MANAGER = AaveV4Ethereum.ACCESS_MANAGER;
 
-  IHub internal constant PLUS_HUB = AaveV4EthereumHubs.PLUS_HUB;
+  IHub internal constant PAXOS_HUB = IHub(0x62d63197660c080236193CA60b70E49A08E90368);
   IHub internal constant CORE_HUB = AaveV4EthereumHubs.CORE_HUB;
 
-  ISpoke internal constant USDG_CORRELATED_SPOKE =
-    ISpoke(0x956d8e0A89cfa3744428C4641b5a53B56167a7f9);
+  ISpoke internal constant PAXOS_PENDLE_SPOKE = ISpoke(0x956d8e0A89cfa3744428C4641b5a53B56167a7f9);
 
   address internal constant PT_USDG_24SEP2026_UNDERLYING =
     0xc1906aeCf868749a2DeE203F59b904c0cf212140;
   address internal constant PT_USDG_24SEP2026_PRICE_FEED =
     0xD2417d928B7649feb50E61D9cCA38e56EFB34902;
 
-  address internal constant PLUS_HUB_IR_STRATEGY = 0x31280650661b8443723fa9739b3A164E3696af48;
+  address internal constant PAXOS_HUB_IR_STRATEGY = 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7;
 
-  uint256 internal constant PT_USDG_24SEP2026_SUPPLY_CAP = 15_000_000;
-  uint256 internal constant USDG_BORROW_CAP = 13_000_000;
+  uint256 internal constant PT_USDG_24SEP2026_ADD_CAP = 15_000_000;
+  uint256 internal constant USDC_ADD_CAP = 13_000_000;
+  uint256 internal constant USDC_DRAW_CAP = 13_000_000;
+  uint256 internal constant USDT_ADD_CAP = 13_000_000;
+  uint256 internal constant USDT_DRAW_CAP = 13_000_000;
+  uint256 internal constant USDG_DRAW_CAP = 30_000_000;
 
-  AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514 internal proposal;
+  AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25193380);
-    proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25318221);
+    proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514();
   }
 
   /**
@@ -62,7 +73,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
       if (existingSpokes[i] == AaveV4EthereumSpokes.KELP_ESPOKE) continue;
       spokes[j++] = existingSpokes[i];
     }
-    spokes[j] = USDG_CORRELATED_SPOKE;
+    spokes[j] = PAXOS_PENDLE_SPOKE;
 
     ITokenizationSpoke[] memory existingTokSpokes = AaveV4EthereumGetters
       .getAllTokenizationSpokes();
@@ -75,7 +86,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
     tokenizationSpokes[existingTokSpokes.length] = ITokenizationSpoke(_discoverTokenizationSpoke());
 
     defaultTest({
-      reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514',
+      reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514',
       spokes: spokes,
       tokenizationSpokes: tokenizationSpokes,
       payload: address(proposal)
@@ -112,38 +123,44 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
     );
   }
 
-  function test_assetListingOnPlusHub() public {
+  /// @dev The generic Hub fork base asserts the new-Hub role wiring, the HubConfigurator reach and
+  ///      the listing structure (IR strategy, fee receiver, liquidity fee). This pins the
+  ///      proposal-specific interest-rate parameters per asset on the Paxos Hub.
+  function test_assetListingIRData() public {
     vm.expectRevert();
-    PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    PAXOS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint256 assetId = PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
-    IHub.AssetConfig memory config = PLUS_HUB.getAssetConfig(assetId);
-    assertEq(config.feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE));
-    assertEq(config.liquidityFee, 0);
-    assertEq(config.irStrategy, PLUS_HUB_IR_STRATEGY);
-    assertEq(config.reinvestmentController, address(0));
+    _assertHubAssetIRData(PT_USDG_24SEP2026_UNDERLYING, _expectedNonBorrowableIRData());
+    _assertHubAssetIRData(
+      AaveV4EthereumAssets.USDC_UNDERLYING,
+      _expectedBorrowableStablecoinIRData()
+    );
+    _assertHubAssetIRData(
+      AaveV4EthereumAssets.USDT_UNDERLYING,
+      _expectedBorrowableStablecoinIRData()
+    );
+  }
 
-    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
-      config.irStrategy
-    ).getInterestRateData(assetId);
-    assertEq(irData.optimalUsageRatio, 99_00);
-    assertEq(irData.baseDrawnRate, 0);
-    assertEq(irData.rateGrowthBeforeOptimal, 0);
-    assertEq(irData.rateGrowthAfterOptimal, 0);
+  function test_paxosHubIRStrategyBoundToHub() public view {
+    assertEq(
+      IAssetInterestRateStrategy(PAXOS_HUB_IR_STRATEGY).HUB(),
+      address(PAXOS_HUB),
+      'IR strategy must be bound to the Paxos Hub'
+    );
   }
 
   function test_spokeDeployment_reservesAfterPayload() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(USDG_CORRELATED_SPOKE.getReserveCount(), 2);
+    assertEq(PAXOS_PENDLE_SPOKE.getReserveCount(), 4);
   }
 
   function test_tokenizationSpokeDeployedAndRegistered() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    address tokenizationSpoke = _findTokenizationSpoke(PLUS_HUB, PT_USDG_24SEP2026_UNDERLYING);
-    assertTrue(tokenizationSpoke != address(0), 'TokenizationSpoke not registered on PLUS_HUB');
+    address tokenizationSpoke = TokenizationSpokeLib.find(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    assertTrue(tokenizationSpoke != address(0), 'TokenizationSpoke not registered on PAXOS_HUB');
 
     address proxyAdmin = address(
       uint160(uint256(vm.load(tokenizationSpoke, ERC1967Utils.ADMIN_SLOT)))
@@ -154,7 +171,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
       'TokenizationSpoke ProxyAdmin owner should be the PayloadsController'
     );
 
-    assertEq(ITokenizationSpoke(tokenizationSpoke).hub(), address(PLUS_HUB));
+    assertEq(ITokenizationSpoke(tokenizationSpoke).hub(), address(PAXOS_HUB));
     assertEq(ITokenizationSpoke(tokenizationSpoke).asset(), PT_USDG_24SEP2026_UNDERLYING);
     assertEq(
       keccak256(bytes(ITokenizationSpoke(tokenizationSpoke).name())),
@@ -164,64 +181,40 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
       keccak256(bytes(ITokenizationSpoke(tokenizationSpoke).symbol())),
       keccak256(bytes(proposal.TOKENIZATION_SPOKE_SYMBOL()))
     );
+    assertEq(proposal.TOKENIZATION_SPOKE_NAME(), 'Wrapped Aave Paxos PT_USDG_24SEP2026');
+    assertEq(proposal.TOKENIZATION_SPOKE_SYMBOL(), 'waPaxosPT_USDG_24SEP2026');
 
-    uint256 assetId = PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
-    IHub.SpokeConfig memory tokConfig = PLUS_HUB.getSpokeConfig(assetId, tokenizationSpoke);
+    uint256 assetId = PAXOS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
+    IHub.SpokeConfig memory tokConfig = PAXOS_HUB.getSpokeConfig(assetId, tokenizationSpoke);
     assertEq(tokConfig.addCap, 0, 'TokenizationSpoke addCap should be 0');
   }
 
   function test_spokeRegistrationsAndCaps() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    (uint256 ptAssetId, uint256 usdgAssetId) = _assetIds();
-    IHub.SpokeConfig memory ptConfig = PLUS_HUB.getSpokeConfig(
-      ptAssetId,
-      address(USDG_CORRELATED_SPOKE)
-    );
-    assertEq(ptConfig.addCap, uint40(PT_USDG_24SEP2026_SUPPLY_CAP));
-    assertEq(ptConfig.drawCap, 0);
-    assertEq(ptConfig.riskPremiumThreshold, 0);
-    assertTrue(ptConfig.active);
-    assertFalse(ptConfig.halted);
-
-    IHub.SpokeConfig memory usdgConfig = CORE_HUB.getSpokeConfig(
-      usdgAssetId,
-      address(USDG_CORRELATED_SPOKE)
-    );
-    assertEq(usdgConfig.addCap, 0);
-    assertEq(usdgConfig.drawCap, uint40(USDG_BORROW_CAP));
-    assertEq(usdgConfig.riskPremiumThreshold, 0);
-    assertTrue(usdgConfig.active);
-    assertFalse(usdgConfig.halted);
+    _assertSpokeCaps(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING, PT_USDG_24SEP2026_ADD_CAP, 0);
+    _assertSpokeCaps(PAXOS_HUB, AaveV4EthereumAssets.USDC_UNDERLYING, USDC_ADD_CAP, USDC_DRAW_CAP);
+    _assertSpokeCaps(PAXOS_HUB, AaveV4EthereumAssets.USDT_UNDERLYING, USDT_ADD_CAP, USDT_DRAW_CAP);
+    _assertSpokeCaps(CORE_HUB, AaveV4EthereumAssets.USDG_UNDERLYING, 0, USDG_DRAW_CAP);
   }
 
   function test_reserveListings() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    (uint256 ptReserveId, uint256 usdgReserveId) = _localReserveIds();
-
-    assertEq(
-      address(USDG_CORRELATED_SPOKE.getReserve(ptReserveId).hub),
-      address(PLUS_HUB),
-      'PT-USDG reserve should be anchored to PLUS_HUB'
-    );
-    assertEq(
-      address(USDG_CORRELATED_SPOKE.getReserve(usdgReserveId).hub),
-      address(CORE_HUB),
-      'USDG reserve should be anchored to CORE_HUB (cross-hub credit line)'
-    );
-
-    ISpoke.ReserveConfig memory ptConfig = USDG_CORRELATED_SPOKE.getReserveConfig(ptReserveId);
+    // PT-USDG: collateral-only on the Paxos Hub.
+    uint256 ptReserveId = _reserveId(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    assertEq(address(PAXOS_PENDLE_SPOKE.getReserve(ptReserveId).hub), address(PAXOS_HUB));
+    ISpoke.ReserveConfig memory ptConfig = PAXOS_PENDLE_SPOKE.getReserveConfig(ptReserveId);
     assertEq(ptConfig.collateralRisk, 0);
     assertFalse(ptConfig.paused);
     assertFalse(ptConfig.frozen);
     assertFalse(ptConfig.borrowable);
     assertTrue(ptConfig.receiveSharesEnabled);
     assertEq(
-      IAaveOracle(USDG_CORRELATED_SPOKE.ORACLE()).getReserveSource(ptReserveId),
+      IAaveOracle(PAXOS_PENDLE_SPOKE.ORACLE()).getReserveSource(ptReserveId),
       PT_USDG_24SEP2026_PRICE_FEED
     );
-    ISpoke.DynamicReserveConfig memory ptDyn = USDG_CORRELATED_SPOKE.getDynamicReserveConfig(
+    ISpoke.DynamicReserveConfig memory ptDyn = PAXOS_PENDLE_SPOKE.getDynamicReserveConfig(
       ptReserveId,
       0
     );
@@ -229,41 +222,57 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
     assertEq(ptDyn.maxLiquidationBonus, 102_00);
     assertEq(ptDyn.liquidationFee, 10_00);
 
-    ISpoke.ReserveConfig memory usdgConfig = USDG_CORRELATED_SPOKE.getReserveConfig(usdgReserveId);
-    assertEq(usdgConfig.collateralRisk, 0);
-    assertFalse(usdgConfig.paused);
-    assertFalse(usdgConfig.frozen);
-    assertTrue(usdgConfig.borrowable);
-    assertFalse(usdgConfig.receiveSharesEnabled);
-    assertEq(
-      IAaveOracle(USDG_CORRELATED_SPOKE.ORACLE()).getReserveSource(usdgReserveId),
-      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED
+    // USDC & USDT: natively suppliable + borrowable on the Paxos Hub, not collateral.
+    _assertBorrowableReserve(
+      PAXOS_HUB,
+      AaveV4EthereumAssets.USDC_UNDERLYING,
+      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDC_PRICE_FEED,
+      true
     );
-    ISpoke.DynamicReserveConfig memory usdgDyn = USDG_CORRELATED_SPOKE.getDynamicReserveConfig(
-      usdgReserveId,
-      0
+    _assertBorrowableReserve(
+      PAXOS_HUB,
+      AaveV4EthereumAssets.USDT_UNDERLYING,
+      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDT_PRICE_FEED,
+      true
     );
-    assertEq(usdgDyn.collateralFactor, 0);
-    assertEq(usdgDyn.maxLiquidationBonus, 100_00);
-    assertEq(usdgDyn.liquidationFee, 0);
+
+    // USDG: borrow-only, drawn from the Core Hub via the cross-hub credit line.
+    _assertBorrowableReserve(
+      CORE_HUB,
+      AaveV4EthereumAssets.USDG_UNDERLYING,
+      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED,
+      false
+    );
   }
 
   function test_liquidationConfig() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    ISpoke.LiquidationConfig memory liq = USDG_CORRELATED_SPOKE.getLiquidationConfig();
+    ISpoke.LiquidationConfig memory liq = PAXOS_PENDLE_SPOKE.getLiquidationConfig();
     assertEq(uint256(liq.targetHealthFactor), 1.0277e18);
     assertEq(uint256(liq.healthFactorForMaxBonus), 0.99e18);
     assertEq(uint256(liq.liquidationBonusFactor), 100_00);
   }
 
+  /// @dev Native USDC/USDT supplied to the Paxos Hub become borrowable against PT-USDG collateral.
+  ///      Unlike USDG (drawn from the Core Hub), these have no pre-existing liquidity, so the
+  ///      supplier seeds it first.
+  function test_nativeStablecoinSupplyAndBorrow() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    address[2] memory stablecoins = [
+      AaveV4EthereumAssets.USDC_UNDERLYING,
+      AaveV4EthereumAssets.USDT_UNDERLYING
+    ];
+    for (uint256 i; i < stablecoins.length; ++i) _runNativeSupplyAndBorrow(stablecoins[i], i);
+  }
+
   function test_spokeDeployment_maxUserReservesLimit() public view {
-    assertEq(uint256(USDG_CORRELATED_SPOKE.MAX_USER_RESERVES_LIMIT()), type(uint16).max);
+    assertEq(uint256(PAXOS_PENDLE_SPOKE.MAX_USER_RESERVES_LIMIT()), type(uint16).max);
   }
 
   function test_spokeDeployment_proxyAdminOwnedByExecutor() public view {
     address proxyAdmin = address(
-      uint160(uint256(vm.load(address(USDG_CORRELATED_SPOKE), ERC1967Utils.ADMIN_SLOT)))
+      uint160(uint256(vm.load(address(PAXOS_PENDLE_SPOKE), ERC1967Utils.ADMIN_SLOT)))
     );
     assertGt(proxyAdmin.code.length, 0, 'proxy admin not deployed');
 
@@ -271,14 +280,14 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
   }
 
   function test_spokeDeployment_noReservesBeforePayload() public view {
-    assertEq(USDG_CORRELATED_SPOKE.getReserveCount(), 0);
+    assertEq(PAXOS_PENDLE_SPOKE.getReserveCount(), 0);
   }
 
   function test_priceFeed_withinExpectedBounds() public view {
     int256 price = IChainlinkAggregator(PT_USDG_24SEP2026_PRICE_FEED).latestAnswer();
 
-    // At fork block (~mid-May 2026) with discountRatePerYear = 4.5% and ~4 months to maturity,
-    // the expected discount is ~1.5%, so price ~ 0.985e8. Anything below 0.98e8 indicates drift.
+    // At fork block (~mid-June 2026) with discountRatePerYear = 4.5% and ~3 months to maturity,
+    // the expected discount is ~1.25%, so price ~ 0.9875e8. Anything below 0.98e8 indicates drift.
     assertGt(price, int256(0.98e8), 'PT-USDG price below expected lower bound');
     assertLe(price, int256(1e8), 'PT-USDG price above par');
   }
@@ -349,35 +358,24 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
     vm.clearMockedCalls();
   }
 
-  function test_plusHubIRStrategyMatchesExistingAsset() public view {
-    address existingIrStrategy = PLUS_HUB
-      .getAssetConfig(PLUS_HUB.getAssetId(AaveV4EthereumAssets.USDe_UNDERLYING))
-      .irStrategy;
-    assertEq(
-      PLUS_HUB_IR_STRATEGY,
-      existingIrStrategy,
-      'Hardcoded PLUS_HUB IR strategy drifted from the live USDe asset config'
-    );
-  }
-
   function test_positionManagersInactive_beforePayload() public view {
     assertFalse(
-      USDG_CORRELATED_SPOKE.isPositionManagerActive(
+      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER)
       )
     );
     assertFalse(
-      USDG_CORRELATED_SPOKE.isPositionManagerActive(
+      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER)
       )
     );
     assertFalse(
-      USDG_CORRELATED_SPOKE.isPositionManagerActive(
+      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER)
       )
     );
     assertFalse(
-      USDG_CORRELATED_SPOKE.isPositionManagerActive(
+      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY)
       )
     );
@@ -389,29 +387,146 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
   function _discoverTokenizationSpoke() internal returns (address tokenizationSpoke) {
     uint256 snapshotId = vm.snapshotState();
     GovV3Helpers.executePayload(vm, address(proposal));
-    tokenizationSpoke = _findTokenizationSpoke(PLUS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    tokenizationSpoke = TokenizationSpokeLib.find(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
     vm.revertToState(snapshotId);
   }
 
-  function _assetIds() internal view returns (uint256 ptAssetId, uint256 usdgAssetId) {
-    ptAssetId = PLUS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
-    usdgAssetId = CORE_HUB.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
+  function _reserveId(IHub hub, address underlying) internal view returns (uint256) {
+    return PAXOS_PENDLE_SPOKE.getReserveId(address(hub), hub.getAssetId(underlying));
   }
 
-  function _localReserveIds() internal view returns (uint256 ptReserveId, uint256 usdgReserveId) {
-    (uint256 ptAssetId, uint256 usdgAssetId) = _assetIds();
-    ptReserveId = USDG_CORRELATED_SPOKE.getReserveId(address(PLUS_HUB), ptAssetId);
-    usdgReserveId = USDG_CORRELATED_SPOKE.getReserveId(address(CORE_HUB), usdgAssetId);
+  function _assertHubAssetIRData(
+    address underlying,
+    IAssetInterestRateStrategy.InterestRateData memory expectedIrData
+  ) internal view {
+    uint256 assetId = PAXOS_HUB.getAssetId(underlying);
+    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
+      PAXOS_HUB_IR_STRATEGY
+    ).getInterestRateData(assetId);
+    assertEq(irData.optimalUsageRatio, expectedIrData.optimalUsageRatio);
+    assertEq(irData.baseDrawnRate, expectedIrData.baseDrawnRate);
+    assertEq(irData.rateGrowthBeforeOptimal, expectedIrData.rateGrowthBeforeOptimal);
+    assertEq(irData.rateGrowthAfterOptimal, expectedIrData.rateGrowthAfterOptimal);
+  }
+
+  function _assertSpokeCaps(
+    IHub hub,
+    address underlying,
+    uint256 expectedAddCap,
+    uint256 expectedDrawCap
+  ) internal view {
+    IHub.SpokeConfig memory config = hub.getSpokeConfig(
+      hub.getAssetId(underlying),
+      address(PAXOS_PENDLE_SPOKE)
+    );
+    assertEq(config.addCap, uint40(expectedAddCap));
+    assertEq(config.drawCap, uint40(expectedDrawCap));
+    assertEq(config.riskPremiumThreshold, 0);
+    assertTrue(config.active);
+    assertFalse(config.halted);
+  }
+
+  function _assertBorrowableReserve(
+    IHub hub,
+    address underlying,
+    address priceFeed,
+    bool receiveSharesEnabled
+  ) internal view {
+    uint256 reserveId = _reserveId(hub, underlying);
+    assertEq(address(PAXOS_PENDLE_SPOKE.getReserve(reserveId).hub), address(hub));
+    ISpoke.ReserveConfig memory config = PAXOS_PENDLE_SPOKE.getReserveConfig(reserveId);
+    assertEq(config.collateralRisk, 0);
+    assertFalse(config.paused);
+    assertFalse(config.frozen);
+    assertTrue(config.borrowable);
+    assertEq(config.receiveSharesEnabled, receiveSharesEnabled);
+    assertEq(IAaveOracle(PAXOS_PENDLE_SPOKE.ORACLE()).getReserveSource(reserveId), priceFeed);
+    ISpoke.DynamicReserveConfig memory dyn = PAXOS_PENDLE_SPOKE.getDynamicReserveConfig(
+      reserveId,
+      0
+    );
+    assertEq(dyn.collateralFactor, 0);
+    assertEq(dyn.maxLiquidationBonus, 100_00);
+    assertEq(dyn.liquidationFee, 0);
+  }
+
+  function _runNativeSupplyAndBorrow(address borrowUnderlying, uint256 index) internal {
+    address supplier = makeAddr(string.concat('nativeSupplier_', vm.toString(index)));
+    address borrower = makeAddr(string.concat('nativeBorrower_', vm.toString(index)));
+
+    uint256 collateralReserveId = _reserveId(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    uint256 borrowReserveId = _reserveId(PAXOS_HUB, borrowUnderlying);
+
+    uint256 seedAmount = 1_000_000 * 1e6;
+    uint256 collateralAmount = 500_000 * 1e6;
+    uint256 borrowAmount = 100_000 * 1e6;
+
+    // Seed native liquidity into the Paxos Hub via the borrowable reserve.
+    deal2(borrowUnderlying, supplier, seedAmount);
+    vm.startPrank(supplier);
+    IERC20(borrowUnderlying).forceApprove(address(PAXOS_PENDLE_SPOKE), seedAmount);
+    PAXOS_PENDLE_SPOKE.supply(borrowReserveId, seedAmount, supplier);
+    vm.stopPrank();
+
+    // Borrow against PT-USDG collateral.
+    deal2(PT_USDG_24SEP2026_UNDERLYING, borrower, collateralAmount);
+    vm.startPrank(borrower);
+    IERC20(PT_USDG_24SEP2026_UNDERLYING).forceApprove(
+      address(PAXOS_PENDLE_SPOKE),
+      collateralAmount
+    );
+    PAXOS_PENDLE_SPOKE.supply(collateralReserveId, collateralAmount, borrower);
+    PAXOS_PENDLE_SPOKE.setUsingAsCollateral(collateralReserveId, true, borrower);
+    PAXOS_PENDLE_SPOKE.borrow(borrowReserveId, borrowAmount, borrower);
+    vm.stopPrank();
+
+    assertEq(IERC20(borrowUnderlying).balanceOf(borrower), borrowAmount);
+    ISpoke.UserAccountData memory acct = PAXOS_PENDLE_SPOKE.getUserAccountData(borrower);
+    assertGt(acct.healthFactor, 1e18);
+    assertEq(acct.borrowCount, 1);
+    assertEq(acct.activeCollateralCount, 1);
+  }
+
+  function _expectedNonBorrowableIRData()
+    internal
+    pure
+    returns (IAssetInterestRateStrategy.InterestRateData memory)
+  {
+    return
+      IAssetInterestRateStrategy.InterestRateData({
+        optimalUsageRatio: 99_00,
+        baseDrawnRate: 0,
+        rateGrowthBeforeOptimal: 0,
+        rateGrowthAfterOptimal: 0
+      });
+  }
+
+  function _expectedBorrowableStablecoinIRData()
+    internal
+    pure
+    returns (IAssetInterestRateStrategy.InterestRateData memory)
+  {
+    return
+      IAssetInterestRateStrategy.InterestRateData({
+        optimalUsageRatio: 92_00,
+        baseDrawnRate: 0,
+        rateGrowthBeforeOptimal: 4_00,
+        rateGrowthAfterOptimal: 20_00
+      });
   }
 
   function _payload() internal view override returns (AaveV4PayloadEthereumSpoke) {
     return proposal;
   }
 
+  function _hubPayload() internal view override returns (AaveV4PayloadEthereumHub) {
+    return proposal;
+  }
+
   function _reserveTestCases() internal pure override returns (ReserveTestCase[] memory) {
     ReserveTestCase[] memory cases = new ReserveTestCase[](1);
     cases[0] = ReserveTestCase({
-      collateralHub: AaveV4EthereumHubs.PLUS_HUB,
+      collateralHub: PAXOS_HUB,
       collateralUnderlying: PT_USDG_24SEP2026_UNDERLYING,
       collateralPriceFeed: PT_USDG_24SEP2026_PRICE_FEED,
       borrowHub: AaveV4EthereumHubs.CORE_HUB,
@@ -429,7 +544,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated_20260514_Te
   function _tokenizationTestCases() internal pure override returns (TokenizationTestCase[] memory) {
     TokenizationTestCase[] memory cases = new TokenizationTestCase[](1);
     cases[0] = TokenizationTestCase({
-      hub: AaveV4EthereumHubs.PLUS_HUB,
+      hub: PAXOS_HUB,
       underlying: PT_USDG_24SEP2026_UNDERLYING,
       depositAmount: 100_000 * 1e6,
       spokeAssetIdAddCap: 1_000_000

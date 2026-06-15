@@ -15,6 +15,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
+import {TokenizationSpokeLib} from '../v4-hub/TokenizationSpokeLib.sol';
 import {AaveV4PayloadEthereumSpokeTestBase} from './AaveV4PayloadEthereumSpokeTestBase.sol';
 
 abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
@@ -60,14 +61,14 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     GovV3Helpers.executePayload(vm, address(_payload()));
 
     address spokeAddress = _payload().spoke();
-    bytes4[] memory configuratorSelectors = _payload().spokeConfiguratorSelectors();
+    bytes4[] memory configuratorSelectors = Roles.getSpokeConfiguratorRoleSelectors();
     for (uint256 i; i < configuratorSelectors.length; ++i) {
       assertEq(
         AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(spokeAddress, configuratorSelectors[i]),
         Roles.SPOKE_CONFIGURATOR_ROLE
       );
     }
-    bytes4[] memory updaterSelectors = _payload().spokeUserPositionUpdaterSelectors();
+    bytes4[] memory updaterSelectors = Roles.getSpokePositionUpdaterRoleSelectors();
     for (uint256 i; i < updaterSelectors.length; ++i) {
       assertEq(
         AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(spokeAddress, updaterSelectors[i]),
@@ -107,7 +108,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
 
     address spokeAddress = _payload().spoke();
     address holder = address(AaveV4Ethereum.SPOKE_CONFIGURATOR);
-    bytes4[] memory gated = _payload().spokeConfiguratorSelectors();
+    bytes4[] memory gated = Roles.getSpokeConfiguratorRoleSelectors();
     for (uint256 i; i < gated.length; ++i) {
       (bool allowed, uint32 delay) = AaveV4Ethereum.ACCESS_MANAGER.canCall(
         holder,
@@ -558,7 +559,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     TokenizationTestCase memory testCase,
     uint256 index
   ) internal {
-    address tokenizationSpoke = _findTokenizationSpoke(testCase.hub, testCase.underlying);
+    address tokenizationSpoke = TokenizationSpokeLib.find(testCase.hub, testCase.underlying);
     require(tokenizationSpoke != address(0), 'tokenization spoke missing');
 
     address user = makeAddr(string.concat('tokenizationCapZeroUser_', vm.toString(index)));
@@ -575,7 +576,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     TokenizationTestCase memory testCase,
     uint256 index
   ) internal {
-    address tokenizationSpoke = _findTokenizationSpoke(testCase.hub, testCase.underlying);
+    address tokenizationSpoke = TokenizationSpokeLib.find(testCase.hub, testCase.underlying);
     require(tokenizationSpoke != address(0), 'tokenization spoke missing');
 
     uint256 assetId = testCase.hub.getAssetId(testCase.underlying);
@@ -656,25 +657,6 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
       collateralAssetId
     );
     borrowReserveId = spokeContract.getReserveId(address(testCase.borrowHub), borrowAssetId);
-  }
-
-  /// @dev Probes each candidate spoke (skipping the payload spoke and treasury) with `name()` —
-  ///      tokenization spokes expose it, regular spokes don't. Reverts if more than one matches.
-  function _findTokenizationSpoke(IHub hub, address underlying) internal view returns (address) {
-    uint256 assetId = hub.getAssetId(underlying);
-    uint256 spokeCount = hub.getSpokeCount(assetId);
-    address payloadSpoke = _payload().spoke();
-    address treasurySpoke = address(AaveV4Ethereum.TREASURY_SPOKE);
-    address found;
-    for (uint256 i; i < spokeCount; ++i) {
-      address candidate = hub.getSpokeAddress(assetId, i);
-      if (candidate == payloadSpoke || candidate == treasurySpoke) continue;
-      (bool ok, ) = candidate.staticcall(abi.encodeWithSignature('name()'));
-      if (!ok) continue;
-      require(found == address(0), 'multiple tokenization spokes match');
-      found = candidate;
-    }
-    return found;
   }
 
   function _findReserveInfo(

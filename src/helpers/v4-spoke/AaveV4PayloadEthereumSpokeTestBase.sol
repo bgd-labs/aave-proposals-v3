@@ -5,6 +5,7 @@ import {Test, console} from 'forge-std/Test.sol';
 import {Vm} from 'forge-std/Vm.sol';
 // solhint-disable-next-line no-unused-import
 import {SpokeInstance} from 'aave-v4/spoke/instances/SpokeInstance.sol'; // forces artifact build for vm.getDeployedCode
+import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4PayloadEthereumSpoke} from './AaveV4PayloadEthereumSpoke.sol';
 
 abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
@@ -19,16 +20,16 @@ abstract contract AaveV4PayloadEthereumSpokeTestBase is Test {
   }
 
   function test_assumption_spokeConfiguratorSelectors_areOnCanonicalSpoke() public {
-    _assertSelectorsAreOnCanonicalSpoke(_payload().spokeConfiguratorSelectors());
+    _assertSelectorsAreOnCanonicalSpoke(Roles.getSpokeConfiguratorRoleSelectors());
   }
 
   function test_assumption_spokeUserPositionUpdaterSelectors_areOnCanonicalSpoke() public {
-    _assertSelectorsAreOnCanonicalSpoke(_payload().spokeUserPositionUpdaterSelectors());
+    _assertSelectorsAreOnCanonicalSpoke(Roles.getSpokePositionUpdaterRoleSelectors());
   }
 
   function test_assumption_selectorGroupsAreDisjoint() public view {
-    bytes4[] memory configuratorSelectors = _payload().spokeConfiguratorSelectors();
-    bytes4[] memory updaterSelectors = _payload().spokeUserPositionUpdaterSelectors();
+    bytes4[] memory configuratorSelectors = Roles.getSpokeConfiguratorRoleSelectors();
+    bytes4[] memory updaterSelectors = Roles.getSpokePositionUpdaterRoleSelectors();
     for (uint256 i; i < configuratorSelectors.length; ++i) {
       for (uint256 j; j < updaterSelectors.length; ++j) {
         assertTrue(

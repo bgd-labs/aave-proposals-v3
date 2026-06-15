@@ -3,13 +3,13 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave Labs',
     pools: ['AaveV4Ethereum'],
-    title: 'Onboard PT-USDG-24SEP2026 on V4 Plus / USDG Correlated',
-    shortName: 'OnboardPTUSDG24SEP2026OnV4PlusUSDGCorrelated',
+    title: 'Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / Stablecoin Correlated',
+    shortName: 'OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated',
     date: '20260514',
     discussion:
       'https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'AVALANCHE',
   },
-  poolOptions: {AaveV4Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25193380}}},
+  poolOptions: {AaveV4Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25318221}}},
 };

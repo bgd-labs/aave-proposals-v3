@@ -19,20 +19,6 @@ contract AaveV4PayloadEthereumSpokeTest is AaveV4PayloadEthereumSpokeTestBase {
     payload = new MockSpokeProposal();
   }
 
-  function test_hubAssetListings_mapping() public view {
-    IAaveV4ConfigEngine.AssetListing[] memory listings = payload.hubAssetListings();
-    assertEq(listings.length, 1);
-    assertEq(address(listings[0].hubConfigurator), address(AaveV4Ethereum.HUB_CONFIGURATOR));
-    assertEq(listings[0].hub, address(AaveV4EthereumHubs.CORE_HUB));
-    assertEq(listings[0].underlying, address(0x1111111111111111111111111111111111111111));
-    assertEq(listings[0].feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE));
-    assertEq(listings[0].liquidityFee, 0);
-    assertEq(listings[0].irData.optimalUsageRatio, 99_00);
-    assertEq(listings[0].tokenization.addCap, 0);
-    assertEq(listings[0].tokenization.name, 'Wrapped Aave Core MOCK');
-    assertEq(listings[0].tokenization.symbol, 'waCoreMOCK');
-  }
-
   function test_hubSpokeToAssetsAdditions_mapping() public view {
     IAaveV4ConfigEngine.SpokeToAssetsAddition[] memory additions = payload
       .hubSpokeToAssetsAdditions();
