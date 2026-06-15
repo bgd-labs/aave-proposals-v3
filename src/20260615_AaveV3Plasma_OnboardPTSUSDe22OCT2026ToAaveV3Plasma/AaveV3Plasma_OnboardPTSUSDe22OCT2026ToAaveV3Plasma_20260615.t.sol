@@ -6,6 +6,7 @@ import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.s
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -80,6 +81,51 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615_Test is Pro
       AaveV3PlasmaAssets.USDe_UNDERLYING,
       AaveV3PlasmaAssets.USDe_V_TOKEN
     );
+  }
+
+  function test_eModeConfiguration() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    address[] memory collaterals = new address[](2);
+    collaterals[0] = AaveV3PlasmaAssets.sUSDe_UNDERLYING;
+    collaterals[1] = proposal.PT_sUSDE_22OCT2026();
+
+    uint8 stablecoins = _findEModeCategoryId('sUSDe_PT_sUSDe_22OCT2026__Stablecoins');
+    _assertEModeCollateralConfig({
+      id: stablecoins,
+      ltv: 87_71,
+      liquidationThreshold: 89_71,
+      liquidationBonus: 104_87
+    });
+    assertTrue(AaveV3Plasma.POOL.getIsEModeCategoryIsolated(stablecoins));
+
+    address[] memory stablecoinsBorrowables = new address[](3);
+    stablecoinsBorrowables[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
+    stablecoinsBorrowables[1] = AaveV3PlasmaAssets.USDe_UNDERLYING;
+    stablecoinsBorrowables[2] = AaveV3PlasmaAssets.GHO_UNDERLYING;
+
+    assertEq(
+      AaveV3Plasma.POOL.getEModeCategoryCollateralBitmap(stablecoins),
+      _toBitmap(collaterals)
+    );
+    assertEq(
+      AaveV3Plasma.POOL.getEModeCategoryBorrowableBitmap(stablecoins),
+      _toBitmap(stablecoinsBorrowables)
+    );
+
+    uint8 usde = _findEModeCategoryId('sUSDe_PT_sUSDe_22OCT2026__USDe');
+    _assertEModeCollateralConfig({
+      id: usde,
+      ltv: 90_35,
+      liquidationThreshold: 92_35,
+      liquidationBonus: 101_87
+    });
+    assertTrue(AaveV3Plasma.POOL.getIsEModeCategoryIsolated(usde));
+
+    address[] memory usdeBorrowables = new address[](1);
+    usdeBorrowables[0] = AaveV3PlasmaAssets.USDe_UNDERLYING;
+
+    assertEq(AaveV3Plasma.POOL.getEModeCategoryCollateralBitmap(usde), _toBitmap(collaterals));
+    assertEq(AaveV3Plasma.POOL.getEModeCategoryBorrowableBitmap(usde), _toBitmap(usdeBorrowables));
   }
 
   function test_oracleConfiguration() public {
@@ -177,6 +223,26 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615_Test is Pro
     AaveV3Plasma.POOL.withdraw(proposal.PT_sUSDE_22OCT2026(), supplyAmount / 2, user);
 
     vm.stopPrank();
+  }
+
+  /// @dev asserts the (ltv, liquidationThreshold, liquidationBonus) of an e-mode category
+  function _assertEModeCollateralConfig(
+    uint8 id,
+    uint256 ltv,
+    uint256 liquidationThreshold,
+    uint256 liquidationBonus
+  ) internal view {
+    DataTypes.CollateralConfig memory cfg = AaveV3Plasma.POOL.getEModeCategoryCollateralConfig(id);
+    assertEq(cfg.ltv, ltv);
+    assertEq(cfg.liquidationThreshold, liquidationThreshold);
+    assertEq(cfg.liquidationBonus, liquidationBonus);
+  }
+
+  /// @dev builds the expected e-mode bitmap by setting the bit at each asset's reserve id
+  function _toBitmap(address[] memory assets) internal view returns (uint128 bitmap) {
+    for (uint256 i = 0; i < assets.length; i++) {
+      bitmap |= uint128(1) << AaveV3Plasma.POOL.getReserveData(assets[i]).id;
+    }
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {

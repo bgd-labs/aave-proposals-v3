@@ -75,7 +75,7 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 is AaveV3Pa
       liqThreshold: 89_71,
       liqBonus: 4_87,
       label: 'sUSDe_PT_sUSDe_22OCT2026__Stablecoins',
-      isolated: false,
+      isolated: true,
       collaterals: collateralAssets_SUSDe_PT_sUSDe_22OCT2026__Stablecoins,
       borrowables: borrowableAssets_SUSDe_PT_sUSDe_22OCT2026__Stablecoins
     });
@@ -92,7 +92,7 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 is AaveV3Pa
       liqThreshold: 92_35,
       liqBonus: 1_87,
       label: 'sUSDe_PT_sUSDe_22OCT2026__USDe',
-      isolated: false,
+      isolated: true,
       collaterals: collateralAssets_SUSDe_PT_sUSDe_22OCT2026__USDe,
       borrowables: borrowableAssets_SUSDe_PT_sUSDe_22OCT2026__USDe
     });
