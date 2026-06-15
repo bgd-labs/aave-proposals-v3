@@ -5,18 +5,18 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.sol';
+import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.s.sol/1/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514).creationCode
+      type(AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514).creationCode
     );
 
     // compose action
@@ -31,7 +31,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -43,8 +43,7 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsEthereum[0] = GovV3Helpers.buildAction(
-        type(AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514)
-          .creationCode
+        type(AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514).creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
@@ -57,7 +56,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated.md'
+        'src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle.md'
       )
     );
   }

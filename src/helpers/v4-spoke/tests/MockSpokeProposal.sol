@@ -71,3 +71,55 @@ contract MockSpokeProposal is AaveV4PayloadEthereumSpoke {
       });
   }
 }
+
+/// @dev Spoke payload registering several assets on the SAME hub, to exercise the per-hub grouping
+///      in `hubSpokeToAssetsAdditions` (two assets on Core, one on Plus → two grouped additions).
+contract MockMultiAssetSpokeProposal is AaveV4PayloadEthereumSpoke {
+  address internal constant SPOKE = address(0x8888888888888888888888888888888888888888);
+  address internal constant CORE_ASSET_A = address(0xA1);
+  address internal constant CORE_ASSET_B = address(0xA2);
+  address internal constant PLUS_ASSET = address(0xB1);
+
+  function spoke() public pure override returns (address) {
+    return SPOKE;
+  }
+
+  function _spokeAssetConfigs() internal pure override returns (SpokeAssetConfig[] memory) {
+    SpokeAssetConfig[] memory configs = new SpokeAssetConfig[](3);
+    configs[0] = SpokeAssetConfig({
+      hub: AaveV4EthereumHubs.CORE_HUB,
+      underlying: CORE_ASSET_A,
+      addCap: 1,
+      drawCap: 0,
+      riskPremiumThreshold: 0
+    });
+    configs[1] = SpokeAssetConfig({
+      hub: AaveV4EthereumHubs.CORE_HUB,
+      underlying: CORE_ASSET_B,
+      addCap: 2,
+      drawCap: 0,
+      riskPremiumThreshold: 0
+    });
+    configs[2] = SpokeAssetConfig({
+      hub: AaveV4EthereumHubs.PLUS_HUB,
+      underlying: PLUS_ASSET,
+      addCap: 0,
+      drawCap: 3,
+      riskPremiumThreshold: 0
+    });
+    return configs;
+  }
+
+  function _spokeReserves() internal pure override returns (ReserveListing[] memory) {
+    return new ReserveListing[](0);
+  }
+
+  function _spokeLiquidation() internal pure override returns (LiquidationConfigUpdate memory) {
+    return
+      LiquidationConfigUpdate({
+        targetHealthFactor: 1e18,
+        healthFactorForMaxBonus: 1e18,
+        liquidationBonusFactor: 100_00
+      });
+  }
+}

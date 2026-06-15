@@ -39,6 +39,16 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     int256 unhealthyCollateralPrice;
     uint256 partialLiquidationDebtAmount;
     uint256 healthyLiquidationDebtAmount;
+    // Liquidity to seed into the borrow reserve before the test borrows. Leave 0 when the borrow
+    // asset already has liquidity (e.g. a cross-hub credit line draws from another hub's pool);
+    // set > 0 for a natively-listed borrowable that nobody has supplied to yet, so the borrow
+    // legs revert for the intended reason (HF) and not for lack of liquidity. Must only be set for
+    // reserves that are suppliable to the spoke (receiveSharesEnabled).
+    uint256 borrowLiquiditySeed;
+    // Whether the borrow asset implements EIP-2612 `permit`. The SignatureGateway flow signs a
+    // permit to pull the repay amount, so it can only run against permit-capable borrowables
+    // (e.g. USDT has no permit). Other flows (direct approvals, Giver/Taker/Config PMs) ignore it.
+    bool borrowSupportsPermit;
   }
 
   /// @dev One tokenization-spoke deposit/redeem flow.
@@ -183,11 +193,16 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     ISpoke spokeContract = ISpoke(_payload().spoke());
     Types.ReserveInfo[] memory reserves = _getReserveInfo(spokeContract);
     for (uint256 i; i < cases.length; ++i) {
+      // The SignatureGateway pulls funds via an EIP-2612 permit signature, so it can only be
+      // exercised against permit-capable borrow assets. Non-permit tokens (e.g. USDT) are covered
+      // by the direct-approval and Giver/Taker/Config PM flows instead.
+      if (!cases[i].borrowSupportsPermit) continue;
       Types.ReserveInfo memory collateralInfo = _findReserveInfo(
         reserves,
         cases[i].collateralUnderlying
       );
       Types.ReserveInfo memory borrowInfo = _findReserveInfo(reserves, cases[i].borrowUnderlying);
+      _seedBorrowLiquidity(cases[i], i);
       // Supply/withdraw on the collateral leg (non-borrowable; borrow branch skipped inside).
       _testSignatureGateway({
         gateway: AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY,
@@ -307,6 +322,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     address user = makeAddr(string.concat('supplyBorrowUser_', vm.toString(index)));
     ISpoke spokeContract = ISpoke(_payload().spoke());
     (uint256 collateralReserveId, uint256 borrowReserveId) = _reserveIdsFor(testCase);
+    _seedBorrowLiquidity(testCase, index);
 
     deal2(testCase.collateralUnderlying, user, testCase.supplyAmount);
     vm.startPrank(user);
@@ -330,6 +346,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     address user = makeAddr(string.concat('borrowOverCFUser_', vm.toString(index)));
     ISpoke spokeContract = ISpoke(_payload().spoke());
     (uint256 collateralReserveId, uint256 borrowReserveId) = _reserveIdsFor(testCase);
+    _seedBorrowLiquidity(testCase, index);
 
     deal2(testCase.collateralUnderlying, user, testCase.supplyAmount);
     vm.startPrank(user);
@@ -349,6 +366,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     address liquidator = makeAddr(string.concat('liquidator_', vm.toString(index)));
     ISpoke spokeContract = ISpoke(_payload().spoke());
     (uint256 collateralReserveId, uint256 borrowReserveId) = _reserveIdsFor(testCase);
+    _seedBorrowLiquidity(testCase, index);
 
     deal2(testCase.collateralUnderlying, user, testCase.supplyAmount);
     vm.startPrank(user);
@@ -409,6 +427,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     address liquidator = makeAddr(string.concat('healthyLiquidator_', vm.toString(index)));
     ISpoke spokeContract = ISpoke(_payload().spoke());
     (uint256 collateralReserveId, uint256 borrowReserveId) = _reserveIdsFor(testCase);
+    _seedBorrowLiquidity(testCase, index);
 
     deal2(testCase.collateralUnderlying, user, testCase.supplyAmount);
     vm.startPrank(user);
@@ -476,6 +495,7 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
     address taker = makeAddr(string.concat('takerDelegatee_', vm.toString(index)));
     ISpoke spokeContract = ISpoke(_payload().spoke());
     (uint256 collateralReserveId, uint256 borrowReserveId) = _reserveIdsFor(testCase);
+    _seedBorrowLiquidity(testCase, index);
 
     deal2(testCase.collateralUnderlying, owner, testCase.supplyAmount);
     vm.startPrank(owner);
@@ -657,6 +677,24 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
       collateralAssetId
     );
     borrowReserveId = spokeContract.getReserveId(address(testCase.borrowHub), borrowAssetId);
+  }
+
+  /// @dev Seeds `borrowLiquiditySeed` of the borrow asset into the spoke so natively-listed
+  ///      borrowables (no pre-existing depositors) have liquidity to borrow against. No-op when
+  ///      the seed is zero (cross-hub credit lines draw from the source hub's existing pool).
+  function _seedBorrowLiquidity(ReserveTestCase memory testCase, uint256 index) internal {
+    if (testCase.borrowLiquiditySeed == 0) return;
+    address seeder = makeAddr(string.concat('borrowSeeder_', vm.toString(index)));
+    ISpoke spokeContract = ISpoke(_payload().spoke());
+    (, uint256 borrowReserveId) = _reserveIdsFor(testCase);
+    deal2(testCase.borrowUnderlying, seeder, testCase.borrowLiquiditySeed);
+    vm.startPrank(seeder);
+    IERC20(testCase.borrowUnderlying).forceApprove(
+      address(spokeContract),
+      testCase.borrowLiquiditySeed
+    );
+    spokeContract.supply(borrowReserveId, testCase.borrowLiquiditySeed, seeder);
+    vm.stopPrank();
   }
 
   function _findReserveInfo(

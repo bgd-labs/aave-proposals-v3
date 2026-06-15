@@ -18,6 +18,11 @@ contract MockHubProposal is AaveV4PayloadEthereumHub {
     return hubs;
   }
 
+  /// @dev Test-only accessor for the internal `_hubName` resolution (override + base + revert).
+  function exposedHubName(IHub hub) public pure returns (string memory) {
+    return _hubName(hub);
+  }
+
   function _hubName(IHub hub) internal pure override returns (string memory) {
     if (hub == NEW_HUB) return 'Mock';
     return super._hubName(hub);

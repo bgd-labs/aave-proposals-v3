@@ -1,18 +1,18 @@
 ---
-title: "Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / Stablecoin Correlated"
+title: "Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / USDG Pendle"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3"
 ---
 
 ## Simple Summary
 
-This AIP proposes to onboard PT-USDG-24SEP2026 to Aave V4 on Ethereum, listed on a dedicated Paxos Hub with a single Stablecoin Correlated spoke. The Paxos Hub holds native USDC and USDT liquidity alongside PT-USDG collateral, while USDG is sourced from the Core Hub through a cross-hub credit line.
+This AIP proposes to onboard PT-USDG-24SEP2026 to Aave V4 on Ethereum, listed on a dedicated Paxos Hub with a single USDG Pendle spoke. The Paxos Hub holds native USDC and USDT liquidity alongside PT-USDG collateral, while USDG is sourced from the Core Hub through a cross-hub credit line.
 
 ## Motivation
 
 PT-USDG-24SEP2026 is the next listed maturity in the USDG-backed PT series. With PT-USDG-28MAY2026 expired, the September pool serves as the rollover destination for PT-USDG collateral suppliers seeking to maintain fixed-yield exposure, and the pool has since grown to ~$4.15M in liquidity.
 
-This addendum revises the market structure from the originally proposed Plus Hub spoke to a dedicated Paxos Hub. A dedicated hub provides clean risk isolation for USDG-correlated collateral: the market is contained within the Paxos Hub, separate from the Ethena ecosystem markets on the Plus Hub, while Core Hub exposure remains limited to the USDG credit line and its Draw Cap. The single Stablecoin Correlated spoke carries PT-USDG as its sole collateral, with USDC, USDT (supplied natively to the Paxos Hub) and USDG (drawn from the Core Hub) borrowable. PT-USDG redeems 1:1 to USDG at maturity, and USDC, USDT, and USDG are dollar-denominated stablecoins, placing the collateral and the borrowable set within a single correlated group. The venue also positions the hub to host additional USDG-correlated assets over time.
+This addendum revises the market structure from the originally proposed Plus Hub spoke to a dedicated Paxos Hub. A dedicated hub provides clean risk isolation for USDG-correlated collateral: the market is contained within the Paxos Hub, separate from the Ethena ecosystem markets on the Plus Hub, while Core Hub exposure remains limited to the USDG credit line and its Draw Cap. The single USDG Pendle spoke carries PT-USDG as its sole collateral, with USDC, USDT (supplied natively to the Paxos Hub) and USDG (drawn from the Core Hub) borrowable. PT-USDG redeems 1:1 to USDG at maturity, and USDC, USDT, and USDG are dollar-denominated stablecoins, placing the collateral and the borrowable set within a single correlated group. The venue also positions the hub to host additional USDG-correlated assets over time.
 
 ## Specification
 
@@ -20,9 +20,9 @@ This addendum revises the market structure from the originally proposed Plus Hub
 
 **Spoke-level liquidation configuration**
 
-| Spoke                       | Target Health Factor | HF for Max Bonus | Liquidation Bonus Factor |
-| --------------------------- | -------------------: | ---------------: | -----------------------: |
-| Stablecoin Correlated (new) |               1.0277 |             0.99 |                        1 |
+| Spoke             | Target Health Factor | HF for Max Bonus | Liquidation Bonus Factor |
+| ----------------- | -------------------: | ---------------: | -----------------------: |
+| USDG Pendle (new) |               1.0277 |             0.99 |                        1 |
 
 **Reserve-level parameters**
 
@@ -60,8 +60,8 @@ This addendum revises the market structure from the originally proposed Plus Hub
 
 ## References
 
-- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.sol)
-- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.t.sol)
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.t.sol)
 - Snapshot: Direct-To-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3)
 

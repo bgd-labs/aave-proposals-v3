@@ -142,6 +142,16 @@ abstract contract AaveV4PayloadEthereumHub is AaveV4PayloadEthereum {
       });
   }
 
+  /// @dev Empty tokenization config: the asset is listed on the Hub without an ERC4626 wrapper.
+  ///      The fork test base asserts no TokenizationSpoke is deployed when name/symbol are empty.
+  function _noTokenization()
+    internal
+    pure
+    returns (IAaveV4ConfigEngine.TokenizationSpokeConfig memory)
+  {
+    return IAaveV4ConfigEngine.TokenizationSpokeConfig({addCap: 0, name: '', symbol: ''});
+  }
+
   /// @dev IR data preset for collateral-only assets that should never accrue borrow interest.
   function _nonBorrowableIRData()
     internal

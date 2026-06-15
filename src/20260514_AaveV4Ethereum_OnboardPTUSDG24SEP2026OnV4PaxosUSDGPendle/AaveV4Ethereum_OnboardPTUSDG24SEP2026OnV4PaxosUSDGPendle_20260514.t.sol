@@ -9,6 +9,7 @@ import {IAaveOracle, IAccessManagerEnumerable, IHub, ISpoke, ITokenizationSpoke}
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4ConfigEngine.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IChainlinkAggregator} from 'aave-helpers/src/interfaces/IChainlinkAggregator.sol';
@@ -16,7 +17,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
-import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.sol';
+import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol';
 import {AaveV4PayloadEthereumHub} from '../helpers/v4-hub/AaveV4PayloadEthereumHub.sol';
 import {AaveV4PayloadEthereumHubForkTestBase} from '../helpers/v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol';
 import {TokenizationSpokeLib} from '../helpers/v4-hub/TokenizationSpokeLib.sol';
@@ -24,10 +25,10 @@ import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEther
 import {AaveV4PayloadEthereumSpokeForkTestBase} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol';
 
 /**
- * @dev Test for AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514.t.sol -vv
+ * @dev Test for AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.t.sol -vv
  */
-contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514_Test is
+contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test is
   AaveV4PayloadEthereumSpokeForkTestBase,
   AaveV4PayloadEthereumHubForkTestBase
 {
@@ -38,7 +39,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   IHub internal constant PAXOS_HUB = IHub(0x62d63197660c080236193CA60b70E49A08E90368);
   IHub internal constant CORE_HUB = AaveV4EthereumHubs.CORE_HUB;
 
-  ISpoke internal constant PAXOS_PENDLE_SPOKE = ISpoke(0x956d8e0A89cfa3744428C4641b5a53B56167a7f9);
+  ISpoke internal constant USDG_PENDLE_SPOKE = ISpoke(0x956d8e0A89cfa3744428C4641b5a53B56167a7f9);
 
   address internal constant PT_USDG_24SEP2026_UNDERLYING =
     0xc1906aeCf868749a2DeE203F59b904c0cf212140;
@@ -54,11 +55,11 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   uint256 internal constant USDT_DRAW_CAP = 13_000_000;
   uint256 internal constant USDG_DRAW_CAP = 30_000_000;
 
-  AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514 internal proposal;
+  AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 25318221);
-    proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514();
+    proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514();
   }
 
   /**
@@ -73,7 +74,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
       if (existingSpokes[i] == AaveV4EthereumSpokes.KELP_ESPOKE) continue;
       spokes[j++] = existingSpokes[i];
     }
-    spokes[j] = PAXOS_PENDLE_SPOKE;
+    spokes[j] = USDG_PENDLE_SPOKE;
 
     ITokenizationSpoke[] memory existingTokSpokes = AaveV4EthereumGetters
       .getAllTokenizationSpokes();
@@ -86,7 +87,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
     tokenizationSpokes[existingTokSpokes.length] = ITokenizationSpoke(_discoverTokenizationSpoke());
 
     defaultTest({
-      reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514',
+      reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514',
       spokes: spokes,
       tokenizationSpokes: tokenizationSpokes,
       payload: address(proposal)
@@ -143,6 +144,25 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
     );
   }
 
+  /// @dev Exactly three assets are natively listed on the Paxos Hub (PT-USDG, USDC, USDT). USDG is
+  ///      sourced from the Core Hub via the credit line and must never be listed on Paxos — pinned
+  ///      both in the payload's listing set and on-chain after execution.
+  function test_hubAssetListings_excludeUSDG() public {
+    IAaveV4ConfigEngine.AssetListing[] memory listings = proposal.hubAssetListings();
+    assertEq(listings.length, 3, 'expected exactly three Paxos Hub asset listings');
+    for (uint256 i; i < listings.length; ++i) {
+      assertEq(listings[i].hub, address(PAXOS_HUB), 'all native listings must be on the Paxos Hub');
+      assertTrue(
+        listings[i].underlying != AaveV4EthereumAssets.USDG_UNDERLYING,
+        'USDG must not be natively listed on the Paxos Hub'
+      );
+    }
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+    vm.expectRevert();
+    PAXOS_HUB.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
+  }
+
   function test_paxosHubIRStrategyBoundToHub() public view {
     assertEq(
       IAssetInterestRateStrategy(PAXOS_HUB_IR_STRATEGY).HUB(),
@@ -153,7 +173,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
 
   function test_spokeDeployment_reservesAfterPayload() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(PAXOS_PENDLE_SPOKE.getReserveCount(), 4);
+    assertEq(USDG_PENDLE_SPOKE.getReserveCount(), 4);
   }
 
   function test_tokenizationSpokeDeployedAndRegistered() public {
@@ -175,14 +195,14 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
     assertEq(ITokenizationSpoke(tokenizationSpoke).asset(), PT_USDG_24SEP2026_UNDERLYING);
     assertEq(
       keccak256(bytes(ITokenizationSpoke(tokenizationSpoke).name())),
-      keccak256(bytes(proposal.TOKENIZATION_SPOKE_NAME()))
+      keccak256(bytes(proposal.tokenizationSpokeName()))
     );
     assertEq(
       keccak256(bytes(ITokenizationSpoke(tokenizationSpoke).symbol())),
-      keccak256(bytes(proposal.TOKENIZATION_SPOKE_SYMBOL()))
+      keccak256(bytes(proposal.tokenizationSpokeSymbol()))
     );
-    assertEq(proposal.TOKENIZATION_SPOKE_NAME(), 'Wrapped Aave Paxos PT_USDG_24SEP2026');
-    assertEq(proposal.TOKENIZATION_SPOKE_SYMBOL(), 'waPaxosPT_USDG_24SEP2026');
+    assertEq(proposal.tokenizationSpokeName(), 'Wrapped Aave Paxos PT_USDG_24SEP2026');
+    assertEq(proposal.tokenizationSpokeSymbol(), 'waPaxosPT_USDG_24SEP2026');
 
     uint256 assetId = PAXOS_HUB.getAssetId(PT_USDG_24SEP2026_UNDERLYING);
     IHub.SpokeConfig memory tokConfig = PAXOS_HUB.getSpokeConfig(assetId, tokenizationSpoke);
@@ -203,18 +223,18 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
 
     // PT-USDG: collateral-only on the Paxos Hub.
     uint256 ptReserveId = _reserveId(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
-    assertEq(address(PAXOS_PENDLE_SPOKE.getReserve(ptReserveId).hub), address(PAXOS_HUB));
-    ISpoke.ReserveConfig memory ptConfig = PAXOS_PENDLE_SPOKE.getReserveConfig(ptReserveId);
+    assertEq(address(USDG_PENDLE_SPOKE.getReserve(ptReserveId).hub), address(PAXOS_HUB));
+    ISpoke.ReserveConfig memory ptConfig = USDG_PENDLE_SPOKE.getReserveConfig(ptReserveId);
     assertEq(ptConfig.collateralRisk, 0);
     assertFalse(ptConfig.paused);
     assertFalse(ptConfig.frozen);
     assertFalse(ptConfig.borrowable);
     assertTrue(ptConfig.receiveSharesEnabled);
     assertEq(
-      IAaveOracle(PAXOS_PENDLE_SPOKE.ORACLE()).getReserveSource(ptReserveId),
+      IAaveOracle(USDG_PENDLE_SPOKE.ORACLE()).getReserveSource(ptReserveId),
       PT_USDG_24SEP2026_PRICE_FEED
     );
-    ISpoke.DynamicReserveConfig memory ptDyn = PAXOS_PENDLE_SPOKE.getDynamicReserveConfig(
+    ISpoke.DynamicReserveConfig memory ptDyn = USDG_PENDLE_SPOKE.getDynamicReserveConfig(
       ptReserveId,
       0
     );
@@ -248,31 +268,19 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   function test_liquidationConfig() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    ISpoke.LiquidationConfig memory liq = PAXOS_PENDLE_SPOKE.getLiquidationConfig();
+    ISpoke.LiquidationConfig memory liq = USDG_PENDLE_SPOKE.getLiquidationConfig();
     assertEq(uint256(liq.targetHealthFactor), 1.0277e18);
     assertEq(uint256(liq.healthFactorForMaxBonus), 0.99e18);
     assertEq(uint256(liq.liquidationBonusFactor), 100_00);
   }
 
-  /// @dev Native USDC/USDT supplied to the Paxos Hub become borrowable against PT-USDG collateral.
-  ///      Unlike USDG (drawn from the Core Hub), these have no pre-existing liquidity, so the
-  ///      supplier seeds it first.
-  function test_nativeStablecoinSupplyAndBorrow() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    address[2] memory stablecoins = [
-      AaveV4EthereumAssets.USDC_UNDERLYING,
-      AaveV4EthereumAssets.USDT_UNDERLYING
-    ];
-    for (uint256 i; i < stablecoins.length; ++i) _runNativeSupplyAndBorrow(stablecoins[i], i);
-  }
-
   function test_spokeDeployment_maxUserReservesLimit() public view {
-    assertEq(uint256(PAXOS_PENDLE_SPOKE.MAX_USER_RESERVES_LIMIT()), type(uint16).max);
+    assertEq(uint256(USDG_PENDLE_SPOKE.MAX_USER_RESERVES_LIMIT()), type(uint16).max);
   }
 
   function test_spokeDeployment_proxyAdminOwnedByExecutor() public view {
     address proxyAdmin = address(
-      uint160(uint256(vm.load(address(PAXOS_PENDLE_SPOKE), ERC1967Utils.ADMIN_SLOT)))
+      uint160(uint256(vm.load(address(USDG_PENDLE_SPOKE), ERC1967Utils.ADMIN_SLOT)))
     );
     assertGt(proxyAdmin.code.length, 0, 'proxy admin not deployed');
 
@@ -280,7 +288,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   }
 
   function test_spokeDeployment_noReservesBeforePayload() public view {
-    assertEq(PAXOS_PENDLE_SPOKE.getReserveCount(), 0);
+    assertEq(USDG_PENDLE_SPOKE.getReserveCount(), 0);
   }
 
   function test_priceFeed_withinExpectedBounds() public view {
@@ -360,22 +368,22 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
 
   function test_positionManagersInactive_beforePayload() public view {
     assertFalse(
-      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
+      USDG_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER)
       )
     );
     assertFalse(
-      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
+      USDG_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER)
       )
     );
     assertFalse(
-      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
+      USDG_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER)
       )
     );
     assertFalse(
-      PAXOS_PENDLE_SPOKE.isPositionManagerActive(
+      USDG_PENDLE_SPOKE.isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY)
       )
     );
@@ -392,7 +400,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   }
 
   function _reserveId(IHub hub, address underlying) internal view returns (uint256) {
-    return PAXOS_PENDLE_SPOKE.getReserveId(address(hub), hub.getAssetId(underlying));
+    return USDG_PENDLE_SPOKE.getReserveId(address(hub), hub.getAssetId(underlying));
   }
 
   function _assertHubAssetIRData(
@@ -417,7 +425,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   ) internal view {
     IHub.SpokeConfig memory config = hub.getSpokeConfig(
       hub.getAssetId(underlying),
-      address(PAXOS_PENDLE_SPOKE)
+      address(USDG_PENDLE_SPOKE)
     );
     assertEq(config.addCap, uint40(expectedAddCap));
     assertEq(config.drawCap, uint40(expectedDrawCap));
@@ -433,58 +441,21 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
     bool receiveSharesEnabled
   ) internal view {
     uint256 reserveId = _reserveId(hub, underlying);
-    assertEq(address(PAXOS_PENDLE_SPOKE.getReserve(reserveId).hub), address(hub));
-    ISpoke.ReserveConfig memory config = PAXOS_PENDLE_SPOKE.getReserveConfig(reserveId);
+    assertEq(address(USDG_PENDLE_SPOKE.getReserve(reserveId).hub), address(hub));
+    ISpoke.ReserveConfig memory config = USDG_PENDLE_SPOKE.getReserveConfig(reserveId);
     assertEq(config.collateralRisk, 0);
     assertFalse(config.paused);
     assertFalse(config.frozen);
     assertTrue(config.borrowable);
     assertEq(config.receiveSharesEnabled, receiveSharesEnabled);
-    assertEq(IAaveOracle(PAXOS_PENDLE_SPOKE.ORACLE()).getReserveSource(reserveId), priceFeed);
-    ISpoke.DynamicReserveConfig memory dyn = PAXOS_PENDLE_SPOKE.getDynamicReserveConfig(
+    assertEq(IAaveOracle(USDG_PENDLE_SPOKE.ORACLE()).getReserveSource(reserveId), priceFeed);
+    ISpoke.DynamicReserveConfig memory dyn = USDG_PENDLE_SPOKE.getDynamicReserveConfig(
       reserveId,
       0
     );
     assertEq(dyn.collateralFactor, 0);
     assertEq(dyn.maxLiquidationBonus, 100_00);
     assertEq(dyn.liquidationFee, 0);
-  }
-
-  function _runNativeSupplyAndBorrow(address borrowUnderlying, uint256 index) internal {
-    address supplier = makeAddr(string.concat('nativeSupplier_', vm.toString(index)));
-    address borrower = makeAddr(string.concat('nativeBorrower_', vm.toString(index)));
-
-    uint256 collateralReserveId = _reserveId(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
-    uint256 borrowReserveId = _reserveId(PAXOS_HUB, borrowUnderlying);
-
-    uint256 seedAmount = 1_000_000 * 1e6;
-    uint256 collateralAmount = 500_000 * 1e6;
-    uint256 borrowAmount = 100_000 * 1e6;
-
-    // Seed native liquidity into the Paxos Hub via the borrowable reserve.
-    deal2(borrowUnderlying, supplier, seedAmount);
-    vm.startPrank(supplier);
-    IERC20(borrowUnderlying).forceApprove(address(PAXOS_PENDLE_SPOKE), seedAmount);
-    PAXOS_PENDLE_SPOKE.supply(borrowReserveId, seedAmount, supplier);
-    vm.stopPrank();
-
-    // Borrow against PT-USDG collateral.
-    deal2(PT_USDG_24SEP2026_UNDERLYING, borrower, collateralAmount);
-    vm.startPrank(borrower);
-    IERC20(PT_USDG_24SEP2026_UNDERLYING).forceApprove(
-      address(PAXOS_PENDLE_SPOKE),
-      collateralAmount
-    );
-    PAXOS_PENDLE_SPOKE.supply(collateralReserveId, collateralAmount, borrower);
-    PAXOS_PENDLE_SPOKE.setUsingAsCollateral(collateralReserveId, true, borrower);
-    PAXOS_PENDLE_SPOKE.borrow(borrowReserveId, borrowAmount, borrower);
-    vm.stopPrank();
-
-    assertEq(IERC20(borrowUnderlying).balanceOf(borrower), borrowAmount);
-    ISpoke.UserAccountData memory acct = PAXOS_PENDLE_SPOKE.getUserAccountData(borrower);
-    assertGt(acct.healthFactor, 1e18);
-    assertEq(acct.borrowCount, 1);
-    assertEq(acct.activeCollateralCount, 1);
   }
 
   function _expectedNonBorrowableIRData()
@@ -523,8 +494,13 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
     return proposal;
   }
 
+  /// @dev Three borrow legs, all against PT-USDG collateral on the Paxos Hub:
+  ///      - USDG drawn from the Core Hub via the cross-hub credit line (no seed: Core already has
+  ///        USDG liquidity).
+  ///      - USDC and USDT natively listed on the Paxos Hub. They have no depositors at the fork
+  ///        block, so each is seeded with liquidity first (`borrowLiquiditySeed`).
   function _reserveTestCases() internal pure override returns (ReserveTestCase[] memory) {
-    ReserveTestCase[] memory cases = new ReserveTestCase[](1);
+    ReserveTestCase[] memory cases = new ReserveTestCase[](3);
     cases[0] = ReserveTestCase({
       collateralHub: PAXOS_HUB,
       collateralUnderlying: PT_USDG_24SEP2026_UNDERLYING,
@@ -536,7 +512,40 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
       borrowAmountOverCF: 475_000 * 1e6,
       unhealthyCollateralPrice: int256(0.93e8),
       partialLiquidationDebtAmount: 200_000 * 1e6,
-      healthyLiquidationDebtAmount: 10_000 * 1e6
+      healthyLiquidationDebtAmount: 10_000 * 1e6,
+      borrowLiquiditySeed: 0,
+      borrowSupportsPermit: true
+    });
+    cases[1] = ReserveTestCase({
+      collateralHub: PAXOS_HUB,
+      collateralUnderlying: PT_USDG_24SEP2026_UNDERLYING,
+      collateralPriceFeed: PT_USDG_24SEP2026_PRICE_FEED,
+      borrowHub: PAXOS_HUB,
+      borrowUnderlying: AaveV4EthereumAssets.USDC_UNDERLYING,
+      supplyAmount: 500_000 * 1e6,
+      borrowAmount: 460_000 * 1e6,
+      borrowAmountOverCF: 475_000 * 1e6,
+      unhealthyCollateralPrice: int256(0.93e8),
+      partialLiquidationDebtAmount: 200_000 * 1e6,
+      healthyLiquidationDebtAmount: 10_000 * 1e6,
+      borrowLiquiditySeed: 1_000_000 * 1e6,
+      borrowSupportsPermit: true
+    });
+    cases[2] = ReserveTestCase({
+      collateralHub: PAXOS_HUB,
+      collateralUnderlying: PT_USDG_24SEP2026_UNDERLYING,
+      collateralPriceFeed: PT_USDG_24SEP2026_PRICE_FEED,
+      borrowHub: PAXOS_HUB,
+      borrowUnderlying: AaveV4EthereumAssets.USDT_UNDERLYING,
+      supplyAmount: 500_000 * 1e6,
+      borrowAmount: 460_000 * 1e6,
+      borrowAmountOverCF: 475_000 * 1e6,
+      unhealthyCollateralPrice: int256(0.93e8),
+      partialLiquidationDebtAmount: 200_000 * 1e6,
+      healthyLiquidationDebtAmount: 10_000 * 1e6,
+      borrowLiquiditySeed: 1_000_000 * 1e6,
+      // USDT has no EIP-2612 permit, so the SignatureGateway flow skips it.
+      borrowSupportsPermit: false
     });
     return cases;
   }

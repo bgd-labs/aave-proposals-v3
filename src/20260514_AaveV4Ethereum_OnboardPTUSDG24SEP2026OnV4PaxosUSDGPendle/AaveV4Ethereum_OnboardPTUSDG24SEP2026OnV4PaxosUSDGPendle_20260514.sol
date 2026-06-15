@@ -13,12 +13,12 @@ import {AaveV4PayloadEthereumHub} from '../helpers/v4-hub/AaveV4PayloadEthereumH
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpoke.sol';
 
 /**
- * @title Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / Stablecoin Correlated
+ * @title Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / USDG Pendle
  * @author Aave Labs
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3
  */
-contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_20260514 is
+contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
   AaveV4PayloadEthereumHub,
   AaveV4PayloadEthereumSpoke
 {
@@ -27,9 +27,9 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   // https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368
   IHub internal constant PAXOS_HUB = IHub(0x62d63197660c080236193CA60b70E49A08E90368);
 
-  // The Paxos Pendle spoke carrying PT-USDG collateral.
+  // The USDG Pendle spoke carrying PT-USDG collateral.
   // https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9
-  address internal constant PAXOS_PENDLE_SPOKE = 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9;
+  address internal constant USDG_PENDLE_SPOKE = 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9;
 
   // https://etherscan.io/address/0xc1906aeCf868749a2DeE203F59b904c0cf212140
   address internal constant PT_USDG_24SEP2026_UNDERLYING =
@@ -45,14 +45,14 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
   uint256 internal constant TOKENIZATION_SPOKE_ADD_CAP = 0;
 
   function spoke() public pure override returns (address) {
-    return PAXOS_PENDLE_SPOKE;
+    return USDG_PENDLE_SPOKE;
   }
 
-  function TOKENIZATION_SPOKE_NAME() public pure returns (string memory) {
+  function tokenizationSpokeName() public pure returns (string memory) {
     return _tokenizationName(PAXOS_HUB, TOKEN_NAME);
   }
 
-  function TOKENIZATION_SPOKE_SYMBOL() public pure returns (string memory) {
+  function tokenizationSpokeSymbol() public pure returns (string memory) {
     return _tokenizationSymbol(PAXOS_HUB, TOKEN_NAME);
   }
 
@@ -266,13 +266,5 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosStablecoinCorrelated_2026
         rateGrowthBeforeOptimal: 4_00,
         rateGrowthAfterOptimal: 20_00
       });
-  }
-
-  function _noTokenization()
-    private
-    pure
-    returns (IAaveV4ConfigEngine.TokenizationSpokeConfig memory)
-  {
-    return IAaveV4ConfigEngine.TokenizationSpokeConfig({addCap: 0, name: '', symbol: ''});
   }
 }

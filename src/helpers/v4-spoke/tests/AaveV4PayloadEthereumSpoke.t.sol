@@ -7,7 +7,7 @@ import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumPositionManagers} from
 
 import {AaveV4PayloadEthereumSpoke} from '../AaveV4PayloadEthereumSpoke.sol';
 import {AaveV4PayloadEthereumSpokeTestBase} from '../AaveV4PayloadEthereumSpokeTestBase.sol';
-import {MockSpokeProposal} from './MockSpokeProposal.sol';
+import {MockSpokeProposal, MockMultiAssetSpokeProposal} from './MockSpokeProposal.sol';
 
 /**
  * @dev command: forge test --match-path=src/helpers/v4-spoke/tests/AaveV4PayloadEthereumSpoke.t.sol -vv
@@ -35,6 +35,24 @@ contract AaveV4PayloadEthereumSpokeTest is AaveV4PayloadEthereumSpokeTestBase {
     assertEq(additions[1].spoke, address(0x7777777777777777777777777777777777777777));
     assertEq(additions[1].assets.length, 1);
     assertEq(additions[1].assets[0].config.drawCap, 1_000_000);
+  }
+
+  /// @dev `hubSpokeToAssetsAdditions` must group all assets sharing a hub into one addition. The
+  ///      base mock uses one asset per hub; this pins the multi-asset-per-hub branch.
+  function test_hubSpokeToAssetsAdditions_groupsMultipleAssetsPerHub() public {
+    MockMultiAssetSpokeProposal multi = new MockMultiAssetSpokeProposal();
+    IAaveV4ConfigEngine.SpokeToAssetsAddition[] memory additions = multi
+      .hubSpokeToAssetsAdditions();
+    assertEq(additions.length, 2, 'two unique hubs expected');
+
+    assertEq(additions[0].hub, address(AaveV4EthereumHubs.CORE_HUB));
+    assertEq(additions[0].assets.length, 2, 'both Core assets grouped under one addition');
+    assertEq(additions[0].assets[0].config.addCap, 1);
+    assertEq(additions[0].assets[1].config.addCap, 2);
+
+    assertEq(additions[1].hub, address(AaveV4EthereumHubs.PLUS_HUB));
+    assertEq(additions[1].assets.length, 1);
+    assertEq(additions[1].assets[0].config.drawCap, 3);
   }
 
   function test_spokeReserveListings_mapping() public view {
