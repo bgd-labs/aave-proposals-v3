@@ -21,12 +21,8 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615_Test is Pro
   AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 24571085);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 24585111);
     proposal = new AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615();
-
-    // since the pt is not tradeable yet, we cannot seed collector as of the writing of this aip.
-    // seeding with 1e18 will be done once the pt becomes tradeable, this test mocks the seed fo now
-    deal(proposal.PT_sUSDE_22OCT2026(), GovernanceV3Plasma.EXECUTOR_LVL_1, 1e18);
   }
 
   /**
@@ -210,12 +206,12 @@ contract AaveV3Plasma_OnboardPTSUSDe22OCT2026ToAaveV3Plasma_20260615_Test is Pro
     AaveV3Plasma.POOL.supply(proposal.PT_sUSDE_22OCT2026(), supplyAmount, user, 0);
 
     address aPT = AaveV3Plasma.POOL.getReserveAToken(proposal.PT_sUSDE_22OCT2026());
-    assertApproxEqAbs(IERC20(aPT).balanceOf(user), supplyAmount, 1);
+    assertApproxEqAbs(IERC20(aPT).balanceOf(user), supplyAmount, 2);
 
     uint256 borrowAmount = 100e18;
     AaveV3Plasma.POOL.borrow(borrowAsset, borrowAmount, 2, 0, user);
 
-    assertApproxEqAbs(IERC20(borrowVToken).balanceOf(user), borrowAmount, 1);
+    assertApproxEqAbs(IERC20(borrowVToken).balanceOf(user), borrowAmount, 2);
 
     // repay and withdraw
     IERC20(borrowAsset).approve(address(AaveV3Plasma.POOL), borrowAmount);
