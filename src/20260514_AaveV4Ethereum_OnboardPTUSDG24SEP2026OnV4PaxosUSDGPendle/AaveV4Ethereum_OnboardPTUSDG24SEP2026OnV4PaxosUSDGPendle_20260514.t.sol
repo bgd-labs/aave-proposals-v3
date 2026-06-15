@@ -78,13 +78,16 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
 
     ITokenizationSpoke[] memory existingTokSpokes = AaveV4EthereumGetters
       .getAllTokenizationSpokes();
+    address[] memory newTokSpokes = _discoverNewTokenizationSpokes();
     ITokenizationSpoke[] memory tokenizationSpokes = new ITokenizationSpoke[](
-      existingTokSpokes.length + 1
+      existingTokSpokes.length + newTokSpokes.length
     );
     for (uint256 i; i < existingTokSpokes.length; ++i) {
       tokenizationSpokes[i] = existingTokSpokes[i];
     }
-    tokenizationSpokes[existingTokSpokes.length] = ITokenizationSpoke(_discoverTokenizationSpoke());
+    for (uint256 i; i < newTokSpokes.length; ++i) {
+      tokenizationSpokes[existingTokSpokes.length + i] = ITokenizationSpoke(newTokSpokes[i]);
+    }
 
     defaultTest({
       reportName: 'AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514',
@@ -132,14 +135,69 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     GovV3Helpers.executePayload(vm, address(proposal));
 
     _assertHubAssetIRData(PT_USDG_24SEP2026_UNDERLYING, _expectedNonBorrowableIRData());
-    _assertHubAssetIRData(
-      AaveV4EthereumAssets.USDC_UNDERLYING,
-      _expectedBorrowableStablecoinIRData()
+    _assertHubAssetIRData(AaveV4EthereumAssets.USDC_UNDERLYING, _expectedBorrowableIRData());
+    _assertHubAssetIRData(AaveV4EthereumAssets.USDT_UNDERLYING, _expectedBorrowableIRData());
+  }
+
+  /// @dev Pins the absolute liquidity fees against the spec: 10% on the borrowable USDC/USDT,
+  ///      0% on the collateral-only PT-USDG.
+  function test_assetListingLiquidityFees() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(_hubAssetLiquidityFee(PT_USDG_24SEP2026_UNDERLYING), 0, 'PT-USDG liquidity fee != 0');
+    assertEq(_hubAssetLiquidityFee(AaveV4EthereumAssets.USDC_UNDERLYING), 10_00, 'USDC fee != 10%');
+    assertEq(_hubAssetLiquidityFee(AaveV4EthereumAssets.USDT_UNDERLYING), 10_00, 'USDT fee != 10%');
+  }
+
+  /// @dev PT-USDG is collateral-only (borrowable: false, hub drawCap 0): borrowing it must revert.
+  function test_ptUsdg_notBorrowable() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address user = makeAddr('ptBorrowAttempt');
+    uint256 ptReserveId = _reserveId(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+
+    uint256 supplyAmount = 500_000 * 1e6;
+    deal2(PT_USDG_24SEP2026_UNDERLYING, user, supplyAmount);
+    vm.startPrank(user);
+    IERC20(PT_USDG_24SEP2026_UNDERLYING).forceApprove(address(USDG_PENDLE_SPOKE), supplyAmount);
+    USDG_PENDLE_SPOKE.supply(ptReserveId, supplyAmount, user);
+    vm.expectRevert(ISpoke.ReserveNotBorrowable.selector);
+    USDG_PENDLE_SPOKE.borrow(ptReserveId, 1_000 * 1e6, user);
+    vm.stopPrank();
+  }
+
+  /// @dev USDC/USDT are listed with collateralFactor 0, so supplying them grants no borrowing
+  ///      power: a borrow backed solely by USDC collateral must revert on health factor.
+  function test_borrowableAssets_provideNoBorrowingPower() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address user = makeAddr('usdcCollateralAttempt');
+    uint256 usdcReserveId = _reserveId(PAXOS_HUB, AaveV4EthereumAssets.USDC_UNDERLYING);
+    uint256 usdtReserveId = _reserveId(PAXOS_HUB, AaveV4EthereumAssets.USDT_UNDERLYING);
+
+    // Seed USDT borrow liquidity so the borrow reverts on HF, not on missing liquidity.
+    address seeder = makeAddr('usdtSeeder');
+    deal2(AaveV4EthereumAssets.USDT_UNDERLYING, seeder, 1_000_000 * 1e6);
+    vm.startPrank(seeder);
+    IERC20(AaveV4EthereumAssets.USDT_UNDERLYING).forceApprove(
+      address(USDG_PENDLE_SPOKE),
+      1_000_000 * 1e6
     );
-    _assertHubAssetIRData(
-      AaveV4EthereumAssets.USDT_UNDERLYING,
-      _expectedBorrowableStablecoinIRData()
+    USDG_PENDLE_SPOKE.supply(usdtReserveId, 1_000_000 * 1e6, seeder);
+    vm.stopPrank();
+
+    uint256 supplyAmount = 500_000 * 1e6;
+    deal2(AaveV4EthereumAssets.USDC_UNDERLYING, user, supplyAmount);
+    vm.startPrank(user);
+    IERC20(AaveV4EthereumAssets.USDC_UNDERLYING).forceApprove(
+      address(USDG_PENDLE_SPOKE),
+      supplyAmount
     );
+    USDG_PENDLE_SPOKE.supply(usdcReserveId, supplyAmount, user);
+    USDG_PENDLE_SPOKE.setUsingAsCollateral(usdcReserveId, true, user);
+    vm.expectRevert(ISpoke.HealthFactorBelowThreshold.selector);
+    USDG_PENDLE_SPOKE.borrow(usdtReserveId, 1_000 * 1e6, user);
+    vm.stopPrank();
   }
 
   /// @dev Only PT-USDG, USDC and USDT are natively listed on Paxos; USDG (Core credit line) must
@@ -386,12 +444,19 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     );
   }
 
-  /// @dev CREATE2 prediction is unreliable (HubEngine may embed older TokenizationSpoke creation
-  ///      code), so discover the spoke by running the payload behind a snapshot, then reverting.
-  function _discoverTokenizationSpoke() internal returns (address tokenizationSpoke) {
+  function _discoverNewTokenizationSpokes() internal returns (address[] memory tokenizationSpokes) {
     uint256 snapshotId = vm.snapshotState();
     GovV3Helpers.executePayload(vm, address(proposal));
-    tokenizationSpoke = TokenizationSpokeLib.find(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    tokenizationSpokes = new address[](3);
+    tokenizationSpokes[0] = TokenizationSpokeLib.find(PAXOS_HUB, PT_USDG_24SEP2026_UNDERLYING);
+    tokenizationSpokes[1] = TokenizationSpokeLib.find(
+      PAXOS_HUB,
+      AaveV4EthereumAssets.USDC_UNDERLYING
+    );
+    tokenizationSpokes[2] = TokenizationSpokeLib.find(
+      PAXOS_HUB,
+      AaveV4EthereumAssets.USDT_UNDERLYING
+    );
     vm.revertToState(snapshotId);
   }
 
@@ -468,7 +533,12 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
       });
   }
 
-  function _expectedBorrowableStablecoinIRData()
+  function _hubAssetLiquidityFee(address underlying) internal view returns (uint256) {
+    uint256 assetId = PAXOS_HUB.getAssetId(underlying);
+    return PAXOS_HUB.getAssetConfig(assetId).liquidityFee;
+  }
+
+  function _expectedBorrowableIRData()
     internal
     pure
     returns (IAssetInterestRateStrategy.InterestRateData memory)

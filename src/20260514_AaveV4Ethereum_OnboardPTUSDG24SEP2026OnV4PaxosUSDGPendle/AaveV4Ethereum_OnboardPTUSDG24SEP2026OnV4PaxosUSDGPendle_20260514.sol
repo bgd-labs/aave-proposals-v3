@@ -17,8 +17,7 @@ import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke
 contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
   AaveV4PayloadEthereumSpoke
 {
-  // Freshly-deployed isolated Paxos Hub, sharing the protocol AccessManager
-  // (authority == AaveV4Ethereum.ACCESS_MANAGER).
+  // Freshly-deployed isolated Paxos Hub, sharing the protocol AccessManager.
   // https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368
   IHub internal constant PAXOS_HUB = IHub(0x62d63197660c080236193CA60b70E49A08E90368);
 
@@ -38,6 +37,11 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
 
   string internal constant TOKEN_NAME = 'PT_USDG_24SEP2026';
   uint256 internal constant TOKENIZATION_SPOKE_ADD_CAP = 0;
+
+  // TODO: placeholder tokenization add caps for the natively-suppliable Paxos borrowables; replace
+  //       with the final governance-approved values before deployment.
+  uint256 internal constant USDC_TOKENIZATION_SPOKE_ADD_CAP = 13_000_000;
+  uint256 internal constant USDT_TOKENIZATION_SPOKE_ADD_CAP = 13_000_000;
 
   function spoke() public pure override returns (address) {
     return USDG_PENDLE_SPOKE;
@@ -85,16 +89,16 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       underlying: AaveV4EthereumAssets.USDC_UNDERLYING,
       liquidityFee: 10_00,
       irStrategy: PAXOS_HUB_IR_STRATEGY,
-      irData: _borrowableStablecoinIRData(),
-      tokenization: _noTokenization()
+      irData: _borrowableIRData(),
+      tokenization: _tokenization(PAXOS_HUB, 'USDC', USDC_TOKENIZATION_SPOKE_ADD_CAP)
     });
     listings[2] = HubAssetListing({
       hub: PAXOS_HUB,
       underlying: AaveV4EthereumAssets.USDT_UNDERLYING,
       liquidityFee: 10_00,
       irStrategy: PAXOS_HUB_IR_STRATEGY,
-      irData: _borrowableStablecoinIRData(),
-      tokenization: _noTokenization()
+      irData: _borrowableIRData(),
+      tokenization: _tokenization(PAXOS_HUB, 'USDT', USDT_TOKENIZATION_SPOKE_ADD_CAP)
     });
     return listings;
   }
@@ -190,7 +194,9 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       });
   }
 
-  function _borrowableStablecoinIRData()
+  /// @dev IR preset for the natively-suppliable, borrowable Paxos Hub assets (USDC, USDT). Pairs
+  ///      with {AaveV4PayloadHub._nonBorrowableIRData} used by the PT-USDG collateral listing.
+  function _borrowableIRData()
     private
     pure
     returns (IAssetInterestRateStrategy.InterestRateData memory)
