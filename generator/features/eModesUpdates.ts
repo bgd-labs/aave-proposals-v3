@@ -3,16 +3,20 @@ import {eModesSelect} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {stringOrKeepCurrent} from '../prompts/stringPrompt';
 import {translateJsPercentToSol} from '../prompts/percentPrompt';
+import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
 import {fetchEmodeCategoryData} from './eModesCreation';
+import {eModeUpdateTests} from './eModesTestHelpers';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
   eModeCategory: string | number,
   required?: T,
 ): Promise<EModeCategoryUpdate> {
   const eModeData = await fetchEmodeCategoryData(required);
+  const isolated = await boolPrompt({message: 'isolated'});
   return {
     eModeCategory,
     ...eModeData,
+    isolated,
   };
 }
 
@@ -58,7 +62,8 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                ltv: ${translateJsPercentToSol(cfg.ltv)},
                liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
                liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-               label: ${stringOrKeepCurrent(cfg.label)}
+               label: ${stringOrKeepCurrent(cfg.label)},
+               isolated: ${translateJsBoolToSol(cfg.isolated)}
              });`,
             )
             .join('\n')}
@@ -66,6 +71,9 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
           return eModeUpdates;
         }`,
         ],
+      },
+      test: {
+        fn: eModeUpdateTests(market, cfg),
       },
     };
     return response;

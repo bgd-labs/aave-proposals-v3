@@ -9,6 +9,7 @@ import {
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {pascalCase} from '../common';
+import {eModeCreationTests} from './eModesTestHelpers';
 
 export async function fetchEmodeCategoryData<T extends boolean>(
   required?: T,
@@ -48,10 +49,15 @@ async function fetchEmodeCategoryCreation(
     market,
     additionalAssets,
   });
+  const isolated = await confirm({
+    message: 'Is this eMode isolated (v3.7)?',
+    default: false,
+  });
   return {
     ...eModeData,
     collateralAssets,
     borrowableAssets,
+    isolated,
   };
 }
 
@@ -79,6 +85,10 @@ export const eModeCreations: FeatureModule<EmodeCreations> = {
   },
   build({market, cfg, configs}) {
     const newListings = new Set(getNewListingSymbols(configs));
+    const listings = [
+      ...(configs[FEATURE.ASSET_LISTING] ?? []),
+      ...(configs[FEATURE.ASSET_LISTING_CUSTOM] ?? []).map((l) => l.base),
+    ];
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -111,6 +121,7 @@ export const eModeCreations: FeatureModule<EmodeCreations> = {
                 liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
                 liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
                 label: '${cfg.label}',
+                isolated: ${cfg.isolated},
                 collaterals: collateralAssets_${pascalCase(cfg.label)},
                 borrowables: borrowableAssets_${pascalCase(cfg.label)}
               });`,
@@ -120,6 +131,9 @@ export const eModeCreations: FeatureModule<EmodeCreations> = {
           return eModeCreations;
         }`,
         ],
+      },
+      test: {
+        fn: eModeCreationTests(market, cfg, newListings, listings),
       },
     };
     return response;

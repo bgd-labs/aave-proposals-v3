@@ -1,11 +1,11 @@
 import {confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {getContract} from 'viem';
-import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink} from '../common';
+import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink, toSolidityIdentifier} from '../common';
 import {testExecuteProposal} from '../utils/constants';
 import {EmissionUpdate} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
-import {getClient} from '@bgd-labs/toolbox';
+import {getClient} from '@aave-dao/toolbox';
 
 async function fetchEmission(market: MarketIdentifier): Promise<EmissionUpdate> {
   const asset = await addressPrompt({
@@ -43,7 +43,7 @@ async function fetchEmission(market: MarketIdentifier): Promise<EmissionUpdate> 
   });
   return {
     asset: asset,
-    symbol: symbol,
+    symbol: toSolidityIdentifier(symbol),
     admin: admin,
   };
 }

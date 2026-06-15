@@ -37,26 +37,4 @@ describe('feature: assetListing', () => {
     const files = await generateFiles(MOCK_OPTIONS, marketConfigs);
     expect(files).toMatchSnapshot();
   });
-
-  it('regression: isolation mode should be flase when ceiling is zero', async () => {
-    const zeroCeilingListing = [{...assetListingConfig[0], debtCeiling: '0'}];
-    const marketConfigs: MarketConfigs = {
-      [MOCK_OPTIONS.markets[0]]: {
-        market: MOCK_OPTIONS.markets[0],
-        artifacts: [
-          assetListing.build({
-            options: MOCK_OPTIONS,
-            market: 'AaveV3Ethereum',
-            cfg: zeroCeilingListing,
-            cache: {blockNumber: 42},
-            configs: {[FEATURE.ASSET_LISTING]: zeroCeilingListing},
-          }),
-        ],
-        configs: {[FEATURE.ASSET_LISTING]: [{...assetListingConfig[0], debtCeiling: 0}]},
-        cache: {blockNumber: 42},
-      },
-    };
-    const files = await generateFiles(MOCK_OPTIONS, marketConfigs);
-    expect(files).toMatchSnapshot();
-  });
 });

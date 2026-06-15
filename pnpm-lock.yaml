@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@aave-dao/aave-address-book':
-        specifier: ^4.52.2
-        version: 4.52.3(viem@2.50.4(zod@4.4.3))
+        specifier: ^4.53.0
+        version: 4.53.0(viem@2.50.4(zod@4.4.3))
       '@aave-dao/aave-helpers-js':
-        specifier: ^1.2.1
-        version: 1.2.1(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
-      '@bgd-labs/toolbox':
-        specifier: ^0.2.25
-        version: 0.2.25(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.4.3))
+        specifier: ^1.3.1
+        version: 1.3.1(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
+      '@aave-dao/toolbox':
+        specifier: ^0.5.0
+        version: 0.5.0(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.4.3))
       '@inquirer/core':
         specifier: ^11.0.0
         version: 11.1.10(@types/node@25.9.1)
@@ -75,15 +75,23 @@ importers:
 
 packages:
 
-  '@aave-dao/aave-address-book@4.52.3':
-    resolution: {integrity: sha512-TrxzvvuCUBK30JNkGJp2ZB856a8NYrhJ9ThlmKGS3C0YXDj15JoEYqE0d48rmG57PVE3uQNTmAlQbNd0Sl3+tA==}
+  '@aave-dao/aave-address-book@4.53.0':
+    resolution: {integrity: sha512-kwQC/npm08v2kCUvJLta367oyZopWMeEjif4k5kM0dmCzcNq6MlisAJ80w3r/4iY7BvQzxRkGeOlxN9d4A/G0Q==}
     peerDependencies:
       viem: ^2.23.5
 
-  '@aave-dao/aave-helpers-js@1.2.1':
-    resolution: {integrity: sha512-ceKEN5n2azaYAsap57TeC6jbMnEt+JrIBBOCxRjHEZFYdrLxfknGHWdjPtPAqulBo3ombBa92illjQIP/o6cVA==}
+  '@aave-dao/aave-helpers-js@1.3.1':
+    resolution: {integrity: sha512-rhcrOTVTmYdNCNS8qeV0Z+GsBhPPJhhodnE76K2ROiAt/550tBS/tllG7PgAtFK9/qPavmC8TChI2daUJIQuSA==}
     engines: {node: '>=22'}
     hasBin: true
+
+  '@aave-dao/toolbox@0.5.0':
+    resolution: {integrity: sha512-tmTEt/zWvS2EdoTv9CRjbKE/8etin8P/vSalbt19qLQw62UmaF9k/7QecvlNlhJodOE3ZAjeiOEbdgq0gj7e3Q==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      prettier: ^3.5.2
+      prettier-plugin-solidity: ^1.0.0
+      viem: ^2.45.0
 
   '@adraffy/ens-normalize@1.11.1':
     resolution: {integrity: sha512-nhCBV3quEgesuf7c7KYfperqSS14T8bYuvJ8PcLJp6znkZpFc0AuW4qBtr8eKVyPPe/8RSr7sglCWPU5eaxwKQ==}
@@ -1235,13 +1243,13 @@ packages:
 
 snapshots:
 
-  '@aave-dao/aave-address-book@4.52.3(viem@2.50.4(zod@4.4.3))':
+  '@aave-dao/aave-address-book@4.53.0(viem@2.50.4(zod@4.4.3))':
     dependencies:
       viem: 2.50.4(zod@4.4.3)
 
-  '@aave-dao/aave-helpers-js@1.2.1(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
+  '@aave-dao/aave-helpers-js@1.3.1(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
     dependencies:
-      '@aave-dao/aave-address-book': 4.52.3(viem@2.50.4(zod@4.4.3))
+      '@aave-dao/aave-address-book': 4.53.0(viem@2.50.4(zod@4.4.3))
       '@bgd-labs/toolbox': 0.2.25(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.4.3))
       commander: 14.0.3
       find-object-paths: 1.1.0
@@ -1253,6 +1261,16 @@ snapshots:
       - prettier-plugin-solidity
       - typescript
       - utf-8-validate
+
+  '@aave-dao/toolbox@0.5.0(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.4.3))':
+    dependencies:
+      bs58: 6.0.0
+      diff: 8.0.4
+      eventsource: 4.1.0
+      js-yaml: 4.1.1
+      prettier: 3.8.3
+      prettier-plugin-solidity: 1.3.1(prettier@3.8.3)
+      viem: 2.50.4(zod@4.4.3)
 
   '@adraffy/ens-normalize@1.11.1': {}
 

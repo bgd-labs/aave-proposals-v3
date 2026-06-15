@@ -4,7 +4,7 @@ import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
-import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink} from '../common';
+import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink, toSolidityIdentifier} from '../common';
 import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {testExecuteProposal} from '../utils/constants';
@@ -13,7 +13,7 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {getClient, IERC20Metadata_ABI} from '@bgd-labs/toolbox';
+import {getClient, IERC20Metadata_ABI} from '@aave-dao/toolbox';
 
 async function fetchListing(market: MarketIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -37,11 +37,13 @@ async function fetchListing(market: MarketIdentifier): Promise<Listing> {
   const decimals = await erc20.read.decimals();
 
   return {
-    assetSymbol: await stringPrompt({
-      message: 'Enter the asset symbol',
-      required: true,
-      defaultValue: symbol,
-    }),
+    assetSymbol: toSolidityIdentifier(
+      await stringPrompt({
+        message: 'Enter the asset symbol',
+        required: true,
+        defaultValue: symbol,
+      }),
+    ),
     decimals,
     priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
     ...(await fetchCollateralUpdate(market, true)),
@@ -66,8 +68,6 @@ function generateAssetListingSol(cfg: Listing) {
   assetSymbol: "${cfg.assetSymbol}",
   priceFeed: ${cfg.assetSymbol}_PRICE_FEED,
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
-  borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
-  withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
   ltv: ${translateJsPercentToSol(cfg.ltv)},
   liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
@@ -75,7 +75,6 @@ function generateAssetListingSol(cfg: Listing) {
   reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)},
   supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
   borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
-  debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
   liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
   rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
      optimalUsageRatio: ${translateJsPercentToSol(cfg.rateStrategyParams.optimalUtilizationRate)},
@@ -175,7 +174,6 @@ export const assetListing: FeatureModule<Listing[]> = {
           let listingTemplate = `The table below illustrates the configured risk parameters for **${cfg.assetSymbol}**\n\n`;
           listingTemplate += `| Parameter | Value |\n`;
           listingTemplate += `| --- | --: |\n`;
-          listingTemplate += `| Isolation Mode | ${cfg.debtCeiling !== '0'} |\n`;
           listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
           listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
           listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
@@ -183,9 +181,6 @@ export const assetListing: FeatureModule<Listing[]> = {
           )} |\n`;
           listingTemplate += `| Borrow Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
             cfg.borrowCap,
-          )} |\n`;
-          listingTemplate += `| Debt Ceiling | USD ${transformNumberToHumanReadable(
-            cfg.debtCeiling,
           )} |\n`;
           listingTemplate += `| LTV | ${transformNumberToPercent(cfg.ltv)} |\n`;
           listingTemplate += `| LT | ${transformNumberToPercent(cfg.liqThreshold)} |\n`;
@@ -209,8 +204,6 @@ export const assetListing: FeatureModule<Listing[]> = {
             cfg.rateStrategyParams.optimalUtilizationRate,
           )} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
-          listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
-          listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
           listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
           if (isAddress(cfg.admin)) {
             listingTemplate += `\nAdditionally [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getMarketChain(market)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;

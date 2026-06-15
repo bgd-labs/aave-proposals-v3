@@ -116,6 +116,15 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'IERC20')) {
     imports += `import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';\n`;
   }
+  if (findMatch(code, '\\bIERC20Metadata\\b')) {
+    imports += `import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';\n`;
+  }
+  if (findMatch(code, '\\bDataTypes\\.')) {
+    imports += `import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';\n`;
+  }
+  if (findMatch(code, '\\bErrors\\.')) {
+    imports += `import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';\n`;
+  }
   if (findMatch(code, 'forceApprove')) {
     imports += `import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';\n`;
   }

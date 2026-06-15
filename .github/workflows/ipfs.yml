@@ -39,7 +39,7 @@ jobs:
           ref: ${{ inputs.myCommit }}
           persist-credentials: true
 
-      - uses: bgd-labs/github-workflows/.github/actions/setup-node@main
+      - uses: aave-dao/github-workflows/.github/actions/setup-node@main
 
       - name: Get all changed *.md file(s)
         id: changed-files

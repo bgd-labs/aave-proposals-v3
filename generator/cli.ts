@@ -64,7 +64,7 @@ import {tuneReserveRisk} from './features/v4/bundles/tuneReserveRisk';
 import {wirePositionManager} from './features/v4/bundles/wirePositionManager';
 import {manageRole} from './features/v4/bundles/manageRole';
 import {generateFiles, writeFiles} from './generator';
-import {getClient} from '@bgd-labs/toolbox';
+import {getClient} from '@aave-dao/toolbox';
 import {getBlockNumber} from 'viem/actions';
 
 const program = new Command();

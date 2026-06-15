@@ -31,7 +31,7 @@ import {
   xLayer,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
-import {getClient} from '@bgd-labs/toolbox';
+import {getClient} from '@aave-dao/toolbox';
 
 export const AVAILABLE_CHAINS = [
   'Ethereum',
@@ -162,6 +162,10 @@ export function generateContractName(options: Options, market?: MarketIdentifier
 
 export function getChainAlias(chain) {
   return chain === 'Ethereum' ? 'mainnet' : chain.toLowerCase();
+}
+
+export function toSolidityIdentifier(symbol: string) {
+  return symbol.replace(/[^a-zA-Z0-9_]/g, '_');
 }
 
 export function pascalCase(str: string) {

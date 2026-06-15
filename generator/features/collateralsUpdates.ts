@@ -5,7 +5,6 @@ import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
-import {numberPrompt, translateJsNumberToSol} from '../prompts/numberPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
 export async function fetchCollateralUpdate(
@@ -25,10 +24,6 @@ export async function fetchCollateralUpdate(
       message: 'Liquidation bonus',
       required,
     }),
-    debtCeiling: await numberPrompt({
-      message: 'Debt ceiling (must be 0 for asset out of isolation)',
-      required,
-    }),
     liqProtocolFee: await percentPrompt({
       message: 'Liquidation protocol fee',
       required,
@@ -40,7 +35,7 @@ type CollateralUpdates = CollateralUpdate[];
 
 export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
   value: FEATURE.COLLATERALS_UPDATE,
-  description: 'CollateralsUpdates (ltv,lt,lb,debtCeiling,liqProtocolFee,eModeCategory)',
+  description: 'CollateralsUpdates (ltv,lt,lb,liqProtocolFee,eModeCategory)',
   async cli({market}) {
     console.log(`Fetching information for Collateral Updates on ${market}`);
 
@@ -72,7 +67,6 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
                ltv: ${translateJsPercentToSol(cfg.ltv)},
                liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
                liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-               debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
                liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)}
              });`,
             )

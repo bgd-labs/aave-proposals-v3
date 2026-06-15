@@ -2,7 +2,7 @@ import {Hex, PublicClient} from 'viem';
 import {IHubV4_ABI, ISpokeV4_ABI} from '@aave-dao/aave-address-book';
 import {CHAIN_TO_CHAIN_ID, getMarketChain} from '../../common';
 import {MarketIdentifierV4} from '../../types';
-import {getClient} from '@bgd-labs/toolbox';
+import {getClient} from '@aave-dao/toolbox';
 import {getV4Book} from './marketBook';
 
 export const PAUSED_MASK = 0x01;
