@@ -38,8 +38,6 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
   string internal constant TOKEN_NAME = 'PT_USDG_24SEP2026';
   uint256 internal constant TOKENIZATION_SPOKE_ADD_CAP = 0;
 
-  // TODO: placeholder tokenization add caps for the natively-suppliable Paxos borrowables; replace
-  //       with the final governance-approved values before deployment.
   uint256 internal constant USDC_TOKENIZATION_SPOKE_ADD_CAP = 13_000_000;
   uint256 internal constant USDT_TOKENIZATION_SPOKE_ADD_CAP = 13_000_000;
 
