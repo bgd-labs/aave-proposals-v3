@@ -17,18 +17,27 @@ describe('feature: eModesUpdates', () => {
     expect(fns).toContain('isolated: EngineFlags.KEEP_CURRENT');
   });
 
-  it('asserts only the explicitly-set fields, skipping KEEP_CURRENT', () => {
+  it('asserts set fields to their value and KEEP_CURRENT fields to the pre-payload value', () => {
     const test = output.test?.fn?.join('\n') ?? '';
     expect(test).toContain('function test_eModeUpdatesConfiguration()');
-    // first category: all fields set + isolated enabled
+    // first category: all fields set + isolated enabled, no before snapshot needed
     expect(test).toContain('assertEq(cfg_0.ltv, 20_00);');
     expect(test).toContain('assertEq(cfg_0.liquidationThreshold, 30_00);');
     expect(test).toContain('assertEq(cfg_0.liquidationBonus, 100_00 + 5_00);');
     expect(test).toContain('assertTrue(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(2));');
-    // second category: ltv/liqBonus/isolated are KEEP_CURRENT -> not asserted
+    expect(test).not.toContain('before_0');
+    // second category: ltv/liqBonus/isolated are KEEP_CURRENT -> asserted equal to the before snapshot
+    expect(test).toContain(
+      'DataTypes.CollateralConfig memory before_1 = AaveV3Ethereum.POOL.getEModeCategoryCollateralConfig(AaveV3EthereumEModes.ETH_CORRELATED);',
+    );
+    expect(test).toContain(
+      'bool beforeIsolated_1 = AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(AaveV3EthereumEModes.ETH_CORRELATED);',
+    );
+    expect(test).toContain('assertEq(cfg_1.ltv, before_1.ltv);');
     expect(test).toContain('assertEq(cfg_1.liquidationThreshold, 50_00);');
-    expect(test).not.toContain('cfg_1.ltv');
-    expect(test).not.toContain('cfg_1.liquidationBonus');
-    expect(test).not.toContain('getIsEModeCategoryIsolated(AaveV3EthereumEModes.ETH_CORRELATED)');
+    expect(test).toContain('assertEq(cfg_1.liquidationBonus, before_1.liquidationBonus);');
+    expect(test).toContain(
+      'assertEq(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(AaveV3EthereumEModes.ETH_CORRELATED), beforeIsolated_1);',
+    );
   });
 });

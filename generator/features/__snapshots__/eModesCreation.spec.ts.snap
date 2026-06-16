@@ -90,7 +90,7 @@ export const config: ConfigFile = {
             liqThreshold: '89.71',
             liqBonus: '4.87',
             label: 'PT_sUSDe_TEST__Stablecoins',
-            isolated: true,
+            isolated: 'ENABLED',
             collateralAssets: ['PT_sUSDe_TEST', 'sUSDe'],
             borrowableAssets: ['USDC', 'USDT', 'GHO'],
           },
@@ -251,9 +251,9 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
       id: eMode_PT_sUSDe_TEST__Stablecoins,
       ltv: 87_71,
       liquidationThreshold: 89_71,
-      liquidationBonus: 100_00 + 4_87
+      liquidationBonus: 100_00 + 4_87,
+      isolated: true
     });
-    assertTrue(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(eMode_PT_sUSDe_TEST__Stablecoins));
 
     address[] memory collaterals_PT_sUSDe_TEST__Stablecoins = new address[](2);
     collaterals_PT_sUSDe_TEST__Stablecoins[0] = proposal.PT_sUSDe_TEST();
@@ -312,7 +312,8 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     uint8 id,
     uint256 ltv,
     uint256 liquidationThreshold,
-    uint256 liquidationBonus
+    uint256 liquidationBonus,
+    bool isolated
   ) internal view {
     DataTypes.CollateralConfig memory cfg = AaveV3Ethereum.POOL.getEModeCategoryCollateralConfig(
       id
@@ -320,6 +321,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     assertEq(cfg.ltv, ltv);
     assertEq(cfg.liquidationThreshold, liquidationThreshold);
     assertEq(cfg.liquidationBonus, liquidationBonus);
+    assertEq(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(id), isolated);
   }
   function _toBitmap(address[] memory assets) internal view returns (uint128 bitmap) {
     for (uint256 i = 0; i < assets.length; i++) {

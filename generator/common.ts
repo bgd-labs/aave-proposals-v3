@@ -8,6 +8,7 @@ import {
   V4_MARKETS,
   VOTING_NETWORK,
 } from './types';
+import {VotingNetwork} from './features/types';
 import {
   arbitrum,
   avalanche,
@@ -127,7 +128,7 @@ export function getDate() {
   return `${years}${months <= 9 ? '0' : ''}${months}${day <= 9 ? '0' : ''}${day}`;
 }
 
-export function getVotingPortal(votingNetwork?: VOTING_NETWORK) {
+export function getVotingPortal(votingNetwork?: VOTING_NETWORK | VotingNetwork) {
   if (votingNetwork == VOTING_NETWORK.ETHEREUM) {
     return 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH';
   } else if (votingNetwork == VOTING_NETWORK.AVALANCHE) {

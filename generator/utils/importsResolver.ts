@@ -113,9 +113,6 @@ export function prefixWithImports(code: string) {
     imports += `import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';\n`;
   }
   // common imports
-  if (findMatch(code, '\\bIERC20Metadata\\b')) {
-    imports += `import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';\n`;
-  }
   if (findMatch(code, '\\bIERC20\\b')) {
     imports += `import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';\n`;
   }

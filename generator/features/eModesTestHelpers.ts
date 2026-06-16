@@ -27,12 +27,14 @@ export function eModeTestHelpers(market: MarketIdentifier): string[] {
       uint8 id,
       uint256 ltv,
       uint256 liquidationThreshold,
-      uint256 liquidationBonus
+      uint256 liquidationBonus,
+      bool isolated
     ) internal view {
       DataTypes.CollateralConfig memory cfg = ${market}.POOL.getEModeCategoryCollateralConfig(id);
       assertEq(cfg.ltv, ltv);
       assertEq(cfg.liquidationThreshold, liquidationThreshold);
       assertEq(cfg.liquidationBonus, liquidationBonus);
+      assertEq(${market}.POOL.getIsEModeCategoryIsolated(id), isolated);
     }`,
     `function _toBitmap(address[] memory assets) internal view returns (uint128 bitmap) {
       for (uint256 i = 0; i < assets.length; i++) {
@@ -82,9 +84,9 @@ function eModeConfigurationTest(
         id: ${idVar},
         ltv: ${translateJsPercentToSol(cfg.ltv)},
         liquidationThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
-        liquidationBonus: 100_00 + ${translateJsPercentToSol(cfg.liqBonus)}
+        liquidationBonus: 100_00 + ${translateJsPercentToSol(cfg.liqBonus)},
+        isolated: ${cfg.isolated === 'ENABLED'}
       });
-      ${cfg.isolated ? 'assertTrue' : 'assertFalse'}(${market}.POOL.getIsEModeCategoryIsolated(${idVar}));
 
       address[] memory collaterals_${suffix} = new address[](${cfg.collateralAssets.length});
       ${cfg.collateralAssets
@@ -168,34 +170,55 @@ export function eModeCreationTests(
 
 export function eModeUpdateTests(market: MarketIdentifier, cfgs: EModeCategoryUpdate[]): string[] {
   const KEEP_CURRENT = 'EngineFlags.KEEP_CURRENT';
-  const blocks = cfgs
-    .map((cfg, ix) => {
-      const cfgVar = `cfg_${ix}`;
-      const asserts: string[] = [
-        `DataTypes.CollateralConfig memory ${cfgVar} = ${market}.POOL.getEModeCategoryCollateralConfig(${cfg.eModeCategory});`,
-      ];
-      const ltv = translateJsPercentToSol(cfg.ltv);
-      if (ltv !== KEEP_CURRENT) asserts.push(`assertEq(${cfgVar}.ltv, ${ltv});`);
-      const liqThreshold = translateJsPercentToSol(cfg.liqThreshold);
-      if (liqThreshold !== KEEP_CURRENT)
-        asserts.push(`assertEq(${cfgVar}.liquidationThreshold, ${liqThreshold});`);
-      const liqBonus = translateJsPercentToSol(cfg.liqBonus);
-      if (liqBonus !== KEEP_CURRENT)
-        asserts.push(`assertEq(${cfgVar}.liquidationBonus, 100_00 + ${liqBonus});`);
-      if (cfg.isolated !== ENGINE_FLAGS.KEEP_CURRENT)
-        asserts.push(
-          `${
-            cfg.isolated === ENGINE_FLAGS.ENABLED ? 'assertTrue' : 'assertFalse'
-          }(${market}.POOL.getIsEModeCategoryIsolated(${cfg.eModeCategory}));`,
-        );
-      return asserts.join('\n');
-    })
-    .join('\n\n');
+  const beforeBlocks: string[] = [];
+  const assertBlocks: string[] = [];
+
+  cfgs.forEach((cfg, ix) => {
+    const cfgVar = `cfg_${ix}`;
+    const beforeVar = `before_${ix}`;
+    const isolatedBeforeVar = `beforeIsolated_${ix}`;
+    const ltv = translateJsPercentToSol(cfg.ltv);
+    const liqThreshold = translateJsPercentToSol(cfg.liqThreshold);
+    const liqBonus = translateJsPercentToSol(cfg.liqBonus);
+
+    if ([ltv, liqThreshold, liqBonus].includes(KEEP_CURRENT))
+      beforeBlocks.push(
+        `DataTypes.CollateralConfig memory ${beforeVar} = ${market}.POOL.getEModeCategoryCollateralConfig(${cfg.eModeCategory});`,
+      );
+    if (cfg.isolated === ENGINE_FLAGS.KEEP_CURRENT)
+      beforeBlocks.push(
+        `bool ${isolatedBeforeVar} = ${market}.POOL.getIsEModeCategoryIsolated(${cfg.eModeCategory});`,
+      );
+
+    const asserts: string[] = [
+      `DataTypes.CollateralConfig memory ${cfgVar} = ${market}.POOL.getEModeCategoryCollateralConfig(${cfg.eModeCategory});`,
+      `assertEq(${cfgVar}.ltv, ${ltv === KEEP_CURRENT ? `${beforeVar}.ltv` : ltv});`,
+      `assertEq(${cfgVar}.liquidationThreshold, ${
+        liqThreshold === KEEP_CURRENT ? `${beforeVar}.liquidationThreshold` : liqThreshold
+      });`,
+      `assertEq(${cfgVar}.liquidationBonus, ${
+        liqBonus === KEEP_CURRENT ? `${beforeVar}.liquidationBonus` : `100_00 + ${liqBonus}`
+      });`,
+    ];
+    if (cfg.isolated === ENGINE_FLAGS.KEEP_CURRENT)
+      asserts.push(
+        `assertEq(${market}.POOL.getIsEModeCategoryIsolated(${cfg.eModeCategory}), ${isolatedBeforeVar});`,
+      );
+    else
+      asserts.push(
+        `${
+          cfg.isolated === ENGINE_FLAGS.ENABLED ? 'assertTrue' : 'assertFalse'
+        }(${market}.POOL.getIsEModeCategoryIsolated(${cfg.eModeCategory}));`,
+      );
+
+    assertBlocks.push(asserts.join('\n'));
+  });
 
   return [
     `function test_eModeUpdatesConfiguration() public {
+      ${beforeBlocks.join('\n')}
       ${testExecuteProposal(market)}
-      ${blocks}
+      ${assertBlocks.join('\n\n')}
     }`,
   ];
 }

@@ -80,7 +80,7 @@ export const emodeCreations: EModeCategoryCreation[] = [
     liqThreshold: '89.71',
     liqBonus: '4.87',
     label: 'PT_sUSDe_TEST__Stablecoins',
-    isolated: true,
+    isolated: 'ENABLED',
     collateralAssets: ['PT_sUSDe_TEST', 'sUSDe'],
     borrowableAssets: ['USDC', 'USDT', 'GHO'],
   },

@@ -2,6 +2,8 @@ import {Hex} from 'viem';
 import {NumberInputValues, PercentInputValues} from '../prompts';
 import {BooleanSelectValues} from '../prompts/boolPrompt';
 
+export type VotingNetwork = 'POLYGON' | 'ETHEREUM' | 'AVALANCHE';
+
 export interface AssetSelector {
   asset: string;
 }
@@ -67,7 +69,7 @@ export interface EModeCategoryUpdate extends EModeCategoryPartial {
 export interface EModeCategoryCreation extends EModeCategoryPartial {
   borrowableAssets: string[];
   collateralAssets: string[];
-  isolated: boolean;
+  isolated: Exclude<BooleanSelectValues, 'KEEP_CURRENT'>;
 }
 
 export interface RateStrategyParams {
