@@ -26,7 +26,7 @@ export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetHalt({
+      (c) => `items[__INDEX__] = IConfigEngine.AssetHalt({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)}
@@ -50,7 +50,7 @@ export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
       code: {
         v4Getters: {
           hubAssetHalts: {
-            returnType: 'IAaveV4ConfigEngine.AssetHalt',
+            returnType: 'IConfigEngine.AssetHalt',
             entries,
           },
         },

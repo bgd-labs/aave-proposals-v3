@@ -5,10 +5,9 @@ import {numberPrompt} from '../../../prompts/numberPrompt';
 import {
   getV4Book,
   hubKeys,
-  spokeKeys,
+  rawSpokeKeys,
   assetKeys,
   hubLibAccessor,
-  spokeLibAccessor,
   assetLibAccessor,
 } from '../marketBook';
 import {
@@ -21,7 +20,7 @@ import {
   disabled,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
+import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumberPrompt(message: string): Promise<Sentinel> {
   const value = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -56,12 +55,12 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
     });
     const spokes = await checkbox({
       message: 'Select spokes to update',
-      choices: spokeKeys(m).map((k) => ({name: k, value: k})),
+      choices: rawSpokeKeys(m).map((s) => ({name: s.key, value: s})),
       required: true,
     });
     for (const spoke of spokes) {
       const assets = await checkbox({
-        message: `Select assets for ${spoke}`,
+        message: `Select assets for ${spoke.key}`,
         choices: assetKeys(m).map((k) => ({name: k, value: k})),
         required: true,
       });
@@ -70,14 +69,14 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
           hubLib: hubLibAccessor(m, hub),
           hub: hub,
           underlying: assetLibAccessor(m, asset),
-          spoke: spokeLibAccessor(m, spoke),
-          addCap: await sentinelNumberPrompt(`${spoke}/${asset} new addCap`),
-          drawCap: await sentinelNumberPrompt(`${spoke}/${asset} new drawCap`),
+          spoke: spoke.accessor,
+          addCap: await sentinelNumberPrompt(`${spoke.key}/${asset} new addCap`),
+          drawCap: await sentinelNumberPrompt(`${spoke.key}/${asset} new drawCap`),
           riskPremiumThreshold: await sentinelNumberPrompt(
-            `${spoke}/${asset} new riskPremiumThreshold (bps)`,
+            `${spoke.key}/${asset} new riskPremiumThreshold (bps)`,
           ),
-          active: await sentinelBoolPrompt(`${spoke}/${asset} active?`),
-          halted: await sentinelBoolPrompt(`${spoke}/${asset} halted?`),
+          active: await sentinelBoolPrompt(`${spoke.key}/${asset} active?`),
+          halted: await sentinelBoolPrompt(`${spoke.key}/${asset} halted?`),
         });
       }
     }
@@ -85,7 +84,7 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.SpokeConfigUpdate({
+      (c) => `items[__INDEX__] = IConfigEngine.SpokeConfigUpdate({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)},
@@ -101,36 +100,18 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       const hubKey = shortKey(c.hubLib);
       const spokeKey = shortKey(c.spoke);
       const assetKey = shortKey(c.underlying);
-      const asserts: string[] = [];
-      if (isLiteral(c.addCap)) {
-        asserts.push(
-          `assertEq(uint256(cfg.addCap), uint256(${literalValue(c.addCap)}), 'addCap mismatch');`,
-        );
-      }
-      if (isLiteral(c.drawCap)) {
-        asserts.push(
-          `assertEq(uint256(cfg.drawCap), uint256(${literalValue(c.drawCap)}), 'drawCap mismatch');`,
-        );
-      }
-      if (isLiteral(c.riskPremiumThreshold)) {
-        asserts.push(
-          `assertEq(uint256(cfg.riskPremiumThreshold), uint256(${literalValue(c.riskPremiumThreshold)}), 'riskPremiumThreshold mismatch');`,
-        );
-      }
-      if (c.active.kind === 'keepCurrent' && c.active.sentinel === 'ENABLED') {
-        asserts.push(`assertTrue(cfg.active, 'active should be true');`);
-      } else if (c.active.kind === 'keepCurrent' && c.active.sentinel === 'DISABLED') {
-        asserts.push(`assertFalse(cfg.active, 'active should be false');`);
-      }
-      if (c.halted.kind === 'keepCurrent' && c.halted.sentinel === 'ENABLED') {
-        asserts.push(`assertTrue(cfg.halted, 'halted should be true');`);
-      } else if (c.halted.kind === 'keepCurrent' && c.halted.sentinel === 'DISABLED') {
-        asserts.push(`assertFalse(cfg.halted, 'halted should be false');`);
-      }
+      const asserts = [
+        assertSentinelField('addCap', c.addCap, 'uint'),
+        assertSentinelField('drawCap', c.drawCap, 'uint'),
+        assertSentinelField('riskPremiumThreshold', c.riskPremiumThreshold, 'uint'),
+        assertSentinelField('active', c.active, 'bool'),
+        assertSentinelField('halted', c.halted, 'bool'),
+      ];
       return `function test_hubSpokeConfigUpdate_${hubKey}_${spokeKey}_${assetKey}() public {
-        GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
         uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
+        IHub.SpokeConfig memory before = hub.getSpokeConfig(assetId, address(${c.spoke}));
+        GovV3Helpers.executePayload(vm, address(proposal));
         IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(${c.spoke}));
         ${asserts.join('\n        ')}
       }`;
@@ -139,7 +120,7 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       code: {
         v4Getters: {
           hubSpokeConfigUpdates: {
-            returnType: 'IAaveV4ConfigEngine.SpokeConfigUpdate',
+            returnType: 'IConfigEngine.SpokeConfigUpdate',
             entries,
           },
         },

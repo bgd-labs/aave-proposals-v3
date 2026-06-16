@@ -2,14 +2,7 @@ import {select, checkbox, input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeToAssetsAddition} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-} from '../marketBook';
+import {hubKeys, rawSpokeKeys, assetKeys, hubLibAccessor, assetLibAccessor} from '../marketBook';
 import {shortKey, checksumAddress} from '../testHelpers';
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
@@ -26,7 +19,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       });
       const spoke = await select({
         message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
+        choices: rawSpokeKeys(m).map((s) => ({name: s.key, value: s})),
       });
       const assets = await checkbox({
         message: 'Select assets to register on the spoke',
@@ -35,7 +28,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       });
       const assetConfigs = [] as V4HubSpokeToAssetsAddition['assets'];
       for (const asset of assets) {
-        console.log(`Config for ${asset} on ${spoke}`);
+        console.log(`Config for ${asset} on ${spoke.key}`);
         assetConfigs.push({
           underlying: assetLibAccessor(m, asset),
           addCap: (await numberPrompt({message: `${asset} addCap (uint40, whole units)`})) || '0',
@@ -49,7 +42,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       response.push({
         hubLib: hubLibAccessor(m, hub),
         hub,
-        spoke: spokeLibAccessor(m, spoke),
+        spoke: spoke.accessor,
         assets: assetConfigs,
       });
       more = await confirm({message: 'Register another spoke?', default: false});
@@ -60,7 +53,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
     const entries = cfg.map((c) => {
       const inner = c.assets
         .map(
-          (a, jx) => `subAssets[${jx}] = IAaveV4ConfigEngine.SpokeAssetConfig({
+          (a, jx) => `subAssets[${jx}] = IConfigEngine.SpokeAssetConfig({
             underlying: ${checksumAddress(a.underlying)},
             config: IHub.SpokeConfig({
               addCap: ${a.addCap},
@@ -73,9 +66,9 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         )
         .join('\n');
       return `{
-        IAaveV4ConfigEngine.SpokeAssetConfig[] memory subAssets = new IAaveV4ConfigEngine.SpokeAssetConfig[](${c.assets.length});
+        IConfigEngine.SpokeAssetConfig[] memory subAssets = new IConfigEngine.SpokeAssetConfig[](${c.assets.length});
         ${inner}
-        items[__INDEX__] = IAaveV4ConfigEngine.SpokeToAssetsAddition({
+        items[__INDEX__] = IConfigEngine.SpokeToAssetsAddition({
           hubConfigurator: ${market}.HUB_CONFIGURATOR,
           hub: address(${c.hubLib}),
           spoke: address(${c.spoke}),
@@ -109,7 +102,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       code: {
         v4Getters: {
           hubSpokeToAssetsAdditions: {
-            returnType: 'IAaveV4ConfigEngine.SpokeToAssetsAddition',
+            returnType: 'IConfigEngine.SpokeToAssetsAddition',
             entries,
           },
         },

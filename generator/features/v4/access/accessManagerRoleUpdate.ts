@@ -43,7 +43,7 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.RoleUpdate({
+      (c) => `items[__INDEX__] = IConfigEngine.RoleUpdate({
         authority: address(${market}.ACCESS_MANAGER),
         roleId: ${c.roleId},
         admin: ${renderSentinel(c.admin)},
@@ -79,7 +79,7 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
       code: {
         v4Getters: {
           accessManagerRoleUpdates: {
-            returnType: 'IAaveV4ConfigEngine.RoleUpdate',
+            returnType: 'IConfigEngine.RoleUpdate',
             entries,
           },
         },

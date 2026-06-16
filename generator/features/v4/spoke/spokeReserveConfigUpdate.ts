@@ -21,7 +21,7 @@ import {
   disabled,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
+import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumberPrompt(message: string): Promise<Sentinel> {
   const value = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -90,7 +90,7 @@ export const spokeReserveConfigUpdate: FeatureModule<V4SpokeReserveConfigUpdate[
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.ReserveConfigUpdate({
+      (c) => `items[__INDEX__] = IConfigEngine.ReserveConfigUpdate({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
@@ -106,30 +106,20 @@ export const spokeReserveConfigUpdate: FeatureModule<V4SpokeReserveConfigUpdate[
     const testFns = cfg.map((c) => {
       const spokeKey = shortKey(c.spoke);
       const assetKey = shortKey(c.underlying);
-      const asserts: string[] = [];
-      if (isLiteral(c.collateralRisk)) {
-        asserts.push(
-          `assertEq(uint256(cfg.collateralRisk), uint256(${literalValue(c.collateralRisk)}), 'collateralRisk mismatch');`,
-        );
-      }
-      const boolField = (name: 'paused' | 'frozen' | 'borrowable' | 'receiveSharesEnabled') => {
-        const s = c[name];
-        if (s.kind === 'keepCurrent' && s.sentinel === 'ENABLED') {
-          asserts.push(`assertTrue(cfg.${name}, '${name} should be true');`);
-        } else if (s.kind === 'keepCurrent' && s.sentinel === 'DISABLED') {
-          asserts.push(`assertFalse(cfg.${name}, '${name} should be false');`);
-        }
-      };
-      boolField('paused');
-      boolField('frozen');
-      boolField('borrowable');
-      boolField('receiveSharesEnabled');
+      const asserts = [
+        assertSentinelField('collateralRisk', c.collateralRisk, 'uint'),
+        assertSentinelField('paused', c.paused, 'bool'),
+        assertSentinelField('frozen', c.frozen, 'bool'),
+        assertSentinelField('borrowable', c.borrowable, 'bool'),
+        assertSentinelField('receiveSharesEnabled', c.receiveSharesEnabled, 'bool'),
+      ];
       return `function test_spokeReserveConfigUpdate_${spokeKey}_${assetKey}() public {
-        GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke spoke = ISpoke(address(${c.spoke}));
         IHub hub = IHub(address(${c.hub}));
         uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+        ISpoke.ReserveConfig memory before = spoke.getReserveConfig(reserveId);
+        GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke.ReserveConfig memory cfg = spoke.getReserveConfig(reserveId);
         ${asserts.join('\n        ')}
       }`;
@@ -138,7 +128,7 @@ export const spokeReserveConfigUpdate: FeatureModule<V4SpokeReserveConfigUpdate[
       code: {
         v4Getters: {
           spokeReserveConfigUpdates: {
-            returnType: 'IAaveV4ConfigEngine.ReserveConfigUpdate',
+            returnType: 'IConfigEngine.ReserveConfigUpdate',
             entries,
           },
         },

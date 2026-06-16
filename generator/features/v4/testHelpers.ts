@@ -23,6 +23,37 @@ export function isLiteral(s: Sentinel): boolean {
   return s.kind === 'literal';
 }
 
+/// Emits a Solidity assertion for an updated config field driven by a Sentinel:
+/// - literal     -> assert the field equals the new value
+/// - keepCurrent -> assert the field is unchanged (equals the `before` snapshot)
+/// - ENABLED/DISABLED (bool fields only) -> assert the field is true/false
+/// `cfgVar`/`beforeVar` are the post-execution and pre-execution struct locals.
+export function assertSentinelField(
+  field: string,
+  s: Sentinel,
+  kind: 'uint' | 'bool' | 'address',
+  cfgVar = 'cfg',
+  beforeVar = 'before',
+): string {
+  const cur = `${cfgVar}.${field}`;
+  const prev = `${beforeVar}.${field}`;
+  if (kind === 'bool') {
+    if (s.kind === 'keepCurrent' && s.sentinel === 'ENABLED')
+      return `assertTrue(${cur}, '${field} should be true');`;
+    if (s.kind === 'keepCurrent' && s.sentinel === 'DISABLED')
+      return `assertFalse(${cur}, '${field} should be false');`;
+    if (s.kind === 'literal') return `assertEq(${cur}, ${literalValue(s)}, '${field} mismatch');`;
+    return `assertEq(${cur}, ${prev}, '${field} unchanged');`;
+  }
+  if (kind === 'address') {
+    if (s.kind === 'literal') return `assertEq(${cur}, ${literalValue(s)}, '${field} mismatch');`;
+    return `assertEq(${cur}, ${prev}, '${field} unchanged');`;
+  }
+  if (s.kind === 'literal')
+    return `assertEq(uint256(${cur}), uint256(${literalValue(s)}), '${field} mismatch');`;
+  return `assertEq(uint256(${cur}), uint256(${prev}), '${field} unchanged');`;
+}
+
 export function literalValue(s: Sentinel): string {
   return String((s as {kind: 'literal'; value: unknown}).value);
 }

@@ -34,7 +34,7 @@ export const accessManagerRoleMembership: FeatureModule<V4RoleMembership[]> = {
     const entries = cfg.map((c, ix) => {
       const accountName = `ROLE_${sanitizeIdentifier(c.roleId)}_ACCOUNT_${ix}`;
       constants.push(buildAddressConstant(market, accountName, c.account));
-      return `items[__INDEX__] = IAaveV4ConfigEngine.RoleMembership({
+      return `items[__INDEX__] = IConfigEngine.RoleMembership({
         authority: address(${market}.ACCESS_MANAGER),
         roleId: ${c.roleId},
         account: ${accountName},
@@ -63,7 +63,7 @@ export const accessManagerRoleMembership: FeatureModule<V4RoleMembership[]> = {
         constants,
         v4Getters: {
           accessManagerRoleMemberships: {
-            returnType: 'IAaveV4ConfigEngine.RoleMembership',
+            returnType: 'IConfigEngine.RoleMembership',
             entries,
           },
         },

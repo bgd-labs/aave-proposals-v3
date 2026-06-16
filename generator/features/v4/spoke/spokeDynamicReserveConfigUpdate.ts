@@ -12,7 +12,7 @@ import {
 } from '../marketBook';
 import {keepCurrent, literal, renderSentinel} from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
+import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -57,7 +57,7 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.DynamicReserveConfigUpdate({
+      (c) => `items[__INDEX__] = IConfigEngine.DynamicReserveConfigUpdate({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
@@ -71,28 +71,24 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
     const testFns = cfg.map((c) => {
       const spokeKey = shortKey(c.spoke);
       const assetKey = shortKey(c.underlying);
-      const asserts: string[] = [];
-      if (isLiteral(c.collateralFactor)) {
-        asserts.push(
-          `assertEq(uint256(dyn.collateralFactor), uint256(${literalValue(c.collateralFactor)}), 'collateralFactor mismatch');`,
-        );
-      }
-      if (isLiteral(c.maxLiquidationBonus)) {
-        asserts.push(
-          `assertEq(uint256(dyn.maxLiquidationBonus), uint256(${literalValue(c.maxLiquidationBonus)}), 'maxLiquidationBonus mismatch');`,
-        );
-      }
-      if (isLiteral(c.liquidationFee)) {
-        asserts.push(
-          `assertEq(uint256(dyn.liquidationFee), uint256(${literalValue(c.liquidationFee)}), 'liquidationFee mismatch');`,
-        );
-      }
+      const asserts = [
+        assertSentinelField('collateralFactor', c.collateralFactor, 'uint', 'dyn', 'beforeDyn'),
+        assertSentinelField(
+          'maxLiquidationBonus',
+          c.maxLiquidationBonus,
+          'uint',
+          'dyn',
+          'beforeDyn',
+        ),
+        assertSentinelField('liquidationFee', c.liquidationFee, 'uint', 'dyn', 'beforeDyn'),
+      ];
       return `function test_spokeDynamicReserveConfigUpdate_${spokeKey}_${assetKey}_${c.dynamicConfigKey}() public {
-        GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke spoke = ISpoke(address(${c.spoke}));
         IHub hub = IHub(address(${c.hub}));
         uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+        ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(reserveId, uint32(${c.dynamicConfigKey}));
+        GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(${c.dynamicConfigKey}));
         ${asserts.join('\n        ')}
       }`;
@@ -101,7 +97,7 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
       code: {
         v4Getters: {
           spokeDynamicReserveConfigUpdates: {
-            returnType: 'IAaveV4ConfigEngine.DynamicReserveConfigUpdate',
+            returnType: 'IConfigEngine.DynamicReserveConfigUpdate',
             entries,
           },
         },

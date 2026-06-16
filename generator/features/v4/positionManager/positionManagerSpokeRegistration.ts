@@ -36,7 +36,7 @@ export const positionManagerSpokeRegistration: FeatureModule<V4PMSpokeRegistrati
   },
   build({cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.SpokeRegistration({
+      (c) => `items[__INDEX__] = IConfigEngine.SpokeRegistration({
         positionManager: address(${c.positionManager}),
         spoke: address(${c.spoke}),
         registered: ${c.registered}
@@ -58,7 +58,7 @@ export const positionManagerSpokeRegistration: FeatureModule<V4PMSpokeRegistrati
       code: {
         v4Getters: {
           positionManagerSpokeRegistrations: {
-            returnType: 'IAaveV4ConfigEngine.SpokeRegistration',
+            returnType: 'IConfigEngine.SpokeRegistration',
             entries,
           },
         },

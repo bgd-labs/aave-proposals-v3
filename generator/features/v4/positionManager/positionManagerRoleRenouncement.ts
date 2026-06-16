@@ -42,7 +42,7 @@ export const positionManagerRoleRenouncement: FeatureModule<V4PMRoleRenouncement
     const entries = cfg.map((c, ix) => {
       const userName = `PM_ROLE_RENOUNCE_USER_${ix}`;
       constants.push(buildAddressConstant(market, userName, c.user));
-      return `items[__INDEX__] = IAaveV4ConfigEngine.PositionManagerRoleRenouncement({
+      return `items[__INDEX__] = IConfigEngine.PositionManagerRoleRenouncement({
         positionManager: address(${c.positionManager}),
         spoke: address(${c.spoke}),
         user: ${userName}
@@ -65,7 +65,7 @@ export const positionManagerRoleRenouncement: FeatureModule<V4PMRoleRenouncement
         constants,
         v4Getters: {
           positionManagerRoleRenouncements: {
-            returnType: 'IAaveV4ConfigEngine.PositionManagerRoleRenouncement',
+            returnType: 'IConfigEngine.PositionManagerRoleRenouncement',
             entries,
           },
         },

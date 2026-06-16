@@ -12,7 +12,7 @@
     "generate:aci-sky": "vite-node generator/cli -- -a 'TTT (implemented by Aavechan Initiative @aci via Skyward)'",
     "prepare": "husky"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.7.0",
   "engines": {
     "node": ">=20.0.0"
   },

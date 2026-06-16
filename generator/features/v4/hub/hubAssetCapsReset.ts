@@ -26,7 +26,7 @@ export const hubAssetCapsReset: FeatureModule<V4HubAssetCapsReset[]> = {
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetCapsReset({
+      (c) => `items[__INDEX__] = IConfigEngine.AssetCapsReset({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)}
@@ -52,7 +52,7 @@ export const hubAssetCapsReset: FeatureModule<V4HubAssetCapsReset[]> = {
       code: {
         v4Getters: {
           hubAssetCapsResets: {
-            returnType: 'IAaveV4ConfigEngine.AssetCapsReset',
+            returnType: 'IConfigEngine.AssetCapsReset',
             entries,
           },
         },

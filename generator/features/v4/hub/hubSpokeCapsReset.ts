@@ -1,7 +1,7 @@
 import {select, checkbox} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeCapsReset} from '../../types';
-import {hubKeys, spokeKeys, hubLibAccessor, spokeLibAccessor} from '../marketBook';
+import {hubKeys, rawSpokeKeys, hubLibAccessor} from '../marketBook';
 import {shortKey} from '../testHelpers';
 
 export const hubSpokeCapsReset: FeatureModule<V4HubSpokeCapsReset[]> = {
@@ -15,18 +15,18 @@ export const hubSpokeCapsReset: FeatureModule<V4HubSpokeCapsReset[]> = {
     });
     const spokes = await checkbox({
       message: 'Select spokes to reset caps',
-      choices: spokeKeys(m).map((k) => ({name: k, value: k})),
+      choices: rawSpokeKeys(m).map((s) => ({name: s.key, value: s})),
       required: true,
     });
-    return spokes.map((spoke) => ({
+    return spokes.map((s) => ({
       hubLib: hubLibAccessor(m, hub),
       hub: hub,
-      spoke: spokeLibAccessor(m, spoke),
+      spoke: s.accessor,
     }));
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.SpokeCapsReset({
+      (c) => `items[__INDEX__] = IConfigEngine.SpokeCapsReset({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         spoke: address(${c.spoke})
@@ -52,7 +52,7 @@ export const hubSpokeCapsReset: FeatureModule<V4HubSpokeCapsReset[]> = {
       code: {
         v4Getters: {
           hubSpokeCapsResets: {
-            returnType: 'IAaveV4ConfigEngine.SpokeCapsReset',
+            returnType: 'IConfigEngine.SpokeCapsReset',
             entries,
           },
         },
