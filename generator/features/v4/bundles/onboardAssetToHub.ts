@@ -12,6 +12,7 @@ import {
   getV4Book,
 } from '../marketBook';
 import {readHubAssets, isAssetListedOnHub} from '../onchain';
+import {promptFeeReceiver} from '../feeReceiver';
 import {hubAssetListing} from '../hub/hubAssetListing';
 import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
 import {V4HubAssetListing, V4HubSpokeToAssetsAddition} from '../../types';
@@ -52,10 +53,7 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
           `${asset} already listed on ${hub} (assetId=${existing.assetId}). Skipping listing.`,
         );
       } else {
-        const feeReceiver = await addressPrompt({
-          message: 'Fee receiver (Spoke address)',
-          required: true,
-        });
+        const feeReceiver = await promptFeeReceiver(m);
         const liquidityFee = (await numberPrompt({message: 'liquidityFee (bps)'})) || '0';
         const irStrategy = await addressPrompt({message: 'IR strategy address', required: true});
         const optimalUsageRatio =

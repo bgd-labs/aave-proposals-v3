@@ -61,7 +61,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
       buildAddressConstant(market, priceFeedConstantName(c.spoke, c.underlying), c.priceSource),
     );
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.ReserveListing({
+      (c) => `items[__INDEX__] = IConfigEngine.ReserveListing({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
@@ -93,6 +93,9 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         ISpoke.Reserve memory reserve = spoke.getReserve(reserveId);
         ISpoke.ReserveConfig memory cfg = spoke.getReserveConfig(reserveId);
         assertEq(reserve.underlying, ${checksumAddress(c.underlying)}, 'underlying mismatch');
+        assertEq(address(reserve.hub), address(hub), 'hub mismatch');
+        assertEq(uint256(reserve.assetId), assetId, 'assetId mismatch');
+        assertEq(uint256(reserve.decimals), IERC20Metadata(${checksumAddress(c.underlying)}).decimals(), 'decimals mismatch');
         assertEq(uint256(cfg.collateralRisk), uint256(${c.config.collateralRisk}), 'collateralRisk mismatch');
         assertEq(cfg.paused, ${c.config.paused}, 'paused mismatch');
         assertEq(cfg.frozen, ${c.config.frozen}, 'frozen mismatch');
@@ -109,7 +112,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         constants,
         v4Getters: {
           spokeReserveListings: {
-            returnType: 'IAaveV4ConfigEngine.ReserveListing',
+            returnType: 'IConfigEngine.ReserveListing',
             entries,
           },
         },

@@ -5,7 +5,7 @@ import {numberPrompt} from '../../../prompts/numberPrompt';
 import {spokeKeys, spokeLibAccessor} from '../marketBook';
 import {keepCurrent, literal, renderSentinel} from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey} from '../testHelpers';
+import {assertSentinelField, shortKey} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -38,7 +38,7 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.LiquidationConfigUpdate({
+      (c) => `items[__INDEX__] = IConfigEngine.LiquidationConfigUpdate({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         targetHealthFactor: ${renderSentinel(c.targetHealthFactor)},
@@ -48,23 +48,13 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
     );
     const testFns = cfg.map((c) => {
       const spokeKey = shortKey(c.spoke);
-      const asserts: string[] = [];
-      if (isLiteral(c.targetHealthFactor)) {
-        asserts.push(
-          `assertEq(uint256(cfg.targetHealthFactor), uint256(${literalValue(c.targetHealthFactor)}), 'targetHealthFactor mismatch');`,
-        );
-      }
-      if (isLiteral(c.healthFactorForMaxBonus)) {
-        asserts.push(
-          `assertEq(uint256(cfg.healthFactorForMaxBonus), uint256(${literalValue(c.healthFactorForMaxBonus)}), 'healthFactorForMaxBonus mismatch');`,
-        );
-      }
-      if (isLiteral(c.liquidationBonusFactor)) {
-        asserts.push(
-          `assertEq(uint256(cfg.liquidationBonusFactor), uint256(${literalValue(c.liquidationBonusFactor)}), 'liquidationBonusFactor mismatch');`,
-        );
-      }
+      const asserts = [
+        assertSentinelField('targetHealthFactor', c.targetHealthFactor, 'uint'),
+        assertSentinelField('healthFactorForMaxBonus', c.healthFactorForMaxBonus, 'uint'),
+        assertSentinelField('liquidationBonusFactor', c.liquidationBonusFactor, 'uint'),
+      ];
       return `function test_spokeLiquidationConfigUpdate_${spokeKey}() public {
+        ISpoke.LiquidationConfig memory before = ISpoke(address(${c.spoke})).getLiquidationConfig();
         GovV3Helpers.executePayload(vm, address(proposal));
         ISpoke.LiquidationConfig memory cfg = ISpoke(address(${c.spoke})).getLiquidationConfig();
         ${asserts.join('\n        ')}
@@ -74,7 +64,7 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
       code: {
         v4Getters: {
           spokeLiquidationConfigUpdates: {
-            returnType: 'IAaveV4ConfigEngine.LiquidationConfigUpdate',
+            returnType: 'IConfigEngine.LiquidationConfigUpdate',
             entries,
           },
         },

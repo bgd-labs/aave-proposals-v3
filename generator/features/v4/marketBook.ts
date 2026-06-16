@@ -30,6 +30,10 @@ export function spokeLibAccessor(market: MarketIdentifierV4, spokeKey: string): 
   return `${market}Spokes.${spokeKey}`;
 }
 
+export function tokenizationSpokeLibAccessor(market: MarketIdentifierV4, spokeKey: string): string {
+  return `${market}TokenizationSpokes.${spokeKey}`;
+}
+
 export function assetLibAccessor(market: MarketIdentifierV4, assetKey: string): string {
   return `${market}Assets.${assetKey}_UNDERLYING`;
 }
@@ -48,6 +52,32 @@ export function hubKeys(market: MarketIdentifierV4): string[] {
 
 export function spokeKeys(market: MarketIdentifierV4): string[] {
   return Object.keys(getV4Book(market).SPOKES).filter((k) => !k.endsWith('_ORACLE'));
+}
+
+export type SpokeChoice = {key: string; accessor: string};
+
+/// All spoke types selectable for Hub-side spoke configuration, mirroring the
+/// address book's `ALL_SPOKES_RAW`: regular spokes (incl. TREASURY_SPOKE) and
+/// tokenization spokes, excluding `*_ORACLE` entries.
+export function rawSpokeKeys(market: MarketIdentifierV4): SpokeChoice[] {
+  const book = getV4Book(market);
+  const choices: SpokeChoice[] = [];
+  for (const key of Object.keys(book.SPOKES).filter((k) => !k.endsWith('_ORACLE'))) {
+    choices.push({key, accessor: spokeLibAccessor(market, key)});
+  }
+  for (const key of Object.keys(book.TOKENIZATION_SPOKES ?? {})) {
+    choices.push({key, accessor: tokenizationSpokeLibAccessor(market, key)});
+  }
+  return choices;
+}
+
+/// Returns the deployed TreasurySpoke for the market, or undefined if none.
+export function treasurySpoke(
+  market: MarketIdentifierV4,
+): {key: string; accessor: string; address: string} | undefined {
+  const address = getV4Book(market).SPOKES.TREASURY_SPOKE;
+  if (!address) return undefined;
+  return {key: 'TREASURY_SPOKE', accessor: spokeLibAccessor(market, 'TREASURY_SPOKE'), address};
 }
 
 export function assetKeys(market: MarketIdentifierV4): string[] {

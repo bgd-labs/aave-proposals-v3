@@ -53,7 +53,7 @@ export const spokeDynamicReserveConfigAddition: FeatureModule<
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.DynamicReserveConfigAddition({
+      (c) => `items[__INDEX__] = IConfigEngine.DynamicReserveConfigAddition({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: address(${c.spoke}),
         hub: address(${c.hub}),
@@ -85,7 +85,7 @@ export const spokeDynamicReserveConfigAddition: FeatureModule<
       code: {
         v4Getters: {
           spokeDynamicReserveConfigAdditions: {
-            returnType: 'IAaveV4ConfigEngine.DynamicReserveConfigAddition',
+            returnType: 'IConfigEngine.DynamicReserveConfigAddition',
             entries,
           },
         },

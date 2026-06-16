@@ -8,6 +8,7 @@ import {literal, renderSentinel} from '../sentinels';
 import {buildAddressConstant} from '../constants';
 import {assetIdentifier, checksumAddress} from '../testHelpers';
 import {selectAsset} from '../assetSelect';
+import {promptFeeReceiver} from '../feeReceiver';
 
 function hubAssetKey(hubAccessor: string, underlying: string) {
   const hubKey = hubAccessor.split('.').pop()!;
@@ -27,10 +28,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
         choices: hubKeys(m).map((k) => ({name: k, value: k})),
       });
       const asset = await selectAsset(m);
-      const feeReceiver = await addressPrompt({
-        message: 'Fee receiver (Spoke address)',
-        required: true,
-      });
+      const feeReceiver = await promptFeeReceiver(m);
       const liquidityFee = (await numberPrompt({message: 'liquidityFee (bps)'})) || '0';
       const irStrategy = await addressPrompt({
         message: 'IR strategy address',
@@ -81,7 +79,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       const irStrategyName = `${hubKey}_${assetKey}_IR_STRATEGY`;
       constants.push(buildAddressConstant(market, feeReceiverName, c.feeReceiver));
       constants.push(buildAddressConstant(market, irStrategyName, c.irStrategy));
-      return `items[__INDEX__] = IAaveV4ConfigEngine.AssetListing({
+      return `items[__INDEX__] = IConfigEngine.AssetListing({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)},
@@ -94,7 +92,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
           rateGrowthBeforeOptimal: uint32(${renderSentinel(c.irData.rateGrowthBeforeOptimal)}),
           rateGrowthAfterOptimal: uint32(${renderSentinel(c.irData.rateGrowthAfterOptimal)})
         }),
-        tokenization: IAaveV4ConfigEngine.TokenizationSpokeConfig({
+        tokenization: IConfigEngine.TokenizationSpokeConfig({
           addCap: ${c.tokenization ? c.tokenization.addCap : '0'},
           name: '${c.tokenization ? c.tokenization.name.replace(/'/g, "\\'") : ''}',
           symbol: '${c.tokenization ? c.tokenization.symbol.replace(/'/g, "\\'") : ''}'
@@ -106,17 +104,32 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       const feeReceiverName = `${hubKey}_${assetKey}_FEE_RECEIVER`;
       const irStrategyName = `${hubKey}_${assetKey}_IR_STRATEGY`;
       const liquidityFee = c.liquidityFee.replace(/\B(?=(\d{3})+(?!\d))/g, '_');
+      const underlying = checksumAddress(c.underlying);
+      const tokenizationAsserts = c.tokenization
+        ? `
+        address tokenizationSpoke = hub.getSpokeAddress(assetId, 0);
+        IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
+        assertEq(uint256(tokenizationCfg.addCap), uint256(${c.tokenization.addCap}), 'tokenization addCap mismatch');
+        assertEq(IERC20Metadata(tokenizationSpoke).name(), '${c.tokenization.name.replace(/'/g, "\\'")}', 'tokenization name mismatch');
+        assertEq(IERC20Metadata(tokenizationSpoke).symbol(), '${c.tokenization.symbol.replace(/'/g, "\\'")}', 'tokenization symbol mismatch');`
+        : '';
       return `function test_hubAssetListing_${hubKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
-        assertTrue(hub.isUnderlyingListed(${checksumAddress(c.underlying)}), 'asset not listed');
-        uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
+        assertTrue(hub.isUnderlyingListed(${underlying}), 'asset not listed');
+        uint256 assetId = hub.getAssetId(${underlying});
         IHub.Asset memory asset = hub.getAsset(assetId);
         IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
+        assertEq(asset.underlying, ${underlying}, 'underlying mismatch');
+        assertEq(uint256(asset.decimals), IERC20Metadata(${underlying}).decimals(), 'decimals mismatch');
         assertEq(cfg.feeReceiver, proposal.${feeReceiverName}(), 'feeReceiver mismatch');
         assertEq(cfg.irStrategy, proposal.${irStrategyName}(), 'irStrategy mismatch');
         assertEq(uint256(cfg.liquidityFee), uint256(${liquidityFee}), 'liquidityFee mismatch');
-        assertEq(asset.underlying, ${checksumAddress(c.underlying)}, 'underlying mismatch');
+        IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(cfg.irStrategy).getInterestRateData(assetId);
+        assertEq(uint256(irData.optimalUsageRatio), uint256(${renderSentinel(c.irData.optimalUsageRatio)}), 'optimalUsageRatio mismatch');
+        assertEq(uint256(irData.baseDrawnRate), uint256(${renderSentinel(c.irData.baseDrawnRate)}), 'baseDrawnRate mismatch');
+        assertEq(uint256(irData.rateGrowthBeforeOptimal), uint256(${renderSentinel(c.irData.rateGrowthBeforeOptimal)}), 'rateGrowthBeforeOptimal mismatch');
+        assertEq(uint256(irData.rateGrowthAfterOptimal), uint256(${renderSentinel(c.irData.rateGrowthAfterOptimal)}), 'rateGrowthAfterOptimal mismatch');${tokenizationAsserts}
       }`;
     });
     const response: CodeArtifact = {
@@ -124,7 +137,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
         constants,
         v4Getters: {
           hubAssetListings: {
-            returnType: 'IAaveV4ConfigEngine.AssetListing',
+            returnType: 'IConfigEngine.AssetListing',
             entries,
           },
         },

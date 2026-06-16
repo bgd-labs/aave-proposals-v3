@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: ['AaveV3Plasma'],
+    markets: ['AaveV3Plasma'],
     title: 'Onboard PT-sUSDe-22OCT2026 to Aave v3 Plasma',
     shortName: 'OnboardPTSUSDe22OCT2026ToAaveV3Plasma',
     date: '20260615',
@@ -11,7 +11,7 @@ export const config: ConfigFile = {
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },
-  poolOptions: {
+  marketOptions: {
     AaveV3Plasma: {
       configs: {
         ASSET_LISTING: [

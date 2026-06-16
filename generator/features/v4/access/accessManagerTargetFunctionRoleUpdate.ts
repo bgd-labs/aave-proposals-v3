@@ -43,7 +43,7 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
       return `{
         bytes4[] memory selectors = new bytes4[](${c.selectors.length});
         ${c.selectors.map((s, jx) => `selectors[${jx}] = bytes4(${s});`).join('\n')}
-        items[__INDEX__] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
+        items[__INDEX__] = IConfigEngine.TargetFunctionRoleUpdate({
           authority: address(${market}.ACCESS_MANAGER),
           target: ${targetExpr},
           selectors: selectors,
@@ -73,7 +73,7 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
         constants,
         v4Getters: {
           accessManagerTargetFunctionRoleUpdates: {
-            returnType: 'IAaveV4ConfigEngine.TargetFunctionRoleUpdate',
+            returnType: 'IConfigEngine.TargetFunctionRoleUpdate',
             entries,
           },
         },

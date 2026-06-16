@@ -82,8 +82,8 @@ export function prefixWithImports(code: string) {
   if (configEngineImport) {
     imports += configEngineImport;
   }
-  if (findMatch(code, 'IAaveV4ConfigEngine')) {
-    imports += `import {IAaveV4ConfigEngine} from 'aave-address-book/AaveV4.sol';\n`;
+  if (findMatch(code, '\\bIConfigEngine\\b')) {
+    imports += `import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';\n`;
     imports += `import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';\n`;
   } else if (findMatch(code, 'EngineFlags')) {
     imports += `import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';\n`;
@@ -113,7 +113,10 @@ export function prefixWithImports(code: string) {
     imports += `import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';\n`;
   }
   // common imports
-  if (findMatch(code, 'IERC20')) {
+  if (findMatch(code, '\\bIERC20Metadata\\b')) {
+    imports += `import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';\n`;
+  }
+  if (findMatch(code, '\\bIERC20\\b')) {
     imports += `import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';\n`;
   }
   if (findMatch(code, 'forceApprove')) {

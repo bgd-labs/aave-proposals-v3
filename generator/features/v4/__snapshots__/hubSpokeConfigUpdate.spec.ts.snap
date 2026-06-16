@@ -68,7 +68,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
-import {IAaveV4ConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 
 /**
@@ -82,11 +82,10 @@ contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521 is AaveV4PayloadEthe
     public
     pure
     override
-    returns (IAaveV4ConfigEngine.SpokeConfigUpdate[] memory)
+    returns (IConfigEngine.SpokeConfigUpdate[] memory)
   {
-    IAaveV4ConfigEngine.SpokeConfigUpdate[]
-      memory items = new IAaveV4ConfigEngine.SpokeConfigUpdate[](1);
-    items[0] = IAaveV4ConfigEngine.SpokeConfigUpdate({
+    IConfigEngine.SpokeConfigUpdate[] memory items = new IConfigEngine.SpokeConfigUpdate[](1);
+    items[0] = IConfigEngine.SpokeConfigUpdate({
       hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
       hub: address(AaveV4EthereumHubs.CORE_HUB),
       underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
@@ -132,16 +131,26 @@ contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521_Test is ProtocolV4Te
   }
 
   function test_hubSpokeConfigUpdate_CORE_HUB_MAIN_SPOKE_WETH() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    IHub.SpokeConfig memory before = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
       assetId,
       address(AaveV4EthereumSpokes.MAIN_SPOKE)
     );
     assertEq(uint256(cfg.addCap), uint256(1_000_000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(500_000), 'drawCap mismatch');
+    assertEq(
+      uint256(cfg.riskPremiumThreshold),
+      uint256(before.riskPremiumThreshold),
+      'riskPremiumThreshold unchanged'
+    );
     assertTrue(cfg.active, 'active should be true');
+    assertEq(cfg.halted, before.halted, 'halted unchanged');
   }
 }
 ",
@@ -222,7 +231,7 @@ exports[`feature: v4 hubSpokeConfigUpdate > should return reasonable code 1`] = 
     "v4Getters": {
       "hubSpokeConfigUpdates": {
         "entries": [
-          "items[__INDEX__] = IAaveV4ConfigEngine.SpokeConfigUpdate({
+          "items[__INDEX__] = IConfigEngine.SpokeConfigUpdate({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(AaveV4EthereumHubs.CORE_HUB),
         underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
@@ -234,20 +243,23 @@ exports[`feature: v4 hubSpokeConfigUpdate > should return reasonable code 1`] = 
         halted: EngineFlags.KEEP_CURRENT
       });",
         ],
-        "returnType": "IAaveV4ConfigEngine.SpokeConfigUpdate",
+        "returnType": "IConfigEngine.SpokeConfigUpdate",
       },
     },
   },
   "test": {
     "fn": [
       "function test_hubSpokeConfigUpdate_CORE_HUB_MAIN_SPOKE_WETH() public {
-        GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
         uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+        IHub.SpokeConfig memory before = hub.getSpokeConfig(assetId, address(AaveV4EthereumSpokes.MAIN_SPOKE));
+        GovV3Helpers.executePayload(vm, address(proposal));
         IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(AaveV4EthereumSpokes.MAIN_SPOKE));
         assertEq(uint256(cfg.addCap), uint256(1_000_000), 'addCap mismatch');
         assertEq(uint256(cfg.drawCap), uint256(500_000), 'drawCap mismatch');
+        assertEq(uint256(cfg.riskPremiumThreshold), uint256(before.riskPremiumThreshold), 'riskPremiumThreshold unchanged');
         assertTrue(cfg.active, 'active should be true');
+        assertEq(cfg.halted, before.halted, 'halted unchanged');
       }",
     ],
   },

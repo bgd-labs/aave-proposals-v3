@@ -26,7 +26,7 @@ export const hubAssetDeactivation: FeatureModule<V4HubAssetDeactivation[]> = {
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetDeactivation({
+      (c) => `items[__INDEX__] = IConfigEngine.AssetDeactivation({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)}
@@ -50,7 +50,7 @@ export const hubAssetDeactivation: FeatureModule<V4HubAssetDeactivation[]> = {
       code: {
         v4Getters: {
           hubAssetDeactivations: {
-            returnType: 'IAaveV4ConfigEngine.AssetDeactivation',
+            returnType: 'IConfigEngine.AssetDeactivation',
             entries,
           },
         },

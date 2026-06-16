@@ -13,7 +13,7 @@ import {
   renderSentinel,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {isLiteral, literalValue, shortKey, checksumAddress} from '../testHelpers';
+import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -76,7 +76,7 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
   },
   build({market, cfg}) {
     const entries = cfg.map(
-      (c) => `items[__INDEX__] = IAaveV4ConfigEngine.AssetConfigUpdate({
+      (c) => `items[__INDEX__] = IConfigEngine.AssetConfigUpdate({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
         hub: address(${c.hubLib}),
         underlying: ${checksumAddress(c.underlying)},
@@ -95,31 +95,17 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
     const testFns = cfg.map((c) => {
       const hubKey = shortKey(c.hubLib);
       const assetKey = shortKey(c.underlying);
-      const asserts: string[] = [];
-      if (isLiteral(c.liquidityFee)) {
-        asserts.push(
-          `assertEq(uint256(cfg.liquidityFee), uint256(${literalValue(c.liquidityFee)}), 'liquidityFee mismatch');`,
-        );
-      }
-      if (isLiteral(c.feeReceiver)) {
-        asserts.push(
-          `assertEq(cfg.feeReceiver, ${literalValue(c.feeReceiver)}, 'feeReceiver mismatch');`,
-        );
-      }
-      if (isLiteral(c.irStrategy)) {
-        asserts.push(
-          `assertEq(cfg.irStrategy, ${literalValue(c.irStrategy)}, 'irStrategy mismatch');`,
-        );
-      }
-      if (isLiteral(c.reinvestmentController)) {
-        asserts.push(
-          `assertEq(cfg.reinvestmentController, ${literalValue(c.reinvestmentController)}, 'reinvestmentController mismatch');`,
-        );
-      }
+      const asserts = [
+        assertSentinelField('liquidityFee', c.liquidityFee, 'uint'),
+        assertSentinelField('feeReceiver', c.feeReceiver, 'address'),
+        assertSentinelField('irStrategy', c.irStrategy, 'address'),
+        assertSentinelField('reinvestmentController', c.reinvestmentController, 'address'),
+      ];
       return `function test_hubAssetConfigUpdate_${hubKey}_${assetKey}() public {
-        GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));
         uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
+        IHub.AssetConfig memory before = hub.getAssetConfig(assetId);
+        GovV3Helpers.executePayload(vm, address(proposal));
         IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
         ${asserts.join('\n        ')}
       }`;
@@ -128,7 +114,7 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
       code: {
         v4Getters: {
           hubAssetConfigUpdates: {
-            returnType: 'IAaveV4ConfigEngine.AssetConfigUpdate',
+            returnType: 'IConfigEngine.AssetConfigUpdate',
             entries,
           },
         },

@@ -37,7 +37,7 @@ export const accessManagerTargetAdminDelayUpdate: FeatureModule<V4TargetAdminDel
       const targetExpr = c.target.startsWith('0x')
         ? `TARGET_ADMIN_DELAY_TARGET_${ix}`
         : `address(${c.target})`;
-      return `items[__INDEX__] = IAaveV4ConfigEngine.TargetAdminDelayUpdate({
+      return `items[__INDEX__] = IConfigEngine.TargetAdminDelayUpdate({
         authority: address(${market}.ACCESS_MANAGER),
         target: ${targetExpr},
         newDelay: ${c.newDelay}
@@ -59,7 +59,7 @@ export const accessManagerTargetAdminDelayUpdate: FeatureModule<V4TargetAdminDel
         constants,
         v4Getters: {
           accessManagerTargetAdminDelayUpdates: {
-            returnType: 'IAaveV4ConfigEngine.TargetAdminDelayUpdate',
+            returnType: 'IConfigEngine.TargetAdminDelayUpdate',
             entries,
           },
         },
