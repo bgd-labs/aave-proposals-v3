@@ -406,6 +406,9 @@ abstract contract HorizonConfigAssertionHelper is Test {
     if (underlying == AaveV3EthereumHorizonCustom.ACRED_UNDERLYING) {
       return AaveV3EthereumHorizonCustom.ACRED_PRICE_FEED;
     }
+    if (underlying == AaveV3EthereumHorizonCustom.MGLOBAL_UNDERLYING) {
+      return AaveV3EthereumHorizonCustom.MGLOBAL_PRICE_FEED;
+    }
     revert('_expectedPriceFeed: unknown underlying');
   }
 

@@ -23,7 +23,7 @@
   },
   "raw": {
     "0xae05cd22df81871bc7cc2a04becfb516bfe332c8": {
-      "label": null,
+      "label": "AaveV3EthereumHorizon.POOL",
       "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": null,
