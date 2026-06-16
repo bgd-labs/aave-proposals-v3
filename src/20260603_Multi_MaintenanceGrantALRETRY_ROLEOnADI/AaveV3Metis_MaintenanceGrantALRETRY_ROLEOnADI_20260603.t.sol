@@ -2,46 +2,44 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Metis} from 'aave-address-book/AaveV3Metis.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603} from './AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol';
 import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
-import {IGranularGuardianAccessControl} from 'src/interfaces/IGranularGuardian.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
+import {AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603} from './AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol';
+import {MaintenanceGrantALRETRY_ROLEOnADITestBase, IRetryRoleProposal} from './MaintenanceGrantALRETRY_ROLEOnADITestBase.sol';
 
 /**
  * @dev Test for AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603.t.sol -vv
  */
-contract AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is ProtocolV3TestBase {
-  AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603 internal proposal;
-  IGranularGuardianAccessControl internal GRANULAR_GUARDIAN =
-    IGranularGuardianAccessControl(GovernanceV3Metis.GRANULAR_GUARDIAN);
-
-  function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 22731449);
-    proposal = new AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603();
+contract AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
+  MaintenanceGrantALRETRY_ROLEOnADITestBase
+{
+  function _createFork() internal override {
+    vm.createSelectFork(vm.rpcUrl('metis'), 22769592);
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603',
-      AaveV3Metis.POOL,
-      address(proposal)
-    );
+  function _deployProposal() internal override returns (IRetryRoleProposal) {
+    return
+      IRetryRoleProposal(address(new AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603()));
   }
 
-  function test_role_grant() public {
-    bytes32 retryRole = GRANULAR_GUARDIAN.RETRY_ROLE();
-    uint256 countBefore = GRANULAR_GUARDIAN.getRoleMemberCount(retryRole);
-    assertFalse(GRANULAR_GUARDIAN.hasRole(retryRole, proposal.AAVE_LABS_GUARDIAN()));
+  function _POOL() internal pure override returns (IPool) {
+    return AaveV3Metis.POOL;
+  }
 
-    executePayload(vm, address(proposal));
+  function _GRANULAR_GUARDIAN() internal pure override returns (address) {
+    return GovernanceV3Metis.GRANULAR_GUARDIAN;
+  }
 
-    assertEq(GRANULAR_GUARDIAN.getRoleMemberCount(retryRole), countBefore + 1);
-    assertTrue(GRANULAR_GUARDIAN.hasRole(retryRole, proposal.AAVE_LABS_GUARDIAN()));
+  function _CROSS_CHAIN_CONTROLLER() internal pure override returns (address) {
+    return GovernanceV3Metis.CROSS_CHAIN_CONTROLLER;
+  }
+
+  function _GOVERNANCE_GUARDIAN() internal pure override returns (address) {
+    return GovernanceV3Metis.GOVERNANCE_GUARDIAN;
+  }
+
+  function _reportName() internal pure override returns (string memory) {
+    return 'AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603';
   }
 }

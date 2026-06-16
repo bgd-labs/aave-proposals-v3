@@ -11,8 +11,8 @@ import {IGranularGuardianAccessControl} from 'src/interfaces/IGranularGuardian.s
  * - Discussion: https://governance.aave.com/t/direct-to-aip-grant-aave-labs-retry-role-on-a-di/25020
  */
 contract AaveV3Avalanche_MaintenanceGrantALRETRY_ROLEOnADI_20260603 is IProposalGenericExecutor {
-  // https://snowtrace.io/address/0x4Ab2Bed1d667260dB34244Ba412817651C2dD52b
-  address public constant AAVE_LABS_GUARDIAN = 0x4Ab2Bed1d667260dB34244Ba412817651C2dD52b;
+  // https://snowtrace.io/address/0x2B99790c35a401be873FA7Eb514D9220736BB1cA
+  address public constant AAVE_LABS_GUARDIAN = 0x2B99790c35a401be873FA7Eb514D9220736BB1cA;
 
   function execute() external {
     IGranularGuardianAccessControl(GovernanceV3Avalanche.GRANULAR_GUARDIAN).grantRole(
