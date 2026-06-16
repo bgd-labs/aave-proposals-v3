@@ -21,6 +21,7 @@ export const config: ConfigFile = {
       'AaveV3Mantle',
       'AaveV3MegaEth',
       'AaveV3XLayer',
+      'AaveV3InkWhitelabel',
     ],
     title: 'Maintenance: Grant AL RETRY_ROLE on a.DI',
     shortName: 'MaintenanceGrantALRETRY_ROLEOnADI',
@@ -51,5 +52,6 @@ export const config: ConfigFile = {
     AaveV3Mantle: {configs: {OTHERS: {}}, cache: {blockNumber: 96747210}},
     AaveV3MegaEth: {configs: {OTHERS: {}}, cache: {blockNumber: 18827721}},
     AaveV3XLayer: {configs: {OTHERS: {}}, cache: {blockNumber: 62855697}},
+    AaveV3InkWhitelabel: {configs: {OTHERS: {}}, cache: {blockNumber: 48128811}},
   },
 };

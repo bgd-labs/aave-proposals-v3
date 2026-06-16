@@ -52,7 +52,7 @@ abstract contract MaintenanceGrantALRETRY_ROLEOnADITestBase is ProtocolV3TestBas
   // ------------------------------------------------------------------------------------------------
 
   /// @dev executes the generic test suite including e2e and config snapshots
-  function test_defaultProposalExecution() public {
+  function test_defaultProposalExecution() public virtual {
     defaultTest(_reportName(), _POOL(), address(proposal));
   }
 
