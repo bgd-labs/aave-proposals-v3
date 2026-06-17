@@ -12,6 +12,7 @@ type V4Book = {
   TOKENIZATION_SPOKES: Record<string, string>;
   ASSETS: Record<string, {UNDERLYING: string; decimals: number}>;
   SPOKE_PRICE_FEEDS: Record<string, string>;
+  ALL_SPOKES_RAW: readonly string[];
 };
 
 export function getV4Book(market: MarketIdentifierV4): V4Book {
@@ -56,19 +57,24 @@ export function spokeKeys(market: MarketIdentifierV4): string[] {
 
 export type SpokeChoice = {key: string; accessor: string};
 
-/// All spoke types selectable for Hub-side spoke configuration, mirroring the
+/// All spoke types selectable for Hub-side spoke configuration, iterating the
 /// address book's `ALL_SPOKES_RAW`: regular spokes (incl. TREASURY_SPOKE) and
 /// tokenization spokes, excluding `*_ORACLE` entries.
 export function rawSpokeKeys(market: MarketIdentifierV4): SpokeChoice[] {
   const book = getV4Book(market);
-  const choices: SpokeChoice[] = [];
-  for (const key of Object.keys(book.SPOKES).filter((k) => !k.endsWith('_ORACLE'))) {
-    choices.push({key, accessor: spokeLibAccessor(market, key)});
+  const byAddress = new Map<string, SpokeChoice>();
+  for (const [key, address] of Object.entries(book.SPOKES)) {
+    byAddress.set(address.toLowerCase(), {key, accessor: spokeLibAccessor(market, key)});
   }
-  for (const key of Object.keys(book.TOKENIZATION_SPOKES ?? {})) {
-    choices.push({key, accessor: tokenizationSpokeLibAccessor(market, key)});
+  for (const [key, address] of Object.entries(book.TOKENIZATION_SPOKES ?? {})) {
+    byAddress.set(address.toLowerCase(), {
+      key,
+      accessor: tokenizationSpokeLibAccessor(market, key),
+    });
   }
-  return choices;
+  return book.ALL_SPOKES_RAW.map((address) => byAddress.get(address.toLowerCase())).filter(
+    (choice): choice is SpokeChoice => choice !== undefined,
+  );
 }
 
 /// Returns the deployed TreasurySpoke for the market, or undefined if none.
