@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
@@ -21,10 +20,8 @@ contract AaveV3Ethereum_OnBoardPTsrUSDe22Oct2026EthereumCore_20260617_Test is Pr
   AaveV3Ethereum_OnBoardPTsrUSDe22Oct2026EthereumCore_20260617 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25336783);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25337409);
     proposal = new AaveV3Ethereum_OnBoardPTsrUSDe22Oct2026EthereumCore_20260617();
-    // temporary: seed the executor so _postExecute() can supply to the DUST_BIN
-    deal(proposal.PT_srUSDe_22OCT2026(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1e18);
   }
 
   /**
