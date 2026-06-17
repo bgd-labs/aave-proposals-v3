@@ -37,6 +37,8 @@ import {
 } from './features/types';
 import {FlashBorrower} from './features/flashBorrower';
 
+export type {VotingNetwork};
+
 export const V2_MARKETS = [
   'AaveV2Ethereum',
   'AaveV2EthereumAMM',

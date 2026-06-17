@@ -7,8 +7,8 @@ import {
   V3_MARKETS,
   V4_MARKETS,
   VOTING_NETWORK,
+  VotingNetwork,
 } from './types';
-import {VotingNetwork} from './features/types';
 import {
   arbitrum,
   avalanche,
