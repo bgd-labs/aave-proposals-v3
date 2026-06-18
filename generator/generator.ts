@@ -1,14 +1,15 @@
 import fs from 'fs';
 import path from 'path';
-import {generateContractName, generateFolderName, isWhitelabelPool} from './common';
+import {generateContractName, generateFolderName, isWhitelabelMarket} from './common';
 import {proposalTemplate} from './templates/proposal.template';
 import {testTemplate} from './templates/test.template';
 import {confirm} from '@inquirer/prompts';
-import {ConfigFile, Options, PoolConfigs, PoolIdentifier, Scripts, Files} from './types';
+import {ConfigFile, Options, MarketConfigs, MarketIdentifier, Scripts, Files} from './types';
 import prettier from 'prettier';
 import {generateScript} from './templates/script.template';
 import {generateZkSyncScript} from './templates/zksync.script.template';
 import {generateAIP} from './templates/aip.template';
+import {finalizeV4Artifacts} from './features/v4/bundleHelpers';
 
 const prettierSolCfg = await prettier.resolveConfig('foo.sol');
 const prettierMDCfg = await prettier.resolveConfig('foo.md');
@@ -17,29 +18,36 @@ const prettierTsCfg = await prettier.resolveConfig('foo.ts');
 /**
  * Generates all the file contents for aip/tests/payloads & script
  * @param options
- * @param poolConfigs
+ * @param marketConfigs
  * @returns
  */
-export async function generateFiles(options: Options, poolConfigs: PoolConfigs): Promise<Files> {
+export async function generateFiles(
+  options: Options,
+  marketConfigs: MarketConfigs,
+): Promise<Files> {
   const jsonConfig = await prettier.format(
     `import {ConfigFile} from '../../generator/types';
     export const config: ConfigFile = ${JSON.stringify({
       rootOptions: options,
-      poolOptions: (Object.keys(poolConfigs) as PoolIdentifier[]).reduce((acc, pool) => {
-        acc[pool] = {configs: poolConfigs[pool]!.configs, cache: poolConfigs[pool]!.cache};
+      marketOptions: (Object.keys(marketConfigs) as MarketIdentifier[]).reduce((acc, market) => {
+        acc[market] = {
+          configs: marketConfigs[market]!.configs,
+          cache: marketConfigs[market]!.cache,
+        };
         return acc;
       }, {}),
     } as ConfigFile)}`,
     {...prettierTsCfg, filepath: 'foo.ts'},
   );
 
-  async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
-    const contractName = generateContractName(options, pool);
-    const testCode = testTemplate(options, poolConfigs[pool]!, pool);
+  async function createPayloadAndTest(options: Options, market: MarketIdentifier) {
+    const contractName = generateContractName(options, market);
+    const testCode = testTemplate(options, marketConfigs[market]!, market);
+    finalizeV4Artifacts(marketConfigs[market]!);
 
     return {
-      pool,
-      payload: await prettier.format(proposalTemplate(options, poolConfigs[pool]!, pool), {
+      market,
+      payload: await prettier.format(proposalTemplate(options, marketConfigs[market]!, market), {
         ...prettierSolCfg,
         filepath: 'foo.sol',
       }),
@@ -58,7 +66,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
       filepath: 'foo.sol',
     }),
   };
-  if (Object.keys(poolConfigs).includes('AaveV3ZkSync')) {
+  if (Object.keys(marketConfigs).includes('AaveV3ZkSync')) {
     scripts.zkSyncScript = await prettier.format(generateZkSyncScript(options), {
       ...prettierSolCfg,
       filepath: 'foo.sol',
@@ -66,7 +74,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
   }
 
   console.log('generating aip');
-  const aip = await prettier.format(generateAIP(options, poolConfigs), {
+  const aip = await prettier.format(generateAIP(options, marketConfigs), {
     ...prettierMDCfg,
     filepath: 'foo.md',
   });
@@ -75,7 +83,9 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
     jsonConfig,
     scripts,
     aip,
-    payloads: await Promise.all(options.pools.map((pool) => createPayloadAndTest(options, pool))),
+    payloads: await Promise.all(
+      options.markets.map((market) => createPayloadAndTest(options, market)),
+    ),
   };
 }
 
@@ -119,7 +129,7 @@ export async function writeFiles(options: Options, {jsonConfig, scripts, aip, pa
   // write config
   await askBeforeWrite(options, path.join(baseFolder, 'config.ts'), jsonConfig);
   // write aip
-  if (!options.pools.some((pool) => isWhitelabelPool(pool))) {
+  if (!options.markets.some((market) => isWhitelabelMarket(market))) {
     await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);
   }
   // write scripts
@@ -136,15 +146,15 @@ export async function writeFiles(options: Options, {jsonConfig, scripts, aip, pa
     );
   }
 
-  for (const {pool, payload, test, contractName} of payloads) {
+  for (const {market, payload, test, contractName} of payloads) {
     await askBeforeWrite(
       options,
-      path.join(pool === 'AaveV3ZkSync' ? zkSyncBaseFolder : baseFolder, `${contractName}.sol`),
+      path.join(market === 'AaveV3ZkSync' ? zkSyncBaseFolder : baseFolder, `${contractName}.sol`),
       payload,
     );
     await askBeforeWrite(
       options,
-      path.join(pool === 'AaveV3ZkSync' ? zkSyncBaseFolder : baseFolder, `${contractName}.t.sol`),
+      path.join(market === 'AaveV3ZkSync' ? zkSyncBaseFolder : baseFolder, `${contractName}.t.sol`),
       test,
     );
   }

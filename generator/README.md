@@ -7,12 +7,12 @@
 npm install
 
 # Run the generator
-npm run generate
+pnpm generate
 ```
 
 The generator will interactively prompt for:
 
-1. Target chains (select from multiple networks)
+1. Target markets (select from multiple networks)
 2. Proposal metadata (title, author, forum/snapshot links)
 3. Features to implement (caps, rates, listing, etc.)
 4. Parameters for each feature
@@ -22,10 +22,10 @@ The generator will interactively prompt for:
 ## Command-Line Options
 
 ```bash
-npm run generate -- [options]
+pnpm generate -- [options]
 
 Options:
-  -p, --pools <pools...>           Target chains (AaveV3Ethereum, AaveV3Arbitrum, etc.)
+  -p, --markets <markets...>       Target markets (AaveV3Ethereum, AaveV3Arbitrum, etc.)
   -t, --title <string>             Short proposal title (used in contract names)
   -a, --author <string>            Proposal author
   -d, --discussion <string>        Governance forum link
@@ -40,17 +40,17 @@ Options:
 **Example**:
 
 ```bash
-npm run generate -- \
-  --pools AaveV3Ethereum AaveV3Arbitrum \
+pnpm generate -- \
+  --markets AaveV3Ethereum AaveV3Arbitrum \
   --title "Increase WETH Supply Cap" \
   --author "Risk DAO"
 ```
 
 ## Interactive Mode
 
-After running `npm run generate`, an interactive mode will be opened. Select required options from the list in 3 following steps: chain selection, metadata entry, and feature selection.
+After running `pnpm generate`, an interactive mode will be opened. Select required options from the list in 3 following steps: market selection, metadata entry, and feature selection.
 
-**Note**: Cannot mix whitelabel pools with regular pools (step 1).
+**Note**: Cannot mix whitelabel markets with regular markets (step 1).
 
 ## Feature Modules
 
@@ -83,15 +83,15 @@ You must manually implement the logic.
 ## Generated File Structure
 
 ```
-src/YYYYMMDD_<Chain>_<Title>/
-├── <Chain>_<Title>_YYYYMMDD.sol        # Payload contract
-├── <Chain>_<Title>_YYYYMMDD.t.sol      # Tests
+src/YYYYMMDD_<Market>_<Title>/
+├── <Market>_<Title>_YYYYMMDD.sol       # Payload contract
+├── <Market>_<Title>_YYYYMMDD.t.sol     # Tests
 ├── <Title>_YYYYMMDD.s.sol              # Deployment script
 ├── <Title>.md                          # AIP documentation
 └── config.ts                           # Config file for reproducibility
 ```
 
-**Naming**: Date (YYYYMMDD) + Chain (AaveV3Arbitrum) + PascalCase title
+**Naming**: Date (YYYYMMDD) + Market (AaveV3Arbitrum) + PascalCase title
 
 ## Config File Mode
 
@@ -101,10 +101,10 @@ The generator automatically creates a `config.ts` file in each proposal director
 
 ```bash
 # Use existing config to regenerate files
-npm run generate -- -c src/YYYYMMDD_Chain_Title/config.ts
+pnpm generate -- -c src/YYYYMMDD_Chain_Title/config.ts
 
 # Update block numbers for fresh fork tests
-npm run generate -- -c src/YYYYMMDD_Chain_Title/config.ts --update
+pnpm generate -- -c src/YYYYMMDD_Chain_Title/config.ts --update
 ```
 
 ## Related Documentation

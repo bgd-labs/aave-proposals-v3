@@ -9,11 +9,11 @@ import {
 export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
   value: FEATURE.FREEZE,
   description: 'Freeze/Unfreeze a reserve',
-  async cli({pool}) {
+  async cli({market}) {
     const response: FreezeUpdate[] = [];
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to change',
-      pool,
+      market,
     });
     for (const asset of assets) {
       console.log(`collecting info for ${asset}`);
@@ -24,14 +24,14 @@ export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         execute: cfg.map(
           (cfg) =>
-            `${pool}.POOL_CONFIGURATOR.setReserveFreeze(${translateAssetToAssetLibUnderlying(
+            `${market}.POOL_CONFIGURATOR.setReserveFreeze(${translateAssetToAssetLibUnderlying(
               cfg.asset,
-              pool,
+              market,
             )}, ${cfg.shouldBeFrozen});`,
         ),
       },

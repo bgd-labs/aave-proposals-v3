@@ -1,8 +1,14 @@
 import {Options} from '../../types';
-import {EModeCategoryUpdate, Listing, PriceFeedUpdate, RateStrategyUpdate} from '../types';
+import {
+  EModeCategoryCreation,
+  EModeCategoryUpdate,
+  Listing,
+  PriceFeedUpdate,
+  RateStrategyUpdate,
+} from '../types';
 
 export const MOCK_OPTIONS: Options = {
-  pools: ['AaveV3Ethereum'],
+  markets: ['AaveV3Ethereum'],
   title: 'test',
   shortName: 'Test',
   date: '20231023',
@@ -19,13 +25,9 @@ export const assetListingConfig: Listing[] = [
     ltv: '40',
     liqThreshold: '50',
     liqBonus: '5',
-    debtCeiling: '100000',
     liqProtocolFee: '20',
     enabledToBorrow: 'ENABLED',
     flashloanable: 'ENABLED',
-    stableRateModeEnabled: 'DISABLED',
-    borrowableInIsolation: 'DISABLED',
-    withSiloedBorrowing: 'DISABLED',
     reserveFactor: '20',
     supplyCap: '10000',
     borrowCap: '5000',
@@ -45,6 +47,45 @@ export const assetListingConfig: Listing[] = [
   },
 ];
 
+// listing of a PT-style collateral-only (base LTV 0) asset, paired with an isolated e-mode.
+// assetSymbol is already sanitized (the dash in the on-chain symbol is captured as `_` at cli time).
+export const ptListingConfig: Listing[] = [
+  {
+    assetSymbol: 'PT_sUSDe_TEST',
+    decimals: 18,
+    priceFeed: '0x9c823f4e19Ef68347810a9C139619273b8282b7e',
+    ltv: '0',
+    liqThreshold: '0',
+    liqBonus: '0',
+    liqProtocolFee: '10',
+    enabledToBorrow: 'DISABLED',
+    flashloanable: 'DISABLED',
+    reserveFactor: '45',
+    supplyCap: '150000000',
+    borrowCap: '1',
+    rateStrategyParams: {
+      optimalUtilizationRate: '45',
+      baseVariableBorrowRate: '0',
+      variableRateSlope1: '10',
+      variableRateSlope2: '300',
+    },
+    eModeCategory: 'AaveV3EthereumEModes.NONE',
+    asset: '0xf7fB83435F455Bd970F2D9f943f4eECE1941b3e9',
+  },
+];
+
+export const emodeCreations: EModeCategoryCreation[] = [
+  {
+    ltv: '87.71',
+    liqThreshold: '89.71',
+    liqBonus: '4.87',
+    label: 'PT_sUSDe_TEST__Stablecoins',
+    isolated: 'ENABLED',
+    collateralAssets: ['PT_sUSDe_TEST', 'sUSDe'],
+    borrowableAssets: ['USDC', 'USDT', 'GHO'],
+  },
+];
+
 export const priceFeedsUpdateConfig: PriceFeedUpdate[] = [
   {
     asset: 'DAI',
@@ -55,19 +96,19 @@ export const priceFeedsUpdateConfig: PriceFeedUpdate[] = [
 export const emodeUpdates: EModeCategoryUpdate[] = [
   {
     eModeCategory: 2,
-    ltv: '20_00',
-    liqThreshold: '30_00',
-    liqBonus: '5_00',
-    priceSource: '0x0000000000000000000000000000000000000000',
+    ltv: '20',
+    liqThreshold: '30',
+    liqBonus: '5',
     label: 'label',
+    isolated: 'ENABLED',
   },
   {
     eModeCategory: 'AaveV3EthereumEModes.ETH_CORRELATED',
-    ltv: 'EngineFlags.KEEP_CURRENT',
-    liqThreshold: '50_00',
-    liqBonus: 'EngineFlags.KEEP_CURRENT',
-    priceSource: '',
+    ltv: '',
+    liqThreshold: '50',
+    liqBonus: '',
     label: '',
+    isolated: 'KEEP_CURRENT',
   },
 ];
 

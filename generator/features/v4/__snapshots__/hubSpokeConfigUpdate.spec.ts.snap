@@ -1,0 +1,267 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`feature: v4 hubSpokeConfigUpdate > should properly generate files 1`] = `
+{
+  "aip": "---
+title: "V4 hub spoke config update test"
+author: "test"
+discussions: "test"
+snapshot: "test"
+---
+
+## Simple Summary
+
+## Motivation
+
+## Specification
+
+## References
+
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.t.sol)
+- [Snapshot](test)
+- [Discussion](test)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+",
+  "jsonConfig": "import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    markets: ['AaveV4Ethereum'],
+    title: 'V4 hub spoke config update test',
+    shortName: 'V4HubSpokeConfigUpdateTest',
+    date: '20260521',
+    author: 'test',
+    discussion: 'test',
+    snapshot: 'test',
+  },
+  marketOptions: {
+    AaveV4Ethereum: {
+      configs: {
+        V4_HUB_SPOKE_CONFIG_UPDATE: [
+          {
+            hubLib: 'AaveV4EthereumHubs.CORE_HUB',
+            hub: 'AaveV4EthereumHubs.CORE_HUB',
+            underlying: 'AaveV4EthereumAssets.WETH_UNDERLYING',
+            spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+            addCap: {kind: 'literal', value: '1_000_000'},
+            drawCap: {kind: 'literal', value: '500_000'},
+            riskPremiumThreshold: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            active: {kind: 'keepCurrent', sentinel: 'ENABLED'},
+            halted: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+          },
+        ],
+      },
+      cache: {blockNumber: 42},
+    },
+  },
+};
+",
+  "payloads": [
+    {
+      "contractName": "AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521",
+      "market": "AaveV4Ethereum",
+      "payload": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
+import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
+
+/**
+ * @title V4 hub spoke config update test
+ * @author test
+ * - Snapshot: test
+ * - Discussion: test
+ */
+contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521 is AaveV4PayloadEthereum {
+  function hubSpokeConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.SpokeConfigUpdate[] memory)
+  {
+    IConfigEngine.SpokeConfigUpdate[] memory items = new IConfigEngine.SpokeConfigUpdate[](1);
+    items[0] = IConfigEngine.SpokeConfigUpdate({
+      hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      addCap: 1_000_000,
+      drawCap: 500_000,
+      riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
+      active: EngineFlags.ENABLED,
+      halted: EngineFlags.KEEP_CURRENT
+    });
+    return items;
+  }
+}
+",
+      "test": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
+import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
+
+import 'forge-std/Test.sol';
+import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
+import {AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521} from './AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.sol';
+
+/**
+ * @dev Test for AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.t.sol -vv
+ */
+contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521_Test is ProtocolV4TestBase {
+  AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 42);
+    proposal = new AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521();
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521', address(proposal));
+  }
+
+  function test_hubSpokeConfigUpdate_CORE_HUB_MAIN_SPOKE_WETH() public {
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    IHub.SpokeConfig memory before = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    assertEq(uint256(cfg.addCap), uint256(1_000_000), 'addCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(500_000), 'drawCap mismatch');
+    assertEq(
+      uint256(cfg.riskPremiumThreshold),
+      uint256(before.riskPremiumThreshold),
+      'riskPremiumThreshold unchanged'
+    );
+    assertTrue(cfg.active, 'active should be true');
+    assertEq(cfg.halted, before.halted, 'halted unchanged');
+  }
+}
+",
+    },
+  ],
+  "scripts": {
+    "defaultScript": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+
+import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521} from './AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.sol';
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/V4HubSpokeConfigUpdateTest_20260521.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/V4HubSpokeConfigUpdateTest_20260521.s.sol/1/run-latest.json
+ */
+contract DeployEthereum is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Create Proposal
+ * command: make deploy-ledger contract=src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/V4HubSpokeConfigUpdateTest_20260521.s.sol:CreateProposal chain=mainnet
+ */
+contract CreateProposal is EthereumScript {
+  function run() external {
+    // create payloads
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+
+    // compose actions for validation
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum[0] = GovV3Helpers.buildAction(
+        type(AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521).creationCode
+      );
+      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+    }
+
+    // create proposal
+    vm.startBroadcast();
+    GovV3Helpers.createProposal(
+      vm,
+      payloads,
+      GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
+      GovV3Helpers.ipfsHashFile(
+        vm,
+        'src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/V4HubSpokeConfigUpdateTest.md'
+      )
+    );
+  }
+}
+",
+  },
+}
+`;
+
+exports[`feature: v4 hubSpokeConfigUpdate > should return reasonable code 1`] = `
+{
+  "code": {
+    "v4Getters": {
+      "hubSpokeConfigUpdates": {
+        "entries": [
+          "items[__INDEX__] = IConfigEngine.SpokeConfigUpdate({
+        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hub: address(AaveV4EthereumHubs.CORE_HUB),
+        underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+        spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+        addCap: 1_000_000,
+        drawCap: 500_000,
+        riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
+        active: EngineFlags.ENABLED,
+        halted: EngineFlags.KEEP_CURRENT
+      });",
+        ],
+        "returnType": "IConfigEngine.SpokeConfigUpdate",
+      },
+    },
+  },
+  "test": {
+    "fn": [
+      "function test_hubSpokeConfigUpdate_CORE_HUB_MAIN_SPOKE_WETH() public {
+        IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+        uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+        IHub.SpokeConfig memory before = hub.getSpokeConfig(assetId, address(AaveV4EthereumSpokes.MAIN_SPOKE));
+        GovV3Helpers.executePayload(vm, address(proposal));
+        IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(AaveV4EthereumSpokes.MAIN_SPOKE));
+        assertEq(uint256(cfg.addCap), uint256(1_000_000), 'addCap mismatch');
+        assertEq(uint256(cfg.drawCap), uint256(500_000), 'drawCap mismatch');
+        assertEq(uint256(cfg.riskPremiumThreshold), uint256(before.riskPremiumThreshold), 'riskPremiumThreshold unchanged');
+        assertTrue(cfg.active, 'active should be true');
+        assertEq(cfg.halted, before.halted, 'halted unchanged');
+      }",
+    ],
+  },
+}
+`;

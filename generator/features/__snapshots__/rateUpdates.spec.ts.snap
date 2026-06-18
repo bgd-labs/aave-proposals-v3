@@ -29,7 +29,7 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
   "jsonConfig": "import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: ['AaveV2EthereumAMM'],
+    markets: ['AaveV2EthereumAMM'],
     title: 'test',
     shortName: 'Test',
     date: '20231023',
@@ -37,7 +37,7 @@ export const config: ConfigFile = {
     discussion: 'test',
     snapshot: 'test',
   },
-  poolOptions: {
+  marketOptions: {
     AaveV2EthereumAMM: {
       configs: {
         RATE_UPDATE_V2: [
@@ -106,6 +106,7 @@ export const config: ConfigFile = {
   "payloads": [
     {
       "contractName": "AaveV2EthereumAMM_Test_20231023",
+      "market": "AaveV2EthereumAMM",
       "payload": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -190,7 +191,6 @@ contract AaveV2EthereumAMM_Test_20231023 is AaveV2PayloadEthereumAMM {
   }
 }
 ",
-      "pool": "AaveV2EthereumAMM",
       "test": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 

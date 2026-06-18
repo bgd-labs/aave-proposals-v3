@@ -1,0 +1,913 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`feature: v4 use-cases smoke test > builds a payload exercising every use-case bundle 1`] = `
+{
+  "aip": "---
+title: "V4 every use-case"
+author: "test"
+discussions: "test"
+snapshot: "test"
+---
+
+## Simple Summary
+
+## Motivation
+
+## Specification
+
+## References
+
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260521_AaveV4Ethereum_V4EveryUseCase/AaveV4Ethereum_V4EveryUseCase_20260521.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260521_AaveV4Ethereum_V4EveryUseCase/AaveV4Ethereum_V4EveryUseCase_20260521.t.sol)
+- [Snapshot](test)
+- [Discussion](test)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+",
+  "jsonConfig": "import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    markets: ['AaveV4Ethereum'],
+    title: 'V4 every use-case',
+    shortName: 'V4EveryUseCase',
+    date: '20260521',
+    author: 'test',
+    discussion: 'test',
+    snapshot: 'test',
+  },
+  marketOptions: {
+    AaveV4Ethereum: {
+      configs: {
+        V4_USECASE_ONBOARD_ASSET_TO_HUB: {
+          listings: [
+            {
+              hubLib: 'AaveV4EthereumHubs.CORE_HUB',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              underlying: 'AaveV4EthereumAssets.WETH_UNDERLYING',
+              feeReceiver: '0x2222222222222222222222222222222222222222',
+              liquidityFee: '100',
+              irStrategy: '0x2222222222222222222222222222222222222222',
+              irData: {
+                optimalUsageRatio: {kind: 'literal', value: '8000'},
+                baseDrawnRate: {kind: 'literal', value: '0'},
+                rateGrowthBeforeOptimal: {kind: 'literal', value: '400'},
+                rateGrowthAfterOptimal: {kind: 'literal', value: '6000'},
+              },
+            },
+          ],
+          spokeAdditions: [
+            {
+              hubLib: 'AaveV4EthereumHubs.CORE_HUB',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              assets: [
+                {
+                  underlying: 'AaveV4EthereumAssets.WETH_UNDERLYING',
+                  addCap: '1000',
+                  drawCap: '500',
+                  riskPremiumThreshold: '100',
+                  active: true,
+                  halted: false,
+                },
+              ],
+            },
+          ],
+        },
+        V4_USECASE_ONBOARD_RESERVE_TO_SPOKE: {
+          hubAssetListings: [
+            {
+              hubLib: 'AaveV4EthereumHubs.CORE_HUB',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              underlying: 'AaveV4EthereumAssets.USDC_UNDERLYING',
+              feeReceiver: '0x2222222222222222222222222222222222222222',
+              liquidityFee: '100',
+              irStrategy: '0x2222222222222222222222222222222222222222',
+              irData: {
+                optimalUsageRatio: {kind: 'literal', value: '8000'},
+                baseDrawnRate: {kind: 'literal', value: '0'},
+                rateGrowthBeforeOptimal: {kind: 'literal', value: '400'},
+                rateGrowthAfterOptimal: {kind: 'literal', value: '6000'},
+              },
+            },
+          ],
+          listings: [
+            {
+              spokeLib: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              underlying: 'AaveV4EthereumAssets.USDC_UNDERLYING',
+              priceSource: '0x2222222222222222222222222222222222222222',
+              config: {
+                collateralRisk: '0',
+                paused: false,
+                frozen: false,
+                borrowable: true,
+                receiveSharesEnabled: true,
+              },
+              dynamicConfig: {
+                collateralFactor: '8000',
+                maxLiquidationBonus: '500',
+                liquidationFee: '100',
+              },
+            },
+          ],
+          updates: [],
+          liquidationUpdates: [],
+          hubSpokeAdditions: [
+            {
+              hubLib: 'AaveV4EthereumHubs.CORE_HUB',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              assets: [
+                {
+                  underlying: 'AaveV4EthereumAssets.USDC_UNDERLYING',
+                  addCap: '1000',
+                  drawCap: '500',
+                  riskPremiumThreshold: '100',
+                  active: true,
+                  halted: false,
+                },
+              ],
+            },
+          ],
+          pmUpdates: [],
+        },
+        V4_USECASE_TUNE_SPOKE_RISK: [
+          {
+            hubLib: 'AaveV4EthereumHubs.CORE_HUB',
+            hub: 'AaveV4EthereumHubs.CORE_HUB',
+            underlying: 'AaveV4EthereumAssets.WETH_UNDERLYING',
+            spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+            addCap: {kind: 'literal', value: '1_000_000'},
+            drawCap: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            riskPremiumThreshold: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            active: {kind: 'keepCurrent', sentinel: 'ENABLED'},
+            halted: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+          },
+        ],
+        V4_USECASE_TUNE_RESERVE_RISK: {
+          reserveUpdates: [
+            {
+              spokeLib: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              underlying: 'AaveV4EthereumAssets.WETH_UNDERLYING',
+              priceSource: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+              collateralRisk: {kind: 'literal', value: '7000'},
+              paused: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+              frozen: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+              borrowable: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+              receiveSharesEnabled: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            },
+          ],
+          liquidationUpdates: [
+            {
+              spokeLib: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              targetHealthFactor: {kind: 'literal', value: '1_500_000_000_000_000_000'},
+              healthFactorForMaxBonus: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+              liquidationBonusFactor: {kind: 'literal', value: '500'},
+            },
+          ],
+          dynamicUpdates: [
+            {
+              spokeLib: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              hub: 'AaveV4EthereumHubs.CORE_HUB',
+              underlying: 'AaveV4EthereumAssets.WETH_UNDERLYING',
+              dynamicConfigKey: '1',
+              collateralFactor: {kind: 'literal', value: '7700'},
+              maxLiquidationBonus: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+              liquidationFee: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            },
+          ],
+        },
+        V4_USECASE_WIRE_POSITION_MANAGER: {
+          targetFunctionRoles: [
+            {
+              target: '0x1111111111111111111111111111111111111111',
+              selectors: ['0x12345678'],
+              roleId: '1',
+            },
+          ],
+          spokeActivations: [
+            {
+              spokeLib: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              positionManager: '0x1111111111111111111111111111111111111111',
+              active: true,
+            },
+          ],
+          pmRegistrations: [
+            {
+              positionManager: '0x1111111111111111111111111111111111111111',
+              spoke: 'AaveV4EthereumSpokes.MAIN_SPOKE',
+              registered: true,
+            },
+          ],
+        },
+        V4_USECASE_MANAGE_ROLE: {
+          memberships: [
+            {
+              roleId: '1',
+              account: '0x2222222222222222222222222222222222222222',
+              granted: true,
+              executionDelay: '0',
+            },
+          ],
+          updates: [
+            {
+              roleId: '1',
+              admin: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT64'},
+              guardian: {kind: 'literal', value: '2'},
+              grantDelay: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT32'},
+              label: 'admin',
+            },
+          ],
+        },
+      },
+      cache: {blockNumber: 42},
+    },
+  },
+};
+",
+  "payloads": [
+    {
+      "contractName": "AaveV4Ethereum_V4EveryUseCase_20260521",
+      "market": "AaveV4Ethereum",
+      "payload": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
+import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
+import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
+import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
+import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+
+/**
+ * @title V4 every use-case
+ * @author test
+ * - Snapshot: test
+ * - Discussion: test
+ */
+contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
+  // https://etherscan.io/address/0x2222222222222222222222222222222222222222
+  address public constant CORE_HUB_WETH_FEE_RECEIVER = 0x2222222222222222222222222222222222222222;
+  // https://etherscan.io/address/0x2222222222222222222222222222222222222222
+  address public constant CORE_HUB_WETH_IR_STRATEGY = 0x2222222222222222222222222222222222222222;
+  // https://etherscan.io/address/0x2222222222222222222222222222222222222222
+  address public constant CORE_HUB_USDC_FEE_RECEIVER = 0x2222222222222222222222222222222222222222;
+  // https://etherscan.io/address/0x2222222222222222222222222222222222222222
+  address public constant CORE_HUB_USDC_IR_STRATEGY = 0x2222222222222222222222222222222222222222;
+  // https://etherscan.io/address/0x2222222222222222222222222222222222222222
+  address public constant MAIN_SPOKE_USDC_PRICE_FEED = 0x2222222222222222222222222222222222222222;
+  // https://etherscan.io/address/0x1111111111111111111111111111111111111111
+  address public constant ROLE_1_TARGET_0 = 0x1111111111111111111111111111111111111111;
+  // https://etherscan.io/address/0x2222222222222222222222222222222222222222
+  address public constant ROLE_1_ACCOUNT_0 = 0x2222222222222222222222222222222222222222;
+
+  function hubAssetListings() public pure override returns (IConfigEngine.AssetListing[] memory) {
+    IConfigEngine.AssetListing[] memory items = new IConfigEngine.AssetListing[](2);
+    items[0] = IConfigEngine.AssetListing({
+      hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+      feeReceiver: CORE_HUB_WETH_FEE_RECEIVER,
+      liquidityFee: 100,
+      irStrategy: CORE_HUB_WETH_IR_STRATEGY,
+      irData: IAssetInterestRateStrategy.InterestRateData({
+        optimalUsageRatio: uint16(8000),
+        baseDrawnRate: uint32(0),
+        rateGrowthBeforeOptimal: uint32(400),
+        rateGrowthAfterOptimal: uint32(6000)
+      }),
+      tokenization: IConfigEngine.TokenizationSpokeConfig({addCap: 0, name: '', symbol: ''})
+    });
+    items[1] = IConfigEngine.AssetListing({
+      hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.USDC_UNDERLYING,
+      feeReceiver: CORE_HUB_USDC_FEE_RECEIVER,
+      liquidityFee: 100,
+      irStrategy: CORE_HUB_USDC_IR_STRATEGY,
+      irData: IAssetInterestRateStrategy.InterestRateData({
+        optimalUsageRatio: uint16(8000),
+        baseDrawnRate: uint32(0),
+        rateGrowthBeforeOptimal: uint32(400),
+        rateGrowthAfterOptimal: uint32(6000)
+      }),
+      tokenization: IConfigEngine.TokenizationSpokeConfig({addCap: 0, name: '', symbol: ''})
+    });
+    return items;
+  }
+  function hubSpokeToAssetsAdditions()
+    public
+    pure
+    override
+    returns (IConfigEngine.SpokeToAssetsAddition[] memory)
+  {
+    IConfigEngine.SpokeToAssetsAddition[] memory items = new IConfigEngine.SpokeToAssetsAddition[](
+      2
+    );
+    {
+      IConfigEngine.SpokeAssetConfig[] memory subAssets = new IConfigEngine.SpokeAssetConfig[](1);
+      subAssets[0] = IConfigEngine.SpokeAssetConfig({
+        underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+        config: IHub.SpokeConfig({
+          addCap: 1000,
+          drawCap: 500,
+          riskPremiumThreshold: 100,
+          active: true,
+          halted: false
+        })
+      });
+      items[0] = IConfigEngine.SpokeToAssetsAddition({
+        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hub: address(AaveV4EthereumHubs.CORE_HUB),
+        spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+        assets: subAssets
+      });
+    }
+    {
+      IConfigEngine.SpokeAssetConfig[] memory subAssets = new IConfigEngine.SpokeAssetConfig[](1);
+      subAssets[0] = IConfigEngine.SpokeAssetConfig({
+        underlying: AaveV4EthereumAssets.USDC_UNDERLYING,
+        config: IHub.SpokeConfig({
+          addCap: 1000,
+          drawCap: 500,
+          riskPremiumThreshold: 100,
+          active: true,
+          halted: false
+        })
+      });
+      items[1] = IConfigEngine.SpokeToAssetsAddition({
+        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+        hub: address(AaveV4EthereumHubs.CORE_HUB),
+        spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+        assets: subAssets
+      });
+    }
+    return items;
+  }
+  function spokeReserveListings()
+    public
+    pure
+    override
+    returns (IConfigEngine.ReserveListing[] memory)
+  {
+    IConfigEngine.ReserveListing[] memory items = new IConfigEngine.ReserveListing[](1);
+    items[0] = IConfigEngine.ReserveListing({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.USDC_UNDERLYING,
+      priceSource: MAIN_SPOKE_USDC_PRICE_FEED,
+      config: ISpoke.ReserveConfig({
+        collateralRisk: uint24(0),
+        paused: false,
+        frozen: false,
+        borrowable: true,
+        receiveSharesEnabled: true
+      }),
+      dynamicConfig: ISpoke.DynamicReserveConfig({
+        collateralFactor: uint16(8000),
+        maxLiquidationBonus: uint32(500),
+        liquidationFee: uint16(100)
+      })
+    });
+    return items;
+  }
+  function hubSpokeConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.SpokeConfigUpdate[] memory)
+  {
+    IConfigEngine.SpokeConfigUpdate[] memory items = new IConfigEngine.SpokeConfigUpdate[](1);
+    items[0] = IConfigEngine.SpokeConfigUpdate({
+      hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      addCap: 1_000_000,
+      drawCap: EngineFlags.KEEP_CURRENT,
+      riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
+      active: EngineFlags.ENABLED,
+      halted: EngineFlags.KEEP_CURRENT
+    });
+    return items;
+  }
+  function spokeReserveConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.ReserveConfigUpdate[] memory)
+  {
+    IConfigEngine.ReserveConfigUpdate[] memory items = new IConfigEngine.ReserveConfigUpdate[](1);
+    items[0] = IConfigEngine.ReserveConfigUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+      priceSource: EngineFlags.KEEP_CURRENT_ADDRESS,
+      collateralRisk: 7000,
+      paused: EngineFlags.KEEP_CURRENT,
+      frozen: EngineFlags.KEEP_CURRENT,
+      borrowable: EngineFlags.KEEP_CURRENT,
+      receiveSharesEnabled: EngineFlags.KEEP_CURRENT
+    });
+    return items;
+  }
+  function spokeLiquidationConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.LiquidationConfigUpdate[] memory)
+  {
+    IConfigEngine.LiquidationConfigUpdate[]
+      memory items = new IConfigEngine.LiquidationConfigUpdate[](1);
+    items[0] = IConfigEngine.LiquidationConfigUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      targetHealthFactor: 1_500_000_000_000_000_000,
+      healthFactorForMaxBonus: EngineFlags.KEEP_CURRENT,
+      liquidationBonusFactor: 500
+    });
+    return items;
+  }
+  function spokeDynamicReserveConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.DynamicReserveConfigUpdate[] memory)
+  {
+    IConfigEngine.DynamicReserveConfigUpdate[]
+      memory items = new IConfigEngine.DynamicReserveConfigUpdate[](1);
+    items[0] = IConfigEngine.DynamicReserveConfigUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.WETH_UNDERLYING,
+      dynamicConfigKey: 1,
+      collateralFactor: 7700,
+      maxLiquidationBonus: EngineFlags.KEEP_CURRENT,
+      liquidationFee: EngineFlags.KEEP_CURRENT
+    });
+    return items;
+  }
+  function accessManagerTargetFunctionRoleUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.TargetFunctionRoleUpdate[] memory)
+  {
+    IConfigEngine.TargetFunctionRoleUpdate[]
+      memory items = new IConfigEngine.TargetFunctionRoleUpdate[](1);
+    {
+      bytes4[] memory selectors = new bytes4[](1);
+      selectors[0] = bytes4(0x12345678);
+      items[0] = IConfigEngine.TargetFunctionRoleUpdate({
+        authority: address(AaveV4Ethereum.ACCESS_MANAGER),
+        target: ROLE_1_TARGET_0,
+        selectors: selectors,
+        roleId: 1
+      });
+    }
+    return items;
+  }
+  function spokePositionManagerUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.PositionManagerUpdate[] memory)
+  {
+    IConfigEngine.PositionManagerUpdate[] memory items = new IConfigEngine.PositionManagerUpdate[](
+      1
+    );
+    items[0] = IConfigEngine.PositionManagerUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      positionManager: address(0x1111111111111111111111111111111111111111),
+      active: true
+    });
+    return items;
+  }
+  function positionManagerSpokeRegistrations()
+    public
+    pure
+    override
+    returns (IConfigEngine.SpokeRegistration[] memory)
+  {
+    IConfigEngine.SpokeRegistration[] memory items = new IConfigEngine.SpokeRegistration[](1);
+    items[0] = IConfigEngine.SpokeRegistration({
+      positionManager: address(0x1111111111111111111111111111111111111111),
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      registered: true
+    });
+    return items;
+  }
+  function accessManagerRoleMemberships()
+    public
+    pure
+    override
+    returns (IConfigEngine.RoleMembership[] memory)
+  {
+    IConfigEngine.RoleMembership[] memory items = new IConfigEngine.RoleMembership[](1);
+    items[0] = IConfigEngine.RoleMembership({
+      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
+      roleId: 1,
+      account: ROLE_1_ACCOUNT_0,
+      granted: true,
+      executionDelay: 0
+    });
+    return items;
+  }
+  function accessManagerRoleUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.RoleUpdate[] memory)
+  {
+    IConfigEngine.RoleUpdate[] memory items = new IConfigEngine.RoleUpdate[](1);
+    items[0] = IConfigEngine.RoleUpdate({
+      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
+      roleId: 1,
+      admin: EngineFlags.KEEP_CURRENT_UINT64,
+      guardian: 2,
+      grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
+      label: 'admin'
+    });
+    return items;
+  }
+}
+",
+      "test": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4Ethereum} from 'aave-address-book/AaveV4Ethereum.sol';
+import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
+import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
+import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
+import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';
+import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
+
+import 'forge-std/Test.sol';
+import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
+import {AaveV4Ethereum_V4EveryUseCase_20260521} from './AaveV4Ethereum_V4EveryUseCase_20260521.sol';
+
+/**
+ * @dev Test for AaveV4Ethereum_V4EveryUseCase_20260521
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260521_AaveV4Ethereum_V4EveryUseCase/AaveV4Ethereum_V4EveryUseCase_20260521.t.sol -vv
+ */
+contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBase {
+  AaveV4Ethereum_V4EveryUseCase_20260521 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 42);
+    proposal = new AaveV4Ethereum_V4EveryUseCase_20260521();
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV4Ethereum_V4EveryUseCase_20260521', address(proposal));
+  }
+
+  function test_hubAssetListing_CORE_HUB_WETH() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    assertTrue(hub.isUnderlyingListed(AaveV4EthereumAssets.WETH_UNDERLYING), 'asset not listed');
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    IHub.Asset memory asset = hub.getAsset(assetId);
+    IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
+    assertEq(asset.underlying, AaveV4EthereumAssets.WETH_UNDERLYING, 'underlying mismatch');
+    assertEq(
+      uint256(asset.decimals),
+      IERC20Metadata(AaveV4EthereumAssets.WETH_UNDERLYING).decimals(),
+      'decimals mismatch'
+    );
+    assertEq(cfg.feeReceiver, proposal.CORE_HUB_WETH_FEE_RECEIVER(), 'feeReceiver mismatch');
+    assertEq(cfg.irStrategy, proposal.CORE_HUB_WETH_IR_STRATEGY(), 'irStrategy mismatch');
+    assertEq(uint256(cfg.liquidityFee), uint256(100), 'liquidityFee mismatch');
+    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
+      cfg.irStrategy
+    ).getInterestRateData(assetId);
+    assertEq(uint256(irData.optimalUsageRatio), uint256(8000), 'optimalUsageRatio mismatch');
+    assertEq(uint256(irData.baseDrawnRate), uint256(0), 'baseDrawnRate mismatch');
+    assertEq(
+      uint256(irData.rateGrowthBeforeOptimal),
+      uint256(400),
+      'rateGrowthBeforeOptimal mismatch'
+    );
+    assertEq(
+      uint256(irData.rateGrowthAfterOptimal),
+      uint256(6000),
+      'rateGrowthAfterOptimal mismatch'
+    );
+  }
+  function test_hubSpokeToAssetsAddition_CORE_HUB_MAIN_SPOKE_WETH() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    assertTrue(
+      hub.isSpokeListed(assetId, address(AaveV4EthereumSpokes.MAIN_SPOKE)),
+      'spoke not listed'
+    );
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    assertEq(uint256(cfg.addCap), uint256(1000), 'addCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(500), 'drawCap mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(100), 'riskPremiumThreshold mismatch');
+    assertEq(cfg.active, true, 'active mismatch');
+    assertEq(cfg.halted, false, 'halted mismatch');
+  }
+  function test_hubAssetListing_CORE_HUB_USDC() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    assertTrue(hub.isUnderlyingListed(AaveV4EthereumAssets.USDC_UNDERLYING), 'asset not listed');
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDC_UNDERLYING);
+    IHub.Asset memory asset = hub.getAsset(assetId);
+    IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
+    assertEq(asset.underlying, AaveV4EthereumAssets.USDC_UNDERLYING, 'underlying mismatch');
+    assertEq(
+      uint256(asset.decimals),
+      IERC20Metadata(AaveV4EthereumAssets.USDC_UNDERLYING).decimals(),
+      'decimals mismatch'
+    );
+    assertEq(cfg.feeReceiver, proposal.CORE_HUB_USDC_FEE_RECEIVER(), 'feeReceiver mismatch');
+    assertEq(cfg.irStrategy, proposal.CORE_HUB_USDC_IR_STRATEGY(), 'irStrategy mismatch');
+    assertEq(uint256(cfg.liquidityFee), uint256(100), 'liquidityFee mismatch');
+    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
+      cfg.irStrategy
+    ).getInterestRateData(assetId);
+    assertEq(uint256(irData.optimalUsageRatio), uint256(8000), 'optimalUsageRatio mismatch');
+    assertEq(uint256(irData.baseDrawnRate), uint256(0), 'baseDrawnRate mismatch');
+    assertEq(
+      uint256(irData.rateGrowthBeforeOptimal),
+      uint256(400),
+      'rateGrowthBeforeOptimal mismatch'
+    );
+    assertEq(
+      uint256(irData.rateGrowthAfterOptimal),
+      uint256(6000),
+      'rateGrowthAfterOptimal mismatch'
+    );
+  }
+  function test_spokeReserveListing_MAIN_SPOKE_USDC() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDC_UNDERLYING);
+    uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+    ISpoke.Reserve memory reserve = spoke.getReserve(reserveId);
+    ISpoke.ReserveConfig memory cfg = spoke.getReserveConfig(reserveId);
+    assertEq(reserve.underlying, AaveV4EthereumAssets.USDC_UNDERLYING, 'underlying mismatch');
+    assertEq(address(reserve.hub), address(hub), 'hub mismatch');
+    assertEq(uint256(reserve.assetId), assetId, 'assetId mismatch');
+    assertEq(
+      uint256(reserve.decimals),
+      IERC20Metadata(AaveV4EthereumAssets.USDC_UNDERLYING).decimals(),
+      'decimals mismatch'
+    );
+    assertEq(uint256(cfg.collateralRisk), uint256(0), 'collateralRisk mismatch');
+    assertEq(cfg.paused, false, 'paused mismatch');
+    assertEq(cfg.frozen, false, 'frozen mismatch');
+    assertEq(cfg.borrowable, true, 'borrowable mismatch');
+    assertEq(cfg.receiveSharesEnabled, true, 'receiveSharesEnabled mismatch');
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      reserve.dynamicConfigKey
+    );
+    assertEq(uint256(dyn.collateralFactor), uint256(8000), 'collateralFactor mismatch');
+    assertEq(uint256(dyn.maxLiquidationBonus), uint256(500), 'maxLiquidationBonus mismatch');
+    assertEq(uint256(dyn.liquidationFee), uint256(100), 'liquidationFee mismatch');
+  }
+  function test_hubSpokeToAssetsAddition_CORE_HUB_MAIN_SPOKE_USDC() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDC_UNDERLYING);
+    assertTrue(
+      hub.isSpokeListed(assetId, address(AaveV4EthereumSpokes.MAIN_SPOKE)),
+      'spoke not listed'
+    );
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    assertEq(uint256(cfg.addCap), uint256(1000), 'addCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(500), 'drawCap mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(100), 'riskPremiumThreshold mismatch');
+    assertEq(cfg.active, true, 'active mismatch');
+    assertEq(cfg.halted, false, 'halted mismatch');
+  }
+  function test_hubSpokeConfigUpdate_CORE_HUB_MAIN_SPOKE_WETH() public {
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    IHub.SpokeConfig memory before = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    );
+    assertEq(uint256(cfg.addCap), uint256(1_000_000), 'addCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(before.drawCap), 'drawCap unchanged');
+    assertEq(
+      uint256(cfg.riskPremiumThreshold),
+      uint256(before.riskPremiumThreshold),
+      'riskPremiumThreshold unchanged'
+    );
+    assertTrue(cfg.active, 'active should be true');
+    assertEq(cfg.halted, before.halted, 'halted unchanged');
+  }
+  function test_spokeReserveConfigUpdate_MAIN_SPOKE_WETH() public {
+    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+    ISpoke.ReserveConfig memory before = spoke.getReserveConfig(reserveId);
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke.ReserveConfig memory cfg = spoke.getReserveConfig(reserveId);
+    assertEq(uint256(cfg.collateralRisk), uint256(7000), 'collateralRisk mismatch');
+    assertEq(cfg.paused, before.paused, 'paused unchanged');
+    assertEq(cfg.frozen, before.frozen, 'frozen unchanged');
+    assertEq(cfg.borrowable, before.borrowable, 'borrowable unchanged');
+    assertEq(
+      cfg.receiveSharesEnabled,
+      before.receiveSharesEnabled,
+      'receiveSharesEnabled unchanged'
+    );
+  }
+  function test_spokeLiquidationConfigUpdate_MAIN_SPOKE() public {
+    ISpoke.LiquidationConfig memory before = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE))
+      .getLiquidationConfig();
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke.LiquidationConfig memory cfg = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE))
+      .getLiquidationConfig();
+    assertEq(
+      uint256(cfg.targetHealthFactor),
+      uint256(1_500_000_000_000_000_000),
+      'targetHealthFactor mismatch'
+    );
+    assertEq(
+      uint256(cfg.healthFactorForMaxBonus),
+      uint256(before.healthFactorForMaxBonus),
+      'healthFactorForMaxBonus unchanged'
+    );
+    assertEq(uint256(cfg.liquidationBonusFactor), uint256(500), 'liquidationBonusFactor mismatch');
+  }
+  function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_WETH_1() public {
+    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
+    uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+    ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      uint32(1)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(1));
+    assertEq(uint256(dyn.collateralFactor), uint256(7700), 'collateralFactor mismatch');
+    assertEq(
+      uint256(dyn.maxLiquidationBonus),
+      uint256(beforeDyn.maxLiquidationBonus),
+      'maxLiquidationBonus unchanged'
+    );
+    assertEq(
+      uint256(dyn.liquidationFee),
+      uint256(beforeDyn.liquidationFee),
+      'liquidationFee unchanged'
+    );
+  }
+  function test_accessManagerTargetFunctionRoleUpdate_1_0_0() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      uint256(
+        IAccessManager(address(AaveV4Ethereum.ACCESS_MANAGER)).getTargetFunctionRole(
+          proposal.ROLE_1_TARGET_0(),
+          bytes4(0x12345678)
+        )
+      ),
+      uint256(1),
+      'selector role mismatch'
+    );
+  }
+  function test_spokePositionManagerUpdate_MAIN_SPOKE_0x1111111111111111111111111111111111111111_0()
+    public
+  {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE)).isPositionManagerActive(
+        address(0x1111111111111111111111111111111111111111)
+      ),
+      true,
+      'positionManager active mismatch'
+    );
+  }
+  function test_positionManagerSpokeRegistration_0x1111111111111111111111111111111111111111_MAIN_SPOKE_0()
+    public
+  {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      IPositionManagerBase(address(0x1111111111111111111111111111111111111111)).isSpokeRegistered(
+        address(AaveV4EthereumSpokes.MAIN_SPOKE)
+      ),
+      true,
+      'spoke registration mismatch'
+    );
+  }
+  function test_accessManagerRoleMembership_1_0() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (bool isMember, uint32 executionDelay) = IAccessManager(address(AaveV4Ethereum.ACCESS_MANAGER))
+      .hasRole(uint64(1), proposal.ROLE_1_ACCOUNT_0());
+    assertTrue(isMember, 'account should have role');
+    assertEq(uint256(executionDelay), uint256(0), 'executionDelay mismatch');
+  }
+  function test_accessManagerRoleUpdate_1_0() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      uint256(IAccessManager(address(AaveV4Ethereum.ACCESS_MANAGER)).getRoleGuardian(uint64(1))),
+      uint256(2),
+      'guardian mismatch'
+    );
+  }
+}
+",
+    },
+  ],
+  "scripts": {
+    "defaultScript": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+
+import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {AaveV4Ethereum_V4EveryUseCase_20260521} from './AaveV4Ethereum_V4EveryUseCase_20260521.sol';
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20260521_AaveV4Ethereum_V4EveryUseCase/V4EveryUseCase_20260521.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/V4EveryUseCase_20260521.s.sol/1/run-latest.json
+ */
+contract DeployEthereum is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV4Ethereum_V4EveryUseCase_20260521).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Create Proposal
+ * command: make deploy-ledger contract=src/20260521_AaveV4Ethereum_V4EveryUseCase/V4EveryUseCase_20260521.s.sol:CreateProposal chain=mainnet
+ */
+contract CreateProposal is EthereumScript {
+  function run() external {
+    // create payloads
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+
+    // compose actions for validation
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum[0] = GovV3Helpers.buildAction(
+        type(AaveV4Ethereum_V4EveryUseCase_20260521).creationCode
+      );
+      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+    }
+
+    // create proposal
+    vm.startBroadcast();
+    GovV3Helpers.createProposal(
+      vm,
+      payloads,
+      GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
+      GovV3Helpers.ipfsHashFile(vm, 'src/20260521_AaveV4Ethereum_V4EveryUseCase/V4EveryUseCase.md')
+    );
+  }
+}
+",
+  },
+}
+`;

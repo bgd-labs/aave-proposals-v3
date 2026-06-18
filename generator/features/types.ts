@@ -2,6 +2,8 @@ import {Hex} from 'viem';
 import {NumberInputValues, PercentInputValues} from '../prompts';
 import {BooleanSelectValues} from '../prompts/boolPrompt';
 
+export type VotingNetwork = 'POLYGON' | 'ETHEREUM' | 'AVALANCHE';
+
 export interface AssetSelector {
   asset: string;
 }
@@ -22,8 +24,6 @@ export interface CapsUpdate extends CapsUpdatePartial, AssetSelector {}
 export interface BorrowUpdatePartial {
   enabledToBorrow: BooleanSelectValues;
   flashloanable: BooleanSelectValues;
-  borrowableInIsolation: BooleanSelectValues;
-  withSiloedBorrowing: BooleanSelectValues;
   reserveFactor: PercentInputValues;
 }
 
@@ -33,7 +33,6 @@ export interface CollateralUpdatePartial {
   ltv: PercentInputValues;
   liqThreshold: PercentInputValues;
   liqBonus: PercentInputValues;
-  debtCeiling: NumberInputValues;
   liqProtocolFee: PercentInputValues;
 }
 
@@ -64,11 +63,13 @@ export interface EModeCategoryPartial {
 export interface EModeCategoryUpdate extends EModeCategoryPartial {
   // library accessor or new id
   eModeCategory: string | number;
+  isolated: BooleanSelectValues;
 }
 
 export interface EModeCategoryCreation extends EModeCategoryPartial {
   borrowableAssets: string[];
   collateralAssets: string[];
+  isolated: Exclude<BooleanSelectValues, 'KEEP_CURRENT'>;
 }
 
 export interface RateStrategyParams {
@@ -117,4 +118,208 @@ export interface EmissionUpdate {
   asset: Hex;
   symbol: string;
   admin: Hex;
+}
+
+export type Sentinel =
+  | {kind: 'literal'; value: string | number | bigint | boolean}
+  | {
+      kind: 'keepCurrent';
+      sentinel:
+        | 'KEEP_CURRENT'
+        | 'KEEP_CURRENT_ADDRESS'
+        | 'KEEP_CURRENT_UINT64'
+        | 'KEEP_CURRENT_UINT32'
+        | 'KEEP_CURRENT_UINT16'
+        | 'ENABLED'
+        | 'DISABLED';
+    };
+
+export interface V4InterestRateData {
+  optimalUsageRatio: Sentinel;
+  baseDrawnRate: Sentinel;
+  rateGrowthBeforeOptimal: Sentinel;
+  rateGrowthAfterOptimal: Sentinel;
+}
+
+export interface V4TokenizationSpokeConfig {
+  addCap: string;
+  name: string;
+  symbol: string;
+}
+
+export interface V4HubAssetListing {
+  hubLib: string;
+  hub: string;
+  underlying: string;
+  feeReceiver: Hex;
+  liquidityFee: string;
+  irStrategy: Hex;
+  irData: V4InterestRateData;
+  tokenization?: V4TokenizationSpokeConfig;
+}
+
+export interface V4HubAssetConfigUpdate {
+  hubLib: string;
+  hub: string;
+  underlying: string;
+  liquidityFee: Sentinel;
+  feeReceiver: Sentinel;
+  irStrategy: Sentinel;
+  irData: V4InterestRateData;
+  reinvestmentController: Sentinel;
+}
+
+export interface V4SpokeConfigEntry {
+  underlying: string;
+  addCap: string;
+  drawCap: string;
+  riskPremiumThreshold: string;
+  active: boolean;
+  halted: boolean;
+}
+
+export interface V4HubSpokeToAssetsAddition {
+  hubLib: string;
+  hub: string;
+  spoke: string;
+  assets: V4SpokeConfigEntry[];
+}
+
+export interface V4HubSpokeConfigUpdate {
+  hubLib: string;
+  hub: string;
+  underlying: string;
+  spoke: string;
+  addCap: Sentinel;
+  drawCap: Sentinel;
+  riskPremiumThreshold: Sentinel;
+  active: Sentinel;
+  halted: Sentinel;
+}
+
+export interface V4HubAssetHalt {
+  hubLib: string;
+  hub: string;
+  underlying: string;
+}
+
+export interface V4HubAssetDeactivation extends V4HubAssetHalt {}
+
+export interface V4HubAssetCapsReset extends V4HubAssetHalt {}
+
+export interface V4HubSpokeDeactivation {
+  hubLib: string;
+  hub: string;
+  spoke: string;
+}
+
+export interface V4HubSpokeCapsReset extends V4HubSpokeDeactivation {}
+
+export interface V4ReserveConfig {
+  collateralRisk: string;
+  paused: boolean;
+  frozen: boolean;
+  borrowable: boolean;
+  receiveSharesEnabled: boolean;
+}
+
+export interface V4DynamicReserveConfig {
+  collateralFactor: string;
+  maxLiquidationBonus: string;
+  liquidationFee: string;
+}
+
+export interface V4SpokeReserveListing {
+  spokeLib: string;
+  spoke: string;
+  hub: string;
+  underlying: string;
+  priceSource: Hex;
+  config: V4ReserveConfig;
+  dynamicConfig: V4DynamicReserveConfig;
+}
+
+export interface V4SpokeReserveConfigUpdate {
+  spokeLib: string;
+  spoke: string;
+  hub: string;
+  underlying: string;
+  priceSource: Sentinel;
+  collateralRisk: Sentinel;
+  paused: Sentinel;
+  frozen: Sentinel;
+  borrowable: Sentinel;
+  receiveSharesEnabled: Sentinel;
+}
+
+export interface V4SpokeLiquidationConfigUpdate {
+  spokeLib: string;
+  spoke: string;
+  targetHealthFactor: Sentinel;
+  healthFactorForMaxBonus: Sentinel;
+  liquidationBonusFactor: Sentinel;
+}
+
+export interface V4SpokeDynamicReserveConfigAddition {
+  spokeLib: string;
+  spoke: string;
+  hub: string;
+  underlying: string;
+  dynamicConfig: V4DynamicReserveConfig;
+}
+
+export interface V4SpokeDynamicReserveConfigUpdate {
+  spokeLib: string;
+  spoke: string;
+  hub: string;
+  underlying: string;
+  dynamicConfigKey: string;
+  collateralFactor: Sentinel;
+  maxLiquidationBonus: Sentinel;
+  liquidationFee: Sentinel;
+}
+
+export interface V4SpokePositionManagerUpdate {
+  spokeLib: string;
+  spoke: string;
+  positionManager: Hex;
+  active: boolean;
+}
+
+export interface V4RoleMembership {
+  roleId: string;
+  account: Hex;
+  granted: boolean;
+  executionDelay: string;
+}
+
+export interface V4RoleUpdate {
+  roleId: string;
+  admin: Sentinel;
+  guardian: Sentinel;
+  grantDelay: Sentinel;
+  label: string;
+}
+
+export interface V4TargetFunctionRoleUpdate {
+  target: Hex;
+  selectors: string[];
+  roleId: string;
+}
+
+export interface V4TargetAdminDelayUpdate {
+  target: Hex;
+  newDelay: string;
+}
+
+export interface V4PMSpokeRegistration {
+  positionManager: Hex;
+  spoke: string;
+  registered: boolean;
+}
+
+export interface V4PMRoleRenouncement {
+  positionManager: Hex;
+  spoke: string;
+  user: Hex;
 }

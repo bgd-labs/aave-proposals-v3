@@ -1,4 +1,4 @@
-import {PoolIdentifier} from '../types';
+import {MarketIdentifier} from '../types';
 
 export interface GenericPrompt<T extends boolean = boolean> {
   message: string;
@@ -7,6 +7,6 @@ export interface GenericPrompt<T extends boolean = boolean> {
   defaultValue?: string;
 }
 
-export interface GenericPoolPrompt<T extends boolean = boolean> extends GenericPrompt<T> {
-  pool: PoolIdentifier;
+export interface GenericMarketPrompt<T extends boolean = boolean> extends GenericPrompt<T> {
+  market: MarketIdentifier;
 }

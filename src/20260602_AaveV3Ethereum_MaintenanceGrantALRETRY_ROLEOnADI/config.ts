@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: ['AaveV3Ethereum'],
+    markets: ['AaveV3Ethereum'],
     title: 'Maintenance: Grant AL RETRY_ROLE on a.DI',
     shortName: 'MaintenanceGrantALRETRY_ROLEOnADI',
     date: '20260602',
@@ -11,5 +11,5 @@ export const config: ConfigFile = {
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },
-  poolOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25230340}}},
+  marketOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25230340}}},
 };

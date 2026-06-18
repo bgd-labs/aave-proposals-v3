@@ -2,30 +2,41 @@ import {
   generateContractName,
   generateFolderName,
   getChainAlias,
-  getPoolChain,
-  isV2Pool,
-  isWhitelabelPool,
+  getMarketChain,
+  getTestBase,
+  isWhitelabelMarket,
 } from '../common';
-import {Options, PoolConfig, PoolIdentifier} from '../types';
+import {Options, MarketConfig, MarketIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
-export const testTemplate = (options: Options, poolConfig: PoolConfig, pool: PoolIdentifier) => {
+export const testTemplate = (
+  options: Options,
+  marketConfig: MarketConfig,
+  market: MarketIdentifier,
+) => {
   const folderName = generateFolderName(options);
-  const chain = getPoolChain(pool);
-  const contractName = generateContractName(options, pool);
+  const chain = getMarketChain(market);
+  const contractName = generateContractName(options, market);
+  const {v4, testBase} = getTestBase(market);
 
-  const testBase = isV2Pool(pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
-
-  const functions = poolConfig.artifacts
+  const functions = marketConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
 
+  const testBaseImport = v4
+    ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
+    : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+
+  const defaultTestCall = v4
+    ? `defaultTest('${contractName}', address(proposal));`
+    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+
   let template = `
 import 'forge-std/Test.sol';
-import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';
+${testBaseImport}
 import {${contractName}} from './${contractName}.sol';
 
 /**
@@ -36,7 +47,7 @@ contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
 
   function setUp() public ${chain === 'ZkSync' ? 'override' : ''} {
-    vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${poolConfig.cache.blockNumber});
+    vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${marketConfig.cache.blockNumber});
     proposal = new ${contractName}();
 
     ${chain === 'ZkSync' ? 'super.setUp();' : ''}
@@ -46,7 +57,7 @@ contract ${contractName}_Test is ${testBase} {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('${contractName}', ${pool}.POOL, address(proposal) ${isWhitelabelPool(pool) ? ', true, true' : ''});
+    ${defaultTestCall}
   }
 
   ${functions}

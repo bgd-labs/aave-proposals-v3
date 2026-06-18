@@ -24,11 +24,11 @@ type CapsUpdates = CapsUpdate[];
 export const capsUpdates: FeatureModule<CapsUpdates> = {
   value: FEATURE.CAPS_UPDATE,
   description: 'CapsUpdates (supplyCap, borrowCap)',
-  async cli({pool}) {
-    console.log(`Fetching information for CapsUpdates on ${pool}`);
+  async cli({market}) {
+    console.log(`Fetching information for CapsUpdates on ${market}`);
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
 
     const response: CapsUpdates = [];
@@ -38,7 +38,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -50,7 +50,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `capsUpdate[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
                borrowCap: ${translateJsNumberToSol(cfg.borrowCap)}
              });`,

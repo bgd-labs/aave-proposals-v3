@@ -1,15 +1,14 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {percentInput} from '../prompts';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
-import {numberPrompt, translateJsNumberToSol} from '../prompts/numberPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
 export async function fetchCollateralUpdate(
-  pool: PoolIdentifier,
+  market: MarketIdentifier,
   required?: boolean,
 ): Promise<CollateralUpdatePartial> {
   return {
@@ -25,10 +24,6 @@ export async function fetchCollateralUpdate(
       message: 'Liquidation bonus',
       required,
     }),
-    debtCeiling: await numberPrompt({
-      message: 'Debt ceiling (must be 0 for asset out of isolation)',
-      required,
-    }),
     liqProtocolFee: await percentPrompt({
       message: 'Liquidation protocol fee',
       required,
@@ -40,23 +35,23 @@ type CollateralUpdates = CollateralUpdate[];
 
 export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
   value: FEATURE.COLLATERALS_UPDATE,
-  description: 'CollateralsUpdates (ltv,lt,lb,debtCeiling,liqProtocolFee,eModeCategory)',
-  async cli({pool}) {
-    console.log(`Fetching information for Collateral Updates on ${pool}`);
+  description: 'CollateralsUpdates (ltv,lt,lb,liqProtocolFee,eModeCategory)',
+  async cli({market}) {
+    console.log(`Fetching information for Collateral Updates on ${market}`);
 
     const response: CollateralUpdates = [];
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
     for (const asset of assets) {
       console.log(`collecting info for ${asset}`);
 
-      response.push({asset, ...(await fetchCollateralUpdate(pool))});
+      response.push({asset, ...(await fetchCollateralUpdate(market))});
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -68,11 +63,10 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `collateralUpdate[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                ltv: ${translateJsPercentToSol(cfg.ltv)},
                liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
                liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-               debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
                liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)}
              });`,
             )

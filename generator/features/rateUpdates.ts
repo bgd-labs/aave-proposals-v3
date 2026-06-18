@@ -59,11 +59,11 @@ export async function fetchRateStrategyParamsV3(required?: boolean) {
 export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
   value: FEATURE.RATE_UPDATE_V2,
   description: 'RateStrategiesUpdates',
-  async cli({pool}) {
-    console.log(`Fetching information for RatesUpdate on ${pool}`);
+  async cli({market}) {
+    console.log(`Fetching information for RatesUpdate on ${market}`);
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
     const response: RateStrategyUpdate[] = [];
     for (const asset of assets) {
@@ -72,7 +72,7 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -88,7 +88,7 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV2ConfigEngine.RateStrategyUpdate({
-                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                 params: IV2RateStrategyFactory.RateStrategyParams({
                   optimalUtilizationRate: ${translateJsPercentToSol(
                     cfg.params.optimalUtilizationRate,
@@ -126,11 +126,11 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
 export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
   value: FEATURE.RATE_UPDATE_V3,
   description: 'RateStrategiesUpdates',
-  async cli({pool}) {
-    console.log(`Fetching information for RatesUpdate on ${pool}`);
+  async cli({market}) {
+    console.log(`Fetching information for RatesUpdate on ${market}`);
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
     const response: RateStrategyUpdate[] = [];
     for (const asset of assets) {
@@ -139,7 +139,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -155,7 +155,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
-                  asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+                  asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                   params: IAaveV3ConfigEngine.InterestRateInputData({
                     optimalUsageRatio: ${translateJsPercentToSol(
                       cfg.params.optimalUtilizationRate,

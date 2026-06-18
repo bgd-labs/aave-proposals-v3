@@ -3,7 +3,7 @@ import {
   generateContractName,
   generateFolderName,
   getChainAlias,
-  getPoolChain,
+  getMarketChain,
 } from '../common';
 import {Options} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
@@ -12,7 +12,7 @@ import {prefixWithPragma} from '../utils/constants';
 export function generateZkSyncScript(options: Options) {
   const folderName = generateFolderName(options);
   const fileName = generateContractName(options);
-  const zkSyncPools = options.pools.filter((c) => c == 'AaveV3ZkSync');
+  const zkSyncMarkets = options.markets.filter((c) => c == 'AaveV3ZkSync');
 
   const chain = 'ZkSync';
   let template = '';
@@ -20,19 +20,19 @@ export function generateZkSyncScript(options: Options) {
   // generate imports
   template += `import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';\n`;
 
-  template += zkSyncPools
-    .map((pool) => {
-      const name = generateContractName(options, pool);
+  template += zkSyncMarkets
+    .map((market) => {
+      const name = generateContractName(options, market);
       return `import {${name}} from './${name}.sol';`;
     })
     .join('\n');
   template += '\n\n';
 
-  const poolsToChainsMap = zkSyncPools.reduce((acc, pool) => {
-    const chain = getPoolChain(pool);
-    const contractName = generateContractName(options, pool);
+  const marketsToChainsMap = zkSyncMarkets.reduce((acc, market) => {
+    const chain = getMarketChain(market);
+    const contractName = generateContractName(options, market);
     if (!acc[chain]) acc[chain] = [];
-    acc[chain].push({contractName, pool});
+    acc[chain].push({contractName, market});
     return acc;
   }, {});
 
@@ -46,20 +46,21 @@ export function generateZkSyncScript(options: Options) {
    contract Deploy${chain} is ${chain}Script {
      function run() external broadcast {
        // deploy payloads
-       ${poolsToChainsMap[chain]
+       ${marketsToChainsMap[chain]
          .map(
-           ({contractName, pool}, ix) =>
+           ({contractName, market}, ix) =>
              `address payload${ix} = address(new ${contractName}{salt: 'aave'}());`,
          )
          .join('\n')}
 
        // compose action
        IPayloadsControllerCore.ExecutionAction[] memory actions = new IPayloadsControllerCore.ExecutionAction[](${
-         poolsToChainsMap[chain].length
+         marketsToChainsMap[chain].length
        });
-       ${poolsToChainsMap[chain]
+       ${marketsToChainsMap[chain]
          .map(
-           ({contractName, pool}, ix) => `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`,
+           ({contractName, market}, ix) =>
+             `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`,
          )
          .join('\n')}
 

@@ -1,4 +1,4 @@
-import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {BorrowUpdate} from './types';
 import {
   assetsSelectPrompt,
@@ -17,16 +17,6 @@ export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
       message: 'flashloanable',
       required,
     }),
-    borrowableInIsolation: await boolPrompt({
-      message: 'borrowable in isolation',
-      required,
-      defaultValue: ENGINE_FLAGS.DISABLED,
-    }),
-    withSiloedBorrowing: await boolPrompt({
-      message: 'siloed borrowing',
-      required,
-      defaultValue: ENGINE_FLAGS.DISABLED,
-    }),
     reserveFactor: await percentPrompt({
       message: 'reserve factor',
       required,
@@ -38,21 +28,20 @@ type BorrowUpdates = BorrowUpdate[];
 
 export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
   value: FEATURE.BORROWS_UPDATE,
-  description:
-    'BorrowsUpdates (enabledToBorrow, flashloanable, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
-  async cli({pool}) {
+  description: 'BorrowsUpdates (enabledToBorrow, flashloanable, reserveFactor)',
+  async cli({market}) {
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
     const response: BorrowUpdates = [];
     for (const asset of assets) {
-      console.log(`Fetching information for BorrowUpdates on ${pool} ${asset}`);
+      console.log(`Fetching information for BorrowUpdates on ${market} ${asset}`);
       response.push({...(await fetchBorrowUpdate(false)), asset});
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -64,11 +53,9 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
                enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
                flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
-               borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
-               withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
                reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)}
              });`,
             )

@@ -3,13 +3,13 @@ import {expect, describe, it} from 'vitest';
 import {assetListing} from './assetListing';
 import {MOCK_OPTIONS, assetListingConfig} from './mocks/configs';
 import {generateFiles} from '../generator';
-import {FEATURE, PoolConfigs} from '../types';
+import {FEATURE, MarketConfigs} from '../types';
 
 describe('feature: assetListing', () => {
   it('should return reasonable code', () => {
     const output = assetListing.build({
       options: MOCK_OPTIONS,
-      pool: 'AaveV3Ethereum',
+      market: 'AaveV3Ethereum',
       cfg: assetListingConfig,
       cache: {blockNumber: 42},
       configs: {},
@@ -18,13 +18,13 @@ describe('feature: assetListing', () => {
   });
 
   it('should properly generate files', async () => {
-    const poolConfigs: PoolConfigs = {
-      [MOCK_OPTIONS.pools[0]]: {
-        pool: MOCK_OPTIONS.pools[0],
+    const marketConfigs: MarketConfigs = {
+      [MOCK_OPTIONS.markets[0]]: {
+        market: MOCK_OPTIONS.markets[0],
         artifacts: [
           assetListing.build({
             options: MOCK_OPTIONS,
-            pool: 'AaveV3Ethereum',
+            market: 'AaveV3Ethereum',
             cfg: assetListingConfig,
             cache: {blockNumber: 42},
             configs: {[FEATURE.ASSET_LISTING]: assetListingConfig},
@@ -34,29 +34,7 @@ describe('feature: assetListing', () => {
         cache: {blockNumber: 42},
       },
     };
-    const files = await generateFiles(MOCK_OPTIONS, poolConfigs);
-    expect(files).toMatchSnapshot();
-  });
-
-  it('regression: isolation mode should be flase when ceiling is zero', async () => {
-    const zeroCeilingListing = [{...assetListingConfig[0], debtCeiling: '0'}];
-    const poolConfigs: PoolConfigs = {
-      [MOCK_OPTIONS.pools[0]]: {
-        pool: MOCK_OPTIONS.pools[0],
-        artifacts: [
-          assetListing.build({
-            options: MOCK_OPTIONS,
-            pool: 'AaveV3Ethereum',
-            cfg: zeroCeilingListing,
-            cache: {blockNumber: 42},
-            configs: {[FEATURE.ASSET_LISTING]: zeroCeilingListing},
-          }),
-        ],
-        configs: {[FEATURE.ASSET_LISTING]: [{...assetListingConfig[0], debtCeiling: 0}]},
-        cache: {blockNumber: 42},
-      },
-    };
-    const files = await generateFiles(MOCK_OPTIONS, poolConfigs);
+    const files = await generateFiles(MOCK_OPTIONS, marketConfigs);
     expect(files).toMatchSnapshot();
   });
 });

@@ -4,9 +4,11 @@ import {Command, Option} from 'commander';
 import {
   CHAIN_TO_CHAIN_ID,
   getDate,
-  getPoolChain,
-  isWhitelabelPool,
-  isV2Pool,
+  getMarketChain,
+  isWhitelabelMarket,
+  isV2Market,
+  isV3Market,
+  isV4Market,
   pascalCase,
 } from './common';
 import {input, checkbox, select} from '@inquirer/prompts';
@@ -16,10 +18,10 @@ import {
   FEATURE,
   FeatureModule,
   Options,
-  POOLS,
-  PoolCache,
-  PoolConfigs,
-  PoolIdentifier,
+  MARKETS,
+  MarketCache,
+  MarketConfigs,
+  MarketIdentifier,
   VOTING_NETWORK,
 } from './types';
 import {flashBorrower} from './features/flashBorrower';
@@ -34,8 +36,35 @@ import {priceFeedsUpdates} from './features/priceFeedsUpdates';
 import {freezeUpdates} from './features/freeze';
 import {emissionUpdates} from './features/emission';
 import {assetListing, assetListingCustom} from './features/assetListing';
+import {hubAssetListing} from './features/v4/hub/hubAssetListing';
+import {hubAssetConfigUpdate} from './features/v4/hub/hubAssetConfigUpdate';
+import {hubSpokeToAssetsAddition} from './features/v4/hub/hubSpokeToAssetsAddition';
+import {hubSpokeConfigUpdate} from './features/v4/hub/hubSpokeConfigUpdate';
+import {hubAssetHalt} from './features/v4/hub/hubAssetHalt';
+import {hubAssetDeactivation} from './features/v4/hub/hubAssetDeactivation';
+import {hubAssetCapsReset} from './features/v4/hub/hubAssetCapsReset';
+import {hubSpokeDeactivation} from './features/v4/hub/hubSpokeDeactivation';
+import {hubSpokeCapsReset} from './features/v4/hub/hubSpokeCapsReset';
+import {spokeReserveListing} from './features/v4/spoke/spokeReserveListing';
+import {spokeReserveConfigUpdate} from './features/v4/spoke/spokeReserveConfigUpdate';
+import {spokeLiquidationConfigUpdate} from './features/v4/spoke/spokeLiquidationConfigUpdate';
+import {spokeDynamicReserveConfigAddition} from './features/v4/spoke/spokeDynamicReserveConfigAddition';
+import {spokeDynamicReserveConfigUpdate} from './features/v4/spoke/spokeDynamicReserveConfigUpdate';
+import {spokePositionManagerUpdate} from './features/v4/spoke/spokePositionManagerUpdate';
+import {accessManagerRoleMembership} from './features/v4/access/accessManagerRoleMembership';
+import {accessManagerRoleUpdate} from './features/v4/access/accessManagerRoleUpdate';
+import {accessManagerTargetFunctionRoleUpdate} from './features/v4/access/accessManagerTargetFunctionRoleUpdate';
+import {accessManagerTargetAdminDelayUpdate} from './features/v4/access/accessManagerTargetAdminDelayUpdate';
+import {positionManagerSpokeRegistration} from './features/v4/positionManager/positionManagerSpokeRegistration';
+import {positionManagerRoleRenouncement} from './features/v4/positionManager/positionManagerRoleRenouncement';
+import {onboardAssetToHub} from './features/v4/bundles/onboardAssetToHub';
+import {onboardReserveToSpoke} from './features/v4/bundles/onboardReserveToSpoke';
+import {tuneSpokeRisk} from './features/v4/bundles/tuneSpokeRisk';
+import {tuneReserveRisk} from './features/v4/bundles/tuneReserveRisk';
+import {wirePositionManager} from './features/v4/bundles/wirePositionManager';
+import {manageRole} from './features/v4/bundles/manageRole';
 import {generateFiles, writeFiles} from './generator';
-import {getClient} from '@bgd-labs/toolbox';
+import {getClient} from '@aave-dao/toolbox';
 import {getBlockNumber} from 'viem/actions';
 
 const program = new Command();
@@ -45,7 +74,7 @@ program
   .description('CLI to generate aave proposals')
   .version('1.0.0')
   .addOption(new Option('-f, --force', 'force creation (might overwrite existing files)'))
-  .addOption(new Option('-p, --pools <pools...>').choices(POOLS))
+  .addOption(new Option('-p, --markets <markets...>').choices(MARKETS))
   .addOption(new Option('-t, --title <string>', 'aip title'))
   .addOption(new Option('-a, --author <string>', 'author'))
   .addOption(new Option('-d, --discussion <string>', 'forum link'))
@@ -62,7 +91,7 @@ program
   .parse(process.argv);
 
 let options = program.opts<Options>();
-let poolConfigs: PoolConfigs = {};
+let marketConfigs: MarketConfigs = {};
 
 const PLACEHOLDER_MODULE: FeatureModule<{}> = {
   description: 'Something different not supported by configEngine',
@@ -94,46 +123,79 @@ const FEATURE_MODULES_V3 = [
   emissionUpdates,
   PLACEHOLDER_MODULE,
 ];
+const FEATURE_MODULES_V4: FeatureModule[] = [
+  hubAssetListing,
+  hubAssetConfigUpdate,
+  hubSpokeToAssetsAddition,
+  hubSpokeConfigUpdate,
+  hubAssetHalt,
+  hubAssetDeactivation,
+  hubAssetCapsReset,
+  hubSpokeDeactivation,
+  hubSpokeCapsReset,
+  spokeReserveListing,
+  spokeReserveConfigUpdate,
+  spokeLiquidationConfigUpdate,
+  spokeDynamicReserveConfigAddition,
+  spokeDynamicReserveConfigUpdate,
+  spokePositionManagerUpdate,
+  accessManagerRoleMembership,
+  accessManagerRoleUpdate,
+  accessManagerTargetFunctionRoleUpdate,
+  accessManagerTargetAdminDelayUpdate,
+  positionManagerSpokeRegistration,
+  positionManagerRoleRenouncement,
+  onboardAssetToHub,
+  onboardReserveToSpoke,
+  tuneSpokeRisk,
+  tuneReserveRisk,
+  wirePositionManager,
+  manageRole,
+  PLACEHOLDER_MODULE,
+];
 
-async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
-  const chain = getPoolChain(pool);
+function getFeatureModules(market: MarketIdentifier): FeatureModule[] {
+  if (isV2Market(market)) return FEATURE_MODULES_V2;
+  if (isV3Market(market)) return FEATURE_MODULES_V3;
+  if (isV4Market(market)) return FEATURE_MODULES_V4;
+  throw new Error(`unknown market version for ${market}`);
+}
+
+async function generateDeterministicMarketCache(market: MarketIdentifier): Promise<MarketCache> {
+  const chain = getMarketChain(market);
   const client = getClient(CHAIN_TO_CHAIN_ID[chain], {
     providerConfig: {alchemyKey: process.env.ALCHEMY_API_KEY},
   });
   return {blockNumber: Number(await getBlockNumber(client))};
 }
 
-async function fetchPoolOptions(pool: PoolIdentifier) {
-  poolConfigs[pool] = {
+async function fetchMarketOptions(market: MarketIdentifier) {
+  marketConfigs[market] = {
     configs: {},
     artifacts: [],
-    cache: await generateDeterministicPoolCache(pool),
+    cache: await generateDeterministicMarketCache(market),
   };
 
-  const v2 = isV2Pool(pool);
+  const modules = getFeatureModules(market);
   const features = await checkbox({
-    message: `What do you want to do on ${pool}?`,
-    choices: v2
-      ? FEATURE_MODULES_V2.map((m) => ({value: m.value, name: m.description}))
-      : FEATURE_MODULES_V3.map((m) => ({value: m.value, name: m.description})),
+    message: `What do you want to do on ${market}?`,
+    choices: modules.map((m) => ({value: m.value, name: m.description})),
   });
   for (const feature of features) {
-    const module = v2
-      ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
-      : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-    poolConfigs[pool]!.configs[feature] = await module.cli({
+    const module = modules.find((m) => m.value === feature)!;
+    marketConfigs[market]!.configs[feature] = await module.cli({
       options,
-      pool,
-      cache: poolConfigs[pool]!.cache,
-      configs: poolConfigs[pool]!.configs,
+      market,
+      cache: marketConfigs[market]!.cache,
+      configs: marketConfigs[market]!.configs,
     });
-    poolConfigs[pool]!.artifacts.push(
+    marketConfigs[market]!.artifacts.push(
       module.build({
         options,
-        pool,
-        cfg: poolConfigs[pool]!.configs[feature],
-        cache: poolConfigs[pool]!.cache,
-        configs: poolConfigs[pool]!.configs,
+        market,
+        cfg: marketConfigs[market]!.configs[feature],
+        cache: marketConfigs[market]!.cache,
+        configs: marketConfigs[market]!.configs,
       }),
     );
   }
@@ -144,50 +206,50 @@ if (options.configFile) {
     path.join(process.cwd(), options.configFile)
   );
   options = {...options, ...cfgFile.rootOptions};
-  poolConfigs = cfgFile.poolOptions as any;
-  for (const pool of options.pools) {
-    const v2 = isV2Pool(pool);
-    if (poolConfigs[pool]) {
-      poolConfigs[pool]!.artifacts = [];
-      for (const feature of Object.keys(poolConfigs[pool]!.configs)) {
-        const module = v2
-          ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
-          : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
+  marketConfigs = cfgFile.marketOptions as any;
+  for (const market of options.markets) {
+    const modules = getFeatureModules(market);
+    if (marketConfigs[market]) {
+      marketConfigs[market]!.artifacts = [];
+      for (const feature of Object.keys(marketConfigs[market]!.configs)) {
+        const module = modules.find((m) => m.value === feature)!;
         if (options.update) {
-          poolConfigs[pool]!.cache = await generateDeterministicPoolCache(pool);
+          marketConfigs[market]!.cache = await generateDeterministicMarketCache(market);
         }
-        poolConfigs[pool]!.artifacts.push(
+        marketConfigs[market]!.artifacts.push(
           module.build({
             options,
-            pool,
-            cfg: poolConfigs[pool]!.configs[feature],
-            cache: poolConfigs[pool]!.cache,
-            configs: poolConfigs[pool]!.configs,
+            market,
+            cfg: marketConfigs[market]!.configs[feature],
+            cache: marketConfigs[market]!.cache,
+            configs: marketConfigs[market]!.configs,
           }),
         );
       }
     } else {
-      await fetchPoolOptions(pool);
+      await fetchMarketOptions(market);
     }
   }
 } else {
-  options.pools = await checkbox({
-    message: 'Chains this proposal targets',
-    choices: POOLS.map((v) => ({name: v, value: v})),
-    required: true,
-    // validate(input) {
-    //   // currently ignored due to a bug
-    //   if (input.length == 0) return 'You must target at least one chain in your proposal!';
-    //   return true;
-    // },
-  });
+  if (!options.markets || options.markets.length === 0) {
+    options.markets = await checkbox({
+      message: 'Markets this proposal targets',
+      choices: MARKETS.map((v) => ({name: v, value: v})),
+      required: true,
+      // validate(input) {
+      //   // currently ignored due to a bug
+      //   if (input.length == 0) return 'You must target at least one market in your proposal!';
+      //   return true;
+      // },
+    });
+  }
 
-  const whitelabelPools = options.pools.filter((pool) => isWhitelabelPool(pool));
-  const nonWhitelabelPools = options.pools.filter((pool) => !isWhitelabelPool(pool));
-  if (whitelabelPools.length > 0 && nonWhitelabelPools.length > 0) {
-    console.log('\n❌ Error: Cannot mix whitelabel and non-whitelabel pools.');
+  const whitelabelMarkets = options.markets.filter((market) => isWhitelabelMarket(market));
+  const nonWhitelabelMarkets = options.markets.filter((market) => !isWhitelabelMarket(market));
+  if (whitelabelMarkets.length > 0 && nonWhitelabelMarkets.length > 0) {
+    console.log('\n❌ Error: Cannot mix whitelabel and non-whitelabel markets.');
     console.log(
-      'Please run the command again and select either only whitelabel pools or only regular pools.\n',
+      'Please run the command again and select either only whitelabel markets or only regular markets.\n',
     );
     process.exit(1);
   }
@@ -229,19 +291,19 @@ if (options.configFile) {
     options.author = options.author.replace('TTT', author);
   }
 
-  if (!options.discussion && whitelabelPools.length == 0) {
+  if (!options.discussion && whitelabelMarkets.length == 0) {
     options.discussion = await input({
       message: 'Link to forum discussion',
     });
   }
 
-  if (!options.snapshot && whitelabelPools.length == 0) {
+  if (!options.snapshot && whitelabelMarkets.length == 0) {
     options.snapshot = await input({
       message: 'Link to snapshot',
     });
   }
 
-  if (!options.votingNetwork && whitelabelPools.length == 0) {
+  if (!options.votingNetwork && whitelabelMarkets.length == 0) {
     options.votingNetwork = await select({
       message: 'Select network where voting should takes place for the proposal',
       choices: Object.values(VOTING_NETWORK).map((v) => ({
@@ -252,15 +314,15 @@ if (options.configFile) {
     });
   }
 
-  for (const pool of options.pools) {
-    await fetchPoolOptions(pool);
+  for (const market of options.markets) {
+    await fetchMarketOptions(market);
   }
 }
 
 try {
-  const files = await generateFiles(options, poolConfigs);
+  const files = await generateFiles(options, marketConfigs);
   await writeFiles(options, files);
 } catch (e) {
-  console.log(JSON.stringify({options, poolConfigs}, null, 2));
+  console.log(JSON.stringify({options, marketConfigs}, null, 2));
   throw e;
 }
