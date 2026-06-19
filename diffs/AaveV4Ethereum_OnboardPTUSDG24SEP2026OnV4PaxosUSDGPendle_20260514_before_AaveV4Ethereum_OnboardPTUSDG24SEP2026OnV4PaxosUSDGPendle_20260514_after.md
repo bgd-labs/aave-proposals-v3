@@ -24,6 +24,15 @@
 | priceSource | [0xD2417d928B7649feb50E61D9cCA38e56EFB34902](https://etherscan.io/address/0xD2417d928B7649feb50E61D9cCA38e56EFB34902) |
 | oraclePrice | 98,753,160 (9.875316e7) |
 
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 95.00 % [9500] |
+| key 0 | maxLiquidationBonus | *missing* | 2.00 % [10200] |
+| key 0 | liquidationFee | *missing* | 10.00 % [1000] |
+
+
 ### USDC ([0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 1]
 
 **NEW RESERVE**
@@ -47,6 +56,15 @@
 | oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
 | priceSource | [0x3f73F03aa83B2A48ed27E964eD0fDb590332095B](https://etherscan.io/address/0x3f73F03aa83B2A48ed27E964eD0fDb590332095B) |
 | oraclePrice | 99,973,742 (9.9973742e7) |
+
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 0.00 % [0] |
+| key 0 | maxLiquidationBonus | *missing* | 0.00 % [10000] |
+| key 0 | liquidationFee | *missing* | 0.00 % [0] |
+
 
 ### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 2]
 
@@ -72,6 +90,15 @@
 | priceSource | [0x260326c220E469358846b187eE53328303Efe19C](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
 | oraclePrice | 99,932,055 (9.9932055e7) |
 
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 0.00 % [0] |
+| key 0 | maxLiquidationBonus | *missing* | 0.00 % [10000] |
+| key 0 | liquidationFee | *missing* | 0.00 % [0] |
+
+
 ### USDG ([0xe343167631d89B6Ffc58B88d6b7fB0228795491D](https://etherscan.io/address/0xe343167631d89B6Ffc58B88d6b7fB0228795491D)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 3]
 
 **NEW RESERVE**
@@ -95,6 +122,15 @@
 | oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
 | priceSource | [0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d](https://etherscan.io/address/0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d) |
 | oraclePrice | 100,000,000 (1e8) |
+
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 0.00 % [0] |
+| key 0 | maxLiquidationBonus | *missing* | 0.00 % [10000] |
+| key 0 | liquidationFee | *missing* | 0.00 % [0] |
+
 
 ## Hub Spoke Config Changes
 
@@ -120,6 +156,57 @@
 | targetHealthFactor | 1 [1000000000000000000] | 1.0277 [1027700000000000000] |
 | healthFactorForMaxBonus | 0 [0] | 0.99 [990000000000000000] |
 | liquidationBonusFactor | 0.00 % [0] | 100.00 % [10000] |
+
+## Position Manager Changes
+
+| spoke | position manager | active before | active after |
+| --- | --- | --- | --- |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e](https://etherscan.io/address/0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e) | :x: | :white_check_mark: |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0x51305839CE822a7b4b12AA7D86eA7005052d575c](https://etherscan.io/address/0x51305839CE822a7b4b12AA7D86eA7005052d575c) | :x: | :white_check_mark: |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0x6c044c0D3801499bCAbfAd458B70880bc518e9F7](https://etherscan.io/address/0x6c044c0D3801499bCAbfAd458B70880bc518e9F7) | :x: | :white_check_mark: |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d](https://etherscan.io/address/0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d) | :x: | :white_check_mark: |
+
+## Access Manager Role Changes
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 101 (HUB_CONFIGURATOR_ROLE)
+
+- target/selector grants added:
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0x1e83287e00000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0x24e4c1af00000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xc25d82fe00000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xa2763d2900000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xa467cc5900000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 102 (HUB_FEE_MINTER_ROLE)
+
+- target/selector grants added:
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0x033a069500000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 103 (HUB_DEFICIT_ELIMINATOR_ROLE)
+
+- target/selector grants added:
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xbe10528000000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 301 (SPOKE_CONFIGURATOR_ROLE)
+
+- target/selector grants added:
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x87107a6d00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x4de8d2ba00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0xa0f5b9ab00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0xe903e1bd00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x9290fa0000000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x9ca9c13400000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0xb2380e9300000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 302 (SPOKE_USER_POSITION_UPDATER_ROLE)
+
+- target/selector grants added:
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x826002e200000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x91c46d0900000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 400 (SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE)
+
+- members added: [0x5300a1a15135ea4dc7ad5a167152c01efc9b192a](https://etherscan.io/address/0x5300a1a15135ea4dc7ad5a167152c01efc9b192a)
 
 ## Event logs
 
@@ -149,9 +236,9 @@
 
 | index | event |
 | --- | --- |
-| 17 | topics: `0xfdf3625f63f29674d0df2cf3b106add2a8cb5be2a5d36820760e39fdd210425d`, `0x00000000000000000000000062d63197660c080236193ca60b70e49a08e90368`, `0x0000000000000000000000000000000000000000000000000000000000000000`, data: `0x00000000000000000000000000000000000000000000000000000000000026ac...` |
-| 33 | topics: `0xfdf3625f63f29674d0df2cf3b106add2a8cb5be2a5d36820760e39fdd210425d`, `0x00000000000000000000000062d63197660c080236193ca60b70e49a08e90368`, `0x0000000000000000000000000000000000000000000000000000000000000001`, data: `0x00000000000000000000000000000000000000000000000000000000000023f0...` |
-| 49 | topics: `0xfdf3625f63f29674d0df2cf3b106add2a8cb5be2a5d36820760e39fdd210425d`, `0x00000000000000000000000062d63197660c080236193ca60b70e49a08e90368`, `0x0000000000000000000000000000000000000000000000000000000000000002`, data: `0x00000000000000000000000000000000000000000000000000000000000023f0...` |
+| 17 | UpdateInterestRateData(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 0, optimalUsageRatio: 9900, baseDrawnRate: 0, rateGrowthBeforeOptimal: 0, rateGrowthAfterOptimal: 0) |
+| 33 | UpdateInterestRateData(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 1, optimalUsageRatio: 9200, baseDrawnRate: 0, rateGrowthBeforeOptimal: 400, rateGrowthAfterOptimal: 2000) |
+| 49 | UpdateInterestRateData(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 2, optimalUsageRatio: 9200, baseDrawnRate: 0, rateGrowthBeforeOptimal: 400, rateGrowthAfterOptimal: 2000) |
 
 #### 0x62d63197660c080236193CA60b70E49A08E90368
 
