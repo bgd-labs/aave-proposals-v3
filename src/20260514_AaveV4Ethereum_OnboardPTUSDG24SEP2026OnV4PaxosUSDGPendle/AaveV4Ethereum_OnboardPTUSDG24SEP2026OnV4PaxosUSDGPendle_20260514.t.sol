@@ -17,6 +17,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
+import {IPriceCapAdapterStable} from '../interfaces/IPriceCapAdapterStable.sol';
 import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol';
 import {AaveV4PayloadHub} from '../helpers/v4-hub/AaveV4PayloadHub.sol';
 import {AaveV4PayloadEthereumHubForkTestBase} from '../helpers/v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol';
@@ -44,7 +45,16 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
   address internal constant PT_USDG_24SEP2026_UNDERLYING =
     0xc1906aeCf868749a2DeE203F59b904c0cf212140;
   address internal constant PT_USDG_24SEP2026_PRICE_FEED =
-    0xD2417d928B7649feb50E61D9cCA38e56EFB34902;
+    0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e;
+
+  // USDG CAPO (PriceCapAdapterStable, 1.04 cap) over the USDG/USD Chainlink feed; both the USDG
+  // reserve source and the PT-USDG adapter's underlying reference point here.
+  address internal constant USDG_PRICE_FEED = 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
+  // Underlying Chainlink USDG/USD aggregator backing the USDG CAPO.
+  address internal constant USDG_USD_CHAINLINK_FEED = 0x14f0737d6b705259e521EA6E9E3506AC78dBd311;
+  // Legacy constant-1 USDG feed (AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED and the
+  // FOREX/GOLD equivalents) that this proposal fully retires in favour of USDG_PRICE_FEED.
+  address internal constant LEGACY_USDG_FEED = 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d;
 
   address internal constant PAXOS_HUB_IR_STRATEGY = 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7;
 
@@ -58,7 +68,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
   AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25318221);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25352820);
     proposal = new AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514();
   }
 
@@ -311,11 +321,12 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
       true
     );
 
-    // USDG: borrow-only, drawn from the Core Hub via the cross-hub credit line.
+    // USDG: borrow-only, drawn from the Core Hub via the cross-hub credit line. Priced by the
+    // new USDG CAPO, not the legacy constant-1 main-spoke feed.
     _assertBorrowableReserve(
       CORE_HUB,
       AaveV4EthereumAssets.USDG_UNDERLYING,
-      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED,
+      USDG_PRICE_FEED,
       false
     );
   }
@@ -359,9 +370,54 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     assertEq(IChainlinkAggregator(PT_USDG_24SEP2026_PRICE_FEED).decimals(), 8);
     assertEq(
       IPendlePriceCapAdapter(PT_USDG_24SEP2026_PRICE_FEED).ASSET_TO_USD_AGGREGATOR(),
-      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED,
-      'Pendle adapter should use the V4 USDG/USD aggregator as its source'
+      USDG_PRICE_FEED,
+      'Pendle adapter should use the USDG CAPO as its source'
     );
+  }
+
+  function test_usdgCapo_wiringAndBounds() public view {
+    IPriceCapAdapterStable capo = IPriceCapAdapterStable(USDG_PRICE_FEED);
+    assertEq(IChainlinkAggregator(USDG_PRICE_FEED).decimals(), 8, 'USDG CAPO decimals != 8');
+    assertEq(
+      capo.ASSET_TO_USD_AGGREGATOR(),
+      USDG_USD_CHAINLINK_FEED,
+      'USDG CAPO should source the USDG/USD Chainlink feed'
+    );
+    assertEq(capo.getPriceCap(), int256(1.04e8), 'USDG CAPO price cap should be 1.04');
+    assertFalse(capo.isCapped(), 'USDG CAPO should not be capped at current par price');
+
+    int256 price = IChainlinkAggregator(USDG_PRICE_FEED).latestAnswer();
+    assertGt(price, int256(0.98e8), 'USDG price below expected lower bound');
+    assertLe(price, capo.getPriceCap(), 'USDG price must not exceed the cap');
+  }
+
+  function test_noStaleUsdgFeed_acrossAllSpokes() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    ISpoke[] memory base = AaveV4EthereumGetters.getAllSpokes();
+    ISpoke[] memory spokes = new ISpoke[](base.length + 1);
+    for (uint256 i; i < base.length; ++i) spokes[i] = base[i];
+    spokes[base.length] = USDG_PENDLE_SPOKE;
+
+    uint256 usdgReserves;
+    for (uint256 s; s < spokes.length; ++s) {
+      ISpoke spoke = spokes[s];
+      IAaveOracle oracle = IAaveOracle(spoke.ORACLE());
+      uint256 count = spoke.getReserveCount();
+      for (uint256 r; r < count; ++r) {
+        address source = oracle.getReserveSource(r);
+        assertTrue(
+          source != LEGACY_USDG_FEED,
+          'legacy constant-1 USDG feed still wired on a spoke reserve'
+        );
+        if (spoke.getReserve(r).underlying == AaveV4EthereumAssets.USDG_UNDERLYING) {
+          assertEq(source, USDG_PRICE_FEED, 'USDG reserve not repriced to the CAPO');
+          ++usdgReserves;
+        }
+      }
+    }
+    // FOREX, GOLD, MAIN (repointed in-place) + the new USDG Pendle spoke (listed against the CAPO).
+    assertEq(usdgReserves, 4, 'expected exactly four USDG reserves across all spokes');
   }
 
   function test_priceFeed_discountRateBelowMax() public view {
@@ -387,9 +443,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
 
   function test_priceFeed_priceLinearDiscountToUnderlying() public view {
     IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(PT_USDG_24SEP2026_PRICE_FEED);
-    int256 underlyingPrice = IChainlinkAggregator(
-      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED
-    ).latestAnswer();
+    int256 underlyingPrice = IChainlinkAggregator(USDG_PRICE_FEED).latestAnswer();
     int256 ptPrice = IChainlinkAggregator(PT_USDG_24SEP2026_PRICE_FEED).latestAnswer();
 
     uint256 discount = adapter.getCurrentDiscount();
@@ -403,16 +457,14 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     vm.warp(adapter.MATURITY());
     assertEq(adapter.getCurrentDiscount(), 0, 'discount should be zero at maturity');
 
-    int256 underlyingPrice = IChainlinkAggregator(
-      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED
-    ).latestAnswer();
+    int256 underlyingPrice = IChainlinkAggregator(USDG_PRICE_FEED).latestAnswer();
     int256 ptPrice = IChainlinkAggregator(PT_USDG_24SEP2026_PRICE_FEED).latestAnswer();
     assertEq(ptPrice, underlyingPrice, 'PT should track underlying once matured');
   }
 
   function test_priceFeed_returnsZeroOnNonPositiveSource() public {
     vm.mockCall(
-      AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED,
+      USDG_PRICE_FEED,
       abi.encodeWithSelector(IChainlinkAggregator.latestAnswer.selector),
       abi.encode(int256(0))
     );

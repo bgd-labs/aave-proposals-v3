@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
+import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4ConfigEngine.sol';
+import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
 
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke.sol';
 
@@ -28,9 +30,12 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
   // https://etherscan.io/address/0xc1906aeCf868749a2DeE203F59b904c0cf212140
   address internal constant PT_USDG_24SEP2026_UNDERLYING =
     0xc1906aeCf868749a2DeE203F59b904c0cf212140;
-  // https://etherscan.io/address/0xD2417d928B7649feb50E61D9cCA38e56EFB34902
+
+  // https://etherscan.io/address/0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e
   address internal constant PT_USDG_24SEP2026_PRICE_FEED =
-    0xD2417d928B7649feb50E61D9cCA38e56EFB34902;
+    0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e;
+  // https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4
+  address internal constant USDG_PRICE_FEED = 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
 
   // https://etherscan.io/address/0xD7eC225DC053151100A0ef47b94a77AAD9C413b7
   address internal constant PAXOS_HUB_IR_STRATEGY = 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7;
@@ -172,7 +177,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
     listings[3] = ReserveListing({
       hub: AaveV4EthereumHubs.CORE_HUB,
       underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
-      priceSource: AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED,
+      priceSource: USDG_PRICE_FEED,
       collateralRisk: 0,
       borrowable: true,
       receiveSharesEnabled: false,
@@ -181,6 +186,36 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       liquidationFee: 0
     });
     return listings;
+  }
+
+  function spokeReserveConfigUpdates()
+    public
+    pure
+    override
+    returns (IAaveV4ConfigEngine.ReserveConfigUpdate[] memory)
+  {
+    address[3] memory usdgSpokes = [
+      address(AaveV4EthereumSpokes.FOREX_SPOKE),
+      address(AaveV4EthereumSpokes.GOLD_SPOKE),
+      address(AaveV4EthereumSpokes.MAIN_SPOKE)
+    ];
+    IAaveV4ConfigEngine.ReserveConfigUpdate[]
+      memory updates = new IAaveV4ConfigEngine.ReserveConfigUpdate[](usdgSpokes.length);
+    for (uint256 i; i < usdgSpokes.length; ++i) {
+      updates[i] = IAaveV4ConfigEngine.ReserveConfigUpdate({
+        spokeConfigurator: _spokeConfigurator(),
+        spoke: usdgSpokes[i],
+        hub: address(AaveV4EthereumHubs.CORE_HUB),
+        underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
+        priceSource: USDG_PRICE_FEED,
+        collateralRisk: EngineFlags.KEEP_CURRENT,
+        paused: EngineFlags.KEEP_CURRENT,
+        frozen: EngineFlags.KEEP_CURRENT,
+        borrowable: EngineFlags.KEEP_CURRENT,
+        receiveSharesEnabled: EngineFlags.KEEP_CURRENT
+      });
+    }
+    return updates;
   }
 
   function _spokeLiquidation() internal pure override returns (LiquidationConfigUpdate memory) {

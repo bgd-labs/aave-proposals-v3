@@ -16,7 +16,7 @@ With the prior PT-USDG-28MAY2026 maturity expired, the September pool serves as 
 
 The listing uses a dedicated Paxos Hub rather than a spoke on the existing Plus Hub. A dedicated hub provides clean risk isolation for USDG-correlated collateral: the market is contained within the Paxos Hub, separate from the Ethena ecosystem markets on the Plus Hub, while Core Hub exposure remains limited to the USDG credit line and its Draw Cap. The single USDG Pendle spoke carries PT-USDG as its sole collateral, with USDC, USDT (supplied natively to the Paxos Hub) and USDG (drawn from the Core Hub) borrowable. PT-USDG redeems 1:1 to USDG at maturity, and USDC, USDT, and USDG are all dollar-denominated stablecoins, placing the collateral and the borrowable set within a single correlated group that supports tighter Collateral Factors than a general-purpose spoke. The venue also positions the hub to host additional USDG-correlated assets over time.
 
-PT-USDG is priced with the dynamic linear discount rate oracle, which values the PT as a zero-coupon bond against a capped underlying Chainlink reference (USDG/USD fixed at $1), applying a linear discount that decays to par at maturity. The discount rate is bounded above by `maxDiscountRatePerYear`, providing a deterministic price floor against adverse market dislocations.
+PT-USDG is priced with the dynamic linear discount rate oracle, which values the PT as a zero-coupon bond against a capped underlying Chainlink reference (the USDG/USD CAPO, a PriceCapAdapterStable bounding the live USDG/USD Chainlink feed at a 1.04 cap), applying a linear discount that decays to par at maturity. The discount rate is bounded above by `maxDiscountRatePerYear`, providing a deterministic price floor against adverse market dislocations.
 
 ## Specification
 
@@ -60,7 +60,7 @@ PT-USDG is priced with the dynamic linear discount rate oracle, which values the
 | -------------------------- | ------------------------------------------ |
 | initialDiscountRatePerYear | 4.50%                                      |
 | maxDiscountRatePerYear     | 10.38%                                     |
-| Oracle                     | 0xD2417d928B7649feb50E61D9cCA38e56EFB34902 |
+| Oracle                     | 0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e |
 
 ## References
 
