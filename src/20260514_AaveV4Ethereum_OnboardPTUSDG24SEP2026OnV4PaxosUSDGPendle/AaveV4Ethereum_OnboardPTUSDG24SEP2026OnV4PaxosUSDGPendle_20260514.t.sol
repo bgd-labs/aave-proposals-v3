@@ -19,8 +19,6 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from '../interfaces/IPriceCapAdapterStable.sol';
 import {AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514} from './AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.sol';
-import {AaveV4PayloadHub} from '../helpers/v4-hub/AaveV4PayloadHub.sol';
-import {AaveV4PayloadEthereumHubForkTestBase} from '../helpers/v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol';
 import {TokenizationSpokeLib} from '../helpers/v4-hub/TokenizationSpokeLib.sol';
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke.sol';
 import {AaveV4PayloadEthereumSpokeForkTestBase} from '../helpers/v4-spoke/AaveV4PayloadEthereumSpokeForkTestBase.sol';
@@ -30,8 +28,7 @@ import {AaveV4PayloadEthereumSpokeForkTestBase} from '../helpers/v4-spoke/AaveV4
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260514_AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle/AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514.t.sol -vv
  */
 contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test is
-  AaveV4PayloadEthereumSpokeForkTestBase,
-  AaveV4PayloadEthereumHubForkTestBase
+  AaveV4PayloadEthereumSpokeForkTestBase
 {
   using SafeERC20 for IERC20;
 
@@ -47,13 +44,10 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
   address internal constant PT_USDG_24SEP2026_PRICE_FEED =
     0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e;
 
-  // USDG CAPO (PriceCapAdapterStable, 1.04 cap) over the USDG/USD Chainlink feed; both the USDG
-  // reserve source and the PT-USDG adapter's underlying reference point here.
+  // USDG CAPO (1.04 cap); backs both the USDG reserve and the PT-USDG adapter base.
   address internal constant USDG_PRICE_FEED = 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
-  // Underlying Chainlink USDG/USD aggregator backing the USDG CAPO.
   address internal constant USDG_USD_CHAINLINK_FEED = 0x14f0737d6b705259e521EA6E9E3506AC78dBd311;
-  // Legacy constant-1 USDG feed (AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDG_PRICE_FEED and the
-  // FOREX/GOLD equivalents) that this proposal fully retires in favour of USDG_PRICE_FEED.
+  // Legacy fixed $1.00 USDG feed retired by this proposal.
   address internal constant LEGACY_USDG_FEED = 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d;
 
   address internal constant PAXOS_HUB_IR_STRATEGY = 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7;
@@ -274,6 +268,52 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     assertEq(tokConfig.addCap, 0, 'TokenizationSpoke addCap should be 0');
   }
 
+  /// @dev USDC/USDT tokenization spokes open at a 13M cap (unlike the PT-USDG wrapper at 0); pins
+  ///      the cap and exercises wrap/redeem.
+  function test_tokenizationSpoke_usdcUsdtWrapAndRedeem() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address[2] memory underlyings = [
+      AaveV4EthereumAssets.USDC_UNDERLYING,
+      AaveV4EthereumAssets.USDT_UNDERLYING
+    ];
+    for (uint256 i; i < underlyings.length; ++i) {
+      address tokenizationSpoke = TokenizationSpokeLib.find(PAXOS_HUB, underlyings[i]);
+      assertTrue(tokenizationSpoke != address(0), 'tokenization spoke missing');
+
+      uint256 assetId = PAXOS_HUB.getAssetId(underlyings[i]);
+      assertEq(
+        PAXOS_HUB.getSpokeConfig(assetId, tokenizationSpoke).addCap,
+        uint40(13_000_000),
+        'tokenization spoke addCap should be 13M'
+      );
+
+      uint256 depositAmount = 100_000 * 1e6;
+      address user = makeAddr(string.concat('tokenizationWrapUser_', vm.toString(i)));
+      deal2(underlyings[i], user, depositAmount);
+
+      vm.startPrank(user);
+      IERC20(underlyings[i]).forceApprove(tokenizationSpoke, depositAmount);
+      uint256 shares = ITokenizationSpoke(tokenizationSpoke).deposit(depositAmount, user);
+      vm.stopPrank();
+
+      assertGt(shares, 0, 'no shares minted');
+      assertEq(IERC20(tokenizationSpoke).balanceOf(user), shares);
+      assertEq(ITokenizationSpoke(tokenizationSpoke).totalAssets(), depositAmount);
+
+      uint256 redeemTarget = shares / 2;
+      vm.prank(user);
+      uint256 redeemedAssets = ITokenizationSpoke(tokenizationSpoke).redeem(
+        redeemTarget,
+        user,
+        user
+      );
+      assertGt(redeemedAssets, 0, 'no assets redeemed');
+      assertEq(IERC20(tokenizationSpoke).balanceOf(user), shares - redeemTarget);
+      assertEq(IERC20(underlyings[i]).balanceOf(user), redeemedAssets);
+    }
+  }
+
   function test_spokeRegistrationsAndCaps() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -303,8 +343,8 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
       ptReserveId,
       0
     );
-    assertEq(ptDyn.collateralFactor, 95_00);
-    assertEq(ptDyn.maxLiquidationBonus, 102_00);
+    assertEq(ptDyn.collateralFactor, 94_00);
+    assertEq(ptDyn.maxLiquidationBonus, 103_20);
     assertEq(ptDyn.liquidationFee, 10_00);
 
     // USDC & USDT: natively suppliable + borrowable on the Paxos Hub, not collateral.
@@ -400,17 +440,17 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     spokes[base.length] = USDG_PENDLE_SPOKE;
 
     uint256 usdgReserves;
-    for (uint256 s; s < spokes.length; ++s) {
-      ISpoke spoke = spokes[s];
+    for (uint256 i; i < spokes.length; ++i) {
+      ISpoke spoke = spokes[i];
       IAaveOracle oracle = IAaveOracle(spoke.ORACLE());
-      uint256 count = spoke.getReserveCount();
-      for (uint256 r; r < count; ++r) {
-        address source = oracle.getReserveSource(r);
+      uint256 reserveCount = spoke.getReserveCount();
+      for (uint256 reserveId; reserveId < reserveCount; ++reserveId) {
+        address source = oracle.getReserveSource(reserveId);
         assertTrue(
           source != LEGACY_USDG_FEED,
           'legacy constant-1 USDG feed still wired on a spoke reserve'
         );
-        if (spoke.getReserve(r).underlying == AaveV4EthereumAssets.USDG_UNDERLYING) {
+        if (spoke.getReserve(reserveId).underlying == AaveV4EthereumAssets.USDG_UNDERLYING) {
           assertEq(source, USDG_PRICE_FEED, 'USDG reserve not repriced to the CAPO');
           ++usdgReserves;
         }
@@ -605,10 +645,6 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
   }
 
   function _payload() internal view override returns (AaveV4PayloadEthereumSpoke) {
-    return proposal;
-  }
-
-  function _hubPayload() internal view override returns (AaveV4PayloadHub) {
     return proposal;
   }
 

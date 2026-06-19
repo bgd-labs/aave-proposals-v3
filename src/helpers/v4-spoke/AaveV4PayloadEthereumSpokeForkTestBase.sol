@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
+import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4ConfigEngine.sol';
 import {Types} from 'aave-helpers/src/dependencies/v4/Types.sol';
 import {ERC1967Utils} from 'aave-v4/dependencies/openzeppelin/ERC1967Utils.sol';
 import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.sol';
@@ -16,13 +16,47 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
 import {TokenizationSpokeLib} from '../v4-hub/TokenizationSpokeLib.sol';
+import {AaveV4PayloadHub} from '../v4-hub/AaveV4PayloadHub.sol';
+import {AaveV4PayloadEthereumHubForkTestBase} from '../v4-hub/AaveV4PayloadEthereumHubForkTestBase.sol';
 import {AaveV4PayloadEthereumSpokeTestBase} from './AaveV4PayloadEthereumSpokeTestBase.sol';
 
+/// @dev Extends the hub fork base, mirroring `AaveV4PayloadSpoke is AaveV4PayloadHub`: a combined
+///      payload's test inherits only this and implements `_payload()`.
 abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
-  AaveV4PayloadEthereumSpokeTestBase,
-  ProtocolV4TestBase
+  AaveV4PayloadEthereumHubForkTestBase,
+  AaveV4PayloadEthereumSpokeTestBase
 {
   using SafeERC20 for IERC20;
+
+  /// @dev A spoke payload is also a hub payload; subclasses implement only `_payload()`.
+  function _hubPayload() internal view override returns (AaveV4PayloadHub) {
+    return _payload();
+  }
+
+  /// @dev Assumed precondition: the SpokeConfigurator already holds SPOKE_CONFIGURATOR_ROLE.
+  function test_assumedRole_spokeConfiguratorHoldsConfiguratorRole() public view virtual {
+    (bool isMember, ) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(
+      Roles.SPOKE_CONFIGURATOR_ROLE,
+      address(AaveV4Ethereum.SPOKE_CONFIGURATOR)
+    );
+    assertTrue(isMember, 'SpokeConfigurator must already hold SPOKE_CONFIGURATOR_ROLE');
+  }
+
+  /// @dev Every existing spoke this payload reconfigures must already gate the configurator
+  ///      selectors behind SPOKE_CONFIGURATOR_ROLE, else the price-source updates revert.
+  function test_assumedRole_reconfiguredSpokesGateConfiguratorSelectors() public view virtual {
+    IAaveV4ConfigEngine.ReserveConfigUpdate[] memory updates = _payload()
+      .spokeReserveConfigUpdates();
+    bytes4[] memory selectors = Roles.getSpokeConfiguratorRoleSelectors();
+    for (uint256 i; i < updates.length; ++i) {
+      for (uint256 j; j < selectors.length; ++j) {
+        assertEq(
+          AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(updates[i].spoke, selectors[j]),
+          Roles.SPOKE_CONFIGURATOR_ROLE
+        );
+      }
+    }
+  }
 
   /// @dev One parametrised collateral/borrow flow. The hub is specified per leg, since collateral
   ///      and borrow reserves may live on different hubs (cross-hub credit lines).

@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2
 
 ## Simple Summary
 
-This AIP onboards PT-USDG-24SEP2026 to Aave V4 on Ethereum, listed on a dedicated Paxos Hub with a single USDG Pendle spoke. The spoke carries PT-USDG as its sole collateral, borrowable against USDC, USDT, and USDG within a correlated stablecoin group. USDC and USDT are supplied natively to the Paxos Hub, while USDG is sourced from the Core Hub through a cross-hub credit line.
+This AIP onboards PT-USDG-24SEP2026 to Aave V4 on Ethereum, listed on a dedicated Paxos Hub with a single USDG Pendle spoke (a correlated stablecoin group). The spoke carries PT-USDG as its sole collateral, borrowable against USDC, USDT, and USDG within that correlated group. USDC and USDT are supplied natively to the Paxos Hub, while USDG is sourced from the Core Hub through a cross-hub credit line. The AIP also replaces the fixed $1.00 USDG price reference with the live Chainlink USDG/USD feed wrapped in a 1.04-capped stablecoin adapter, both for the USDG reserve and as the PT-USDG-24SEP2026 oracle base.
 
 ## Motivation
 
@@ -20,39 +20,53 @@ PT-USDG is priced with the dynamic linear discount rate oracle, which values the
 
 ## Specification
 
-**PT-USDG-24SEP2026**: https://etherscan.io/address/0xc1906aecf868749a2dee203f59b904c0cf212140
+**PT-USDG-24SEP2026**: [https://etherscan.io/address/0xc1906aecf868749a2dee203f59b904c0cf212140](https://etherscan.io/address/0xc1906aecf868749a2dee203f59b904c0cf212140)
 
 **Spoke-level liquidation configuration**
 
 | Spoke             | Target Health Factor | HF for Max Bonus | Liquidation Bonus Factor |
-| ----------------- | -------------------: | ---------------: | -----------------------: |
-| USDG Pendle (new) |               1.0277 |             0.99 |                        1 |
+| ----------------- | -------------------- | ---------------- | ------------------------ |
+| USDG Pendle (new) | 1.0277               | 0.99             | 1                        |
 
 **Reserve-level parameters**
 
-| Parameter             | PT-USDG-24SEP2026 |       USDC |       USDT |               USDG |
-| --------------------- | ----------------: | ---------: | ---------: | -----------------: |
-| Source Hub            |             Paxos |      Paxos |      Paxos | Core (credit line) |
-| Asset role            |   Collateral only | Borrowable | Borrowable |         Borrowable |
-| Suppliable            |               yes |        yes |        yes |                 no |
-| Collateral            |               yes |         no |         no |                 no |
-| Borrowable            |                no |        yes |        yes |                yes |
-| Add Cap               |        15,000,000 | 13,000,000 | 13,000,000 |                  - |
-| Draw Cap              |                 - | 13,000,000 | 13,000,000 |         30,000,000 |
-| Collateral Factor     |               95% |          - |          - |                  - |
-| Max Liquidation Bonus |                2% |          - |          - |                  - |
-| Liquidation Fee       |               10% |          - |          - |                  - |
-| Collateral Risk score |                0% |          - |          - |                  - |
+| Parameter             | PT-USDG-24SEP2026 | USDC       | USDT       | USDG               |
+| --------------------- | ----------------- | ---------- | ---------- | ------------------ |
+| Source Hub            | Paxos             | Paxos      | Paxos      | Core (credit line) |
+| Asset role            | Collateral only   | Borrowable | Borrowable | Borrowable         |
+| Suppliable            | yes               | yes        | yes        | no                 |
+| Collateral            | yes               | no         | no         | no                 |
+| Borrowable            | no                | yes        | yes        | yes                |
+| Add Cap               | 15,000,000        | 13,000,000 | 13,000,000 | -                  |
+| Draw Cap              | -                 | 13,000,000 | 13,000,000 | 30,000,000         |
+| Collateral Factor     | 94%               | -          | -          | -                  |
+| Max Liquidation Bonus | 3.2%              | -          | -          | -                  |
+| Liquidation Fee       | 10%               | -          | -          | -                  |
+| Collateral Risk score | 0%                | -          | -          | -                  |
+
+**Reserve-level parameters: Tokenization Spoke**
+
+| Parameter             | USDC       | USDT       |
+| --------------------- | ---------- | ---------- |
+| Suppliable            | yes        | yes        |
+| Collateral            | no         | no         |
+| Borrowable            | no         | no         |
+| Add Cap               | 13,000,000 | 13,000,000 |
+| Draw Cap              | -          | -          |
+| Collateral Factor     | -          | -          |
+| Max Liquidation Bonus | -          | -          |
+| Liquidation Fee       | -          | -          |
+| Collateral Risk score | -          | -          |
 
 **Interest rate configuration (USDC, USDT)**
 
 | Parameter           | Value |
-| ------------------- | ----: |
-| Base Borrow Rate    |    0% |
-| Optimal Utilization |   92% |
-| Slope Below Optimal |    4% |
-| Slope Above Optimal |   20% |
-| Liquidity Fee       |   10% |
+| ------------------- | ----- |
+| Base Borrow Rate    | 0%    |
+| Optimal Utilization | 92%   |
+| Slope Below Optimal | 4%    |
+| Slope Above Optimal | 20%   |
+| Liquidity Fee       | 10%   |
 
 **Linear Discount Rate Oracle**
 
@@ -61,6 +75,15 @@ PT-USDG is priced with the dynamic linear discount rate oracle, which values the
 | initialDiscountRatePerYear | 4.50%                                      |
 | maxDiscountRatePerYear     | 10.38%                                     |
 | Oracle                     | 0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e |
+
+**USDG Price Reference Update**
+
+The USDG price reference is migrated from the fixed $1.00 feed to the live Chainlink USDG/USD market feed ([0x14f0737d6b705259e521EA6E9E3506AC78dBd311](https://etherscan.io/address/0x14f0737d6b705259e521EA6E9E3506AC78dBd311)), wrapped in a `PriceCapAdapterStable` ([0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4](https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4)) with a $1.04 upper cap — the same capped-adapter standard used for USDC, USDT, and RLUSD. The cap bounds upside oracle risk at 4% above par while the feed remains market-responsive on the downside, enabling timely liquidations in the event of a genuine depeg. The new reference is applied to the USDG reserve on every spoke that currently uses the fixed feed (Main, Forex, Gold, and the new USDG Pendle spoke) and as the PT-USDG-24SEP2026 oracle base.
+
+| Parameter       | Current               | Proposed                               |
+| --------------- | --------------------- | -------------------------------------- |
+| USDG reference  | Fixed USDG/USD, $1.00 | Chainlink USDG/USD market feed, capped |
+| Upper price cap | None                  | $1.04 (4% above par)                   |
 
 ## References
 

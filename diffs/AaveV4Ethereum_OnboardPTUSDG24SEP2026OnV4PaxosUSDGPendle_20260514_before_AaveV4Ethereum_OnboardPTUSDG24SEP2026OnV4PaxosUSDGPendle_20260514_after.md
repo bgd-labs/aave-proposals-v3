@@ -41,8 +41,8 @@
 | borrowable | :x: |
 | receiveSharesEnabled | :white_check_mark: |
 | dynamicConfigKey | 0 |
-| collateralFactor | 95.00 % [9500] |
-| maxLiquidationBonus | 2.00 % [10200] |
+| collateralFactor | 94.00 % [9400] |
+| maxLiquidationBonus | 3.20 % [10320] |
 | liquidationFee | 10.00 % [1000] |
 | oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
 | priceSource | [0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e](https://etherscan.io/address/0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e) |
@@ -52,8 +52,8 @@
 
 | key | field | before | after |
 | --- | --- | --- | --- |
-| key 0 | collateralFactor | *missing* | 95.00 % [9500] |
-| key 0 | maxLiquidationBonus | *missing* | 2.00 % [10200] |
+| key 0 | collateralFactor | *missing* | 94.00 % [9400] |
+| key 0 | maxLiquidationBonus | *missing* | 3.20 % [10320] |
 | key 0 | liquidationFee | *missing* | 10.00 % [1000] |
 
 
@@ -388,7 +388,7 @@
 | 74 | UpdateReservePriceSource(reserveId: 0, priceSource: 0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e) |
 | 75 | AddReserve(reserveId: 0, assetId: 0, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
 | 76 | UpdateReserveConfig(reserveId: 0, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: false, receiveSharesEnabled: true}) |
-| 77 | AddDynamicReserveConfig(reserveId: 0, dynamicConfigKey: 0, config: {collateralFactor: 9500, maxLiquidationBonus: 10200, liquidationFee: 1000}) |
+| 77 | AddDynamicReserveConfig(reserveId: 0, dynamicConfigKey: 0, config: {collateralFactor: 9400, maxLiquidationBonus: 10320, liquidationFee: 1000}) |
 | 79 | UpdateReservePriceSource(reserveId: 1, priceSource: 0x3f73F03aa83B2A48ed27E964eD0fDb590332095B) |
 | 80 | AddReserve(reserveId: 1, assetId: 1, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
 | 81 | UpdateReserveConfig(reserveId: 1, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: true}) |
@@ -710,7 +710,7 @@
 | 0x28b425f61cad6d11aeb5a0203d47cee5c848ac803463a42255b3f6bb79a2e3a2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000027100000 |
 | 0x2ee170a51ab53e5670763febc11468a372036702bf17b0369227759f4b7980d2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
 | 0x32ceab9d473538cc729e1c208f6335307014bf79fd908ab064a5de69cbb411be | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
-| 0x396a5abb6bca56e91bb5dd6bbc43dc9c37f3b8d5af727f8b42952b318eb483f7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000000000000003e8000027d8251c |
+| 0x396a5abb6bca56e91bb5dd6bbc43dc9c37f3b8d5af727f8b42952b318eb483f7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000000000000003e80000285024b8 |
 | 0x3a7920452422ef48e47ab6d357a518cadf6507e9f771e2bdffaed84ff517def6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 | 0x66d0d9823e7a94b725df8e80811f0b9f22183cadce67d314573231efa74d50c7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 | 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7 |
@@ -1054,21 +1054,21 @@
         "0": {
           "assetId": 0,
           "borrowable": false,
-          "collateralFactor": 9500,
+          "collateralFactor": 9400,
           "collateralRisk": 0,
           "decimals": 6,
           "dynamicConfigKey": 0,
           "dynamicConfigs": {
             "0": {
-              "collateralFactor": 9500,
+              "collateralFactor": 9400,
               "liquidationFee": 1000,
-              "maxLiquidationBonus": 10200
+              "maxLiquidationBonus": 10320
             }
           },
           "frozen": false,
           "hub": "0x62d63197660c080236193CA60b70E49A08E90368",
           "liquidationFee": 1000,
-          "maxLiquidationBonus": 10200,
+          "maxLiquidationBonus": 10320,
           "oracleAddress": "0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee",
           "oraclePrice": "98804665",
           "paused": false,

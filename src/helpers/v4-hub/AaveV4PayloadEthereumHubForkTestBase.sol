@@ -21,6 +21,15 @@ abstract contract AaveV4PayloadEthereumHubForkTestBase is
 {
   IAccessManagerEnumerable internal constant HUB_ACCESS_MANAGER = AaveV4Ethereum.ACCESS_MANAGER;
 
+  /// @dev Assumed precondition: the HubConfigurator already holds HUB_CONFIGURATOR_ROLE.
+  function test_assumedRole_hubConfiguratorHoldsConfiguratorRole() public view virtual {
+    (bool isMember, ) = HUB_ACCESS_MANAGER.hasRole(
+      Roles.HUB_CONFIGURATOR_ROLE,
+      address(AaveV4Ethereum.HUB_CONFIGURATOR)
+    );
+    assertTrue(isMember, 'HubConfigurator must already hold HUB_CONFIGURATOR_ROLE');
+  }
+
   /// @dev The role wiring targets `AaveV4Ethereum.ACCESS_MANAGER`, so each new Hub must be governed
   ///      by it; otherwise the wiring lands on the wrong authority.
   function test_newHubs_governedBySharedAccessManager() public view virtual {

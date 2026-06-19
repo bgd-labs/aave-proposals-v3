@@ -7,6 +7,7 @@ import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4ConfigEngine.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke.sol';
 
@@ -67,7 +68,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
   function _preExecute() internal override {
     AaveV4Ethereum.ACCESS_MANAGER.grantRole({
       roleId: Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
-      account: address(this),
+      account: GovernanceV3Ethereum.EXECUTOR_LVL_1,
       executionDelay: 0
     });
   }
@@ -148,8 +149,8 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       collateralRisk: 0,
       borrowable: false,
       receiveSharesEnabled: true,
-      collateralFactor: 95_00,
-      maxLiquidationBonus: 102_00,
+      collateralFactor: 94_00,
+      maxLiquidationBonus: 103_20,
       liquidationFee: 10_00
     });
     listings[1] = ReserveListing({
@@ -188,6 +189,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
     return listings;
   }
 
+  /// @dev Repoints USDG to the CAPO on the existing FOREX/GOLD/MAIN spokes; price source only.
   function spokeReserveConfigUpdates()
     public
     pure

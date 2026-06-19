@@ -5,8 +5,7 @@ import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4Confi
 
 /// @title RoleUpdatesLib
 /// @notice Utilities for composing AccessManager target-function-role updates consumed by the V4
-///         config engine. The engine reads them from a single payload hook, so a payload sourcing
-///         updates from more than one base (e.g. Hub + Spoke) must concatenate them.
+///         config engine.
 library RoleUpdatesLib {
   function merge(
     IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory a,
