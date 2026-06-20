@@ -10,9 +10,9 @@ import {RoleUpdatesLib} from '../RoleUpdatesLib.sol';
  * @dev command: forge test --match-path=src/helpers/v4-config-engine/tests/RoleUpdatesLib.t.sol -vv
  */
 contract RoleUpdatesLibTest is Test {
-  function test_merge_concatenatesPreservingOrder() public pure {
-    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory a = _updates(2, 0x10);
-    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory b = _updates(3, 0x20);
+  function test_merge_concatenatesPreservingOrder() public view {
+    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory a = _updates(2);
+    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory b = _updates(3);
 
     IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory merged = RoleUpdatesLib.merge(a, b);
 
@@ -27,9 +27,9 @@ contract RoleUpdatesLibTest is Test {
     assertEq(uint256(merged[4].roleId), uint256(b[2].roleId));
   }
 
-  function test_merge_handlesEmptyOperands() public pure {
-    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory empty = _updates(0, 0);
-    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory one = _updates(1, 0x30);
+  function test_merge_handlesEmptyOperands() public view {
+    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory empty = _updates(0);
+    IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory one = _updates(1);
 
     assertEq(RoleUpdatesLib.merge(empty, empty).length, 0);
 
@@ -49,17 +49,16 @@ contract RoleUpdatesLibTest is Test {
   }
 
   function _updates(
-    uint256 count,
-    uint160 targetSeed
-  ) internal pure returns (IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory) {
+    uint256 count
+  ) internal view returns (IAaveV4ConfigEngine.TargetFunctionRoleUpdate[] memory) {
     IAaveV4ConfigEngine.TargetFunctionRoleUpdate[]
       memory updates = new IAaveV4ConfigEngine.TargetFunctionRoleUpdate[](count);
     for (uint256 i; i < count; ++i) {
       updates[i] = IAaveV4ConfigEngine.TargetFunctionRoleUpdate({
-        authority: address(0),
-        target: address(targetSeed + uint160(i)),
+        authority: vm.randomAddress(),
+        target: vm.randomAddress(),
         selectors: new bytes4[](0),
-        roleId: uint64(targetSeed + uint160(i))
+        roleId: uint64(vm.randomUint())
       });
     }
     return updates;

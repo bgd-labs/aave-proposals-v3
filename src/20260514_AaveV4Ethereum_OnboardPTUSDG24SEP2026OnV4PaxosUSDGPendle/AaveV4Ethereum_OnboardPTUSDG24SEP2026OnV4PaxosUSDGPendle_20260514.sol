@@ -8,6 +8,7 @@ import {IAaveV4ConfigEngine} from 'aave-v4/config-engine/interfaces/IAaveV4Confi
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 
 import {AaveV4PayloadEthereumSpoke} from '../helpers/v4-spoke/AaveV4PayloadSpoke.sol';
 
@@ -78,7 +79,7 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
     return super._hubName(hub);
   }
 
-  function _hubAssetListings() internal pure override returns (HubAssetListing[] memory) {
+  function _hubAssetListings() internal view override returns (HubAssetListing[] memory) {
     HubAssetListing[] memory listings = new HubAssetListing[](3);
     listings[0] = HubAssetListing({
       hub: PAXOS_HUB,
@@ -94,7 +95,11 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       liquidityFee: 10_00,
       irStrategy: PAXOS_HUB_IR_STRATEGY,
       irData: _borrowableIRData(),
-      tokenization: _tokenization(PAXOS_HUB, 'USDC', USDC_TOKENIZATION_SPOKE_ADD_CAP)
+      tokenization: _tokenization(
+        PAXOS_HUB,
+        IERC20Metadata(AaveV4EthereumAssets.USDC_UNDERLYING).symbol(),
+        USDC_TOKENIZATION_SPOKE_ADD_CAP
+      )
     });
     listings[2] = HubAssetListing({
       hub: PAXOS_HUB,
@@ -102,7 +107,11 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514 is
       liquidityFee: 10_00,
       irStrategy: PAXOS_HUB_IR_STRATEGY,
       irData: _borrowableIRData(),
-      tokenization: _tokenization(PAXOS_HUB, 'USDT', USDT_TOKENIZATION_SPOKE_ADD_CAP)
+      tokenization: _tokenization(
+        PAXOS_HUB,
+        IERC20Metadata(AaveV4EthereumAssets.USDT_UNDERLYING).symbol(),
+        USDT_TOKENIZATION_SPOKE_ADD_CAP
+      )
     });
     return listings;
   }

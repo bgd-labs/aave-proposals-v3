@@ -3,8 +3,6 @@ pragma solidity ^0.8.0;
 
 import {Test, console} from 'forge-std/Test.sol';
 import {Vm} from 'forge-std/Vm.sol';
-// solhint-disable-next-line no-unused-import
-import {SpokeInstance} from 'aave-v4/spoke/instances/SpokeInstance.sol'; // forces artifact build for vm.getDeployedCode
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4PayloadEthereumSpoke} from './AaveV4PayloadSpoke.sol';
 

@@ -1,5 +1,5 @@
 ---
-title: "Onboard PT-USDG-24SEP2026 on V4 Paxos Hub / USDG Pendle"
+title: "Launch of V4 Paxos Hub and onboard PT-USDG-24SEP2026"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/3"
 ---

@@ -674,18 +674,115 @@ abstract contract AaveV4PayloadEthereumSpokeForkTestBase is
 
   function _tokenizationTestCases() internal view virtual returns (TokenizationTestCase[] memory);
 
-  /// @dev Subclasses must pin the trusted canonical SpokeInstance impl address.
-  function _canonicalSpokeImplementation() internal view virtual returns (address);
+  /// @dev `{start,length}`; field order alphabetical to match how cheatcodes abi-encode JSON.
+  struct BytecodeRef {
+    uint256 length;
+    uint256 start;
+  }
 
+  /// @dev Asserts the spoke proxy delegates to the canonical `SpokeInstance` logic by comparing its
+  ///      implementation bytecode against the local artifact, masking immutables and library links
+  ///      (which differ per spoke). Requires the artifact compiled with the deployment settings; see
+  ///      foundry.toml and {CanonicalSpokeArtifact}.
   function _assertSpokeImplIsCanonical(address spokeProxy) internal view {
     bytes32 implementationSlot = vm.load(spokeProxy, ERC1967Utils.IMPLEMENTATION_SLOT);
     address implementation = address(uint160(uint256(implementationSlot)));
     require(implementation != address(0), 'spoke impl slot is zero');
     require(implementation.code.length > 0, 'spoke impl has no code');
+
+    bytes memory canonical = vm.getDeployedCode(_canonicalSpokeArtifact());
+    bytes memory onchain = implementation.code;
     require(
-      implementation == _canonicalSpokeImplementation(),
+      onchain.length == canonical.length,
+      string.concat('spoke impl size != canonical: ', vm.toString(implementation))
+    );
+
+    (uint256[] memory starts, uint256[] memory lengths) = _canonicalSpokeMaskRegions();
+    for (uint256 i; i < starts.length; ++i) {
+      for (uint256 k; k < lengths[i]; ++k) {
+        onchain[starts[i] + k] = 0;
+        canonical[starts[i] + k] = 0;
+      }
+    }
+    require(
+      keccak256(onchain) == keccak256(canonical),
       string.concat('spoke impl is not canonical: ', vm.toString(implementation))
     );
+  }
+
+  /// @dev Byte ranges to mask: immutable references (per-spoke oracle/limits) + library links.
+  function _canonicalSpokeMaskRegions()
+    internal
+    view
+    returns (uint256[] memory starts, uint256[] memory lengths)
+  {
+    bytes memory code = vm.getDeployedCode(_canonicalSpokeArtifact());
+    string memory json = vm.readFile(vm.getArtifactPathByDeployedCode(code));
+    BytecodeRef[] memory imm = _flattenRefs(json, '.deployedBytecode.immutableReferences');
+    BytecodeRef[] memory lnk = _linkRefs(json);
+    starts = new uint256[](imm.length + lnk.length);
+    lengths = new uint256[](imm.length + lnk.length);
+    uint256 n;
+    for (uint256 i; i < imm.length; ++i) {
+      starts[n] = imm[i].start;
+      lengths[n] = imm[i].length;
+      ++n;
+    }
+    for (uint256 i; i < lnk.length; ++i) {
+      starts[n] = lnk[i].start;
+      lengths[n] = lnk[i].length;
+      ++n;
+    }
+  }
+
+  /// @dev Flattens a map of `astId -> {start,length}[]` (e.g. `immutableReferences`) into one array.
+  function _flattenRefs(
+    string memory json,
+    string memory path
+  ) private pure returns (BytecodeRef[] memory) {
+    string[] memory keys = vm.parseJsonKeys(json, path);
+    BytecodeRef[][] memory perKey = new BytecodeRef[][](keys.length);
+    uint256 total;
+    for (uint256 i; i < keys.length; ++i) {
+      perKey[i] = abi.decode(
+        vm.parseJson(json, string.concat(path, '.', keys[i])),
+        (BytecodeRef[])
+      );
+      total += perKey[i].length;
+    }
+    BytecodeRef[] memory out = new BytecodeRef[](total);
+    uint256 n;
+    for (uint256 i; i < keys.length; ++i) {
+      for (uint256 j; j < perKey[i].length; ++j) out[n++] = perKey[i][j];
+    }
+    return out;
+  }
+
+  /// @dev `linkReferences` is keyed by file path, then by library name -> `{start,length}[]`.
+  function _linkRefs(string memory json) private pure returns (BytecodeRef[] memory) {
+    string memory base = '.deployedBytecode.linkReferences';
+    string[] memory files = vm.parseJsonKeys(json, base);
+    BytecodeRef[][] memory chunks = new BytecodeRef[][](64);
+    uint256 chunkCount;
+    uint256 total;
+    for (uint256 f; f < files.length; ++f) {
+      string memory filePath = string.concat(base, '.["', files[f], '"]');
+      string[] memory libs = vm.parseJsonKeys(json, filePath);
+      for (uint256 l; l < libs.length; ++l) {
+        BytecodeRef[] memory refs = abi.decode(
+          vm.parseJson(json, string.concat(filePath, '.', libs[l])),
+          (BytecodeRef[])
+        );
+        chunks[chunkCount++] = refs;
+        total += refs.length;
+      }
+    }
+    BytecodeRef[] memory out = new BytecodeRef[](total);
+    uint256 n;
+    for (uint256 i; i < chunkCount; ++i) {
+      for (uint256 j; j < chunks[i].length; ++j) out[n++] = chunks[i][j];
+    }
+    return out;
   }
 
   function _reserveIdsFor(

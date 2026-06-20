@@ -711,8 +711,4 @@ contract AaveV4Ethereum_OnboardPTUSDG24SEP2026OnV4PaxosUSDGPendle_20260514_Test 
     });
     return cases;
   }
-
-  function _canonicalSpokeImplementation() internal pure override returns (address) {
-    return 0xf5c2dEeE8ccB3341449aA020E23FB34A22e7D989;
-  }
 }

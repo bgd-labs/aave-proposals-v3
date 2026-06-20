@@ -1,3 +1,5 @@
 allowBuilds:
   esbuild: true
 minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - "@aave-dao/aave-helpers-js"
