@@ -44,15 +44,6 @@ out = 'out/prague'
 evm_version = 'prague'
 cache_path = 'cache/prague'
 gas_limit = 9223372036854775807
-# Compile the canonical V4 Spoke with the exact settings used at deployment (mirrors aave-v4's
-# own additional_compiler_profiles/compilation_restrictions for SpokeInstance.sol) so
-# vm.getDeployedCode matches the mainnet-deployed bytecode for the canonical-impl check.
-additional_compiler_profiles = [
-  { name = "spoke", optimizer = true, via_ir = true, optimizer_runs = 750, evm_version = "cancun" },
-]
-compilation_restrictions = [
-  { paths = "lib/aave-helpers/lib/aave-address-book/lib/aave-v4/src/spoke/instances/SpokeInstance.sol", via_ir = true, optimizer_runs = 750, evm_version = "cancun" },
-]
 
 [profile.deploy]
 out = 'out/shanghai'
