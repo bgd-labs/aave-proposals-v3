@@ -52,10 +52,28 @@ contract AaveV3XLayer_UpdateUSDGPriceFeed_20260514_Test is ProtocolV3TestBase {
       'USDG CAPO should source the USDG/USD Chainlink feed'
     );
     assertEq(capo.getPriceCap(), int256(1.04e8), 'USDG CAPO price cap should be 1.04');
+    assertFalse(capo.isCapped(), 'USDG CAPO should not be capped at current par price');
 
     int256 price = IChainlinkAggregator(USDG_PRICE_FEED).latestAnswer();
     assertGt(price, int256(0.98e8), 'USDG price below expected lower bound');
     assertLe(price, capo.getPriceCap(), 'USDG price must not exceed the cap');
+  }
+
+  function test_usdgOraclePriceReflectsCapo() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint256 price = AaveV3XLayer.ORACLE.getAssetPrice(AaveV3XLayerAssets.USDG_UNDERLYING);
+    assertEq(
+      price,
+      uint256(IChainlinkAggregator(USDG_PRICE_FEED).latestAnswer()),
+      'oracle price should equal the CAPO answer'
+    );
+    assertGt(price, 0.98e8, 'USDG price below expected lower bound');
+    assertLe(
+      price,
+      uint256(IPriceCapAdapterStable(USDG_PRICE_FEED).getPriceCap()),
+      'price over cap'
+    );
   }
 
   function test_reservesUseNewPriceFeed() public {
