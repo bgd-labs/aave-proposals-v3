@@ -1,0 +1,1162 @@
+## Spoke Reserve Changes
+
+### USDG ([0xe343167631d89B6Ffc58B88d6b7fB0228795491D](https://etherscan.io/address/0xe343167631d89B6Ffc58B88d6b7fB0228795491D)) on Spoke [0x65407b940966954b23dfA3caA5C0702bB42984DC](https://etherscan.io/address/0x65407b940966954b23dfA3caA5C0702bB42984DC) [reserveId: 3]
+
+| description | value before | value after |
+| --- | --- | --- |
+| priceSource | [0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d](https://etherscan.io/address/0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d) | [0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4](https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+| oraclePrice | 100,000,000 (1e8) | 99,992,000 (9.9992e7) |
+
+
+### USDG ([0xe343167631d89B6Ffc58B88d6b7fB0228795491D](https://etherscan.io/address/0xe343167631d89B6Ffc58B88d6b7fB0228795491D)) on Spoke [0x94e7A5dCbE816e498b89aB752661904E2F56c485](https://etherscan.io/address/0x94e7A5dCbE816e498b89aB752661904E2F56c485) [reserveId: 11]
+
+| description | value before | value after |
+| --- | --- | --- |
+| priceSource | [0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d](https://etherscan.io/address/0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d) | [0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4](https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+| oraclePrice | 100,000,000 (1e8) | 99,992,000 (9.9992e7) |
+
+
+### USDG ([0xe343167631d89B6Ffc58B88d6b7fB0228795491D](https://etherscan.io/address/0xe343167631d89B6Ffc58B88d6b7fB0228795491D)) on Spoke [0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1](https://etherscan.io/address/0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1) [reserveId: 4]
+
+| description | value before | value after |
+| --- | --- | --- |
+| priceSource | [0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d](https://etherscan.io/address/0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d) | [0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4](https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+| oraclePrice | 100,000,000 (1e8) | 99,992,000 (9.9992e7) |
+
+
+### PT-USDG-24SEP2026 ([0xc1906aeCf868749a2DeE203F59b904c0cf212140](https://etherscan.io/address/0xc1906aeCf868749a2DeE203F59b904c0cf212140)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 0]
+
+**NEW RESERVE**
+
+| description | value |
+| --- | --- |
+| symbol | PT-USDG-24SEP2026 |
+| underlying | [0xc1906aeCf868749a2DeE203F59b904c0cf212140](https://etherscan.io/address/0xc1906aeCf868749a2DeE203F59b904c0cf212140) |
+| hub | [0x62d63197660c080236193CA60b70E49A08E90368](https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368) |
+| assetId | 0 |
+| decimals | 6 |
+| collateralRisk | 0.00 % [0] |
+| paused | :x: |
+| frozen | :x: |
+| borrowable | :x: |
+| receiveSharesEnabled | :white_check_mark: |
+| dynamicConfigKey | 0 |
+| collateralFactor | 94.00 % [9400] |
+| maxLiquidationBonus | 3.20 % [10320] |
+| liquidationFee | 10.00 % [1000] |
+| oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
+| priceSource | [0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e](https://etherscan.io/address/0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e) |
+| oraclePrice | 98,804,665 (9.8804665e7) |
+
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 94.00 % [9400] |
+| key 0 | maxLiquidationBonus | *missing* | 3.20 % [10320] |
+| key 0 | liquidationFee | *missing* | 10.00 % [1000] |
+
+
+### USDC ([0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 1]
+
+**NEW RESERVE**
+
+| description | value |
+| --- | --- |
+| symbol | USDC |
+| underlying | [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48) |
+| hub | [0x62d63197660c080236193CA60b70E49A08E90368](https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368) |
+| assetId | 1 |
+| decimals | 6 |
+| collateralRisk | 0.00 % [0] |
+| paused | :x: |
+| frozen | :x: |
+| borrowable | :white_check_mark: |
+| receiveSharesEnabled | :white_check_mark: |
+| dynamicConfigKey | 0 |
+| collateralFactor | 0.00 % [0] |
+| maxLiquidationBonus | 0.00 % [10000] |
+| liquidationFee | 0.00 % [0] |
+| oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
+| priceSource | [0x3f73F03aa83B2A48ed27E964eD0fDb590332095B](https://etherscan.io/address/0x3f73F03aa83B2A48ed27E964eD0fDb590332095B) |
+| oraclePrice | 99,977,322 (9.9977322e7) |
+
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 0.00 % [0] |
+| key 0 | maxLiquidationBonus | *missing* | 0.00 % [10000] |
+| key 0 | liquidationFee | *missing* | 0.00 % [0] |
+
+
+### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 2]
+
+**NEW RESERVE**
+
+| description | value |
+| --- | --- |
+| symbol | USDT |
+| underlying | [0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7) |
+| hub | [0x62d63197660c080236193CA60b70E49A08E90368](https://etherscan.io/address/0x62d63197660c080236193CA60b70E49A08E90368) |
+| assetId | 2 |
+| decimals | 6 |
+| collateralRisk | 0.00 % [0] |
+| paused | :x: |
+| frozen | :x: |
+| borrowable | :white_check_mark: |
+| receiveSharesEnabled | :white_check_mark: |
+| dynamicConfigKey | 0 |
+| collateralFactor | 0.00 % [0] |
+| maxLiquidationBonus | 0.00 % [10000] |
+| liquidationFee | 0.00 % [0] |
+| oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
+| priceSource | [0x260326c220E469358846b187eE53328303Efe19C](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
+| oraclePrice | 99,877,000 (9.9877e7) |
+
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 0.00 % [0] |
+| key 0 | maxLiquidationBonus | *missing* | 0.00 % [10000] |
+| key 0 | liquidationFee | *missing* | 0.00 % [0] |
+
+
+### USDG ([0xe343167631d89B6Ffc58B88d6b7fB0228795491D](https://etherscan.io/address/0xe343167631d89B6Ffc58B88d6b7fB0228795491D)) on Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) [reserveId: 3]
+
+**NEW RESERVE**
+
+| description | value |
+| --- | --- |
+| symbol | USDG |
+| underlying | [0xe343167631d89B6Ffc58B88d6b7fB0228795491D](https://etherscan.io/address/0xe343167631d89B6Ffc58B88d6b7fB0228795491D) |
+| hub | [0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9](https://etherscan.io/address/0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9) |
+| assetId | 8 |
+| decimals | 6 |
+| collateralRisk | 0.00 % [0] |
+| paused | :x: |
+| frozen | :x: |
+| borrowable | :white_check_mark: |
+| receiveSharesEnabled | :x: |
+| dynamicConfigKey | 0 |
+| collateralFactor | 0.00 % [0] |
+| maxLiquidationBonus | 0.00 % [10000] |
+| liquidationFee | 0.00 % [0] |
+| oracleAddress | [0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee](https://etherscan.io/address/0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee) |
+| priceSource | [0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4](https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+| oraclePrice | 99,992,000 (9.9992e7) |
+
+**dynamicConfigs**
+
+| key | field | before | after |
+| --- | --- | --- | --- |
+| key 0 | collateralFactor | *missing* | 0.00 % [0] |
+| key 0 | maxLiquidationBonus | *missing* | 0.00 % [10000] |
+| key 0 | liquidationFee | *missing* | 0.00 % [0] |
+
+
+## Hub Spoke Config Changes
+
+### USDG (assetId: 8) on Hub [0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9](https://etherscan.io/address/0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9) / Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9)
+
+**NEW SPOKE**
+
+| description | value |
+| --- | --- |
+| assetSymbol | USDG |
+| addCap | 0 USDG |
+| drawCap | 30,000,000 (3e7) USDG |
+| riskPremiumThreshold | 0.00 % [0] |
+| active | :white_check_mark: |
+| halted | :x: |
+
+## Spoke Liquidation Config Changes
+
+### Spoke [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9)
+
+| description | value before | value after |
+| --- | --- | --- |
+| targetHealthFactor | 1 [1000000000000000000] | 1.0277 [1027700000000000000] |
+| healthFactorForMaxBonus | 0 [0] | 0.99 [990000000000000000] |
+| liquidationBonusFactor | 0.00 % [0] | 100.00 % [10000] |
+
+## Position Manager Changes
+
+| spoke | position manager | active before | active after |
+| --- | --- | --- | --- |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e](https://etherscan.io/address/0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e) | :x: | :white_check_mark: |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0x51305839CE822a7b4b12AA7D86eA7005052d575c](https://etherscan.io/address/0x51305839CE822a7b4b12AA7D86eA7005052d575c) | :x: | :white_check_mark: |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0x6c044c0D3801499bCAbfAd458B70880bc518e9F7](https://etherscan.io/address/0x6c044c0D3801499bCAbfAd458B70880bc518e9F7) | :x: | :white_check_mark: |
+| [0x956d8e0A89cfa3744428C4641b5a53B56167a7f9](https://etherscan.io/address/0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) | [0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d](https://etherscan.io/address/0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d) | :x: | :white_check_mark: |
+
+## Access Manager Role Changes
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 101 (HUB_CONFIGURATOR_ROLE)
+
+- target/selector grants added:
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0x1e83287e00000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0x24e4c1af00000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xc25d82fe00000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xa2763d2900000000000000000000000000000000000000000000000000000000
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xa467cc5900000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 102 (HUB_FEE_MINTER_ROLE)
+
+- target/selector grants added:
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0x033a069500000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 103 (HUB_DEFICIT_ELIMINATOR_ROLE)
+
+- target/selector grants added:
+  - [0x62d63197660c080236193ca60b70e49a08e90368](https://etherscan.io/address/0x62d63197660c080236193ca60b70e49a08e90368) 0xbe10528000000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 301 (SPOKE_CONFIGURATOR_ROLE)
+
+- target/selector grants added:
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x87107a6d00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x4de8d2ba00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0xa0f5b9ab00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0xe903e1bd00000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x9290fa0000000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x9ca9c13400000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0xb2380e9300000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 302 (SPOKE_USER_POSITION_UPDATER_ROLE)
+
+- target/selector grants added:
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x826002e200000000000000000000000000000000000000000000000000000000
+  - [0x956d8e0a89cfa3744428c4641b5a53b56167a7f9](https://etherscan.io/address/0x956d8e0a89cfa3744428c4641b5a53b56167a7f9) 0x91c46d0900000000000000000000000000000000000000000000000000000000
+
+#### [0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01](https://etherscan.io/address/0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01) role 400 (SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE)
+
+- members added: [0x5300a1a15135ea4dc7ad5a167152c01efc9b192a](https://etherscan.io/address/0x5300a1a15135ea4dc7ad5a167152c01efc9b192a)
+
+## Event logs
+
+#### 0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01 (AaveV4Ethereum.ACCESS_MANAGER)
+
+| index | event |
+| --- | --- |
+| 0 | RoleGranted(roleId: 400, account: 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, delay: 0, since: 1781886491, newMember: true) |
+| 1 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 101, selector: 0x1e83287e) |
+| 2 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 101, selector: 0x24e4c1af) |
+| 3 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 101, selector: 0xc25d82fe) |
+| 4 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 101, selector: 0xa2763d29) |
+| 5 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 101, selector: 0xa467cc59) |
+| 6 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 102, selector: 0x033a0695) |
+| 7 | TargetFunctionRoleUpdated(target: 0x62d63197660c080236193CA60b70E49A08E90368, roleId: 103, selector: 0xbe105280) |
+| 8 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0x87107a6d) |
+| 9 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0x4de8d2ba) |
+| 10 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0xa0f5b9ab) |
+| 11 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0xe903e1bd) |
+| 12 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0x9290fa00) |
+| 13 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0x9ca9c134) |
+| 14 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 301, selector: 0xb2380e93) |
+| 15 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 302, selector: 0x826002e2) |
+| 16 | TargetFunctionRoleUpdated(target: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, roleId: 302, selector: 0x91c46d09) |
+
+#### 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7
+
+| index | event |
+| --- | --- |
+| 17 | UpdateInterestRateData(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 0, optimalUsageRatio: 9900, baseDrawnRate: 0, rateGrowthBeforeOptimal: 0, rateGrowthAfterOptimal: 0) |
+| 33 | UpdateInterestRateData(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 1, optimalUsageRatio: 9200, baseDrawnRate: 0, rateGrowthBeforeOptimal: 400, rateGrowthAfterOptimal: 2000) |
+| 49 | UpdateInterestRateData(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 2, optimalUsageRatio: 9200, baseDrawnRate: 0, rateGrowthBeforeOptimal: 400, rateGrowthAfterOptimal: 2000) |
+
+#### 0x62d63197660c080236193CA60b70E49A08E90368
+
+| index | event |
+| --- | --- |
+| 18 | AddSpoke(assetId: 0, spoke: 0xB9B0b8616f6Bf6841972a52058132BE08d723155) |
+| 19 | UpdateSpokeConfig(assetId: 0, spoke: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, config: {addCap: 1099511627775, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 20 | AddAsset(assetId: 0, underlying: 0xc1906aeCf868749a2DeE203F59b904c0cf212140, decimals: 6) |
+| 21 | UpdateAssetConfig(assetId: 0, config: {feeReceiver: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, liquidityFee: 0, irStrategy: 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7, reinvestmentController: 0x0000000000000000000000000000000000000000}) |
+| 22 | UpdateAsset(assetId: 0, drawnIndex: 1000000000000000000000000000, drawnRate: 0, accruedFees: 0) |
+| 23 | UpdateAsset(assetId: 0, drawnIndex: 1000000000000000000000000000, drawnRate: 0, accruedFees: 0) |
+| 24 | UpdateAssetConfig(assetId: 0, config: {feeReceiver: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, liquidityFee: 0, irStrategy: 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7, reinvestmentController: 0x0000000000000000000000000000000000000000}) |
+| 31 | AddSpoke(assetId: 0, spoke: 0x27eF1140364948A0E30E248297FfDFE5a4091ec4) |
+| 32 | UpdateSpokeConfig(assetId: 0, spoke: 0x27eF1140364948A0E30E248297FfDFE5a4091ec4, config: {addCap: 0, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 34 | AddSpoke(assetId: 1, spoke: 0xB9B0b8616f6Bf6841972a52058132BE08d723155) |
+| 35 | UpdateSpokeConfig(assetId: 1, spoke: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, config: {addCap: 1099511627775, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 36 | AddAsset(assetId: 1, underlying: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, decimals: 6) |
+| 37 | UpdateAssetConfig(assetId: 1, config: {feeReceiver: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, liquidityFee: 0, irStrategy: 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7, reinvestmentController: 0x0000000000000000000000000000000000000000}) |
+| 38 | UpdateAsset(assetId: 1, drawnIndex: 1000000000000000000000000000, drawnRate: 0, accruedFees: 0) |
+| 39 | UpdateAsset(assetId: 1, drawnIndex: 1000000000000000000000000000, drawnRate: 0, accruedFees: 0) |
+| 40 | UpdateAssetConfig(assetId: 1, config: {feeReceiver: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, liquidityFee: 1000, irStrategy: 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7, reinvestmentController: 0x0000000000000000000000000000000000000000}) |
+| 47 | AddSpoke(assetId: 1, spoke: 0x4131E0B2E7AFeCEAf3d3b4225aA61a3B2B7535b8) |
+| 48 | UpdateSpokeConfig(assetId: 1, spoke: 0x4131E0B2E7AFeCEAf3d3b4225aA61a3B2B7535b8, config: {addCap: 13000000, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 50 | AddSpoke(assetId: 2, spoke: 0xB9B0b8616f6Bf6841972a52058132BE08d723155) |
+| 51 | UpdateSpokeConfig(assetId: 2, spoke: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, config: {addCap: 1099511627775, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 52 | AddAsset(assetId: 2, underlying: 0xdAC17F958D2ee523a2206206994597C13D831ec7, decimals: 6) |
+| 53 | UpdateAssetConfig(assetId: 2, config: {feeReceiver: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, liquidityFee: 0, irStrategy: 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7, reinvestmentController: 0x0000000000000000000000000000000000000000}) |
+| 54 | UpdateAsset(assetId: 2, drawnIndex: 1000000000000000000000000000, drawnRate: 0, accruedFees: 0) |
+| 55 | UpdateAsset(assetId: 2, drawnIndex: 1000000000000000000000000000, drawnRate: 0, accruedFees: 0) |
+| 56 | UpdateAssetConfig(assetId: 2, config: {feeReceiver: 0xB9B0b8616f6Bf6841972a52058132BE08d723155, liquidityFee: 1000, irStrategy: 0xD7eC225DC053151100A0ef47b94a77AAD9C413b7, reinvestmentController: 0x0000000000000000000000000000000000000000}) |
+| 63 | AddSpoke(assetId: 2, spoke: 0x8Dabe53E8cB991c57f0307F6f419E6D469b0deAA) |
+| 64 | UpdateSpokeConfig(assetId: 2, spoke: 0x8Dabe53E8cB991c57f0307F6f419E6D469b0deAA, config: {addCap: 13000000, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 65 | AddSpoke(assetId: 0, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) |
+| 66 | UpdateSpokeConfig(assetId: 0, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, config: {addCap: 15000000, drawCap: 0, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 67 | AddSpoke(assetId: 1, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) |
+| 68 | UpdateSpokeConfig(assetId: 1, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, config: {addCap: 13000000, drawCap: 13000000, riskPremiumThreshold: 0, active: true, halted: false}) |
+| 69 | AddSpoke(assetId: 2, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) |
+| 70 | UpdateSpokeConfig(assetId: 2, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, config: {addCap: 13000000, drawCap: 13000000, riskPremiumThreshold: 0, active: true, halted: false}) |
+
+#### 0x9298eBF12a52b6F315823D58f6F87aD51bB55e6e
+
+| index | event |
+| --- | --- |
+| 25 | Initialized(version: 18446744073709551615) |
+
+#### 0x27eF1140364948A0E30E248297FfDFE5a4091ec4
+
+| index | event |
+| --- | --- |
+| 26 | Upgraded(implementation: 0x9298eBF12a52b6F315823D58f6F87aD51bB55e6e) |
+| 27 | SetTokenizationSpokeImmutables(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 0) |
+| 28 | Initialized(version: 1) |
+| 30 | AdminChanged(previousAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0x0e73059E03154d13f2594c869633007Aa7c9b118) |
+
+#### 0x0e73059E03154d13f2594c869633007Aa7c9b118
+
+| index | event |
+| --- | --- |
+| 29 | OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5) |
+
+#### 0x9e32Ff77587cb95BA306F6cEeb274938B5951339
+
+| index | event |
+| --- | --- |
+| 41 | Initialized(version: 18446744073709551615) |
+
+#### 0x4131E0B2E7AFeCEAf3d3b4225aA61a3B2B7535b8
+
+| index | event |
+| --- | --- |
+| 42 | Upgraded(implementation: 0x9e32Ff77587cb95BA306F6cEeb274938B5951339) |
+| 43 | SetTokenizationSpokeImmutables(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 1) |
+| 44 | Initialized(version: 1) |
+| 46 | AdminChanged(previousAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0x560Ac477203CD800292c755f48c6442Ea59e3615) |
+
+#### 0x560Ac477203CD800292c755f48c6442Ea59e3615
+
+| index | event |
+| --- | --- |
+| 45 | OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5) |
+
+#### 0xA1007b52C5257a58E6C227220Da740545331B091
+
+| index | event |
+| --- | --- |
+| 57 | Initialized(version: 18446744073709551615) |
+
+#### 0x8Dabe53E8cB991c57f0307F6f419E6D469b0deAA
+
+| index | event |
+| --- | --- |
+| 58 | Upgraded(implementation: 0xA1007b52C5257a58E6C227220Da740545331B091) |
+| 59 | SetTokenizationSpokeImmutables(hub: 0x62d63197660c080236193CA60b70E49A08E90368, assetId: 2) |
+| 60 | Initialized(version: 1) |
+| 62 | AdminChanged(previousAdmin: 0x0000000000000000000000000000000000000000, newAdmin: 0xB0E6BCF33dca44211BB6ec7990F4A8a56314d313) |
+
+#### 0xB0E6BCF33dca44211BB6ec7990F4A8a56314d313
+
+| index | event |
+| --- | --- |
+| 61 | OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5) |
+
+#### 0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9 (AaveV4Ethereum.ALL_HUBS[0], AaveV4Ethereum.HUBS.CORE_HUB)
+
+| index | event |
+| --- | --- |
+| 71 | AddSpoke(assetId: 8, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9) |
+| 72 | UpdateSpokeConfig(assetId: 8, spoke: 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9, config: {addCap: 0, drawCap: 30000000, riskPremiumThreshold: 0, active: true, halted: false}) |
+
+#### 0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee
+
+| index | event |
+| --- | --- |
+| 73 | UpdateReserveSource(reserveId: 0, source: 0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e) |
+| 78 | UpdateReserveSource(reserveId: 1, source: 0x3f73F03aa83B2A48ed27E964eD0fDb590332095B) |
+| 83 | UpdateReserveSource(reserveId: 2, source: 0x260326c220E469358846b187eE53328303Efe19C) |
+| 88 | UpdateReserveSource(reserveId: 3, source: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0x956d8e0A89cfa3744428C4641b5a53B56167a7f9
+
+| index | event |
+| --- | --- |
+| 74 | UpdateReservePriceSource(reserveId: 0, priceSource: 0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e) |
+| 75 | AddReserve(reserveId: 0, assetId: 0, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
+| 76 | UpdateReserveConfig(reserveId: 0, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: false, receiveSharesEnabled: true}) |
+| 77 | AddDynamicReserveConfig(reserveId: 0, dynamicConfigKey: 0, config: {collateralFactor: 9400, maxLiquidationBonus: 10320, liquidationFee: 1000}) |
+| 79 | UpdateReservePriceSource(reserveId: 1, priceSource: 0x3f73F03aa83B2A48ed27E964eD0fDb590332095B) |
+| 80 | AddReserve(reserveId: 1, assetId: 1, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
+| 81 | UpdateReserveConfig(reserveId: 1, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: true}) |
+| 82 | AddDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 0, config: {collateralFactor: 0, maxLiquidationBonus: 10000, liquidationFee: 0}) |
+| 84 | UpdateReservePriceSource(reserveId: 2, priceSource: 0x260326c220E469358846b187eE53328303Efe19C) |
+| 85 | AddReserve(reserveId: 2, assetId: 2, hub: 0x62d63197660c080236193CA60b70E49A08E90368) |
+| 86 | UpdateReserveConfig(reserveId: 2, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: true}) |
+| 87 | AddDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 0, config: {collateralFactor: 0, maxLiquidationBonus: 10000, liquidationFee: 0}) |
+| 89 | UpdateReservePriceSource(reserveId: 3, priceSource: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+| 90 | AddReserve(reserveId: 3, assetId: 8, hub: 0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9) |
+| 91 | UpdateReserveConfig(reserveId: 3, config: {collateralRisk: 0, paused: false, frozen: false, borrowable: true, receiveSharesEnabled: false}) |
+| 92 | AddDynamicReserveConfig(reserveId: 3, dynamicConfigKey: 0, config: {collateralFactor: 0, maxLiquidationBonus: 10000, liquidationFee: 0}) |
+| 99 | UpdateLiquidationConfig(config: {targetHealthFactor: 1027700000000000000, healthFactorForMaxBonus: 990000000000000000, liquidationBonusFactor: 10000}) |
+| 100 | UpdatePositionManager(positionManager: 0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e, active: true) |
+| 101 | UpdatePositionManager(positionManager: 0x6c044c0D3801499bCAbfAd458B70880bc518e9F7, active: true) |
+| 102 | UpdatePositionManager(positionManager: 0x51305839CE822a7b4b12AA7D86eA7005052d575c, active: true) |
+| 103 | UpdatePositionManager(positionManager: 0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d, active: true) |
+
+#### 0xB3CE6E7b6d389a66eA4a3777bA07219d00FB3a9D (AaveV4Ethereum.SPOKES.FOREX_SPOKE_ORACLE)
+
+| index | event |
+| --- | --- |
+| 93 | UpdateReserveSource(reserveId: 4, source: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1 (AaveV4Ethereum.ALL_SPOKES[3], AaveV4Ethereum.ALL_SPOKES_RAW[4], AaveV4Ethereum.SPOKES.FOREX_SPOKE)
+
+| index | event |
+| --- | --- |
+| 94 | UpdateReservePriceSource(reserveId: 4, priceSource: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0x0083421fd178749af2201ddA5A7C3feB5790B80c (AaveV4Ethereum.SPOKES.GOLD_SPOKE_ORACLE)
+
+| index | event |
+| --- | --- |
+| 95 | UpdateReserveSource(reserveId: 3, source: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0x65407b940966954b23dfA3caA5C0702bB42984DC (AaveV4Ethereum.ALL_SPOKES[4], AaveV4Ethereum.ALL_SPOKES_RAW[5], AaveV4Ethereum.SPOKES.GOLD_SPOKE)
+
+| index | event |
+| --- | --- |
+| 96 | UpdateReservePriceSource(reserveId: 3, priceSource: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0x99B2B6CEa9C3D2fd8F4d90f86741C44B212a6127 (AaveV4Ethereum.SPOKES.MAIN_SPOKE_ORACLE)
+
+| index | event |
+| --- | --- |
+| 97 | UpdateReserveSource(reserveId: 11, source: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0x94e7A5dCbE816e498b89aB752661904E2F56c485 (AaveV4Ethereum.ALL_SPOKES[6], AaveV4Ethereum.ALL_SPOKES_RAW[7], AaveV4Ethereum.SPOKES.MAIN_SPOKE)
+
+| index | event |
+| --- | --- |
+| 98 | UpdateReservePriceSource(reserveId: 11, priceSource: 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4) |
+
+#### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 104 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1781886491, withDelegatecall: true, resultData: 0x) |
+
+#### 0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 105 | PayloadExecuted(payloadId: 449) |
+
+## Raw storage changes
+
+### 0x0083421fd178749af2201dda5a7c3feb5790b80c (AaveV4Ethereum.SPOKES.GOLD_SPOKE_ORACLE)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x7dfe757ecd65cbd7922a9c0161e935dd7fdbcc0e999689c7d31633896b1fc60b | 0x000000000000000000000000f29b1e3b68fd59dd0a413811fd5d0abae653216d | 0x00000000000000000000000083d20deedcd4ac1313496c8cbcaad0fa298c0ce4 |
+
+### 0x08ae3be30958cdd1847ec58fffd4c451a87fdf01 (AaveV4Ethereum.ACCESS_MANAGER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x030134ac175cd21e3c4e3c14ca395cb8e7b995c8b326d597e707bdac7576044e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0x04a0bf2a04957d7a62de2225c7d8d8428fc79dbe00e5f549292941ef3cfbe1ae | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000000b |
+| 0x08887ff2954a0976d5d6664a447d9f5629be162dbc1c6f1d4a0fdc5db4a0ff64 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x826002e200000000000000000000000000000000000000000000000000000000 |
+| 0x08887ff2954a0976d5d6664a447d9f5629be162dbc1c6f1d4a0fdc5db4a0ff65 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x91c46d0900000000000000000000000000000000000000000000000000000000 |
+| 0x0a9bb5dbf1f5369094167067428b1c12640bea25fb30b695d4c142c93c45ac66 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0x0aa655c6c299f6ec3e60f07aff8b70c1d85fdf9cb91470ebcb30fd7db2c9976c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000956d8e0a89cfa3744428c4641b5a53b56167a7f9 |
+| 0x0b31e0378bf9d92f427ce46605e14f318fc1c714802af666e0fd2beb01b760b3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x1e83287e00000000000000000000000000000000000000000000000000000000 |
+| 0x0b31e0378bf9d92f427ce46605e14f318fc1c714802af666e0fd2beb01b760b4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x24e4c1af00000000000000000000000000000000000000000000000000000000 |
+| 0x0b31e0378bf9d92f427ce46605e14f318fc1c714802af666e0fd2beb01b760b5 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xc25d82fe00000000000000000000000000000000000000000000000000000000 |
+| 0x0b31e0378bf9d92f427ce46605e14f318fc1c714802af666e0fd2beb01b760b6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xa2763d2900000000000000000000000000000000000000000000000000000000 |
+| 0x0b31e0378bf9d92f427ce46605e14f318fc1c714802af666e0fd2beb01b760b7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xa467cc5900000000000000000000000000000000000000000000000000000000 |
+| 0x132ec26951a2344120a5b095a8ccd2f00be8ada16cb0a741486c29132e1bf465 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0x175e35b86d758079ac932de2ebf79625f13c023429f128de5822dc046183e509 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x193a979d7e550e37b52aee1a7ed5d094028b1012e5e0b427a92d0ff9edb3609d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x1c7bd1015d2279514ad1e79e9cfc9d22e319e1caaf4eec9dec0ff7b5e5fd5f7a | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x25d21e28c5cecdee0120387f47afd99cc2caadbdafc6490e320c785ca752e301 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x2628e6cde7c66e6fc5dde6f16918e8195177d4ef9c563eb65de1b6f7ec71d5fd | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0x2b575c4ad44680d63aa035014a7d49850e8f92790adbecc6634925d8e4b919a6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x2e922c6031f60b1ff2eecc19facd1b073a953d9d08be393c94dc94ae6890bf86 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000000b |
+| 0x3459833ac1685126a293f96460c79741f4d265242e37c7d5206d62eeeb8b0433 | 0x0000000000000000000000000000000000000000000000000000000000000002 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x35c1291aab50f5072f16f3b3e329709a27c921e77fb3bb95aad11cd28230e87d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x35cc712e22b8cc477b878b8746cf9bf9167a131be2bc31e1accbdbe8c0ddd3da | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012e |
+| 0x3a178c6cae3bd37194d3d53a1cc01a9f7838a35e7c2f19ca696aaa347c68acd3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000062d63197660c080236193ca60b70e49a08e90368 |
+| 0x3d0d04899f19033f72add4a684eee5cc8780a2a1ed3437d28d406a14c32030e6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x3fa33fec197975fdce89d97b1312a3a6cf56d2ed55e58ce9fdbd2767dfa6f40b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x40abbb1580c207333348e3c010b1de8c69ba8e81650bf69377f2d377ede03300 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x033a069500000000000000000000000000000000000000000000000000000000 |
+| 0x40bf9d9f34e44c316634927ac0b32bbadacc4320b4afbc5a2c3cc0df5c0089df | 0x0000000000000000000000000000000000000000000000000000000000000003 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0x419ce54965b58bd4be146001416e48537dbabed1ab52dc9996f8c379904d8a45 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000005 |
+| 0x45fa3f49d61165feffa4ffb9d77dcba8b69ae33c24c36769579e90f8aba8611c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x47f387c5a6d14c203f2fb6b6b0b80066c7954da98bb43fd96045b5b8b4bfba6b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000062d63197660c080236193ca60b70e49a08e90368 |
+| 0x48c458d2b8f53bab33a7657182bb04b2bef0f3ae008b18c1fa0ad17f3ea19a18 | 0x000000000000000000000000000000000000000000000000000000000000000a | 0x000000000000000000000000000000000000000000000000000000000000000b |
+| 0x4df9b3ffde597cdfe048bec43f6aa52355e2821cd5128648158da3dc4ce7c7e8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x4f28481beeb673b83644866bf6d54c416d35352ffaf12757c71b8457babc759a | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000006a356e1b |
+| 0x4f37994b8ef7c710b79b1f2ee656dad3e665b79c9c1ba69f20f91cad939d2499 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x4fb07a0c11eab72fe88e4343e039be941531843b48ab343ece5062221ba43b44 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x516850eb393bf5ee7d85d9f49af7fa24c1b98b0d04a9cef38a73ce4bb69209d7 | 0x0000000000000000000000000000000000000000000000000000000000000003 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0x53d119caa412c6d2ce847e98fc5d0b4aad524fdd37754415158b4512a5dda0ce | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000066 |
+| 0x57e668150f39c0e4643126cdf62f524efdfb48c04793f4c9d421e304ad91e1f4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012e |
+| 0x5ce63d43c3a8800fd6ef1d611df8da2a877393933c12789991c33e445a2883c4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000062d63197660c080236193ca60b70e49a08e90368 |
+| 0x67c07fe1a25659bb983220e5decd0dc907eb51380bc96ba59a7af9d977b514aa | 0x0000000000000000000000000000000000000000000000000000000000000003 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0x7572cd5f250661fae23ff533fb24d85d6fe2c1f51ea4be792cdab625aee26afa | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012e |
+| 0x7b3d6fd986ea8774770fa54d42a1bc8a48a5367caba59026a430e885ac09ee9c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000007 |
+| 0x7e1a601641be95141d0437aecfd00ba70de824f92fb9f1ccd44ede72ed4cf1b4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x7f18abbeabb89366bc350b25953f3896f9f78579ddd1a5f70bfd03e7fa7cc138 | 0x000000000000000000000000000000000000000000000000000000000000000a | 0x000000000000000000000000000000000000000000000000000000000000000b |
+| 0x8299d3f539a4e3e73ad31280e61d8b33265e99b62f5fd0b97e9ba1be8baec69f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x82cbc7e1c2f51931a774837de5b4aee4237e0c74b8b06c25b4040a14db9b8077 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x865d273aafbc02f71a0027443a71a932298bbcd727f677dc37716aca64cb7b6d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x8911b5c86d58d8cd15d4692c373ffdd94770a572676ca508f2e01ab098f74b49 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x8c13fa50136a3a02a0d7626d07392484a8e7cf6ed4d1a39ab7abc3dd191e1879 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000007 |
+| 0x8e90a0194cb950c9d9a8b95f766e28bd4094e40a05741c1ce46a0f8b25180b43 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0x97b9538b65ab819514b73559552edd495cd2bb39b114e1acdbb667f5d94d2e8c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0x9f2e874d0e79d99dae3cac99daa7b7c158a65bcc77532bf985377c60304728d8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0xa1c5c1c41cc5854dc507fbb3724893f2f8fda5a80375149ea103a1e5d5f0e0a7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0xae9f774860c5b380f28b3bf7e2b68c4ec9342e7af42ef188de54e74d62bf22fb | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0xb241e96b18cf958bc2016808a0c320f07a20f6a6f30a6ad3b20425e75afefa55 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0xb916c0be8860dc84e6f4c763adf3da226273e067da7f10f15ae5fffe5ecb216d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0xbaa52c96e850c6cac4fa2d1d0d6c7afc3bce8ac34f1397422ce31b789eecda1f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0xbad32cd544fe9c71a7de5dbc45a8d063adf8e9ee876a38222feaa105db0e7453 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000066 |
+| 0xc06fdcb07e38977ba789f8442a262c8d21483a7b8b649417cbb8634ea040b7ed | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0xc253fc690aaac40e56a1c1ea7e05c8f7086a8be6af4612315c3de180915d49dc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xbe10528000000000000000000000000000000000000000000000000000000000 |
+| 0xca0046ae38e06742f255a9d75d79ddba6f7d6ae2b8d751358f2bb87654b9281d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd6560150625820c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x87107a6d00000000000000000000000000000000000000000000000000000000 |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd6560150625820d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x4de8d2ba00000000000000000000000000000000000000000000000000000000 |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd6560150625820e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xa0f5b9ab00000000000000000000000000000000000000000000000000000000 |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd6560150625820f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xe903e1bd00000000000000000000000000000000000000000000000000000000 |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd65601506258210 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x9290fa0000000000000000000000000000000000000000000000000000000000 |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd65601506258211 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x9ca9c13400000000000000000000000000000000000000000000000000000000 |
+| 0xccc2a883430dd25e69d7d6231c1dcfe7bfecf3ba3183f8c1bd65601506258212 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0xb2380e9300000000000000000000000000000000000000000000000000000000 |
+| 0xcea448fd94f569e7a2f68cd3a0820497a05deff53d2bda6cac2a3a1d6893ed24 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000006 |
+| 0xcecf69b72c963808d37ce5432119a18d792cafeb26074a4f6bfe1acbb1a12c65 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0xd0e8450389dfff498c13324de669c0e7eb726414b58aa6a06b36d5fda56619a7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000005 |
+| 0xd3514e0c044d40f82e6b5efc4983e5e44a543d1bea9170260e74a5ae4a80e505 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000005300a1a15135ea4dc7ad5a167152c01efc9b192a |
+| 0xd4f9a1216cfca6f4c41b26391f7b1322e9b536c31d27ab2eba5f5c1647f3b6e7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0xd6c39e700c77b4700b19eb2c5b41cf84f85e4074a3120d6680b2a704b9aa2f93 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000067 |
+| 0xd75c6bac200b0a2a7854e169afac3eaa8e64e65449a0c6265a13a5b8a888710c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0xd8411d8d08e35c90bb2d8ba309f8c0513f3e7945f0602f737f3a1dfa9fd47cc1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012e |
+| 0xde18d1f44ab9a82ec87ec13e6e8c9bf9f6447d8c4f3503251685318c40c19a3d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0xe27c96e9942993e10e15c503d8c1e6c057be626b995634587f295f22ca55802e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0xe37235ed058f22a0f86dcc908beb434ed67e400decb233cd0a783bc32832e234 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0xe4936442499b338ca20717e9519ae87e857806349eaec19ac55e2e720aaaed07 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000956d8e0a89cfa3744428c4641b5a53b56167a7f9 |
+| 0xe54aa6477f89b7f39a27f81af530894e57d29f7ebde30846d32c91b491538f2b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000005 |
+| 0xf1f6b11b0239e5a3bbc7732c6aeaf226a5b5353c0270df1dec9adc0682c791c8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0xf383c00cc16e343ce55f9a31fc9b208367bfcb8a0c36614a8e95ef4b30d06eb8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0xf4c4db3e4407fef8cc351666538d0c1bdd6c5a95a2a538353c7f90250e0abb31 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000065 |
+| 0xf4f4ece94319731e7ab3788f29f8da3d73bdb71140cfd25778a2fb726ca7099b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0xf5f75876e2dd16c9e2887db6ef776b868b9722691fb1fe7a33d35ebbfa8fc090 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0xf74c5238f6df43e6b01465a5146db65695c598af5d4bcc73e4385cb1d5cef1ac | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000000000000000012d |
+| 0xf7adcd9926a68eee169c4cf890878d5e9d190e6f1e5889cfbde2809dd33c4cf1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000067 |
+
+### 0x0e73059e03154d13f2594c869633007aa7c9b118
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000dabad81af85554e9ae636395611c58f7ec1aaec5 |
+
+### 0x27ef1140364948a0e30e248297ffdfe5a4091ec4
+
+**Nonce diff**: 0 → 2
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x2ae08a8e29253f69ac5d979a101956ab8f8d9d7ded63fa7a83b16fc47648eab0 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x577261707065642041617665205061786f732050545f555344475f3234534550 |
+| 0x2ae08a8e29253f69ac5d979a101956ab8f8d9d7ded63fa7a83b16fc47648eab1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x3230323600000000000000000000000000000000000000000000000000000000 |
+| 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000009298ebf12a52b6f315823d58f6f87ad51bb55e6e |
+| 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace03 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000049 |
+| 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace04 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x77615061786f7350545f555344475f3234534550323032360000000000000030 |
+| 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000e73059e03154d13f2594c869633007aa7c9b118 |
+| 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+### 0x4131e0b2e7afeceaf3d3b4225aa61a3b2b7535b8
+
+**Nonce diff**: 0 → 2
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000009e32ff77587cb95ba306f6ceeb274938b5951339 |
+| 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace03 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x577261707065642041617665205061786f73205553444300000000000000002e |
+| 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace04 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x77615061786f7355534443000000000000000000000000000000000000000016 |
+| 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000560ac477203cd800292c755f48c6442ea59e3615 |
+| 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+### 0x560ac477203cd800292c755f48c6442ea59e3615
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000dabad81af85554e9ae636395611c58f7ec1aaec5 |
+
+### 0x62d63197660c080236193ca60b70e49a08e90368
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x0891c3fdb1c9b4e1447f99614b53777e97fce8bdb99e2e91172b2bf527e44879 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0x1252914b42b7eaf609d27668e8698fb56e83dbbd8711cdc517fe1c5402a8a7d7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x19b5847ec9d8983e32da86b2c2bedc7b0bcabd1d214557fda78706fe7ba568ce | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b9b0b8616f6bf6841972a52058132be08d723155 |
+| 0x19b5847ec9d8983e32da86b2c2bedc7b0bcabd1d214557fda78706fe7ba568cf | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000008dabe53e8cb991c57f0307f6f419e6d469b0deaa |
+| 0x19b5847ec9d8983e32da86b2c2bedc7b0bcabd1d214557fda78706fe7ba568d0 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000956d8e0a89cfa3744428c4641b5a53b56167a7f9 |
+| 0x2216881abda8ce28bb79ec6ad24ecf589e0594fff84ade38d82ca32ec9eff5c6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x232843203b63a27ae13bc3b2b1993e9c17858a1576fa9bd1898cbb50f6e16df8 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000100000000000000000000e4e1c0000000000000000000000000000000 |
+| 0x2471faa65f6eb9fb259c4aa481dbcfac53ac46dff16fe7da680fb4058fee6ddd | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000100000000000000000000c65d40000000000000000000000000000000 |
+| 0x279880907342b3da6e827c087f86715809686e7bfa529a0fef88ff6ad5c7b2ba | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x2c644dcf44e265ba93879b2da89e1b16ab48fc5eb8e31bc16b0612d6da8463f1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b9b0b8616f6bf6841972a52058132be08d723155 |
+| 0x2c644dcf44e265ba93879b2da89e1b16ab48fc5eb8e31bc16b0612d6da8463f2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000004131e0b2e7afeceaf3d3b4225aa61a3b2b7535b8 |
+| 0x2c644dcf44e265ba93879b2da89e1b16ab48fc5eb8e31bc16b0612d6da8463f3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000956d8e0a89cfa3744428c4641b5a53b56167a7f9 |
+| 0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92eff | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x38ad24fdd3ab50f865468165b6e1651f10451f8d46f98c9192cd936bf08eb92c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000010000000000c65d400000c65d40000000000000000000000000000000 |
+| 0x4215c48b7dd95b7edef8341af1ca1c8f56baf0d7be3440d65769a80626cd4d1e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x4c9bdd40a027a4d89ee030328e9c460986707d426cea1567dbbf5a751e82e178 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x6c0c5cf870ef212ea6552763b26c3a91a4957af8cafd3521f271de441c30c6bd | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000010000000000000000ffffffffff000000000000000000000000000000 |
+| 0x7cc015049f3d17e5abdd964c0d59e6ff059645117cdeec3cefe4183794344830 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x92541e8a2ecb1cd4097b932665a9edafa275bc545f73fdf946008a9cb068b0cc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000100000000000000000000c65d40000000000000000000000000000000 |
+| 0x9301014469a604cbe188210e341db8589112862950f85ed4aaace1bf5065b162 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000010000000000c65d400000c65d40000000000000000000000000000000 |
+| 0x9946245e4b8a7f849709bd9908bb684534ea4da4fd6c67d7cc978cb44ed17f42 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000010000000000000000ffffffffff000000000000000000000000000000 |
+| 0x99ea851349b718a4fc8e0b22adb86d63441c56bfa2112fa04165338b3793c77a | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xa11a65f9f6a1ead5989d5f33416f6ed889a1b36d0f39eac8a142875b3719c339 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0006000000000000000000000000000000000000000000000000000000000000 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4a | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x006a356e1b000000000000000000000000000000033b2e3c9fd0803ce8000000 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000c1906aecf868749a2dee203f59b904c0cf212140 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000d7ec225dc053151100a0ef47b94a77aad9c413b7 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb50 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb51 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b9b0b8616f6bf6841972a52058132be08d723155 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb52 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xbfdbb3ecaa7d630d53f93e75ada86fa504a0e24deb6342987f667e63aa6c3df9 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0xc6c7fb75a634593a2c897dbdfbd01dd7802186eec0339d1b919e3bcae5811f20 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000100000000000000000000000000000000000000000000000000000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0006000000000000000000000000000000000000000000000000000000000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887930 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887931 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887932 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x03e8000000000000000000000000000000000000000000000000000000000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887933 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x006a356e1b000000000000000000000000000000033b2e3c9fd0803ce8000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887934 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887935 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000d7ec225dc053151100a0ef47b94a77aad9c413b7 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887936 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887937 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b9b0b8616f6bf6841972a52058132be08d723155 |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b6887938 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xce6b0bb3482d6fcd115ad33ec4464c30e4c8b24ec6e3e5aa13819b39c576a85c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0xcfb339bd1c51c488f6134f4ac63d1594afad827b3401c3fc51ed1da74a8ca14e | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b9b0b8616f6bf6841972a52058132be08d723155 |
+| 0xcfb339bd1c51c488f6134f4ac63d1594afad827b3401c3fc51ed1da74a8ca14f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000027ef1140364948a0e30e248297ffdfe5a4091ec4 |
+| 0xcfb339bd1c51c488f6134f4ac63d1594afad827b3401c3fc51ed1da74a8ca150 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000956d8e0a89cfa3744428c4641b5a53b56167a7f9 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec330f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0006000000000000000000000000000000000000000000000000000000000000 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3310 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3311 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3312 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x03e8000000000000000000000000000000000000000000000000000000000000 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3313 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x006a356e1b000000000000000000000000000000033b2e3c9fd0803ce8000000 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3314 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3315 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000d7ec225dc053151100a0ef47b94a77aad9c413b7 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3316 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3317 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b9b0b8616f6bf6841972a52058132be08d723155 |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec3318 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0xe4d4c4ab685a4ed109434740c984f94728471495cb180f9e8edc962dcd10801b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000010000000000000000ffffffffff000000000000000000000000000000 |
+| 0xe97587af298bcb9c511c4a8c3dbaff8166076e9624c4bd398d0c883438f50064 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+
+### 0x692cd2f7653680aff316ac309ce825fcf573b7ee
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x7dfe757ecd65cbd7922a9c0161e935dd7fdbcc0e999689c7d31633896b1fc60b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000083d20deedcd4ac1313496c8cbcaad0fa298c0ce4 |
+| 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000089f6eb404abf19fe817426dd2e2e0f14d1a5712e |
+| 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000003f73f03aa83b2a48ed27e964ed0fdb590332095b |
+| 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec330f | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000260326c220e469358846b187ee53328303efe19c |
+
+### 0x8dabe53e8cb991c57f0307f6f419e6d469b0deaa
+
+**Nonce diff**: 0 → 2
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000a1007b52c5257a58e6c227220da740545331b091 |
+| 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace03 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x577261707065642041617665205061786f73205553445400000000000000002e |
+| 0x52c63247e1f47db19d5ce0460030c497f067ca4cebf71ba98eeadabe20bace04 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x77615061786f7355534454000000000000000000000000000000000000000016 |
+| 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000b0e6bcf33dca44211bb6ec7990f4a8a56314d313 |
+| 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+
+### 0x914d7fec6aac8cd542e72bca78b30650d45643d7
+
+**Nonce diff**: 9956 → 9962
+
+### 0x9298ebf12a52b6f315823d58f6f87ad51bb55e6e
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000ffffffffffffffff |
+
+### 0x956d8e0a89cfa3744428c4641b5a53b56167a7f9
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000004 |
+| 0x0000000000000000000000000000000000000000000000000000000000000001 | 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 | 0x00000000000027100dbd2fc137a3000000000000000000000e431fb47bab4000 |
+| 0x23a8b3930d40243c6050962392c5f42a8d68219c31a95256ad251969f8898d7d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000027100000 |
+| 0x28b425f61cad6d11aeb5a0203d47cee5c848ac803463a42255b3f6bb79a2e3a2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000027100000 |
+| 0x2ee170a51ab53e5670763febc11468a372036702bf17b0369227759f4b7980d2 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000002 |
+| 0x32ceab9d473538cc729e1c208f6335307014bf79fd908ab064a5de69cbb411be | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+| 0x396a5abb6bca56e91bb5dd6bbc43dc9c37f3b8d5af727f8b42952b318eb483f7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000000000000003e80000285024b8 |
+| 0x3a7920452422ef48e47ab6d357a518cadf6507e9f771e2bdffaed84ff517def6 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x66d0d9823e7a94b725df8e80811f0b9f22183cadce67d314573231efa74d50c7 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7 |
+| 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000c00000006000262d63197660c080236193ca60b70e49a08e90368 |
+| 0x79088c462df599cb0c929fe57a2d2e97f8c4cd6288556773b5317b0a4f540d29 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x866943ed42bdfba8c29793c33dc3944c2a468cfb95e795dcaf3d6a6641dd1c5d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0x8739f8fcebae0416d97aa58c1cd3020cda853ca9af0a15fd808c2ae49e399a66 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000003 |
+| 0x88601476d11616a71c5be67555bd1dff4b1cbf21533d2669b768b61518cfe1c3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000e343167631d89b6ffc58b88d6b7fb0228795491d |
+| 0x88601476d11616a71c5be67555bd1dff4b1cbf21533d2669b768b61518cfe1c4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000004000000060008cca852bc40e560adc3b1cc58ca5b55638ce826c9 |
+| 0xa854ba23287a95c22b66b66e4f07bb2441b3fd4ecec9d0720a55aaffc00a6db4 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000027100000 |
+| 0xac33ff75c19e70fe83507db0d683fd3465c996598dc972688b7ace676c89077b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000c1906aecf868749a2dee203f59b904c0cf212140 |
+| 0xac33ff75c19e70fe83507db0d683fd3465c996598dc972688b7ace676c89077c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000800000006000062d63197660c080236193ca60b70e49a08e90368 |
+| 0xb53a727a0cdad435b016e21ff7c33ee129bdb97af6b3f2514ff0eba33e45251b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
+| 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e0 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 |
+| 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e1 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000c00000006000162d63197660c080236193ca60b70e49a08e90368 |
+
+### 0x99b2b6cea9c3d2fd8f4d90f86741c44b212a6127 (AaveV4Ethereum.SPOKES.MAIN_SPOKE_ORACLE)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xfc80cd5fe514767bc6e66ec558e68a5429ea70b50fa6caa3b53fc9278e918632 | 0x000000000000000000000000f29b1e3b68fd59dd0a413811fd5d0abae653216d | 0x00000000000000000000000083d20deedcd4ac1313496c8cbcaad0fa298c0ce4 |
+
+### 0x9e32ff77587cb95ba306f6ceeb274938b5951339
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000ffffffffffffffff |
+
+### 0xa1007b52c5257a58e6c227220da740545331b091
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000ffffffffffffffff |
+
+### 0xb0e6bcf33dca44211bb6ec7990f4a8a56314d313
+
+**Nonce diff**: 0 → 1
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000dabad81af85554e9ae636395611c58f7ec1aaec5 |
+
+### 0xb3ce6e7b6d389a66ea4a3777ba07219d00fb3a9d (AaveV4Ethereum.SPOKES.FOREX_SPOKE_ORACLE)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xedc95719e9a3b28dd8e80877cb5880a9be7de1a13fc8b05e7999683b6b567643 | 0x000000000000000000000000f29b1e3b68fd59dd0a413811fd5d0abae653216d | 0x00000000000000000000000083d20deedcd4ac1313496c8cbcaad0fa298c0ce4 |
+
+### 0xcca852bc40e560adc3b1cc58ca5b55638ce826c9 (AaveV4Ethereum.ALL_HUBS[0], AaveV4Ethereum.HUBS.CORE_HUB)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x26969e8cb9b6d2b93d6249521e49ce58bb9755ebd4b3e61d008464dc3787d464 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000010000000001c9c3800000000000000000000000000000000000000000 |
+| 0x84259f7f7b6591cf2e5e2cf666f1a1bd46709ac9580f2cf5c756725264424ecb | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000956d8e0a89cfa3744428c4641b5a53b56167a7f9 |
+| 0x85aaa47b6dc46495bb8824fad4583769726fea36efd831a35556690b830a8fbe | 0x0000000000000000000000000000000000000000000000000000000000000005 | 0x0000000000000000000000000000000000000000000000000000000000000006 |
+| 0xffc54e380e5c9d972689f394500304e4f1abe3d2d8d9032c775e667c64cb39c3 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000006 |
+
+### 0xd7ec225dc053151100a0ef47b94a77aad9c413b7
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xabbb5caa7dda850e60932de0934eb1f9d0f59695050f761dc64e443e5030a569 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000007d0000001900000000023f0 |
+| 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000000000000000000000000000000000000000000000000026ac |
+| 0xada5013122d395ba3c54772283fb069b10426056ef8ca54750cb9bb552a59e7d | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000007d0000001900000000023f0 |
+
+### 0xdabad81af85554e9ae636395611c58f7ec1aaec5 (GovernanceV3Ethereum.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xfbdb07ae6730ca001dd73f75ba925e2759100f81cb56e0d9a4e3a2356640d473 | 0x006a356e1a000000000002000000000000000000000000000000000000000000 | 0x006a356e1a000000000003000000000000000000000000000000000000000000 |
+| 0xfbdb07ae6730ca001dd73f75ba925e2759100f81cb56e0d9a4e3a2356640d474 | 0x000000000000000000093a800000000000006a63929b00000000000000000000 | 0x000000000000000000093a800000000000006a63929b0000000000006a356e1b |
+
+
+## Raw diff
+
+```json
+{
+  "accessManagerRoles": {
+    "0x08aE3BE30958cDd1847ec58fFfd4C451a87fDF01": {
+      "101": {
+        "selectors": {
+          "15": {
+            "from": null,
+            "to": "0x1e83287e00000000000000000000000000000000000000000000000000000000"
+          },
+          "16": {
+            "from": null,
+            "to": "0x24e4c1af00000000000000000000000000000000000000000000000000000000"
+          },
+          "17": {
+            "from": null,
+            "to": "0xc25d82fe00000000000000000000000000000000000000000000000000000000"
+          },
+          "18": {
+            "from": null,
+            "to": "0xa2763d2900000000000000000000000000000000000000000000000000000000"
+          },
+          "19": {
+            "from": null,
+            "to": "0xa467cc5900000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "targets": {
+          "15": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          },
+          "16": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          },
+          "17": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          },
+          "18": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          },
+          "19": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          }
+        }
+      },
+      "102": {
+        "selectors": {
+          "3": {
+            "from": null,
+            "to": "0x033a069500000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "targets": {
+          "3": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          }
+        }
+      },
+      "103": {
+        "selectors": {
+          "3": {
+            "from": null,
+            "to": "0xbe10528000000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "targets": {
+          "3": {
+            "from": null,
+            "to": "0x62d63197660c080236193CA60b70E49A08E90368"
+          }
+        }
+      },
+      "301": {
+        "selectors": {
+          "70": {
+            "from": null,
+            "to": "0x87107a6d00000000000000000000000000000000000000000000000000000000"
+          },
+          "71": {
+            "from": null,
+            "to": "0x4de8d2ba00000000000000000000000000000000000000000000000000000000"
+          },
+          "72": {
+            "from": null,
+            "to": "0xa0f5b9ab00000000000000000000000000000000000000000000000000000000"
+          },
+          "73": {
+            "from": null,
+            "to": "0xe903e1bd00000000000000000000000000000000000000000000000000000000"
+          },
+          "74": {
+            "from": null,
+            "to": "0x9290fa0000000000000000000000000000000000000000000000000000000000"
+          },
+          "75": {
+            "from": null,
+            "to": "0x9ca9c13400000000000000000000000000000000000000000000000000000000"
+          },
+          "76": {
+            "from": null,
+            "to": "0xb2380e9300000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "targets": {
+          "70": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "71": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "72": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "73": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "74": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "75": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "76": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          }
+        }
+      },
+      "302": {
+        "selectors": {
+          "20": {
+            "from": null,
+            "to": "0x826002e200000000000000000000000000000000000000000000000000000000"
+          },
+          "21": {
+            "from": null,
+            "to": "0x91c46d0900000000000000000000000000000000000000000000000000000000"
+          }
+        },
+        "targets": {
+          "20": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          },
+          "21": {
+            "from": null,
+            "to": "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9"
+          }
+        }
+      },
+      "400": {
+        "members": {
+          "2": {
+            "from": null,
+            "to": "0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A"
+          }
+        }
+      }
+    }
+  },
+  "positionManagers": {
+    "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9": {
+      "0x17A54b8d6D9C68e7fa1C7112AC998EA1BA51d11e": {
+        "from": false,
+        "to": true
+      },
+      "0x51305839CE822a7b4b12AA7D86eA7005052d575c": {
+        "from": false,
+        "to": true
+      },
+      "0x6c044c0D3801499bCAbfAd458B70880bc518e9F7": {
+        "from": false,
+        "to": true
+      },
+      "0xfbC184337Dc6595D8bf62968Bda46e7De7AF9c3d": {
+        "from": false,
+        "to": true
+      }
+    }
+  },
+  "spokeConfigs": {
+    "0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9_8_0x956d8e0A89cfa3744428C4641b5a53B56167a7f9": {
+      "from": null,
+      "to": {
+        "active": true,
+        "addCap": 0,
+        "assetSymbol": "USDG",
+        "drawCap": 30000000,
+        "halted": false,
+        "riskPremiumThreshold": 0
+      }
+    }
+  },
+  "spokeLiquidationConfigs": {
+    "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9": {
+      "healthFactorForMaxBonus": {
+        "from": "0",
+        "to": "990000000000000000"
+      },
+      "liquidationBonusFactor": {
+        "from": 0,
+        "to": 10000
+      },
+      "targetHealthFactor": {
+        "from": "1000000000000000000",
+        "to": "1027700000000000000"
+      }
+    }
+  },
+  "spokeReserves": {
+    "0x65407b940966954b23dfA3caA5C0702bB42984DC": {
+      "3": {
+        "oraclePrice": {
+          "from": "100000000",
+          "to": "99992000"
+        },
+        "priceSource": {
+          "from": "0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d",
+          "to": "0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4"
+        }
+      }
+    },
+    "0x94e7A5dCbE816e498b89aB752661904E2F56c485": {
+      "11": {
+        "oraclePrice": {
+          "from": "100000000",
+          "to": "99992000"
+        },
+        "priceSource": {
+          "from": "0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d",
+          "to": "0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4"
+        }
+      }
+    },
+    "0xD8B93635b8C6d0fF98CbE90b5988E3F2d1Cd9da1": {
+      "4": {
+        "oraclePrice": {
+          "from": "100000000",
+          "to": "99992000"
+        },
+        "priceSource": {
+          "from": "0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d",
+          "to": "0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4"
+        }
+      }
+    },
+    "0x956d8e0A89cfa3744428C4641b5a53B56167a7f9": {
+      "from": null,
+      "to": {
+        "0": {
+          "assetId": 0,
+          "borrowable": false,
+          "collateralFactor": 9400,
+          "collateralRisk": 0,
+          "decimals": 6,
+          "dynamicConfigKey": 0,
+          "dynamicConfigs": {
+            "0": {
+              "collateralFactor": 9400,
+              "liquidationFee": 1000,
+              "maxLiquidationBonus": 10320
+            }
+          },
+          "frozen": false,
+          "hub": "0x62d63197660c080236193CA60b70E49A08E90368",
+          "liquidationFee": 1000,
+          "maxLiquidationBonus": 10320,
+          "oracleAddress": "0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee",
+          "oraclePrice": "98804665",
+          "paused": false,
+          "priceSource": "0x89F6Eb404AbF19FE817426dD2E2E0F14D1a5712e",
+          "receiveSharesEnabled": true,
+          "symbol": "PT-USDG-24SEP2026",
+          "underlying": "0xc1906aeCf868749a2DeE203F59b904c0cf212140"
+        },
+        "1": {
+          "assetId": 1,
+          "borrowable": true,
+          "collateralFactor": 0,
+          "collateralRisk": 0,
+          "decimals": 6,
+          "dynamicConfigKey": 0,
+          "dynamicConfigs": {
+            "0": {
+              "collateralFactor": 0,
+              "liquidationFee": 0,
+              "maxLiquidationBonus": 10000
+            }
+          },
+          "frozen": false,
+          "hub": "0x62d63197660c080236193CA60b70E49A08E90368",
+          "liquidationFee": 0,
+          "maxLiquidationBonus": 10000,
+          "oracleAddress": "0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee",
+          "oraclePrice": "99977322",
+          "paused": false,
+          "priceSource": "0x3f73F03aa83B2A48ed27E964eD0fDb590332095B",
+          "receiveSharesEnabled": true,
+          "symbol": "USDC",
+          "underlying": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+        },
+        "2": {
+          "assetId": 2,
+          "borrowable": true,
+          "collateralFactor": 0,
+          "collateralRisk": 0,
+          "decimals": 6,
+          "dynamicConfigKey": 0,
+          "dynamicConfigs": {
+            "0": {
+              "collateralFactor": 0,
+              "liquidationFee": 0,
+              "maxLiquidationBonus": 10000
+            }
+          },
+          "frozen": false,
+          "hub": "0x62d63197660c080236193CA60b70E49A08E90368",
+          "liquidationFee": 0,
+          "maxLiquidationBonus": 10000,
+          "oracleAddress": "0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee",
+          "oraclePrice": "99877000",
+          "paused": false,
+          "priceSource": "0x260326c220E469358846b187eE53328303Efe19C",
+          "receiveSharesEnabled": true,
+          "symbol": "USDT",
+          "underlying": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+        },
+        "3": {
+          "assetId": 8,
+          "borrowable": true,
+          "collateralFactor": 0,
+          "collateralRisk": 0,
+          "decimals": 6,
+          "dynamicConfigKey": 0,
+          "dynamicConfigs": {
+            "0": {
+              "collateralFactor": 0,
+              "liquidationFee": 0,
+              "maxLiquidationBonus": 10000
+            }
+          },
+          "frozen": false,
+          "hub": "0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9",
+          "liquidationFee": 0,
+          "maxLiquidationBonus": 10000,
+          "oracleAddress": "0x692cD2F7653680aFf316Ac309ce825FCF573B7Ee",
+          "oraclePrice": "99992000",
+          "paused": false,
+          "priceSource": "0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4",
+          "receiveSharesEnabled": false,
+          "symbol": "USDG",
+          "underlying": "0xe343167631d89B6Ffc58B88d6b7fB0228795491D"
+        }
+      }
+    }
+  }
+}
+```

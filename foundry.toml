@@ -14,6 +14,7 @@ fs_permissions = [
   { access = "read-write", path = "./reports" },
   { access = "read", path = "./zkout" },
   { access = "read-write", path = "./diffs" },
+  { access = "read", path = "./out" },
 ]
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
@@ -48,6 +49,10 @@ gas_limit = 9223372036854775807
 out = 'out/shanghai'
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
+
+# Fixed seed so vm.random* in tests is reproducible across runs.
+[fuzz]
+seed = '0x4242'
 
 [lint]
 lint_on_build = false
