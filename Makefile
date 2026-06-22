@@ -18,8 +18,8 @@ VERIFIER_ink = --verifier blockscout --verifier-url 'https://explorer.inkonchain
 VERIFIER_xlayer = --verifier oklink --verifier-url 'https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/xlayer'
 																																																																																																										
 deploy-ledger :; forge script $(if $(filter zksync,$(chain)),--zksync) $(contract) --rpc-url $(chain) $(if $(dry),--sender 0x73AF3bcf944a6559933396c1577B257e2054D935 -vvvv,--ledger --mnemonic-indexes $(MNEMONIC_INDEX) --sender $(LEDGER_SENDER) -vvvv --slow --broadcast --verify $(VERIFIER_$(chain))) $(if $(legacy),--legacy)  
-deploy-pk :; forge script $(if $(filter zksync,${chain}),--zksync) ${contract} --rpc-url ${chain} $(if ${dry},--sender 0x73AF3bcf944a6559933396c1577B257e2054D935 -vvvv, --private-key ${PRIVATE_KEY} --verify -vvvv --slow --broadcast)
-deploy-account :; forge script $(if $(filter zksync,${chain}),--zksync) ${contract} --rpc-url ${chain} $(if ${dry},--sender 0x73AF3bcf944a6559933396c1577B257e2054D935 -vvvv, --account ${ACCOUNT_NAME} --verify -vvvv --slow --broadcast)
+deploy-pk :; forge script $(if $(filter zksync,${chain}),--zksync) ${contract} --rpc-url ${chain} $(if ${dry},--sender 0x73AF3bcf944a6559933396c1577B257e2054D935 -vvvv, --private-key ${PRIVATE_KEY} --verify -vvvv --slow --broadcast ${VERIFIER_$(chain)})
+deploy-account :; forge script $(if $(filter zksync,${chain}),--zksync) ${contract} --rpc-url ${chain} $(if ${dry},--sender 0x73AF3bcf944a6559933396c1577B257e2054D935 -vvvv, --account ${ACCOUNT_NAME} --verify -vvvv --slow --broadcast ${VERIFIER_$(chain)})
 
 # Utilities
 download :; cast etherscan-source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}
