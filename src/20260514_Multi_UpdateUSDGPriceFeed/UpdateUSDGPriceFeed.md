@@ -1,5 +1,5 @@
 ---
-title: "UpdateUSDGPriceFeed"
+title: "Update USDG Price Feed in Aave V3 Instances"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/132"
 ---

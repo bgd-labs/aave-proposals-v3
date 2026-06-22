@@ -8,6 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title UpdateUSDGPriceFeed
  * @author Aave Labs
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/132
  */
 contract AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514 is AaveV3PayloadInkWhitelabel {
   address internal constant USDG_PRICE_FEED = 0x32b1f1A1D3423dE69cf1f75092eCfDc5090d6624;

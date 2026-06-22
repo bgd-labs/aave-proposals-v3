@@ -27,13 +27,13 @@ contract AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514_Test is ProtocolV3Test
   }
 
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514',
-      AaveV3InkWhitelabel.POOL,
-      address(proposal),
-      true,
-      true
-    );
+    defaultTest({
+      reportName: 'AaveV3InkWhitelabel_UpdateUSDGPriceFeed_20260514',
+      pool: AaveV3InkWhitelabel.POOL,
+      payload: address(proposal),
+      runE2E: true,
+      runSeatbelt: true
+    });
   }
 
   function test_usdgPriceFeedMigratedToCapo() public {
