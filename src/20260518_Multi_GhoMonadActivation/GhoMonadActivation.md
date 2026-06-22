@@ -36,7 +36,7 @@ This AIP includes a series of actions required to launch GHO on Monad:
    | GhoCcipSteward     | [0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12](https://monadscan.com/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12) |
    | GhoAaveCoreSteward | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://monadscan.com/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |
 
-   The initial CCIP Facilitator Bucket Capacity will be 40,000,000 units.
+   The initial CCIP Facilitator Bucket Capacity will be 100,000,000 units.
 
 ## References
 
