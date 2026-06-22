@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Avalanche_GhoMonadActivation_20260518} from '../../remote-lanes/AaveV3Avalanche_GhoMonadActivation_20260518.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 
-uint256 constant AVALANCHE_BLOCK_NUMBER = 88288750;
+uint256 constant AVALANCHE_BLOCK_NUMBER = 88588236;
 
 contract Avalanche_Monad_AaveV3GHOLane_20260105_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution

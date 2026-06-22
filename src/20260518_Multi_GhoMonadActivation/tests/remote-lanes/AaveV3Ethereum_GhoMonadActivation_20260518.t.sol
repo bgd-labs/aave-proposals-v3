@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Ethereum_GhoMonadActivation_20260518} from '../../remote-lanes/AaveV3Ethereum_GhoMonadActivation_20260518.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 
-uint256 constant ETHEREUM_BLOCK_NUMBER = 25343705;
+uint256 constant ETHEREUM_BLOCK_NUMBER = 25374562;
 
 contract Ethereum_Monad_AaveV3GHOLane_20260105_Test_PreExecution is
   AaveV3GHOEthereumRemoteLaneTest_PreExecution

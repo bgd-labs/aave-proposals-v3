@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Mantle_GhoMonadActivation_20260518} from '../../remote-lanes/AaveV3Mantle_GhoMonadActivation_20260518.sol';
 import {AaveV3Mantle} from 'aave-address-book/AaveV3Mantle.sol';
 
-uint256 constant MANTLE_BLOCK_NUMBER = 96884178;
+uint256 constant MANTLE_BLOCK_NUMBER = 97009046;
 
 contract Mantle_Monad_AaveV3GHOLane_20260105_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution

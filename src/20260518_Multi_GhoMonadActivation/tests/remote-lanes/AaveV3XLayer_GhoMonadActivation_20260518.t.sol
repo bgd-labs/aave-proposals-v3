@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3XLayer_GhoMonadActivation_20260518} from '../../remote-lanes/AaveV3XLayer_GhoMonadActivation_20260518.sol';
 import {AaveV3XLayer} from 'aave-address-book/AaveV3XLayer.sol';
 
-uint256 constant XLAYER_BLOCK_NUMBER = 63129679;
+uint256 constant XLAYER_BLOCK_NUMBER = 63379370;
 
 contract XLayer_Monad_AaveV3GHOLane_20260105_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution

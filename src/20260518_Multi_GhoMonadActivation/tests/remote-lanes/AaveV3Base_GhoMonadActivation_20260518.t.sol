@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Base_GhoMonadActivation_20260518} from '../../remote-lanes/AaveV3Base_GhoMonadActivation_20260518.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 
-uint256 constant BASE_BLOCK_NUMBER = 47493780;
+uint256 constant BASE_BLOCK_NUMBER = 47679528;
 
 contract Base_Monad_AaveV3GHOLane_20260105_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution
