@@ -244,15 +244,7 @@ if (options.configFile) {
     });
   }
 
-  const whitelabelMarkets = options.markets.filter((market) => isWhitelabelMarket(market));
   const nonWhitelabelMarkets = options.markets.filter((market) => !isWhitelabelMarket(market));
-  if (whitelabelMarkets.length > 0 && nonWhitelabelMarkets.length > 0) {
-    console.log('\n❌ Error: Cannot mix whitelabel and non-whitelabel markets.');
-    console.log(
-      'Please run the command again and select either only whitelabel markets or only regular markets.\n',
-    );
-    process.exit(1);
-  }
 
   if (!options.title) {
     options.title = await input({
@@ -291,19 +283,19 @@ if (options.configFile) {
     options.author = options.author.replace('TTT', author);
   }
 
-  if (!options.discussion && whitelabelMarkets.length == 0) {
+  if (!options.discussion && nonWhitelabelMarkets.length > 0) {
     options.discussion = await input({
       message: 'Link to forum discussion',
     });
   }
 
-  if (!options.snapshot && whitelabelMarkets.length == 0) {
+  if (!options.snapshot && nonWhitelabelMarkets.length > 0) {
     options.snapshot = await input({
       message: 'Link to snapshot',
     });
   }
 
-  if (!options.votingNetwork && whitelabelMarkets.length == 0) {
+  if (!options.votingNetwork && nonWhitelabelMarkets.length > 0) {
     options.votingNetwork = await select({
       message: 'Select network where voting should takes place for the proposal',
       choices: Object.values(VOTING_NETWORK).map((v) => ({

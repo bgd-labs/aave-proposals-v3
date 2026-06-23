@@ -129,7 +129,7 @@ export async function writeFiles(options: Options, {jsonConfig, scripts, aip, pa
   // write config
   await askBeforeWrite(options, path.join(baseFolder, 'config.ts'), jsonConfig);
   // write aip
-  if (!options.markets.some((market) => isWhitelabelMarket(market))) {
+  if (options.markets.some((market) => !isWhitelabelMarket(market))) {
     await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);
   }
   // write scripts

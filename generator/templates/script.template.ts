@@ -17,7 +17,6 @@ export function generateScript(options: Options) {
   const votingPortal = getVotingPortal(options.votingNetwork);
   let template = '';
   const chains = [...new Set(options.markets.map((market) => getMarketChain(market)!))];
-  const hasWhitelabelMarket = options.markets.some((market) => isWhitelabelMarket(market));
 
   // generate imports
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum' && c !== 'ZkSync')]
@@ -44,6 +43,9 @@ export function generateScript(options: Options) {
   template += Object.keys(marketsToChainsMap)
     .filter((c) => c !== 'ZkSync')
     .map((chain) => {
+      const groupIsWhitelabel = marketsToChainsMap[chain].some(({market}) =>
+        isWhitelabelMarket(market),
+      );
       return `/**
     * @dev Deploy ${chain}
     * deploy-command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
@@ -76,7 +78,7 @@ export function generateScript(options: Options) {
 
        // register action at payloadsController
        ${
-         hasWhitelabelMarket
+         groupIsWhitelabel
            ? `GovV3Helpers.createPermissionedPayloadCalldata(GovernanceV3${marketsToChainsMap[chain][0].market.replace('AaveV3', '')}.PERMISSIONED_PAYLOADS_CONTROLLER, actions);`
            : 'GovV3Helpers.createPayload(actions);'
        }
@@ -87,7 +89,10 @@ export function generateScript(options: Options) {
   template += '\n\n';
 
   // generate proposal creation script
-  if (!hasWhitelabelMarket) {
+  const nonWhitelabelChains = Object.keys(marketsToChainsMap).filter(
+    (chain) => !marketsToChainsMap[chain].some(({market}) => isWhitelabelMarket(market)),
+  );
+  if (nonWhitelabelChains.length > 0) {
     template += `/**
       * @dev Create Proposal
       * command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:CreateProposal chain=mainnet
@@ -96,11 +101,11 @@ export function generateScript(options: Options) {
         function run() external {
           // create payloads
           PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](${
-            Object.keys(marketsToChainsMap).length
+            nonWhitelabelChains.length
           });
 
           // compose actions for validation
-          ${Object.keys(marketsToChainsMap)
+          ${nonWhitelabelChains
             .map((chain, ix) => {
               let template = `{\nIPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${marketsToChainsMap[chain].length});\n`;
               template += marketsToChainsMap[chain]

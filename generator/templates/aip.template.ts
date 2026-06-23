@@ -1,4 +1,4 @@
-import {generateContractName, generateFolderName} from '../common';
+import {generateContractName, generateFolderName, isWhitelabelMarket} from '../common';
 import {Options, MarketConfigs, MarketIdentifier} from '../types';
 
 export function generateAIP(options: Options, configs: MarketConfigs) {
@@ -20,7 +20,8 @@ discussions: ${options.discussion ? `"${options.discussion}"` : 'TODO'}${
 
 ## Specification
 
-${Object.keys(configs)
+${(Object.keys(configs) as MarketIdentifier[])
+  .filter((market) => !isWhitelabelMarket(market))
   .map((market) => {
     return configs[market as keyof typeof configs]!.artifacts.filter(
       (artifact) => artifact.aip?.specification,
@@ -32,6 +33,7 @@ ${Object.keys(configs)
 ## References
 
 - Implementation: ${options.markets
+    .filter((market) => !isWhitelabelMarket(market))
     .map(
       (market) =>
         `[${market}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${market === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
@@ -40,6 +42,7 @@ ${Object.keys(configs)
     )
     .join(', ')}
 - Tests: ${options.markets
+    .filter((market) => !isWhitelabelMarket(market))
     .map(
       (market) =>
         `[${market}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${market === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
