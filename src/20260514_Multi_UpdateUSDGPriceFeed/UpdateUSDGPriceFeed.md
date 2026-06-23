@@ -1,34 +1,40 @@
 ---
-title: "Update USDG Price Feed in Aave V3 Instances"
+title: "Update USDG Price Feed on Aave V3 Instances"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/132"
 ---
 
-## Simple Summary
+### Simple Summary
 
-This AIP migrates the USDG price reference on the Aave V3 Ethereum and Aave V3 X Layer markets from the fixed $1.00 feed to the live Chainlink USDG/USD market feed, wrapped in a `PriceCapAdapterStable` with a $1.04 upper cap. This aligns USDG pricing with the capped-adapter standard already used for USDC, USDT, and RLUSD.
+Replace the existing `USDG` price feed on the applicable Aave V3 instances (Ethereum Core and X Layer) with a price cap adapter, set to a maximum price of 1.04 and using the Chainlink USDG feed as the underlying source. USDG is also listed on Aave V3 Ink instance, where this change can be applied as well. The same price adapter must also be used for the `PT-USDG-28MAY2026` asset, given that its maturity is now expired.
 
-## Motivation
+### Motivation
 
-Since the March 2026 USDG onboarding assessment, on-chain USDG liquidity has deepened and diversified across multiple venues, and the Chainlink USDG/USD feed now carries Chainlink's low market-risk categorization, with the market price within a few basis points of par. These conditions support market-based pricing and liquidation for USDG, consistent with the treatment of other established fiat stablecoins on Aave.
+Per [LlamaRisk’s latest assessment](https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-24sep2026-to-aave-v4-on-ethereum/24942/6), liquidity conditions for USDG have improved such that the Chainlink feed now provides higher-quality pricing than the source currently in production. Following the same strategy already applied to other assets across the protocol, the proposal wraps this feed in a price adapter with a cap of 1.04, ensuring the reported price tracks Chainlink while remaining bounded on the upside.
 
-The cap bounds upside oracle risk at 4% above par while the feed remains market-responsive on the downside, enabling timely liquidations in the event of a genuine depeg.
+### Specification
 
-## Specification
+Upon execution, on each applicable instance the proposal will call `setAssetSources([USDG_ADDRESS], [PRICE_CAP_ADAPTER])` on the Aave V3 oracle, pointing USDG at the newly deployed price cap adapter for that network. Each adapter uses the corresponding Chainlink USDG feed as its underlying source and the cap price listed below. The same call applies to the USDG listing on Aave V3 Ink using its respective addresses.
 
-The USDG reserve price source is updated on each market to the capped Chainlink USDG/USD feed (`PriceCapAdapterStable`, $1.04 cap):
+Since the maturity of the PT-USDG-28MAY2026 asset is now expired, the same price adapter must be used as well.
 
-| Market           | New USDG price feed                          |
-| ---------------- | -------------------------------------------- |
-| Aave V3 Ethereum | `0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4` |
-| Aave V3 X Layer  | `0xe00B2732396a1f047d4A00e0165025A9cF400245` |
+| **Pamateter (Ethereum)** | **Value**                                  |
+| ------------------------ | ------------------------------------------ |
+| Chainlink Price Feed     | 0x14f0737d6b705259e521EA6E9E3506AC78dBd311 |
+| Price Adapter            | 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4 |
+| Price cap                | 1.04                                       |
 
-On Aave V3 Ethereum, the matured PT-USDG-28MAY2026 reserve is also repointed to the capped USDG feed; having reached maturity it redeems 1:1 to USDG, so it no longer needs a dedicated Pendle adapter.
+| **Pamateter (X Layer)** | **Value**                                  |
+| ----------------------- | ------------------------------------------ |
+| Chainlink Price Feed    | 0x385C6bDDE06b0E438319bF4ddBfFe51C521ABf3D |
+| Price Adapter           | 0xe00B2732396a1f047d4A00e0165025A9cF400245 |
+| Price cap               | 1.04                                       |
 
-| Parameter       | Current               | Proposed                               |
-| --------------- | --------------------- | -------------------------------------- |
-| USDG reference  | Fixed USDG/USD, $1.00 | Chainlink USDG/USD market feed, capped |
-| Upper price cap | None                  | $1.04 (4% above par)                   |
+| **Pamateter (Ink)**  | **Value**                                  |
+| -------------------- | ------------------------------------------ |
+| Chainlink Price Feed | 0xdb3B1fa77CF2c9597f9d4871Bed1Df03D096fdf3 |
+| Price Adapter        | 0x32b1f1A1D3423dE69cf1f75092eCfDc5090d6624 |
+| Price cap            | 1.04                                       |
 
 ## References
 
