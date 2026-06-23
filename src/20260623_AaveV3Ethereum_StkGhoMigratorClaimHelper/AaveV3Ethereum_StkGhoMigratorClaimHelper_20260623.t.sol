@@ -40,12 +40,12 @@ contract AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623_Test is ProtocolV3Tes
   function test_executePayload() public {
     IStakeToken stkGho = IStakeToken(AaveSafetyModule.STK_GHO);
 
-    assertNotEq(stkGho.getAdmin(proposal.CLAIM_HELPER_ROLE()), proposal.STK_GHO_MIGRATOR());
+    assertNotEq(stkGho.getAdmin(stkGho.CLAIM_HELPER_ROLE()), proposal.STK_GHO_MIGRATOR());
 
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
-    assertEq(stkGho.getAdmin(proposal.CLAIM_HELPER_ROLE()), proposal.STK_GHO_MIGRATOR());
-    assertEq(stkGho.getPendingAdmin(proposal.CLAIM_HELPER_ROLE()), address(0));
+    assertEq(stkGho.getAdmin(stkGho.CLAIM_HELPER_ROLE()), proposal.STK_GHO_MIGRATOR());
+    assertEq(stkGho.getPendingAdmin(stkGho.CLAIM_HELPER_ROLE()), address(0));
   }
 
   function test_e2e_migration() public {

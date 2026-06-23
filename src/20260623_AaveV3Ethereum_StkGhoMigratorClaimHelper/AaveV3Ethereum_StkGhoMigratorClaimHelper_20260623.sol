@@ -9,15 +9,16 @@ import {IStkGhoMigrator} from '../interfaces/IStkGhoMigrator.sol';
 /**
  * @title StkGhoMigratorClaimHelper
  * @author Aave Labs
+ * - Etherscan: `https://etherscan.io/address/0xC836143e39201698e7d543bCf21AfF3415aE4697`
  * - Snapshot: TODO
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623 is IProposalGenericExecutor {
-  uint256 public constant CLAIM_HELPER_ROLE = 2;
   address public constant STK_GHO_MIGRATOR = 0xC836143e39201698e7d543bCf21AfF3415aE4697;
 
   function execute() external {
-    IStakeToken(AaveSafetyModule.STK_GHO).setPendingAdmin(CLAIM_HELPER_ROLE, STK_GHO_MIGRATOR);
+    IStakeToken stkGho = IStakeToken(AaveSafetyModule.STK_GHO);
+    stkGho.setPendingAdmin(stkGho.CLAIM_HELPER_ROLE(), STK_GHO_MIGRATOR);
     IStkGhoMigrator(STK_GHO_MIGRATOR).claimHelperRole();
   }
 }
