@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/technical-maintenance-proposals/1527
 
 ### Simple Summary
 
-Replace the existing `USDG` price feed on the applicable Aave V3 instances (Ethereum Core and X Layer) with a price cap adapter, set to a maximum price of 1.04 and using the Chainlink USDG feed as the underlying source. USDG is also listed on Aave V3 Ink instance, where this change can be applied as well. The same price adapter must also be used for the `PT-USDG-28MAY2026` asset, given that its maturity is now expired.
+Replace the existing `USDG` price feed on the applicable Aave V3 instances (Ethereum Core and X Layer) with a price cap adapter, set to a maximum price of 1.04 and using the Chainlink USDG feed as the underlying source. The same price adapter must also be used for the `PT-USDG-28MAY2026` asset, given that its maturity is now expired.
 
 ### Motivation
 
@@ -14,7 +14,7 @@ Per [LlamaRisk’s latest assessment](https://governance.aave.com/t/direct-to-ai
 
 ### Specification
 
-Upon execution, on each applicable instance the proposal will call `setAssetSources([USDG_ADDRESS], [PRICE_CAP_ADAPTER])` on the Aave V3 oracle, pointing USDG at the newly deployed price cap adapter for that network. Each adapter uses the corresponding Chainlink USDG feed as its underlying source and the cap price listed below. The same call applies to the USDG listing on Aave V3 Ink using its respective addresses.
+Upon execution, on each applicable instance the proposal will call `setAssetSources([USDG_ADDRESS], [PRICE_CAP_ADAPTER])` on the Aave V3 oracle, pointing USDG at the newly deployed price cap adapter for that network. Each adapter uses the corresponding Chainlink USDG feed as its underlying source and the cap price listed below.
 
 Since the maturity of the PT-USDG-28MAY2026 asset is now expired, the same price adapter must be used as well.
 
@@ -29,12 +29,6 @@ Since the maturity of the PT-USDG-28MAY2026 asset is now expired, the same price
 | Chainlink Price Feed    | 0x385C6bDDE06b0E438319bF4ddBfFe51C521ABf3D |
 | Price Adapter           | 0xe00B2732396a1f047d4A00e0165025A9cF400245 |
 | Price cap               | 1.04                                       |
-
-| **Pamateter (Ink)**  | **Value**                                  |
-| -------------------- | ------------------------------------------ |
-| Chainlink Price Feed | 0xdb3B1fa77CF2c9597f9d4871Bed1Df03D096fdf3 |
-| Price Adapter        | 0x32b1f1A1D3423dE69cf1f75092eCfDc5090d6624 |
-| Price cap            | 1.04                                       |
 
 ## References
 
