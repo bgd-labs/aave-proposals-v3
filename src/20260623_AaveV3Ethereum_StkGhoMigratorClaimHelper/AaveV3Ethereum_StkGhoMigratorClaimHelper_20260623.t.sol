@@ -54,25 +54,34 @@ contract AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623_Test is ProtocolV3Tes
     IERC4626 sGho = IERC4626(GhoEthereum.SGHO);
     IStkGhoMigrator migrator = IStkGhoMigrator(proposal.STK_GHO_MIGRATOR());
 
-    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
-
     address user = makeAddr('USER');
     deal(address(gho), user, 100e18);
 
     vm.startPrank(user);
     gho.approve(address(stkGho), 100e18);
     stkGho.stake(user, 100e18);
+    vm.stopPrank();
+    vm.warp(block.timestamp + 10 days);
+
+    assertEq(stkGho.balanceOf(user), 100e18);
+
+    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
     uint256 stkGhoBalance = stkGho.balanceOf(user);
     uint256 sGhoBalanceBefore = sGho.balanceOf(user);
     uint256 expectedSGhoShares = sGho.previewDeposit(stkGhoBalance);
 
+    vm.prank(user);
     migrator.migrate();
-    vm.stopPrank();
 
     assertEq(stkGho.balanceOf(user), 0);
     assertGt(sGho.balanceOf(user), sGhoBalanceBefore);
     assertEq(gho.balanceOf(address(migrator)), 0);
     assertEq(sGho.balanceOf(user), expectedSGhoShares);
+    assertApproxEqAbs(
+      sGho.previewRedeem(sGho.balanceOf(user) - sGhoBalanceBefore),
+      stkGhoBalance,
+      1
+    ); //assert redeemable amount matches principal
   }
 }
