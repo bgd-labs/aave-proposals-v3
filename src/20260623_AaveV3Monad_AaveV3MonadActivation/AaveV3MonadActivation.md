@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85f
 
 ## Simple Summary
 
-This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. GHO is listed by a separate follow-up proposal executed after this one.
+This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. It also lists GHO and adds it as a borrowable asset to the Maple_syrupUSDC and Liquid_Leverage eModes through a second payload executed after the activation.
 
 ## Motivation
 
@@ -24,6 +24,7 @@ The proposal will do the following:
 
 - List the following assets on Aave V3 Monad: USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
 - Complete the initial pool configuration, keeping the pool admin on the Aave Guardian during the bootstrap period, following the standard procedure for security.
+- List GHO on Aave V3 Monad and add it as a borrowable asset to the Maple_syrupUSDC and Liquid_Leverage eModes. GHO is registered as a separate payload, executed after the activation that creates those eModes.
 
 The table below illustrates the configured risk parameters for **USDT0**
 
@@ -254,10 +255,30 @@ The table below illustrates the configured E-Mode categories
 | Lido_Yield_Maximiser    | 94 % | 96 % |               1 % | wstETH      | WETH                    |
 | EtherFi_Yield_Maximiser | 93 % | 95 % |               1 % | weETH       | WETH                    |
 
+The table below illustrates the configured risk parameters for **GHO**
+
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                    ENABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (GHO)          |                                 20,000,000 |
+| Borrow Cap (GHO)          |                                 18,000,000 |
+| LTV                       |                                       75 % |
+| LT                        |                                       78 % |
+| Liquidation Bonus         |                                      7.5 % |
+| Liquidation Protocol Fee  |                                        5 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                        4 % |
+| Variable Slope 2          |                                       40 % |
+| Uoptimal                  |                                       90 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x26cBccD96502D2EfDb612737bD6aECe19f65109c |
+
 ## References
 
-- Implementation: [AaveV3Monad](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadActivation_20260623.sol)
-- Tests: [AaveV3Monad](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadActivation_20260623.t.sol)
+- Implementation: [AaveV3Monad Activation](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadActivation_20260623.sol), [AaveV3Monad GHO Listing](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadGHOListing_20260623.sol)
+- Tests: [AaveV3Monad Activation](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadActivation_20260623.t.sol), [AaveV3Monad GHO Listing](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadGHOListing_20260623.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85fa87ff795bfeec769fa799ce6ada8e2724c9738049f6)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-protocol-on-monad/24943)
 

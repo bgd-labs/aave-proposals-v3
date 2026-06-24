@@ -7,6 +7,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, MonadScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Monad_AaveV3MonadActivation_20260623} from './AaveV3Monad_AaveV3MonadActivation_20260623.sol';
+import {AaveV3Monad_AaveV3MonadGHOListing_20260623} from './AaveV3Monad_AaveV3MonadGHOListing_20260623.sol';
 
 /**
  * @dev Deploy Monad
@@ -31,22 +32,55 @@ contract DeployMonad is MonadScript {
 }
 
 /**
- * @dev Create Proposal
+ * @dev Deploy Monad GHO listing as a separate payload from the activation. It must be executed
+ *      after the activation, which creates the Maple_syrupUSDC and Liquid_Leverage eModes it
+ *      adds GHO to.
+ * deploy-command: make deploy-ledger contract=src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3MonadActivation_20260623.s.sol:DeployMonadGHOListing chain=monad
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveV3MonadActivation_20260623.s.sol/143/run-latest.json
+ */
+contract DeployMonadGHOListing is MonadScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Monad_AaveV3MonadGHOListing_20260623).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Create Proposal bundling the activation (payloads[0]) and the GHO listing (payloads[1]) as
+ *      two separate Monad payloads. The GHO listing must be executed after the activation.
  * command: make deploy-ledger contract=src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3MonadActivation_20260623.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsMonad = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsMonad[0] = GovV3Helpers.buildAction(
+        memory actionsActivation = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsActivation[0] = GovV3Helpers.buildAction(
         type(AaveV3Monad_AaveV3MonadActivation_20260623).creationCode
       );
-      payloads[0] = GovV3Helpers.buildMonadPayload(vm, actionsMonad);
+      payloads[0] = GovV3Helpers.buildMonadPayload(vm, actionsActivation);
+    }
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsGHOListing = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsGHOListing[0] = GovV3Helpers.buildAction(
+        type(AaveV3Monad_AaveV3MonadGHOListing_20260623).creationCode
+      );
+      payloads[1] = GovV3Helpers.buildMonadPayload(vm, actionsGHOListing);
     }
 
     // create proposal
