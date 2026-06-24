@@ -1,5 +1,5 @@
 ---
-title: "StkGhoMigratorClaimHelper"
+title: "Grant Claim Helper Role to StkGhoMigrator"
 author: "Aave Labs"
 discussions: TODO
 snapshot: TODO

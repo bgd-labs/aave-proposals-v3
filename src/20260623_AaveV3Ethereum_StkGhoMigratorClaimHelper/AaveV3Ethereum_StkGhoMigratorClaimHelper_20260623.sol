@@ -9,11 +9,11 @@ import {IStkGhoMigrator} from '../interfaces/IStkGhoMigrator.sol';
 /**
  * @title StkGhoMigratorClaimHelper
  * @author Aave Labs
- * - Etherscan: `https://etherscan.io/address/0xC836143e39201698e7d543bCf21AfF3415aE4697`
  * - Snapshot: TODO
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623 is IProposalGenericExecutor {
+  // https://etherscan.io/address/0xC836143e39201698e7d543bCf21AfF3415aE4697
   address public constant STK_GHO_MIGRATOR = 0xC836143e39201698e7d543bCf21AfF3415aE4697;
 
   function execute() external {
