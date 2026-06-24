@@ -26,19 +26,28 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
     // temporary: seed the executor so _postExecute() can supply to the DUST_BIN
     deal(proposal.USDT0(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
     deal(proposal.USDC(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
-    deal(proposal.GHO(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
     deal(proposal.USDe(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDe_SEED_AMOUNT());
     deal(proposal.mUSD(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.mUSD_SEED_AMOUNT());
-    // AUSD uses namespaced storage that `deal` cannot write; fund from an on-chain holder
-    vm.startPrank(0xD5D960E8C380B724a48AC59E2DfF1b2CB4a1eAee);
-    IERC20(proposal.AUSD()).transfer(GovernanceV3Monad.EXECUTOR_LVL_1, proposal.AUSD_SEED_AMOUNT());
-    vm.stopPrank();
+    deal(proposal.AUSD(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.AUSD_SEED_AMOUNT());
     deal(proposal.WETH(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
     deal(proposal.cbBTC(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.cbBTC_SEED_AMOUNT());
     deal(proposal.wstETH(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.wstETH_SEED_AMOUNT());
     deal(proposal.weETH(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.weETH_SEED_AMOUNT());
     deal(proposal.syrupUSDC(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.syrupUSDC_SEED_AMOUNT());
     deal(proposal.sUSDe(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.sUSDe_SEED_AMOUNT());
+  }
+
+  /**
+   * @dev AUSD uses namespaced storage that forge-std `deal` cannot write; the generic e2e funds
+   * test users via `deal`, so route AUSD through an on-chain holder instead.
+   */
+  function deal(address token, address to, uint256 give) internal override {
+    if (token == proposal.AUSD()) {
+      vm.prank(0xD5D960E8C380B724a48AC59E2DfF1b2CB4a1eAee);
+      IERC20(token).transfer(to, give);
+      return;
+    }
+    super.deal(token, to, give);
   }
 
   /**
@@ -51,73 +60,100 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   function test_dustBinHasUSDT0Funds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.USDT0());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.USDT0_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHasUSDCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.USDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 6);
-  }
-
-  function test_dustBinHasGHOFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.GHO());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.USDC_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHasUSDeFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.USDe());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.USDe_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHasmUSDFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.mUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.mUSD_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHasAUSDFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.AUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.AUSD_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHasWETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.WETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.WETH_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHascbBTCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.cbBTC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 8);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.cbBTC_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHaswstETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.wstETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.wstETH_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHasweETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.weETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.weETH_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHassyrupUSDCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.syrupUSDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.syrupUSDC_SEED_AMOUNT()
+    );
   }
 
   function test_dustBinHassUSDeFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Monad.POOL.getReserveAToken(proposal.sUSDe());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Monad.DUST_BIN)),
+      proposal.sUSDe_SEED_AMOUNT()
+    );
   }
 
   function test_eModeConfiguration() public {
@@ -138,12 +174,11 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       _toBitmap(collaterals_Maple_syrupUSDC)
     );
 
-    address[] memory borrowables_Maple_syrupUSDC = new address[](5);
+    address[] memory borrowables_Maple_syrupUSDC = new address[](4);
     borrowables_Maple_syrupUSDC[0] = proposal.USDT0();
     borrowables_Maple_syrupUSDC[1] = proposal.USDC();
-    borrowables_Maple_syrupUSDC[2] = proposal.GHO();
-    borrowables_Maple_syrupUSDC[3] = proposal.mUSD();
-    borrowables_Maple_syrupUSDC[4] = proposal.AUSD();
+    borrowables_Maple_syrupUSDC[2] = proposal.mUSD();
+    borrowables_Maple_syrupUSDC[3] = proposal.AUSD();
     assertEq(
       AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Maple_syrupUSDC),
       _toBitmap(borrowables_Maple_syrupUSDC)
@@ -166,11 +201,10 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       _toBitmap(collaterals_Liquid_Leverage)
     );
 
-    address[] memory borrowables_Liquid_Leverage = new address[](4);
+    address[] memory borrowables_Liquid_Leverage = new address[](3);
     borrowables_Liquid_Leverage[0] = proposal.USDT0();
     borrowables_Liquid_Leverage[1] = proposal.USDC();
-    borrowables_Liquid_Leverage[2] = proposal.GHO();
-    borrowables_Liquid_Leverage[3] = proposal.AUSD();
+    borrowables_Liquid_Leverage[2] = proposal.AUSD();
     assertEq(
       AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Liquid_Leverage),
       _toBitmap(borrowables_Liquid_Leverage)

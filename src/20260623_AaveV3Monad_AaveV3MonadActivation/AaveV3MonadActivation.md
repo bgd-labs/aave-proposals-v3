@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85f
 
 ## Simple Summary
 
-This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, GHO, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum.
+This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. GHO is listed by a separate follow-up proposal executed after this one.
 
 ## Motivation
 
@@ -22,7 +22,7 @@ Monad's pipelined EVM architecture delivers high-throughput performance while re
 
 The proposal will do the following:
 
-- List the following assets on Aave V3 Monad: USDT0, USDC, GHO, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
+- List the following assets on Aave V3 Monad: USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
 - Complete the initial pool configuration, keeping the pool admin on the Aave Guardian during the bootstrap period, following the standard procedure for security.
 
 The table below illustrates the configured risk parameters for **USDT0**
@@ -64,26 +64,6 @@ The table below illustrates the configured risk parameters for **USDC**
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
 | Oracle                    | 0x978a045fa9ac4E4367053945F9f03E06DD834da5 |
-
-The table below illustrates the configured risk parameters for **GHO**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (GHO)          |                                 20,000,000 |
-| Borrow Cap (GHO)          |                                 18,000,000 |
-| LTV                       |                                       75 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                        5 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                       40 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x26cBccD96502D2EfDb612737bD6aECe19f65109c |
 
 The table below illustrates the configured risk parameters for **USDe**
 
@@ -267,12 +247,12 @@ The table below illustrates the configured risk parameters for **sUSDe**
 
 The table below illustrates the configured E-Mode categories
 
-| E-Mode Category         |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables                  |
-| ----------------------- | ---: | ---: | ----------------: | ----------- | ---------------------------- |
-| Maple_syrupUSDC         | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, GHO, mUSD, AUSD |
-| Liquid_Leverage         | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, GHO, AUSD       |
-| Lido_Yield_Maximiser    | 94 % | 96 % |               1 % | wstETH      | WETH                         |
-| EtherFi_Yield_Maximiser | 93 % | 95 % |               1 % | weETH       | WETH                         |
+| E-Mode Category         |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables             |
+| ----------------------- | ---: | ---: | ----------------: | ----------- | ----------------------- |
+| Maple_syrupUSDC         | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD |
+| Liquid_Leverage         | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD       |
+| Lido_Yield_Maximiser    | 94 % | 96 % |               1 % | wstETH      | WETH                    |
+| EtherFi_Yield_Maximiser | 93 % | 95 % |               1 % | weETH       | WETH                    |
 
 ## References
 
