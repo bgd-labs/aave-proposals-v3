@@ -14,6 +14,7 @@ import {AaveV3EthereumHorizonAssets} from 'aave-address-book-latest/AaveV3Ethere
  *        - Centrifuge  (JTRSY, JAAA) — RestrictionManager.endorse
  *        - Circle/USYC             — RolesAuthority.setUserRole
  *        - Securitize  (VBILL, ACRED) — RegistryService.addWallet
+ *        - Midas       (mGLOBAL) — MidasAccessControl GREENLISTED_ROLE
  *
  *      Override `_whitelistRwaActors` in concrete tests to add whitelisting for
  *      newly listed assets.
@@ -36,6 +37,14 @@ abstract contract HorizonRwaWhitelistHelper is Test {
   address internal constant SECURITIZE_ADMIN = 0xDA8e2d926D28a86aeE933d928357583aae5D3b85;
   string internal constant VBILL_SECURITIZE_FUND_ID = 'f27e20ca73314651b387da0aa9116f30';
   string internal constant ACRED_SECURITIZE_FUND_ID = '69023a78d57776eca9542d33';
+
+  // ── Midas (mGLOBAL) ──────────────────────────────────────────────────
+  // Shared Midas access control (mGLOBAL.accessControl()). Transfers require the
+  // sender and recipient to hold mGLOBAL's product-specific greenlist role.
+  address internal constant MIDAS_ACCESS_CONTROL = 0x0312A9D1Ff2372DDEdCBB21e4B6389aFc919aC4B;
+  bytes32 internal constant MGLOBAL_GREENLISTED_ROLE = keccak256('M_GLOBAL_GREENLISTED_ROLE');
+  // Slot of the OZ `_roles` mapping (role => account => bool) in MidasAccessControl.
+  uint256 internal constant MIDAS_ROLES_SLOT = 101;
 
   // ── Whale addresses for tokens incompatible with foundry `deal` ────
   // Securitize DS-protocol tokens store balances in an external data store,
@@ -61,6 +70,8 @@ abstract contract HorizonRwaWhitelistHelper is Test {
       _whitelistVbillRwa(actors[i]);
       // Securitize (ACRED) — only if listed (aToken exists)
       _whitelistAcredRwa(actors[i]);
+      // Midas (mGLOBAL)
+      _whitelistMidasRwa(actors[i]);
     }
   }
 
@@ -79,6 +90,8 @@ abstract contract HorizonRwaWhitelistHelper is Test {
     _whitelistVbillRwa(_requireAToken(pool, AaveV3EthereumHorizonAssets.VBILL_UNDERLYING));
     // Securitize (ACRED)
     _whitelistAcredRwa(_requireAToken(pool, AaveV3EthereumHorizonCustom.ACRED_UNDERLYING));
+    // Midas (mGLOBAL)
+    _whitelistMidasRwa(_requireAToken(pool, AaveV3EthereumHorizonCustom.MGLOBAL_UNDERLYING));
   }
 
   function _requireAToken(IPool pool, address underlying) internal view returns (address aToken) {
@@ -174,6 +187,27 @@ abstract contract HorizonRwaWhitelistHelper is Test {
       ACRED_SECURITIZE_FUND_ID,
       addressToWhitelist
     );
+  }
+
+  /// @dev Midas whitelisting: grants mGLOBAL's greenlist role on the shared MidasAccessControl.
+  function _whitelistMidasRwa(address addressToWhitelist) internal {
+    bytes32 slot = keccak256(
+      abi.encode(
+        addressToWhitelist,
+        keccak256(abi.encode(MGLOBAL_GREENLISTED_ROLE, MIDAS_ROLES_SLOT))
+      )
+    );
+    vm.store(MIDAS_ACCESS_CONTROL, slot, bytes32(uint256(1)));
+
+    // Verify whitelisted
+    (bool success, bytes memory data) = MIDAS_ACCESS_CONTROL.call(
+      abi.encodeWithSignature(
+        'hasRole(bytes32,address)',
+        MGLOBAL_GREENLISTED_ROLE,
+        addressToWhitelist
+      )
+    );
+    require(success && abi.decode(data, (bool)), 'Midas: address not greenlisted');
   }
 
   /**

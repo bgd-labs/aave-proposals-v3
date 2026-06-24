@@ -6,6 +6,7 @@ import {IERC20} from 'aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/
 import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IPoolAddressesProvider} from 'aave-v3-origin/contracts/interfaces/IPoolAddressesProvider.sol';
+import {IAaveOracle} from 'aave-v3-origin/contracts/interfaces/IAaveOracle.sol';
 import {IPoolConfigurator} from 'aave-v3-origin/contracts/interfaces/IPoolConfigurator.sol';
 import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
 import {AaveV3EthereumHorizonCustom} from 'src/utils/AaveV3EthereumHorizonCustom.sol';
@@ -229,8 +230,13 @@ abstract contract ProtocolV3HorizonTestBase is
 
     vm.revertToState(snapshotAfterDeposits);
 
-    // always test non-emode: borrow/repay/liquidation
-    if (testAssetConfig.borrowingEnabled) {
+    // non-emode borrow/repay/liquidation, only when the collateral's default-mode LTV can back
+    // the borrow. Collateral usable only within an eMode is exercised by the eMode branch below.
+    (, , uint256 availableBorrowsBase, , , ) = pool.getUserAccountData(regularCollateralSupplier);
+    if (
+      testAssetConfig.borrowingEnabled &&
+      availableBorrowsBase >= _baseValueOf(pool, testAssetConfig, vars.testAssetAmount)
+    ) {
       _testBorrowRepayLiquidation(
         pool,
         collateralConfig,
@@ -239,6 +245,8 @@ abstract contract ProtocolV3HorizonTestBase is
         vars.testAssetAmount,
         snapshotAfterDeposits
       );
+    } else if (testAssetConfig.borrowingEnabled) {
+      console.log('E2E: non-emode borrow SKIPPED for collateral %s', collateralConfig.symbol);
     }
 
     // eMode: additional borrow/repay test if asset is eMode-borrowable
@@ -285,6 +293,21 @@ abstract contract ProtocolV3HorizonTestBase is
 
   function _pool() internal pure returns (IPool) {
     return IPool(AaveV3EthereumHorizonCustom.POOL);
+  }
+
+  /**
+   * @dev Returns the value of `amount` of `config`'s underlying in the oracle base currency (8 decimals),
+   *      matching the units returned by `IPool.getUserAccountData`.
+   */
+  function _baseValueOf(
+    IPool pool,
+    ReserveConfig memory config,
+    uint256 amount
+  ) internal view returns (uint256) {
+    IAaveOracle oracle = IAaveOracle(
+      IPoolAddressesProvider(pool.ADDRESSES_PROVIDER()).getPriceOracle()
+    );
+    return (amount * oracle.getAssetPrice(config.underlying)) / 10 ** config.decimals;
   }
 
   /**

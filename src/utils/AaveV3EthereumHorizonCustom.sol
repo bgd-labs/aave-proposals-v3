@@ -54,4 +54,10 @@ library AaveV3EthereumHorizonCustom {
   address public constant ACRED_UNDERLYING = 0x17418038ecF73BA4026c4f428547BF099706F27B;
   // https://etherscan.io/address/0x60AEd7d20AC6328f7BA771aD58931c996aff30E8
   address public constant ACRED_PRICE_FEED = 0x60AEd7d20AC6328f7BA771aD58931c996aff30E8;
+
+  // https://etherscan.io/address/0x7433806912Eae67919e66aea853d46Fa0aef98A8
+  address public constant MGLOBAL_UNDERLYING = 0x7433806912Eae67919e66aea853d46Fa0aef98A8;
+  // TODO: replace with the LlamaGuard-bounded NAV feed once deployed; this is the unbounded Chainlink feed
+  // https://etherscan.io/address/0xB92A68763b2F83e094595c7B41a7FB9D0f8Da193
+  address public constant MGLOBAL_PRICE_FEED = 0xB92A68763b2F83e094595c7B41a7FB9D0f8Da193;
 }
