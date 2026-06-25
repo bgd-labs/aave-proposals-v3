@@ -158,119 +158,119 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
 
   function test_eModeConfiguration() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    uint8 eMode_Maple_syrupUSDC = _findEModeCategoryId('Maple_syrupUSDC');
+    uint8 eMode_syrupUSDC__Stablecoins = _findEModeCategoryId('syrupUSDC__Stablecoins');
     _assertEModeCollateralConfig({
-      id: eMode_Maple_syrupUSDC,
+      id: eMode_syrupUSDC__Stablecoins,
       ltv: 90_00,
       liquidationThreshold: 92_00,
       liquidationBonus: 100_00 + 4_00,
       isolated: false
     });
 
-    address[] memory collaterals_Maple_syrupUSDC = new address[](1);
-    collaterals_Maple_syrupUSDC[0] = proposal.syrupUSDC();
+    address[] memory collaterals_syrupUSDC__Stablecoins = new address[](1);
+    collaterals_syrupUSDC__Stablecoins[0] = proposal.syrupUSDC();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_Maple_syrupUSDC),
-      _toBitmap(collaterals_Maple_syrupUSDC)
+      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_syrupUSDC__Stablecoins),
+      _toBitmap(collaterals_syrupUSDC__Stablecoins)
     );
 
-    address[] memory borrowables_Maple_syrupUSDC = new address[](4);
-    borrowables_Maple_syrupUSDC[0] = proposal.USDT0();
-    borrowables_Maple_syrupUSDC[1] = proposal.USDC();
-    borrowables_Maple_syrupUSDC[2] = proposal.mUSD();
-    borrowables_Maple_syrupUSDC[3] = proposal.AUSD();
+    address[] memory borrowables_syrupUSDC__Stablecoins = new address[](4);
+    borrowables_syrupUSDC__Stablecoins[0] = proposal.USDT0();
+    borrowables_syrupUSDC__Stablecoins[1] = proposal.USDC();
+    borrowables_syrupUSDC__Stablecoins[2] = proposal.mUSD();
+    borrowables_syrupUSDC__Stablecoins[3] = proposal.AUSD();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Maple_syrupUSDC),
-      _toBitmap(borrowables_Maple_syrupUSDC)
+      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_syrupUSDC__Stablecoins),
+      _toBitmap(borrowables_syrupUSDC__Stablecoins)
     );
 
-    uint8 eMode_Liquid_Leverage = _findEModeCategoryId('Liquid_Leverage');
+    uint8 eMode_USDe_sUSDe__Stablecoins = _findEModeCategoryId('USDe_sUSDe__Stablecoins');
     _assertEModeCollateralConfig({
-      id: eMode_Liquid_Leverage,
+      id: eMode_USDe_sUSDe__Stablecoins,
       ltv: 90_00,
       liquidationThreshold: 92_00,
       liquidationBonus: 100_00 + 4_00,
       isolated: false
     });
 
-    address[] memory collaterals_Liquid_Leverage = new address[](2);
-    collaterals_Liquid_Leverage[0] = proposal.USDe();
-    collaterals_Liquid_Leverage[1] = proposal.sUSDe();
+    address[] memory collaterals_USDe_sUSDe__Stablecoins = new address[](2);
+    collaterals_USDe_sUSDe__Stablecoins[0] = proposal.USDe();
+    collaterals_USDe_sUSDe__Stablecoins[1] = proposal.sUSDe();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_Liquid_Leverage),
-      _toBitmap(collaterals_Liquid_Leverage)
+      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_USDe_sUSDe__Stablecoins),
+      _toBitmap(collaterals_USDe_sUSDe__Stablecoins)
     );
 
-    address[] memory borrowables_Liquid_Leverage = new address[](3);
-    borrowables_Liquid_Leverage[0] = proposal.USDT0();
-    borrowables_Liquid_Leverage[1] = proposal.USDC();
-    borrowables_Liquid_Leverage[2] = proposal.AUSD();
+    address[] memory borrowables_USDe_sUSDe__Stablecoins = new address[](3);
+    borrowables_USDe_sUSDe__Stablecoins[0] = proposal.USDT0();
+    borrowables_USDe_sUSDe__Stablecoins[1] = proposal.USDC();
+    borrowables_USDe_sUSDe__Stablecoins[2] = proposal.AUSD();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Liquid_Leverage),
-      _toBitmap(borrowables_Liquid_Leverage)
+      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_USDe_sUSDe__Stablecoins),
+      _toBitmap(borrowables_USDe_sUSDe__Stablecoins)
     );
 
-    uint8 eMode_Lido_Yield_Maximiser = _findEModeCategoryId('Lido_Yield_Maximiser');
+    uint8 eMode_wstETH__WETH = _findEModeCategoryId('wstETH__WETH');
     _assertEModeCollateralConfig({
-      id: eMode_Lido_Yield_Maximiser,
+      id: eMode_wstETH__WETH,
       ltv: 94_00,
       liquidationThreshold: 96_00,
       liquidationBonus: 100_00 + 1_00,
       isolated: false
     });
 
-    address[] memory collaterals_Lido_Yield_Maximiser = new address[](1);
-    collaterals_Lido_Yield_Maximiser[0] = proposal.wstETH();
+    address[] memory collaterals_wstETH__WETH = new address[](1);
+    collaterals_wstETH__WETH[0] = proposal.wstETH();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_Lido_Yield_Maximiser),
-      _toBitmap(collaterals_Lido_Yield_Maximiser)
+      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_wstETH__WETH),
+      _toBitmap(collaterals_wstETH__WETH)
     );
 
-    address[] memory borrowables_Lido_Yield_Maximiser = new address[](1);
-    borrowables_Lido_Yield_Maximiser[0] = proposal.WETH();
+    address[] memory borrowables_wstETH__WETH = new address[](1);
+    borrowables_wstETH__WETH[0] = proposal.WETH();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Lido_Yield_Maximiser),
-      _toBitmap(borrowables_Lido_Yield_Maximiser)
+      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_wstETH__WETH),
+      _toBitmap(borrowables_wstETH__WETH)
     );
 
-    uint8 eMode_EtherFi_Yield_Maximiser = _findEModeCategoryId('EtherFi_Yield_Maximiser');
+    uint8 eMode_weETH__WETH = _findEModeCategoryId('weETH__WETH');
     _assertEModeCollateralConfig({
-      id: eMode_EtherFi_Yield_Maximiser,
+      id: eMode_weETH__WETH,
       ltv: 93_00,
       liquidationThreshold: 95_00,
       liquidationBonus: 100_00 + 1_00,
       isolated: false
     });
 
-    address[] memory collaterals_EtherFi_Yield_Maximiser = new address[](1);
-    collaterals_EtherFi_Yield_Maximiser[0] = proposal.weETH();
+    address[] memory collaterals_weETH__WETH = new address[](1);
+    collaterals_weETH__WETH[0] = proposal.weETH();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_EtherFi_Yield_Maximiser),
-      _toBitmap(collaterals_EtherFi_Yield_Maximiser)
+      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_weETH__WETH),
+      _toBitmap(collaterals_weETH__WETH)
     );
 
-    address[] memory borrowables_EtherFi_Yield_Maximiser = new address[](1);
-    borrowables_EtherFi_Yield_Maximiser[0] = proposal.WETH();
+    address[] memory borrowables_weETH__WETH = new address[](1);
+    borrowables_weETH__WETH[0] = proposal.WETH();
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_EtherFi_Yield_Maximiser),
-      _toBitmap(borrowables_EtherFi_Yield_Maximiser)
+      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_weETH__WETH),
+      _toBitmap(borrowables_weETH__WETH)
     );
   }
-  function test_eMode_Maple_syrupUSDC_supplyAndBorrow() public {
+  function test_eMode_syrupUSDC__Stablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    _supplyAndBorrowInEMode('Maple_syrupUSDC', proposal.syrupUSDC(), proposal.USDT0());
+    _supplyAndBorrowInEMode('syrupUSDC__Stablecoins', proposal.syrupUSDC(), proposal.USDT0());
   }
-  function test_eMode_Liquid_Leverage_supplyAndBorrow() public {
+  function test_eMode_USDe_sUSDe__Stablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    _supplyAndBorrowInEMode('Liquid_Leverage', proposal.USDe(), proposal.USDT0());
+    _supplyAndBorrowInEMode('USDe_sUSDe__Stablecoins', proposal.USDe(), proposal.USDT0());
   }
-  function test_eMode_Lido_Yield_Maximiser_supplyAndBorrow() public {
+  function test_eMode_wstETH__WETH_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    _supplyAndBorrowInEMode('Lido_Yield_Maximiser', proposal.wstETH(), proposal.WETH());
+    _supplyAndBorrowInEMode('wstETH__WETH', proposal.wstETH(), proposal.WETH());
   }
-  function test_eMode_EtherFi_Yield_Maximiser_supplyAndBorrow() public {
+  function test_eMode_weETH__WETH_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    _supplyAndBorrowInEMode('EtherFi_Yield_Maximiser', proposal.weETH(), proposal.WETH());
+    _supplyAndBorrowInEMode('weETH__WETH', proposal.weETH(), proposal.WETH());
   }
   function test_USDeBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));

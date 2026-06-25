@@ -44,14 +44,14 @@
 
 ## EMode changes
 
-### EMode: Maple_syrupUSDC (id: 1)
+### EMode: syrupUSDC__Stablecoins (id: 1)
 
 | description | value before | value after |
 | --- | --- | --- |
 | borrowableBitmap | USDT0, USDC, mUSD, AUSD | USDT0, USDC, mUSD, AUSD, GHO |
 
 
-### EMode: Liquid_Leverage (id: 2)
+### EMode: USDe_sUSDe__Stablecoins (id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |

@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85f
 
 ## Simple Summary
 
-This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. It also lists GHO and adds it as a borrowable asset to the Maple_syrupUSDC and Liquid_Leverage eModes through a second payload executed after the activation.
+This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. It also lists GHO and adds it as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes through a second payload executed after the activation.
 
 ## Motivation
 
@@ -24,7 +24,7 @@ The proposal will do the following:
 
 - List the following assets on Aave V3 Monad: USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
 - Complete the initial pool configuration, keeping the pool admin on the Aave Guardian during the bootstrap period, following the standard procedure for security.
-- List GHO on Aave V3 Monad and add it as a borrowable asset to the Maple_syrupUSDC and Liquid_Leverage eModes. GHO is registered as a separate payload, executed after the activation that creates those eModes.
+- List GHO on Aave V3 Monad and add it as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes. GHO is registered as a separate payload, executed after the activation that creates those eModes.
 
 The table below illustrates the configured risk parameters for **USDT0**
 
@@ -248,12 +248,12 @@ The table below illustrates the configured risk parameters for **sUSDe**
 
 The table below illustrates the configured E-Mode categories
 
-| E-Mode Category         |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables             |
-| ----------------------- | ---: | ---: | ----------------: | ----------- | ----------------------- |
-| Maple_syrupUSDC         | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD |
-| Liquid_Leverage         | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD       |
-| Lido_Yield_Maximiser    | 94 % | 96 % |               1 % | wstETH      | WETH                    |
-| EtherFi_Yield_Maximiser | 93 % | 95 % |               1 % | weETH       | WETH                    |
+| E-Mode Category           |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables             |
+| ------------------------- | ---: | ---: | ----------------: | ----------- | ----------------------- |
+| syrupUSDC\_\_Stablecoins  | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD |
+| USDe_sUSDe\_\_Stablecoins | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD       |
+| wstETH\_\_WETH            | 94 % | 96 % |               1 % | wstETH      | WETH                    |
+| weETH\_\_WETH             | 93 % | 95 % |               1 % | weETH       | WETH                    |
 
 The table below illustrates the configured risk parameters for **GHO**
 

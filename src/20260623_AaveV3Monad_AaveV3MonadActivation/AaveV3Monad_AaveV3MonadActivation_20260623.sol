@@ -84,30 +84,6 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   // https://monadscan.com/address/0x372EdA3f11AECb1bA5c44982f30C13b311c549f1
   address public constant sUSDe_PRICE_FEED = 0x372EdA3f11AECb1bA5c44982f30C13b311c549f1;
 
-  function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(mUSD, mUSD_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(AUSD, AUSD_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(cbBTC, cbBTC_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(wstETH, wstETH_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(weETH, weETH_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(syrupUSDC, syrupUSDC_SEED_AMOUNT, address(0));
-
-    _supplyAndConfigureLMAdmin(sUSDe, sUSDe_SEED_AMOUNT, address(0));
-  }
-
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](11);
 
@@ -334,6 +310,113 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
 
     return listings;
   }
+
+  function eModeCategoryCreations()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryCreation[]
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](4);
+
+    address[] memory collateralAssets_syrupUSDC__Stablecoins = new address[](1);
+    address[] memory borrowableAssets_syrupUSDC__Stablecoins = new address[](4);
+
+    collateralAssets_syrupUSDC__Stablecoins[0] = syrupUSDC;
+    borrowableAssets_syrupUSDC__Stablecoins[0] = USDT0;
+    borrowableAssets_syrupUSDC__Stablecoins[1] = USDC;
+    borrowableAssets_syrupUSDC__Stablecoins[2] = mUSD;
+    borrowableAssets_syrupUSDC__Stablecoins[3] = AUSD;
+
+    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 90_00,
+      liqThreshold: 92_00,
+      liqBonus: 4_00,
+      label: 'syrupUSDC__Stablecoins',
+      isolated: false,
+      collaterals: collateralAssets_syrupUSDC__Stablecoins,
+      borrowables: borrowableAssets_syrupUSDC__Stablecoins
+    });
+
+    address[] memory collateralAssets_USDe_sUSDe__Stablecoins = new address[](2);
+    address[] memory borrowableAssets_USDe_sUSDe__Stablecoins = new address[](3);
+
+    collateralAssets_USDe_sUSDe__Stablecoins[0] = USDe;
+    collateralAssets_USDe_sUSDe__Stablecoins[1] = sUSDe;
+    borrowableAssets_USDe_sUSDe__Stablecoins[0] = USDT0;
+    borrowableAssets_USDe_sUSDe__Stablecoins[1] = USDC;
+    borrowableAssets_USDe_sUSDe__Stablecoins[2] = AUSD;
+
+    eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 90_00,
+      liqThreshold: 92_00,
+      liqBonus: 4_00,
+      label: 'USDe_sUSDe__Stablecoins',
+      isolated: false,
+      collaterals: collateralAssets_USDe_sUSDe__Stablecoins,
+      borrowables: borrowableAssets_USDe_sUSDe__Stablecoins
+    });
+
+    address[] memory collateralAssets_wstETH__WETH = new address[](1);
+    address[] memory borrowableAssets_wstETH__WETH = new address[](1);
+
+    collateralAssets_wstETH__WETH[0] = wstETH;
+    borrowableAssets_wstETH__WETH[0] = WETH;
+
+    eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 94_00,
+      liqThreshold: 96_00,
+      liqBonus: 1_00,
+      label: 'wstETH__WETH',
+      isolated: false,
+      collaterals: collateralAssets_wstETH__WETH,
+      borrowables: borrowableAssets_wstETH__WETH
+    });
+
+    address[] memory collateralAssets_weETH__WETH = new address[](1);
+    address[] memory borrowableAssets_weETH__WETH = new address[](1);
+
+    collateralAssets_weETH__WETH[0] = weETH;
+    borrowableAssets_weETH__WETH[0] = WETH;
+
+    eModeCreations[3] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 93_00,
+      liqThreshold: 95_00,
+      liqBonus: 1_00,
+      label: 'weETH__WETH',
+      isolated: false,
+      collaterals: collateralAssets_weETH__WETH,
+      borrowables: borrowableAssets_weETH__WETH
+    });
+
+    return eModeCreations;
+  }
+
+  function _postExecute() internal override {
+    _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(mUSD, mUSD_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(AUSD, AUSD_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(cbBTC, cbBTC_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(wstETH, wstETH_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(weETH, weETH_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(syrupUSDC, syrupUSDC_SEED_AMOUNT, address(0));
+
+    _supplyAndConfigureLMAdmin(sUSDe, sUSDe_SEED_AMOUNT, address(0));
+  }
+
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
     IERC20(asset).forceApprove(address(AaveV3Monad.POOL), seedAmount);
     AaveV3Monad.POOL.supply(asset, seedAmount, address(AaveV3Monad.DUST_BIN), 0);
@@ -345,86 +428,5 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       IEmissionManager(AaveV3Monad.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
       IEmissionManager(AaveV3Monad.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
     }
-  }
-  function eModeCategoryCreations()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
-  {
-    IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](4);
-
-    address[] memory collateralAssets_Maple_syrupUSDC = new address[](1);
-    address[] memory borrowableAssets_Maple_syrupUSDC = new address[](4);
-
-    collateralAssets_Maple_syrupUSDC[0] = syrupUSDC;
-    borrowableAssets_Maple_syrupUSDC[0] = USDT0;
-    borrowableAssets_Maple_syrupUSDC[1] = USDC;
-    borrowableAssets_Maple_syrupUSDC[2] = mUSD;
-    borrowableAssets_Maple_syrupUSDC[3] = AUSD;
-
-    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 90_00,
-      liqThreshold: 92_00,
-      liqBonus: 4_00,
-      label: 'Maple_syrupUSDC',
-      isolated: false,
-      collaterals: collateralAssets_Maple_syrupUSDC,
-      borrowables: borrowableAssets_Maple_syrupUSDC
-    });
-
-    address[] memory collateralAssets_Liquid_Leverage = new address[](2);
-    address[] memory borrowableAssets_Liquid_Leverage = new address[](3);
-
-    collateralAssets_Liquid_Leverage[0] = USDe;
-    collateralAssets_Liquid_Leverage[1] = sUSDe;
-    borrowableAssets_Liquid_Leverage[0] = USDT0;
-    borrowableAssets_Liquid_Leverage[1] = USDC;
-    borrowableAssets_Liquid_Leverage[2] = AUSD;
-
-    eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 90_00,
-      liqThreshold: 92_00,
-      liqBonus: 4_00,
-      label: 'Liquid_Leverage',
-      isolated: false,
-      collaterals: collateralAssets_Liquid_Leverage,
-      borrowables: borrowableAssets_Liquid_Leverage
-    });
-
-    address[] memory collateralAssets_Lido_Yield_Maximiser = new address[](1);
-    address[] memory borrowableAssets_Lido_Yield_Maximiser = new address[](1);
-
-    collateralAssets_Lido_Yield_Maximiser[0] = wstETH;
-    borrowableAssets_Lido_Yield_Maximiser[0] = WETH;
-
-    eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 94_00,
-      liqThreshold: 96_00,
-      liqBonus: 1_00,
-      label: 'Lido_Yield_Maximiser',
-      isolated: false,
-      collaterals: collateralAssets_Lido_Yield_Maximiser,
-      borrowables: borrowableAssets_Lido_Yield_Maximiser
-    });
-
-    address[] memory collateralAssets_EtherFi_Yield_Maximiser = new address[](1);
-    address[] memory borrowableAssets_EtherFi_Yield_Maximiser = new address[](1);
-
-    collateralAssets_EtherFi_Yield_Maximiser[0] = weETH;
-    borrowableAssets_EtherFi_Yield_Maximiser[0] = WETH;
-
-    eModeCreations[3] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 93_00,
-      liqThreshold: 95_00,
-      liqBonus: 1_00,
-      label: 'EtherFi_Yield_Maximiser',
-      isolated: false,
-      collaterals: collateralAssets_EtherFi_Yield_Maximiser,
-      borrowables: borrowableAssets_EtherFi_Yield_Maximiser
-    });
-
-    return eModeCreations;
   }
 }

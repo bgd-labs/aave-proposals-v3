@@ -13,8 +13,8 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
  * @author Aave Labs
  * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85fa87ff795bfeec769fa799ce6ada8e2724c9738049f6
  * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-protocol-on-monad/24943
- * @dev Lists GHO on Aave V3 Monad and adds it as a borrowable to the Maple_syrupUSDC and
- *      Liquid_Leverage eModes. Must be executed after AaveV3MonadActivation_20260623, which
+ * @dev Lists GHO on Aave V3 Monad and adds it as a borrowable to the syrupUSDC__Stablecoins and
+ *      USDe_sUSDe__Stablecoins eModes. Must be executed after AaveV3MonadActivation_20260623, which
  *      creates those eModes.
  */
 contract AaveV3Monad_AaveV3MonadGHOListing_20260623 is AaveV3PayloadMonad {
@@ -25,11 +25,6 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623 is AaveV3PayloadMonad {
   uint256 public constant GHO_SEED_AMOUNT = 100e18;
   // https://monadscan.com/address/0x26cBccD96502D2EfDb612737bD6aECe19f65109c
   address public constant GHO_PRICE_FEED = 0x26cBccD96502D2EfDb612737bD6aECe19f65109c;
-
-  function _postExecute() internal override {
-    IERC20(GHO).forceApprove(address(AaveV3Monad.POOL), GHO_SEED_AMOUNT);
-    AaveV3Monad.POOL.supply(GHO, GHO_SEED_AMOUNT, address(AaveV3Monad.DUST_BIN), 0);
-  }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
@@ -69,7 +64,7 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623 is AaveV3PayloadMonad {
 
     updates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GHO,
-      eModeCategory: _findEModeCategoryId('Maple_syrupUSDC'),
+      eModeCategory: _findEModeCategoryId('syrupUSDC__Stablecoins'),
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.KEEP_CURRENT
@@ -77,13 +72,22 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623 is AaveV3PayloadMonad {
 
     updates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GHO,
-      eModeCategory: _findEModeCategoryId('Liquid_Leverage'),
+      eModeCategory: _findEModeCategoryId('USDe_sUSDe__Stablecoins'),
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.KEEP_CURRENT
     });
 
     return updates;
+  }
+
+  function _preExecute() internal view override {
+    require(AaveV3Monad.POOL.getReservesCount() > 0, 'ACTIVATION_PAYLOAD_NOT_EXECUTED');
+  }
+
+  function _postExecute() internal override {
+    IERC20(GHO).forceApprove(address(AaveV3Monad.POOL), GHO_SEED_AMOUNT);
+    AaveV3Monad.POOL.supply(GHO, GHO_SEED_AMOUNT, address(AaveV3Monad.DUST_BIN), 0);
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {

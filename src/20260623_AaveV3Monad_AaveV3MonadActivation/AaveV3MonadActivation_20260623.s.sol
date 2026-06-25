@@ -10,48 +10,34 @@ import {AaveV3Monad_AaveV3MonadActivation_20260623} from './AaveV3Monad_AaveV3Mo
 import {AaveV3Monad_AaveV3MonadGHOListing_20260623} from './AaveV3Monad_AaveV3MonadGHOListing_20260623.sol';
 
 /**
- * @dev Deploy Monad
+ * @dev Deploy Monad. Deploys the activation and the GHO listing as two distinct payloads with one
+ *      action each. The GHO listing must be executed after the activation, which creates the
+ *      syrupUSDC__Stablecoins and USDe_sUSDe__Stablecoins eModes it adds GHO to.
  * deploy-command: make deploy-ledger contract=src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3MonadActivation_20260623.s.sol:DeployMonad chain=monad
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveV3MonadActivation_20260623.s.sol/143/run-latest.json
  */
 contract DeployMonad is MonadScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
+    address activationPayload = GovV3Helpers.deployDeterministic(
       type(AaveV3Monad_AaveV3MonadActivation_20260623).creationCode
     );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
- * @dev Deploy Monad GHO listing as a separate payload from the activation. It must be executed
- *      after the activation, which creates the Maple_syrupUSDC and Liquid_Leverage eModes it
- *      adds GHO to.
- * deploy-command: make deploy-ledger contract=src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3MonadActivation_20260623.s.sol:DeployMonadGHOListing chain=monad
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveV3MonadActivation_20260623.s.sol/143/run-latest.json
- */
-contract DeployMonadGHOListing is MonadScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
+    address ghoListingPayload = GovV3Helpers.deployDeterministic(
       type(AaveV3Monad_AaveV3MonadGHOListing_20260623).creationCode
     );
 
-    // compose action
+    // compose actions
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
+      memory actionsActivation = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsActivation[0] = GovV3Helpers.buildAction(activationPayload);
 
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsGHOListing = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsGHOListing[0] = GovV3Helpers.buildAction(ghoListingPayload);
+
+    // register actions at payloadsController as two distinct payloads
+    GovV3Helpers.createPayload(actionsActivation);
+    GovV3Helpers.createPayload(actionsGHOListing);
   }
 }
 

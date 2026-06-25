@@ -85,25 +85,34 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623_Test is ProtocolV3TestBase {
     gho[0] = proposal.GHO();
     uint128 ghoBitmap = _toBitmap(gho);
 
-    uint8 eMode_Maple_syrupUSDC = _findEModeCategoryId('Maple_syrupUSDC');
+    uint8 eMode_syrupUSDC__Stablecoins = _findEModeCategoryId('syrupUSDC__Stablecoins');
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Maple_syrupUSDC) & ghoBitmap,
+      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_syrupUSDC__Stablecoins) & ghoBitmap,
       ghoBitmap
     );
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_Maple_syrupUSDC) & ghoBitmap,
+      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_syrupUSDC__Stablecoins) & ghoBitmap,
       0
     );
 
-    uint8 eMode_Liquid_Leverage = _findEModeCategoryId('Liquid_Leverage');
+    uint8 eMode_USDe_sUSDe__Stablecoins = _findEModeCategoryId('USDe_sUSDe__Stablecoins');
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_Liquid_Leverage) & ghoBitmap,
+      AaveV3Monad.POOL.getEModeCategoryBorrowableBitmap(eMode_USDe_sUSDe__Stablecoins) & ghoBitmap,
       ghoBitmap
     );
     assertEq(
-      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_Liquid_Leverage) & ghoBitmap,
+      AaveV3Monad.POOL.getEModeCategoryCollateralBitmap(eMode_USDe_sUSDe__Stablecoins) & ghoBitmap,
       0
     );
+  }
+
+  function test_revertsIfActivationNotExecuted() public {
+    // fork a clean state where the activation payload has not run yet, so the pool has 0 reserves
+    vm.createSelectFork(vm.rpcUrl('monad'), 83590000);
+    AaveV3Monad_AaveV3MonadGHOListing_20260623 ghoListing = new AaveV3Monad_AaveV3MonadGHOListing_20260623();
+
+    vm.expectRevert(bytes('ACTIVATION_PAYLOAD_NOT_EXECUTED'));
+    ghoListing.execute();
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {

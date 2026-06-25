@@ -444,11 +444,11 @@
 
 ## EMode changes
 
-### EMode: Maple_syrupUSDC (id: 1)
+### EMode: syrupUSDC__Stablecoins (id: 1)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | Maple_syrupUSDC |
+| label | - | syrupUSDC__Stablecoins |
 | ltv | - | 90 % |
 | liquidationThreshold | - | 92 % |
 | liquidationBonus | - | 4 % [10400] |
@@ -457,11 +457,11 @@
 | isolated | - | :x: |
 
 
-### EMode: Liquid_Leverage (id: 2)
+### EMode: USDe_sUSDe__Stablecoins (id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | Liquid_Leverage |
+| label | - | USDe_sUSDe__Stablecoins |
 | ltv | - | 90 % |
 | liquidationThreshold | - | 92 % |
 | liquidationBonus | - | 4 % [10400] |
@@ -470,11 +470,11 @@
 | isolated | - | :x: |
 
 
-### EMode: Lido_Yield_Maximiser (id: 3)
+### EMode: wstETH__WETH (id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | Lido_Yield_Maximiser |
+| label | - | wstETH__WETH |
 | ltv | - | 94 % |
 | liquidationThreshold | - | 96 % |
 | liquidationBonus | - | 1 % [10100] |
@@ -483,11 +483,11 @@
 | isolated | - | :x: |
 
 
-### EMode: EtherFi_Yield_Maximiser (id: 4)
+### EMode: weETH__WETH (id: 4)
 
 | description | value before | value after |
 | --- | --- | --- |
-| label | - | EtherFi_Yield_Maximiser |
+| label | - | weETH__WETH |
 | ltv | - | 93 % |
 | liquidationThreshold | - | 95 % |
 | liquidationBonus | - | 1 % [10100] |
@@ -640,25 +640,25 @@
 | 144 | LiquidationProtocolFeeChanged(asset: 0xA3D68b74bF0528fdD07263c60d6488749044914b (symbol: weETH), oldFee: 0, newFee: 0) |
 | 145 | LiquidationProtocolFeeChanged(asset: 0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7 (symbol: syrupUSDC), oldFee: 0, newFee: 0) |
 | 146 | LiquidationProtocolFeeChanged(asset: 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2 (symbol: sUSDe), oldFee: 0, newFee: 0) |
-| 147 | EModeCategoryAdded(categoryId: 1, ltv: 9000, liquidationThreshold: 9200, liquidationBonus: 10400, oracle: 0x0000000000000000000000000000000000000000, label: Maple_syrupUSDC) |
+| 147 | EModeCategoryAdded(categoryId: 1, ltv: 9000, liquidationThreshold: 9200, liquidationBonus: 10400, oracle: 0x0000000000000000000000000000000000000000, label: syrupUSDC__Stablecoins) |
 | 148 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000001`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
 | 149 | AssetCollateralInEModeChanged(asset: 0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7 (symbol: syrupUSDC), categoryId: 1, collateral: true) |
 | 150 | AssetBorrowableInEModeChanged(asset: 0xe7cd86e13AC4309349F30B3435a9d337750fC82D (symbol: USDT0), categoryId: 1, borrowable: true) |
 | 151 | AssetBorrowableInEModeChanged(asset: 0x754704Bc059F8C67012fEd69BC8A327a5aafb603 (symbol: USDC), categoryId: 1, borrowable: true) |
 | 152 | AssetBorrowableInEModeChanged(asset: 0xacA92E438df0B2401fF60dA7E4337B687a2435DA (symbol: mUSD), categoryId: 1, borrowable: true) |
 | 153 | AssetBorrowableInEModeChanged(asset: 0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a (symbol: AUSD), categoryId: 1, borrowable: true) |
-| 154 | EModeCategoryAdded(categoryId: 2, ltv: 9000, liquidationThreshold: 9200, liquidationBonus: 10400, oracle: 0x0000000000000000000000000000000000000000, label: Liquid_Leverage) |
+| 154 | EModeCategoryAdded(categoryId: 2, ltv: 9000, liquidationThreshold: 9200, liquidationBonus: 10400, oracle: 0x0000000000000000000000000000000000000000, label: USDe_sUSDe__Stablecoins) |
 | 155 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000002`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
 | 156 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 2, collateral: true) |
 | 157 | AssetCollateralInEModeChanged(asset: 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2 (symbol: sUSDe), categoryId: 2, collateral: true) |
 | 158 | AssetBorrowableInEModeChanged(asset: 0xe7cd86e13AC4309349F30B3435a9d337750fC82D (symbol: USDT0), categoryId: 2, borrowable: true) |
 | 159 | AssetBorrowableInEModeChanged(asset: 0x754704Bc059F8C67012fEd69BC8A327a5aafb603 (symbol: USDC), categoryId: 2, borrowable: true) |
 | 160 | AssetBorrowableInEModeChanged(asset: 0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a (symbol: AUSD), categoryId: 2, borrowable: true) |
-| 161 | EModeCategoryAdded(categoryId: 3, ltv: 9400, liquidationThreshold: 9600, liquidationBonus: 10100, oracle: 0x0000000000000000000000000000000000000000, label: Lido_Yield_Maximiser) |
+| 161 | EModeCategoryAdded(categoryId: 3, ltv: 9400, liquidationThreshold: 9600, liquidationBonus: 10100, oracle: 0x0000000000000000000000000000000000000000, label: wstETH__WETH) |
 | 162 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000003`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
 | 163 | AssetCollateralInEModeChanged(asset: 0x10Aeaf63194db8d453d4D85a06E5eFE1dd0b5417 (symbol: wstETH), categoryId: 3, collateral: true) |
 | 164 | AssetBorrowableInEModeChanged(asset: 0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242 (symbol: WETH), categoryId: 3, borrowable: true) |
-| 165 | EModeCategoryAdded(categoryId: 4, ltv: 9300, liquidationThreshold: 9500, liquidationBonus: 10100, oracle: 0x0000000000000000000000000000000000000000, label: EtherFi_Yield_Maximiser) |
+| 165 | EModeCategoryAdded(categoryId: 4, ltv: 9300, liquidationThreshold: 9500, liquidationBonus: 10100, oracle: 0x0000000000000000000000000000000000000000, label: weETH__WETH) |
 | 166 | topics: `0xea07f8a4f488dcc1dc8c27b9c526ac8ba2d04b8024e206616f306c51d9b16826`, `0x0000000000000000000000000000000000000000000000000000000000000004`, data: `0x0000000000000000000000000000000000000000000000000000000000000000` |
 | 167 | AssetCollateralInEModeChanged(asset: 0xA3D68b74bF0528fdD07263c60d6488749044914b (symbol: weETH), categoryId: 4, collateral: true) |
 | 168 | AssetBorrowableInEModeChanged(asset: 0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242 (symbol: WETH), categoryId: 4, borrowable: true) |
@@ -2058,7 +2058,7 @@
         "collateralBitmap": "512",
         "eModeCategory": 1,
         "isolated": false,
-        "label": "Maple_syrupUSDC",
+        "label": "syrupUSDC__Stablecoins",
         "liquidationBonus": 10400,
         "liquidationThreshold": 9200,
         "ltv": 9000
@@ -2071,7 +2071,7 @@
         "collateralBitmap": "1028",
         "eModeCategory": 2,
         "isolated": false,
-        "label": "Liquid_Leverage",
+        "label": "USDe_sUSDe__Stablecoins",
         "liquidationBonus": 10400,
         "liquidationThreshold": 9200,
         "ltv": 9000
@@ -2084,7 +2084,7 @@
         "collateralBitmap": "128",
         "eModeCategory": 3,
         "isolated": false,
-        "label": "Lido_Yield_Maximiser",
+        "label": "wstETH__WETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9600,
         "ltv": 9400
@@ -2097,7 +2097,7 @@
         "collateralBitmap": "256",
         "eModeCategory": 4,
         "isolated": false,
-        "label": "EtherFi_Yield_Maximiser",
+        "label": "weETH__WETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,
         "ltv": 9300
