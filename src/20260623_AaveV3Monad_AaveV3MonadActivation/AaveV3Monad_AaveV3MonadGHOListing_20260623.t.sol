@@ -20,7 +20,7 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623_Test is ProtocolV3TestBase {
   AaveV3Monad_AaveV3MonadActivation_20260623 internal activation;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83370000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 83570000);
 
     // the GHO listing depends on the eModes created by the activation payload, so execute it first
     activation = new AaveV3Monad_AaveV3MonadActivation_20260623();

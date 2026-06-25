@@ -128,7 +128,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'WETH',
             decimals: 18,
-            priceFeed: '0x1B1414782B859871781bA3E4B0979b9ca57A0A04', // TODO: replace
+            priceFeed: '0x1B1414782B859871781bA3E4B0979b9ca57A0A04',
             ltv: '80.5',
             liqThreshold: '84',
             liqBonus: '5.5',
@@ -150,7 +150,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'cbBTC',
             decimals: 8,
-            priceFeed: '0xc1d4C3331635184fA4C3c22fb92211B2Ac9E0546', // TODO: replace
+            priceFeed: '0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD',
             ltv: '73',
             liqThreshold: '78',
             liqBonus: '7',
@@ -172,7 +172,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'wstETH',
             decimals: 18,
-            priceFeed: '0x1B1414782B859871781bA3E4B0979b9ca57A0A04', // TODO: replace
+            priceFeed: '0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -194,7 +194,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'weETH',
             decimals: 18,
-            priceFeed: '0x1B1414782B859871781bA3E4B0979b9ca57A0A04', // TODO: replace
+            priceFeed: '0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -257,6 +257,28 @@ export const config: ConfigFile = {
             asset: '0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2',
             admin: '',
           },
+          {
+            assetSymbol: 'GHO',
+            decimals: 18,
+            priceFeed: '0x26cBccD96502D2EfDb612737bD6aECe19f65109c',
+            ltv: '75',
+            liqThreshold: '78',
+            liqBonus: '7.5',
+            liqProtocolFee: '5',
+            enabledToBorrow: 'ENABLED',
+            flashloanable: 'ENABLED',
+            reserveFactor: '10',
+            supplyCap: '20000000',
+            borrowCap: '18000000',
+            rateStrategyParams: {
+              optimalUtilizationRate: '90',
+              baseVariableBorrowRate: '0',
+              variableRateSlope1: '4',
+              variableRateSlope2: '40',
+            },
+            asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
+            admin: '',
+          },
         ],
         EMODES_CREATION: [
           {
@@ -296,8 +318,24 @@ export const config: ConfigFile = {
             borrowableAssets: ['WETH'],
           },
         ],
+        EMODES_ASSETS: [
+          {
+            asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
+            eModeCategory: 'Maple_syrupUSDC',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+            ltvzero: 'KEEP_CURRENT',
+          },
+          {
+            asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
+            eModeCategory: 'Liquid_Leverage',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+            ltvzero: 'KEEP_CURRENT',
+          },
+        ],
       },
-      cache: {blockNumber: 83370000},
+      cache: {blockNumber: 83570000},
     },
   },
 };

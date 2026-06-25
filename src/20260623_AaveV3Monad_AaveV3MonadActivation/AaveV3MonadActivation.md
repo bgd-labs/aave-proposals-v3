@@ -128,83 +128,83 @@ The table below illustrates the configured risk parameters for **AUSD**
 
 The table below illustrates the configured risk parameters for **WETH**
 
-| Parameter                 |                                                      Value |
-| ------------------------- | ---------------------------------------------------------: |
-| Borrowable                |                                                   DISABLED |
-| Collateral Enabled        |                                                       true |
-| Supply Cap (WETH)         |                                                     40,000 |
-| Borrow Cap (WETH)         |                                                     36,000 |
-| LTV                       |                                                     80.5 % |
-| LT                        |                                                       84 % |
-| Liquidation Bonus         |                                                      5.5 % |
-| Liquidation Protocol Fee  |                                                      5.5 % |
-| Reserve Factor            |                                                       15 % |
-| Base Variable Borrow Rate |                                                        0 % |
-| Variable Slope 1          |                                                      2.2 % |
-| Variable Slope 2          |                                                       20 % |
-| Uoptimal                  |                                                       90 % |
-| Flashloanable             |                                                    ENABLED |
-| Oracle                    | 0x1B1414782B859871781bA3E4B0979b9ca57A0A04 (TODO: replace) |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (WETH)         |                                     40,000 |
+| Borrow Cap (WETH)         |                                     36,000 |
+| LTV                       |                                     80.5 % |
+| LT                        |                                       84 % |
+| Liquidation Bonus         |                                      5.5 % |
+| Liquidation Protocol Fee  |                                      5.5 % |
+| Reserve Factor            |                                       15 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                      2.2 % |
+| Variable Slope 2          |                                       20 % |
+| Uoptimal                  |                                       90 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x1B1414782B859871781bA3E4B0979b9ca57A0A04 |
 
 The table below illustrates the configured risk parameters for **cbBTC**
 
-| Parameter                 |                                                      Value |
-| ------------------------- | ---------------------------------------------------------: |
-| Borrowable                |                                                   DISABLED |
-| Collateral Enabled        |                                                       true |
-| Supply Cap (cbBTC)        |                                                      1,000 |
-| Borrow Cap (cbBTC)        |                                                          1 |
-| LTV                       |                                                       73 % |
-| LT                        |                                                       78 % |
-| Liquidation Bonus         |                                                        7 % |
-| Liquidation Protocol Fee  |                                                      5.5 % |
-| Reserve Factor            |                                                        7 % |
-| Base Variable Borrow Rate |                                                        0 % |
-| Variable Slope 1          |                                                       10 % |
-| Variable Slope 2          |                                                      300 % |
-| Uoptimal                  |                                                       45 % |
-| Flashloanable             |                                                    ENABLED |
-| Oracle                    | 0xc1d4C3331635184fA4C3c22fb92211B2Ac9E0546 (TODO: replace) |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (cbBTC)        |                                      1,000 |
+| Borrow Cap (cbBTC)        |                                          1 |
+| LTV                       |                                       73 % |
+| LT                        |                                       78 % |
+| Liquidation Bonus         |                                        7 % |
+| Liquidation Protocol Fee  |                                      5.5 % |
+| Reserve Factor            |                                        7 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD |
 
 The table below illustrates the configured risk parameters for **wstETH**
 
-| Parameter                 |                                                      Value |
-| ------------------------- | ---------------------------------------------------------: |
-| Borrowable                |                                                   DISABLED |
-| Collateral Enabled        |                                                       true |
-| Supply Cap (wstETH)       |                                                     35,000 |
-| Borrow Cap (wstETH)       |                                                          1 |
-| LTV                       |                                                        0 % |
-| LT                        |                                                        0 % |
-| Liquidation Bonus         |                                                        0 % |
-| Liquidation Protocol Fee  |                                                        0 % |
-| Reserve Factor            |                                                        5 % |
-| Base Variable Borrow Rate |                                                        0 % |
-| Variable Slope 1          |                                                       10 % |
-| Variable Slope 2          |                                                      300 % |
-| Uoptimal                  |                                                       45 % |
-| Flashloanable             |                                                    ENABLED |
-| Oracle                    | 0x1B1414782B859871781bA3E4B0979b9ca57A0A04 (TODO: replace) |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (wstETH)       |                                     35,000 |
+| Borrow Cap (wstETH)       |                                          1 |
+| LTV                       |                                        0 % |
+| LT                        |                                        0 % |
+| Liquidation Bonus         |                                        0 % |
+| Liquidation Protocol Fee  |                                        0 % |
+| Reserve Factor            |                                        5 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462 |
 
 The table below illustrates the configured risk parameters for **weETH**
 
-| Parameter                 |                                                      Value |
-| ------------------------- | ---------------------------------------------------------: |
-| Borrowable                |                                                   DISABLED |
-| Collateral Enabled        |                                                       true |
-| Supply Cap (weETH)        |                                                     30,000 |
-| Borrow Cap (weETH)        |                                                          1 |
-| LTV                       |                                                        0 % |
-| LT                        |                                                        0 % |
-| Liquidation Bonus         |                                                        0 % |
-| Liquidation Protocol Fee  |                                                        0 % |
-| Reserve Factor            |                                                       45 % |
-| Base Variable Borrow Rate |                                                        0 % |
-| Variable Slope 1          |                                                       10 % |
-| Variable Slope 2          |                                                      300 % |
-| Uoptimal                  |                                                       45 % |
-| Flashloanable             |                                                    ENABLED |
-| Oracle                    | 0x1B1414782B859871781bA3E4B0979b9ca57A0A04 (TODO: replace) |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (weETH)        |                                     30,000 |
+| Borrow Cap (weETH)        |                                          1 |
+| LTV                       |                                        0 % |
+| LT                        |                                        0 % |
+| Liquidation Bonus         |                                        0 % |
+| Liquidation Protocol Fee  |                                        0 % |
+| Reserve Factor            |                                       45 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA |
 
 The table below illustrates the configured risk parameters for **syrupUSDC**
 

@@ -21,7 +21,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   AaveV3Monad_AaveV3MonadActivation_20260623 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83370000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 83570000);
     proposal = new AaveV3Monad_AaveV3MonadActivation_20260623();
     // temporary: seed the executor so _postExecute() can supply to the DUST_BIN
     deal(proposal.USDT0(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());

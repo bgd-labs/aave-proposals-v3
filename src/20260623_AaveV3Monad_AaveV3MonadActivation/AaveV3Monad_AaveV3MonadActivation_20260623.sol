@@ -52,25 +52,25 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   address public constant WETH = 0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242;
   uint256 public constant WETH_SEED_AMOUNT = 0.0025e18;
   // https://monadscan.com/address/0x1B1414782B859871781bA3E4B0979b9ca57A0A04
-  address public constant WETH_PRICE_FEED = 0x1B1414782B859871781bA3E4B0979b9ca57A0A04; // TODO: replace
+  address public constant WETH_PRICE_FEED = 0x1B1414782B859871781bA3E4B0979b9ca57A0A04;
 
   // https://monadscan.com/address/0xd18B7EC58Cdf4876f6AFebd3Ed1730e4Ce10414b
   address public constant cbBTC = 0xd18B7EC58Cdf4876f6AFebd3Ed1730e4Ce10414b;
   uint256 public constant cbBTC_SEED_AMOUNT = 0.0005e8;
-  // https://monadscan.com/address/0xc1d4C3331635184fA4C3c22fb92211B2Ac9E0546
-  address public constant cbBTC_PRICE_FEED = 0xc1d4C3331635184fA4C3c22fb92211B2Ac9E0546; // TODO: replace
+  // https://monadscan.com/address/0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD
+  address public constant cbBTC_PRICE_FEED = 0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD;
 
   // https://monadscan.com/address/0x10Aeaf63194db8d453d4D85a06E5eFE1dd0b5417
   address public constant wstETH = 0x10Aeaf63194db8d453d4D85a06E5eFE1dd0b5417;
   uint256 public constant wstETH_SEED_AMOUNT = 0.0025e18;
-  // https://monadscan.com/address/0x1B1414782B859871781bA3E4B0979b9ca57A0A04
-  address public constant wstETH_PRICE_FEED = 0x1B1414782B859871781bA3E4B0979b9ca57A0A04; // TODO: replace
+  // https://monadscan.com/address/0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462
+  address public constant wstETH_PRICE_FEED = 0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462;
 
   // https://monadscan.com/address/0xA3D68b74bF0528fdD07263c60d6488749044914b
   address public constant weETH = 0xA3D68b74bF0528fdD07263c60d6488749044914b;
   uint256 public constant weETH_SEED_AMOUNT = 0.0025e18;
-  // https://monadscan.com/address/0x1B1414782B859871781bA3E4B0979b9ca57A0A04
-  address public constant weETH_PRICE_FEED = 0x1B1414782B859871781bA3E4B0979b9ca57A0A04; // TODO: replace
+  // https://monadscan.com/address/0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA
+  address public constant weETH_PRICE_FEED = 0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA;
 
   // https://monadscan.com/address/0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7
   address public constant syrupUSDC = 0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7;
