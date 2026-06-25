@@ -99,7 +99,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 10_00,
       supplyCap: 100_000_000,
       borrowCap: 100_000_000,
-      liqProtocolFee: 5_00,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
@@ -119,7 +119,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 10_00,
       supplyCap: 75_000_000,
       borrowCap: 50_000_000,
-      liqProtocolFee: 5_00,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
@@ -139,7 +139,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 25_00,
       supplyCap: 60_000_000,
       borrowCap: 50_000_000,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
@@ -199,7 +199,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 15_00,
       supplyCap: 40_000,
       borrowCap: 36_000,
-      liqProtocolFee: 5_50,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
@@ -219,7 +219,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 7_00,
       supplyCap: 1_000,
       borrowCap: 1,
-      liqProtocolFee: 5_50,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
@@ -239,7 +239,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 5_00,
       supplyCap: 35_000,
       borrowCap: 1,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
@@ -259,7 +259,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 45_00,
       supplyCap: 30_000,
       borrowCap: 1,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
@@ -279,7 +279,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 10_00,
       supplyCap: 40_000_000,
       borrowCap: 1,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
@@ -299,7 +299,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       reserveFactor: 10_00,
       supplyCap: 60_000_000,
       borrowCap: 1,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,

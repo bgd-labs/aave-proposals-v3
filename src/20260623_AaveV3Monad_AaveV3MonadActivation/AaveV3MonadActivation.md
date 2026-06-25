@@ -37,7 +37,7 @@ The table below illustrates the configured risk parameters for **USDT0**
 | LTV                       |                                       75 % |
 | LT                        |                                       78 % |
 | Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                        5 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                        4 % |
@@ -57,7 +57,7 @@ The table below illustrates the configured risk parameters for **USDC**
 | LTV                       |                                       75 % |
 | LT                        |                                       78 % |
 | Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                        5 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                        4 % |
@@ -77,7 +77,7 @@ The table below illustrates the configured risk parameters for **USDe**
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
 | Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       25 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                        4 % |
@@ -137,7 +137,7 @@ The table below illustrates the configured risk parameters for **WETH**
 | LTV                       |                                     80.5 % |
 | LT                        |                                       84 % |
 | Liquidation Bonus         |                                      5.5 % |
-| Liquidation Protocol Fee  |                                      5.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       15 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                      2.2 % |
@@ -157,7 +157,7 @@ The table below illustrates the configured risk parameters for **cbBTC**
 | LTV                       |                                       73 % |
 | LT                        |                                       78 % |
 | Liquidation Bonus         |                                        7 % |
-| Liquidation Protocol Fee  |                                      5.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                        7 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
@@ -177,7 +177,7 @@ The table below illustrates the configured risk parameters for **wstETH**
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
 | Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                        5 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
@@ -197,7 +197,7 @@ The table below illustrates the configured risk parameters for **weETH**
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
 | Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       45 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
@@ -217,7 +217,7 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
 | Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
@@ -237,7 +237,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
 | Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
@@ -266,7 +266,7 @@ The table below illustrates the configured risk parameters for **GHO**
 | LTV                       |                                       75 % |
 | LT                        |                                       78 % |
 | Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                        5 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                        4 % |

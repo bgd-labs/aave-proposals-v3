@@ -41,7 +41,7 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623 is AaveV3PayloadMonad {
       reserveFactor: 10_00,
       supplyCap: 20_000_000,
       borrowCap: 18_000_000,
-      liqProtocolFee: 5_00,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,

@@ -8,6 +8,8 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
+import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
+import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -19,6 +21,17 @@ import {AaveV3Monad_AaveV3MonadActivation_20260623} from './AaveV3Monad_AaveV3Mo
  */
 contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   AaveV3Monad_AaveV3MonadActivation_20260623 internal proposal;
+
+  // CAPO parameters recommended by LlamaRisk
+  // https://governance.aave.com/t/arfc-deploy-aave-protocol-on-monad/24943
+  uint256 internal constant CAPO_SNAPSHOT_DELAY = 7 days;
+  // max yearly ratio growth ceilings (bps); deployed adapters must not exceed these
+  uint256 internal constant SUSDE_MAX_GROWTH = 11_17;
+  uint256 internal constant WSTETH_MAX_GROWTH = 10_70;
+  uint256 internal constant WEETH_MAX_GROWTH = 9_53;
+  uint256 internal constant SYRUPUSDC_MAX_GROWTH = 8_05;
+  // stablecoin upward price-cap bound: $1.04 (8 decimals)
+  int256 internal constant STABLE_PRICE_CAP = 1.04e8;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('monad'), 83590000);
@@ -256,22 +269,27 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       _toBitmap(borrowables_weETH__WETH)
     );
   }
+
   function test_eMode_syrupUSDC__Stablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode('syrupUSDC__Stablecoins', proposal.syrupUSDC(), proposal.USDT0());
   }
+
   function test_eMode_USDe_sUSDe__Stablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode('USDe_sUSDe__Stablecoins', proposal.USDe(), proposal.USDT0());
   }
+
   function test_eMode_wstETH__WETH_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode('wstETH__WETH', proposal.wstETH(), proposal.WETH());
   }
+
   function test_eMode_weETH__WETH_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode('weETH__WETH', proposal.weETH(), proposal.WETH());
   }
+
   function test_USDeBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -291,6 +309,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
 
     vm.stopPrank();
   }
+
   function test_wstETHBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -311,6 +330,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
 
     vm.stopPrank();
   }
+
   function test_weETHBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -331,6 +351,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
 
     vm.stopPrank();
   }
+
   function test_syrupUSDCBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -350,6 +371,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
 
     vm.stopPrank();
   }
+
   function test_sUSDeBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -369,6 +391,61 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
 
     vm.stopPrank();
   }
+
+  function test_capoCorrelatedAdaptersMatchLlamaRisk() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _assertCapoAdapter(proposal.sUSDe(), proposal.sUSDe_PRICE_FEED(), SUSDE_MAX_GROWTH);
+    _assertCapoAdapter(proposal.wstETH(), proposal.wstETH_PRICE_FEED(), WSTETH_MAX_GROWTH);
+    _assertCapoAdapter(proposal.weETH(), proposal.weETH_PRICE_FEED(), WEETH_MAX_GROWTH);
+    _assertCapoAdapter(proposal.syrupUSDC(), proposal.syrupUSDC_PRICE_FEED(), SYRUPUSDC_MAX_GROWTH);
+  }
+
+  function test_capoStableAdaptersMatchLlamaRisk() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _assertStablePriceCap(proposal.USDT0(), proposal.USDT0_PRICE_FEED());
+    _assertStablePriceCap(proposal.USDC(), proposal.USDC_PRICE_FEED());
+    _assertStablePriceCap(proposal.USDe(), proposal.USDe_PRICE_FEED());
+    _assertStablePriceCap(proposal.AUSD(), proposal.AUSD_PRICE_FEED());
+  }
+
+  function _assertCapoAdapter(
+    address asset,
+    address expectedFeed,
+    uint256 forumMaxGrowth
+  ) internal view {
+    assertEq(
+      AaveV3Monad.ORACLE.getSourceOfAsset(asset),
+      expectedFeed,
+      'oracle source != listed price feed'
+    );
+
+    IPriceCapAdapter adapter = IPriceCapAdapter(expectedFeed);
+    assertEq(
+      uint256(adapter.MINIMUM_SNAPSHOT_DELAY()),
+      CAPO_SNAPSHOT_DELAY,
+      'snapshot delay != 7 days'
+    );
+
+    uint256 growth = adapter.getMaxYearlyGrowthRatePercent();
+    assertGt(growth, 0, 'max yearly growth is zero');
+    assertLe(growth, forumMaxGrowth, 'max yearly growth exceeds LlamaRisk recommendation');
+  }
+
+  function _assertStablePriceCap(address asset, address expectedFeed) internal view {
+    assertEq(
+      AaveV3Monad.ORACLE.getSourceOfAsset(asset),
+      expectedFeed,
+      'oracle source != listed price feed'
+    );
+    assertEq(
+      IPriceCapAdapterStable(expectedFeed).getPriceCap(),
+      STABLE_PRICE_CAP,
+      'stable cap != $1.04'
+    );
+  }
+
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
     for (uint8 i = 1; i < 255; i++) {
       if (keccak256(bytes(AaveV3Monad.POOL.getEModeCategoryLabel(i))) == keccak256(bytes(label))) {
@@ -377,6 +454,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
     }
     revert('eMode category not found');
   }
+
   function _assertEModeCollateralConfig(
     uint8 id,
     uint256 ltv,
@@ -390,11 +468,13 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
     assertEq(cfg.liquidationBonus, liquidationBonus);
     assertEq(AaveV3Monad.POOL.getIsEModeCategoryIsolated(id), isolated);
   }
+
   function _toBitmap(address[] memory assets) internal view returns (uint128 bitmap) {
     for (uint256 i = 0; i < assets.length; i++) {
       bitmap |= uint128(1) << AaveV3Monad.POOL.getReserveData(assets[i]).id;
     }
   }
+
   function _supplyAndBorrowInEMode(
     string memory label,
     address collateral,
