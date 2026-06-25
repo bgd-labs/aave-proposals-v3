@@ -75,14 +75,14 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   // https://monadscan.com/address/0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7
   address public constant syrupUSDC = 0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7;
   uint256 public constant syrupUSDC_SEED_AMOUNT = 100e6;
-  // https://monadscan.com/address/0xf5F15f188AbCB0d165D1Edb7f37F7d6fA2fCebec
-  address public constant syrupUSDC_PRICE_FEED = 0xf5F15f188AbCB0d165D1Edb7f37F7d6fA2fCebec; // TODO: replace
+  // https://monadscan.com/address/0x47e9aB97A82cA1778FD04820255224bE837B5539
+  address public constant syrupUSDC_PRICE_FEED = 0x47e9aB97A82cA1778FD04820255224bE837B5539;
 
   // https://monadscan.com/address/0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2
   address public constant sUSDe = 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2;
   uint256 public constant sUSDe_SEED_AMOUNT = 100e18;
-  // https://monadscan.com/address/0xB7E7A36A0Fc6543C10f4F9B60E942F1b628f2a13
-  address public constant sUSDe_PRICE_FEED = 0xB7E7A36A0Fc6543C10f4F9B60E942F1b628f2a13; // TODO: replace
+  // https://monadscan.com/address/0x372EdA3f11AECb1bA5c44982f30C13b311c549f1
+  address public constant sUSDe_PRICE_FEED = 0x372EdA3f11AECb1bA5c44982f30C13b311c549f1;
 
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT, address(0));

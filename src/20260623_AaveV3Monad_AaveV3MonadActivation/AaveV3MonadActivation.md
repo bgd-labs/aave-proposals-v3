@@ -208,43 +208,43 @@ The table below illustrates the configured risk parameters for **weETH**
 
 The table below illustrates the configured risk parameters for **syrupUSDC**
 
-| Parameter                 |                                                      Value |
-| ------------------------- | ---------------------------------------------------------: |
-| Borrowable                |                                                   DISABLED |
-| Collateral Enabled        |                                                       true |
-| Supply Cap (syrupUSDC)    |                                                 40,000,000 |
-| Borrow Cap (syrupUSDC)    |                                                          1 |
-| LTV                       |                                                        0 % |
-| LT                        |                                                        0 % |
-| Liquidation Bonus         |                                                        0 % |
-| Liquidation Protocol Fee  |                                                        0 % |
-| Reserve Factor            |                                                       10 % |
-| Base Variable Borrow Rate |                                                        0 % |
-| Variable Slope 1          |                                                       10 % |
-| Variable Slope 2          |                                                      300 % |
-| Uoptimal                  |                                                       45 % |
-| Flashloanable             |                                                    ENABLED |
-| Oracle                    | 0xf5F15f188AbCB0d165D1Edb7f37F7d6fA2fCebec (TODO: replace) |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (syrupUSDC)    |                                 40,000,000 |
+| Borrow Cap (syrupUSDC)    |                                          1 |
+| LTV                       |                                        0 % |
+| LT                        |                                        0 % |
+| Liquidation Bonus         |                                        0 % |
+| Liquidation Protocol Fee  |                                        0 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x47e9aB97A82cA1778FD04820255224bE837B5539 |
 
 The table below illustrates the configured risk parameters for **sUSDe**
 
-| Parameter                 |                                                      Value |
-| ------------------------- | ---------------------------------------------------------: |
-| Borrowable                |                                                   DISABLED |
-| Collateral Enabled        |                                                       true |
-| Supply Cap (sUSDe)        |                                                 60,000,000 |
-| Borrow Cap (sUSDe)        |                                                          1 |
-| LTV                       |                                                        0 % |
-| LT                        |                                                        0 % |
-| Liquidation Bonus         |                                                        0 % |
-| Liquidation Protocol Fee  |                                                        0 % |
-| Reserve Factor            |                                                       10 % |
-| Base Variable Borrow Rate |                                                        0 % |
-| Variable Slope 1          |                                                       10 % |
-| Variable Slope 2          |                                                      300 % |
-| Uoptimal                  |                                                       45 % |
-| Flashloanable             |                                                    ENABLED |
-| Oracle                    | 0xB7E7A36A0Fc6543C10f4F9B60E942F1b628f2a13 (TODO: replace) |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (sUSDe)        |                                 60,000,000 |
+| Borrow Cap (sUSDe)        |                                          1 |
+| LTV                       |                                        0 % |
+| LT                        |                                        0 % |
+| Liquidation Bonus         |                                        0 % |
+| Liquidation Protocol Fee  |                                        0 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x372EdA3f11AECb1bA5c44982f30C13b311c549f1 |
 
 The table below illustrates the configured E-Mode categories
 

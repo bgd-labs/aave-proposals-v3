@@ -216,7 +216,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'syrupUSDC',
             decimals: 6,
-            priceFeed: '0xf5F15f188AbCB0d165D1Edb7f37F7d6fA2fCebec', // TODO: replace
+            priceFeed: '0x47e9aB97A82cA1778FD04820255224bE837B5539',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -238,7 +238,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'sUSDe',
             decimals: 18,
-            priceFeed: '0xB7E7A36A0Fc6543C10f4F9B60E942F1b628f2a13', // TODO: replace
+            priceFeed: '0x372EdA3f11AECb1bA5c44982f30C13b311c549f1',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
