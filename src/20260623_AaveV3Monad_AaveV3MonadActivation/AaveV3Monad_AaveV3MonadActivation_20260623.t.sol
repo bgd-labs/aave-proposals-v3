@@ -53,7 +53,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   address internal constant AUSD_USD_SVR_FEED = 0xEd21588eA25ADC77384d47A466F0F75EEa58eBf3;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83800000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 83865577);
     proposal = new AaveV3Monad_AaveV3MonadActivation_20260623();
     // temporary: seed the executor so _postExecute() can supply to the DUST_BIN
     deal(proposal.USDT0(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());

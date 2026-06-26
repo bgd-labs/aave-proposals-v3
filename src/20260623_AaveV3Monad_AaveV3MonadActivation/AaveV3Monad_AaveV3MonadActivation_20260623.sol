@@ -78,14 +78,14 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   // https://monadscan.com/address/0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7
   address public constant syrupUSDC = 0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7;
   uint256 public constant syrupUSDC_SEED_AMOUNT = 100e6;
-  // https://monadscan.com/address/0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4
-  address public constant syrupUSDC_PRICE_FEED = 0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4;
+  // https://monadscan.com/address/0xB1f36c815761a3F77CE26c013F646cdCdCd06384
+  address public constant syrupUSDC_PRICE_FEED = 0xB1f36c815761a3F77CE26c013F646cdCdCd06384;
 
   // https://monadscan.com/address/0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2
   address public constant sUSDe = 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2;
   uint256 public constant sUSDe_SEED_AMOUNT = 100e18;
-  // https://monadscan.com/address/0xfB19D341781C4dF83651FeFA17D13d5aBCe44102
-  address public constant sUSDe_PRICE_FEED = 0xfB19D341781C4dF83651FeFA17D13d5aBCe44102;
+  // https://monadscan.com/address/0x99946Fe1a49D8650a31eFE0fcFee0508892742f0
+  address public constant sUSDe_PRICE_FEED = 0x99946Fe1a49D8650a31eFE0fcFee0508892742f0;
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](11);
