@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     markets: ['AaveV3Monad'],
-    title: 'Aave V3 Monad Activation',
+    title: 'Aave V3.7 Monad Activation',
     shortName: 'AaveV3MonadActivation',
     date: '20260623',
     author: 'Aave Labs',

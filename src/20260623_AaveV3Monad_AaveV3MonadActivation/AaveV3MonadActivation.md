@@ -1,5 +1,5 @@
 ---
-title: "Aave V3 Monad Activation"
+title: "Aave V3.7 Monad Activation"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-deploy-aave-protocol-on-monad/24943"
 snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85fa87ff795bfeec769fa799ce6ada8e2724c9738049f6"
@@ -7,24 +7,24 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85f
 
 ## Simple Summary
 
-This proposal activates the Aave V3 Monad pool by completing the initial setup and listing USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. It also lists GHO and adds it as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes through a second payload executed after the activation.
+This proposal activates the Aave V3.7 Monad pool by completing the initial setup and listing USDT0, USDC, GHO, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe, following the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum. GHO is also added as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes.
 
 ## Motivation
 
-All the governance procedures for the expansion of Aave V3 to Monad have been completed:
+All the governance procedures for the expansion of Aave V3.7 to Monad have been completed:
 
 - Positive signaling and approval regarding the expansion on the governance [forum](https://governance.aave.com/t/arfc-deploy-aave-protocol-on-monad/24943) and [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x24f105bd023c476a9b85fa87ff795bfeec769fa799ce6ada8e2724c9738049f6).
 - Positive risk analysis and asset and parameter recommendations by the Risk Service Providers.
 
-Monad's pipelined EVM architecture delivers high-throughput performance while remaining fully compatible with Ethereum, positioning Aave V3 as a core liquidity venue within the Monad ecosystem.
+Monad's pipelined EVM architecture delivers high-throughput performance while remaining fully compatible with Ethereum, positioning Aave V3.7 as a core liquidity venue within the Monad ecosystem.
 
 ## Specification
 
 The proposal will do the following:
 
-- List the following assets on Aave V3 Monad: USDT0, USDC, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
+- List the following assets on Aave V3.7 Monad: USDT0, USDC, GHO, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
+- Create the syrupUSDC\_\_Stablecoins, USDe_sUSDe\_\_Stablecoins, wstETH\_\_WETH, and weETH\_\_WETH eModes, as detailed in the table below. GHO is added as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes as part of the second payload.
 - Complete the initial pool configuration, keeping the pool admin on the Aave Guardian during the bootstrap period, following the standard procedure for security.
-- List GHO on Aave V3 Monad and add it as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes. GHO is registered as a separate payload, executed after the activation that creates those eModes.
 
 The table below illustrates the configured risk parameters for **USDT0**
 
@@ -65,6 +65,26 @@ The table below illustrates the configured risk parameters for **USDC**
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
 | Oracle                    | 0x978a045fa9ac4E4367053945F9f03E06DD834da5 |
+
+The table below illustrates the configured risk parameters for **GHO**
+
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Borrowable                |                                    ENABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (GHO)          |                                 20,000,000 |
+| Borrow Cap (GHO)          |                                 18,000,000 |
+| LTV                       |                                       75 % |
+| LT                        |                                       78 % |
+| Liquidation Bonus         |                                      7.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                        4 % |
+| Variable Slope 2          |                                       40 % |
+| Uoptimal                  |                                       90 % |
+| Flashloanable             |                                    ENABLED |
+| Oracle                    | 0x26cBccD96502D2EfDb612737bD6aECe19f65109c |
 
 The table below illustrates the configured risk parameters for **USDe**
 
@@ -248,32 +268,12 @@ The table below illustrates the configured risk parameters for **sUSDe**
 
 The table below illustrates the configured E-Mode categories
 
-| E-Mode Category           |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables             |
-| ------------------------- | ---: | ---: | ----------------: | ----------- | ----------------------- |
-| syrupUSDC\_\_Stablecoins  | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD |
-| USDe_sUSDe\_\_Stablecoins | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD       |
-| wstETH\_\_WETH            | 94 % | 96 % |               1 % | wstETH      | WETH                    |
-| weETH\_\_WETH             | 93 % | 95 % |               1 % | weETH       | WETH                    |
-
-The table below illustrates the configured risk parameters for **GHO**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (GHO)          |                                 20,000,000 |
-| Borrow Cap (GHO)          |                                 18,000,000 |
-| LTV                       |                                       75 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                       40 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x26cBccD96502D2EfDb612737bD6aECe19f65109c |
+| E-Mode Category           |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables                  |
+| ------------------------- | ---: | ---: | ----------------: | ----------- | ---------------------------- |
+| syrupUSDC\_\_Stablecoins  | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD, GHO |
+| USDe_sUSDe\_\_Stablecoins | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD, GHO       |
+| wstETH\_\_WETH            | 94 % | 96 % |               1 % | wstETH      | WETH                         |
+| weETH\_\_WETH             | 93 % | 95 % |               1 % | weETH       | WETH                         |
 
 ## References
 
