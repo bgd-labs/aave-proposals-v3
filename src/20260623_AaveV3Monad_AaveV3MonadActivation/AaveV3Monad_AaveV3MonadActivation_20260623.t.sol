@@ -15,6 +15,17 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Monad_AaveV3MonadActivation_20260623} from './AaveV3Monad_AaveV3MonadActivation_20260623.sol';
 
+/// @dev Minimal surface to walk a listed price adapter down to the underlying Chainlink SVR feed.
+/// Each adapter type exposes exactly one of these getters: correlated CAPO adapters expose
+/// `BASE_TO_USD_AGGREGATOR`, stable cap adapters expose `ASSET_TO_USD_AGGREGATOR`, and the
+/// USD-scaling conversion adapter that wraps the SVR feed exposes `source`.
+interface IPriceFeed {
+  function decimals() external view returns (uint8);
+  function source() external view returns (address);
+  function BASE_TO_USD_AGGREGATOR() external view returns (address);
+  function ASSET_TO_USD_AGGREGATOR() external view returns (address);
+}
+
 /**
  * @dev Test for AaveV3Monad_AaveV3MonadActivation_20260623
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadActivation_20260623.t.sol -vv
@@ -32,6 +43,14 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   uint256 internal constant SYRUPUSDC_MAX_GROWTH = 8_05;
   // stablecoin upward price-cap bound: $1.04 (8 decimals)
   int256 internal constant STABLE_PRICE_CAP = 1.04e8;
+
+  // Chainlink SVR (Smart Value Recapture) feeds wrapped by the listed price adapters.
+  // Several assets are priced off the same base feed, so the SVR feeds are reused across listings.
+  address internal constant ETH_USD_SVR_FEED = 0xcE6538287B42D833f294662edad8B3dA070C6902;
+  address internal constant CBBTC_USD_SVR_FEED = 0x1AF85c71aa71cA1138308012400cc0D784A88e8A;
+  address internal constant USDC_USD_SVR_FEED = 0x6789f81a983AfE7bd4C2a557c27084Ab705e56AB;
+  address internal constant USDT0_USD_SVR_FEED = 0xaAF8D304F82e386f7c777bd61724B8015B087d1d;
+  address internal constant AUSD_USD_SVR_FEED = 0xEd21588eA25ADC77384d47A466F0F75EEa58eBf3;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('monad'), 83800000);
@@ -410,6 +429,42 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
     _assertStablePriceCap(proposal.AUSD(), proposal.AUSD_PRICE_FEED());
   }
 
+  function test_priceFeedsMatchProposal() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _assertOracleSource(proposal.USDT0(), proposal.USDT0_PRICE_FEED());
+    _assertOracleSource(proposal.USDC(), proposal.USDC_PRICE_FEED());
+    _assertOracleSource(proposal.USDe(), proposal.USDe_PRICE_FEED());
+    _assertOracleSource(proposal.mUSD(), proposal.mUSD_PRICE_FEED());
+    _assertOracleSource(proposal.AUSD(), proposal.AUSD_PRICE_FEED());
+    _assertOracleSource(proposal.WETH(), proposal.WETH_PRICE_FEED());
+    _assertOracleSource(proposal.cbBTC(), proposal.cbBTC_PRICE_FEED());
+    _assertOracleSource(proposal.wstETH(), proposal.wstETH_PRICE_FEED());
+    _assertOracleSource(proposal.weETH(), proposal.weETH_PRICE_FEED());
+    _assertOracleSource(proposal.syrupUSDC(), proposal.syrupUSDC_PRICE_FEED());
+    _assertOracleSource(proposal.sUSDe(), proposal.sUSDe_PRICE_FEED());
+  }
+
+  function test_priceAdaptersWrapExpectedSvrFeeds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    // stable cap adapters
+    _assertSvrFeed(proposal.USDT0(), USDT0_USD_SVR_FEED);
+    _assertSvrFeed(proposal.USDC(), USDC_USD_SVR_FEED);
+    _assertSvrFeed(proposal.USDe(), USDT0_USD_SVR_FEED);
+    _assertSvrFeed(proposal.AUSD(), AUSD_USD_SVR_FEED);
+
+    // USD-scaling conversion adapters over the asset feed
+    _assertSvrFeed(proposal.WETH(), ETH_USD_SVR_FEED);
+    _assertSvrFeed(proposal.cbBTC(), CBBTC_USD_SVR_FEED);
+
+    // correlated CAPO adapters priced off the base asset's feed
+    _assertSvrFeed(proposal.wstETH(), ETH_USD_SVR_FEED);
+    _assertSvrFeed(proposal.weETH(), ETH_USD_SVR_FEED);
+    _assertSvrFeed(proposal.syrupUSDC(), USDC_USD_SVR_FEED);
+    _assertSvrFeed(proposal.sUSDe(), USDT0_USD_SVR_FEED);
+  }
+
   function test_riskStewardRiskAdmin() public {
     assertFalse(AaveV3Monad.ACL_MANAGER.isRiskAdmin(proposal.RISK_STEWARD()));
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -452,6 +507,33 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       STABLE_PRICE_CAP,
       'stable cap != $1.04'
     );
+  }
+
+  function _assertOracleSource(address asset, address expectedFeed) internal view {
+    assertEq(
+      AaveV3Monad.ORACLE.getSourceOfAsset(asset),
+      expectedFeed,
+      'oracle source != listed price feed'
+    );
+  }
+
+  function _assertSvrFeed(address asset, address expectedSvrFeed) internal view {
+    address svrFeed = _resolveSvrFeed(AaveV3Monad.ORACLE.getSourceOfAsset(asset));
+    assertEq(svrFeed, expectedSvrFeed, 'price adapter wraps unexpected SVR feed');
+    assertEq(IPriceFeed(svrFeed).decimals(), 18, 'SVR feed is not 18 decimals');
+  }
+
+  /// @dev Unwraps a listed price adapter to the Chainlink SVR feed it ultimately reads from.
+  /// Cap adapters point to their base via BASE_TO_USD_AGGREGATOR/ASSET_TO_USD_AGGREGATOR; the
+  /// SVR feed is reached once the recursion hits the USD-scaling conversion adapter (source()).
+  function _resolveSvrFeed(address feed) internal view returns (address) {
+    try IPriceFeed(feed).BASE_TO_USD_AGGREGATOR() returns (address base) {
+      return _resolveSvrFeed(base);
+    } catch {}
+    try IPriceFeed(feed).ASSET_TO_USD_AGGREGATOR() returns (address base) {
+      return _resolveSvrFeed(base);
+    } catch {}
+    return IPriceFeed(feed).source();
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {

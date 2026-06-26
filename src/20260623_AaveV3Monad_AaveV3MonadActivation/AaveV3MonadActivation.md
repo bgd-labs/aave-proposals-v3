@@ -276,6 +276,39 @@ The table below illustrates the configured E-Mode categories
 | wstETH\_\_WETH            | 94 % | 96 % |               1 % | wstETH      | WETH                         | true     |
 | weETH\_\_WETH             | 93 % | 95 % |               1 % | weETH       | WETH                         | true     |
 
+## Price Feed Configuration
+
+Each listed asset is priced through a Chainlink feed on Monad. The underlying Chainlink feeds are Smart Value Recapture (SVR) feeds, which recapture oracle-extractable value and report in 18 decimals; a USD-scaling conversion adapter normalizes them to the 8-decimal USD format the Aave oracle expects. On top of this base layer:
+
+- **Stablecoins** (USDT0, USDC, USDe, AUSD) use a CAPO stable adapter that bounds the upward price deviation at $1.04. USDe is priced via the USDT0/USD feed.
+- **mUSD** and **GHO** use a fixed feed pegged at $1, so there is no underlying SVR feed.
+- **WETH** and **cbBTC** use the USD-scaling conversion adapter directly over the ETH/USD and cbBTC/USD feeds.
+- **Correlated assets** (wstETH, weETH, syrupUSDC, sUSDe) use a CAPO adapter that prices the asset against its base feed and caps the exchange-rate growth, following the LlamaRisk recommendation.
+
+| Asset     | Listed Price Feed                          | Adapter         | Underlying SVR Feed                                      |
+| --------- | ------------------------------------------ | --------------- | -------------------------------------------------------- |
+| USDT0     | 0x3c187a25f0f05E009DA794069682653e40062730 | CAPO Stable     | USDT0 / USD — 0xaAF8D304F82e386f7c777bd61724B8015B087d1d |
+| USDC      | 0x787962943811D279d01eC973Bd3A15f1b3e1F0D9 | CAPO Stable     | USDC / USD — 0x6789f81a983AfE7bd4C2a557c27084Ab705e56AB  |
+| GHO       | 0x26cBccD96502D2EfDb612737bD6aECe19f65109c | Fixed $1        | —                                                        |
+| USDe      | 0x3abA25B23378A84FD7638E20F9Af86A66000f090 | CAPO Stable     | USDT0 / USD — 0xaAF8D304F82e386f7c777bd61724B8015B087d1d |
+| mUSD      | 0xbbb58AA3a251c9f19653771c44481c39500b71A3 | Fixed $1        | —                                                        |
+| AUSD      | 0x6b7c151653c35845a5826b15435fc055A9Db1D0C | CAPO Stable     | AUSD / USD — 0xEd21588eA25ADC77384d47A466F0F75EEa58eBf3  |
+| WETH      | 0x47F1D18329Ae59341617B7a5BE59605B63f0e373 | Conversion      | ETH / USD — 0xcE6538287B42D833f294662edad8B3dA070C6902   |
+| cbBTC     | 0x48692d15DA2636E1b0335344104Ce9d92f231DdA | Conversion      | cbBTC / USD — 0x1AF85c71aa71cA1138308012400cc0D784A88e8A |
+| wstETH    | 0x7c1DbD7879C421ebd1A2dE397Ea6Bedb5D3795A5 | CAPO Correlated | ETH / USD — 0xcE6538287B42D833f294662edad8B3dA070C6902   |
+| weETH     | 0x53E2d62Cd8c36104DEC69bA0CB3Bb599d6D42FE1 | CAPO Correlated | ETH / USD — 0xcE6538287B42D833f294662edad8B3dA070C6902   |
+| syrupUSDC | 0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4 | CAPO Correlated | USDC / USD — 0x6789f81a983AfE7bd4C2a557c27084Ab705e56AB  |
+| sUSDe     | 0xfB19D341781C4dF83651FeFA17D13d5aBCe44102 | CAPO Correlated | USDT0 / USD — 0xaAF8D304F82e386f7c777bd61724B8015B087d1d |
+
+The correlated-asset CAPO adapters enforce a maximum yearly exchange-rate growth with a 7-day snapshot delay, as recommended by LlamaRisk:
+
+| Asset     | Max Yearly Growth |
+| --------- | ----------------: |
+| sUSDe     |           11.17 % |
+| wstETH    |           10.70 % |
+| weETH     |            9.53 % |
+| syrupUSDC |            8.05 % |
+
 ## References
 
 - Implementation: [AaveV3Monad Activation](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadActivation_20260623.sol), [AaveV3Monad GHO Listing](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Monad_AaveV3MonadActivation/AaveV3Monad_AaveV3MonadGHOListing_20260623.sol)

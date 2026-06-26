@@ -79,6 +79,16 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623_Test is ProtocolV3TestBase {
     );
   }
 
+  function test_priceFeedMatchesProposal() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    // GHO uses a fixed $1 feed, so there is no underlying SVR feed to unwrap
+    assertEq(
+      AaveV3Monad.ORACLE.getSourceOfAsset(proposal.GHO()),
+      proposal.GHO_PRICE_FEED(),
+      'oracle source != listed price feed'
+    );
+  }
+
   function test_GHOAddedToEModes() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
