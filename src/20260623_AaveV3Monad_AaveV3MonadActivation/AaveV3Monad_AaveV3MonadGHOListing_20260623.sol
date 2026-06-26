@@ -7,6 +7,7 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title AaveV3MonadGHOListing
@@ -86,8 +87,20 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623 is AaveV3PayloadMonad {
   }
 
   function _postExecute() internal override {
-    IERC20(GHO).forceApprove(address(AaveV3Monad.POOL), GHO_SEED_AMOUNT);
-    AaveV3Monad.POOL.supply(GHO, GHO_SEED_AMOUNT, address(AaveV3Monad.DUST_BIN), 0);
+    _supplyAndConfigureLMAdmin(GHO, GHO_SEED_AMOUNT, address(0));
+  }
+
+  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
+    IERC20(asset).forceApprove(address(AaveV3Monad.POOL), seedAmount);
+    AaveV3Monad.POOL.supply(asset, seedAmount, address(AaveV3Monad.DUST_BIN), 0);
+
+    if (lmAdmin != address(0)) {
+      address aToken = AaveV3Monad.POOL.getReserveAToken(asset);
+      address vToken = AaveV3Monad.POOL.getReserveVariableDebtToken(asset);
+      IEmissionManager(AaveV3Monad.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
+      IEmissionManager(AaveV3Monad.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+      IEmissionManager(AaveV3Monad.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
+    }
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
