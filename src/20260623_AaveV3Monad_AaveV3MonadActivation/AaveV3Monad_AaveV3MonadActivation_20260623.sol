@@ -21,20 +21,20 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   // https://monadscan.com/address/0xe7cd86e13AC4309349F30B3435a9d337750fC82D
   address public constant USDT0 = 0xe7cd86e13AC4309349F30B3435a9d337750fC82D;
   uint256 public constant USDT0_SEED_AMOUNT = 100e6;
-  // https://monadscan.com/address/0x8761dBf0aDACFB5A87Db75905cc02Dc1b6355560
-  address public constant USDT0_PRICE_FEED = 0x8761dBf0aDACFB5A87Db75905cc02Dc1b6355560;
+  // https://monadscan.com/address/0x3c187a25f0f05E009DA794069682653e40062730
+  address public constant USDT0_PRICE_FEED = 0x3c187a25f0f05E009DA794069682653e40062730;
 
   // https://monadscan.com/address/0x754704Bc059F8C67012fEd69BC8A327a5aafb603
   address public constant USDC = 0x754704Bc059F8C67012fEd69BC8A327a5aafb603;
   uint256 public constant USDC_SEED_AMOUNT = 100e6;
-  // https://monadscan.com/address/0x978a045fa9ac4E4367053945F9f03E06DD834da5
-  address public constant USDC_PRICE_FEED = 0x978a045fa9ac4E4367053945F9f03E06DD834da5;
+  // https://monadscan.com/address/0x787962943811D279d01eC973Bd3A15f1b3e1F0D9
+  address public constant USDC_PRICE_FEED = 0x787962943811D279d01eC973Bd3A15f1b3e1F0D9;
 
   // https://monadscan.com/address/0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34
   address public constant USDe = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
   uint256 public constant USDe_SEED_AMOUNT = 100e18;
-  // https://monadscan.com/address/0xa751D193E506d4eCea7B5c3f6C2A8260b5d15730
-  address public constant USDe_PRICE_FEED = 0xa751D193E506d4eCea7B5c3f6C2A8260b5d15730;
+  // https://monadscan.com/address/0x3abA25B23378A84FD7638E20F9Af86A66000f090
+  address public constant USDe_PRICE_FEED = 0x3abA25B23378A84FD7638E20F9Af86A66000f090;
 
   // https://monadscan.com/address/0xacA92E438df0B2401fF60dA7E4337B687a2435DA
   address public constant mUSD = 0xacA92E438df0B2401fF60dA7E4337B687a2435DA;
@@ -45,44 +45,44 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   // https://monadscan.com/address/0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a
   address public constant AUSD = 0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a;
   uint256 public constant AUSD_SEED_AMOUNT = 100e6;
-  // https://monadscan.com/address/0xc5fC05824c6abeA7335c940a81d5612b45FC8181
-  address public constant AUSD_PRICE_FEED = 0xc5fC05824c6abeA7335c940a81d5612b45FC8181;
+  // https://monadscan.com/address/0x6b7c151653c35845a5826b15435fc055A9Db1D0C
+  address public constant AUSD_PRICE_FEED = 0x6b7c151653c35845a5826b15435fc055A9Db1D0C;
 
   // https://monadscan.com/address/0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242
   address public constant WETH = 0xEE8c0E9f1BFFb4Eb878d8f15f368A02a35481242;
   uint256 public constant WETH_SEED_AMOUNT = 0.0025e18;
-  // https://monadscan.com/address/0x1B1414782B859871781bA3E4B0979b9ca57A0A04
-  address public constant WETH_PRICE_FEED = 0x1B1414782B859871781bA3E4B0979b9ca57A0A04;
+  // https://monadscan.com/address/0x47F1D18329Ae59341617B7a5BE59605B63f0e373
+  address public constant WETH_PRICE_FEED = 0x47F1D18329Ae59341617B7a5BE59605B63f0e373;
 
   // https://monadscan.com/address/0xd18B7EC58Cdf4876f6AFebd3Ed1730e4Ce10414b
   address public constant cbBTC = 0xd18B7EC58Cdf4876f6AFebd3Ed1730e4Ce10414b;
   uint256 public constant cbBTC_SEED_AMOUNT = 0.0005e8;
-  // https://monadscan.com/address/0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD
-  address public constant cbBTC_PRICE_FEED = 0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD;
+  // https://monadscan.com/address/0x48692d15DA2636E1b0335344104Ce9d92f231DdA
+  address public constant cbBTC_PRICE_FEED = 0x48692d15DA2636E1b0335344104Ce9d92f231DdA;
 
   // https://monadscan.com/address/0x10Aeaf63194db8d453d4D85a06E5eFE1dd0b5417
   address public constant wstETH = 0x10Aeaf63194db8d453d4D85a06E5eFE1dd0b5417;
   uint256 public constant wstETH_SEED_AMOUNT = 0.0025e18;
-  // https://monadscan.com/address/0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462
-  address public constant wstETH_PRICE_FEED = 0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462;
+  // https://monadscan.com/address/0x7c1DbD7879C421ebd1A2dE397Ea6Bedb5D3795A5
+  address public constant wstETH_PRICE_FEED = 0x7c1DbD7879C421ebd1A2dE397Ea6Bedb5D3795A5;
 
   // https://monadscan.com/address/0xA3D68b74bF0528fdD07263c60d6488749044914b
   address public constant weETH = 0xA3D68b74bF0528fdD07263c60d6488749044914b;
   uint256 public constant weETH_SEED_AMOUNT = 0.0025e18;
-  // https://monadscan.com/address/0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA
-  address public constant weETH_PRICE_FEED = 0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA;
+  // https://monadscan.com/address/0x53E2d62Cd8c36104DEC69bA0CB3Bb599d6D42FE1
+  address public constant weETH_PRICE_FEED = 0x53E2d62Cd8c36104DEC69bA0CB3Bb599d6D42FE1;
 
   // https://monadscan.com/address/0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7
   address public constant syrupUSDC = 0xaB6e5a0C3799d020c790D34F7B2C02639e238AF7;
   uint256 public constant syrupUSDC_SEED_AMOUNT = 100e6;
-  // https://monadscan.com/address/0x47e9aB97A82cA1778FD04820255224bE837B5539
-  address public constant syrupUSDC_PRICE_FEED = 0x47e9aB97A82cA1778FD04820255224bE837B5539;
+  // https://monadscan.com/address/0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4
+  address public constant syrupUSDC_PRICE_FEED = 0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4;
 
   // https://monadscan.com/address/0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2
   address public constant sUSDe = 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2;
   uint256 public constant sUSDe_SEED_AMOUNT = 100e18;
-  // https://monadscan.com/address/0x372EdA3f11AECb1bA5c44982f30C13b311c549f1
-  address public constant sUSDe_PRICE_FEED = 0x372EdA3f11AECb1bA5c44982f30C13b311c549f1;
+  // https://monadscan.com/address/0xfB19D341781C4dF83651FeFA17D13d5aBCe44102
+  address public constant sUSDe_PRICE_FEED = 0xfB19D341781C4dF83651FeFA17D13d5aBCe44102;
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](11);

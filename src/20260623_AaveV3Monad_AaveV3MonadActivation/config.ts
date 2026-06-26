@@ -18,7 +18,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'USDT0',
             decimals: 6,
-            priceFeed: '0x8761dBf0aDACFB5A87Db75905cc02Dc1b6355560',
+            priceFeed: '0x3c187a25f0f05E009DA794069682653e40062730',
             ltv: '75',
             liqThreshold: '78',
             liqBonus: '7.5',
@@ -40,7 +40,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'USDC',
             decimals: 6,
-            priceFeed: '0x978a045fa9ac4E4367053945F9f03E06DD834da5',
+            priceFeed: '0x787962943811D279d01eC973Bd3A15f1b3e1F0D9',
             ltv: '75',
             liqThreshold: '78',
             liqBonus: '7.5',
@@ -62,7 +62,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'USDe',
             decimals: 18,
-            priceFeed: '0xa751D193E506d4eCea7B5c3f6C2A8260b5d15730',
+            priceFeed: '0x3abA25B23378A84FD7638E20F9Af86A66000f090',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -106,7 +106,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'AUSD',
             decimals: 6,
-            priceFeed: '0xc5fC05824c6abeA7335c940a81d5612b45FC8181',
+            priceFeed: '0x6b7c151653c35845a5826b15435fc055A9Db1D0C',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -128,7 +128,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'WETH',
             decimals: 18,
-            priceFeed: '0x1B1414782B859871781bA3E4B0979b9ca57A0A04',
+            priceFeed: '0x47F1D18329Ae59341617B7a5BE59605B63f0e373',
             ltv: '80.5',
             liqThreshold: '84',
             liqBonus: '5.5',
@@ -150,7 +150,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'cbBTC',
             decimals: 8,
-            priceFeed: '0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD',
+            priceFeed: '0x48692d15DA2636E1b0335344104Ce9d92f231DdA',
             ltv: '73',
             liqThreshold: '78',
             liqBonus: '7',
@@ -172,7 +172,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'wstETH',
             decimals: 18,
-            priceFeed: '0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462',
+            priceFeed: '0x7c1DbD7879C421ebd1A2dE397Ea6Bedb5D3795A5',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -194,7 +194,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'weETH',
             decimals: 18,
-            priceFeed: '0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA',
+            priceFeed: '0x53E2d62Cd8c36104DEC69bA0CB3Bb599d6D42FE1',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -216,7 +216,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'syrupUSDC',
             decimals: 6,
-            priceFeed: '0x47e9aB97A82cA1778FD04820255224bE837B5539',
+            priceFeed: '0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -238,7 +238,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'sUSDe',
             decimals: 18,
-            priceFeed: '0x372EdA3f11AECb1bA5c44982f30C13b311c549f1',
+            priceFeed: '0xfB19D341781C4dF83651FeFA17D13d5aBCe44102',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',

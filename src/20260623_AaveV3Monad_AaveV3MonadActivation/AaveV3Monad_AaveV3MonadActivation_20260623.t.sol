@@ -25,7 +25,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   // CAPO parameters recommended by LlamaRisk
   // https://governance.aave.com/t/arfc-deploy-aave-protocol-on-monad/24943
   uint256 internal constant CAPO_SNAPSHOT_DELAY = 7 days;
-  // max yearly ratio growth ceilings (bps); deployed adapters must not exceed these
+  // max yearly ratio growth (bps); deployed adapters must match these exactly
   uint256 internal constant SUSDE_MAX_GROWTH = 11_17;
   uint256 internal constant WSTETH_MAX_GROWTH = 10_70;
   uint256 internal constant WEETH_MAX_GROWTH = 9_53;
@@ -34,7 +34,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   int256 internal constant STABLE_PRICE_CAP = 1.04e8;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83590000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 83800000);
     proposal = new AaveV3Monad_AaveV3MonadActivation_20260623();
     // temporary: seed the executor so _postExecute() can supply to the DUST_BIN
     deal(proposal.USDT0(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
@@ -428,9 +428,11 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       'snapshot delay != 7 days'
     );
 
-    uint256 growth = adapter.getMaxYearlyGrowthRatePercent();
-    assertGt(growth, 0, 'max yearly growth is zero');
-    assertLe(growth, forumMaxGrowth, 'max yearly growth exceeds LlamaRisk recommendation');
+    assertEq(
+      adapter.getMaxYearlyGrowthRatePercent(),
+      forumMaxGrowth,
+      'max yearly growth != LlamaRisk recommendation'
+    );
   }
 
   function _assertStablePriceCap(address asset, address expectedFeed) internal view {

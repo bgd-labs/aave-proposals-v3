@@ -44,7 +44,7 @@ The table below illustrates the configured risk parameters for **USDT0**
 | Variable Slope 2          |                                       40 % |
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x8761dBf0aDACFB5A87Db75905cc02Dc1b6355560 |
+| Oracle                    | 0x3c187a25f0f05E009DA794069682653e40062730 |
 
 The table below illustrates the configured risk parameters for **USDC**
 
@@ -64,7 +64,7 @@ The table below illustrates the configured risk parameters for **USDC**
 | Variable Slope 2          |                                       40 % |
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x978a045fa9ac4E4367053945F9f03E06DD834da5 |
+| Oracle                    | 0x787962943811D279d01eC973Bd3A15f1b3e1F0D9 |
 
 The table below illustrates the configured risk parameters for **GHO**
 
@@ -104,7 +104,7 @@ The table below illustrates the configured risk parameters for **USDe**
 | Variable Slope 2          |                                       40 % |
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0xa751D193E506d4eCea7B5c3f6C2A8260b5d15730 |
+| Oracle                    | 0x3abA25B23378A84FD7638E20F9Af86A66000f090 |
 
 The table below illustrates the configured risk parameters for **mUSD**
 
@@ -144,7 +144,7 @@ The table below illustrates the configured risk parameters for **AUSD**
 | Variable Slope 2          |                                       40 % |
 | Uoptimal                  |                                       80 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0xc5fC05824c6abeA7335c940a81d5612b45FC8181 |
+| Oracle                    | 0x6b7c151653c35845a5826b15435fc055A9Db1D0C |
 
 The table below illustrates the configured risk parameters for **WETH**
 
@@ -164,7 +164,7 @@ The table below illustrates the configured risk parameters for **WETH**
 | Variable Slope 2          |                                       20 % |
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x1B1414782B859871781bA3E4B0979b9ca57A0A04 |
+| Oracle                    | 0x47F1D18329Ae59341617B7a5BE59605B63f0e373 |
 
 The table below illustrates the configured risk parameters for **cbBTC**
 
@@ -184,7 +184,7 @@ The table below illustrates the configured risk parameters for **cbBTC**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD |
+| Oracle                    | 0x48692d15DA2636E1b0335344104Ce9d92f231DdA |
 
 The table below illustrates the configured risk parameters for **wstETH**
 
@@ -204,7 +204,7 @@ The table below illustrates the configured risk parameters for **wstETH**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0xF29C1B8b98f51ae2d2552F75FD4a7c381122a462 |
+| Oracle                    | 0x7c1DbD7879C421ebd1A2dE397Ea6Bedb5D3795A5 |
 
 The table below illustrates the configured risk parameters for **weETH**
 
@@ -224,7 +224,7 @@ The table below illustrates the configured risk parameters for **weETH**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x6e7Cc80a9Ef22788B7beA1D5026E177c8dfA20DA |
+| Oracle                    | 0x53E2d62Cd8c36104DEC69bA0CB3Bb599d6D42FE1 |
 
 The table below illustrates the configured risk parameters for **syrupUSDC**
 
@@ -244,7 +244,7 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x47e9aB97A82cA1778FD04820255224bE837B5539 |
+| Oracle                    | 0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4 |
 
 The table below illustrates the configured risk parameters for **sUSDe**
 
@@ -264,7 +264,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x372EdA3f11AECb1bA5c44982f30C13b311c549f1 |
+| Oracle                    | 0xfB19D341781C4dF83651FeFA17D13d5aBCe44102 |
 
 The table below illustrates the configured E-Mode categories
 
