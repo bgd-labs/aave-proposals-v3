@@ -229,7 +229,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       ltv: 94_00,
       liquidationThreshold: 96_00,
       liquidationBonus: 100_00 + 1_00,
-      isolated: false
+      isolated: true
     });
 
     address[] memory collaterals_wstETH__WETH = new address[](1);
@@ -252,7 +252,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       ltv: 93_00,
       liquidationThreshold: 95_00,
       liquidationBonus: 100_00 + 1_00,
-      isolated: false
+      isolated: true
     });
 
     address[] memory collaterals_weETH__WETH = new address[](1);
@@ -408,6 +408,12 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
     _assertStablePriceCap(proposal.USDC(), proposal.USDC_PRICE_FEED());
     _assertStablePriceCap(proposal.USDe(), proposal.USDe_PRICE_FEED());
     _assertStablePriceCap(proposal.AUSD(), proposal.AUSD_PRICE_FEED());
+  }
+
+  function test_riskStewardRiskAdmin() public {
+    assertFalse(AaveV3Monad.ACL_MANAGER.isRiskAdmin(proposal.RISK_STEWARD()));
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertTrue(AaveV3Monad.ACL_MANAGER.isRiskAdmin(proposal.RISK_STEWARD()));
   }
 
   function _assertCapoAdapter(

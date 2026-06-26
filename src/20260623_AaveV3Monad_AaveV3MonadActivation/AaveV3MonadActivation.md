@@ -25,6 +25,7 @@ The proposal will do the following:
 - List the following assets on Aave V3.7 Monad: USDT0, USDC, GHO, USDe, mUSD, AUSD, WETH, cbBTC, wstETH, weETH, syrupUSDC, and sUSDe.
 - Create the syrupUSDC\_\_Stablecoins, USDe_sUSDe\_\_Stablecoins, wstETH\_\_WETH, and weETH\_\_WETH eModes, as detailed in the table below. GHO is added as a borrowable asset to the syrupUSDC\_\_Stablecoins and USDe_sUSDe\_\_Stablecoins eModes as part of the second payload.
 - Complete the initial pool configuration, keeping the pool admin on the Aave Guardian during the bootstrap period, following the standard procedure for security.
+- Grant the Risk Admin role to the Aave Risk Stewards ([0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34](https://monadscan.com/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34)), allowing risk parameter updates within the preconfigured safety bounds.
 
 The table below illustrates the configured risk parameters for **USDT0**
 
@@ -268,12 +269,12 @@ The table below illustrates the configured risk parameters for **sUSDe**
 
 The table below illustrates the configured E-Mode categories
 
-| E-Mode Category           |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables                  |
-| ------------------------- | ---: | ---: | ----------------: | ----------- | ---------------------------- |
-| syrupUSDC\_\_Stablecoins  | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD, GHO |
-| USDe_sUSDe\_\_Stablecoins | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD, GHO       |
-| wstETH\_\_WETH            | 94 % | 96 % |               1 % | wstETH      | WETH                         |
-| weETH\_\_WETH             | 93 % | 95 % |               1 % | weETH       | WETH                         |
+| E-Mode Category           |  LTV |   LT | Liquidation Bonus | Collaterals | Borrowables                  | Isolated |
+| ------------------------- | ---: | ---: | ----------------: | ----------- | ---------------------------- | -------- |
+| syrupUSDC\_\_Stablecoins  | 90 % | 92 % |               4 % | syrupUSDC   | USDT0, USDC, mUSD, AUSD, GHO | false    |
+| USDe_sUSDe\_\_Stablecoins | 90 % | 92 % |               4 % | USDe, sUSDe | USDT0, USDC, AUSD, GHO       | false    |
+| wstETH\_\_WETH            | 94 % | 96 % |               1 % | wstETH      | WETH                         | true     |
+| weETH\_\_WETH             | 93 % | 95 % |               1 % | weETH       | WETH                         | true     |
 
 ## References
 

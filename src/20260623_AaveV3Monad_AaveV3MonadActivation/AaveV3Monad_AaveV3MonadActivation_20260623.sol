@@ -18,6 +18,9 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
   using SafeERC20 for IERC20;
 
+  // https://monadscan.com/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  address public constant RISK_STEWARD = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
+
   // https://monadscan.com/address/0xe7cd86e13AC4309349F30B3435a9d337750fC82D
   address public constant USDT0 = 0xe7cd86e13AC4309349F30B3435a9d337750fC82D;
   uint256 public constant USDT0_SEED_AMOUNT = 100e6;
@@ -369,7 +372,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       liqThreshold: 96_00,
       liqBonus: 1_00,
       label: 'wstETH__WETH',
-      isolated: false,
+      isolated: true,
       collaterals: collateralAssets_wstETH__WETH,
       borrowables: borrowableAssets_wstETH__WETH
     });
@@ -385,7 +388,7 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
       liqThreshold: 95_00,
       liqBonus: 1_00,
       label: 'weETH__WETH',
-      isolated: false,
+      isolated: true,
       collaterals: collateralAssets_weETH__WETH,
       borrowables: borrowableAssets_weETH__WETH
     });
@@ -415,6 +418,8 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623 is AaveV3PayloadMonad {
     _supplyAndConfigureLMAdmin(syrupUSDC, syrupUSDC_SEED_AMOUNT, address(0));
 
     _supplyAndConfigureLMAdmin(sUSDe, sUSDe_SEED_AMOUNT, address(0));
+
+    AaveV3Monad.ACL_MANAGER.addRiskAdmin(RISK_STEWARD);
   }
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
