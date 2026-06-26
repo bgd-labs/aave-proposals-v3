@@ -245,7 +245,7 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4 |
+| Oracle                    | 0xB1f36c815761a3F77CE26c013F646cdCdCd06384 |
 
 The table below illustrates the configured risk parameters for **sUSDe**
 
@@ -265,7 +265,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
-| Oracle                    | 0xfB19D341781C4dF83651FeFA17D13d5aBCe44102 |
+| Oracle                    | 0x99946Fe1a49D8650a31eFE0fcFee0508892742f0 |
 
 The table below illustrates the configured E-Mode categories
 
@@ -297,8 +297,8 @@ Each listed asset is priced through a Chainlink feed on Monad. The underlying Ch
 | cbBTC     | 0x48692d15DA2636E1b0335344104Ce9d92f231DdA | Conversion      | cbBTC / USD — 0x1AF85c71aa71cA1138308012400cc0D784A88e8A |
 | wstETH    | 0x7c1DbD7879C421ebd1A2dE397Ea6Bedb5D3795A5 | CAPO Correlated | ETH / USD — 0xcE6538287B42D833f294662edad8B3dA070C6902   |
 | weETH     | 0x53E2d62Cd8c36104DEC69bA0CB3Bb599d6D42FE1 | CAPO Correlated | ETH / USD — 0xcE6538287B42D833f294662edad8B3dA070C6902   |
-| syrupUSDC | 0x2084BA013FEBe1C7a4aCecE09EB697d604BfBdB4 | CAPO Correlated | USDC / USD — 0x6789f81a983AfE7bd4C2a557c27084Ab705e56AB  |
-| sUSDe     | 0xfB19D341781C4dF83651FeFA17D13d5aBCe44102 | CAPO Correlated | USDT0 / USD — 0xaAF8D304F82e386f7c777bd61724B8015B087d1d |
+| syrupUSDC | 0xB1f36c815761a3F77CE26c013F646cdCdCd06384 | CAPO Correlated | USDC / USD — 0x6789f81a983AfE7bd4C2a557c27084Ab705e56AB  |
+| sUSDe     | 0x99946Fe1a49D8650a31eFE0fcFee0508892742f0 | CAPO Correlated | USDT0 / USD — 0xaAF8D304F82e386f7c777bd61724B8015B087d1d |
 
 The correlated-asset CAPO adapters enforce a maximum yearly exchange-rate growth with a 7-day snapshot delay, as recommended by LlamaRisk:
 
