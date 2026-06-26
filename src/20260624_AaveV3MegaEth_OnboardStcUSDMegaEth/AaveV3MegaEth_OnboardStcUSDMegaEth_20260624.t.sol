@@ -11,13 +11,32 @@ import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IPriceCapAdapter} from '../interfaces/IPriceCapAdapter.sol';
 import {AaveV3MegaEth_OnboardStcUSDMegaEth_20260624} from './AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.sol';
+
+/// @dev Reads the stcUSD/cUSD exchange-rate feed wired into the CAPO adapter, not exposed by IPriceCapAdapter.
+interface IRatioProvider {
+  function RATIO_PROVIDER() external view returns (address);
+}
+
+/// @dev Minimal Chainlink-style surface to read metadata of the underlying price feeds.
+interface IFeedMetadata {
+  function description() external view returns (string memory);
+
+  function decimals() external view returns (uint8);
+}
 
 /**
  * @dev Test for AaveV3MegaEth_OnboardStcUSDMegaEth_20260624
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260624_AaveV3MegaEth_OnboardStcUSDMegaEth/AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.t.sol -vv
  */
 contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624_Test is ProtocolV3TestBase {
+  // Underlying feeds combined by the stcUSD CAPO adapter (per LlamaRisk Oracle spec)
+  // https://mega.etherscan.io/address/0x28AccABca356675fC4089eD24A3B8ADe8C5780C0
+  address internal constant USDC_USD_BASE_FEED = 0x28AccABca356675fC4089eD24A3B8ADe8C5780C0;
+  // https://mega.etherscan.io/address/0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d
+  address internal constant stcUSD_cUSD_RATIO_FEED = 0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d;
+
   AaveV3MegaEth_OnboardStcUSDMegaEth_20260624 internal proposal;
 
   function setUp() public {
@@ -36,6 +55,53 @@ contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624_Test is ProtocolV3TestBase 
       'AaveV3MegaEth_OnboardStcUSDMegaEth_20260624',
       AaveV3MegaEth.POOL,
       address(proposal)
+    );
+  }
+
+  /// @dev Asserts the deployed CAPO adapter matches the configuration LlamaRisk specified in the
+  /// forum post / proposal Oracle section (14d snapshot delay, 10.5% max yearly growth, USD-denominated,
+  /// combining the stcUSD/cUSD exchange-rate feed with a base USDC/USD feed).
+  function test_stcUSDPriceFeedMatchesLlamaRiskConfig() public view {
+    IPriceCapAdapter capo = IPriceCapAdapter(proposal.stcUSD_PRICE_FEED());
+
+    assertEq(capo.MINIMUM_SNAPSHOT_DELAY(), 14 days, 'MINIMUM_SNAPSHOT_DELAY != 14 days');
+    // 10.5% expressed in bps (PERCENTAGE_FACTOR = 1e4)
+    assertEq(capo.getMaxYearlyGrowthRatePercent(), 10_50, 'maxYearlyRatioGrowthPercent != 10.5%');
+    assertEq(capo.decimals(), 8, 'CAPO decimals != 8');
+    assertEq(capo.description(), 'Capped stcUSD / USDC / USD', 'unexpected adapter description');
+
+    address baseFeed = address(capo.BASE_TO_USD_AGGREGATOR());
+    assertEq(baseFeed, USDC_USD_BASE_FEED, 'unexpected base USDC/USD feed');
+    assertEq(IFeedMetadata(baseFeed).description(), 'USDC / USD', 'base feed is not USDC/USD');
+    assertEq(IFeedMetadata(baseFeed).decimals(), 8, 'base feed decimals != 8');
+
+    address ratioFeed = IRatioProvider(address(capo)).RATIO_PROVIDER();
+    assertEq(ratioFeed, stcUSD_cUSD_RATIO_FEED, 'unexpected stcUSD/cUSD ratio feed');
+    assertEq(
+      IFeedMetadata(ratioFeed).description(),
+      'STCAPUSD / CAPUSD Exchange Rate',
+      'ratio feed is not the stcUSD/cUSD exchange rate'
+    );
+
+    assertFalse(capo.isCapped(), 'CAPO should not be capped at the current ratio');
+    int256 price = capo.latestAnswer();
+    assertGt(price, 0.98e8, 'stcUSD price below sane lower bound');
+    assertLt(price, 1.15e8, 'stcUSD price above sane upper bound');
+  }
+
+  /// @dev After execution the protocol oracle prices stcUSD through the LlamaRisk CAPO adapter.
+  function test_stcUSDOraclePriceReflectsCapo() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      AaveV3MegaEth.ORACLE.getSourceOfAsset(proposal.stcUSD()),
+      proposal.stcUSD_PRICE_FEED(),
+      'stcUSD not priced by the CAPO adapter'
+    );
+    assertEq(
+      AaveV3MegaEth.ORACLE.getAssetPrice(proposal.stcUSD()),
+      uint256(IPriceCapAdapter(proposal.stcUSD_PRICE_FEED()).latestAnswer()),
+      'oracle price should equal the CAPO answer'
     );
   }
 
