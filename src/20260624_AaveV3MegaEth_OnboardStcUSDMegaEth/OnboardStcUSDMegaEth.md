@@ -1,5 +1,5 @@
 ---
-title: "OnboardStcUSDMegaEth"
+title: "Onboard stcUSD to Aave V3 MegaEth"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-onboard-stcusd-to-aave-v3-megaeth/25018"
 snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x84ccc14e104b18a74ef47375ccd59f7f7aeeb61716dbb2c362ea7a538da3e08f"

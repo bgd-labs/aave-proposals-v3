@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     markets: ['AaveV3MegaEth'],
-    title: 'OnboardStcUSDMegaEth',
+    title: 'Onboard stcUSD to Aave V3 MegaEth',
     shortName: 'OnboardStcUSDMegaEth',
     date: '20260624',
     author: 'Aave Labs',
