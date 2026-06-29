@@ -18,7 +18,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'stcUSD',
             decimals: 18,
-            priceFeed: '0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30',
+            priceFeed: '0xBBC579Ee0A3fD6E9240965C5f57b7e5b3e3809A8',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',

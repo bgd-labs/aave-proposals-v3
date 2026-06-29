@@ -21,8 +21,8 @@ contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624 is AaveV3PayloadMegaEth {
   // https://mega.etherscan.io/address/0x88887bE419578051FF9F4eb6C858A951921D8888
   address public constant stcUSD = 0x88887bE419578051FF9F4eb6C858A951921D8888;
   uint256 public constant stcUSD_SEED_AMOUNT = 1e18;
-  // https://mega.etherscan.io/address/0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30
-  address public constant stcUSD_PRICE_FEED = 0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30;
+  // https://mega.etherscan.io/address/0xBBC579Ee0A3fD6E9240965C5f57b7e5b3e3809A8
+  address public constant stcUSD_PRICE_FEED = 0xBBC579Ee0A3fD6E9240965C5f57b7e5b3e3809A8;
 
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(stcUSD, stcUSD_SEED_AMOUNT, address(0));

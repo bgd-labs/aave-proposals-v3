@@ -23,12 +23,12 @@ import {AaveV3MegaEth_OnboardStcUSDMegaEth_20260624} from './AaveV3MegaEth_Onboa
 contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624_Test is ProtocolV3TestBase {
   address internal constant USDC_CAPO_BASE_FEED = 0x9182ACce3C6456955877c0BBE56107bC7239FE07;
   address internal constant stcUSD_cUSD_RATIO_FEED = 0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d;
-  uint256 internal constant stcUSD_SNAPSHOT_BLOCK = 17000000;
+  uint256 internal constant stcUSD_SNAPSHOT_BLOCK = 16943306;
 
   AaveV3MegaEth_OnboardStcUSDMegaEth_20260624 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('megaeth'), 19942500);
+    vm.createSelectFork(vm.rpcUrl('megaeth'), 19948900);
     proposal = new AaveV3MegaEth_OnboardStcUSDMegaEth_20260624();
 
     // Seed the executor with stcUSD until it is funded on-chain, so _postExecute can supply the seed amount

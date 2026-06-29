@@ -65,7 +65,7 @@ stcUSD is priced through a CAPO (Correlated-Asset Price Oracle) adapter that com
 
 | Parameter                     |                                      Value |
 | ----------------------------- | -----------------------------------------: |
-| Contract (CAPO adapter)       | 0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30 |
+| Contract (CAPO adapter)       | 0xBBC579Ee0A3fD6E9240965C5f57b7e5b3e3809A8 |
 | `MINIMUM_SNAPSHOT_DELAY`      |                                    14 days |
 | `maxYearlyRatioGrowthPercent` |                                      10.5% |
 
