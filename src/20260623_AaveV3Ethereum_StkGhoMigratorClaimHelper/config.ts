@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     markets: ['AaveV3Ethereum'],
-    title: 'StkGhoMigratorClaimHelper',
+    title: 'Grant Claim Helper Role to StkGhoMigrator',
     shortName: 'StkGhoMigratorClaimHelper',
     date: '20260623',
     author: 'Aave Labs',

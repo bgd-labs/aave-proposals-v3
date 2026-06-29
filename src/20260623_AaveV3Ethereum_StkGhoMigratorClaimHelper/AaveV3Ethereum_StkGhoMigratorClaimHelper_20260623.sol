@@ -9,7 +9,7 @@ import {IStkGhoMigrator} from '../interfaces/IStkGhoMigrator.sol';
 /**
  * @title StkGhoMigratorClaimHelper
  * @author Aave Labs
- * - Snapshot: TODO
+ * - Snapshot: direct-to-AIP
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623 is IProposalGenericExecutor {
