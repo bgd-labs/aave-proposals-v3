@@ -71,8 +71,8 @@ stcUSD is priced through a CAPO (Correlated-Asset Price Oracle) adapter that com
 
 ## References
 
-- Implementation: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/6265d7d64802d57a6bc38179d9e2d06bd57fc0ee/src/20260624_AaveV3MegaEth_OnboardStcUSDMegaEth/AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.sol)
-- Tests: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/6265d7d64802d57a6bc38179d9e2d06bd57fc0ee/src/20260624_AaveV3MegaEth_OnboardStcUSDMegaEth/AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.t.sol)
+- Implementation: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260624_AaveV3MegaEth_OnboardStcUSDMegaEth/AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.sol)
+- Tests: [AaveV3MegaEth](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260624_AaveV3MegaEth_OnboardStcUSDMegaEth/AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x84ccc14e104b18a74ef47375ccd59f7f7aeeb61716dbb2c362ea7a538da3e08f)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-stcusd-to-aave-v3-megaeth/25018)
 
