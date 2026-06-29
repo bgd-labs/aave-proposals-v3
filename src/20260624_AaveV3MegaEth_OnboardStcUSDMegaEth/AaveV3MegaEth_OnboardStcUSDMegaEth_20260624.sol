@@ -20,9 +20,9 @@ contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624 is AaveV3PayloadMegaEth {
 
   // https://mega.etherscan.io/address/0x88887bE419578051FF9F4eb6C858A951921D8888
   address public constant stcUSD = 0x88887bE419578051FF9F4eb6C858A951921D8888;
-  uint256 public constant stcUSD_SEED_AMOUNT = 100e18;
-  // https://mega.etherscan.io/address/0x238e66982d1f96F06865Af1D2ED573017E3B0497
-  address public constant stcUSD_PRICE_FEED = 0x238e66982d1f96F06865Af1D2ED573017E3B0497;
+  uint256 public constant stcUSD_SEED_AMOUNT = 1e18;
+  // https://mega.etherscan.io/address/0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30
+  address public constant stcUSD_PRICE_FEED = 0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30;
 
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(stcUSD, stcUSD_SEED_AMOUNT, address(0));
@@ -75,21 +75,21 @@ contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624 is AaveV3PayloadMegaEth {
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
 
-    address[] memory collateralAssets_StcUSD_Stablecoins = new address[](1);
-    address[] memory borrowableAssets_StcUSD_Stablecoins = new address[](2);
+    address[] memory collateralAssets_StcUSD__Stablecoins = new address[](1);
+    address[] memory borrowableAssets_StcUSD__Stablecoins = new address[](2);
 
-    collateralAssets_StcUSD_Stablecoins[0] = stcUSD;
-    borrowableAssets_StcUSD_Stablecoins[0] = AaveV3MegaEthAssets.USDT0_UNDERLYING;
-    borrowableAssets_StcUSD_Stablecoins[1] = AaveV3MegaEthAssets.USDm_UNDERLYING;
+    collateralAssets_StcUSD__Stablecoins[0] = stcUSD;
+    borrowableAssets_StcUSD__Stablecoins[0] = AaveV3MegaEthAssets.USDT0_UNDERLYING;
+    borrowableAssets_StcUSD__Stablecoins[1] = AaveV3MegaEthAssets.USDm_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 88_00,
       liqThreshold: 90_00,
       liqBonus: 4_00,
-      label: 'stcUSD_Stablecoins',
+      label: 'stcUSD__Stablecoins',
       isolated: true,
-      collaterals: collateralAssets_StcUSD_Stablecoins,
-      borrowables: borrowableAssets_StcUSD_Stablecoins
+      collaterals: collateralAssets_StcUSD__Stablecoins,
+      borrowables: borrowableAssets_StcUSD__Stablecoins
     });
 
     return eModeCreations;

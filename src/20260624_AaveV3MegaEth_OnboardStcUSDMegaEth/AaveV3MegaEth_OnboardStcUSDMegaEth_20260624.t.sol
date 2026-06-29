@@ -9,47 +9,32 @@ import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/exten
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
 
+import {AggregatorInterface} from 'aave-v3-origin/contracts/dependencies/chainlink/AggregatorInterface.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IPriceCapAdapter} from '../interfaces/IPriceCapAdapter.sol';
 import {AaveV3MegaEth_OnboardStcUSDMegaEth_20260624} from './AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.sol';
-
-/// @dev Reads the stcUSD/cUSD exchange-rate feed wired into the CAPO adapter, not exposed by IPriceCapAdapter.
-interface IRatioProvider {
-  function RATIO_PROVIDER() external view returns (address);
-}
-
-/// @dev Minimal Chainlink-style surface to read metadata of the underlying price feeds.
-interface IFeedMetadata {
-  function description() external view returns (string memory);
-
-  function decimals() external view returns (uint8);
-}
 
 /**
  * @dev Test for AaveV3MegaEth_OnboardStcUSDMegaEth_20260624
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260624_AaveV3MegaEth_OnboardStcUSDMegaEth/AaveV3MegaEth_OnboardStcUSDMegaEth_20260624.t.sol -vv
  */
 contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624_Test is ProtocolV3TestBase {
-  // Underlying feeds combined by the stcUSD CAPO adapter (per LlamaRisk Oracle spec)
-  // https://mega.etherscan.io/address/0x28AccABca356675fC4089eD24A3B8ADe8C5780C0
-  address internal constant USDC_USD_BASE_FEED = 0x28AccABca356675fC4089eD24A3B8ADe8C5780C0;
-  // https://mega.etherscan.io/address/0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d
+  address internal constant USDC_CAPO_BASE_FEED = 0x9182ACce3C6456955877c0BBE56107bC7239FE07;
   address internal constant stcUSD_cUSD_RATIO_FEED = 0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d;
+  uint256 internal constant stcUSD_SNAPSHOT_BLOCK = 17000000;
 
   AaveV3MegaEth_OnboardStcUSDMegaEth_20260624 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('megaeth'), 19510725);
+    vm.createSelectFork(vm.rpcUrl('megaeth'), 19942500);
     proposal = new AaveV3MegaEth_OnboardStcUSDMegaEth_20260624();
 
     // Seed the executor with stcUSD until it is funded on-chain, so _postExecute can supply the seed amount
     deal(proposal.stcUSD(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.stcUSD_SEED_AMOUNT());
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3MegaEth_OnboardStcUSDMegaEth_20260624',
@@ -58,89 +43,105 @@ contract AaveV3MegaEth_OnboardStcUSDMegaEth_20260624_Test is ProtocolV3TestBase 
     );
   }
 
-  /// @dev Asserts the deployed CAPO adapter matches the configuration LlamaRisk specified in the
-  /// forum post / proposal Oracle section (14d snapshot delay, 10.5% max yearly growth, USD-denominated,
-  /// combining the stcUSD/cUSD exchange-rate feed with a base USDC/USD feed).
   function test_stcUSDPriceFeedMatchesLlamaRiskConfig() public view {
     IPriceCapAdapter capo = IPriceCapAdapter(proposal.stcUSD_PRICE_FEED());
 
-    assertEq(capo.MINIMUM_SNAPSHOT_DELAY(), 14 days, 'MINIMUM_SNAPSHOT_DELAY != 14 days');
-    // 10.5% expressed in bps (PERCENTAGE_FACTOR = 1e4)
-    assertEq(capo.getMaxYearlyGrowthRatePercent(), 10_50, 'maxYearlyRatioGrowthPercent != 10.5%');
-    assertEq(capo.decimals(), 8, 'CAPO decimals != 8');
-    assertEq(capo.description(), 'Capped stcUSD / USDC / USD', 'unexpected adapter description');
+    assertEq(capo.MINIMUM_SNAPSHOT_DELAY(), 14 days, 'wrong snapshot delay');
+    assertEq(capo.getMaxYearlyGrowthRatePercent(), 10_50, 'wrong max growth');
+    assertEq(capo.decimals(), 8, 'wrong decimals');
+    assertEq(capo.description(), 'Capped stcUSD / USDC / USD', 'wrong description');
 
-    address baseFeed = address(capo.BASE_TO_USD_AGGREGATOR());
-    assertEq(baseFeed, USDC_USD_BASE_FEED, 'unexpected base USDC/USD feed');
-    assertEq(IFeedMetadata(baseFeed).description(), 'USDC / USD', 'base feed is not USDC/USD');
-    assertEq(IFeedMetadata(baseFeed).decimals(), 8, 'base feed decimals != 8');
+    AggregatorInterface baseFeed = capo.BASE_TO_USD_AGGREGATOR();
+    assertEq(address(baseFeed), USDC_CAPO_BASE_FEED, 'wrong base feed');
+    assertEq(baseFeed.description(), 'Capped USDC/USD', 'wrong base feed description');
+    assertEq(baseFeed.decimals(), 8, 'wrong base feed decimals');
 
-    address ratioFeed = IRatioProvider(address(capo)).RATIO_PROVIDER();
-    assertEq(ratioFeed, stcUSD_cUSD_RATIO_FEED, 'unexpected stcUSD/cUSD ratio feed');
+    address ratioFeed = capo.RATIO_PROVIDER();
+    assertEq(ratioFeed, stcUSD_cUSD_RATIO_FEED, 'wrong ratio feed');
     assertEq(
-      IFeedMetadata(ratioFeed).description(),
+      AggregatorInterface(ratioFeed).description(),
       'STCAPUSD / CAPUSD Exchange Rate',
-      'ratio feed is not the stcUSD/cUSD exchange rate'
+      'wrong ratio feed description'
     );
 
-    assertFalse(capo.isCapped(), 'CAPO should not be capped at the current ratio');
+    assertFalse(capo.isCapped(), 'should not be capped');
     int256 price = capo.latestAnswer();
-    assertGt(price, 0.98e8, 'stcUSD price below sane lower bound');
-    assertLt(price, 1.15e8, 'stcUSD price above sane upper bound');
+    assertGt(price, 0.98e8, 'price too low');
+    assertLt(price, 1.15e8, 'price too high');
   }
 
-  /// @dev After execution the protocol oracle prices stcUSD through the LlamaRisk CAPO adapter.
+  function test_stcUSDCapoSnapshotAnchored() public {
+    IPriceCapAdapter capo = IPriceCapAdapter(proposal.stcUSD_PRICE_FEED());
+    uint256 snapshotRatio = capo.getSnapshotRatio();
+    uint256 snapshotTimestamp = capo.getSnapshotTimestamp();
+    address ratioFeed = capo.RATIO_PROVIDER();
+
+    // the adapter has no code at its snapshot block, so the embedded snapshot is verified against
+    // the underlying ratio provider feed, which existed at that time
+    vm.createSelectFork(vm.rpcUrl('megaeth'), stcUSD_SNAPSHOT_BLOCK);
+    assertEq(block.timestamp, snapshotTimestamp, 'wrong snapshot block');
+    assertEq(
+      uint256(AggregatorInterface(ratioFeed).latestAnswer()),
+      snapshotRatio,
+      'snapshot mismatch'
+    );
+  }
+
   function test_stcUSDOraclePriceReflectsCapo() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
     assertEq(
       AaveV3MegaEth.ORACLE.getSourceOfAsset(proposal.stcUSD()),
       proposal.stcUSD_PRICE_FEED(),
-      'stcUSD not priced by the CAPO adapter'
+      'wrong oracle source'
     );
     assertEq(
       AaveV3MegaEth.ORACLE.getAssetPrice(proposal.stcUSD()),
       uint256(IPriceCapAdapter(proposal.stcUSD_PRICE_FEED()).latestAnswer()),
-      'oracle price should equal the CAPO answer'
+      'oracle price mismatch'
     );
   }
 
   function test_dustBinHasstcUSDFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3MegaEth.POOL.getReserveAToken(proposal.stcUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3MegaEth.DUST_BIN)), 10 ** 18);
+    assertApproxEqAbs(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3MegaEth.DUST_BIN)),
+      proposal.stcUSD_SEED_AMOUNT(),
+      1
+    );
   }
 
   function test_eModeConfiguration() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    uint8 eMode_StcUSD_Stablecoins = _findEModeCategoryId('stcUSD_Stablecoins');
+    uint8 eMode_StcUSD__Stablecoins = _findEModeCategoryId('stcUSD__Stablecoins');
     _assertEModeCollateralConfig({
-      id: eMode_StcUSD_Stablecoins,
+      id: eMode_StcUSD__Stablecoins,
       ltv: 88_00,
       liquidationThreshold: 90_00,
       liquidationBonus: 100_00 + 4_00,
       isolated: true
     });
 
-    address[] memory collaterals_StcUSD_Stablecoins = new address[](1);
-    collaterals_StcUSD_Stablecoins[0] = proposal.stcUSD();
+    address[] memory collaterals_StcUSD__Stablecoins = new address[](1);
+    collaterals_StcUSD__Stablecoins[0] = proposal.stcUSD();
     assertEq(
-      AaveV3MegaEth.POOL.getEModeCategoryCollateralBitmap(eMode_StcUSD_Stablecoins),
-      _toBitmap(collaterals_StcUSD_Stablecoins)
+      AaveV3MegaEth.POOL.getEModeCategoryCollateralBitmap(eMode_StcUSD__Stablecoins),
+      _toBitmap(collaterals_StcUSD__Stablecoins)
     );
 
-    address[] memory borrowables_StcUSD_Stablecoins = new address[](2);
-    borrowables_StcUSD_Stablecoins[0] = AaveV3MegaEthAssets.USDT0_UNDERLYING;
-    borrowables_StcUSD_Stablecoins[1] = AaveV3MegaEthAssets.USDm_UNDERLYING;
+    address[] memory borrowables_StcUSD__Stablecoins = new address[](2);
+    borrowables_StcUSD__Stablecoins[0] = AaveV3MegaEthAssets.USDT0_UNDERLYING;
+    borrowables_StcUSD__Stablecoins[1] = AaveV3MegaEthAssets.USDm_UNDERLYING;
     assertEq(
-      AaveV3MegaEth.POOL.getEModeCategoryBorrowableBitmap(eMode_StcUSD_Stablecoins),
-      _toBitmap(borrowables_StcUSD_Stablecoins)
+      AaveV3MegaEth.POOL.getEModeCategoryBorrowableBitmap(eMode_StcUSD__Stablecoins),
+      _toBitmap(borrowables_StcUSD__Stablecoins)
     );
   }
-  function test_eMode_StcUSD_Stablecoins_supplyAndBorrow() public {
+  function test_eMode_StcUSD__Stablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode(
-      'stcUSD_Stablecoins',
+      'stcUSD__Stablecoins',
       proposal.stcUSD(),
       AaveV3MegaEthAssets.USDT0_UNDERLYING
     );

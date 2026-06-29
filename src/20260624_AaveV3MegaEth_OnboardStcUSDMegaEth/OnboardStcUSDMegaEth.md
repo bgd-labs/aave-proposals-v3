@@ -9,7 +9,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x84ccc14e104b18a74ef47
 
 This proposal onboards stcUSD to the Aave V3 MegaETH instance. stcUSD is the yield-bearing token of Cap Protocol, obtained by staking cUSD. It was deferred from the initial MegaETH launch pending technical and risk reviews, which have now been completed by LlamaRisk.
 
-stcUSD is listed as collateral exclusively within a dedicated, isolated `stcUSD_Stablecoins` E-Mode, allowing users to borrow stablecoins (USDT0 and USDm) against stcUSD while retaining its yield exposure. Outside of this E-Mode the asset is neither borrowable nor usable as collateral.
+stcUSD is listed as collateral exclusively within a dedicated, isolated `stcUSD__Stablecoins` E-Mode, allowing users to borrow stablecoins (USDT0 and USDm) against stcUSD while retaining its yield exposure. Outside of this E-Mode the asset is neither borrowable nor usable as collateral.
 
 ## Motivation
 
@@ -19,7 +19,7 @@ Listing stcUSD allows users to retain stcUSD yield exposure while borrowing stab
 
 ## Specification
 
-This proposal onboards stcUSD to the Aave V3 MegaETH instance with the risk parameters recommended by LlamaRisk. stcUSD is enabled as collateral only within the isolated `stcUSD_Stablecoins` E-Mode (base LTV and Liquidation Threshold are `0`), and is not borrowable or flashloanable in the standard market.
+This proposal onboards stcUSD to the Aave V3 MegaETH instance with the risk parameters recommended by LlamaRisk. stcUSD is enabled as collateral only within the isolated `stcUSD__Stablecoins` E-Mode (base LTV and Liquidation Threshold are `0`), and is not borrowable or flashloanable in the standard market.
 
 Token addresses:
 
@@ -47,9 +47,9 @@ Token addresses:
 | Optimal Utilization       |              45% |
 | Flashloanable             |               No |
 
-### stcUSD_Stablecoins E-Mode
+### stcUSD\_\_Stablecoins E-Mode
 
-The `stcUSD_Stablecoins` E-Mode is configured as isolated, with stcUSD as the sole collateral and USDT0 and USDm as the borrowable assets.
+The `stcUSD__Stablecoins` E-Mode is configured as isolated, with stcUSD as the sole collateral and USDT0 and USDm as the borrowable assets.
 
 | Parameter             | stcUSD | USDT0 | USDm |
 | --------------------- | -----: | ----: | ---: |
@@ -61,11 +61,11 @@ The `stcUSD_Stablecoins` E-Mode is configured as isolated, with stcUSD as the so
 
 ### Oracle
 
-stcUSD is priced through a CAPO (Correlated-Asset Price Oracle) adapter that combines the Chainlink stcUSD/cUSD exchange rate feed with a base USDC/USD price feed. The underlying feeds use a 0.5% deviation threshold and a 24-hour heartbeat.
+stcUSD is priced through a CAPO (Correlated-Asset Price Oracle) adapter that combines the Chainlink stcUSD/cUSD exchange rate feed with a base capped USDC/USD price feed. The underlying feeds use a 0.5% deviation threshold and a 24-hour heartbeat.
 
 | Parameter                     |                                      Value |
 | ----------------------------- | -----------------------------------------: |
-| Contract (CAPO adapter)       | 0x238e66982d1f96F06865Af1D2ED573017E3B0497 |
+| Contract (CAPO adapter)       | 0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30 |
 | `MINIMUM_SNAPSHOT_DELAY`      |                                    14 days |
 | `maxYearlyRatioGrowthPercent` |                                      10.5% |
 

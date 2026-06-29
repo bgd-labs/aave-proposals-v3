@@ -18,7 +18,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'stcUSD',
             decimals: 18,
-            priceFeed: '0x238e66982d1f96F06865Af1D2ED573017E3B0497',
+            priceFeed: '0x2bB54309637783c9963b31b9cb55C3eF9Bb12F30',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -43,7 +43,7 @@ export const config: ConfigFile = {
             ltv: '88',
             liqThreshold: '90',
             liqBonus: '4',
-            label: 'stcUSD_Stablecoins',
+            label: 'stcUSD__Stablecoins',
             isolated: 'ENABLED',
             collateralAssets: ['stcUSD'],
             borrowableAssets: ['USDT0', 'USDm'],

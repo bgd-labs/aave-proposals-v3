@@ -64,6 +64,8 @@ interface IPriceCapAdapter {
 
   function BASE_TO_USD_AGGREGATOR() external view returns (AggregatorInterface);
 
+  function RATIO_PROVIDER() external view returns (address);
+
   function MINIMUM_SNAPSHOT_DELAY() external view returns (uint48);
 
   function RATIO_DECIMALS() external view returns (uint8);
