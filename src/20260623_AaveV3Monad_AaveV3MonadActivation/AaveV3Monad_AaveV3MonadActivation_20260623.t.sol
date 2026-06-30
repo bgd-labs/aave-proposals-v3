@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Monad} from 'aave-address-book/AaveV3Monad.sol';
-import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
@@ -53,20 +52,8 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
   address internal constant AUSD_USD_SVR_FEED = 0xEd21588eA25ADC77384d47A466F0F75EEa58eBf3;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83865577);
+    vm.createSelectFork(vm.rpcUrl('monad'), 84648000);
     proposal = new AaveV3Monad_AaveV3MonadActivation_20260623();
-    // temporary: seed the executor so _postExecute() can supply to the DUST_BIN
-    deal(proposal.USDT0(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
-    deal(proposal.USDC(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
-    deal(proposal.USDe(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.USDe_SEED_AMOUNT());
-    deal(proposal.mUSD(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.mUSD_SEED_AMOUNT());
-    deal(proposal.AUSD(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.AUSD_SEED_AMOUNT());
-    deal(proposal.WETH(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
-    deal(proposal.cbBTC(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.cbBTC_SEED_AMOUNT());
-    deal(proposal.wstETH(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.wstETH_SEED_AMOUNT());
-    deal(proposal.weETH(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.weETH_SEED_AMOUNT());
-    deal(proposal.syrupUSDC(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.syrupUSDC_SEED_AMOUNT());
-    deal(proposal.sUSDe(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.sUSDe_SEED_AMOUNT());
   }
 
   /**
@@ -80,6 +67,12 @@ contract AaveV3Monad_AaveV3MonadActivation_20260623_Test is ProtocolV3TestBase {
       return;
     }
     super.deal(token, to, give);
+  }
+
+  /// @dev Monad's block gas limit (~200M) is the real per-tx ceiling; the 16.77M default is a
+  /// conservative cross-chain floor that the full activation payload legitimately exceeds.
+  function _getMaxPayloadGas() internal view override returns (uint256) {
+    return block.gaslimit;
   }
 
   /**

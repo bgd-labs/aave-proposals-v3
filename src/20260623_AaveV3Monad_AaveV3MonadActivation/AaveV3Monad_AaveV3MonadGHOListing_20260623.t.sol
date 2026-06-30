@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Monad} from 'aave-address-book/AaveV3Monad.sol';
-import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 
@@ -21,29 +20,13 @@ contract AaveV3Monad_AaveV3MonadGHOListing_20260623_Test is ProtocolV3TestBase {
   AaveV3Monad_AaveV3MonadActivation_20260623 internal activation;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83865577);
+    vm.createSelectFork(vm.rpcUrl('monad'), 84648000);
 
     // the GHO listing depends on the eModes created by the activation payload, so execute it first
     activation = new AaveV3Monad_AaveV3MonadActivation_20260623();
-    deal(activation.USDT0(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.USDT0_SEED_AMOUNT());
-    deal(activation.USDC(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.USDC_SEED_AMOUNT());
-    deal(activation.USDe(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.USDe_SEED_AMOUNT());
-    deal(activation.mUSD(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.mUSD_SEED_AMOUNT());
-    deal(activation.AUSD(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.AUSD_SEED_AMOUNT());
-    deal(activation.WETH(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.WETH_SEED_AMOUNT());
-    deal(activation.cbBTC(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.cbBTC_SEED_AMOUNT());
-    deal(activation.wstETH(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.wstETH_SEED_AMOUNT());
-    deal(activation.weETH(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.weETH_SEED_AMOUNT());
-    deal(
-      activation.syrupUSDC(),
-      GovernanceV3Monad.EXECUTOR_LVL_1,
-      activation.syrupUSDC_SEED_AMOUNT()
-    );
-    deal(activation.sUSDe(), GovernanceV3Monad.EXECUTOR_LVL_1, activation.sUSDe_SEED_AMOUNT());
     GovV3Helpers.executePayload(vm, address(activation));
 
     proposal = new AaveV3Monad_AaveV3MonadGHOListing_20260623();
-    deal(proposal.GHO(), GovernanceV3Monad.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
   }
 
   /**
