@@ -128,11 +128,8 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'forceApprove')) {
     imports += `import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';\n`;
   }
-  if (findMatch(code, 'GovernanceV3Ethereum')) {
-    imports += `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';\n`;
-  }
-  if (findMatch(code, 'GovernanceV3InkWhitelabel')) {
-    imports += `import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';\n`;
+  for (const lib of new Set([...code.matchAll(/\bGovernanceV3[A-Za-z]+\b/g)].map((m) => m[0]))) {
+    imports += `import {${lib}} from 'aave-address-book/${lib}.sol';\n`;
   }
   if (findMatch(code, 'IEmissionManager')) {
     imports += `import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';\n`;

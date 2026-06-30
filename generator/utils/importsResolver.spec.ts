@@ -41,4 +41,45 @@ describe('prefixWithImports', () => {
       `import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';`,
     );
   });
+
+  it('should resolve GovernanceV3 imports generically', () => {
+    expect(prefixWithImports('GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL')).toContain(
+      `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';`,
+    );
+
+    expect(
+      prefixWithImports('GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER'),
+    ).toContain(
+      `import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';`,
+    );
+  });
+
+  it('should not pull in GovernanceV3Ethereum for an EthereumWhitelabel substring', () => {
+    const result = prefixWithImports(
+      'GovernanceV3EthereumWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER',
+    );
+    expect(result).toContain(
+      `import {GovernanceV3EthereumWhitelabel} from 'aave-address-book/GovernanceV3EthereumWhitelabel.sol';`,
+    );
+    expect(result).not.toContain(
+      `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';`,
+    );
+  });
+
+  it('should resolve every GovernanceV3 market referenced in the same code', () => {
+    const result = prefixWithImports(
+      `GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL
+       GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER
+       GovernanceV3SonicWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER`,
+    );
+    expect(result).toContain(
+      `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';`,
+    );
+    expect(result).toContain(
+      `import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';`,
+    );
+    expect(result).toContain(
+      `import {GovernanceV3SonicWhitelabel} from 'aave-address-book/GovernanceV3SonicWhitelabel.sol';`,
+    );
+  });
 });
