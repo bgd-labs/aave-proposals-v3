@@ -50,8 +50,6 @@ pnpm generate -- \
 
 After running `pnpm generate`, an interactive mode will be opened. Select required options from the list in 3 following steps: market selection, metadata entry, and feature selection.
 
-**Note**: Cannot mix whitelabel markets with regular markets (step 1).
-
 ## Feature Modules
 
 After feature selection (step 3), the generator prompts for parameters specific to each selected feature.
