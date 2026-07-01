@@ -214,6 +214,7 @@ contract AaveV2EthereumAMM_Test_20231023_Test is ProtocolV2TestBase {
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
+   * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV2EthereumAMM_Test_20231023', AaveV2EthereumAMM.POOL, address(proposal));

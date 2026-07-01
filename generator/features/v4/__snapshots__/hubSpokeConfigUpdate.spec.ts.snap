@@ -125,6 +125,7 @@ contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521_Test is ProtocolV4Te
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
+   * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521', address(proposal));
