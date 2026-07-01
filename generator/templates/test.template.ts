@@ -55,6 +55,7 @@ contract ${contractName}_Test is ${testBase} {
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
+   * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
     ${defaultTestCall}

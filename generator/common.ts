@@ -30,6 +30,7 @@ import {
   mantle,
   megaeth,
   xLayer,
+  monad,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@aave-dao/toolbox';
@@ -57,6 +58,7 @@ export const AVAILABLE_CHAINS = [
   'Mantle',
   'MegaEth',
   'XLayer',
+  'Monad',
 ] as const;
 
 export function getAssets(market: MarketIdentifier): string[] {
@@ -199,6 +201,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Mantle: mantle.id,
   MegaEth: megaeth.id,
   XLayer: xLayer.id,
+  Monad: monad.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {

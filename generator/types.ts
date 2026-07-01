@@ -69,6 +69,7 @@ export const V3_MARKETS = [
   'AaveV3Mantle',
   'AaveV3MegaEth',
   'AaveV3XLayer',
+  'AaveV3Monad',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const V4_MARKETS = [
