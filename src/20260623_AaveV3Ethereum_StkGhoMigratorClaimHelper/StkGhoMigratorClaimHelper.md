@@ -1,7 +1,7 @@
 ---
 title: "Grant Claim Helper Role to StkGhoMigrator"
 author: "Aave Labs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/direct-to-aip-stkgho-sgho-migration-tool/25250"
 snapshot: direct-to-AIP
 ---
 
@@ -23,7 +23,7 @@ The migration flow will be made available through the Aave UI.
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623.sol)
 - Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260623_AaveV3Ethereum_StkGhoMigratorClaimHelper/AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623.t.sol)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-stkgho-sgho-migration-tool/25250)
 
 ## Disclaimer
 

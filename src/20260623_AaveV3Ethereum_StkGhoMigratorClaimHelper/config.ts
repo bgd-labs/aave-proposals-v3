@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'StkGhoMigratorClaimHelper',
     date: '20260623',
     author: 'Aave Labs',
-    discussion: '',
+    discussion: 'https://governance.aave.com/t/direct-to-aip-stkgho-sgho-migration-tool/25250',
     snapshot: '',
     votingNetwork: 'AVALANCHE',
   },
