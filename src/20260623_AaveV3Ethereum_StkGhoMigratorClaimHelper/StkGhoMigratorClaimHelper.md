@@ -2,7 +2,6 @@
 title: "Grant Claim Helper Role to StkGhoMigrator"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/direct-to-aip-stkgho-sgho-migration-tool/25250"
-snapshot: direct-to-AIP
 ---
 
 ## Simple Summary

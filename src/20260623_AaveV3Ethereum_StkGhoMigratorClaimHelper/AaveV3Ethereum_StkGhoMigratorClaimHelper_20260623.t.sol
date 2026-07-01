@@ -28,6 +28,7 @@ contract AaveV3Ethereum_StkGhoMigratorClaimHelper_20260623_Test is ProtocolV3Tes
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
+   * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
     defaultTest(
