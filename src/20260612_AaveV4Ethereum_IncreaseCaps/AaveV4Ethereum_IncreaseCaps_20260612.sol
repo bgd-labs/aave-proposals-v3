@@ -35,8 +35,8 @@ contract AaveV4Ethereum_IncreaseCaps_20260612 is AaveV4Payload {
     // Core Hub
     // ========================
     //                         hub   spoke                                 asset                                   addCap      drawCap
-    updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.ETHERFI_E_SPOKE, AaveV4EthereumAssets.WETH_UNDERLYING,   KC,         13_000);
-    updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.ETHERFI_E_SPOKE, AaveV4EthereumAssets.weETH_UNDERLYING,  14_000,     KC);
+    updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.ETHERFI_ESPOKE, AaveV4EthereumAssets.WETH_UNDERLYING,   KC,         13_000);
+    updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.ETHERFI_ESPOKE, AaveV4EthereumAssets.weETH_UNDERLYING,  14_000,     KC);
     updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.FOREX_SPOKE,     AaveV4EthereumAssets.USDG_UNDERLYING,   KC,         250_000);
     updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.FOREX_SPOKE,     AaveV4EthereumAssets.frxUSD_UNDERLYING, KC,         250_000);
     updates[i++] = _capUpdate(CORE,  AaveV4EthereumSpokes.GOLD_SPOKE,      AaveV4EthereumAssets.USDG_UNDERLYING,   KC,         1_000_000);

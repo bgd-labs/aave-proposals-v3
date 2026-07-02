@@ -5,11 +5,10 @@ import {stdMath} from 'forge-std/StdMath.sol';
 import {IHub, IHubConfigurator, ISpokeConfigurator, IAccessManagerEnumerable, IAaveOracle} from 'aave-address-book/AaveV4.sol';
 import {IPriceFeed} from 'aave-v4/spoke/interfaces/IPriceFeed.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumAssets, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4EthereumSpokeHelpers, AaveV4EthereumTokenizationSpokeHelpers} from 'aave-helpers/src/dependencies/v4/AaveV4EthereumHelpers.sol';
 import {V4Constants} from 'src/helpers/v4-constants/V4Constants.sol';
 import {V4TestHelpers} from 'src/helpers/v4-constants/V4TestHelpers.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
@@ -106,18 +105,28 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
   function test_executeWithRecording() public virtual {
     string memory reportName = 'AaveV4Ethereum_SVRfeeds_20260507';
 
-    IHub[] memory hubs = AaveV4EthereumHubHelpers.getHubs();
-    ISpoke[] memory spokes = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    IHub[] memory hubs = AaveV4EthereumGetters.getAllHubs();
+    ISpoke[] memory spokes = AaveV4EthereumGetters.getAllSpokes();
 
     string memory beforeName = string.concat(reportName, '_before');
     string memory afterName = string.concat(reportName, '_after');
 
-    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(spokes, hubs);
+    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(
+      spokes,
+      hubs,
+      _positionManagerCandidates(),
+      _accessManagers()
+    );
     writeV4SnapshotJson(beforeName, snapshotBefore);
 
     (string memory rawDiff, string memory logsJson) = _executePayloadWithRecording();
 
-    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(spokes, hubs);
+    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(
+      spokes,
+      hubs,
+      _positionManagerCandidates(),
+      _accessManagers()
+    );
     writeV4SnapshotJson(afterName, snapshotAfter);
 
     string memory afterPath = string.concat('./reports/', afterName, '.json');
@@ -151,41 +160,41 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
 
     vm.pauseGasMetering();
     e2eTestAllSpokes({spokes: V4TestHelpers.getE2eSpokes(), testPositionManagers: true});
-    e2eTestAllTokenizationSpokes(AaveV4EthereumTokenizationSpokeHelpers.getTokenizationSpokes());
+    e2eTestAllTokenizationSpokes(AaveV4EthereumGetters.getAllTokenizationSpokes());
     vm.resumeGasMetering();
   }
 
   // prettier-ignore
   function test_priceSources_coreHub_before() public virtual {
     //                          hub        spoke                                              asset                                                  currentFeed (from address book)
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_WETH_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.wstETH_UNDERLYING,        AaveV4EthereumSpokePriceFeeds.MAIN_wstETH_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.weETH_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.MAIN_weETH_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.WBTC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_WBTC_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.cbBTC_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.MAIN_cbBTC_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.AAVE_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_AAVE_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.LINK_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_LINK_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_USDC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_WETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.wstETH_UNDERLYING,        AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_wstETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.weETH_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_weETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.WBTC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_WBTC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.cbBTC_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_cbBTC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.AAVE_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_AAVE_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.LINK_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_LINK_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDC_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,        AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.ETHERFI_E_WETH_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,        AaveV4EthereumAssets.weETH_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.ETHERFI_E_weETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_ESPOKE,        AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.ETHERFI_ESPOKE_WETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_ESPOKE,        AaveV4EthereumAssets.weETH_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.ETHERFI_ESPOKE_weETH_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_E_SPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.LIDO_E_WETH_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_E_SPOKE,           AaveV4EthereumAssets.wstETH_UNDERLYING,        AaveV4EthereumSpokePriceFeeds.LIDO_E_wstETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_ESPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.LIDO_ESPOKE_WETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_ESPOKE,           AaveV4EthereumAssets.wstETH_UNDERLYING,        AaveV4EthereumSpokePriceFeeds.LIDO_ESPOKE_wstETH_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_E_SPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.KELP_E_WETH_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_E_SPOKE,           AaveV4EthereumAssets.rsETH_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.KELP_E_rsETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_ESPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.KELP_ESPOKE_WETH_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_ESPOKE,           AaveV4EthereumAssets.rsETH_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.KELP_ESPOKE_rsETH_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.WBTC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.LOMBARD_BTC_WBTC_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.cbBTC_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.LOMBARD_BTC_cbBTC_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.LBTC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.LOMBARD_BTC_LBTC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.WBTC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.LOMBARD_BTC_SPOKE_WBTC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.cbBTC_UNDERLYING,         AaveV4EthereumSpokePriceFeeds.LOMBARD_BTC_SPOKE_cbBTC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.LBTC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.LOMBARD_BTC_SPOKE_LBTC_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.FOREX_SPOKE,            AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.FOREX_USDC_PRICE_FEED);
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.GOLD_SPOKE,             AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.GOLD_USDC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.FOREX_SPOKE,            AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.FOREX_SPOKE_USDC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.GOLD_SPOKE,             AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_USDC_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE,         AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.BLUECHIP_CORE_USDC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE,         AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.BLUECHIP_SPOKE_CORE_USDC_PRICE_FEED);
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHENA_ECOSYSTEM_SPOKE, AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.ETHENA_ECOSYSTEM_CORE_USDC_PRICE_FEED);
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHENA_ECOSYSTEM_SPOKE, AaveV4EthereumAssets.USDC_UNDERLYING,          AaveV4EthereumSpokePriceFeeds.ETHENA_ECOSYSTEM_SPOKE_CORE_USDC_PRICE_FEED);
   }
 
   // prettier-ignore
@@ -202,14 +211,14 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
     _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.LINK_UNDERLYING,          payload.SVR_LINK());
     _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.USDC_UNDERLYING,          payload.SVR_USDC());
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,        AaveV4EthereumAssets.WETH_UNDERLYING,          payload.SVR_WETH());
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,        AaveV4EthereumAssets.weETH_UNDERLYING,         payload.SVR_weETH());
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_ESPOKE,        AaveV4EthereumAssets.WETH_UNDERLYING,          payload.SVR_WETH());
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_ESPOKE,        AaveV4EthereumAssets.weETH_UNDERLYING,         payload.SVR_weETH());
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_E_SPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          payload.SVR_WETH());
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_E_SPOKE,           AaveV4EthereumAssets.wstETH_UNDERLYING,        payload.SVR_wstETH());
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_ESPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          payload.SVR_WETH());
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LIDO_ESPOKE,           AaveV4EthereumAssets.wstETH_UNDERLYING,        payload.SVR_wstETH());
 
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_E_SPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          payload.SVR_WETH());
-    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_E_SPOKE,           AaveV4EthereumAssets.rsETH_UNDERLYING,         payload.SVR_rsETH());
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_ESPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,          payload.SVR_WETH());
+    _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.KELP_ESPOKE,           AaveV4EthereumAssets.rsETH_UNDERLYING,         payload.SVR_rsETH());
 
     _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.WBTC_UNDERLYING,          payload.SVR_WBTC());
     _assertPriceSource(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.cbBTC_UNDERLYING,         payload.SVR_cbBTC());
@@ -225,11 +234,11 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
 
   // prettier-ignore
   function test_priceSources_primeHub_before() public virtual {
-    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.WETH_UNDERLYING,    AaveV4EthereumSpokePriceFeeds.BLUECHIP_WETH_PRICE_FEED);
-    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.wstETH_UNDERLYING,  AaveV4EthereumSpokePriceFeeds.BLUECHIP_wstETH_PRICE_FEED);
-    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.WBTC_UNDERLYING,    AaveV4EthereumSpokePriceFeeds.BLUECHIP_WBTC_PRICE_FEED);
-    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.cbBTC_UNDERLYING,   AaveV4EthereumSpokePriceFeeds.BLUECHIP_cbBTC_PRICE_FEED);
-    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.USDC_UNDERLYING,    AaveV4EthereumSpokePriceFeeds.BLUECHIP_PRIME_USDC_PRICE_FEED);
+    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.WETH_UNDERLYING,    AaveV4EthereumSpokePriceFeeds.BLUECHIP_SPOKE_WETH_PRICE_FEED);
+    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.wstETH_UNDERLYING,  AaveV4EthereumSpokePriceFeeds.BLUECHIP_SPOKE_wstETH_PRICE_FEED);
+    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.WBTC_UNDERLYING,    AaveV4EthereumSpokePriceFeeds.BLUECHIP_SPOKE_WBTC_PRICE_FEED);
+    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.cbBTC_UNDERLYING,   AaveV4EthereumSpokePriceFeeds.BLUECHIP_SPOKE_cbBTC_PRICE_FEED);
+    _assertPriceSource(PRIME_HUB, AaveV4EthereumSpokes.BLUECHIP_SPOKE, AaveV4EthereumAssets.USDC_UNDERLYING,    AaveV4EthereumSpokePriceFeeds.BLUECHIP_SPOKE_PRIME_USDC_PRICE_FEED);
   }
 
   // prettier-ignore
@@ -245,7 +254,7 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
 
   // prettier-ignore
   function test_priceSources_plusHub_before() public virtual {
-    _assertPriceSource(PLUS_HUB, AaveV4EthereumSpokes.ETHENA_ECOSYSTEM_SPOKE,  AaveV4EthereumAssets.USDC_UNDERLYING, AaveV4EthereumSpokePriceFeeds.ETHENA_ECOSYSTEM_PLUS_USDC_PRICE_FEED);
+    _assertPriceSource(PLUS_HUB, AaveV4EthereumSpokes.ETHENA_ECOSYSTEM_SPOKE,  AaveV4EthereumAssets.USDC_UNDERLYING, AaveV4EthereumSpokePriceFeeds.ETHENA_ECOSYSTEM_SPOKE_PLUS_USDC_PRICE_FEED);
   }
 
   // prettier-ignore
@@ -361,7 +370,7 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
   /// @dev After payload exec, no reserve should still be using an old price source
   /// anywhere in the protocol.
   function test_noOldFeedRemainsAfterExec() public virtual {
-    ISpoke[] memory spokes = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    ISpoke[] memory spokes = AaveV4EthereumGetters.getAllSpokes();
 
     uint256 total;
     for (uint256 s; s < spokes.length; ++s) {
@@ -461,7 +470,7 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
     users[22] = 0x7C24C4B065F4c94feb8A62A6654BdBCbF1Ff7dC6;
     users[23] = 0x9768F31bd299fA1cA98EDd7Aa15Fc84d94C33f7C;
 
-    ISpoke[] memory spokes = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    ISpoke[] memory spokes = AaveV4EthereumGetters.getAllSpokes();
 
     uint256[][] memory hfBefore = new uint256[][](users.length);
     for (uint256 u; u < users.length; ++u) {
@@ -586,12 +595,12 @@ contract AaveV4Ethereum_SVRfeeds_20260507_Test is ProtocolV4TestBase {
     reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.AAVE_UNDERLYING,   'CORE_HUB/MAIN_SPOKE/AAVE');
     reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.LINK_UNDERLYING,   'CORE_HUB/MAIN_SPOKE/LINK');
     reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.MAIN_SPOKE,             AaveV4EthereumAssets.USDC_UNDERLYING,   'CORE_HUB/MAIN_SPOKE/USDC');
-    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,        AaveV4EthereumAssets.WETH_UNDERLYING,   'CORE_HUB/ETHERFI_E_SPOKE/WETH');
-    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,        AaveV4EthereumAssets.weETH_UNDERLYING,  'CORE_HUB/ETHERFI_E_SPOKE/weETH');
-    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LIDO_E_SPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,   'CORE_HUB/LIDO_E_SPOKE/WETH');
-    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LIDO_E_SPOKE,           AaveV4EthereumAssets.wstETH_UNDERLYING, 'CORE_HUB/LIDO_E_SPOKE/wstETH');
-    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.KELP_E_SPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,   'CORE_HUB/KELP_E_SPOKE/WETH');
-    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.KELP_E_SPOKE,           AaveV4EthereumAssets.rsETH_UNDERLYING,  'CORE_HUB/KELP_E_SPOKE/rsETH');
+    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_ESPOKE,        AaveV4EthereumAssets.WETH_UNDERLYING,   'CORE_HUB/ETHERFI_E_SPOKE/WETH');
+    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.ETHERFI_ESPOKE,        AaveV4EthereumAssets.weETH_UNDERLYING,  'CORE_HUB/ETHERFI_E_SPOKE/weETH');
+    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LIDO_ESPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,   'CORE_HUB/LIDO_E_SPOKE/WETH');
+    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LIDO_ESPOKE,           AaveV4EthereumAssets.wstETH_UNDERLYING, 'CORE_HUB/LIDO_E_SPOKE/wstETH');
+    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.KELP_ESPOKE,           AaveV4EthereumAssets.WETH_UNDERLYING,   'CORE_HUB/KELP_E_SPOKE/WETH');
+    reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.KELP_ESPOKE,           AaveV4EthereumAssets.rsETH_UNDERLYING,  'CORE_HUB/KELP_E_SPOKE/rsETH');
     reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.WBTC_UNDERLYING,   'CORE_HUB/LOMBARD_BTC_SPOKE/WBTC');
     reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.cbBTC_UNDERLYING,  'CORE_HUB/LOMBARD_BTC_SPOKE/cbBTC');
     reserves[i++] = UpdatedReserve(CORE_HUB, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,      AaveV4EthereumAssets.LBTC_UNDERLYING,   'CORE_HUB/LOMBARD_BTC_SPOKE/LBTC');

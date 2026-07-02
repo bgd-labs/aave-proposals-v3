@@ -36,7 +36,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603 is AaveV4Payload {
     // Core Hub
     // ========================
     //                         hub   spoke                                   asset                                   addCap      drawCap
-    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,    AaveV4EthereumAssets.weETH_UNDERLYING,  11_000,     KC);
+    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_ESPOKE,    AaveV4EthereumAssets.weETH_UNDERLYING,  11_000,     KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.FOREX_SPOKE,        AaveV4EthereumAssets.EURC_UNDERLYING,   4_300_000,  4_500_000);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.FOREX_SPOKE,        AaveV4EthereumAssets.USDC_UNDERLYING,   10_000_000, 3_330_000);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.FOREX_SPOKE,        AaveV4EthereumAssets.USDT_UNDERLYING,   10_000_000, 3_330_000);
@@ -48,7 +48,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603 is AaveV4Payload {
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.GOLD_SPOKE,         AaveV4EthereumAssets.USDT_UNDERLYING,   KC,         800_000);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.GOLD_SPOKE,         AaveV4EthereumAssets.XAUt_UNDERLYING,   1_000,      KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.GOLD_SPOKE,         AaveV4EthereumAssets.frxUSD_UNDERLYING, KC,         500_000);
-    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LIDO_E_SPOKE,       AaveV4EthereumAssets.wstETH_UNDERLYING, 5_900,      KC);
+    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LIDO_ESPOKE,       AaveV4EthereumAssets.wstETH_UNDERLYING, 5_900,      KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE,  AaveV4EthereumAssets.LBTC_UNDERLYING,   45,         KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,         AaveV4EthereumAssets.AAVE_UNDERLYING,   67_000,     KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,         AaveV4EthereumAssets.EURC_UNDERLYING,   4_300_000,  2_900_000);

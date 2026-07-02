@@ -3,9 +3,8 @@ pragma solidity ^0.8.0;
 
 import {IHub, IHubConfigurator, IAccessManagerEnumerable} from 'aave-address-book/AaveV4.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4EthereumSpokeHelpers, AaveV4EthereumTokenizationSpokeHelpers} from 'aave-helpers/src/dependencies/v4/AaveV4EthereumHelpers.sol';
 
 import {AaveV4Ethereum_IncreaseCaps_20260603} from './AaveV4Ethereum_IncreaseCaps_20260603.sol';
 
@@ -52,18 +51,28 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
   function test_executeWithRecording() public virtual {
     string memory reportName = 'AaveV4Ethereum_IncreaseCaps_20260603';
 
-    IHub[] memory hubs = AaveV4EthereumHubHelpers.getHubs();
-    ISpoke[] memory spokes = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    IHub[] memory hubs = AaveV4EthereumGetters.getAllHubs();
+    ISpoke[] memory spokes = AaveV4EthereumGetters.getAllSpokes();
 
     string memory beforeName = string.concat(reportName, '_before');
     string memory afterName = string.concat(reportName, '_after');
 
-    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(spokes, hubs);
+    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(
+      spokes,
+      hubs,
+      _positionManagerCandidates(),
+      _accessManagers()
+    );
     writeV4SnapshotJson(beforeName, snapshotBefore);
 
     (string memory rawDiff, string memory logsJson) = _executePayloadWithRecording();
 
-    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(spokes, hubs);
+    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(
+      spokes,
+      hubs,
+      _positionManagerCandidates(),
+      _accessManagers()
+    );
     writeV4SnapshotJson(afterName, snapshotAfter);
 
     string memory afterPath = string.concat('./reports/', afterName, '.json');
@@ -101,7 +110,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
 
     vm.pauseGasMetering();
     e2eTestAllSpokes({spokes: _getE2eSpokes(), testPositionManagers: true});
-    e2eTestAllTokenizationSpokes(AaveV4EthereumTokenizationSpokeHelpers.getTokenizationSpokes());
+    e2eTestAllTokenizationSpokes(AaveV4EthereumGetters.getAllTokenizationSpokes());
     vm.resumeGasMetering();
   }
 
@@ -109,11 +118,11 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
   ///      `collateralFactor = 0`, leaving no usable collateral for the
   ///      supply/borrow/liquidation flows. This payload does not touch it.
   function _getE2eSpokes() internal pure returns (ISpoke[] memory) {
-    ISpoke[] memory all = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    ISpoke[] memory all = AaveV4EthereumGetters.getAllSpokes();
     ISpoke[] memory filtered = new ISpoke[](all.length - 1);
     uint256 j;
     for (uint256 i; i < all.length; i++) {
-      if (address(all[i]) == address(AaveV4EthereumSpokes.KELP_E_SPOKE)) continue;
+      if (address(all[i]) == address(AaveV4EthereumSpokes.KELP_ESPOKE)) continue;
       filtered[j++] = all[i];
     }
     return filtered;
@@ -157,7 +166,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
   // prettier-ignore
   function test_caps_coreHub_before() public virtual {
     //                                                                                                              addCap      drawCap
-    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.ETHERFI_E_SPOKE),   AaveV4EthereumAssets.weETH_UNDERLYING,  8_500,      0);
+    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.ETHERFI_ESPOKE),   AaveV4EthereumAssets.weETH_UNDERLYING,  8_500,      0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.FOREX_SPOKE),       AaveV4EthereumAssets.EURC_UNDERLYING,   1_125_000,  1_170_000);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.FOREX_SPOKE),       AaveV4EthereumAssets.USDC_UNDERLYING,   1_500_000,  500_000);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.FOREX_SPOKE),       AaveV4EthereumAssets.USDT_UNDERLYING,   1_500_000,  500_000);
@@ -169,7 +178,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.GOLD_SPOKE),        AaveV4EthereumAssets.USDT_UNDERLYING,   0,          400_000);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.GOLD_SPOKE),        AaveV4EthereumAssets.XAUt_UNDERLYING,   500,        0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.GOLD_SPOKE),        AaveV4EthereumAssets.frxUSD_UNDERLYING, 0,          250_000);
-    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.LIDO_E_SPOKE),      AaveV4EthereumAssets.wstETH_UNDERLYING, 4_800,      0);
+    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.LIDO_ESPOKE),      AaveV4EthereumAssets.wstETH_UNDERLYING, 4_800,      0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE), AaveV4EthereumAssets.LBTC_UNDERLYING,   9,          0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.MAIN_SPOKE),        AaveV4EthereumAssets.AAVE_UNDERLYING,   12_000,     0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.MAIN_SPOKE),        AaveV4EthereumAssets.EURC_UNDERLYING,   225_000,    150_000);
@@ -192,7 +201,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
     _executePayload();
 
     //                                                                                                              addCap      drawCap
-    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.ETHERFI_E_SPOKE),   AaveV4EthereumAssets.weETH_UNDERLYING,  11_000,     0);
+    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.ETHERFI_ESPOKE),   AaveV4EthereumAssets.weETH_UNDERLYING,  11_000,     0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.FOREX_SPOKE),       AaveV4EthereumAssets.EURC_UNDERLYING,   4_300_000,  4_500_000);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.FOREX_SPOKE),       AaveV4EthereumAssets.USDC_UNDERLYING,   10_000_000, 3_330_000);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.FOREX_SPOKE),       AaveV4EthereumAssets.USDT_UNDERLYING,   10_000_000, 3_330_000);
@@ -204,7 +213,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260603_Test is ProtocolV4TestBase {
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.GOLD_SPOKE),        AaveV4EthereumAssets.USDT_UNDERLYING,   0,          800_000);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.GOLD_SPOKE),        AaveV4EthereumAssets.XAUt_UNDERLYING,   1_000,      0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.GOLD_SPOKE),        AaveV4EthereumAssets.frxUSD_UNDERLYING, 0,          500_000);
-    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.LIDO_E_SPOKE),      AaveV4EthereumAssets.wstETH_UNDERLYING, 5_900,      0);
+    _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.LIDO_ESPOKE),      AaveV4EthereumAssets.wstETH_UNDERLYING, 5_900,      0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE), AaveV4EthereumAssets.LBTC_UNDERLYING,   45,         0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.MAIN_SPOKE),        AaveV4EthereumAssets.AAVE_UNDERLYING,   67_000,     0);
     _assertCaps(CORE_HUB, address(AaveV4EthereumSpokes.MAIN_SPOKE),        AaveV4EthereumAssets.EURC_UNDERLYING,   4_300_000,  2_900_000);

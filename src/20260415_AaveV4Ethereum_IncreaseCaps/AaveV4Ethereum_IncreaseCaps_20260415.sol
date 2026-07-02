@@ -36,15 +36,15 @@ contract AaveV4Ethereum_IncreaseCaps_20260415 is AaveV4Payload {
     // Core Hub
     // ========================
     //                         hub  spoke                                          asset                                                    addCap     drawCap
-    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.ETHERFI_E_SPOKE), AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,        2_500);
-    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.ETHERFI_E_SPOKE), AaveV4EthereumAssets.weETH_UNDERLYING,                   2_500,     KC);
+    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.ETHERFI_ESPOKE), AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,        2_500);
+    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.ETHERFI_ESPOKE), AaveV4EthereumAssets.weETH_UNDERLYING,                   2_500,     KC);
     updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.FOREX_SPOKE),     AaveV4EthereumAssets.USDC_UNDERLYING,                    400_000,   135_000);
     updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.FOREX_SPOKE),     AaveV4EthereumAssets.USDT_UNDERLYING,                    400_000,   135_000);
     updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.GOLD_SPOKE),      AaveV4EthereumAssets.XAUt_UNDERLYING,                    250,       KC);
-    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.KELP_E_SPOKE),    AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,        2_500);
-    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.KELP_E_SPOKE),    AaveV4EthereumAssets.rsETH_UNDERLYING,                   2_500,     KC);
-    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.LIDO_E_SPOKE),    AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,        2_000);
-    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.LIDO_E_SPOKE),    AaveV4EthereumAssets.wstETH_UNDERLYING,                  2_000,     KC);
+    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.KELP_ESPOKE),    AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,        2_500);
+    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.KELP_ESPOKE),    AaveV4EthereumAssets.rsETH_UNDERLYING,                   2_500,     KC);
+    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.LIDO_ESPOKE),    AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,        2_000);
+    updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.LIDO_ESPOKE),    AaveV4EthereumAssets.wstETH_UNDERLYING,                  2_000,     KC);
     updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.MAIN_SPOKE),      AaveV4EthereumAssets.AAVE_UNDERLYING,                    12_000,    KC);
     updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.MAIN_SPOKE),      AaveV4EthereumAssets.GHO_UNDERLYING,                     1_500_000, 1_500_000);
     updates[i++] = _capUpdate(CORE, address(AaveV4EthereumSpokes.MAIN_SPOKE),      AaveV4EthereumAssets.LINK_UNDERLYING,                    75_000,    KC);

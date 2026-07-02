@@ -69,14 +69,14 @@ contract AaveV4Ethereum_SVRfeeds_20260507 is AaveV4Payload {
     updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,        AaveV4EthereumAssets.LINK_UNDERLYING,         SVR_LINK);
     updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,        AaveV4EthereumAssets.USDC_UNDERLYING,         SVR_USDC);
 
-    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,   AaveV4EthereumAssets.WETH_UNDERLYING,         SVR_WETH);
-    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_E_SPOKE,   AaveV4EthereumAssets.weETH_UNDERLYING,        SVR_weETH);
+    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_ESPOKE,   AaveV4EthereumAssets.WETH_UNDERLYING,         SVR_WETH);
+    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_ESPOKE,   AaveV4EthereumAssets.weETH_UNDERLYING,        SVR_weETH);
 
-    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.LIDO_E_SPOKE,      AaveV4EthereumAssets.WETH_UNDERLYING,         SVR_WETH);
-    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.LIDO_E_SPOKE,      AaveV4EthereumAssets.wstETH_UNDERLYING,       SVR_wstETH);
+    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.LIDO_ESPOKE,      AaveV4EthereumAssets.WETH_UNDERLYING,         SVR_WETH);
+    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.LIDO_ESPOKE,      AaveV4EthereumAssets.wstETH_UNDERLYING,       SVR_wstETH);
 
-    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.KELP_E_SPOKE,      AaveV4EthereumAssets.WETH_UNDERLYING,         SVR_WETH);
-    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.KELP_E_SPOKE,      AaveV4EthereumAssets.rsETH_UNDERLYING,        SVR_rsETH);
+    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.KELP_ESPOKE,      AaveV4EthereumAssets.WETH_UNDERLYING,         SVR_WETH);
+    updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.KELP_ESPOKE,      AaveV4EthereumAssets.rsETH_UNDERLYING,        SVR_rsETH);
 
     updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE, AaveV4EthereumAssets.WBTC_UNDERLYING,         SVR_WBTC);
     updates[i++] = _priceUpdate(CORE, AaveV4EthereumSpokes.LOMBARD_BTC_SPOKE, AaveV4EthereumAssets.cbBTC_UNDERLYING,        SVR_cbBTC);

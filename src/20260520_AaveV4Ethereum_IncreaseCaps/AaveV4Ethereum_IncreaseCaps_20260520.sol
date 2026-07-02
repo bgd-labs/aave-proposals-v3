@@ -35,10 +35,10 @@ contract AaveV4Ethereum_IncreaseCaps_20260520 is AaveV4Payload {
     // Core Hub
     // ========================
     //                         hub  spoke                                 asset                                                    addCap      drawCap
-    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_E_SPOKE, AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,         8_500);
-    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_E_SPOKE, AaveV4EthereumAssets.weETH_UNDERLYING,                   8_500,      KC);
-    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LIDO_E_SPOKE,    AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,         4_800);
-    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LIDO_E_SPOKE,    AaveV4EthereumAssets.wstETH_UNDERLYING,                  4_800,      KC);
+    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_ESPOKE, AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,         8_500);
+    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.ETHERFI_ESPOKE, AaveV4EthereumAssets.weETH_UNDERLYING,                   8_500,      KC);
+    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LIDO_ESPOKE,    AaveV4EthereumAssets.WETH_UNDERLYING,                    KC,         4_800);
+    updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.LIDO_ESPOKE,    AaveV4EthereumAssets.wstETH_UNDERLYING,                  4_800,      KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,      AaveV4EthereumAssets.LINK_UNDERLYING,                    220_000,    KC);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,      AaveV4EthereumAssets.USDG_UNDERLYING,                    10_000_000, 6_800_000);
     updates[i++] = _capUpdate(CORE, AaveV4EthereumSpokes.MAIN_SPOKE,      AaveV4EthereumAssets.USDT_UNDERLYING,                    8_500_000,  8_500_000);

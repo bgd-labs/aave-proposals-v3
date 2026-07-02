@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import 'forge-std/Test.sol';
 import {IAccessManagerEnumerable} from 'aave-address-book/AaveV4.sol';
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
-import {AaveV4Ethereum} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {V4Constants} from 'src/helpers/v4-constants/V4Constants.sol';
 import {V4SafeHelpers} from 'src/helpers/v4-constants/V4SafeHelpers.sol';

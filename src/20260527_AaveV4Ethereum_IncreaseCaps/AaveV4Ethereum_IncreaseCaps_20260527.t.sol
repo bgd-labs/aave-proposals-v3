@@ -3,9 +3,8 @@ pragma solidity ^0.8.0;
 
 import {IHub, IHubConfigurator, IAccessManagerEnumerable} from 'aave-address-book/AaveV4.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumGetters} from 'aave-address-book/AaveV4Ethereum.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
-import {AaveV4EthereumSpokeHelpers, AaveV4EthereumTokenizationSpokeHelpers} from 'aave-helpers/src/dependencies/v4/AaveV4EthereumHelpers.sol';
 
 import {AaveV4Ethereum_IncreaseCaps_20260527} from './AaveV4Ethereum_IncreaseCaps_20260527.sol';
 
@@ -51,18 +50,28 @@ contract AaveV4Ethereum_IncreaseCaps_20260527_Test is ProtocolV4TestBase {
   function test_executeWithRecording() public virtual {
     string memory reportName = 'AaveV4Ethereum_IncreaseCaps_20260527';
 
-    IHub[] memory hubs = AaveV4EthereumHubHelpers.getHubs();
-    ISpoke[] memory spokes = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    IHub[] memory hubs = AaveV4EthereumGetters.getAllHubs();
+    ISpoke[] memory spokes = AaveV4EthereumGetters.getAllSpokes();
 
     string memory beforeName = string.concat(reportName, '_before');
     string memory afterName = string.concat(reportName, '_after');
 
-    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(spokes, hubs);
+    Types.V4Snapshot memory snapshotBefore = createV4Snapshot(
+      spokes,
+      hubs,
+      _positionManagerCandidates(),
+      _accessManagers()
+    );
     writeV4SnapshotJson(beforeName, snapshotBefore);
 
     (string memory rawDiff, string memory logsJson) = _executePayloadWithRecording();
 
-    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(spokes, hubs);
+    Types.V4Snapshot memory snapshotAfter = createV4Snapshot(
+      spokes,
+      hubs,
+      _positionManagerCandidates(),
+      _accessManagers()
+    );
     writeV4SnapshotJson(afterName, snapshotAfter);
 
     string memory afterPath = string.concat('./reports/', afterName, '.json');
@@ -98,7 +107,7 @@ contract AaveV4Ethereum_IncreaseCaps_20260527_Test is ProtocolV4TestBase {
 
     vm.pauseGasMetering();
     e2eTestAllSpokes({spokes: _getE2eSpokes(), testPositionManagers: true});
-    e2eTestAllTokenizationSpokes(AaveV4EthereumTokenizationSpokeHelpers.getTokenizationSpokes());
+    e2eTestAllTokenizationSpokes(AaveV4EthereumGetters.getAllTokenizationSpokes());
     vm.resumeGasMetering();
   }
 
@@ -106,11 +115,11 @@ contract AaveV4Ethereum_IncreaseCaps_20260527_Test is ProtocolV4TestBase {
   ///      `collateralFactor = 0`, leaving no usable collateral for the
   ///      supply/borrow/liquidation flows. This payload does not touch it.
   function _getE2eSpokes() internal pure returns (ISpoke[] memory) {
-    ISpoke[] memory all = AaveV4EthereumSpokeHelpers.getUserSpokes();
+    ISpoke[] memory all = AaveV4EthereumGetters.getAllSpokes();
     ISpoke[] memory filtered = new ISpoke[](all.length - 1);
     uint256 j;
     for (uint256 i; i < all.length; i++) {
-      if (address(all[i]) == address(AaveV4EthereumSpokes.KELP_E_SPOKE)) continue;
+      if (address(all[i]) == address(AaveV4EthereumSpokes.KELP_ESPOKE)) continue;
       filtered[j++] = all[i];
     }
     return filtered;
