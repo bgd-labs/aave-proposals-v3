@@ -4,7 +4,6 @@ import {
   getChainAlias,
   getMarketChain,
   getTestBase,
-  isV3Market,
   isWhitelabelMarket,
 } from '../common';
 import {Options, MarketConfig, MarketIdentifier} from '../types';
@@ -19,29 +18,12 @@ export const testTemplate = (
   const folderName = generateFolderName(options);
   const chain = getMarketChain(market);
   const contractName = generateContractName(options, market);
-  const {v4, testBase} = getTestBase(market);
-  const hasExpectedReserveConfigChanges = marketConfig.artifacts.some(
-    (artifact) => artifact.test?.reserveConfigChanges,
-  );
-  if (chain === 'ZkSync' && hasExpectedReserveConfigChanges) {
-    throw new Error(
-      'Reserve config change tests are currently unsupported on ZkSync: the pinned aave-helpers/zksync path references ReserveConfig fields that are not available in the pinned aave-v3-origin-tests dependency.',
-    );
-  }
-  const usesReserveConfigChangesBase = isV3Market(market) && chain !== 'ZkSync';
-  const inheritedTestBase = usesReserveConfigChangesBase ? 'ProtocolV3ProposalTestBase' : testBase;
+  const {v4, testBase, testBaseImport, reserveConfigValidation} = getTestBase(market);
   const functions = marketConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
-
-  const testBaseImport = usesReserveConfigChangesBase
-    ? `import {ProtocolV3ProposalTestBase} from '../ProtocolV3ProposalTestBase.sol';
-import {ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`
-    : v4
-      ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
-      : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
 
   const defaultTestArgs = v4
     ? [`'${contractName}'`, 'address(proposal)']
@@ -51,11 +33,11 @@ import {ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`
         'address(proposal)',
         ...(isWhitelabelMarket(market) ? ['true', 'true'] : []),
       ];
-  const defaultTestCall = usesReserveConfigChangesBase
+  const defaultTestCall = reserveConfigValidation
     ? `(ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(${defaultTestArgs.join(', ')});
     _validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);`
     : `defaultTest(${defaultTestArgs.join(', ')});`;
-  const reserveConfigChangesTestDescription = usesReserveConfigChangesBase
+  const reserveConfigChangesTestDescription = reserveConfigValidation
     ? ', and reserve configuration validation'
     : '';
 
@@ -68,14 +50,12 @@ import {${contractName}} from './${contractName}.sol';
  * @dev Test for ${contractName}
  * command: FOUNDRY_PROFILE=${chain === 'ZkSync' ? 'zksync' : 'test'} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
  */
-contract ${contractName}_Test is ${inheritedTestBase} {
+contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
 
-  function setUp() public ${chain === 'ZkSync' ? 'override' : ''} {
+  function setUp() public {
     vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${marketConfig.cache.blockNumber});
     proposal = new ${contractName}();
-
-    ${chain === 'ZkSync' ? 'super.setUp();' : ''}
   }
 
   /**

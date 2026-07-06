@@ -41,7 +41,7 @@ describe('feature: capsUpdates', () => {
     expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
-  it('warns instead of generating reserve config change tests on zksync', () => {
+  it('generates reserve config change tests on zksync', () => {
     const zksyncOutput = capsUpdates.build({
       options: MOCK_OPTIONS,
       market: 'AaveV3ZkSync',
@@ -53,14 +53,12 @@ describe('feature: capsUpdates', () => {
     const test = zksyncOutput.test?.fn?.join('\n') ?? '';
 
     expect(code).toContain('function capsUpdates()');
-    expect(test).toContain(
-      'WARNING: generated reserve-config change assertions are skipped on ZkSync',
-    );
-    expect(test).not.toContain('function _expectedCapsChanges()');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBeUndefined();
+    expect(test).toContain('function _expectedCapsChanges()');
+    expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
+    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 
-  it('generates zksync payload files with a warning-only reserve config test', async () => {
+  it('generates zksync payload files with reserve config validation', async () => {
     const zksyncConfig = [{asset: 'ZK', supplyCap: '1000', borrowCap: '500'}];
     const options = {...MOCK_OPTIONS, markets: ['AaveV3ZkSync' as const]};
     const marketConfigs: MarketConfigs = {
@@ -83,11 +81,11 @@ describe('feature: capsUpdates', () => {
     const payload = files.payloads[0];
 
     expect(payload.payload).toContain('function capsUpdates()');
-    expect(payload.test).toContain('ProtocolV3TestBase');
+    expect(payload.test).toContain('ProtocolV3ProposalTestBase');
+    expect(payload.test).toContain('function _expectedCapsChanges()');
     expect(payload.test).toContain(
-      'WARNING: generated reserve-config change assertions are skipped on ZkSync',
+      '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
     );
-    expect(payload.test).not.toContain('ProtocolV3ProposalTestBase');
     expect(payload.test).not.toContain('function test_reserveConfigChanges()');
   });
 

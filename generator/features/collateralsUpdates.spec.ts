@@ -39,7 +39,7 @@ describe('feature: collateralsUpdates', () => {
     expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
-  it('warns instead of generating reserve config change tests on zksync', () => {
+  it('generates reserve config change tests on zksync', () => {
     const zksyncOutput = collateralsUpdates.build({
       options: MOCK_OPTIONS,
       market: 'AaveV3ZkSync',
@@ -51,11 +51,9 @@ describe('feature: collateralsUpdates', () => {
     const test = zksyncOutput.test?.fn?.join('\n') ?? '';
 
     expect(code).toContain('function collateralsUpdates()');
-    expect(test).toContain(
-      'WARNING: generated reserve-config change assertions are skipped on ZkSync',
-    );
-    expect(test).not.toContain('function _expectedCollateralChanges()');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBeUndefined();
+    expect(test).toContain('function _expectedCollateralChanges()');
+    expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
+    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 
   // The v3 CollateralEngine skips the ltv/lt/lb update entirely when liqThreshold == 0,

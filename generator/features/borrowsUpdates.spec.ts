@@ -47,10 +47,8 @@ describe('feature: borrowsUpdates', () => {
     const test = zksyncOutput.test?.fn?.join('\n') ?? '';
 
     expect(code).toContain('function borrowsUpdates()');
-    expect(test).toContain(
-      'WARNING: generated reserve-config change assertions are skipped on ZkSync',
-    );
-    expect(test).not.toContain('function _expectedBorrowChanges()');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBeUndefined();
+    expect(test).toContain('function _expectedBorrowChanges()');
+    expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
+    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 });
