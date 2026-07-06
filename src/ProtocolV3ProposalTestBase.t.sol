@@ -10,6 +10,7 @@ contract ProtocolV3ProposalTestBaseTest is ProtocolV3ProposalTestBase {
   address internal constant ASSET_A = address(1);
   address internal constant ASSET_B = address(2);
   address internal constant ASSET_C = address(3);
+  address internal constant ASSET_D = address(4);
 
   function test_validateExpectedReserveConfigChanges() public view {
     this.validateReserveConfigChanges(_configsBefore(), _configsAfter());
@@ -27,9 +28,7 @@ contract ProtocolV3ProposalTestBaseTest is ProtocolV3ProposalTestBase {
     ReserveConfig[] memory configsAfter = _configsAfter();
     configsAfter[2].supplyCap = 301;
 
-    vm.expectRevert(
-      bytes('_noReservesConfigsChangesApartNewListings() : UNEXPECTED_SUPPLY_CAP_CHANGED')
-    );
+    vm.expectRevert(bytes('_validateReserveConfig: InvalidSupplyCap()'));
     this.validateReserveConfigChanges(_configsBefore(), configsAfter);
   }
 
@@ -73,6 +72,56 @@ contract ProtocolV3ProposalTestBaseTest is ProtocolV3ProposalTestBase {
     return updates;
   }
 
+  function _expectedBorrowChanges()
+    internal
+    pure
+    override
+    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.BorrowUpdate[] memory updates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
+    updates[0] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: ASSET_B,
+      enabledToBorrow: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      reserveFactor: 25_00
+    });
+    return updates;
+  }
+
+  function _expectedFreezeChanges() internal pure override returns (ReserveFreezeUpdate[] memory) {
+    ReserveFreezeUpdate[] memory updates = new ReserveFreezeUpdate[](1);
+    updates[0] = ReserveFreezeUpdate({asset: ASSET_C, frozen: true});
+    return updates;
+  }
+
+  function _expectedListings() internal pure override returns (ExpectedReserveListing[] memory) {
+    ExpectedReserveListing[] memory listings = new ExpectedReserveListing[](1);
+    listings[0] = ExpectedReserveListing({
+      listing: IAaveV3ConfigEngine.Listing({
+        asset: ASSET_D,
+        assetSymbol: 'ASSET_D',
+        priceFeed: address(0),
+        rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+          optimalUsageRatio: 80_00,
+          baseVariableBorrowRate: 0,
+          variableRateSlope1: 10_00,
+          variableRateSlope2: 100_00
+        }),
+        enabledToBorrow: EngineFlags.ENABLED,
+        flashloanable: EngineFlags.DISABLED,
+        ltv: 50_00,
+        liqThreshold: 60_00,
+        liqBonus: 5_00,
+        reserveFactor: 10_00,
+        supplyCap: 1_000,
+        borrowCap: 200,
+        liqProtocolFee: 15_00
+      }),
+      decimals: 6
+    });
+    return listings;
+  }
+
   function _configsBefore() internal pure returns (ReserveConfig[] memory) {
     ReserveConfig[] memory configs = new ReserveConfig[](3);
     configs[0] = _reserveConfig('ASSET_A', ASSET_A, 75_00, 80_00, true, 1_000, 500);
@@ -82,12 +131,25 @@ contract ProtocolV3ProposalTestBaseTest is ProtocolV3ProposalTestBase {
   }
 
   function _configsAfter() internal pure returns (ReserveConfig[] memory) {
-    ReserveConfig[] memory configs = _configsBefore();
+    ReserveConfig[] memory configs = new ReserveConfig[](4);
+    ReserveConfig[] memory configsBefore = _configsBefore();
+    configs[0] = configsBefore[0];
+    configs[1] = configsBefore[1];
+    configs[2] = configsBefore[2];
     configs[0].ltv = 0;
     configs[0].liquidationThreshold = 0;
     configs[0].liquidationBonus = 105_00;
     configs[0].usageAsCollateralEnabled = false;
     configs[1].borrowCap = 700;
+    configs[1].borrowingEnabled = false;
+    configs[1].reserveFactor = 25_00;
+    configs[2].isFrozen = true;
+    configs[3] = _reserveConfig('ASSET_D', ASSET_D, 50_00, 60_00, true, 1_000, 200);
+    configs[3].decimals = 6;
+    configs[3].liquidationBonus = 105_00;
+    configs[3].liquidationProtocolFee = 15_00;
+    configs[3].reserveFactor = 10_00;
+    configs[3].isFlashloanable = false;
     return configs;
   }
 
@@ -142,6 +204,17 @@ contract ProtocolV3ProposalTestBaseNoChangesTest is ProtocolV3ProposalTestBase {
     vm.expectRevert(
       bytes('_noReservesConfigsChangesApartNewListings() : UNEXPECTED_BORROW_CAP_CHANGED')
     );
+    this.validateReserveConfigChanges(_configsBefore(), configsAfter);
+  }
+
+  function test_revertsWhenUnexpectedNewListing() public {
+    ReserveConfig[] memory configsAfter = new ReserveConfig[](3);
+    ReserveConfig[] memory configsBefore = _configsBefore();
+    configsAfter[0] = configsBefore[0];
+    configsAfter[1] = configsBefore[1];
+    configsAfter[2] = _reserveConfig('ASSET_C', address(3), 60_00, 65_00, true, 300, 100);
+
+    vm.expectRevert(bytes('_validateCountOfListings() : INVALID_COUNT_OF_LISTINGS'));
     this.validateReserveConfigChanges(_configsBefore(), configsAfter);
   }
 
