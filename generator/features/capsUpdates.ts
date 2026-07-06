@@ -1,11 +1,11 @@
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
-import {getMarketChain} from '../common';
 import {CapsUpdate, CapsUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {numberPrompt, translateJsNumberToSol} from '../prompts/numberPrompt';
+import {reserveConfigChangeTest} from '../utils/constants';
 
 export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePartial> {
   return {
@@ -21,13 +21,6 @@ export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePar
 }
 
 type CapsUpdates = CapsUpdate[];
-
-function assertReserveConfigChangeTestsSupported(market: MarketIdentifier) {
-  if (getMarketChain(market) !== 'ZkSync') return;
-  throw new Error(
-    'Reserve config change tests are currently unsupported on ZkSync: the pinned aave-helpers/zksync path references ReserveConfig fields that are not available in the pinned aave-v3-origin-tests dependency.',
-  );
-}
 
 function renderCapsUpdateEntries(market: MarketIdentifier, cfgs: CapsUpdates, varName: string) {
   return cfgs
@@ -71,7 +64,6 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     return response;
   },
   build({market, cfg}) {
-    assertReserveConfigChangeTestsSupported(market);
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -86,10 +78,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
         }`,
         ],
       },
-      test: {
-        fn: capsUpdateOverrides(market, cfg),
-        reserveConfigChanges: true,
-      },
+      test: reserveConfigChangeTest(market, capsUpdateOverrides(market, cfg)),
     };
     return response;
   },

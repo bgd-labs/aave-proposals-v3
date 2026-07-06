@@ -1,11 +1,11 @@
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
-import {getMarketChain} from '../common';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
+import {reserveConfigChangeTest} from '../utils/constants';
 
 export async function fetchCollateralUpdate(
   market: MarketIdentifier,
@@ -32,13 +32,6 @@ export async function fetchCollateralUpdate(
 }
 
 type CollateralUpdates = CollateralUpdate[];
-
-function assertReserveConfigChangeTestsSupported(market: MarketIdentifier) {
-  if (getMarketChain(market) !== 'ZkSync') return;
-  throw new Error(
-    'Reserve config change tests are currently unsupported on ZkSync: the pinned aave-helpers/zksync path references ReserveConfig fields that are not available in the pinned aave-v3-origin-tests dependency.',
-  );
-}
 
 function renderCollateralUpdates(
   market: MarketIdentifier,
@@ -89,7 +82,6 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
     return response;
   },
   build({market, cfg}) {
-    assertReserveConfigChangeTestsSupported(market);
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -104,10 +96,7 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
         }`,
         ],
       },
-      test: {
-        fn: collateralUpdateOverrides(market, cfg),
-        reserveConfigChanges: true,
-      },
+      test: reserveConfigChangeTest(market, collateralUpdateOverrides(market, cfg)),
     };
     return response;
   },

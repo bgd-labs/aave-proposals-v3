@@ -1,6 +1,8 @@
 import {expect, describe, it} from 'vitest';
 import {capsUpdates} from './capsUpdates';
 import {MOCK_OPTIONS, capsUpdates as capsUpdatesConfig} from './mocks/configs';
+import {generateFiles} from '../generator';
+import {FEATURE, MarketConfigs} from '../types';
 
 describe('feature: capsUpdates', () => {
   const output = capsUpdates.build({
@@ -39,16 +41,54 @@ describe('feature: capsUpdates', () => {
     expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
-  it('fails clearly for reserve config change tests on zksync', () => {
-    expect(() =>
-      capsUpdates.build({
-        options: MOCK_OPTIONS,
+  it('warns instead of generating reserve config change tests on zksync', () => {
+    const zksyncOutput = capsUpdates.build({
+      options: MOCK_OPTIONS,
+      market: 'AaveV3ZkSync',
+      cfg: [{asset: 'ZK', supplyCap: '1000', borrowCap: '500'}],
+      cache: {blockNumber: 42},
+      configs: {},
+    });
+    const code = zksyncOutput.code?.fn?.join('\n') ?? '';
+    const test = zksyncOutput.test?.fn?.join('\n') ?? '';
+
+    expect(code).toContain('function capsUpdates()');
+    expect(test).toContain(
+      'WARNING: generated reserve-config change assertions are skipped on ZkSync',
+    );
+    expect(test).not.toContain('function _expectedCapsChanges()');
+    expect(zksyncOutput.test?.reserveConfigChanges).toBeUndefined();
+  });
+
+  it('generates zksync payload files with a warning-only reserve config test', async () => {
+    const zksyncConfig = [{asset: 'ZK', supplyCap: '1000', borrowCap: '500'}];
+    const options = {...MOCK_OPTIONS, markets: ['AaveV3ZkSync' as const]};
+    const marketConfigs: MarketConfigs = {
+      AaveV3ZkSync: {
         market: 'AaveV3ZkSync',
-        cfg: [{asset: 'ZK', supplyCap: '1_000', borrowCap: '500'}],
+        artifacts: [
+          capsUpdates.build({
+            options,
+            market: 'AaveV3ZkSync',
+            cfg: zksyncConfig,
+            cache: {blockNumber: 42},
+            configs: {[FEATURE.CAPS_UPDATE]: zksyncConfig},
+          }),
+        ],
+        configs: {[FEATURE.CAPS_UPDATE]: zksyncConfig},
         cache: {blockNumber: 42},
-        configs: {},
-      }),
-    ).toThrow('Reserve config change tests are currently unsupported on ZkSync');
+      },
+    };
+    const files = await generateFiles(options, marketConfigs);
+    const payload = files.payloads[0];
+
+    expect(payload.payload).toContain('function capsUpdates()');
+    expect(payload.test).toContain('ProtocolV3TestBase');
+    expect(payload.test).toContain(
+      'WARNING: generated reserve-config change assertions are skipped on ZkSync',
+    );
+    expect(payload.test).not.toContain('ProtocolV3ProposalTestBase');
+    expect(payload.test).not.toContain('function test_reserveConfigChanges()');
   });
 
   it('emits zero cap assignments instead of treating them as KEEP_CURRENT', () => {
