@@ -37,7 +37,8 @@ export const testTemplate = (
     .join('\n');
 
   const testBaseImport = usesReserveConfigChangesBase
-    ? `import {ProtocolV3ProposalTestBase} from '../ProtocolV3ProposalTestBase.sol';`
+    ? `import {ProtocolV3ProposalTestBase} from '../ProtocolV3ProposalTestBase.sol';
+import {ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`
     : v4
       ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
       : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
@@ -50,18 +51,12 @@ export const testTemplate = (
         'address(proposal)',
         ...(isWhitelabelMarket(market) ? ['true', 'true'] : []),
       ];
-  const defaultTestCall = `defaultTest(${defaultTestArgs.join(', ')});`;
-  const reserveConfigChangesTest = usesReserveConfigChangesBase
-    ? `/**
-   * @dev ${
-     hasExpectedReserveConfigChanges
-       ? 'checks reserve config changes declared in generated _expectedCollateralChanges()/_expectedCapsChanges() overrides and verifies all other reserve configs stay unchanged'
-       : 'checks the payload does not change any reserve config'
-   }
-   */
-  function test_reserveConfigChanges() public {
-    reserveConfigChangesTest(${market}.POOL, address(proposal));
-  }`
+  const defaultTestCall = usesReserveConfigChangesBase
+    ? `(ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(${defaultTestArgs.join(', ')});
+    _validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);`
+    : `defaultTest(${defaultTestArgs.join(', ')});`;
+  const reserveConfigChangesTestDescription = usesReserveConfigChangesBase
+    ? ', and reserve configuration validation'
     : '';
 
   let template = `
@@ -84,14 +79,12 @@ contract ${contractName}_Test is ${inheritedTestBase} {
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots
+   * @dev executes the generic test suite including e2e and config snapshots${reserveConfigChangesTestDescription}
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
     ${defaultTestCall}
   }
-
-  ${reserveConfigChangesTest}
 
   ${functions}
 }`;
