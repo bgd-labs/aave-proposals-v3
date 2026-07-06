@@ -1,5 +1,6 @@
 import {Options} from '../../types';
 import {
+  CollateralUpdate,
   EModeCategoryCreation,
   EModeCategoryUpdate,
   Listing,
@@ -90,6 +91,23 @@ export const priceFeedsUpdateConfig: PriceFeedUpdate[] = [
   {
     asset: 'DAI',
     priceFeed: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84',
+  },
+];
+
+export const collateralUpdates: CollateralUpdate[] = [
+  {
+    asset: 'DAI',
+    ltv: '0',
+    liqThreshold: '',
+    liqBonus: '',
+    liqProtocolFee: '',
+  },
+  {
+    asset: 'USDC',
+    ltv: '77',
+    liqThreshold: '80',
+    liqBonus: '5',
+    liqProtocolFee: '10',
   },
 ];
 

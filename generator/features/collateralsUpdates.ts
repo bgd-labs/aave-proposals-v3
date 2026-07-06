@@ -1,11 +1,12 @@
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
-import {percentInput} from '../prompts';
+import {toSolidityIdentifier} from '../common';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
+import {testExecuteProposal} from '../utils/constants';
 
 export async function fetchCollateralUpdate(
   market: MarketIdentifier,
@@ -32,6 +33,54 @@ export async function fetchCollateralUpdate(
 }
 
 type CollateralUpdates = CollateralUpdate[];
+
+const KEEP_CURRENT = 'EngineFlags.KEEP_CURRENT';
+
+function expectedConfigAssignment(
+  varName: string,
+  field: string,
+  value: string,
+  transform: (value: string) => string = (value) => value,
+) {
+  const translated = translateJsPercentToSol(value);
+  if (translated === KEEP_CURRENT) return '';
+  return `${varName}.${field} = ${transform(translated)};`;
+}
+
+function collateralUpdateTests(market: MarketIdentifier, cfgs: CollateralUpdates): string[] {
+  const expectations = cfgs
+    .map((cfg) => {
+      const asset = translateAssetToAssetLibUnderlying(cfg.asset, market);
+      const varName = `expected_${toSolidityIdentifier(cfg.asset)}`;
+      return `ReserveConfig memory ${varName} = _findReserveConfig(allConfigsBefore, ${asset});
+      ${[
+        expectedConfigAssignment(varName, 'ltv', cfg.ltv),
+        expectedConfigAssignment(varName, 'liquidationThreshold', cfg.liqThreshold),
+        expectedConfigAssignment(
+          varName,
+          'liquidationBonus',
+          cfg.liqBonus,
+          (value) => `100_00 + ${value}`,
+        ),
+        expectedConfigAssignment(varName, 'liquidationProtocolFee', cfg.liqProtocolFee),
+      ]
+        .filter(Boolean)
+        .join('\n')}
+      ${varName}.usageAsCollateralEnabled = ${varName}.liquidationThreshold != 0;
+      _validateReserveConfig(${varName}, allConfigsAfter);`;
+    })
+    .join('\n\n');
+
+  return [
+    `function test_collateralUpdatesConfiguration() public {
+      ReserveConfig[] memory allConfigsBefore = _getReservesConfigs(${market}.POOL);
+      ${testExecuteProposal(market)}
+      ReserveConfig[] memory allConfigsAfter = _getReservesConfigs(${market}.POOL);
+
+      ${expectations}
+    }`,
+  ];
+}
 
 export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
   value: FEATURE.COLLATERALS_UPDATE,
@@ -75,6 +124,9 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
           return collateralUpdate;
         }`,
         ],
+      },
+      test: {
+        fn: collateralUpdateTests(market, cfg),
       },
     };
     return response;
