@@ -4,6 +4,7 @@ import {
   getChainAlias,
   getMarketChain,
   getTestBase,
+  isV3Market,
   isWhitelabelMarket,
 } from '../common';
 import {Options, MarketConfig, MarketIdentifier} from '../types';
@@ -19,20 +20,44 @@ export const testTemplate = (
   const chain = getMarketChain(market);
   const contractName = generateContractName(options, market);
   const {v4, testBase} = getTestBase(market);
-
+  const hasExpectedReserveConfigChanges = marketConfig.artifacts.some(
+    (artifact) => artifact.test?.reserveConfigChanges,
+  );
+  const usesReserveConfigChangesBase = isV3Market(market) && chain !== 'ZkSync';
+  const inheritedTestBase = usesReserveConfigChangesBase ? 'ProtocolV3ProposalTestBase' : testBase;
   const functions = marketConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
 
-  const testBaseImport = v4
-    ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
-    : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+  const testBaseImport = usesReserveConfigChangesBase
+    ? `import {ProtocolV3ProposalTestBase} from '../ProtocolV3ProposalTestBase.sol';`
+    : v4
+      ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
+      : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
 
-  const defaultTestCall = v4
-    ? `defaultTest('${contractName}', address(proposal));`
-    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+  const defaultTestArgs = v4
+    ? [`'${contractName}'`, 'address(proposal)']
+    : [
+        `'${contractName}'`,
+        `${market}.POOL`,
+        'address(proposal)',
+        ...(isWhitelabelMarket(market) ? ['true', 'true'] : []),
+      ];
+  const defaultTestCall = `defaultTest(${defaultTestArgs.join(', ')});`;
+  const reserveConfigChangesTest = usesReserveConfigChangesBase
+    ? `/**
+   * @dev ${
+     hasExpectedReserveConfigChanges
+       ? 'checks reserve config changes declared in generated _expectedCollateralChanges()/_expectedCapsChanges() overrides and verifies all other reserve configs stay unchanged'
+       : 'checks the payload does not change any reserve config'
+   }
+   */
+  function test_reserveConfigChanges() public {
+    reserveConfigChangesTest(${market}.POOL, address(proposal));
+  }`
+    : '';
 
   let template = `
 import 'forge-std/Test.sol';
@@ -43,7 +68,7 @@ import {${contractName}} from './${contractName}.sol';
  * @dev Test for ${contractName}
  * command: FOUNDRY_PROFILE=${chain === 'ZkSync' ? 'zksync' : 'test'} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
  */
-contract ${contractName}_Test is ${testBase} {
+contract ${contractName}_Test is ${inheritedTestBase} {
   ${contractName} internal proposal;
 
   function setUp() public ${chain === 'ZkSync' ? 'override' : ''} {
@@ -60,6 +85,8 @@ contract ${contractName}_Test is ${testBase} {
   function test_defaultProposalExecution() public {
     ${defaultTestCall}
   }
+
+  ${reserveConfigChangesTest}
 
   ${functions}
 }`;
