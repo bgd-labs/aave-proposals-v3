@@ -28,26 +28,15 @@ describe('feature: collateralsUpdates', () => {
   it('asserts changed collateral fields and preserves other reserve config values', () => {
     const test = output.test?.fn?.join('\n') ?? '';
 
+    expect(test).toContain('function _expectedCollateralChanges()');
+    expect(test).toContain('internal pure override');
     expect(test).toContain(
-      'ReserveConfig memory expected_DAI = _findReserveConfig(allConfigsBefore, AaveV3EthereumAssets.DAI_UNDERLYING);',
+      'asset: AaveV3EthereumAssets.DAI_UNDERLYING,\n               ltv: 0,\n               liqThreshold: EngineFlags.KEEP_CURRENT,\n               liqBonus: EngineFlags.KEEP_CURRENT,\n               liqProtocolFee: EngineFlags.KEEP_CURRENT',
     );
-    expect(test).toContain('expected_DAI.ltv = 0;');
     expect(test).toContain(
-      'expected_DAI.usageAsCollateralEnabled = expected_DAI.liquidationThreshold != 0;',
+      'asset: AaveV3EthereumAssets.USDC_UNDERLYING,\n               ltv: 77_00,\n               liqThreshold: 80_00,\n               liqBonus: 5_00,\n               liqProtocolFee: 10_00',
     );
-    expect(test).toContain('_validateReserveConfig(expected_DAI, allConfigsAfter);');
-    expect(test).not.toContain('expected_DAI.liquidationThreshold =');
-    expect(test).not.toContain('expected_DAI.liquidationBonus =');
-    expect(test).not.toContain('expected_DAI.liquidationProtocolFee =');
-
-    expect(test).toContain(
-      'ReserveConfig memory expected_USDC = _findReserveConfig(allConfigsBefore, AaveV3EthereumAssets.USDC_UNDERLYING);',
-    );
-    expect(test).toContain('expected_USDC.ltv = 77_00;');
-    expect(test).toContain('expected_USDC.liquidationThreshold = 80_00;');
-    expect(test).toContain('expected_USDC.liquidationBonus = 100_00 + 5_00;');
-    expect(test).toContain('expected_USDC.liquidationProtocolFee = 10_00;');
-    expect(test).toContain('_validateReserveConfig(expected_USDC, allConfigsAfter);');
+    expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
   // The v3 CollateralEngine skips the ltv/lt/lb update entirely when liqThreshold == 0,
@@ -64,12 +53,9 @@ describe('feature: collateralsUpdates', () => {
     });
     const test = ltZeroOutput.test?.fn?.join('\n') ?? '';
 
-    expect(test).toContain('expected_WETH.ltv = 0;');
-    expect(test).toContain('expected_WETH.liquidationThreshold = 0;');
-    expect(test).toContain(
-      'expected_WETH.usageAsCollateralEnabled = expected_WETH.liquidationThreshold != 0;',
-    );
-    expect(test).not.toContain('expected_WETH.liquidationBonus =');
-    expect(test).not.toContain('expected_WETH.liquidationProtocolFee =');
+    expect(test).toContain('ltv: 0');
+    expect(test).toContain('liqThreshold: 0');
+    expect(test).toContain('liqBonus: EngineFlags.KEEP_CURRENT');
+    expect(test).toContain('liqProtocolFee: EngineFlags.KEEP_CURRENT');
   });
 });

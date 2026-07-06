@@ -1,5 +1,5 @@
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
-import {toSolidityIdentifier} from '../common';
+import {getMarketChain, toSolidityIdentifier} from '../common';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
@@ -7,6 +7,7 @@ import {
 } from '../prompts/assetsSelectPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {testExecuteProposal} from '../utils/constants';
+import {expectedConfigAssignment, KEEP_CURRENT} from './reserveConfigTestHelpers';
 
 export async function fetchCollateralUpdate(
   market: MarketIdentifier,
@@ -34,39 +35,60 @@ export async function fetchCollateralUpdate(
 
 type CollateralUpdates = CollateralUpdate[];
 
-const KEEP_CURRENT = 'EngineFlags.KEEP_CURRENT';
-
-function expectedConfigAssignment(
-  varName: string,
-  field: string,
-  value: string,
-  transform: (value: string) => string = (value) => value,
-) {
-  const translated = translateJsPercentToSol(value);
-  if (translated === KEEP_CURRENT) return '';
-  return `${varName}.${field} = ${transform(translated)};`;
+function usageAsCollateralAssignment(varName: string, liqThreshold: string) {
+  if (translateJsPercentToSol(liqThreshold) === KEEP_CURRENT) return '';
+  return `${varName}.usageAsCollateralEnabled = ${varName}.liquidationThreshold != 0;`;
 }
 
-function collateralUpdateTests(market: MarketIdentifier, cfgs: CollateralUpdates): string[] {
+function renderCollateralUpdates(
+  market: MarketIdentifier,
+  cfgs: CollateralUpdates,
+  varName: string,
+) {
+  return cfgs
+    .map(
+      (cfg, ix) => `${varName}[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
+               ltv: ${translateJsPercentToSol(cfg.ltv)},
+               liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
+               liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
+               liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)}
+             });`,
+    )
+    .join('\n');
+}
+
+function zksyncCollateralUpdateTests(market: MarketIdentifier, cfgs: CollateralUpdates): string[] {
   const expectations = cfgs
     .map((cfg) => {
       const asset = translateAssetToAssetLibUnderlying(cfg.asset, market);
       const varName = `expected_${toSolidityIdentifier(cfg.asset)}`;
       return `ReserveConfig memory ${varName} = _findReserveConfig(allConfigsBefore, ${asset});
       ${[
-        expectedConfigAssignment(varName, 'ltv', cfg.ltv),
-        expectedConfigAssignment(varName, 'liquidationThreshold', cfg.liqThreshold),
+        expectedConfigAssignment(varName, 'ltv', cfg.ltv, translateJsPercentToSol),
+        expectedConfigAssignment(
+          varName,
+          'liquidationThreshold',
+          cfg.liqThreshold,
+          translateJsPercentToSol,
+        ),
         expectedConfigAssignment(
           varName,
           'liquidationBonus',
           cfg.liqBonus,
+          translateJsPercentToSol,
           (value) => `100_00 + ${value}`,
         ),
-        expectedConfigAssignment(varName, 'liquidationProtocolFee', cfg.liqProtocolFee),
+        expectedConfigAssignment(
+          varName,
+          'liquidationProtocolFee',
+          cfg.liqProtocolFee,
+          translateJsPercentToSol,
+        ),
+        usageAsCollateralAssignment(varName, cfg.liqThreshold),
       ]
         .filter(Boolean)
         .join('\n')}
-      ${varName}.usageAsCollateralEnabled = ${varName}.liquidationThreshold != 0;
       _validateReserveConfig(${varName}, allConfigsAfter);`;
     })
     .join('\n\n');
@@ -78,6 +100,18 @@ function collateralUpdateTests(market: MarketIdentifier, cfgs: CollateralUpdates
       ReserveConfig[] memory allConfigsAfter = _getReservesConfigs(${market}.POOL);
 
       ${expectations}
+    }`,
+  ];
+}
+
+function collateralUpdateOverrides(market: MarketIdentifier, cfgs: CollateralUpdates): string[] {
+  return [
+    `function _expectedCollateralChanges() internal pure override returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
+      IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate;
+      collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](${cfgs.length});
+
+      ${renderCollateralUpdates(market, cfgs, 'collateralUpdate')}
+      return collateralUpdate;
     }`,
   ];
 }
@@ -101,6 +135,7 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
     return response;
   },
   build({market, cfg}) {
+    const useReserveConfigChangesBase = getMarketChain(market) !== 'ZkSync';
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -109,24 +144,17 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
             cfg.length
           });
 
-          ${cfg
-            .map(
-              (cfg, ix) => `collateralUpdate[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
-               ltv: ${translateJsPercentToSol(cfg.ltv)},
-               liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
-               liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-               liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)}
-             });`,
-            )
-            .join('\n')}
+          ${renderCollateralUpdates(market, cfg, 'collateralUpdate')}
 
           return collateralUpdate;
         }`,
         ],
       },
       test: {
-        fn: collateralUpdateTests(market, cfg),
+        fn: useReserveConfigChangesBase
+          ? collateralUpdateOverrides(market, cfg)
+          : zksyncCollateralUpdateTests(market, cfg),
+        reserveConfigChanges: useReserveConfigChangesBase,
       },
     };
     return response;

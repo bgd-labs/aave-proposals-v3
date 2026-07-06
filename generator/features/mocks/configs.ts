@@ -1,5 +1,6 @@
 import {Options} from '../../types';
 import {
+  CapsUpdate,
   CollateralUpdate,
   EModeCategoryCreation,
   EModeCategoryUpdate,
@@ -108,6 +109,19 @@ export const collateralUpdates: CollateralUpdate[] = [
     liqThreshold: '80',
     liqBonus: '5',
     liqProtocolFee: '10',
+  },
+];
+
+export const capsUpdates: CapsUpdate[] = [
+  {
+    asset: 'DAI',
+    supplyCap: '1000000',
+    borrowCap: '',
+  },
+  {
+    asset: 'USDC',
+    supplyCap: '2000000',
+    borrowCap: '900000',
   },
 ];
 
