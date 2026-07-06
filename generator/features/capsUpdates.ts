@@ -1,13 +1,11 @@
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
-import {getMarketChain, toSolidityIdentifier} from '../common';
+import {getMarketChain} from '../common';
 import {CapsUpdate, CapsUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {numberPrompt, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {testExecuteProposal} from '../utils/constants';
-import {expectedConfigAssignment} from './reserveConfigTestHelpers';
 
 export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePartial> {
   return {
@@ -24,6 +22,13 @@ export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePar
 
 type CapsUpdates = CapsUpdate[];
 
+function assertReserveConfigChangeTestsSupported(market: MarketIdentifier) {
+  if (getMarketChain(market) !== 'ZkSync') return;
+  throw new Error(
+    'Reserve config change tests are currently unsupported on ZkSync: the pinned aave-helpers/zksync path references ReserveConfig fields that are not available in the pinned aave-v3-origin-tests dependency.',
+  );
+}
+
 function renderCapsUpdateEntries(market: MarketIdentifier, cfgs: CapsUpdates, varName: string) {
   return cfgs
     .map(
@@ -34,33 +39,6 @@ function renderCapsUpdateEntries(market: MarketIdentifier, cfgs: CapsUpdates, va
              });`,
     )
     .join('\n');
-}
-
-function zksyncCapsUpdateTests(market: MarketIdentifier, cfgs: CapsUpdates): string[] {
-  const expectations = cfgs
-    .map((cfg) => {
-      const asset = translateAssetToAssetLibUnderlying(cfg.asset, market);
-      const varName = `expected_${toSolidityIdentifier(cfg.asset)}`;
-      return `ReserveConfig memory ${varName} = _findReserveConfig(allConfigsBefore, ${asset});
-      ${[
-        expectedConfigAssignment(varName, 'supplyCap', cfg.supplyCap, translateJsNumberToSol),
-        expectedConfigAssignment(varName, 'borrowCap', cfg.borrowCap, translateJsNumberToSol),
-      ]
-        .filter(Boolean)
-        .join('\n')}
-      _validateReserveConfig(${varName}, allConfigsAfter);`;
-    })
-    .join('\n\n');
-
-  return [
-    `function test_capsUpdatesConfiguration() public {
-      ReserveConfig[] memory allConfigsBefore = _getReservesConfigs(${market}.POOL);
-      ${testExecuteProposal(market)}
-      ReserveConfig[] memory allConfigsAfter = _getReservesConfigs(${market}.POOL);
-
-      ${expectations}
-    }`,
-  ];
 }
 
 function capsUpdateOverrides(market: MarketIdentifier, cfgs: CapsUpdates): string[] {
@@ -93,7 +71,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     return response;
   },
   build({market, cfg}) {
-    const useReserveConfigChangesBase = getMarketChain(market) !== 'ZkSync';
+    assertReserveConfigChangeTestsSupported(market);
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -109,10 +87,8 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
         ],
       },
       test: {
-        fn: useReserveConfigChangesBase
-          ? capsUpdateOverrides(market, cfg)
-          : zksyncCapsUpdateTests(market, cfg),
-        reserveConfigChanges: useReserveConfigChangesBase,
+        fn: capsUpdateOverrides(market, cfg),
+        reserveConfigChanges: true,
       },
     };
     return response;

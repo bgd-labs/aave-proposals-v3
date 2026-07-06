@@ -39,6 +39,18 @@ describe('feature: capsUpdates', () => {
     expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
+  it('fails clearly for reserve config change tests on zksync', () => {
+    expect(() =>
+      capsUpdates.build({
+        options: MOCK_OPTIONS,
+        market: 'AaveV3ZkSync',
+        cfg: [{asset: 'ZK', supplyCap: '1_000', borrowCap: '500'}],
+        cache: {blockNumber: 42},
+        configs: {},
+      }),
+    ).toThrow('Reserve config change tests are currently unsupported on ZkSync');
+  });
+
   it('emits zero cap assignments instead of treating them as KEEP_CURRENT', () => {
     const zeroOutput = capsUpdates.build({
       options: MOCK_OPTIONS,

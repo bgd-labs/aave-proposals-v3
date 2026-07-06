@@ -23,6 +23,11 @@ export const testTemplate = (
   const hasExpectedReserveConfigChanges = marketConfig.artifacts.some(
     (artifact) => artifact.test?.reserveConfigChanges,
   );
+  if (chain === 'ZkSync' && hasExpectedReserveConfigChanges) {
+    throw new Error(
+      'Reserve config change tests are currently unsupported on ZkSync: the pinned aave-helpers/zksync path references ReserveConfig fields that are not available in the pinned aave-v3-origin-tests dependency.',
+    );
+  }
   const usesReserveConfigChangesBase = isV3Market(market) && chain !== 'ZkSync';
   const inheritedTestBase = usesReserveConfigChangesBase ? 'ProtocolV3ProposalTestBase' : testBase;
   const functions = marketConfig.artifacts

@@ -75,11 +75,25 @@ describe('testTemplate', () => {
   it('keeps the regular test base on zksync', () => {
     const output = testTemplate(
       MOCK_OPTIONS,
-      marketConfig({[FEATURE.CAPS_UPDATE]: []}),
+      {
+        configs: {[FEATURE.CAPS_UPDATE]: []},
+        cache: {blockNumber: 42},
+        artifacts: [],
+      },
       'AaveV3ZkSync',
     );
 
     expect(output).toContain('contract AaveV3ZkSync_Test_20231023_Test is ProtocolV3TestBase');
+    expect(output).toContain('function setUp() public override');
+    expect(output).toContain('super.setUp();');
     expect(output).not.toContain('ProtocolV3ProposalTestBase');
+    expect(output).not.toContain('function test_reserveConfigChanges() public');
+    expect(output).not.toContain('_expectedCapsChanges');
+  });
+
+  it('fails clearly if reserve config change tests are requested on zksync', () => {
+    expect(() =>
+      testTemplate(MOCK_OPTIONS, marketConfig({[FEATURE.CAPS_UPDATE]: []}), 'AaveV3ZkSync'),
+    ).toThrow('Reserve config change tests are currently unsupported on ZkSync');
   });
 });
