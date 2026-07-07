@@ -8,21 +8,21 @@ discussions: "https://governance.aave.com/t/direct-to-aip-aave-v3-ltv-and-e-mode
 
 LlamaRisk recommends the following changes:
 
-Decrease LTV for PYUSD on Ethereum Core from 75% to 0%.
+- Decrease LTV for PYUSD on Ethereum Core from 75% to 0%.
 
-Decrease LTV for AUSD on Avalanche from 69% to 0%.
+- Decrease LTV for AUSD on Avalanche from 69% to 0%.
 
-Decrease LTV for wstETH on Gnosis from 75% to 0%.
+- Decrease LTV for wstETH on Gnosis from 75% to 0%.
 
-Decrease LTV for WETH on Mantle from 80.5% to 0%.
+- Decrease LTV for WETH on Mantle from 80.5% to 0%.
 
-Decrease LTV for WMNT on Mantle from 40% to 0%.
+- Decrease LTV for WMNT on Mantle from 40% to 0%.
 
-Introduce a new WMNT Stablecoins E-Mode.
+- Introduce a new WMNT Stablecoins E-Mode.
 
-Increase borrow cap for wstETH on Ethereum Core from 1 to 7,000.
+- Increase borrow cap for wstETH on Ethereum Core from 1 to 7,000.
 
-Increase borrow cap for wstETH on Ethereum Prime from 1 to 18,000.
+- Increase borrow cap for wstETH on Ethereum Prime from 1 to 18,000.
 
 ## Motivation
 
