@@ -8,19 +8,16 @@ import {
 
 function freezeUpdateOverrides(market: MarketIdentifier, cfgs: FreezeUpdate[]): string[] {
   return [
-    `function _expectedFreezeChanges() internal pure override returns (ReserveFreezeUpdate[] memory) {
-      ReserveFreezeUpdate[] memory freezeUpdates;
-      freezeUpdates = new ReserveFreezeUpdate[](${cfgs.length});
+    `function _expectedFreezeChanges() internal pure override returns (address[] memory assets, bool[] memory frozen) {
+      assets = new address[](${cfgs.length});
+      frozen = new bool[](${cfgs.length});
 
       ${cfgs
         .map(
-          (cfg, ix) => `freezeUpdates[${ix}] = ReserveFreezeUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
-               frozen: ${cfg.shouldBeFrozen}
-             });`,
+          (cfg, ix) => `assets[${ix}] = ${translateAssetToAssetLibUnderlying(cfg.asset, market)};
+      frozen[${ix}] = ${cfg.shouldBeFrozen};`,
         )
         .join('\n')}
-      return freezeUpdates;
     }`,
   ];
 }
