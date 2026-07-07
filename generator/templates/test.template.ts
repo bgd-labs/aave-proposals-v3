@@ -25,14 +25,6 @@ export const testTemplate = (
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
-  const updatedAssets = Array.from(
-    new Set(
-      marketConfig.artifacts
-        .map((artifact) => artifact.test?.updatedAssets)
-        .flat()
-        .filter((asset) => asset !== undefined),
-    ),
-  );
 
   const testBaseImport = v4
     ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
@@ -42,6 +34,14 @@ export const testTemplate = (
     ? `defaultTest('${contractName}', address(proposal));`
     : `defaultTest('${contractName}', ${market}.POOL, address(proposal)${isWhitelabelMarket(market) ? ', true, true' : ''});`;
 
+  const updatedAssets = Array.from(
+    new Set(
+      marketConfig.artifacts
+        .map((artifact) => artifact.test?.updatedAssets)
+        .flat()
+        .filter((asset) => asset !== undefined),
+    ),
+  );
   const reserveConfigChangesTest =
     testBase === 'ProtocolV3TestBase'
       ? `
