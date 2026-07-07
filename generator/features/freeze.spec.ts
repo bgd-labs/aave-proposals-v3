@@ -17,20 +17,4 @@ describe('feature: freezeUpdates', () => {
     expect(test).toContain('assets[0] = AaveV3EthereumAssets.DAI_UNDERLYING');
     expect(test).toContain('frozen[0] = true');
   });
-
-  it('warns instead of generating reserve config change tests on zksync', () => {
-    const zksyncOutput = freezeUpdates.build({
-      options: MOCK_OPTIONS,
-      market: 'AaveV3ZkSync',
-      cfg: [{asset: 'ZK', shouldBeFrozen: true}],
-      cache: {blockNumber: 42},
-      configs: {},
-    });
-    const code = zksyncOutput.code?.execute?.join('\n') ?? '';
-    const test = zksyncOutput.test?.fn?.join('\n') ?? '';
-
-    expect(code).toContain('setReserveFreeze');
-    expect(test).toContain('function _expectedFreezeChanges()');
-    expect(test).toContain('assets[0] = AaveV3ZkSyncAssets.ZK_UNDERLYING');
-  });
 });

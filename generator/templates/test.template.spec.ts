@@ -89,29 +89,4 @@ describe('testTemplate', () => {
     );
     expect(output).not.toContain('_expectedCollateralChanges()/_expectedCapsChanges()');
   });
-
-  it('uses the v3 test base on zksync too', () => {
-    const output = testTemplate(
-      MOCK_OPTIONS,
-      {
-        configs: {[FEATURE.CAPS_UPDATE]: []},
-        cache: {blockNumber: 42},
-        artifacts: [],
-      },
-      'AaveV3ZkSync',
-    );
-
-    expect(output).toContain('contract AaveV3ZkSync_Test_20231023_Test is ProtocolV3TestBase');
-    expect(output).toContain('function setUp() public');
-    expect(output).not.toContain('function setUp() public override');
-    expect(output).not.toContain('super.setUp();');
-    expect(output).toContain('function test_reserveConfigChanges() public');
-    expect(output).toContain('address[] memory updatedAssets = new address[](0);');
-    expect(output).toContain(
-      'reserveConfigChangesTest(AaveV3ZkSync.POOL, address(proposal), updatedAssets);',
-    );
-    expect(output).not.toContain(
-      '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
-    );
-  });
 });

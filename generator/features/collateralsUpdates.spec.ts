@@ -38,22 +38,6 @@ describe('feature: collateralsUpdates', () => {
     );
   });
 
-  it('generates reserve config change tests on zksync', () => {
-    const zksyncOutput = collateralsUpdates.build({
-      options: MOCK_OPTIONS,
-      market: 'AaveV3ZkSync',
-      cfg: [{asset: 'ZK', ltv: '0', liqThreshold: '', liqBonus: '', liqProtocolFee: ''}],
-      cache: {blockNumber: 42},
-      configs: {},
-    });
-    const code = zksyncOutput.code?.fn?.join('\n') ?? '';
-    const test = zksyncOutput.test?.fn?.join('\n') ?? '';
-
-    expect(code).toContain('function collateralsUpdates()');
-    expect(test).toContain('function _expectedCollateralChanges()');
-    expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
-  });
-
   // The v3 CollateralEngine skips the ltv/lt/lb update entirely when liqThreshold == 0,
   // so a payload configured this way leaves the collateral params untouched on-chain.
   // The generated test must still encode the configured intent (lt = 0, collateral

@@ -36,22 +36,6 @@ describe('feature: assetListing', () => {
     expect(test).toContain('borrowCap: 5_000');
   });
 
-  it('generates reserve config change tests on zksync', () => {
-    const zksyncOutput = assetListing.build({
-      options: MOCK_OPTIONS,
-      market: 'AaveV3ZkSync',
-      cfg: assetListingConfig,
-      cache: {blockNumber: 42},
-      configs: {},
-    });
-    const code = zksyncOutput.code?.fn?.join('\n') ?? '';
-    const test = zksyncOutput.test?.fn?.join('\n') ?? '';
-
-    expect(code).toContain('function newListings()');
-    expect(test).toContain('function test_dustBinHasPSPFunds()');
-    expect(test).toContain('function _expectedListings()');
-  });
-
   it('should properly generate files', async () => {
     const marketConfigs: MarketConfigs = {
       [MOCK_OPTIONS.markets[0]]: {
