@@ -34,7 +34,6 @@ describe('feature: assetListing', () => {
     expect(test).toContain('decimals: 18');
     expect(test).toContain('supplyCap: 10_000');
     expect(test).toContain('borrowCap: 5_000');
-    expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
   it('generates reserve config change tests on zksync', () => {
@@ -51,7 +50,6 @@ describe('feature: assetListing', () => {
     expect(code).toContain('function newListings()');
     expect(test).toContain('function test_dustBinHasPSPFunds()');
     expect(test).toContain('function _expectedListings()');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 
   it('should properly generate files', async () => {

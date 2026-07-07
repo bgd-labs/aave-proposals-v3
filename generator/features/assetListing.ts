@@ -7,7 +7,7 @@ import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink, toSolidityIdentifier} from '../common';
 import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
-import {reserveConfigChangeTest, testExecuteProposal} from '../utils/constants';
+import {testExecuteProposal} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
@@ -211,11 +211,9 @@ export const assetListing: FeatureModule<Listing[]> = {
         }`,
         ],
       },
-      test: reserveConfigChangeTest(
-        market,
-        listingOverrides(cfg, '_expectedListings'),
-        listingTests,
-      ),
+      test: {
+        fn: [...listingTests, ...listingOverrides(cfg, '_expectedListings')],
+      },
       aip: {
         specification: cfg.map((cfg) => {
           let listingTemplate = `The table below illustrates the configured risk parameters for **${cfg.assetSymbol}**\n\n`;
@@ -325,14 +323,15 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         }`,
         ],
       },
-      test: reserveConfigChangeTest(
-        market,
-        listingOverrides(
-          cfg.map((cfg) => cfg.base),
-          '_expectedCustomListings',
-        ),
-        listingTests,
-      ),
+      test: {
+        fn: [
+          ...listingTests,
+          ...listingOverrides(
+            cfg.map((cfg) => cfg.base),
+            '_expectedCustomListings',
+          ),
+        ],
+      },
     };
     return response;
   },

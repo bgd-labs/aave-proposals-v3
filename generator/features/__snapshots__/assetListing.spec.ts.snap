@@ -432,7 +432,6 @@ address public constant PSP_PRICE_FEED = 0x72AFAECF99C9d9C8215fF44C77B94B99C2874
       return listings;
     }",
     ],
-    "reserveConfigChanges": true,
   },
 }
 `;

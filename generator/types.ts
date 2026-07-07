@@ -116,7 +116,6 @@ export type CodeArtifact = {
   };
   test?: {
     fn?: string[];
-    reserveConfigChanges?: boolean;
   };
   aip?: {
     specification: string[];

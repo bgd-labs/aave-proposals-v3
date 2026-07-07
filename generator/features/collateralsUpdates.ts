@@ -5,7 +5,6 @@ import {
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
-import {reserveConfigChangeTest} from '../utils/constants';
 
 export async function fetchCollateralUpdate(
   market: MarketIdentifier,
@@ -96,7 +95,9 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
         }`,
         ],
       },
-      test: reserveConfigChangeTest(market, collateralUpdateOverrides(market, cfg)),
+      test: {
+        fn: collateralUpdateOverrides(market, cfg),
+      },
     };
     return response;
   },

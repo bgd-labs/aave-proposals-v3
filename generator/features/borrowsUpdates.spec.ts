@@ -25,7 +25,6 @@ describe('feature: borrowsUpdates', () => {
     expect(test).toContain('enabledToBorrow: EngineFlags.DISABLED');
     expect(test).toContain('flashloanable: EngineFlags.KEEP_CURRENT');
     expect(test).toContain('reserveFactor: 25_00');
-    expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
   it('warns instead of generating reserve config change tests on zksync', () => {
@@ -49,6 +48,5 @@ describe('feature: borrowsUpdates', () => {
     expect(code).toContain('function borrowsUpdates()');
     expect(test).toContain('function _expectedBorrowChanges()');
     expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 });

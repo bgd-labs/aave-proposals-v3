@@ -5,7 +5,6 @@ import {
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {numberPrompt, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {reserveConfigChangeTest} from '../utils/constants';
 
 export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePartial> {
   return {
@@ -78,7 +77,9 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
         }`,
         ],
       },
-      test: reserveConfigChangeTest(market, capsUpdateOverrides(market, cfg)),
+      test: {
+        fn: capsUpdateOverrides(market, cfg),
+      },
     };
     return response;
   },

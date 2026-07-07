@@ -38,7 +38,6 @@ describe('feature: capsUpdates', () => {
     expect(test).toContain(
       'asset: AaveV3EthereumAssets.USDC_UNDERLYING,\n               supplyCap: 2_000_000,\n               borrowCap: 900_000',
     );
-    expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
   it('generates reserve config change tests on zksync', () => {
@@ -55,7 +54,6 @@ describe('feature: capsUpdates', () => {
     expect(code).toContain('function capsUpdates()');
     expect(test).toContain('function _expectedCapsChanges()');
     expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 
   it('generates zksync payload files with reserve config validation', async () => {

@@ -6,7 +6,6 @@ import {
 } from '../prompts/assetsSelectPrompt';
 import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
-import {reserveConfigChangeTest} from '../utils/constants';
 
 export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
   return {
@@ -82,7 +81,9 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
         }`,
         ],
       },
-      test: reserveConfigChangeTest(market, borrowUpdateOverrides(market, cfg)),
+      test: {
+        fn: borrowUpdateOverrides(market, cfg),
+      },
     };
     return response;
   },

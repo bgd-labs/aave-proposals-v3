@@ -5,7 +5,6 @@ import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
-import {reserveConfigChangeTest} from '../utils/constants';
 
 function freezeUpdateOverrides(market: MarketIdentifier, cfgs: FreezeUpdate[]): string[] {
   return [
@@ -55,7 +54,9 @@ export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
             )}, ${cfg.shouldBeFrozen});`,
         ),
       },
-      test: reserveConfigChangeTest(market, freezeUpdateOverrides(market, cfg)),
+      test: {
+        fn: freezeUpdateOverrides(market, cfg),
+      },
     };
     return response;
   },

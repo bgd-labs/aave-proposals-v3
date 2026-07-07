@@ -41,7 +41,6 @@ capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
       return capsUpdate;
     }",
     ],
-    "reserveConfigChanges": true,
   },
 }
 `;

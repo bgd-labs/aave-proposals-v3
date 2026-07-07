@@ -36,7 +36,6 @@ describe('feature: collateralsUpdates', () => {
     expect(test).toContain(
       'asset: AaveV3EthereumAssets.USDC_UNDERLYING,\n               ltv: 77_00,\n               liqThreshold: 80_00,\n               liqBonus: 5_00,\n               liqProtocolFee: 10_00',
     );
-    expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
   it('generates reserve config change tests on zksync', () => {
@@ -53,7 +52,6 @@ describe('feature: collateralsUpdates', () => {
     expect(code).toContain('function collateralsUpdates()');
     expect(test).toContain('function _expectedCollateralChanges()');
     expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 
   // The v3 CollateralEngine skips the ltv/lt/lb update entirely when liqThreshold == 0,

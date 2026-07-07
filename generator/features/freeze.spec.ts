@@ -16,7 +16,6 @@ describe('feature: freezeUpdates', () => {
     expect(test).toContain('function _expectedFreezeChanges()');
     expect(test).toContain('asset: AaveV3EthereumAssets.DAI_UNDERLYING');
     expect(test).toContain('frozen: true');
-    expect(output.test?.reserveConfigChanges).toBe(true);
   });
 
   it('warns instead of generating reserve config change tests on zksync', () => {
@@ -33,6 +32,5 @@ describe('feature: freezeUpdates', () => {
     expect(code).toContain('setReserveFreeze');
     expect(test).toContain('function _expectedFreezeChanges()');
     expect(test).toContain('asset: AaveV3ZkSyncAssets.ZK_UNDERLYING');
-    expect(zksyncOutput.test?.reserveConfigChanges).toBe(true);
   });
 });

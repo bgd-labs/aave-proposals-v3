@@ -1,5 +1,5 @@
 import {isWhitelabelMarket} from '../common';
-import {CodeArtifact, MarketIdentifier} from '../types';
+import {MarketIdentifier} from '../types';
 
 export function prefixWithPragma(code: string) {
   return (
@@ -13,15 +13,4 @@ export function testExecuteProposal(market: MarketIdentifier) {
     return `GovV3Helpers.executePayload(vm,address(proposal));`;
   }
   return `executePayload(vm,address(proposal),${market}.POOL);`;
-}
-
-export function reserveConfigChangeTest(
-  _market: MarketIdentifier,
-  reserveConfigFns: string[],
-  existingFns: string[] = [],
-): NonNullable<CodeArtifact['test']> {
-  return {
-    fn: [...existingFns, ...reserveConfigFns],
-    reserveConfigChanges: true,
-  };
 }

@@ -49,7 +49,6 @@ collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
       return collateralUpdate;
     }",
     ],
-    "reserveConfigChanges": true,
   },
 }
 `;

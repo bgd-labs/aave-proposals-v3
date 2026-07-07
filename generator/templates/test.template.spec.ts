@@ -3,14 +3,13 @@ import {FEATURE, MarketConfig} from '../types';
 import {MOCK_OPTIONS} from '../features/mocks/configs';
 import {testTemplate} from './test.template';
 
-function marketConfig(configs: MarketConfig['configs'], reserveConfigChanges = true): MarketConfig {
+function marketConfig(configs: MarketConfig['configs']): MarketConfig {
   return {
     configs,
     cache: {blockNumber: 42},
     artifacts: [
       {
         test: {
-          ...(reserveConfigChanges ? {reserveConfigChanges: true} : {}),
           fn: [
             `function _expectedCapsChanges() internal pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
               return new IAaveV3ConfigEngine.CapsUpdate[](0);
@@ -69,7 +68,7 @@ describe('testTemplate', () => {
   it('emits an unchanged-reserve-config test for v3 payloads without expected changes', () => {
     const output = testTemplate(
       MOCK_OPTIONS,
-      marketConfig({[FEATURE.PRICE_FEEDS_UPDATE]: []}, false),
+      marketConfig({[FEATURE.PRICE_FEEDS_UPDATE]: []}),
       'AaveV3Ethereum',
     );
 
