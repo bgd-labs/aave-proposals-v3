@@ -4,8 +4,6 @@ import {
   getChainAlias,
   getMarketChain,
   getTestBase,
-  isV2Market,
-  isV3Market,
   isWhitelabelMarket,
 } from '../common';
 import {Options, MarketConfig, MarketIdentifier} from '../types';
@@ -21,12 +19,7 @@ export const testTemplate = (
   const chain = getMarketChain(market);
   const contractName = generateContractName(options, market);
   const {v4, testBase} = getTestBase(market);
-  const testBaseImport = isV2Market(market)
-    ? `import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';`
-    : isV3Market(market)
-      ? `import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`
-      : `import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';`;
-  const reserveConfigValidation = isV3Market(market);
+
   const functions = marketConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
@@ -41,16 +34,17 @@ export const testTemplate = (
     ),
   );
 
-  const defaultTestArgs = v4
-    ? [`'${contractName}'`, 'address(proposal)']
-    : [
-        `'${contractName}'`,
-        `${market}.POOL`,
-        'address(proposal)',
-        ...(isWhitelabelMarket(market) ? ['true', 'true'] : []),
-      ];
-  const reserveConfigChangesTest = reserveConfigValidation
-    ? `
+  const testBaseImport = v4
+    ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
+    : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+
+  const defaultTestCall = v4
+    ? `defaultTest('${contractName}', address(proposal));`
+    : `defaultTest('${contractName}', ${market}.POOL, address(proposal)${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+
+  const reserveConfigChangesTest =
+    testBase === 'ProtocolV3TestBase'
+      ? `
   /**
    * @dev checks whether reserve configurations changed or stayed unchanged as expected
    */
@@ -60,7 +54,7 @@ export const testTemplate = (
     reserveConfigChangesTest(${market}.POOL, address(proposal), updatedAssets);
   }
 `
-    : '';
+      : '';
 
   let template = `
 import 'forge-std/Test.sol';
@@ -74,9 +68,11 @@ import {${contractName}} from './${contractName}.sol';
 contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
 
-  function setUp() public {
+  function setUp() public ${chain === 'ZkSync' ? 'override' : ''} {
     vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${marketConfig.cache.blockNumber});
     proposal = new ${contractName}();
+
+    ${chain === 'ZkSync' ? 'super.setUp();' : ''}
   }
 
   /**
@@ -84,7 +80,7 @@ contract ${contractName}_Test is ${testBase} {
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    defaultTest(${defaultTestArgs.join(', ')});
+    ${defaultTestCall}
   }
 
   ${reserveConfigChangesTest}
