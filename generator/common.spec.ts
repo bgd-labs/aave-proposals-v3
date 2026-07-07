@@ -19,20 +19,14 @@ describe('getTestBase', () => {
     expect(getTestBase('AaveV2Ethereum')).toEqual({
       v4: false,
       testBase: 'ProtocolV2TestBase',
-      testBaseImport: `import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';`,
-      reserveConfigValidation: false,
     });
     expect(getTestBase('AaveV3Ethereum')).toEqual({
       v4: false,
       testBase: 'ProtocolV3TestBase',
-      testBaseImport: `import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`,
-      reserveConfigValidation: true,
     });
     expect(getTestBase('AaveV4Ethereum')).toEqual({
       v4: true,
       testBase: 'ProtocolV4TestBase',
-      testBaseImport: `import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';`,
-      reserveConfigValidation: false,
     });
   });
 

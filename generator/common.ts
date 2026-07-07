@@ -100,36 +100,10 @@ export function getVersion(market: MarketIdentifier) {
   throw new Error(`unknown market version for ${market}`);
 }
 
-export function getTestBase(market: MarketIdentifier): {
-  v4: boolean;
-  testBase: string;
-  testBaseImport: string;
-  reserveConfigValidation: boolean;
-} {
-  if (isV2Market(market)) {
-    return {
-      v4: false,
-      testBase: 'ProtocolV2TestBase',
-      testBaseImport: `import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';`,
-      reserveConfigValidation: false,
-    };
-  }
-  if (isV3Market(market)) {
-    return {
-      v4: false,
-      testBase: 'ProtocolV3TestBase',
-      testBaseImport: `import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`,
-      reserveConfigValidation: true,
-    };
-  }
-  if (isV4Market(market)) {
-    return {
-      v4: true,
-      testBase: 'ProtocolV4TestBase',
-      testBaseImport: `import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';`,
-      reserveConfigValidation: false,
-    };
-  }
+export function getTestBase(market: MarketIdentifier): {v4: boolean; testBase: string} {
+  if (isV2Market(market)) return {v4: false, testBase: 'ProtocolV2TestBase'};
+  if (isV3Market(market)) return {v4: false, testBase: 'ProtocolV3TestBase'};
+  if (isV4Market(market)) return {v4: true, testBase: 'ProtocolV4TestBase'};
   throw new Error(`unknown market version for ${market}`);
 }
 

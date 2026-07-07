@@ -4,6 +4,8 @@ import {
   getChainAlias,
   getMarketChain,
   getTestBase,
+  isV2Market,
+  isV3Market,
   isWhitelabelMarket,
 } from '../common';
 import {Options, MarketConfig, MarketIdentifier} from '../types';
@@ -18,7 +20,13 @@ export const testTemplate = (
   const folderName = generateFolderName(options);
   const chain = getMarketChain(market);
   const contractName = generateContractName(options, market);
-  const {v4, testBase, testBaseImport, reserveConfigValidation} = getTestBase(market);
+  const {v4, testBase} = getTestBase(market);
+  const testBaseImport = isV2Market(market)
+    ? `import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';`
+    : isV3Market(market)
+      ? `import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';`
+      : `import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';`;
+  const reserveConfigValidation = isV3Market(market);
   const functions = marketConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
