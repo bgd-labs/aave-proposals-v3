@@ -180,7 +180,6 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3ProposalTestBase} from '../ProtocolV3ProposalTestBase.sol';
-import {ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
 
 /**
@@ -196,16 +195,18 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3ProposalTestBase {
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots, and reserve configuration validation
+   * @dev executes the generic test suite including e2e and config snapshots
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
-      'AaveV3Ethereum_Test_20231023',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
-    _validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);
+    defaultTest('AaveV3Ethereum_Test_20231023', AaveV3Ethereum.POOL, address(proposal));
+  }
+
+  /**
+   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   */
+  function test_reserveConfigChanges() public {
+    reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal));
   }
 
   function test_dustBinHasPSPFunds() public {

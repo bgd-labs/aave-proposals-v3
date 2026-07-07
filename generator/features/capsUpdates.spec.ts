@@ -83,10 +83,16 @@ describe('feature: capsUpdates', () => {
     expect(payload.payload).toContain('function capsUpdates()');
     expect(payload.test).toContain('ProtocolV3ProposalTestBase');
     expect(payload.test).toContain('function _expectedCapsChanges()');
+    expect(payload.test).toContain('function test_reserveConfigChanges()');
     expect(payload.test).toContain(
+      'reserveConfigChangesTest(AaveV3ZkSync.POOL, address(proposal));',
+    );
+    expect(payload.test).toContain(
+      'checks whether reserve configurations changed or stayed unchanged as expected',
+    );
+    expect(payload.test).not.toContain(
       '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
     );
-    expect(payload.test).not.toContain('function test_reserveConfigChanges()');
   });
 
   it('emits zero cap assignments instead of treating them as KEEP_CURRENT', () => {

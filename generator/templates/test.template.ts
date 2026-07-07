@@ -33,12 +33,15 @@ export const testTemplate = (
         'address(proposal)',
         ...(isWhitelabelMarket(market) ? ['true', 'true'] : []),
       ];
-  const defaultTestCall = reserveConfigValidation
-    ? `(ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(${defaultTestArgs.join(', ')});
-    _validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);`
-    : `defaultTest(${defaultTestArgs.join(', ')});`;
-  const reserveConfigChangesTestDescription = reserveConfigValidation
-    ? ', and reserve configuration validation'
+  const reserveConfigChangesTest = reserveConfigValidation
+    ? `
+  /**
+   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   */
+  function test_reserveConfigChanges() public {
+    reserveConfigChangesTest(${market}.POOL, address(proposal));
+  }
+`
     : '';
 
   let template = `
@@ -59,13 +62,14 @@ contract ${contractName}_Test is ${testBase} {
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots${reserveConfigChangesTestDescription}
+   * @dev executes the generic test suite including e2e and config snapshots
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    ${defaultTestCall}
+    defaultTest(${defaultTestArgs.join(', ')});
   }
 
+  ${reserveConfigChangesTest}
   ${functions}
 }`;
   return prefixWithPragma(prefixWithImports(template));
