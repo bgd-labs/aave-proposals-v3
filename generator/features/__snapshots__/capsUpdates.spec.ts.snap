@@ -41,6 +41,10 @@ capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
       return capsUpdate;
     }",
     ],
+    "updatedAssets": [
+      "AaveV3EthereumAssets.DAI_UNDERLYING",
+      "AaveV3EthereumAssets.USDC_UNDERLYING",
+    ],
   },
 }
 `;

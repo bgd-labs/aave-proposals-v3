@@ -15,6 +15,7 @@ function marketConfig(configs: MarketConfig['configs']): MarketConfig {
               return new IAaveV3ConfigEngine.CapsUpdate[](0);
             }`,
           ],
+          updatedAssets: ['AaveV3EthereumAssets.DAI_UNDERLYING'],
         },
       },
     ],
@@ -22,7 +23,7 @@ function marketConfig(configs: MarketConfig['configs']): MarketConfig {
 }
 
 describe('testTemplate', () => {
-  it('switches to ProtocolV3ProposalTestBase for reserve config changes', () => {
+  it('uses ProtocolV3TestBase for reserve config changes', () => {
     const output = testTemplate(
       MOCK_OPTIONS,
       marketConfig({
@@ -34,14 +35,9 @@ describe('testTemplate', () => {
     );
 
     expect(output).toContain(
-      "import {ProtocolV3ProposalTestBase} from '../ProtocolV3ProposalTestBase.sol';",
+      "import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';",
     );
-    expect(output).not.toContain(
-      "import {ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';",
-    );
-    expect(output).toContain(
-      'contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3ProposalTestBase',
-    );
+    expect(output).toContain('contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase');
     expect(output).toContain('function test_defaultProposalExecution() public');
     expect(output).toContain('defaultTest(');
     expect(output).toContain(
@@ -51,7 +47,11 @@ describe('testTemplate', () => {
       '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
     );
     expect(output).toContain('function test_reserveConfigChanges() public');
-    expect(output).toContain('reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal));');
+    expect(output).toContain('address[] memory updatedAssets = new address[](1);');
+    expect(output).toContain('updatedAssets[0] = AaveV3EthereumAssets.DAI_UNDERLYING;');
+    expect(output).toContain(
+      'reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);',
+    );
     expect(output).toContain('executes the generic test suite including e2e and config snapshots');
     expect(output).toContain(
       'checks whether reserve configurations changed or stayed unchanged as expected',
@@ -72,9 +72,7 @@ describe('testTemplate', () => {
       'AaveV3Ethereum',
     );
 
-    expect(output).toContain(
-      'contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3ProposalTestBase',
-    );
+    expect(output).toContain('contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase');
     expect(output).toContain(
       "defaultTest('AaveV3Ethereum_Test_20231023', AaveV3Ethereum.POOL, address(proposal));",
     );
@@ -82,14 +80,17 @@ describe('testTemplate', () => {
       '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
     );
     expect(output).toContain('function test_reserveConfigChanges() public');
-    expect(output).toContain('reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal));');
+    expect(output).toContain('address[] memory updatedAssets = new address[](1);');
+    expect(output).toContain(
+      'reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);',
+    );
     expect(output).toContain(
       'checks whether reserve configurations changed or stayed unchanged as expected',
     );
     expect(output).not.toContain('_expectedCollateralChanges()/_expectedCapsChanges()');
   });
 
-  it('uses the v3 proposal test base on zksync too', () => {
+  it('uses the v3 test base on zksync too', () => {
     const output = testTemplate(
       MOCK_OPTIONS,
       {
@@ -100,14 +101,15 @@ describe('testTemplate', () => {
       'AaveV3ZkSync',
     );
 
-    expect(output).toContain(
-      'contract AaveV3ZkSync_Test_20231023_Test is ProtocolV3ProposalTestBase',
-    );
+    expect(output).toContain('contract AaveV3ZkSync_Test_20231023_Test is ProtocolV3TestBase');
     expect(output).toContain('function setUp() public');
     expect(output).not.toContain('function setUp() public override');
     expect(output).not.toContain('super.setUp();');
     expect(output).toContain('function test_reserveConfigChanges() public');
-    expect(output).toContain('reserveConfigChangesTest(AaveV3ZkSync.POOL, address(proposal));');
+    expect(output).toContain('address[] memory updatedAssets = new address[](0);');
+    expect(output).toContain(
+      'reserveConfigChangesTest(AaveV3ZkSync.POOL, address(proposal), updatedAssets);',
+    );
     expect(output).not.toContain(
       '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
     );

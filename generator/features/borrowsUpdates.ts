@@ -83,6 +83,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
       },
       test: {
         fn: borrowUpdateOverrides(market, cfg),
+        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;

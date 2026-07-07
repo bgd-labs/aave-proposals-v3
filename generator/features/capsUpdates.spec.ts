@@ -17,6 +17,13 @@ describe('feature: capsUpdates', () => {
     expect(output).toMatchSnapshot();
   });
 
+  it('declares updated assets for reserve config validation', () => {
+    expect(output.test?.updatedAssets).toEqual([
+      'AaveV3EthereumAssets.DAI_UNDERLYING',
+      'AaveV3EthereumAssets.USDC_UNDERLYING',
+    ]);
+  });
+
   it('encodes set fields as values and empty fields as KEEP_CURRENT on the payload struct', () => {
     const code = (output.code?.fn?.join('\n') ?? '').replace(/\s+/g, ' ');
     expect(code).toContain(
@@ -79,11 +86,13 @@ describe('feature: capsUpdates', () => {
     const payload = files.payloads[0];
 
     expect(payload.payload).toContain('function capsUpdates()');
-    expect(payload.test).toContain('ProtocolV3ProposalTestBase');
+    expect(payload.test).toContain('ProtocolV3TestBase');
     expect(payload.test).toContain('function _expectedCapsChanges()');
     expect(payload.test).toContain('function test_reserveConfigChanges()');
+    expect(payload.test).toContain('address[] memory updatedAssets = new address[](1);');
+    expect(payload.test).toContain('updatedAssets[0] = AaveV3ZkSyncAssets.ZK_UNDERLYING;');
     expect(payload.test).toContain(
-      'reserveConfigChangesTest(AaveV3ZkSync.POOL, address(proposal));',
+      'reserveConfigChangesTest(AaveV3ZkSync.POOL, address(proposal), updatedAssets);',
     );
     expect(payload.test).toContain(
       'checks whether reserve configurations changed or stayed unchanged as expected',

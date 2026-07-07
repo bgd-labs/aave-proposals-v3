@@ -24,6 +24,14 @@ export const testTemplate = (
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
+  const updatedAssets = Array.from(
+    new Set(
+      marketConfig.artifacts
+        .map((artifact) => artifact.test?.updatedAssets)
+        .flat()
+        .filter((asset) => asset !== undefined),
+    ),
+  );
 
   const defaultTestArgs = v4
     ? [`'${contractName}'`, 'address(proposal)']
@@ -39,7 +47,9 @@ export const testTemplate = (
    * @dev checks whether reserve configurations changed or stayed unchanged as expected
    */
   function test_reserveConfigChanges() public {
-    reserveConfigChangesTest(${market}.POOL, address(proposal));
+    address[] memory updatedAssets = new address[](${updatedAssets.length});
+    ${updatedAssets.map((asset, ix) => `updatedAssets[${ix}] = ${asset};`).join('\n    ')}
+    reserveConfigChangesTest(${market}.POOL, address(proposal), updatedAssets);
   }
 `
     : '';

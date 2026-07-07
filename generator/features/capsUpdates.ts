@@ -79,6 +79,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
       },
       test: {
         fn: capsUpdateOverrides(market, cfg),
+        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;

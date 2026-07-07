@@ -56,6 +56,7 @@ export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
       },
       test: {
         fn: freezeUpdateOverrides(market, cfg),
+        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;

@@ -49,6 +49,10 @@ collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
       return collateralUpdate;
     }",
     ],
+    "updatedAssets": [
+      "AaveV3EthereumAssets.DAI_UNDERLYING",
+      "AaveV3EthereumAssets.USDC_UNDERLYING",
+    ],
   },
 }
 `;

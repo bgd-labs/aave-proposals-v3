@@ -97,6 +97,7 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
       },
       test: {
         fn: collateralUpdateOverrides(market, cfg),
+        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;

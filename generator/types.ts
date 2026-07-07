@@ -116,6 +116,7 @@ export type CodeArtifact = {
   };
   test?: {
     fn?: string[];
+    updatedAssets?: string[];
   };
   aip?: {
     specification: string[];
