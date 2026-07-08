@@ -23,11 +23,6 @@ Avalanche has been a supported Aave V3 deployment since 2022, accumulating over 
 
 The recommended launch configuration consists of one hub and three spokes. The Core Hub serves as the sole borrowing environment, structured around three spokes targeting a distinct collateral type, user intent, and risk profile:
 
-image
-image
-1280×785 67.8 KB
-Source: LlamaRisk
-
 Main Spoke: The Main Spoke is the general-purpose lending venue and is expected to host the majority of liquidity within the deployment. It accepts the broadest collateral set and the broadest borrowable set in the deployment, where WAVAX, BTC.b, USDC, USDT, and WETH.e are collateral against which users can borrow stablecoins, WAVAX, BTC.b, and WETH.e. In the future, the Main Spoke can provide credit lines to specialized Hubs, such as an RWA Hub, allowing them to access its liquidity while preserving separate risk profiles.
 AVAX Correlated Spoke: This spoke is dedicated to the AVAX LST looping environment, with sAVAX as collateral and WAVAX as the only borrowable asset. This design isolates looping risk and allows spoke-specific add/draw caps.
 Forex Spoke: It supports trading and hedging across fiat-pegged stablecoins, with EURC, USDC, and USDT as collateral, which can be borrowed against each other. Due to limited secondary market liquidity for EURC, conservative caps have been set.
