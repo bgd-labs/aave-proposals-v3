@@ -3,5 +3,5 @@
 	url = https://github.com/aave-dao/aave-umbrella
 [submodule "lib/aave-helpers"]
 	path = lib/aave-helpers
-	url = https://github.com/AlbertoCentonze/aave-helpers.git
+	url = https://github.com/aave-dao/aave-helpers.git
 	branch = feat/v3-reserve-utils
