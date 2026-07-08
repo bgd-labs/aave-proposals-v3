@@ -21,7 +21,7 @@ Avalanche has been a supported Aave V3 deployment since 2022, accumulating over 
 
 ### Market Design
 
-The recommended launch configuration consists of one hub and three spokes. The Core Hub serves as the sole borrowing environment, structured around three spokes targeting a distinct collateral type, user intent, and risk profile:
+The deployed launch configuration consists of one hub and three spokes. The Core Hub serves as the sole borrowing environment, structured around three spokes targeting a distinct collateral type, user intent, and risk profile:
 
 Main Spoke: The Main Spoke is the general-purpose lending venue and is expected to host the majority of liquidity within the deployment. It accepts the broadest collateral set and the broadest borrowable set in the deployment, where WAVAX, BTC.b, USDC, USDT, and WETH.e are collateral against which users can borrow stablecoins, WAVAX, BTC.b, and WETH.e. In the future, the Main Spoke can provide credit lines to specialized Hubs, such as an RWA Hub, allowing them to access its liquidity while preserving separate risk profiles.
 AVAX Correlated Spoke: This spoke is dedicated to the AVAX LST looping environment, with sAVAX as collateral and WAVAX as the only borrowable asset. This design isolates looping risk and allows spoke-specific add/draw caps.
@@ -98,6 +98,47 @@ The IRM parameters apply to an asset across all spokes within that hub. The para
 | Avalanche | Core Hub | USDT    | 0.00% | 4.00%   | 10.00%  | 90.00%   | 10.00%        |
 | Avalanche | Core Hub | WETH.e  | 0.00% | 2.50%   | 8.00%   | 90.00%   | 15.00%        |
 | Avalanche | Core Hub | EURC    | 0.00% | 5.50%   | 50.00%  | 90.00%   | 10.00%        |
+
+### Governance and Ownership
+
+The contracts have been pre-deployed and configured, and this proposal performs the activation of the system. All assets are currently deactivated on the Core Hub, and this AIP enables them to start the market.
+
+Governance of the contracts is managed by the DAO via [Executor Level 1](https://snowscan.xyz/address/0x3C06dce358add17aAf230f2234bCCC4afd50d090), with additional oversight from the Protocol Security Council during the initial hardening phase, to mitigate risks in potential emergency scenarios. Contracts that support only a single controller, such as the Position Managers and the Treasury Spoke, are temporarily owned by the Protocol Security Council for simplicity.
+
+The permissions of the Protocol Security Council are expected to be eliminated following this phase, after which all updates will proceed through standard governance processes and approved stewards. The Protocol Security Council [0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9](https://snowscan.xyz/address/0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9) is a Safe multisig shared across Aave V4 deployments.
+
+The Treasury Spoke [0x2C4Aea1A5F000889c6DfFE8f52377aFc2CB113a6](https://snowscan.xyz/address/0x2C4Aea1A5F000889c6DfFE8f52377aFc2CB113a6) has been deployed and configured as the fee receiver for all assets listed on the Core Hub. Initially, it is controlled by the Protocol Security Council and will be handed over to the DAO after the hardening phase.
+
+### Contract Addresses
+
+| Hub      | Address                                                                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------------------- |
+| Core Hub | [0xd07369fAE4A5BB13c9Ce446B052c7867B1AbDf6e](https://snowscan.xyz/address/0xd07369fAE4A5BB13c9Ce446B052c7867B1AbDf6e) |
+
+| Spoke                 | Address                                                                                                               |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Main Spoke            | [0x435272CefF93a1E657E8ABfdf0A13e95900A3a56](https://snowscan.xyz/address/0x435272CefF93a1E657E8ABfdf0A13e95900A3a56) |
+| AVAX Correlated Spoke | [0x3b517594277c67307CF2d7CBE6FE1D4399B68c41](https://snowscan.xyz/address/0x3b517594277c67307CF2d7CBE6FE1D4399B68c41) |
+| Forex Spoke           | [0x6a37776B5E026dBdF043b4F933c323C84DD1B514](https://snowscan.xyz/address/0x6a37776B5E026dBdF043b4F933c323C84DD1B514) |
+| Treasury Spoke        | [0x2C4Aea1A5F000889c6DfFE8f52377aFc2CB113a6](https://snowscan.xyz/address/0x2C4Aea1A5F000889c6DfFE8f52377aFc2CB113a6) |
+
+| Tokenization Spoke | Address                                                                                                               |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Core WAVAX         | [0x1604D602f8A05CBA2d8Ff5d14DE4C3498f15B6B4](https://snowscan.xyz/address/0x1604D602f8A05CBA2d8Ff5d14DE4C3498f15B6B4) |
+| Core BTC.b         | [0x7cd3Ccc737f442050a861EC6b00768AE96B2F58E](https://snowscan.xyz/address/0x7cd3Ccc737f442050a861EC6b00768AE96B2F58E) |
+| Core USDC          | [0x01D7f7B7CE2123192fECC20bd1caF3e4d9e4C10D](https://snowscan.xyz/address/0x01D7f7B7CE2123192fECC20bd1caF3e4d9e4C10D) |
+| Core USDT          | [0x2E4BA06fF97E10D09FA4F5a270e97301eae729A9](https://snowscan.xyz/address/0x2E4BA06fF97E10D09FA4F5a270e97301eae729A9) |
+| Core WETH.e        | [0xF5c849468318c8D5670020fdb96ae135FED37070](https://snowscan.xyz/address/0xF5c849468318c8D5670020fdb96ae135FED37070) |
+| Core EURC          | [0x7b538a1840EAf2Ed92EEB67eE744AE627335e201](https://snowscan.xyz/address/0x7b538a1840EAf2Ed92EEB67eE744AE627335e201) |
+| Core sAVAX         | [0x6c27A7435040B7cC512319d5690BeEF234dfE76e](https://snowscan.xyz/address/0x6c27A7435040B7cC512319d5690BeEF234dfE76e) |
+
+| Position Manager        | Address                                                                                                               |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Giver Position Manager  | [0x50c4C40aB6BaE46B372a251BEacE388439aa96b4](https://snowscan.xyz/address/0x50c4C40aB6BaE46B372a251BEacE388439aa96b4) |
+| Taker Position Manager  | [0x5A5A711560eb9293Ef6F4bc33CD8589b4A603D10](https://snowscan.xyz/address/0x5A5A711560eb9293Ef6F4bc33CD8589b4A603D10) |
+| Config Position Manager | [0x50BE00C5EbF6CC230B8970f4205Cd0B5A70EaEB1](https://snowscan.xyz/address/0x50BE00C5EbF6CC230B8970f4205Cd0B5A70EaEB1) |
+| Native Token Gateway    | [0xE4C7183A5f22c365140F41d733d8A8baD5A1a6bA](https://snowscan.xyz/address/0xE4C7183A5f22c365140F41d733d8A8baD5A1a6bA) |
+| Signature Gateway       | [0x6E3B91A951DA9b515a5E98F0c7D210a697382e7F](https://snowscan.xyz/address/0x6E3B91A951DA9b515a5E98F0c7D210a697382e7F) |
 
 ## References
 
