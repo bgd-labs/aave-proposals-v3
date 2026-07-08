@@ -1,0 +1,19 @@
+.gitmodules
+  s_660dbf28683829::t_99fe7d1e5ab44f 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "12150ede54a9bca7164c634a973641047db40e50",
+  "prompts": {},
+  "sessions": {
+    "s_660dbf28683829": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f4195-9dbe-74f2-a5c7-08265bd91f1a",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}
