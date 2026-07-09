@@ -1,0 +1,32 @@
+generator/templates/test.template.ts
+  s_2b0bd2bd28aa30::t_d3e6d104fbafe5 36-38
+  s_2b0bd2bd28aa30::t_c4e3e0783a7333 41-44,48
+  s_2b0bd2bd28aa30::t_558557d7056812 28-31,35,39
+  s_2b0bd2bd28aa30::t_efb1cd3edc8f9a 40
+generator/features/assetListing.spec.ts
+  s_2b0bd2bd28aa30::t_30c869548b1f75 31-32,35
+generator/features/assetListing.ts
+  s_2b0bd2bd28aa30::t_906c16e830c765 114-115,119-124
+generator/features/__snapshots__/assetListing.spec.ts.snap
+  s_2b0bd2bd28aa30::t_53fb348ea8777a 182,220-244,405-406,408-410,428-429
+generator/features/__snapshots__/eModesCreation.spec.ts.snap
+  s_2b0bd2bd28aa30::t_d70fa27d9a9c64 221,259-283
+lib/aave-helpers
+  s_2b0bd2bd28aa30::t_9c908cc0228a1d 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "1b57ac2941f1a83ad89544c8ae01bddf459b2b78",
+  "prompts": {},
+  "sessions": {
+    "s_2b0bd2bd28aa30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46c2-492a-7242-ab97-720a31641b80",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

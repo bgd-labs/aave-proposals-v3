@@ -1,0 +1,21 @@
+.gitmodules
+  s_2b0bd2bd28aa30::t_cac06c38aca2b1 6
+lib/aave-helpers
+  s_2b0bd2bd28aa30::t_6a4b8985f3ed1a 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "ff1e203398b3287458addc22ddc7a1979df45dd0",
+  "prompts": {},
+  "sessions": {
+    "s_2b0bd2bd28aa30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46c2-492a-7242-ab97-720a31641b80",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}
