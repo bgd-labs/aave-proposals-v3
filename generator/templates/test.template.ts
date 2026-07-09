@@ -32,7 +32,7 @@ export const testTemplate = (
 
   const defaultTestCall = v4
     ? `defaultTest('${contractName}', address(proposal));`
-    : `defaultTest('${contractName}', ${market}.POOL, address(proposal)${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
 
   const updatedAssets = Array.from(
     new Set(
