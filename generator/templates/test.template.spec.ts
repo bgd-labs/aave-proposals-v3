@@ -3,22 +3,25 @@ import {FEATURE, MarketConfig} from '../types';
 import {MOCK_OPTIONS} from '../features/mocks/configs';
 import {testTemplate} from './test.template';
 
-function marketConfig(configs: MarketConfig['configs']): MarketConfig {
+function marketConfig(
+  configs: MarketConfig['configs'],
+  artifacts: MarketConfig['artifacts'] = [
+    {
+      test: {
+        fn: [
+          `function _expectedCapsChanges() internal pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
+              return new IAaveV3ConfigEngine.CapsUpdate[](0);
+            }`,
+        ],
+        updatedAssets: ['AaveV3EthereumAssets.DAI_UNDERLYING'],
+      },
+    },
+  ],
+): MarketConfig {
   return {
     configs,
     cache: {blockNumber: 42},
-    artifacts: [
-      {
-        test: {
-          fn: [
-            `function _expectedCapsChanges() internal pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-              return new IAaveV3ConfigEngine.CapsUpdate[](0);
-            }`,
-          ],
-          updatedAssets: ['AaveV3EthereumAssets.DAI_UNDERLYING'],
-        },
-      },
-    ],
+    artifacts,
   };
 }
 
@@ -68,7 +71,7 @@ describe('testTemplate', () => {
   it('emits an unchanged-reserve-config test for v3 payloads without expected changes', () => {
     const output = testTemplate(
       MOCK_OPTIONS,
-      marketConfig({[FEATURE.PRICE_FEEDS_UPDATE]: []}),
+      marketConfig({[FEATURE.PRICE_FEEDS_UPDATE]: []}, [{}]),
       'AaveV3Ethereum',
     );
 
@@ -80,7 +83,8 @@ describe('testTemplate', () => {
       '_validateReserveConfigChanges(allConfigsBefore, allConfigsAfter);',
     );
     expect(output).toContain('function test_reserveConfigChanges() public');
-    expect(output).toContain('address[] memory updatedAssets = new address[](1);');
+    expect(output).toContain('address[] memory updatedAssets = new address[](0);');
+    expect(output).not.toContain('updatedAssets[0]');
     expect(output).toContain(
       'reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);',
     );
