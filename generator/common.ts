@@ -103,7 +103,8 @@ export function getVersion(market: MarketIdentifier) {
 export function getTestBase(market: MarketIdentifier): {v4: boolean; testBase: string} {
   if (isV2Market(market)) return {v4: false, testBase: 'ProtocolV2TestBase'};
   if (isV3Market(market)) return {v4: false, testBase: 'ProtocolV3TestBase'};
-  if (isV4Market(market)) return {v4: true, testBase: 'ProtocolV4TestBase'};
+  if (isV4Market(market))
+    return {v4: true, testBase: `ProtocolV4TestBase${getMarketChain(market)}`};
   throw new Error(`unknown market version for ${market}`);
 }
 

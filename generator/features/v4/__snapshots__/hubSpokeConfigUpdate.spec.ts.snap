@@ -108,14 +108,14 @@ import {AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aa
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV4TestBase} from 'aave-helpers/src/ProtocolV4TestBase.sol';
+import {ProtocolV4TestBaseEthereum} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseEthereum.sol';
 import {AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521} from './AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.sol';
 
 /**
  * @dev Test for AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260521_AaveV4Ethereum_V4HubSpokeConfigUpdateTest/AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521.t.sol -vv
  */
-contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521_Test is ProtocolV4TestBase {
+contract AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521_Test is ProtocolV4TestBaseEthereum {
   AaveV4Ethereum_V4HubSpokeConfigUpdateTest_20260521 internal proposal;
 
   function setUp() public {
