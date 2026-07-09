@@ -18,7 +18,10 @@ describe('getTestBase', () => {
   it('maps each market family to its test base', () => {
     expect(getTestBase('AaveV2Ethereum')).toEqual({v4: false, testBase: 'ProtocolV2TestBase'});
     expect(getTestBase('AaveV3Ethereum')).toEqual({v4: false, testBase: 'ProtocolV3TestBase'});
-    expect(getTestBase('AaveV4Ethereum')).toEqual({v4: true, testBase: 'ProtocolV4TestBase'});
+    expect(getTestBase('AaveV4Ethereum')).toEqual({
+      v4: true,
+      testBase: 'ProtocolV4TestBaseEthereum',
+    });
   });
 
   it('throws for an unknown market', () => {

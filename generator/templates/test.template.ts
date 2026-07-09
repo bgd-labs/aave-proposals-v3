@@ -31,7 +31,7 @@ export const testTemplate = (
   }
 
   const testBaseImport = v4
-    ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
+    ? `import {${testBase}} from 'aave-helpers/src/v4-protocol-test/${testBase}.sol';`
     : `import {${
         testBase === 'ProtocolV3TestBase'
           ? protocolV3TestBaseImports.join(', ')
