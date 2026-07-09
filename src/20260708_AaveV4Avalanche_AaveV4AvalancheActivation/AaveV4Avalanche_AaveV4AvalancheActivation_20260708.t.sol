@@ -46,8 +46,6 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
   function test_defaultProposalExecution() public {
     defaultTest({
       reportName: 'AaveV4Avalanche_AaveV4AvalancheActivation_20260708',
-      spokes: AaveV4AvalancheGetters.getAllSpokes(),
-      tokenizationSpokes: AaveV4AvalancheGetters.getAllTokenizationSpokes(),
       payload: address(proposal),
       runE2E: true,
       testPositionManagers: true
