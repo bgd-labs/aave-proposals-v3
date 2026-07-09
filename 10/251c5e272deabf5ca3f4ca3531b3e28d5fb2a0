@@ -1,0 +1,19 @@
+generator/templates/test.template.ts
+  s_e77fd3dfa3a590::t_03d752e7bbeb68 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "10251c5e272deabf5ca3f4ca3531b3e28d5fb2a0",
+  "prompts": {},
+  "sessions": {
+    "s_e77fd3dfa3a590": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f469c-5793-7ec0-9827-be954b369e9b",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}
