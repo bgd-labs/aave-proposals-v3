@@ -1,0 +1,26 @@
+generator/templates/test.template.ts
+  s_22f80b5bcb6d41::t_e17917cc199a51 22,37-42,44-47,57,71,74
+  s_22f80b5bcb6d41::t_3db1183922d761 43
+  s_22f80b5bcb6d41::t_f3f97cdc506c0e 75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ae83f546628047e27b640597074c9191c5ac4c66",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

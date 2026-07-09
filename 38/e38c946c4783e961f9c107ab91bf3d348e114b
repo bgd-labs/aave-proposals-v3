@@ -1,0 +1,28 @@
+src/ProtocolV3ProposalTestBase.t.sol
+  s_3c613cca907125::t_0e0b4aa902b1e8 4-7,10-127,131-195
+  s_3c613cca907125::t_1260aead80846b 1-3,8-9,128-130,196
+src/ProtocolV3ProposalTestBase.sol
+  s_3c613cca907125::t_1260aead80846b 1-3,8-9,55-56,81,98,110,113-114,118,129,133
+  s_3c613cca907125::t_0e0b4aa902b1e8 4-7,10-54,57-80,82-97,99-109,111-112,115-117,119-128,130-132
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "38e38c946c4783e961f9c107ab91bf3d348e114b",
+  "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
+  "sessions": {
+    "s_3c613cca907125": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3794-268d-75b1-9e56-8673cc8a4eb1",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}

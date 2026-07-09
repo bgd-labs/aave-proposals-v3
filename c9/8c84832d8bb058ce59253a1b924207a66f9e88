@@ -1,0 +1,29 @@
+.gitmodules
+  s_f58f6c19df07b3::t_d2a6f7bd71e6be 6
+lib/aave-helpers
+  s_22f80b5bcb6d41::t_e263bc039b5c60 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "c98c84832d8bb058ce59253a1b924207a66f9e88",
+  "prompts": {},
+  "sessions": {
+    "s_22f80b5bcb6d41": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_f58f6c19df07b3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20407fd3-cd39-45bd-886b-6bfc14e2c144",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}
