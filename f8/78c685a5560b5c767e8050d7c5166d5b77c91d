@@ -1,0 +1,33 @@
+generator/common.ts
+  s_2b0bd2bd28aa30::t_874008b3607e39 106-107
+generator/common.spec.ts
+  s_2b0bd2bd28aa30::t_874008b3607e39 21-24
+generator/templates/test.template.ts
+  s_2b0bd2bd28aa30::t_4ceaff84743c1d 34
+foundry.lock
+  s_2b0bd2bd28aa30::t_2784b3b4959a15 5
+generator/features/v4/__snapshots__/allModules.spec.ts.snap
+  s_2b0bd2bd28aa30::t_adb8d16a1424c2 697,704
+generator/features/v4/__snapshots__/hubSpokeConfigUpdate.spec.ts.snap
+  s_2b0bd2bd28aa30::t_09422fbaf44136 111,118
+generator/features/v4/__snapshots__/useCases.spec.ts.snap
+  s_2b0bd2bd28aa30::t_baeb9bc9dc72c5 561,568
+lib/aave-helpers
+  s_2b0bd2bd28aa30::t_693e682145fd1e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "f878c685a5560b5c767e8050d7c5166d5b77c91d",
+  "prompts": {},
+  "sessions": {
+    "s_2b0bd2bd28aa30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46c2-492a-7242-ab97-720a31641b80",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}
