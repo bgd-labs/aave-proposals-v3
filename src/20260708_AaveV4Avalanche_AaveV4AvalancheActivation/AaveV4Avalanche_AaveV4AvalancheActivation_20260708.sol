@@ -5,7 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {IHubConfigurator} from 'aave-v4/hub/interfaces/IHubConfigurator.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 
-import {AaveV4Avalanche, AaveV4AvalancheHubs} from './AaveV4Avalanche.sol';
+import {AaveV4Avalanche, AaveV4AvalancheHubs} from 'aave-address-book/AaveV4Avalanche.sol';
 
 /**
  * @title Aave V4 Avalanche Activation

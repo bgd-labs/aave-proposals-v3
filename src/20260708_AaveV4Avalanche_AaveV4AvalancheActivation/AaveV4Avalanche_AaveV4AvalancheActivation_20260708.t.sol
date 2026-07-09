@@ -10,8 +10,8 @@ import {IAccessManaged} from 'aave-v4/dependencies/openzeppelin/IAccessManaged.s
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IOwnable2Step} from 'src/interfaces/IOwnable2Step.sol';
-import {AaveV4Avalanche, AaveV4AvalancheHubs, AaveV4AvalancheSpokes, AaveV4AvalancheTokenizationSpokes, AaveV4AvalancheAssets, AaveV4AvalancheGetters, AaveV4AvalanchePositionManagers} from './AaveV4Avalanche.sol';
-import {ProtocolV4TestBase} from './utils/ProtocolV4TestBase.sol';
+import {AaveV4Avalanche, AaveV4AvalancheHubs, AaveV4AvalancheSpokes, AaveV4AvalancheTokenizationSpokes, AaveV4AvalancheAssets, AaveV4AvalancheGetters, AaveV4AvalanchePositionManagers} from 'aave-address-book/AaveV4Avalanche.sol';
+import {ProtocolV4TestBaseAvalanche} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseAvalanche.sol';
 import {AaveV4Avalanche_AaveV4AvalancheActivation_20260708} from './AaveV4Avalanche_AaveV4AvalancheActivation_20260708.sol';
 
 /**
@@ -19,7 +19,7 @@ import {AaveV4Avalanche_AaveV4AvalancheActivation_20260708} from './AaveV4Avalan
  *      suite plus explicit assertions on the market spec (ActivateV4Avalanche.md) and access control.
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4Avalanche_AaveV4AvalancheActivation_20260708.t.sol -vv
  */
-contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4TestBase {
+contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4TestBaseAvalanche {
   IHub internal constant CORE_HUB = AaveV4AvalancheHubs.CORE_HUB;
   IAccessManagerEnumerable internal constant ACCESS_MANAGER = AaveV4Avalanche.ACCESS_MANAGER;
 
@@ -48,13 +48,6 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
       reportName: 'AaveV4Avalanche_AaveV4AvalancheActivation_20260708',
       spokes: AaveV4AvalancheGetters.getAllSpokes(),
       tokenizationSpokes: AaveV4AvalancheGetters.getAllTokenizationSpokes(),
-      positionManagers: PositionManagers({
-        giver: AaveV4AvalanchePositionManagers.GIVER_POSITION_MANAGER,
-        taker: AaveV4AvalanchePositionManagers.TAKER_POSITION_MANAGER,
-        config: AaveV4AvalanchePositionManagers.CONFIG_POSITION_MANAGER,
-        nativeGateway: AaveV4AvalanchePositionManagers.NATIVE_TOKEN_GATEWAY,
-        signatureGateway: AaveV4AvalanchePositionManagers.SIGNATURE_GATEWAY
-      }),
       payload: address(proposal),
       runE2E: true,
       testPositionManagers: true
