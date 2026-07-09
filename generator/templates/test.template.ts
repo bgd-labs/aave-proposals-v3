@@ -25,14 +25,27 @@ export const testTemplate = (
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
+  const protocolV3TestBaseImports = ['ProtocolV3TestBase', 'ReserveConfig'];
+  if (functions.includes('ExpectedListing')) {
+    protocolV3TestBaseImports.push('ExpectedListing');
+  }
 
   const testBaseImport = v4
     ? `import {${testBase}} from 'aave-helpers/src/${testBase}.sol';`
-    : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+    : `import {${
+        testBase === 'ProtocolV3TestBase'
+          ? protocolV3TestBaseImports.join(', ')
+          : `${testBase}, ReserveConfig`
+      }} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+
+  const defaultTestArgs = [`'${contractName}'`, `${market}.POOL`, 'address(proposal)'];
+  if (isWhitelabelMarket(market)) {
+    defaultTestArgs.push('true', 'true');
+  }
 
   const defaultTestCall = v4
     ? `defaultTest('${contractName}', address(proposal));`
-    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+    : `defaultTest(${defaultTestArgs.join(', ')});`;
 
   const updatedAssets = Array.from(
     new Set(

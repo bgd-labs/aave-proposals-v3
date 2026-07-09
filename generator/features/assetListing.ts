@@ -111,16 +111,17 @@ function generateExpectedListingSol(cfg: Listing) {
 
 function listingOverrides(cfgs: Listing[], fnName: string): string[] {
   return [
-    `function ${fnName}() internal pure override returns (IAaveV3ConfigEngine.Listing[] memory listings, uint256[] memory decimals) {
-      listings = new IAaveV3ConfigEngine.Listing[](${cfgs.length});
-      decimals = new uint256[](${cfgs.length});
+    `function ${fnName}() internal pure override returns (ExpectedListing[] memory listings) {
+      listings = new ExpectedListing[](${cfgs.length});
 
       ${cfgs
         .map(
-          (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.Listing({
-                 ${generateExpectedListingSol(cfg)}
-               });
-      decimals[${ix}] = ${cfg.decimals};`,
+          (cfg, ix) => `listings[${ix}] = ExpectedListing({
+                 listing: IAaveV3ConfigEngine.Listing({
+                   ${generateExpectedListingSol(cfg)}
+                 }),
+                 decimals: ${cfg.decimals}
+               });`,
         )
         .join('\n')}
     }`,

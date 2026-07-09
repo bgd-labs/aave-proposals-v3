@@ -28,10 +28,11 @@ describe('feature: assetListing', () => {
     const test = output.test?.fn?.join('\n') ?? '';
 
     expect(test).toContain('function _expectedListings()');
-    expect(test).toContain('IAaveV3ConfigEngine.Listing[] memory listings');
+    expect(test).toContain('ExpectedListing[] memory listings');
+    expect(test).toContain('listing: IAaveV3ConfigEngine.Listing');
     expect(test).toContain('asset: 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5');
     expect(test).toContain('assetSymbol: "PSP"');
-    expect(test).toContain('decimals[0] = 18');
+    expect(test).toContain('decimals: 18');
     expect(test).toContain('supplyCap: 10_000');
     expect(test).toContain('borrowCap: 5_000');
   });
