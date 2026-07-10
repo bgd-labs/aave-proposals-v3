@@ -1,0 +1,17 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "21bb5aaaa4d1c10466ddcd3126fa2718335da040",
+  "prompts": {},
+  "sessions": {
+    "s_2b0bd2bd28aa30": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46c2-492a-7242-ab97-720a31641b80",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  }
+}
