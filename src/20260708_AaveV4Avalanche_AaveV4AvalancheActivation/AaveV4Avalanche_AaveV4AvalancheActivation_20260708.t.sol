@@ -77,9 +77,10 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
       _assertCaps(spoke, AaveV4AvalancheAssets.USDt_UNDERLYING,  5_000_000, 5_000_000);
       _assertCaps(spoke, AaveV4AvalancheAssets.WETHe_UNDERLYING, 3_000,     300);
       _assertCaps(spoke, AaveV4AvalancheAssets.EURC_UNDERLYING,  500_000,   400_000);
-    }
 
-    _assertLiquidationConfig(spoke, 1.24e18, 0.9e18, 9000);
+      //                       spoke  targetHealthFactor healthFactorForMaxBonus liqBonusFactor
+      _assertLiquidationConfig(spoke, 1.24e18,           0.9e18,                 9000);
+    }
   }
 
   function test_forexSpoke() public activated {
@@ -101,9 +102,10 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
       _assertCaps(spoke, AaveV4AvalancheAssets.EURC_UNDERLYING, 300_000, 400_000);
       _assertCaps(spoke, AaveV4AvalancheAssets.USDC_UNDERLYING, 200_000, 150_000);
       _assertCaps(spoke, AaveV4AvalancheAssets.USDt_UNDERLYING, 200_000, 150_000);
-    }
 
-    _assertLiquidationConfig(spoke, 1.0442e18, 0.99e18, 10000);
+      //                       spoke  targetHealthFactor healthFactorForMaxBonus liqBonusFactor
+      _assertLiquidationConfig(spoke, 1.0442e18,         0.99e18,                10000);
+    }
   }
 
   function test_avaxCorrelatedSpoke() public activated {
@@ -123,9 +125,10 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
       //                 asset                                   addCap   drawCap
       _assertCaps(spoke, AaveV4AvalancheAssets.sAVAX_UNDERLYING, 200_000, 0);
       _assertCaps(spoke, AaveV4AvalancheAssets.WAVAX_UNDERLYING, 0,       250_000);
-    }
 
-    _assertLiquidationConfig(spoke, 1.035e18, 0.99e18, 10000);
+      //                       spoke  targetHealthFactor healthFactorForMaxBonus liqBonusFactor
+      _assertLiquidationConfig(spoke, 1.035e18,          0.99e18,                10000);
+    }
   }
 
   function test_interestRateCurves() public activated {
