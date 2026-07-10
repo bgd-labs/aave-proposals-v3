@@ -1,0 +1,27 @@
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_54bba607d24e6d 50-69
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_21de82942c0c3d 45-59
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_ac24a3ac42701c 46-65
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_050bc3bec5a6e2 45-59
+src/20260707_Multi_AaveV3LTVAndEModeUpdate/AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707.t.sol
+  s_59edd78a894f70::t_4c0b4a7a443d9e 45-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "4c6cfdc0b8bef7ccdcd7faefe87eda89f1ed3e2c",
+  "prompts": {},
+  "sessions": {
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
