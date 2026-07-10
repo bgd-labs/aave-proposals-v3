@@ -61,7 +61,6 @@ export const assetListingCustomConfig: ListingWithCustomImpl[] = [
     implementations: {
       aToken: '0x3333333333333333333333333333333333333333',
       vToken: '0x4444444444444444444444444444444444444444',
-      sToken: '0x5555555555555555555555555555555555555555',
     },
   },
 ];

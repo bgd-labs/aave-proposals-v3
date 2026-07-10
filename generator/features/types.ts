@@ -11,7 +11,6 @@ export interface AssetSelector {
 export interface TokenImplementations {
   aToken: Hex;
   vToken: Hex;
-  sToken: Hex;
 }
 
 export interface CapsUpdatePartial {

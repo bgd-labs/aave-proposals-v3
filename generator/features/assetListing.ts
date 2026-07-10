@@ -59,7 +59,6 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
   return {
     aToken: await addressPrompt({message: 'aToken implementation', required: true}),
     vToken: await addressPrompt({message: 'vToken implementation', required: true}),
-    sToken: await addressPrompt({message: 'sToken implementation', required: true}),
   };
 }
 
@@ -271,7 +270,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
       (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
             ${testExecuteProposal(market)}
             address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
-            assertGte(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
+            assertGe(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
           }`,
     );
     const response: CodeArtifact = {
@@ -301,12 +300,11 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.ListingWithCustomImpl(
                 IAaveV3ConfigEngine.Listing({
-                  ${generateAssetListingSol(cfg.base)},
-                  IAaveV3ConfigEngine.TokenImplementations({
-                    aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
-                    vToken: ${translateJsAddressToSol(cfg.implementations.vToken)},
-                    sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
-                  })
+                  ${generateAssetListingSol(cfg.base)}
+                }),
+                IAaveV3ConfigEngine.TokenImplementations({
+                  aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
+                  vToken: ${translateJsAddressToSol(cfg.implementations.vToken)}
                 })
              );`,
             )
