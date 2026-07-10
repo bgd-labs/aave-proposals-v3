@@ -4,7 +4,7 @@ import {assetListing, assetListingCustom} from './assetListing';
 import {MOCK_OPTIONS, assetListingConfig, assetListingCustomConfig} from './mocks/configs';
 import {generateFiles} from '../generator';
 import {FEATURE, MarketConfigs} from '../types';
-import {compileGeneratedPayloads} from '../utils/compileGeneratedFiles';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
 
 describe('feature: assetListing', () => {
   it('should return reasonable code', () => {
@@ -59,7 +59,7 @@ describe('feature: assetListing', () => {
     expect(files).toMatchSnapshot();
   });
 
-  it('generates compilable Solidity for every listing variant', async () => {
+  it('generates compilable files for every listing variant', async () => {
     const configs = {
       [FEATURE.ASSET_LISTING]: assetListingConfig,
       [FEATURE.ASSET_LISTING_CUSTOM]: assetListingCustomConfig,
@@ -88,6 +88,6 @@ describe('feature: assetListing', () => {
       },
     };
 
-    compileGeneratedPayloads(await generateFiles(MOCK_OPTIONS, marketConfigs));
-  }, 60_000);
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, marketConfigs));
+  });
 });

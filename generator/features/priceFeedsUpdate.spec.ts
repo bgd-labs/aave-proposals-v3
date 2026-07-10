@@ -4,6 +4,7 @@ import {MOCK_OPTIONS, priceFeedsUpdateConfig} from './mocks/configs';
 import {generateFiles} from '../generator';
 import {FEATURE, MarketConfigs} from '../types';
 import {priceFeedsUpdates} from './priceFeedsUpdates';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
 
 describe('feature: priceFeedsUpdates', () => {
   it('should return reasonable code', () => {
@@ -36,5 +37,27 @@ describe('feature: priceFeedsUpdates', () => {
     };
     const files = await generateFiles(MOCK_OPTIONS, marketConfigs);
     expect(files).toMatchSnapshot();
+  });
+
+  it('generates compilable Solidity', async () => {
+    const configs = {[FEATURE.PRICE_FEEDS_UPDATE]: priceFeedsUpdateConfig};
+    const marketConfigs: MarketConfigs = {
+      [MOCK_OPTIONS.markets[0]]: {
+        market: MOCK_OPTIONS.markets[0],
+        artifacts: [
+          priceFeedsUpdates.build({
+            options: MOCK_OPTIONS,
+            market: 'AaveV3Ethereum',
+            cfg: priceFeedsUpdateConfig,
+            cache: {blockNumber: 42},
+            configs,
+          }),
+        ],
+        configs,
+        cache: {blockNumber: 42},
+      },
+    };
+
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, marketConfigs));
   });
 });

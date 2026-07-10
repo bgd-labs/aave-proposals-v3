@@ -5,6 +5,7 @@ import {MOCK_OPTIONS, emodeCreations, ptListingConfig} from './mocks/configs';
 import {toSolidityIdentifier} from '../common';
 import {generateFiles} from '../generator';
 import {FEATURE, MarketConfigs} from '../types';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
 
 const configs = {
   [FEATURE.ASSET_LISTING]: ptListingConfig,
@@ -57,6 +58,10 @@ describe('feature: eModesCreation', () => {
   it('should properly generate files', async () => {
     const files = await generateFiles(MOCK_OPTIONS, buildMarketConfigs());
     expect(files).toMatchSnapshot();
+  });
+
+  it('generates compilable Solidity', async () => {
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, buildMarketConfigs()));
   });
 
   it('generates the expected e-mode test coverage', async () => {

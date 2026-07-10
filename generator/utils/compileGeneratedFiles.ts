@@ -3,21 +3,25 @@ import {mkdtempSync, mkdirSync, rmSync, writeFileSync} from 'node:fs';
 import path from 'node:path';
 import type {Files} from '../types';
 
-export function compileGeneratedPayloads(files: Files) {
+export function compileGeneratedFiles(files: Files) {
   const tempDir = mkdtempSync(path.join(process.cwd(), '.generator-compile-'));
   const sources: string[] = [];
 
   try {
-    files.payloads.forEach(({payload, test, contractName}, index) => {
-      const fixtureDir = path.join(tempDir, `fixture-${index}`);
-      mkdirSync(fixtureDir);
+    const fixtureDir = path.join(tempDir, 'src');
+    mkdirSync(fixtureDir);
 
+    files.payloads.forEach(({payload, test, contractName}) => {
       const payloadPath = path.join(fixtureDir, `${contractName}.sol`);
       const testPath = path.join(fixtureDir, `${contractName}.t.sol`);
       writeFileSync(payloadPath, payload);
       writeFileSync(testPath, test);
       sources.push(testPath);
     });
+
+    const scriptPath = path.join(fixtureDir, 'Generated.s.sol');
+    writeFileSync(scriptPath, files.scripts.defaultScript);
+    sources.push(scriptPath);
 
     execFileSync('forge', ['build', ...sources], {
       cwd: process.cwd(),
