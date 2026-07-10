@@ -63,10 +63,16 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
   };
 }
 
-function generateAssetListingSol(cfg: Listing) {
-  return `asset: ${cfg.assetSymbol},
+// Relax address fields because rendered Solidity may use variable names instead of literal addresses.
+type RenderableListing = Omit<Listing, 'asset' | 'priceFeed'> & {
+  asset: string;
+  priceFeed: string;
+};
+
+function renderListingSol(cfg: RenderableListing) {
+  return `asset: ${cfg.asset},
   assetSymbol: "${cfg.assetSymbol}",
-  priceFeed: ${cfg.assetSymbol}_PRICE_FEED,
+  priceFeed: ${cfg.priceFeed},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
   ltv: ${translateJsPercentToSol(cfg.ltv)},
@@ -86,27 +92,12 @@ function generateAssetListingSol(cfg: Listing) {
   })`;
 }
 
-function generateExpectedListingSol(cfg: Listing) {
-  return `asset: ${translateJsAddressToSol(cfg.asset)},
-  assetSymbol: "${cfg.assetSymbol}",
-  priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
-  enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
-  flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
-  ltv: ${translateJsPercentToSol(cfg.ltv)},
-  liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
-  liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-  reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)},
-  supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
-  borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
-  liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
-  rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-     optimalUsageRatio: ${translateJsPercentToSol(cfg.rateStrategyParams.optimalUtilizationRate)},
-     baseVariableBorrowRate: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.baseVariableBorrowRate,
-     )},
-     variableRateSlope1: ${translateJsPercentToSol(cfg.rateStrategyParams.variableRateSlope1)},
-     variableRateSlope2: ${translateJsPercentToSol(cfg.rateStrategyParams.variableRateSlope2)}
-  })`;
+function generateAssetListingSol(cfg: Listing) {
+  return renderListingSol({
+    ...cfg,
+    asset: cfg.assetSymbol,
+    priceFeed: `${cfg.assetSymbol}_PRICE_FEED`,
+  });
 }
 
 function listingOverrides(cfgs: Listing[], fnName: string): string[] {
@@ -118,7 +109,11 @@ function listingOverrides(cfgs: Listing[], fnName: string): string[] {
         .map(
           (cfg, ix) => `listings[${ix}] = ExpectedListing({
                  listing: IAaveV3ConfigEngine.Listing({
-                   ${generateExpectedListingSol(cfg)}
+                   ${renderListingSol({
+                     ...cfg,
+                     asset: translateJsAddressToSol(cfg.asset),
+                     priceFeed: translateJsAddressToSol(cfg.priceFeed),
+                   })}
                  }),
                  decimals: ${cfg.decimals}
                });`,
