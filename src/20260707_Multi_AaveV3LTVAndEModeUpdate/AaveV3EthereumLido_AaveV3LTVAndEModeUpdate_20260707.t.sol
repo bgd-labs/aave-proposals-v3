@@ -42,6 +42,21 @@ contract AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3T
     reserveConfigChangesTest(AaveV3EthereumLido.POOL, address(proposal), updatedAssets);
   }
 
+  /**
+   * @dev asserts every updated value actually changes (old != new)
+   */
+  function test_updatedValuesChanged() public {
+    ReserveConfig[] memory before = _getReservesConfigs(AaveV3EthereumLido.POOL);
+    executePayload(vm, address(proposal), AaveV3EthereumLido.POOL);
+    ReserveConfig[] memory after_ = _getReservesConfigs(AaveV3EthereumLido.POOL);
+
+    assertTrue(
+      _findReserveConfig(before, AaveV3EthereumLidoAssets.wstETH_UNDERLYING).borrowCap !=
+        _findReserveConfig(after_, AaveV3EthereumLidoAssets.wstETH_UNDERLYING).borrowCap,
+      'wstETH_BORROW_CAP_UNCHANGED'
+    );
+  }
+
   function _expectedCapsChanges()
     internal
     pure

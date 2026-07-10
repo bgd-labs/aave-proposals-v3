@@ -42,6 +42,21 @@ contract AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3Test
     reserveConfigChangesTest(AaveV3Avalanche.POOL, address(proposal), updatedAssets);
   }
 
+  /**
+   * @dev asserts every updated value actually changes (old != new)
+   */
+  function test_updatedValuesChanged() public {
+    ReserveConfig[] memory before = _getReservesConfigs(AaveV3Avalanche.POOL);
+    executePayload(vm, address(proposal), AaveV3Avalanche.POOL);
+    ReserveConfig[] memory after_ = _getReservesConfigs(AaveV3Avalanche.POOL);
+
+    assertTrue(
+      _findReserveConfig(before, AaveV3AvalancheAssets.AUSD_UNDERLYING).ltv !=
+        _findReserveConfig(after_, AaveV3AvalancheAssets.AUSD_UNDERLYING).ltv,
+      'AUSD_LTV_UNCHANGED'
+    );
+  }
+
   function _expectedCollateralChanges()
     internal
     pure

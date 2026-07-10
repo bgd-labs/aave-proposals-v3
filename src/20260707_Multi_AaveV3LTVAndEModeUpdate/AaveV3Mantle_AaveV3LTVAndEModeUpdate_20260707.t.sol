@@ -47,6 +47,26 @@ contract AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestBas
     reserveConfigChangesTest(AaveV3Mantle.POOL, address(proposal), updatedAssets);
   }
 
+  /**
+   * @dev asserts every updated value actually changes (old != new)
+   */
+  function test_updatedValuesChanged() public {
+    ReserveConfig[] memory before = _getReservesConfigs(AaveV3Mantle.POOL);
+    executePayload(vm, address(proposal), AaveV3Mantle.POOL);
+    ReserveConfig[] memory after_ = _getReservesConfigs(AaveV3Mantle.POOL);
+
+    assertTrue(
+      _findReserveConfig(before, AaveV3MantleAssets.WETH_UNDERLYING).ltv !=
+        _findReserveConfig(after_, AaveV3MantleAssets.WETH_UNDERLYING).ltv,
+      'WETH_LTV_UNCHANGED'
+    );
+    assertTrue(
+      _findReserveConfig(before, AaveV3MantleAssets.WMNT_UNDERLYING).ltv !=
+        _findReserveConfig(after_, AaveV3MantleAssets.WMNT_UNDERLYING).ltv,
+      'WMNT_LTV_UNCHANGED'
+    );
+  }
+
   function _expectedCollateralChanges()
     internal
     pure
