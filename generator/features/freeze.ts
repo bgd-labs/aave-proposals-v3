@@ -1,10 +1,26 @@
 import {confirm} from '@inquirer/prompts';
-import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {FreezeUpdate} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
+
+function freezeUpdateOverrides(market: MarketIdentifier, cfgs: FreezeUpdate[]): string[] {
+  return [
+    `function _expectedFreezeChanges() internal pure override returns (address[] memory assets, bool[] memory frozen) {
+      assets = new address[](${cfgs.length});
+      frozen = new bool[](${cfgs.length});
+
+      ${cfgs
+        .map(
+          (cfg, ix) => `assets[${ix}] = ${translateAssetToAssetLibUnderlying(cfg.asset, market)};
+      frozen[${ix}] = ${cfg.shouldBeFrozen};`,
+        )
+        .join('\n')}
+    }`,
+  ];
+}
 
 export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
   value: FEATURE.FREEZE,
@@ -34,6 +50,10 @@ export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
               market,
             )}, ${cfg.shouldBeFrozen});`,
         ),
+      },
+      test: {
+        fn: freezeUpdateOverrides(market, cfg),
+        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;
