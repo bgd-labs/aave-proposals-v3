@@ -1,0 +1,19 @@
+generator/prompts.spec.ts
+  s_04c0c5f0d12637::t_d96c95d5a9f9be 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "72c8833874bdfc868a5ad30e9f36d7eee92b14ed",
+  "prompts": {},
+  "sessions": {
+    "s_04c0c5f0d12637": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f46f5-d81c-72b1-a022-4a7f56a682ae",
+        "model": "gpt-5.5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

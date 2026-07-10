@@ -1,0 +1,19 @@
+generator/templates/test.template.spec.ts
+  s_e0a2e21ba98a93::t_db9417e90fe3fa 6-12,15-16,18-24,74,86-87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "1f3123f098d6cda05582a87df778b796623b62e5",
+  "prompts": {},
+  "sessions": {
+    "s_e0a2e21ba98a93": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f478d-c6dc-7220-bac5-767eb1b8d88f",
+        "model": "gpt-5.5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
