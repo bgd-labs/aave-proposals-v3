@@ -1,19 +1,19 @@
 foundry.lock
-  s_2b0bd2bd28aa30::t_a5fd1dc0acab3a 5
+  s_59edd78a894f70::t_7cfb0e372dd52e 5
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.11",
+  "git_ai_version": "1.6.13",
   "base_commit_sha": "efd6976c8f18f8b4d290e350fd1d586963d849eb",
   "prompts": {},
   "sessions": {
-    "s_2b0bd2bd28aa30": {
+    "s_59edd78a894f70": {
       "agent_id": {
-        "tool": "codex",
-        "id": "019f46c2-492a-7242-ab97-720a31641b80",
-        "model": "gpt-5.5"
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
       },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     }
   }
 }
