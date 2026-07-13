@@ -1,19 +1,24 @@
 .gitmodules
-  s_660dbf28683829::t_99fe7d1e5ab44f 6
+  s_59edd78a894f70::t_12473dbab3fe9b 6
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.10",
+  "git_ai_version": "1.6.13",
   "base_commit_sha": "12150ede54a9bca7164c634a973641047db40e50",
   "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
   "sessions": {
-    "s_660dbf28683829": {
+    "s_59edd78a894f70": {
       "agent_id": {
-        "tool": "codex",
-        "id": "019f4195-9dbe-74f2-a5c7-08265bd91f1a",
-        "model": "gpt-5.5"
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
       },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     }
   }
 }
