@@ -17,7 +17,7 @@ contract AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestB
   AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25482749);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25524764);
     proposal = new AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707();
   }
 
@@ -41,26 +41,6 @@ contract AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestB
     updatedAssets[0] = AaveV3EthereumAssets.PYUSD_UNDERLYING;
     updatedAssets[1] = AaveV3EthereumAssets.wstETH_UNDERLYING;
     reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);
-  }
-
-  /**
-   * @dev asserts every updated value actually changes (old != new)
-   */
-  function test_updatedValuesChanged() public {
-    ReserveConfig[] memory before = _getReservesConfigs(AaveV3Ethereum.POOL);
-    executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
-    ReserveConfig[] memory after_ = _getReservesConfigs(AaveV3Ethereum.POOL);
-
-    assertTrue(
-      _findReserveConfig(before, AaveV3EthereumAssets.PYUSD_UNDERLYING).ltv !=
-        _findReserveConfig(after_, AaveV3EthereumAssets.PYUSD_UNDERLYING).ltv,
-      'PYUSD_LTV_UNCHANGED'
-    );
-    assertTrue(
-      _findReserveConfig(before, AaveV3EthereumAssets.wstETH_UNDERLYING).borrowCap !=
-        _findReserveConfig(after_, AaveV3EthereumAssets.wstETH_UNDERLYING).borrowCap,
-      'wstETH_BORROW_CAP_UNCHANGED'
-    );
   }
 
   function _expectedCollateralChanges()

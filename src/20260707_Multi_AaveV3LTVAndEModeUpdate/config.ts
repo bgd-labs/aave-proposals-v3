@@ -24,7 +24,7 @@ export const config: ConfigFile = {
         ],
         CAPS_UPDATE: [{asset: 'wstETH', supplyCap: '', borrowCap: '7000'}],
       },
-      cache: {blockNumber: 25482749},
+      cache: {blockNumber: 25524764},
     },
     AaveV3Avalanche: {
       configs: {
@@ -32,7 +32,7 @@ export const config: ConfigFile = {
           {asset: 'AUSD', ltv: '0', liqThreshold: '', liqBonus: '', liqProtocolFee: ''},
         ],
       },
-      cache: {blockNumber: 89734393},
+      cache: {blockNumber: 90217434},
     },
     AaveV3Gnosis: {
       configs: {
@@ -40,7 +40,7 @@ export const config: ConfigFile = {
           {asset: 'wstETH', ltv: '0', liqThreshold: '', liqBonus: '', liqProtocolFee: ''},
         ],
       },
-      cache: {blockNumber: 47085302},
+      cache: {blockNumber: 47183996},
     },
     AaveV3Mantle: {
       configs: {
@@ -54,17 +54,17 @@ export const config: ConfigFile = {
             liqThreshold: '45',
             liqBonus: '10',
             label: 'WMNT__Stablecoins',
-            isolated: 'DISABLED',
+            isolated: 'ENABLED',
             collateralAssets: ['WMNT'],
             borrowableAssets: ['USDT0', 'USDC', 'GHO'],
           },
         ],
       },
-      cache: {blockNumber: 97660998},
+      cache: {blockNumber: 97914064},
     },
     AaveV3EthereumLido: {
       configs: {CAPS_UPDATE: [{asset: 'wstETH', supplyCap: '', borrowCap: '18000'}]},
-      cache: {blockNumber: 25482749},
+      cache: {blockNumber: 25524764},
     },
   },
 };

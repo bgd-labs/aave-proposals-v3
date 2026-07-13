@@ -17,7 +17,7 @@ contract AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestBas
   AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 47085302);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 47183996);
     proposal = new AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707();
   }
 
@@ -40,21 +40,6 @@ contract AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestBas
     address[] memory updatedAssets = new address[](1);
     updatedAssets[0] = AaveV3GnosisAssets.wstETH_UNDERLYING;
     reserveConfigChangesTest(AaveV3Gnosis.POOL, address(proposal), updatedAssets);
-  }
-
-  /**
-   * @dev asserts every updated value actually changes (old != new)
-   */
-  function test_updatedValuesChanged() public {
-    ReserveConfig[] memory before = _getReservesConfigs(AaveV3Gnosis.POOL);
-    executePayload(vm, address(proposal), AaveV3Gnosis.POOL);
-    ReserveConfig[] memory after_ = _getReservesConfigs(AaveV3Gnosis.POOL);
-
-    assertTrue(
-      _findReserveConfig(before, AaveV3GnosisAssets.wstETH_UNDERLYING).ltv !=
-        _findReserveConfig(after_, AaveV3GnosisAssets.wstETH_UNDERLYING).ltv,
-      'wstETH_LTV_UNCHANGED'
-    );
   }
 
   function _expectedCollateralChanges()

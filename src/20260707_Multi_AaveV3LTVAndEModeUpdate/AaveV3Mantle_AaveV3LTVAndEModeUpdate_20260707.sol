@@ -61,7 +61,7 @@ contract AaveV3Mantle_AaveV3LTVAndEModeUpdate_20260707 is AaveV3PayloadMantle {
       liqThreshold: 45_00,
       liqBonus: 10_00,
       label: 'WMNT__Stablecoins',
-      isolated: false,
+      isolated: true,
       collaterals: collateralAssets_WMNT__Stablecoins,
       borrowables: borrowableAssets_WMNT__Stablecoins
     });

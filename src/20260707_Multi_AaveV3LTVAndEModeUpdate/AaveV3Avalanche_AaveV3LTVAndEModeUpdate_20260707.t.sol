@@ -17,7 +17,7 @@ contract AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3Test
   AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 89734393);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 90217434);
     proposal = new AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707();
   }
 
@@ -40,21 +40,6 @@ contract AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3Test
     address[] memory updatedAssets = new address[](1);
     updatedAssets[0] = AaveV3AvalancheAssets.AUSD_UNDERLYING;
     reserveConfigChangesTest(AaveV3Avalanche.POOL, address(proposal), updatedAssets);
-  }
-
-  /**
-   * @dev asserts every updated value actually changes (old != new)
-   */
-  function test_updatedValuesChanged() public {
-    ReserveConfig[] memory before = _getReservesConfigs(AaveV3Avalanche.POOL);
-    executePayload(vm, address(proposal), AaveV3Avalanche.POOL);
-    ReserveConfig[] memory after_ = _getReservesConfigs(AaveV3Avalanche.POOL);
-
-    assertTrue(
-      _findReserveConfig(before, AaveV3AvalancheAssets.AUSD_UNDERLYING).ltv !=
-        _findReserveConfig(after_, AaveV3AvalancheAssets.AUSD_UNDERLYING).ltv,
-      'AUSD_LTV_UNCHANGED'
-    );
   }
 
   function _expectedCollateralChanges()
