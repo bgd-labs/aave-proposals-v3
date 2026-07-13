@@ -1,33 +1,39 @@
-generator/common.ts
-  s_2b0bd2bd28aa30::t_874008b3607e39 106-107
-generator/common.spec.ts
-  s_2b0bd2bd28aa30::t_874008b3607e39 21-24
-generator/templates/test.template.ts
-  s_2b0bd2bd28aa30::t_4ceaff84743c1d 34
 foundry.lock
-  s_2b0bd2bd28aa30::t_2784b3b4959a15 5
+  s_59edd78a894f70::t_183edddb78ac4e 5
+generator/common.spec.ts
+  s_59edd78a894f70::t_f7c083b8345a62 21-24
+generator/common.ts
+  s_59edd78a894f70::t_07f3d796deed29 106-107
 generator/features/v4/__snapshots__/allModules.spec.ts.snap
-  s_2b0bd2bd28aa30::t_adb8d16a1424c2 697,704
+  s_59edd78a894f70::t_cf41c2dff35083 697,704
 generator/features/v4/__snapshots__/hubSpokeConfigUpdate.spec.ts.snap
-  s_2b0bd2bd28aa30::t_09422fbaf44136 111,118
+  s_59edd78a894f70::t_f2ca1b34fb0818 111,118
 generator/features/v4/__snapshots__/useCases.spec.ts.snap
-  s_2b0bd2bd28aa30::t_baeb9bc9dc72c5 561,568
-lib/aave-helpers
-  s_2b0bd2bd28aa30::t_693e682145fd1e 1
+  s_59edd78a894f70::t_0f09fcf05d74f1 561,568
+generator/templates/test.template.ts
+  s_727da59f99c345::t_171583e81e17da 34
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.11",
+  "git_ai_version": "1.6.13",
   "base_commit_sha": "f878c685a5560b5c767e8050d7c5166d5b77c91d",
   "prompts": {},
   "sessions": {
-    "s_2b0bd2bd28aa30": {
+    "s_59edd78a894f70": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_727da59f99c345": {
       "agent_id": {
         "tool": "codex",
-        "id": "019f46c2-492a-7242-ab97-720a31641b80",
-        "model": "gpt-5.5"
+        "id": "019f5ab0-c16c-70c1-9f3d-16d6ac3ff3d3",
+        "model": "unknown"
       },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     }
   }
 }
