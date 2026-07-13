@@ -6,6 +6,11 @@ generator/prompts.spec.ts
   "git_ai_version": "1.6.13",
   "base_commit_sha": "72c8833874bdfc868a5ad30e9f36d7eee92b14ed",
   "prompts": {},
+  "humans": {
+    "h_8b974fbabf2fb7": {
+      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    }
+  },
   "sessions": {
     "s_40990ecc2389ef": {
       "agent_id": {
