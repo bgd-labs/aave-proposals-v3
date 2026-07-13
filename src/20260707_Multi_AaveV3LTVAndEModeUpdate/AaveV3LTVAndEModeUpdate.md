@@ -50,7 +50,7 @@ We recommend decreasing AUSD LTV on Avalanche from 69% to 0%.
 
 wstETH liquidity on Gnosis has declined, with currently only 154 wstETH worth ~$317K available to be swapped against stables. Given the utility of wstETH, where a total of $12.3M in debt has been borrowed against wstETH collateral, the majority comprising EURe, we recommend decreasing the wstETH LTV to 0% outside E-Mode until liquidity conditions improve.
 
-### Recommendation
+#### Recommendation
 
 To address wstETH liquidity concerns on Gnosis, we recommend decreasing the wstETH LTV outside E-Mode from 75% to 0%.
 
