@@ -77,6 +77,8 @@ generator/features/mocks/configs.ts
   s_59edd78a894f70::t_c7ce7ffbbcda26 3-4,98-126
 generator/features/__snapshots__/capsUpdates.spec.ts.snap
   s_59edd78a894f70::t_963e3fd6da9b18 1-50
+lib/aave-helpers
+  s_59edd78a894f70::t_80beed9b0ea9e1 1
 ---
 {
   "schema_version": "authorship/3.0.0",
