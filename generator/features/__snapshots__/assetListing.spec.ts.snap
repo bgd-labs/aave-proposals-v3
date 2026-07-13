@@ -174,10 +174,12 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
 
 /**
@@ -213,6 +215,34 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PSP());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
+  }
+
+  function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {
+    listings = new ExpectedListing[](1);
+
+    listings[0] = ExpectedListing({
+      listing: IAaveV3ConfigEngine.Listing({
+        asset: 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5,
+        assetSymbol: 'PSP',
+        priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
+        enabledToBorrow: EngineFlags.ENABLED,
+        flashloanable: EngineFlags.ENABLED,
+        ltv: 40_00,
+        liqThreshold: 50_00,
+        liqBonus: 5_00,
+        reserveFactor: 20_00,
+        supplyCap: 10_000,
+        borrowCap: 5_000,
+        liqProtocolFee: 20_00,
+        rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+          optimalUsageRatio: 80_00,
+          baseVariableBorrowRate: 0,
+          variableRateSlope1: 10_00,
+          variableRateSlope2: 100_00
+        })
+      }),
+      decimals: 18
+    });
   }
 }
 ",
@@ -372,6 +402,33 @@ address public constant PSP_PRICE_FEED = 0x72AFAECF99C9d9C8215fF44C77B94B99C2874
             assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
           }
 ",
+      "function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {
+      listings = new ExpectedListing[](1);
+
+      listings[0] = ExpectedListing({
+                 listing: IAaveV3ConfigEngine.Listing({
+                   asset: 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5,
+  assetSymbol: "PSP",
+  priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
+  enabledToBorrow: EngineFlags.ENABLED,
+  flashloanable: EngineFlags.ENABLED,
+  ltv: 40_00,
+  liqThreshold: 50_00,
+  liqBonus: 5_00,
+  reserveFactor: 20_00,
+  supplyCap: 10_000,
+  borrowCap: 5_000,
+  liqProtocolFee: 20_00,
+  rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+     optimalUsageRatio: 80_00,
+     baseVariableBorrowRate: 0,
+     variableRateSlope1: 10_00,
+     variableRateSlope2: 100_00
+  })
+                 }),
+                 decimals: 18
+               });
+    }",
     ],
   },
 }

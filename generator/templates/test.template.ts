@@ -26,9 +26,14 @@ export const testTemplate = (
     .filter((f) => f !== undefined)
     .join('\n');
 
+  const expectedListingImport =
+    testBase === 'ProtocolV3TestBase' && functions.includes('ExpectedListing')
+      ? ', ExpectedListing'
+      : '';
+
   const testBaseImport = v4
     ? `import {${testBase}} from 'aave-helpers/src/v4-protocol-test/${testBase}.sol';`
-    : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+    : `import {${testBase}, ReserveConfig${expectedListingImport}} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
 
   const defaultTestCall = v4
     ? `defaultTest('${contractName}', address(proposal));`

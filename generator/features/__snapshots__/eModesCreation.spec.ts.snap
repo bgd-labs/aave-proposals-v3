@@ -210,13 +210,15 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
 
 /**
@@ -254,6 +256,33 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
   }
 
+  function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {
+    listings = new ExpectedListing[](1);
+
+    listings[0] = ExpectedListing({
+      listing: IAaveV3ConfigEngine.Listing({
+        asset: 0xf7fB83435F455Bd970F2D9f943f4eECE1941b3e9,
+        assetSymbol: 'PT_sUSDe_TEST',
+        priceFeed: 0x9c823f4e19Ef68347810a9C139619273b8282b7e,
+        enabledToBorrow: EngineFlags.DISABLED,
+        flashloanable: EngineFlags.DISABLED,
+        ltv: 0,
+        liqThreshold: 0,
+        liqBonus: 0,
+        reserveFactor: 45_00,
+        supplyCap: 150_000_000,
+        borrowCap: 1,
+        liqProtocolFee: 10_00,
+        rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+          optimalUsageRatio: 45_00,
+          baseVariableBorrowRate: 0,
+          variableRateSlope1: 10_00,
+          variableRateSlope2: 300_00
+        })
+      }),
+      decimals: 18
+    });
+  }
   function test_eModeConfiguration() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     uint8 eMode_PT_sUSDe_TEST__Stablecoins = _findEModeCategoryId('PT_sUSDe_TEST__Stablecoins');
