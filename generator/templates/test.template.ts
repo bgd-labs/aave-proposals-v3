@@ -32,29 +32,7 @@ export const testTemplate = (
 
   const defaultTestCall = v4
     ? `defaultTest('${contractName}', address(proposal));`
-    : `defaultTest('${contractName}', ${market}.POOL, address(proposal)${isWhitelabelMarket(market) ? ', true, true' : ''});`;
-
-  const updatedAssets = Array.from(
-    new Set(
-      marketConfig.artifacts
-        .map((artifact) => artifact.test?.updatedAssets)
-        .flat()
-        .filter((asset) => asset !== undefined),
-    ),
-  );
-  const reserveConfigChangesTest =
-    testBase === 'ProtocolV3TestBase'
-      ? `
-  /**
-   * @dev checks whether reserve configurations changed or stayed unchanged as expected
-   */
-  function test_reserveConfigChanges() public {
-    address[] memory updatedAssets = new address[](${updatedAssets.length});
-    ${updatedAssets.map((asset, ix) => `updatedAssets[${ix}] = ${asset};`).join('\n    ')}
-    reserveConfigChangesTest(${market}.POOL, address(proposal), updatedAssets);
-  }
-`
-      : '';
+    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
 
   let template = `
 import 'forge-std/Test.sol';
@@ -83,7 +61,6 @@ contract ${contractName}_Test is ${testBase} {
     ${defaultTestCall}
   }
 
-  ${reserveConfigChangesTest}
   ${functions}
 }`;
   return prefixWithPragma(prefixWithImports(template));

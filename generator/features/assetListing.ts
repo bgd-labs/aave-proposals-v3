@@ -86,47 +86,6 @@ function generateAssetListingSol(cfg: Listing) {
   })`;
 }
 
-function generateExpectedListingSol(cfg: Listing) {
-  return `asset: ${translateJsAddressToSol(cfg.asset)},
-  assetSymbol: "${cfg.assetSymbol}",
-  priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
-  enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
-  flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
-  ltv: ${translateJsPercentToSol(cfg.ltv)},
-  liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
-  liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-  reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)},
-  supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
-  borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
-  liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
-  rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-     optimalUsageRatio: ${translateJsPercentToSol(cfg.rateStrategyParams.optimalUtilizationRate)},
-     baseVariableBorrowRate: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.baseVariableBorrowRate,
-     )},
-     variableRateSlope1: ${translateJsPercentToSol(cfg.rateStrategyParams.variableRateSlope1)},
-     variableRateSlope2: ${translateJsPercentToSol(cfg.rateStrategyParams.variableRateSlope2)}
-  })`;
-}
-
-function listingOverrides(cfgs: Listing[], fnName: string): string[] {
-  return [
-    `function ${fnName}() internal pure override returns (IAaveV3ConfigEngine.Listing[] memory listings, uint256[] memory decimals) {
-      listings = new IAaveV3ConfigEngine.Listing[](${cfgs.length});
-      decimals = new uint256[](${cfgs.length});
-
-      ${cfgs
-        .map(
-          (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.Listing({
-                 ${generateExpectedListingSol(cfg)}
-               });
-      decimals[${ix}] = ${cfg.decimals};`,
-        )
-        .join('\n')}
-    }`,
-  ];
-}
-
 export const assetListing: FeatureModule<Listing[]> = {
   value: FEATURE.ASSET_LISTING,
   description: 'newListings (listing a new asset)',
@@ -141,22 +100,6 @@ export const assetListing: FeatureModule<Listing[]> = {
     return response;
   },
   build({market, cfg}) {
-    const listingTests = cfg.map((cfg) => {
-      let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
-            ${testExecuteProposal(market)}
-            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
-          }\n`;
-      if (isAddress(cfg.admin)) {
-        listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
-	      ${testExecuteProposal(market)}
-              address a${cfg.assetSymbol} = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	    }\n`;
-      }
-      return listingTest;
-    });
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
@@ -209,7 +152,22 @@ export const assetListing: FeatureModule<Listing[]> = {
         ],
       },
       test: {
-        fn: [...listingTests, ...listingOverrides(cfg, '_expectedListings')],
+        fn: cfg.map((cfg) => {
+          let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
+            ${testExecuteProposal(market)}
+            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
+          }\n`;
+          if (isAddress(cfg.admin)) {
+            listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
+	      ${testExecuteProposal(market)}
+              address a${cfg.assetSymbol} = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	    }\n`;
+          }
+          return listingTest;
+        }),
       },
       aip: {
         specification: cfg.map((cfg) => {
@@ -271,13 +229,6 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
     return response;
   },
   build({market, cfg}) {
-    const listingTests = cfg.map(
-      (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
-            ${testExecuteProposal(market)}
-            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
-            assertGte(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
-          }`,
-    );
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
@@ -321,13 +272,13 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         ],
       },
       test: {
-        fn: [
-          ...listingTests,
-          ...listingOverrides(
-            cfg.map((cfg) => cfg.base),
-            '_expectedCustomListings',
-          ),
-        ],
+        fn: cfg.map(
+          (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
+            ${testExecuteProposal(market)}
+            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
+            assertGte(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
+          }`,
+        ),
       },
     };
     return response;

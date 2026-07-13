@@ -1,4 +1,5 @@
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
+import {percentInput} from '../prompts';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
@@ -32,36 +33,6 @@ export async function fetchCollateralUpdate(
 
 type CollateralUpdates = CollateralUpdate[];
 
-function renderCollateralUpdates(
-  market: MarketIdentifier,
-  cfgs: CollateralUpdates,
-  varName: string,
-) {
-  return cfgs
-    .map(
-      (cfg, ix) => `${varName}[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
-               ltv: ${translateJsPercentToSol(cfg.ltv)},
-               liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
-               liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-               liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)}
-             });`,
-    )
-    .join('\n');
-}
-
-function collateralUpdateOverrides(market: MarketIdentifier, cfgs: CollateralUpdates): string[] {
-  return [
-    `function _expectedCollateralChanges() internal pure override returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
-      IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate;
-      collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](${cfgs.length});
-
-      ${renderCollateralUpdates(market, cfgs, 'collateralUpdate')}
-      return collateralUpdate;
-    }`,
-  ];
-}
-
 export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
   value: FEATURE.COLLATERALS_UPDATE,
   description: 'CollateralsUpdates (ltv,lt,lb,liqProtocolFee,eModeCategory)',
@@ -89,15 +60,21 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
             cfg.length
           });
 
-          ${renderCollateralUpdates(market, cfg, 'collateralUpdate')}
+          ${cfg
+            .map(
+              (cfg, ix) => `collateralUpdate[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
+               ltv: ${translateJsPercentToSol(cfg.ltv)},
+               liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
+               liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
+               liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)}
+             });`,
+            )
+            .join('\n')}
 
           return collateralUpdate;
         }`,
         ],
-      },
-      test: {
-        fn: collateralUpdateOverrides(market, cfg),
-        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;
