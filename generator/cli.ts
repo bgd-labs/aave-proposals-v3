@@ -81,7 +81,7 @@ program
   .addOption(new Option('-s, --snapshot <string>', 'snapshot link'))
   .addOption(
     new Option(
-      '-v, --votingNetwork <votingNetwork...>',
+      '-v, --votingNetwork <votingNetwork>',
       'network where voting should take place for the proposal',
     ).choices(Object.values(VOTING_NETWORK)),
   )

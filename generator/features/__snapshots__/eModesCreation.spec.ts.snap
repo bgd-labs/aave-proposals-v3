@@ -239,6 +239,15 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     defaultTest('AaveV3Ethereum_Test_20231023', AaveV3Ethereum.POOL, address(proposal));
   }
 
+  /**
+   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   */
+  function test_reserveConfigChanges() public {
+    address[] memory updatedAssets = new address[](0);
+
+    reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);
+  }
+
   function test_dustBinHasPT_sUSDe_TESTFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PT_sUSDe_TEST());

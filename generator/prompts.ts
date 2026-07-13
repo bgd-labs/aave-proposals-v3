@@ -16,10 +16,6 @@ interface GenericPrompt<T extends boolean = boolean> {
   defaultValue?: string;
 }
 
-interface PercentInputPrompt<T extends boolean> extends GenericPrompt<T> {
-  toRay?: boolean;
-}
-
 export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
 export type NumberInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
