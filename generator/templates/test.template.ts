@@ -17,6 +17,7 @@ export const testTemplate = (
 ) => {
   const folderName = generateFolderName(options);
   const chain = getMarketChain(market);
+  const isZkSync = chain === 'ZkSync';
   const contractName = generateContractName(options, market);
   const {v4, testBase} = getTestBase(market);
 
@@ -26,14 +27,15 @@ export const testTemplate = (
     .filter((f) => f !== undefined)
     .join('\n');
 
-  const expectedListingImport =
-    testBase === 'ProtocolV3TestBase' && functions.includes('ExpectedListing')
-      ? ', ExpectedListing'
-      : '';
+  const testBaseImports = [testBase, 'ReserveConfig'];
+  if (testBase === 'ProtocolV3TestBase' && functions.includes('ExpectedListing')) {
+    testBaseImports.push('ExpectedListing');
+  }
+  const testBasePath = isZkSync ? 'zksync/src/' : 'src/';
 
   const testBaseImport = v4
     ? `import {${testBase}} from 'aave-helpers/src/v4-protocol-test/${testBase}.sol';`
-    : `import {${testBase}, ReserveConfig${expectedListingImport}} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+    : `import {${testBaseImports.join(', ')}} from 'aave-helpers/${testBasePath}${testBase}.sol';`;
 
   const defaultTestCall = v4
     ? `defaultTest('${contractName}', address(proposal));`
