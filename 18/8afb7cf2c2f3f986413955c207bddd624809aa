@@ -1,9 +1,9 @@
 src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation.md
-  s_59edd78a894f70::t_1532135fe90cd2 145-146
+  s_59edd78a894f70::t_a53e65513afae3 145-146
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.13",
+  "git_ai_version": "1.6.14",
   "base_commit_sha": "188afb7cf2c2f3f986413955c207bddd624809aa",
   "prompts": {},
   "humans": {
@@ -17,14 +17,6 @@ src/20260708_AaveV4Avalanche_AaveV4AvalancheActivation/AaveV4AvalancheActivation
         "tool": "claude",
         "id": "dc900c02-c2c3-4aa2-b5e6-eed7b8cd7e79",
         "model": "claude-opus-4-8"
-      },
-      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
-    },
-    "s_727da59f99c345": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f5ab0-c16c-70c1-9f3d-16d6ac3ff3d3",
-        "model": "unknown"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     }
