@@ -1,22 +1,17 @@
 generator/prompts.spec.ts
-  s_40990ecc2389ef::t_960672da297a8e 31
+  s_a29e3e9eb1cbe2::t_2d0bbb57bf7adc 31
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.13",
+  "git_ai_version": "1.6.14",
   "base_commit_sha": "72c8833874bdfc868a5ad30e9f36d7eee92b14ed",
   "prompts": {},
-  "humans": {
-    "h_8b974fbabf2fb7": {
-      "author": "Alberto <albe@AMWM-H65F40J09H.local>"
-    }
-  },
   "sessions": {
-    "s_40990ecc2389ef": {
+    "s_a29e3e9eb1cbe2": {
       "agent_id": {
         "tool": "codex",
-        "id": "019f477d-6195-7671-b072-d4e8a396d4cd",
-        "model": "unknown"
+        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     }
