@@ -1,17 +1,17 @@
 generator/features/__snapshots__/assetListing.spec.ts.snap
-  s_727da59f99c345::t_1ad2b85d5f3fe3 182,220-244,405-406,408-410,428-429
+  s_a29e3e9eb1cbe2::t_a000ad9ceb31c0 182,220-244,405-406,408-410,428-429
 generator/features/__snapshots__/eModesCreation.spec.ts.snap
-  s_727da59f99c345::t_37372e9413ffe7 221,259-283
-generator/features/assetListing.spec.ts
-  s_727da59f99c345::t_37f3387bb5b1b8 31-32,35
-generator/features/assetListing.ts
-  s_727da59f99c345::t_6d54b9b9bb2771 114-115,119-124
+  s_a29e3e9eb1cbe2::t_280cf476fd294c 221,259-283
 generator/templates/test.template.ts
-  s_727da59f99c345::t_da5bc7b51039d3 28-31,35-44,48
+  s_a29e3e9eb1cbe2::t_ecb90d9fe79b67 28-31,35-44,48
+generator/features/assetListing.spec.ts
+  s_727da59f99c345::t_551351fb28b0e1 31-32,35
+generator/features/assetListing.ts
+  s_727da59f99c345::t_0f49f8e79863f4 114-115,119-124
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.13",
+  "git_ai_version": "1.6.14",
   "base_commit_sha": "1b57ac2941f1a83ad89544c8ae01bddf459b2b78",
   "prompts": {},
   "sessions": {
@@ -20,6 +20,14 @@ generator/templates/test.template.ts
         "tool": "codex",
         "id": "019f5ab0-c16c-70c1-9f3d-16d6ac3ff3d3",
         "model": "unknown"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_a29e3e9eb1cbe2": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c09-bfa0-79a3-837c-8c1d7945ecbf",
+        "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     }
