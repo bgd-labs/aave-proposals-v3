@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 
 /**
  * @title Aave V3 LTV and E-Mode Update
- * @author Aave Labs
+ * @author Llama Risk (implemented by Aave Labs)
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-aave-v3-ltv-and-e-mode-update/25067
  */

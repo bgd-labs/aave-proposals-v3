@@ -21,6 +21,16 @@ contract AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3T
     proposal = new AaveV3EthereumLido_AaveV3LTVAndEModeUpdate_20260707();
   }
 
+  function test_preProposalBorrowCap() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3EthereumLido.POOL);
+    ReserveConfig memory wstETHConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumLidoAssets.wstETH_UNDERLYING
+    );
+
+    assertEq(wstETHConfig.borrowCap, 1);
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    * forge-config: default.isolate = true

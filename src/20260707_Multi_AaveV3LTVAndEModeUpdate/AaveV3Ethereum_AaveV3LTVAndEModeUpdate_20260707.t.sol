@@ -21,6 +21,26 @@ contract AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestB
     proposal = new AaveV3Ethereum_AaveV3LTVAndEModeUpdate_20260707();
   }
 
+  function test_preProposalBorrowCap() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Ethereum.POOL);
+    ReserveConfig memory wstETHConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.wstETH_UNDERLYING
+    );
+
+    assertEq(wstETHConfig.borrowCap, 1);
+  }
+
+  function test_preProposalLtv() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Ethereum.POOL);
+    ReserveConfig memory pyusdConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.PYUSD_UNDERLYING
+    );
+
+    assertEq(pyusdConfig.ltv, 75_00);
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    * forge-config: default.isolate = true

@@ -21,6 +21,16 @@ contract AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3TestBas
     proposal = new AaveV3Gnosis_AaveV3LTVAndEModeUpdate_20260707();
   }
 
+  function test_preProposalLtv() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Gnosis.POOL);
+    ReserveConfig memory wstETHConfig = _findReserveConfig(
+      configs,
+      AaveV3GnosisAssets.wstETH_UNDERLYING
+    );
+
+    assertEq(wstETHConfig.ltv, 75_00);
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    * forge-config: default.isolate = true

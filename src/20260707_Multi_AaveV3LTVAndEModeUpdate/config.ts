@@ -11,7 +11,7 @@ export const config: ConfigFile = {
     title: 'Aave V3 LTV and E-Mode Update',
     shortName: 'AaveV3LTVAndEModeUpdate',
     date: '20260707',
-    author: 'Aave Labs',
+    author: 'Llama Risk (implemented by Aave Labs)',
     discussion: 'https://governance.aave.com/t/direct-to-aip-aave-v3-ltv-and-e-mode-update/25067',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'AVALANCHE',

@@ -21,6 +21,16 @@ contract AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707_Test is ProtocolV3Test
     proposal = new AaveV3Avalanche_AaveV3LTVAndEModeUpdate_20260707();
   }
 
+  function test_preProposalLtv() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Avalanche.POOL);
+    ReserveConfig memory ausdConfig = _findReserveConfig(
+      configs,
+      AaveV3AvalancheAssets.AUSD_UNDERLYING
+    );
+
+    assertEq(ausdConfig.ltv, 69_00);
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    * forge-config: default.isolate = true

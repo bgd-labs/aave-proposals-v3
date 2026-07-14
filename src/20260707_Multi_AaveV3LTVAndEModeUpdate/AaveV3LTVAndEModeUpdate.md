@@ -1,6 +1,6 @@
 ---
 title: "Aave V3 LTV and E-Mode Update"
-author: "Aave Labs"
+author: "Llama Risk (implemented by Aave Labs)"
 discussions: "https://governance.aave.com/t/direct-to-aip-aave-v3-ltv-and-e-mode-update/25067"
 ---
 
@@ -93,6 +93,7 @@ Following the oracle misconfiguration incident, the wstETH borrow caps on the Et
 | Asset                 | WMNT  | USDT0 | USDC  | GHO   |
 | Collateral            | Yes   | No    | No    | No    |
 | Borrowable            | No    | Yes   | Yes   | Yes   |
+| Isolated              | Yes   | -     | -     | -     |
 | Max LTV               | 40%   | -     | -     | -     |
 | Liquidation Threshold | 45%   | -     | -     | -     |
 | Liquidation Bonus     | 10%   | -     | -     | -     |
