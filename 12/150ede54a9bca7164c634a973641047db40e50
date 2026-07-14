@@ -1,15 +1,9 @@
 .gitmodules
-  s_59edd78a894f70::t_12473dbab3fe9b 6
-  s_f58f6c19df07b3::t_d2a6f7bd71e6be 6
-  s_660dbf28683829::t_99fe7d1e5ab44f 6
-lib/aave-helpers
-  s_22f80b5bcb6d41::t_e263bc039b5c60 1
-generator/templates/test.template.spec.ts
-  s_e0a2e21ba98a93::t_db9417e90fe3fa 7-9
+  s_59edd78a894f70::t_c97dbfcfd84881 6
 ---
 {
   "schema_version": "authorship/3.0.0",
-  "git_ai_version": "1.6.13",
+  "git_ai_version": "1.6.14",
   "base_commit_sha": "12150ede54a9bca7164c634a973641047db40e50",
   "prompts": {},
   "humans": {
@@ -18,30 +12,6 @@ generator/templates/test.template.spec.ts
     }
   },
   "sessions": {
-    "s_22f80b5bcb6d41": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f3c89-d210-7122-b483-d92bfbdf7c86",
-        "model": "gpt-5.5"
-      },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
-    },
-    "s_2b0bd2bd28aa30": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f46c2-492a-7242-ab97-720a31641b80",
-        "model": "gpt-5.5"
-      },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
-    },
-    "s_510e21aa38cba9": {
-      "agent_id": {
-        "tool": "claude",
-        "id": "23791a5a-f479-44d6-a62a-e27c8498e76c",
-        "model": "claude-opus-4-8"
-      },
-      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
-    },
     "s_59edd78a894f70": {
       "agent_id": {
         "tool": "claude",
@@ -49,46 +19,6 @@ generator/templates/test.template.spec.ts
         "model": "claude-opus-4-8"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
-    },
-    "s_660dbf28683829": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f4195-9dbe-74f2-a5c7-08265bd91f1a",
-        "model": "gpt-5.5"
-      },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
-    },
-    "s_d10fefbc33a85a": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f4c2b-9522-7852-893c-6a2267d354a7",
-        "model": "gpt-5.6-sol"
-      },
-      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
-    },
-    "s_e0a2e21ba98a93": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f478d-c6dc-7220-bac5-767eb1b8d88f",
-        "model": "gpt-5.5"
-      },
-      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
-    },
-    "s_e77fd3dfa3a590": {
-      "agent_id": {
-        "tool": "codex",
-        "id": "019f469c-5793-7ec0-9827-be954b369e9b",
-        "model": "gpt-5.5"
-      },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
-    },
-    "s_f58f6c19df07b3": {
-      "agent_id": {
-        "tool": "claude",
-        "id": "20407fd3-cd39-45bd-886b-6bfc14e2c144",
-        "model": "claude-opus-4-8"
-      },
-      "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
     }
   }
 }
