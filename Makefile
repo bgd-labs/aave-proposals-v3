@@ -13,11 +13,11 @@ test-contract :; forge test --match-contract ${filter} -vv
 
 # Deploys payload. `make deploy-payload`
 deploy-payload :; 
-	FOUNDRY_PROFILE=${CHAIN} forge script src/${PAYLOAD}/${PAYLOAD}.s.sol:DeployEthereum \
-		--rpc-url ${CHAIN} --account ${ACCOUNT} --slow --gas-estimate-multiplier 150 \
-		--chain ${CHAIN} --verifier-url ${VERIFIER_URL} \
+	FOUNDRY_PROFILE=${chain} forge script src/${payload}/${payload}.s.sol:DeployEthereum \
+		--rpc-url ${chain} --account ${account} --slow --gas-estimate-multiplier 150 -vv \
+		--chain ${chain} --verifier-url ${verifier_url} \
 		--sig "run()" \
-		$(if ${DRY},, --broadcast --verify) \
+		$(if ${dry},, --broadcast --verify) \
 
 # Utilities
 download :; cast etherscan-source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}
