@@ -46,7 +46,7 @@
   },
   "raw": {
     "0x985bcfab7e0f4ef2606cc5b64fc1a16311880442": {
-      "label": null,
+      "label": "AaveV3EthereumHorizon.ORACLE",
       "contract": null,
       "balanceDiff": null,
       "nonceDiff": null,
