@@ -1,6 +1,10 @@
 import {expect, describe, it} from 'vitest';
 import {eModeUpdates} from './eModesUpdates';
 import {MOCK_OPTIONS, emodeUpdates} from './mocks/configs';
+import {generateFiles} from '../generator';
+import {FEATURE, MarketConfigs} from '../types';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
+import {EModeCategoryUpdate} from './types';
 
 describe('feature: eModesUpdates', () => {
   const output = eModeUpdates.build({
@@ -16,6 +20,34 @@ describe('feature: eModesUpdates', () => {
     expect(fns).toContain('isolated: EngineFlags.ENABLED');
     expect(fns).toContain('isolated: EngineFlags.KEEP_CURRENT');
   });
+
+  it('generates compilable Solidity', async () => {
+    const cfg: EModeCategoryUpdate[] = [
+      {
+        ...emodeUpdates[1],
+        eModeCategory: 'AaveV3EthereumEModes.WETH_wstETH_cbETH_rETH_weETH_osETH_ETHx__WETH',
+      },
+    ];
+    const configs = {[FEATURE.EMODES_UPDATES]: cfg};
+    const marketConfigs: MarketConfigs = {
+      AaveV3Ethereum: {
+        market: 'AaveV3Ethereum',
+        artifacts: [
+          eModeUpdates.build({
+            options: MOCK_OPTIONS,
+            market: 'AaveV3Ethereum',
+            cfg,
+            cache: {blockNumber: 42},
+            configs,
+          }),
+        ],
+        configs,
+        cache: {blockNumber: 42},
+      },
+    };
+
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, marketConfigs));
+  }, 60_000);
 
   it('asserts set fields to their value and KEEP_CURRENT fields to the pre-payload value', () => {
     const test = output.test?.fn?.join('\n') ?? '';
