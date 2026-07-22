@@ -224,6 +224,7 @@ export const config: ConfigFile = {
               guardian: {kind: 'literal', value: '2'},
               grantDelay: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT32'},
               label: 'admin',
+              labelUpdate: false,
             },
           ],
         },
@@ -285,7 +286,12 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
         rateGrowthBeforeOptimal: uint32(400),
         rateGrowthAfterOptimal: uint32(6000)
       }),
-      tokenization: IConfigEngine.TokenizationSpokeConfig({addCap: 0, name: '', symbol: ''})
+      tokenization: IConfigEngine.TokenizationSpokeConfig({
+        addCap: 0,
+        proxyAdminOwner: address(0),
+        name: '',
+        symbol: ''
+      })
     });
     items[1] = IConfigEngine.AssetListing({
       hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
@@ -300,7 +306,12 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
         rateGrowthBeforeOptimal: uint32(400),
         rateGrowthAfterOptimal: uint32(6000)
       }),
-      tokenization: IConfigEngine.TokenizationSpokeConfig({addCap: 0, name: '', symbol: ''})
+      tokenization: IConfigEngine.TokenizationSpokeConfig({
+        addCap: 0,
+        proxyAdminOwner: address(0),
+        name: '',
+        symbol: ''
+      })
     });
     return items;
   }
@@ -539,7 +550,8 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
       admin: EngineFlags.KEEP_CURRENT_UINT64,
       guardian: 2,
       grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
-      label: 'admin'
+      label: 'admin',
+      labelUpdate: false
     });
     return items;
   }

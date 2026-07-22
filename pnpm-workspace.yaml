@@ -3,3 +3,4 @@ allowBuilds:
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - "@aave-dao/aave-helpers-js"
+  - "@aave-dao/aave-address-book"

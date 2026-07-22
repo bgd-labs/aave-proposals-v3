@@ -54,7 +54,12 @@ export const config: ConfigFile = {
               rateGrowthBeforeOptimal: {kind: 'literal', value: '400'},
               rateGrowthAfterOptimal: {kind: 'literal', value: '6000'},
             },
-            tokenization: {addCap: '1000', name: 'TS', symbol: 'TS'},
+            tokenization: {
+              addCap: '1000',
+              proxyAdminOwner: '0x2222222222222222222222222222222222222222',
+              name: 'TS',
+              symbol: 'TS',
+            },
           },
         ],
         V4_HUB_ASSET_CONFIG_UPDATE: [
@@ -231,6 +236,7 @@ export const config: ConfigFile = {
             guardian: {kind: 'literal', value: '2'},
             grantDelay: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT32'},
             label: 'admin',
+            labelUpdate: false,
           },
         ],
         V4_AM_TARGET_FUNCTION_ROLE_UPDATE: [
@@ -315,7 +321,12 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
         rateGrowthBeforeOptimal: uint32(400),
         rateGrowthAfterOptimal: uint32(6000)
       }),
-      tokenization: IConfigEngine.TokenizationSpokeConfig({addCap: 1000, name: 'TS', symbol: 'TS'})
+      tokenization: IConfigEngine.TokenizationSpokeConfig({
+        addCap: 1000,
+        proxyAdminOwner: 0x2222222222222222222222222222222222222222,
+        name: 'TS',
+        symbol: 'TS'
+      })
     });
     return items;
   }
@@ -611,7 +622,8 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
       admin: EngineFlags.KEEP_CURRENT_UINT64,
       guardian: 2,
       grantDelay: EngineFlags.KEEP_CURRENT_UINT32,
-      label: 'admin'
+      label: 'admin',
+      labelUpdate: false
     });
     return items;
   }

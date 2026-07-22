@@ -71,6 +71,10 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
         if (withTokenization) {
           tokenization = {
             addCap: (await numberPrompt({message: 'TokenizationSpoke addCap'})) || '0',
+            proxyAdminOwner: (await addressPrompt({
+              message: 'TokenizationSpoke proxy admin owner',
+              required: true,
+            })) as `0x${string}`,
             name: await input({message: 'TokenizationSpoke name'}),
             symbol: await input({message: 'TokenizationSpoke symbol'}),
           };

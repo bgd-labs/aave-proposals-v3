@@ -142,6 +142,7 @@ export interface V4InterestRateData {
 
 export interface V4TokenizationSpokeConfig {
   addCap: string;
+  proxyAdminOwner: Hex;
   name: string;
   symbol: string;
 }
@@ -298,6 +299,7 @@ export interface V4RoleUpdate {
   guardian: Sentinel;
   grantDelay: Sentinel;
   label: string;
+  labelUpdate: boolean;
 }
 
 export interface V4TargetFunctionRoleUpdate {

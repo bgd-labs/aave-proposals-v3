@@ -50,13 +50,17 @@ export const manageRole: FeatureModule<BundleCfg> = {
         default: false,
       });
       if (wantMeta) {
-        result.updates.push({
-          roleId,
-          admin: await sentinelUint64('New admin role (uint64)'),
-          guardian: await sentinelUint64('New guardian role (uint64)'),
-          grantDelay: await sentinelUint32('New grant delay (uint32, seconds)'),
-          label: await input({message: 'New label (empty = keep current)'}),
-        });
+        const admin = await sentinelUint64('New admin role (uint64)');
+        const guardian = await sentinelUint64('New guardian role (uint64)');
+        const grantDelay = await sentinelUint32('New grant delay (uint32, seconds)');
+        const label = await input({message: 'New label (empty = keep current)'});
+        const labelUpdate = label
+          ? await confirm({
+              message: 'Is the role already labeled? (relabel clears the existing label first)',
+              default: false,
+            })
+          : false;
+        result.updates.push({roleId, admin, guardian, grantDelay, label, labelUpdate});
       }
       more = await confirm({message: 'Manage another role?', default: false});
     }

@@ -216,6 +216,7 @@ describe('feature: v4 use-cases smoke test', () => {
           guardian: literal('2'),
           grantDelay: keepCurrentUint32(),
           label: 'admin',
+          labelUpdate: false,
         },
       ],
     };
