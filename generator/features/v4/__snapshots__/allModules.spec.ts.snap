@@ -56,7 +56,7 @@ export const config: ConfigFile = {
             },
             tokenization: {
               addCap: '1000',
-              proxyAdminOwner: '0x2222222222222222222222222222222222222222',
+              proxyAdminOwner: 'GovernanceV3Ethereum.EXECUTOR_LVL_1',
               name: 'TS',
               symbol: 'TS',
             },
@@ -283,6 +283,7 @@ import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
  * @title V4 every action
@@ -323,7 +324,7 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
       }),
       tokenization: IConfigEngine.TokenizationSpokeConfig({
         addCap: 1000,
-        proxyAdminOwner: 0x2222222222222222222222222222222222222222,
+        proxyAdminOwner: GovernanceV3Ethereum.EXECUTOR_LVL_1,
         name: 'TS',
         symbol: 'TS'
       })

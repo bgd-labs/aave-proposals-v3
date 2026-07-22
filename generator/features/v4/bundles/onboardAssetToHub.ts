@@ -13,6 +13,7 @@ import {
 } from '../marketBook';
 import {readHubAssets, isAssetListedOnHub} from '../onchain';
 import {promptFeeReceiver} from '../feeReceiver';
+import {promptProxyAdminOwner} from '../proxyAdminOwner';
 import {hubAssetListing} from '../hub/hubAssetListing';
 import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
 import {V4HubAssetListing, V4HubSpokeToAssetsAddition} from '../../types';
@@ -71,10 +72,7 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
         if (withTokenization) {
           tokenization = {
             addCap: (await numberPrompt({message: 'TokenizationSpoke addCap'})) || '0',
-            proxyAdminOwner: (await addressPrompt({
-              message: 'TokenizationSpoke proxy admin owner',
-              required: true,
-            })) as `0x${string}`,
+            proxyAdminOwner: await promptProxyAdminOwner(m),
             name: await input({message: 'TokenizationSpoke name'}),
             symbol: await input({message: 'TokenizationSpoke symbol'}),
           };

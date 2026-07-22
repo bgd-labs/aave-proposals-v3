@@ -142,7 +142,7 @@ export interface V4InterestRateData {
 
 export interface V4TokenizationSpokeConfig {
   addCap: string;
-  proxyAdminOwner: Hex;
+  proxyAdminOwner: string;
   name: string;
   symbol: string;
 }
