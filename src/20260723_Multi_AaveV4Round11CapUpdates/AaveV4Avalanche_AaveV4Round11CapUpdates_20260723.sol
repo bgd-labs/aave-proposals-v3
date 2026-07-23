@@ -10,7 +10,7 @@ import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
  * @title Aave V4 Round 11 Cap Updates
  * @author LlamaRisk (implemented by Aave Labs)
  * - Snapshot: direct-to-aip
- * - Discussion: https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293/38?u=llamarisk
+ * - Discussion: https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293/38
  */
 contract AaveV4Avalanche_AaveV4Round11CapUpdates_20260723 is AaveV4PayloadAvalanche {
   function hubSpokeConfigUpdates()

@@ -9,7 +9,7 @@ export const config: ConfigFile = {
     date: '20260723',
     author: 'LlamaRisk (implemented by Aave Labs)',
     discussion:
-      'https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293/38?u=llamarisk',
+      'https://governance.aave.com/t/arfc-aave-v4-activation-on-ethereum-mainnet/24293/38',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },
