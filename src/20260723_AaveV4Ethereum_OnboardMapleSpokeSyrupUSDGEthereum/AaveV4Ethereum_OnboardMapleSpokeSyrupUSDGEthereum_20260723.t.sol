@@ -6,6 +6,7 @@ import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4Ethereum
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
+import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 import {Ownable} from 'openzeppelin-contracts/contracts/access/Ownable.sol';
@@ -37,6 +38,23 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723', address(proposal));
+  }
+
+  /// @dev The default suite only e2e-tests spokes in the address book, which does not
+  /// yet include the Maple Spoke. Exercise both reserves (USDG & syrupUSDG) here.
+  function test_e2e_MAPLE_SPOKE() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestSpoke(ISpoke(proposal.MAPLE_SPOKE()));
+  }
+
+  /// @dev The default suite only e2e-tests tokenization spokes in the address book, which
+  /// does not yet include the one this payload deploys for USDG on the Paxos Hub.
+  function test_e2e_tokenizationSpoke_PAXOS_HUB_USDG() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
+    address tokenizationSpoke = _findTokenizationSpoke(hub, assetId);
+    e2eTestTokenizationSpoke(ITokenizationSpoke(tokenizationSpoke));
   }
 
   function test_accessManagerTargetFunctionRoleUpdatesInput() public view {
