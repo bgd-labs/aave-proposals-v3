@@ -1,11 +1,11 @@
-import {select, confirm} from '@inquirer/prompts';
+import {confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeLiquidationConfigUpdate} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {spokeKeys, spokeLibAccessor} from '../marketBook';
+import {selectSpoke} from '../hubSpokeSelect';
 import {keepCurrent, literal, renderSentinel} from '../sentinels';
 import {Sentinel} from '../../types';
-import {assertSentinelField, shortKey} from '../testHelpers';
+import {accessorIdentifier, assertSentinelField} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -21,13 +21,10 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
     const response: V4SpokeLiquidationConfigUpdate[] = [];
     let more = true;
     while (more) {
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const spoke = await selectSpoke(m);
       response.push({
-        spokeLib: spokeLibAccessor(m, spoke),
-        spoke: spokeLibAccessor(m, spoke),
+        spokeLib: spoke.expr,
+        spoke: spoke.expr,
         targetHealthFactor: await sentinelNumber('targetHealthFactor (WAD)'),
         healthFactorForMaxBonus: await sentinelNumber('healthFactorForMaxBonus (WAD)'),
         liquidationBonusFactor: await sentinelNumber('liquidationBonusFactor (bps)'),
@@ -47,7 +44,7 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
       });`,
     );
     const testFns = cfg.map((c) => {
-      const spokeKey = shortKey(c.spoke);
+      const spokeKey = accessorIdentifier(c.spoke);
       const asserts = [
         assertSentinelField('targetHealthFactor', c.targetHealthFactor, 'uint'),
         assertSentinelField('healthFactorForMaxBonus', c.healthFactorForMaxBonus, 'uint'),

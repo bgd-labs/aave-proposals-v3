@@ -2,17 +2,11 @@ import {select, input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeDynamicReserveConfigUpdate} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-} from '../marketBook';
+import {assetKeys, assetLibAccessor} from '../marketBook';
+import {selectHub, selectSpoke} from '../hubSpokeSelect';
 import {keepCurrent, literal, renderSentinel} from '../sentinels';
 import {Sentinel} from '../../types';
-import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
+import {accessorIdentifier, assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -28,23 +22,17 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
     const response: V4SpokeDynamicReserveConfigUpdate[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const hub = await selectHub(m);
+      const spoke = await selectSpoke(m);
       const asset = await select({
         message: 'Select asset',
         choices: assetKeys(m).map((k) => ({name: k, value: k})),
       });
       const dynamicConfigKey = await input({message: 'Dynamic config key (uint32)'});
       response.push({
-        spokeLib: spokeLibAccessor(m, spoke),
-        spoke: spokeLibAccessor(m, spoke),
-        hub: hubLibAccessor(m, hub),
+        spokeLib: spoke.expr,
+        spoke: spoke.expr,
+        hub: hub.expr,
         underlying: assetLibAccessor(m, asset),
         dynamicConfigKey,
         collateralFactor: await sentinelNumber('collateralFactor (bps)'),
@@ -69,7 +57,7 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
       });`,
     );
     const testFns = cfg.map((c) => {
-      const spokeKey = shortKey(c.spoke);
+      const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = shortKey(c.underlying);
       const asserts = [
         assertSentinelField('collateralFactor', c.collateralFactor, 'uint', 'dyn', 'beforeDyn'),

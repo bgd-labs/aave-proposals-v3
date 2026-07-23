@@ -2,15 +2,9 @@ import {select, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeDynamicReserveConfigAddition} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-} from '../marketBook';
-import {shortKey, checksumAddress} from '../testHelpers';
+import {assetKeys, assetLibAccessor} from '../marketBook';
+import {selectHub, selectSpoke} from '../hubSpokeSelect';
+import {accessorIdentifier, shortKey, checksumAddress} from '../testHelpers';
 
 export const spokeDynamicReserveConfigAddition: FeatureModule<
   V4SpokeDynamicReserveConfigAddition[]
@@ -22,22 +16,16 @@ export const spokeDynamicReserveConfigAddition: FeatureModule<
     const response: V4SpokeDynamicReserveConfigAddition[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const hub = await selectHub(m);
+      const spoke = await selectSpoke(m);
       const asset = await select({
         message: 'Select asset',
         choices: assetKeys(m).map((k) => ({name: k, value: k})),
       });
       response.push({
-        spokeLib: spokeLibAccessor(m, spoke),
-        spoke: spokeLibAccessor(m, spoke),
-        hub: hubLibAccessor(m, hub),
+        spokeLib: spoke.expr,
+        spoke: spoke.expr,
+        hub: hub.expr,
         underlying: assetLibAccessor(m, asset),
         dynamicConfig: {
           collateralFactor:
@@ -66,7 +54,7 @@ export const spokeDynamicReserveConfigAddition: FeatureModule<
       });`,
     );
     const testFns = cfg.map((c) => {
-      const spokeKey = shortKey(c.spoke);
+      const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = shortKey(c.underlying);
       return `function test_spokeDynamicReserveConfigAddition_${spokeKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));

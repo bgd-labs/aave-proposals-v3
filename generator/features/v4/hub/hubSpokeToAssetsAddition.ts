@@ -1,9 +1,10 @@
-import {select, checkbox, input, confirm} from '@inquirer/prompts';
+import {checkbox, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeToAssetsAddition} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {hubKeys, rawSpokeKeys, assetKeys, hubLibAccessor, assetLibAccessor} from '../marketBook';
-import {shortKey, checksumAddress} from '../testHelpers';
+import {assetKeys, assetLibAccessor} from '../marketBook';
+import {selectHub, selectSpoke} from '../hubSpokeSelect';
+import {accessorIdentifier, assetIdentifier, checksumAddress} from '../testHelpers';
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
   value: FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION,
@@ -13,14 +14,8 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
     const response: V4HubSpokeToAssetsAddition[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: rawSpokeKeys(m).map((s) => ({name: s.key, value: s})),
-      });
+      const hub = await selectHub(m);
+      const spoke = await selectSpoke(m, {raw: true});
       const assets = await checkbox({
         message: 'Select assets to register on the spoke',
         choices: assetKeys(m).map((k) => ({name: k, value: k})),
@@ -40,9 +35,9 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         });
       }
       response.push({
-        hubLib: hubLibAccessor(m, hub),
-        hub,
-        spoke: spoke.accessor,
+        hubLib: hub.expr,
+        hub: hub.key,
+        spoke: spoke.expr,
         assets: assetConfigs,
       });
       more = await confirm({message: 'Register another spoke?', default: false});
@@ -78,10 +73,10 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
     });
     const testFns: string[] = [];
     for (const c of cfg) {
-      const hubKey = shortKey(c.hubLib);
-      const spokeKey = shortKey(c.spoke);
+      const hubKey = accessorIdentifier(c.hubLib);
+      const spokeKey = accessorIdentifier(c.spoke);
       for (const a of c.assets) {
-        const assetKey = shortKey(a.underlying);
+        const assetKey = assetIdentifier(a.underlying);
         testFns.push(
           `function test_hubSpokeToAssetsAddition_${hubKey}_${spokeKey}_${assetKey}() public {
             GovV3Helpers.executePayload(vm, address(proposal));

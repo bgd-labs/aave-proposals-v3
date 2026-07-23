@@ -2,14 +2,8 @@ import {select, checkbox} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeConfigUpdate} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {
-  getV4Book,
-  hubKeys,
-  rawSpokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  assetLibAccessor,
-} from '../marketBook';
+import {getV4Book, assetKeys, assetLibAccessor} from '../marketBook';
+import {selectHub, selectSpokes} from '../hubSpokeSelect';
 import {
   keepCurrent,
   keepCurrentAddress,
@@ -20,7 +14,7 @@ import {
   disabled,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
+import {accessorIdentifier, assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumberPrompt(message: string): Promise<Sentinel> {
   const value = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -49,15 +43,8 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
   async cli({market}) {
     const m = market as MarketIdentifierV4;
     const response: V4HubSpokeConfigUpdate[] = [];
-    const hub = await select({
-      message: 'Select hub',
-      choices: hubKeys(m).map((k) => ({name: k, value: k})),
-    });
-    const spokes = await checkbox({
-      message: 'Select spokes to update',
-      choices: rawSpokeKeys(m).map((s) => ({name: s.key, value: s})),
-      required: true,
-    });
+    const hub = await selectHub(m);
+    const spokes = await selectSpokes(m, {message: 'Select spokes to update', raw: true});
     for (const spoke of spokes) {
       const assets = await checkbox({
         message: `Select assets for ${spoke.key}`,
@@ -66,10 +53,10 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       });
       for (const asset of assets) {
         response.push({
-          hubLib: hubLibAccessor(m, hub),
-          hub: hub,
+          hubLib: hub.expr,
+          hub: hub.key,
           underlying: assetLibAccessor(m, asset),
-          spoke: spoke.accessor,
+          spoke: spoke.expr,
           addCap: await sentinelNumberPrompt(`${spoke.key}/${asset} new addCap`),
           drawCap: await sentinelNumberPrompt(`${spoke.key}/${asset} new drawCap`),
           riskPremiumThreshold: await sentinelNumberPrompt(
@@ -97,8 +84,8 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       });`,
     );
     const testFns = cfg.map((c) => {
-      const hubKey = shortKey(c.hubLib);
-      const spokeKey = shortKey(c.spoke);
+      const hubKey = accessorIdentifier(c.hubLib);
+      const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = shortKey(c.underlying);
       const asserts = [
         assertSentinelField('addCap', c.addCap, 'uint'),

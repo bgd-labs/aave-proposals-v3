@@ -3,7 +3,8 @@ import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../..
 import {V4HubAssetConfigUpdate} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {hubKeys, assetKeys, hubLibAccessor, assetLibAccessor} from '../marketBook';
+import {assetKeys, assetLibAccessor} from '../marketBook';
+import {selectHub} from '../hubSpokeSelect';
 import {
   keepCurrent,
   keepCurrentAddress,
@@ -13,7 +14,7 @@ import {
   renderSentinel,
 } from '../sentinels';
 import {Sentinel} from '../../types';
-import {assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
+import {accessorIdentifier, assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
 
 async function sentinelNumber(message: string): Promise<Sentinel> {
   const v = await numberPrompt({message: `${message} (empty = keep current)`});
@@ -47,17 +48,14 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
     const response: V4HubAssetConfigUpdate[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const hub = await selectHub(m);
       const asset = await select({
         message: 'Select asset',
         choices: assetKeys(m).map((k) => ({name: k, value: k})),
       });
       response.push({
-        hubLib: hubLibAccessor(m, hub),
-        hub,
+        hubLib: hub.expr,
+        hub: hub.key,
         underlying: assetLibAccessor(m, asset),
         liquidityFee: await sentinelNumber('liquidityFee (bps)'),
         feeReceiver: await sentinelAddress('feeReceiver'),
@@ -93,7 +91,7 @@ export const hubAssetConfigUpdate: FeatureModule<V4HubAssetConfigUpdate[]> = {
       });`,
     );
     const testFns = cfg.map((c) => {
-      const hubKey = shortKey(c.hubLib);
+      const hubKey = accessorIdentifier(c.hubLib);
       const assetKey = shortKey(c.underlying);
       const asserts = [
         assertSentinelField('liquidityFee', c.liquidityFee, 'uint'),

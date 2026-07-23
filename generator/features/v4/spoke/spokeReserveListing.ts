@@ -1,16 +1,15 @@
-import {select, confirm} from '@inquirer/prompts';
+import {confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeReserveListing} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {hubKeys, spokeKeys, hubLibAccessor, spokeLibAccessor} from '../marketBook';
+import {selectHub, selectSpoke} from '../hubSpokeSelect';
 import {buildAddressConstant} from '../constants';
-import {assetIdentifier, checksumAddress} from '../testHelpers';
+import {accessorIdentifier, assetIdentifier, checksumAddress} from '../testHelpers';
 import {selectAsset} from '../assetSelect';
 
 function priceFeedConstantName(spokeAccessor: string, underlying: string): string {
-  const spokeKey = spokeAccessor.split('.').pop()!;
-  return `${spokeKey}_${assetIdentifier(underlying)}_PRICE_FEED`;
+  return `${accessorIdentifier(spokeAccessor)}_${assetIdentifier(underlying)}_PRICE_FEED`;
 }
 
 export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
@@ -21,20 +20,14 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
     const response: V4SpokeReserveListing[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const hub = await selectHub(m);
+      const spoke = await selectSpoke(m);
       const asset = await selectAsset(m);
       const priceSource = await addressPrompt({message: 'Price source', required: true});
       response.push({
-        spokeLib: spokeLibAccessor(m, spoke),
-        spoke: spokeLibAccessor(m, spoke),
-        hub: hubLibAccessor(m, hub),
+        spokeLib: spoke.expr,
+        spoke: spoke.expr,
+        hub: hub.expr,
         underlying: asset.expr,
         priceSource: priceSource as `0x${string}`,
         config: {
@@ -82,7 +75,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
       });`,
     );
     const testFns = cfg.map((c) => {
-      const spokeKey = c.spoke.split('.').pop()!;
+      const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = assetIdentifier(c.underlying);
       return `function test_spokeReserveListing_${spokeKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));

@@ -9,14 +9,21 @@ export function shortKey(accessor: string): string {
     .replace(/_UNDERLYING$/, '');
 }
 
+/// Derive a Solidity-identifier-safe key from a library accessor or address
+/// literal: a `<Lib>.<KEY>` accessor yields `KEY` (trailing `_UNDERLYING`
+/// stripped), a raw address literal yields `CUSTOM_<last 4 bytes>`.
+export function accessorIdentifier(expr: string): string {
+  if (isHex(expr) && expr.length === 42) {
+    return `CUSTOM_${expr.replace(/^0x/, '').slice(-8).toUpperCase()}`;
+  }
+  return shortKey(expr);
+}
+
 /// Derive a Solidity-identifier-safe key from an `underlying` expression: a
 /// `<Lib>.<KEY>_UNDERLYING` accessor yields `KEY`, a raw address literal yields
 /// `CUSTOM_<last 4 bytes>`.
 export function assetIdentifier(underlying: string): string {
-  if (isHex(underlying) && underlying.length === 42) {
-    return `CUSTOM_${underlying.replace(/^0x/, '').slice(-8).toUpperCase()}`;
-  }
-  return shortKey(underlying);
+  return accessorIdentifier(underlying);
 }
 
 export function isLiteral(s: Sentinel): boolean {

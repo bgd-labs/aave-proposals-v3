@@ -1,18 +1,18 @@
-import {select, input, confirm} from '@inquirer/prompts';
+import {input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubAssetListing} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {hubKeys, hubLibAccessor} from '../marketBook';
+import {selectHub} from '../hubSpokeSelect';
 import {literal, renderSentinel} from '../sentinels';
 import {buildAddressConstant} from '../constants';
-import {assetIdentifier, checksumAddress} from '../testHelpers';
+import {accessorIdentifier, assetIdentifier, checksumAddress} from '../testHelpers';
 import {selectAsset} from '../assetSelect';
 import {promptFeeReceiver} from '../feeReceiver';
 import {promptProxyAdminOwner} from '../proxyAdminOwner';
 
 function hubAssetKey(hubAccessor: string, underlying: string) {
-  const hubKey = hubAccessor.split('.').pop()!;
+  const hubKey = accessorIdentifier(hubAccessor);
   return {hubKey, assetKey: assetIdentifier(underlying)};
 }
 
@@ -24,10 +24,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
     const response: V4HubAssetListing[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const hub = await selectHub(m);
       const asset = await selectAsset(m);
       const feeReceiver = await promptFeeReceiver(m);
       const liquidityFee = (await numberPrompt({message: 'liquidityFee (bps)'})) || '0';
@@ -55,8 +52,8 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
         tokenization = {addCap, proxyAdminOwner, name, symbol};
       }
       response.push({
-        hubLib: hubLibAccessor(m, hub),
-        hub: hub,
+        hubLib: hub.expr,
+        hub: hub.key,
         underlying: asset.expr,
         feeReceiver: feeReceiver as `0x${string}`,
         liquidityFee,

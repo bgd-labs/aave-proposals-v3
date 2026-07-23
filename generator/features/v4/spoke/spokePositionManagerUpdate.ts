@@ -1,13 +1,9 @@
 import {select, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokePositionManagerUpdate} from '../../types';
-import {
-  positionManagerKeys,
-  positionManagerLibAccessor,
-  spokeKeys,
-  spokeLibAccessor,
-} from '../marketBook';
-import {shortKey} from '../testHelpers';
+import {positionManagerKeys, positionManagerLibAccessor} from '../marketBook';
+import {selectSpoke} from '../hubSpokeSelect';
+import {accessorIdentifier, shortKey} from '../testHelpers';
 
 export const spokePositionManagerUpdate: FeatureModule<V4SpokePositionManagerUpdate[]> = {
   value: FEATURE.V4_SPOKE_POSITION_MANAGER_UPDATE,
@@ -21,14 +17,11 @@ export const spokePositionManagerUpdate: FeatureModule<V4SpokePositionManagerUpd
         message: 'Select PositionManager',
         choices: positionManagerKeys(m).map((k) => ({name: k, value: k})),
       });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const spoke = await selectSpoke(m);
       const active = await confirm({message: 'Active?', default: true});
       response.push({
-        spokeLib: spokeLibAccessor(m, spoke),
-        spoke: spokeLibAccessor(m, spoke),
+        spokeLib: spoke.expr,
+        spoke: spoke.expr,
         positionManager: positionManagerLibAccessor(m, pm) as `0x${string}`,
         active,
       });
@@ -46,7 +39,7 @@ export const spokePositionManagerUpdate: FeatureModule<V4SpokePositionManagerUpd
       });`,
     );
     const testFns = cfg.map((c, ix) => {
-      const spokeKey = shortKey(c.spoke);
+      const spokeKey = accessorIdentifier(c.spoke);
       const pmKey = shortKey(c.positionManager);
       return `function test_spokePositionManagerUpdate_${spokeKey}_${pmKey}_${ix}() public {
         GovV3Helpers.executePayload(vm, address(proposal));

@@ -1,16 +1,9 @@
-import {select, checkbox, input, confirm} from '@inquirer/prompts';
+import {select, input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-  getV4Book,
-} from '../marketBook';
+import {assetKeys, assetLibAccessor, getV4Book} from '../marketBook';
+import {selectHub, selectSpokes} from '../hubSpokeSelect';
 import {readHubAssets, isAssetListedOnHub} from '../onchain';
 import {promptFeeReceiver} from '../feeReceiver';
 import {promptProxyAdminOwner} from '../proxyAdminOwner';
@@ -36,22 +29,19 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
     const spokeAdditions: V4HubSpokeToAssetsAddition[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const hub = await selectHub(m);
       const asset = await select({
         message: 'Select asset',
         choices: assetKeys(m).map((k) => ({name: k, value: k})),
       });
       const underlying = book.ASSETS[asset].UNDERLYING as `0x${string}`;
 
-      const hubAssets = await readHubAssets(m, hub, cache.blockNumber);
+      const hubAssets = await readHubAssets(m, hub.address, cache.blockNumber);
       const existing = isAssetListedOnHub(hubAssets, underlying);
 
       if (existing) {
         console.log(
-          `${asset} already listed on ${hub} (assetId=${existing.assetId}). Skipping listing.`,
+          `${asset} already listed on ${hub.key} (assetId=${existing.assetId}). Skipping listing.`,
         );
       } else {
         const feeReceiver = await promptFeeReceiver(m);
@@ -78,8 +68,8 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
           };
         }
         listings.push({
-          hubLib: hubLibAccessor(m, hub),
-          hub,
+          hubLib: hub.expr,
+          hub: hub.key,
           underlying: assetLibAccessor(m, asset),
           feeReceiver: feeReceiver as `0x${string}`,
           liquidityFee,
@@ -94,16 +84,15 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
         });
       }
 
-      const targetSpokes = await checkbox({
+      const targetSpokes = await selectSpokes(m, {
         message: `Register ${asset} on which spokes? (none = skip)`,
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
       });
       for (const spoke of targetSpokes) {
-        console.log(`Spoke config for ${asset} on ${spoke}`);
+        console.log(`Spoke config for ${asset} on ${spoke.key}`);
         spokeAdditions.push({
-          hubLib: hubLibAccessor(m, hub),
-          hub,
-          spoke: spokeLibAccessor(m, spoke),
+          hubLib: hub.expr,
+          hub: hub.key,
+          spoke: spoke.expr,
           assets: [
             {
               underlying: assetLibAccessor(m, asset),
