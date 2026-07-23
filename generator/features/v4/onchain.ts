@@ -1,5 +1,5 @@
 import {Hex, PublicClient} from 'viem';
-import {IHubV4_ABI, ISpokeV4_ABI} from '@aave-dao/aave-address-book';
+import {IHubV4_ABI, ISpokeV4_ABI} from '@aave-dao/aave-address-book/abis';
 import {CHAIN_TO_CHAIN_ID, getMarketChain} from '../../common';
 import {MarketIdentifierV4} from '../../types';
 import {getClient} from '@aave-dao/toolbox';

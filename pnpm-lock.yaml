@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@aave-dao/aave-address-book':
-        specifier: ^4.61.0
-        version: 4.61.0(viem@2.50.4(zod@4.4.3))
+        specifier: ^4.61.1
+        version: 4.61.1(viem@2.50.4(zod@4.4.3))
       '@aave-dao/aave-helpers-js':
-        specifier: ^1.3.6
-        version: 1.3.6(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
+        specifier: ^1.3.7
+        version: 1.3.7(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)
       '@aave-dao/toolbox':
         specifier: ^0.5.0
         version: 0.5.0(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.4.3))
@@ -75,13 +75,13 @@ importers:
 
 packages:
 
-  '@aave-dao/aave-address-book@4.61.0':
-    resolution: {integrity: sha512-g3sgBoYpusAU75ZOPXG6YwWLmh3uoyCWlj15jLXMiwQefiE4pk9pWVb02lkxd2CqnwfZjttQMir0xi5NaNDKSg==}
+  '@aave-dao/aave-address-book@4.61.1':
+    resolution: {integrity: sha512-t/wMi1TDLy/OdSKL3zrcq9OcmXLe926OFgTLvUastKeA9ICClH0KWLXDskRcGQ+9Pz+R/vTBouaQIGC15RUq3A==}
     peerDependencies:
       viem: ^2.23.5
 
-  '@aave-dao/aave-helpers-js@1.3.6':
-    resolution: {integrity: sha512-hqmbSbywggxYkR3Sco8OEZlZjebxZgvV5LLLISWeNxjbp78OQGzQ1wg33Ij+W5MtFsCgUfSqGFRpVBJKAg3AZg==}
+  '@aave-dao/aave-helpers-js@1.3.7':
+    resolution: {integrity: sha512-gafP8kM/ZMyBfFxTEzjKlzh5+004MfZtnlbvIGMSqgFSiUkMI+ItVvc8CXwXFHTDLWwrWY9i9XYeMb5o5RSXHw==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -1235,13 +1235,13 @@ packages:
 
 snapshots:
 
-  '@aave-dao/aave-address-book@4.61.0(viem@2.50.4(zod@4.4.3))':
+  '@aave-dao/aave-address-book@4.61.1(viem@2.50.4(zod@4.4.3))':
     dependencies:
       viem: 2.50.4(zod@4.4.3)
 
-  '@aave-dao/aave-helpers-js@1.3.6(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
+  '@aave-dao/aave-helpers-js@1.3.7(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)':
     dependencies:
-      '@aave-dao/aave-address-book': 4.61.0(viem@2.50.4(zod@4.4.3))
+      '@aave-dao/aave-address-book': 4.61.1(viem@2.50.4(zod@4.4.3))
       '@aave-dao/toolbox': 0.5.0(prettier-plugin-solidity@1.3.1(prettier@3.8.3))(prettier@3.8.3)(viem@2.50.4(zod@4.4.3))
       commander: 14.0.3
       find-object-paths: 1.1.0
