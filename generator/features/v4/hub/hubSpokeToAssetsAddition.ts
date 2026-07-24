@@ -2,9 +2,17 @@ import {checkbox, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeToAssetsAddition} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
+import {percentPrompt} from '../../../prompts/percentPrompt';
+import {percentToBps} from '../units';
 import {assetKeys, assetLibAccessor} from '../marketBook';
 import {selectHub, selectSpoke} from '../hubSpokeSelect';
-import {accessorIdentifier, assetIdentifier, checksumAddress} from '../testHelpers';
+import {
+  accessorIdentifier,
+  assetIdentifier,
+  checksumAddress,
+  testAddressRef,
+  wrapAddress,
+} from '../testHelpers';
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
   value: FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION,
@@ -24,14 +32,27 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       const assetConfigs = [] as V4HubSpokeToAssetsAddition['assets'];
       for (const asset of assets) {
         console.log(`Config for ${asset} on ${spoke.key}`);
+        const addCap = (await numberPrompt({message: `${asset} addCap (whole units)`})) || '0';
+        const drawCap = (await numberPrompt({message: `${asset} drawCap (whole units)`})) || '0';
+        const riskPremiumThreshold =
+          (await percentPrompt({message: `${asset} riskPremiumThreshold (%)`})) || '0';
+        let active = true;
+        let halted = false;
+        const customize = await confirm({
+          message: `${asset}: customize active/halted flags?`,
+          default: false,
+        });
+        if (customize) {
+          active = await confirm({message: `${asset} active?`, default: true});
+          halted = await confirm({message: `${asset} halted?`, default: false});
+        }
         assetConfigs.push({
           underlying: assetLibAccessor(m, asset),
-          addCap: (await numberPrompt({message: `${asset} addCap (uint40, whole units)`})) || '0',
-          drawCap: (await numberPrompt({message: `${asset} drawCap (uint40, whole units)`})) || '0',
-          riskPremiumThreshold:
-            (await numberPrompt({message: `${asset} riskPremiumThreshold (bps)`})) || '0',
-          active: await confirm({message: `${asset} active?`, default: true}),
-          halted: await confirm({message: `${asset} halted?`, default: false}),
+          addCap,
+          drawCap,
+          riskPremiumThreshold,
+          active,
+          halted,
         });
       }
       response.push({
@@ -53,7 +74,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
             config: IHub.SpokeConfig({
               addCap: ${a.addCap},
               drawCap: ${a.drawCap},
-              riskPremiumThreshold: ${a.riskPremiumThreshold},
+              riskPremiumThreshold: ${percentToBps(a.riskPremiumThreshold)},
               active: ${a.active},
               halted: ${a.halted}
             })
@@ -65,12 +86,28 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         ${inner}
         items[__INDEX__] = IConfigEngine.SpokeToAssetsAddition({
           hubConfigurator: ${market}.HUB_CONFIGURATOR,
-          hub: address(${c.hubLib}),
-          spoke: address(${c.spoke}),
+          hub: ${wrapAddress(c.hubLib)},
+          spoke: ${wrapAddress(c.spoke)},
           assets: subAssets
         });
       }`;
     });
+    const inputAsserts = cfg.flatMap((c, ix) => [
+      `assertEq(items[${ix}].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+      ...c.assets.flatMap((a, jx) => [
+        `assertEq(items[${ix}].assets[${jx}].underlying, ${testAddressRef(a.underlying)}, 'underlying');`,
+        `assertEq(uint256(items[${ix}].assets[${jx}].config.addCap), ${a.addCap}, 'addCap');`,
+        `assertEq(uint256(items[${ix}].assets[${jx}].config.drawCap), ${a.drawCap}, 'drawCap');`,
+        `assertEq(uint256(items[${ix}].assets[${jx}].config.riskPremiumThreshold), ${percentToBps(a.riskPremiumThreshold)}, 'riskPremiumThreshold');`,
+        `assertEq(items[${ix}].assets[${jx}].config.active, ${a.active}, 'active');`,
+        `assertEq(items[${ix}].assets[${jx}].config.halted, ${a.halted}, 'halted');`,
+      ]),
+    ]);
+    const inputTest = `function test_hubSpokeToAssetsAdditionsInput() public view {
+        IConfigEngine.SpokeToAssetsAddition[] memory items = proposal.hubSpokeToAssetsAdditions();
+        assertEq(items.length, ${cfg.length}, 'length');
+        ${inputAsserts.join('\n        ')}
+      }`;
     const testFns: string[] = [];
     for (const c of cfg) {
       const hubKey = accessorIdentifier(c.hubLib);
@@ -80,13 +117,13 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         testFns.push(
           `function test_hubSpokeToAssetsAddition_${hubKey}_${spokeKey}_${assetKey}() public {
             GovV3Helpers.executePayload(vm, address(proposal));
-            IHub hub = IHub(address(${c.hubLib}));
-            uint256 assetId = hub.getAssetId(${checksumAddress(a.underlying)});
-            assertTrue(hub.isSpokeListed(assetId, address(${c.spoke})), 'spoke not listed');
-            IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(${c.spoke}));
+            IHub hub = IHub(${wrapAddress(c.hubLib)});
+            uint256 assetId = hub.getAssetId(${testAddressRef(a.underlying)});
+            assertTrue(hub.isSpokeListed(assetId, ${testAddressRef(c.spoke)}), 'spoke not listed');
+            IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, ${testAddressRef(c.spoke)});
             assertEq(uint256(cfg.addCap), uint256(${a.addCap}), 'addCap mismatch');
             assertEq(uint256(cfg.drawCap), uint256(${a.drawCap}), 'drawCap mismatch');
-            assertEq(uint256(cfg.riskPremiumThreshold), uint256(${a.riskPremiumThreshold}), 'riskPremiumThreshold mismatch');
+            assertEq(uint256(cfg.riskPremiumThreshold), uint256(${percentToBps(a.riskPremiumThreshold)}), 'riskPremiumThreshold mismatch');
             assertEq(cfg.active, ${a.active}, 'active mismatch');
             assertEq(cfg.halted, ${a.halted}, 'halted mismatch');
           }`,
@@ -102,7 +139,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
           },
         },
       },
-      test: {fn: testFns},
+      test: {fn: [inputTest, ...testFns]},
     };
     return response;
   },

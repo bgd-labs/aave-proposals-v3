@@ -43,19 +43,20 @@ describe('feature: v4 use-cases smoke test', () => {
     };
 
     const onboardAssetCfg = {
+      targetFunctionRoles: [],
       listings: [
         {
           hubLib: HUB,
           hub: HUB,
           underlying: ASSET,
           feeReceiver: ADDR as `0x${string}`,
-          liquidityFee: '100',
+          liquidityFee: '1',
           irStrategy: ADDR as `0x${string}`,
           irData: {
-            optimalUsageRatio: literal('8000'),
+            optimalUsageRatio: literal('80'),
             baseDrawnRate: literal('0'),
-            rateGrowthBeforeOptimal: literal('400'),
-            rateGrowthAfterOptimal: literal('6000'),
+            rateGrowthBeforeOptimal: literal('4'),
+            rateGrowthAfterOptimal: literal('60'),
           },
           tokenization: undefined,
         },
@@ -70,7 +71,7 @@ describe('feature: v4 use-cases smoke test', () => {
               underlying: ASSET,
               addCap: '1000',
               drawCap: '500',
-              riskPremiumThreshold: '100',
+              riskPremiumThreshold: '1',
               active: true,
               halted: false,
             },
@@ -80,19 +81,20 @@ describe('feature: v4 use-cases smoke test', () => {
     };
 
     const onboardReserveCfg = {
+      targetFunctionRoles: [],
       hubAssetListings: [
         {
           hubLib: HUB,
           hub: HUB,
           underlying: RESERVE_ASSET,
           feeReceiver: ADDR as `0x${string}`,
-          liquidityFee: '100',
+          liquidityFee: '1',
           irStrategy: ADDR as `0x${string}`,
           irData: {
-            optimalUsageRatio: literal('8000'),
+            optimalUsageRatio: literal('80'),
             baseDrawnRate: literal('0'),
-            rateGrowthBeforeOptimal: literal('400'),
-            rateGrowthAfterOptimal: literal('6000'),
+            rateGrowthBeforeOptimal: literal('4'),
+            rateGrowthAfterOptimal: literal('60'),
           },
           tokenization: undefined,
         },
@@ -112,9 +114,9 @@ describe('feature: v4 use-cases smoke test', () => {
             receiveSharesEnabled: true,
           },
           dynamicConfig: {
-            collateralFactor: '8000',
-            maxLiquidationBonus: '500',
-            liquidationFee: '100',
+            collateralFactor: '80',
+            maxLiquidationBonus: '105',
+            liquidationFee: '1',
           },
         },
       ],
@@ -130,7 +132,7 @@ describe('feature: v4 use-cases smoke test', () => {
               underlying: RESERVE_ASSET,
               addCap: '1000',
               drawCap: '500',
-              riskPremiumThreshold: '100',
+              riskPremiumThreshold: '1',
               active: true,
               halted: false,
             },
@@ -162,7 +164,7 @@ describe('feature: v4 use-cases smoke test', () => {
           hub: HUB,
           underlying: ASSET,
           priceSource: keepCurrentAddress(),
-          collateralRisk: literal('7000'),
+          collateralRisk: literal('70'),
           paused: keepCurrent(),
           frozen: keepCurrent(),
           borrowable: keepCurrent(),
@@ -173,9 +175,9 @@ describe('feature: v4 use-cases smoke test', () => {
         {
           spokeLib: SPOKE,
           spoke: SPOKE,
-          targetHealthFactor: literal('1_500_000_000_000_000_000'),
+          targetHealthFactor: literal('1.5'),
           healthFactorForMaxBonus: keepCurrent(),
-          liquidationBonusFactor: literal('500'),
+          liquidationBonusFactor: literal('100'),
         },
       ],
       dynamicUpdates: [
@@ -185,7 +187,7 @@ describe('feature: v4 use-cases smoke test', () => {
           hub: HUB,
           underlying: ASSET,
           dynamicConfigKey: '1',
-          collateralFactor: literal('7700'),
+          collateralFactor: literal('77'),
           maxLiquidationBonus: keepCurrent(),
           liquidationFee: keepCurrent(),
         },

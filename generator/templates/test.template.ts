@@ -25,7 +25,17 @@ export const testTemplate = (
     .map((artifact) => artifact.test?.fn)
     .flat()
     .filter((f) => f !== undefined)
-    .join('\n');
+    .join('\n\n');
+
+  const helpers = Array.from(
+    new Set(
+      marketConfig.artifacts
+        .map((artifact) => artifact.test?.helpers)
+        .flat()
+        .filter((f): f is string => f !== undefined)
+        .map((h) => h.trim()),
+    ),
+  ).join('\n\n');
 
   const testBaseImports = [testBase, 'ReserveConfig'];
   if (testBase === 'ProtocolV3TestBase' && functions.includes('ExpectedListing')) {
@@ -92,6 +102,8 @@ contract ${contractName}_Test is ${testBase} {
 
   ${reserveConfigChangesTest}
   ${functions}
+
+  ${helpers}
 }`;
   return prefixWithPragma(prefixWithImports(template));
 };

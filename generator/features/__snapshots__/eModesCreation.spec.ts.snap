@@ -161,6 +161,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
 
     return listings;
   }
+
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
     IERC20(asset).forceApprove(address(AaveV3Ethereum.POOL), seedAmount);
     AaveV3Ethereum.POOL.supply(asset, seedAmount, address(AaveV3Ethereum.DUST_BIN), 0);
@@ -173,6 +174,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
     }
   }
+
   function eModeCategoryCreations()
     public
     pure
@@ -283,6 +285,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
       decimals: 18
     });
   }
+
   function test_eModeConfiguration() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     uint8 eMode_PT_sUSDe_TEST__Stablecoins = _findEModeCategoryId('PT_sUSDe_TEST__Stablecoins');
@@ -311,6 +314,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
       _toBitmap(borrowables_PT_sUSDe_TEST__Stablecoins)
     );
   }
+
   function test_eMode_PT_sUSDe_TEST__Stablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode(
@@ -319,6 +323,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.USDC_UNDERLYING
     );
   }
+
   function test_PT_sUSDe_TESTBorrowWithoutEModeReverts() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -337,6 +342,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
 
     vm.stopPrank();
   }
+
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
     for (uint8 i = 1; i < 255; i++) {
       if (
@@ -347,6 +353,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     }
     revert('eMode category not found');
   }
+
   function _assertEModeCollateralConfig(
     uint8 id,
     uint256 ltv,
@@ -362,11 +369,13 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     assertEq(cfg.liquidationBonus, liquidationBonus);
     assertEq(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(id), isolated);
   }
+
   function _toBitmap(address[] memory assets) internal view returns (uint128 bitmap) {
     for (uint256 i = 0; i < assets.length; i++) {
       bitmap |= uint128(1) << AaveV3Ethereum.POOL.getReserveData(assets[i]).id;
     }
   }
+
   function _supplyAndBorrowInEMode(
     string memory label,
     address collateral,

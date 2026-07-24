@@ -9,7 +9,8 @@ import prettier from 'prettier';
 import {generateScript} from './templates/script.template';
 import {generateZkSyncScript} from './templates/zksync.script.template';
 import {generateAIP} from './templates/aip.template';
-import {finalizeV4Artifacts} from './features/v4/bundleHelpers';
+import {finalizeV4Artifacts, finalizeV4EntityConstants} from './features/v4/bundleHelpers';
+import {snapshot as labelSnapshot} from './features/v4/labelRegistry';
 
 const prettierSolCfg = await prettier.resolveConfig('foo.sol');
 const prettierMDCfg = await prettier.resolveConfig('foo.md');
@@ -30,9 +31,11 @@ export async function generateFiles(
     export const config: ConfigFile = ${JSON.stringify({
       rootOptions: options,
       marketOptions: (Object.keys(marketConfigs) as MarketIdentifier[]).reduce((acc, market) => {
+        const labels = labelSnapshot(market as any);
         acc[market] = {
           configs: marketConfigs[market]!.configs,
           cache: marketConfigs[market]!.cache,
+          ...(Object.keys(labels).length > 0 ? {labels} : {}),
         };
         return acc;
       }, {}),
@@ -44,6 +47,7 @@ export async function generateFiles(
     const contractName = generateContractName(options, market);
     const testCode = testTemplate(options, marketConfigs[market]!, market);
     finalizeV4Artifacts(marketConfigs[market]!);
+    finalizeV4EntityConstants(marketConfigs[market]!, market);
 
     return {
       market,

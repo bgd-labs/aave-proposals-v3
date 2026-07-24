@@ -1,8 +1,32 @@
 import {input, confirm} from '@inquirer/prompts';
-import {CodeArtifact, FEATURE, FeatureModule} from '../../../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../../../types';
 import {V4TargetFunctionRoleUpdate} from '../../types';
 import {addressPrompt} from '../../../prompts/addressPrompt';
 import {buildAddressConstant, sanitizeIdentifier} from '../constants';
+import {wrapAddress} from '../testHelpers';
+
+/// Codegen for a target-function-role update's `target`: a raw address is emitted as
+/// a named constant; a codegen expr (accessor or payload constant) is used directly.
+function targetCodegen(
+  market: MarketIdentifier,
+  constants: string[],
+  c: V4TargetFunctionRoleUpdate,
+  ix: number,
+): string {
+  if (c.target.startsWith('0x')) {
+    const targetName = `ROLE_${sanitizeIdentifier(c.roleId)}_TARGET_${ix}`;
+    constants.push(buildAddressConstant(market, targetName, c.target as `0x${string}`));
+    return targetName;
+  }
+  return wrapAddress(c.target);
+}
+
+function targetTestCodegen(c: V4TargetFunctionRoleUpdate, ix: number): string {
+  if (c.target.startsWith('0x'))
+    return `proposal.ROLE_${sanitizeIdentifier(c.roleId)}_TARGET_${ix}()`;
+  if (c.target.includes('.')) return `address(${c.target})`;
+  return `proposal.${c.target}()`;
+}
 
 export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFunctionRoleUpdate[]> = {
   value: FEATURE.V4_AM_TARGET_FUNCTION_ROLE_UPDATE,
@@ -32,13 +56,14 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
   build({market, cfg}) {
     const constants: string[] = [];
     const entries = cfg.map((c, ix) => {
-      let targetExpr: string;
-      if (c.target.startsWith('0x')) {
-        const targetName = `ROLE_${sanitizeIdentifier(c.roleId)}_TARGET_${ix}`;
-        constants.push(buildAddressConstant(market, targetName, c.target));
-        targetExpr = targetName;
-      } else {
-        targetExpr = `address(${c.target})`;
+      const targetExpr = targetCodegen(market, constants, c, ix);
+      if (c.selectorsExpr) {
+        return `items[__INDEX__] = IConfigEngine.TargetFunctionRoleUpdate({
+          authority: address(${market}.ACCESS_MANAGER),
+          target: ${targetExpr},
+          selectors: ${c.selectorsExpr},
+          roleId: ${c.roleId}
+        });`;
       }
       return `{
         bytes4[] memory selectors = new bytes4[](${c.selectors.length});
@@ -51,22 +76,42 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
         });
       }`;
     });
-    const testFns = cfg.flatMap((c, ix) => {
-      const targetIsLib = !c.target.startsWith('0x');
-      const targetExpr = targetIsLib
-        ? `address(${c.target})`
-        : `proposal.ROLE_${sanitizeIdentifier(c.roleId)}_TARGET_${ix}()`;
-      return c.selectors.map(
-        (s, jx) =>
-          `function test_accessManagerTargetFunctionRoleUpdate_${sanitizeIdentifier(c.roleId)}_${ix}_${jx}() public {
-            GovV3Helpers.executePayload(vm, address(proposal));
-            assertEq(
-              uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getTargetFunctionRole(${targetExpr}, bytes4(${s}))),
-              uint256(${c.roleId}),
-              'selector role mismatch'
-            );
-          }`,
-      );
+    const inputAsserts = cfg.flatMap((c, ix) => {
+      const lines = [
+        `assertEq(items[${ix}].authority, address(${market}.ACCESS_MANAGER), 'authority');`,
+        `assertEq(items[${ix}].target, ${targetTestCodegen(c, ix)}, 'target');`,
+        `assertEq(uint256(items[${ix}].roleId), uint256(${c.roleId}), 'roleId');`,
+      ];
+      if (c.selectorAsserts) {
+        lines.push(
+          `assertEq(items[${ix}].selectors.length, ${c.selectorAsserts.length}, 'selectors length');`,
+        );
+        c.selectorAsserts.forEach((sel, jx) =>
+          lines.push(
+            `assertEq(uint32(items[${ix}].selectors[${jx}]), uint32(${sel}), 'selector ${jx}');`,
+          ),
+        );
+      }
+      return lines;
+    });
+    const inputTest = `function test_accessManagerTargetFunctionRoleUpdatesInput() public view {
+        IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal.accessManagerTargetFunctionRoleUpdates();
+        assertEq(items.length, ${cfg.length}, 'length');
+        ${inputAsserts.join('\n        ')}
+      }`;
+    const testFns = cfg.map((c, ix) => {
+      const targetTestExpr = targetTestCodegen(c, ix);
+      return `function test_accessManagerTargetFunctionRoleUpdate_${sanitizeIdentifier(c.roleId)}_${ix}() public {
+        IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal.accessManagerTargetFunctionRoleUpdates();
+        GovV3Helpers.executePayload(vm, address(proposal));
+        for (uint256 i; i < items[${ix}].selectors.length; ++i) {
+          assertEq(
+            uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getTargetFunctionRole(${targetTestExpr}, items[${ix}].selectors[i])),
+            uint256(${c.roleId}),
+            'selector role mismatch'
+          );
+        }
+      }`;
     });
     const response: CodeArtifact = {
       code: {
@@ -78,7 +123,7 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
           },
         },
       },
-      test: {fn: testFns},
+      test: {fn: [inputTest, ...testFns]},
     };
     return response;
   },

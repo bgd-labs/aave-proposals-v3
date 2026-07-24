@@ -78,13 +78,13 @@ const hubAssetListingCfg: V4HubAssetListing[] = [
     hub: HUB,
     underlying: ASSET,
     feeReceiver: ADDR,
-    liquidityFee: '100',
+    liquidityFee: '1',
     irStrategy: ADDR,
     irData: {
-      optimalUsageRatio: literal('8000'),
+      optimalUsageRatio: literal('80'),
       baseDrawnRate: literal('0'),
-      rateGrowthBeforeOptimal: literal('400'),
-      rateGrowthAfterOptimal: literal('6000'),
+      rateGrowthBeforeOptimal: literal('4'),
+      rateGrowthAfterOptimal: literal('60'),
     },
     tokenization: {
       addCap: '1000',
@@ -100,7 +100,7 @@ const hubAssetConfigUpdateCfg: V4HubAssetConfigUpdate[] = [
     hubLib: HUB,
     hub: HUB,
     underlying: ASSET,
-    liquidityFee: literal('200'),
+    liquidityFee: literal('2'),
     feeReceiver: keepCurrentAddress(),
     irStrategy: keepCurrentAddress(),
     irData: {
@@ -123,7 +123,7 @@ const hubSpokeToAssetsAdditionCfg: V4HubSpokeToAssetsAddition[] = [
         underlying: ASSET,
         addCap: '1000',
         drawCap: '500',
-        riskPremiumThreshold: '100',
+        riskPremiumThreshold: '1',
         active: true,
         halted: false,
       },
@@ -171,9 +171,9 @@ const spokeReserveListingCfg: V4SpokeReserveListing[] = [
       receiveSharesEnabled: true,
     },
     dynamicConfig: {
-      collateralFactor: '8000',
-      maxLiquidationBonus: '500',
-      liquidationFee: '100',
+      collateralFactor: '80',
+      maxLiquidationBonus: '105',
+      liquidationFee: '1',
     },
   },
 ];
@@ -197,9 +197,9 @@ const spokeLiquidationConfigUpdateCfg: V4SpokeLiquidationConfigUpdate[] = [
   {
     spokeLib: SPOKE,
     spoke: SPOKE,
-    targetHealthFactor: literal('1_500_000_000_000_000_000'),
+    targetHealthFactor: literal('1.5'),
     healthFactorForMaxBonus: keepCurrent(),
-    liquidationBonusFactor: literal('500'),
+    liquidationBonusFactor: literal('100'),
   },
 ];
 
@@ -209,7 +209,7 @@ const spokeDynamicReserveConfigAdditionCfg: V4SpokeDynamicReserveConfigAddition[
     spoke: SPOKE,
     hub: HUB,
     underlying: ASSET,
-    dynamicConfig: {collateralFactor: '7500', maxLiquidationBonus: '500', liquidationFee: '100'},
+    dynamicConfig: {collateralFactor: '75', maxLiquidationBonus: '105', liquidationFee: '1'},
   },
 ];
 
@@ -220,7 +220,7 @@ const spokeDynamicReserveConfigUpdateCfg: V4SpokeDynamicReserveConfigUpdate[] = 
     hub: HUB,
     underlying: ASSET,
     dynamicConfigKey: '1',
-    collateralFactor: literal('7700'),
+    collateralFactor: literal('77'),
     maxLiquidationBonus: keepCurrent(),
     liquidationFee: keepCurrent(),
   },

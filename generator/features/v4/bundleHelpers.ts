@@ -1,4 +1,21 @@
-import {CodeArtifact, MarketConfig, V4GetterEntry} from '../../types';
+import {Hex} from 'viem';
+import {CodeArtifact, MarketConfig, MarketIdentifier, V4GetterEntry} from '../../types';
+import {newEntities} from './labelRegistry';
+import {buildAddressConstant} from './constants';
+
+/// Emits one named `address public constant` for every custom (non-address-book)
+/// hub/spoke/asset/account labeled this session, so new entities are declared once
+/// and referenced by name throughout the payload. Prepended so they lead the
+/// contract body, ahead of per-listing constants (IR strategies, price feeds).
+export function finalizeV4EntityConstants(
+  marketConfig: MarketConfig,
+  market: MarketIdentifier,
+): void {
+  const entities = newEntities(market as any);
+  if (entities.length === 0) return;
+  const constants = entities.map((e) => buildAddressConstant(market, e.label, e.address as Hex));
+  marketConfig.artifacts.unshift({code: {constants}});
+}
 
 export function finalizeV4Artifacts(marketConfig: MarketConfig): void {
   const merged: Record<string, V4GetterEntry> = {};
@@ -53,6 +70,10 @@ export function mergeArtifact(target: CodeArtifact, source: CodeArtifact) {
   if (source.test?.fn) {
     target.test = target.test ?? {};
     target.test.fn = [...(target.test.fn ?? []), ...source.test.fn];
+  }
+  if (source.test?.helpers) {
+    target.test = target.test ?? {};
+    target.test.helpers = [...(target.test.helpers ?? []), ...source.test.helpers];
   }
   if (source.aip?.specification) {
     target.aip = target.aip ?? {specification: []};
