@@ -232,7 +232,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       'USDG underlying'
     );
     assertEq(uint256(additions[0].assets[0].config.addCap), 10_000_000, 'USDG addCap');
-    assertEq(uint256(additions[0].assets[0].config.drawCap), 9500000, 'USDG drawCap');
+    assertEq(uint256(additions[0].assets[0].config.drawCap), 9_500_000, 'USDG drawCap');
     assertEq(
       uint256(additions[0].assets[0].config.riskPremiumThreshold),
       0,
@@ -471,7 +471,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertTrue(hub.isSpokeListed(assetId, proposal.USDG_MAPLE_ESPOKE()), 'spoke not listed');
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.USDG_MAPLE_ESPOKE());
     assertEq(uint256(cfg.addCap), uint256(10_000_000), 'addCap mismatch');
-    assertEq(uint256(cfg.drawCap), uint256(9500000), 'drawCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(9_500_000), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
     assertEq(cfg.halted, false, 'halted mismatch');

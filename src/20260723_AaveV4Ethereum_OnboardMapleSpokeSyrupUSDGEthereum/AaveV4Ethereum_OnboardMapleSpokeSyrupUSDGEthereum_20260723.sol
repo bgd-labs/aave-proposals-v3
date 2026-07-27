@@ -187,7 +187,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
       underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
       config: IHub.SpokeConfig({
         addCap: 10_000_000,
-        drawCap: 9500000,
+        drawCap: 9_500_000,
         riskPremiumThreshold: 0,
         active: true,
         halted: false
