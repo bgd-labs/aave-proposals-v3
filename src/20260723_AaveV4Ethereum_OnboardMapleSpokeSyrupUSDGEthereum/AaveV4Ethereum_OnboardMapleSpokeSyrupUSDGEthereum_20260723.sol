@@ -23,7 +23,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
   address public constant SYRUPUSDG = 0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A;
 
   // https://etherscan.io/address/0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9
-  address public constant SECURITY_COUNCIL_V4 = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
+  address public constant PROTOCOL_SECURITY_COUNCIL = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
 
   // https://etherscan.io/address/0xD7eC225DC053151100A0ef47b94a77AAD9C413b7
   address public constant GLOBAL_DOLLAR_HUB_USDG_IR_STRATEGY =
@@ -73,7 +73,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
       }),
       tokenization: IConfigEngine.TokenizationSpokeConfig({
         addCap: 1000000,
-        proxyAdminOwner: SECURITY_COUNCIL_V4,
+        proxyAdminOwner: PROTOCOL_SECURITY_COUNCIL,
         name: 'Wrapped Aave Global Dollar USDG',
         symbol: 'waGlobalDollarUSDG'
       })

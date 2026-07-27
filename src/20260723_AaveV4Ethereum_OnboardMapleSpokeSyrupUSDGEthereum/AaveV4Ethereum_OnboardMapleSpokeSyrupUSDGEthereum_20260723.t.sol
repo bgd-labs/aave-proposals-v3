@@ -128,7 +128,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(listings[0].tokenization.addCap, 1000000, 'USDG tokenization addCap');
     assertEq(
       listings[0].tokenization.proxyAdminOwner,
-      proposal.SECURITY_COUNCIL_V4(),
+      proposal.PROTOCOL_SECURITY_COUNCIL(),
       'USDG tokenization proxyAdminOwner'
     );
     assertEq(
@@ -366,7 +366,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     address proxyAdmin = address(uint160(uint256(vm.load(tokenizationSpoke, ERC1967_ADMIN_SLOT))));
     assertEq(
       Ownable(proxyAdmin).owner(),
-      proposal.SECURITY_COUNCIL_V4(),
+      proposal.PROTOCOL_SECURITY_COUNCIL(),
       'proxyAdmin owner mismatch'
     );
   }
