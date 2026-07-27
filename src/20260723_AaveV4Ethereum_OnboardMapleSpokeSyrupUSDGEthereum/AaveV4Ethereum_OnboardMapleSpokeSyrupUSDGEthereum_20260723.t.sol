@@ -2,8 +2,10 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
-import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumPositionManagers, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
+import {IAaveV4ConfigEngine as IConfigEngine, IAaveOracle} from 'aave-address-book/AaveV4.sol';
+import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
+import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
@@ -60,7 +62,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
   function test_accessManagerTargetFunctionRoleUpdatesInput() public view {
     IConfigEngine.TargetFunctionRoleUpdate[] memory updates = proposal
       .accessManagerTargetFunctionRoleUpdates();
-    assertEq(updates.length, 1, 'updates length mismatch');
+    assertEq(updates.length, 2, 'updates length mismatch');
     assertEq(updates[0].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
     assertEq(updates[0].target, proposal.USDG_MAPLE_ESPOKE(), 'target');
     assertEq(uint256(updates[0].roleId), 301, 'roleId');
@@ -88,23 +90,41 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       uint32(ISpoke.updateReservePriceSource.selector),
       's6'
     );
+
+    assertEq(updates[1].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
+    assertEq(updates[1].target, proposal.USDG_MAPLE_ESPOKE(), 'target');
+    assertEq(uint256(updates[1].roleId), 302, 'roleId');
+    assertEq(updates[1].selectors.length, 2, 'selectors length');
+    assertEq(
+      uint32(updates[1].selectors[0]),
+      uint32(ISpoke.updateUserDynamicConfig.selector),
+      's0'
+    );
+    assertEq(uint32(updates[1].selectors[1]), uint32(ISpoke.updateUserRiskPremium.selector), 's1');
   }
 
-  function test_spokeConfiguratorRolesWired_USDG_MAPLE_ESPOKE() public {
+  function test_spokeRolesWired_USDG_MAPLE_ESPOKE() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory updates = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
-    for (uint256 i; i < updates[0].selectors.length; ++i) {
-      assertEq(
-        uint256(
-          AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
-            updates[0].target,
-            updates[0].selectors[i]
-          )
-        ),
-        uint256(updates[0].roleId),
-        'spoke configurator role not wired'
-      );
+    for (uint256 i; i < updates.length; ++i) {
+      for (uint256 j; j < updates[i].selectors.length; ++j) {
+        uint64 roleId = AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
+          updates[i].target,
+          updates[i].selectors[j]
+        );
+        assertEq(uint256(roleId), uint256(updates[i].roleId), 'spoke role not wired');
+        assertEq(
+          uint256(roleId),
+          uint256(
+            AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
+              address(AaveV4EthereumSpokes.MAIN_SPOKE),
+              updates[i].selectors[j]
+            )
+          ),
+          'spoke role divergence vs MAIN_SPOKE'
+        );
+      }
     }
   }
 
@@ -125,7 +145,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(uint256(listings[0].irData.baseDrawnRate), 0, 'USDG baseDrawnRate');
     assertEq(uint256(listings[0].irData.rateGrowthBeforeOptimal), 4_00, 'USDG slope1');
     assertEq(uint256(listings[0].irData.rateGrowthAfterOptimal), 35_00, 'USDG slope2');
-    assertEq(listings[0].tokenization.addCap, 1000000, 'USDG tokenization addCap');
+    assertEq(listings[0].tokenization.addCap, 1_000_000, 'USDG tokenization addCap');
     assertEq(
       listings[0].tokenization.proxyAdminOwner,
       proposal.PROTOCOL_SECURITY_COUNCIL(),
@@ -202,15 +222,16 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
 
   function test_hubSpokeToAssetsAdditionsInput() public view {
     IConfigEngine.SpokeToAssetsAddition[] memory additions = proposal.hubSpokeToAssetsAdditions();
-    assertEq(additions.length, 2, 'additions length mismatch');
+    assertEq(additions.length, 1, 'additions length mismatch');
+    assertEq(additions[0].spoke, proposal.USDG_MAPLE_ESPOKE(), 'spoke');
+    assertEq(additions[0].assets.length, 2, 'assets length mismatch');
 
-    assertEq(additions[0].spoke, proposal.USDG_MAPLE_ESPOKE(), 'USDG spoke');
     assertEq(
       additions[0].assets[0].underlying,
       AaveV4EthereumAssets.USDG_UNDERLYING,
       'USDG underlying'
     );
-    assertEq(uint256(additions[0].assets[0].config.addCap), 10000000, 'USDG addCap');
+    assertEq(uint256(additions[0].assets[0].config.addCap), 10_000_000, 'USDG addCap');
     assertEq(uint256(additions[0].assets[0].config.drawCap), 9500000, 'USDG drawCap');
     assertEq(
       uint256(additions[0].assets[0].config.riskPremiumThreshold),
@@ -220,17 +241,16 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(additions[0].assets[0].config.active, true, 'USDG active');
     assertEq(additions[0].assets[0].config.halted, false, 'USDG halted');
 
-    assertEq(additions[1].spoke, proposal.USDG_MAPLE_ESPOKE(), 'syrupUSDG spoke');
-    assertEq(additions[1].assets[0].underlying, proposal.SYRUPUSDG(), 'syrupUSDG underlying');
-    assertEq(uint256(additions[1].assets[0].config.addCap), 10000000, 'syrupUSDG addCap');
-    assertEq(uint256(additions[1].assets[0].config.drawCap), 0, 'syrupUSDG drawCap');
+    assertEq(additions[0].assets[1].underlying, proposal.SYRUPUSDG(), 'syrupUSDG underlying');
+    assertEq(uint256(additions[0].assets[1].config.addCap), 10_000_000, 'syrupUSDG addCap');
+    assertEq(uint256(additions[0].assets[1].config.drawCap), 0, 'syrupUSDG drawCap');
     assertEq(
-      uint256(additions[1].assets[0].config.riskPremiumThreshold),
+      uint256(additions[0].assets[1].config.riskPremiumThreshold),
       0,
       'syrupUSDG riskPremiumThreshold'
     );
-    assertEq(additions[1].assets[0].config.active, true, 'syrupUSDG active');
-    assertEq(additions[1].assets[0].config.halted, false, 'syrupUSDG halted');
+    assertEq(additions[0].assets[1].config.active, true, 'syrupUSDG active');
+    assertEq(additions[0].assets[1].config.halted, false, 'syrupUSDG halted');
   }
 
   function test_spokeLiquidationConfigUpdatesInput() public view {
@@ -239,13 +259,9 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(updates.length, 1, 'updates length mismatch');
 
     assertEq(updates[0].spoke, proposal.USDG_MAPLE_ESPOKE(), 'spoke');
-    assertEq(updates[0].targetHealthFactor, 1_027_700_000_000_000_000, 'targetHealthFactor');
-    assertEq(
-      updates[0].healthFactorForMaxBonus,
-      990_000_000_000_000_000,
-      'healthFactorForMaxBonus'
-    );
-    assertEq(updates[0].liquidationBonusFactor, 10_000, 'liquidationBonusFactor');
+    assertEq(updates[0].targetHealthFactor, 1.0277e18, 'targetHealthFactor');
+    assertEq(updates[0].healthFactorForMaxBonus, 0.99e18, 'healthFactorForMaxBonus');
+    assertEq(updates[0].liquidationBonusFactor, 100_00, 'liquidationBonusFactor');
   }
 
   function test_spokePositionManagerUpdatesInput() public view {
@@ -312,7 +328,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
     address tokenizationSpoke = _findTokenizationSpoke(hub, assetId);
     IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
-    assertEq(uint256(tokenizationCfg.addCap), uint256(1000000), 'tokenization addCap mismatch');
+    assertEq(uint256(tokenizationCfg.addCap), uint256(1_000_000), 'tokenization addCap mismatch');
     assertEq(
       IERC20Metadata(tokenizationSpoke).name(),
       'Wrapped Aave Global Dollar USDG',
@@ -435,19 +451,15 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     GovV3Helpers.executePayload(vm, address(proposal));
     ISpoke.LiquidationConfig memory cfg = ISpoke(proposal.USDG_MAPLE_ESPOKE())
       .getLiquidationConfig();
-    assertEq(
-      uint256(cfg.targetHealthFactor),
-      uint256(1_027_700_000_000_000_000),
-      'targetHealthFactor mismatch'
-    );
+    assertEq(uint256(cfg.targetHealthFactor), uint256(1.0277e18), 'targetHealthFactor mismatch');
     assertEq(
       uint256(cfg.healthFactorForMaxBonus),
-      uint256(990_000_000_000_000_000),
+      uint256(0.99e18),
       'healthFactorForMaxBonus mismatch'
     );
     assertEq(
       uint256(cfg.liquidationBonusFactor),
-      uint256(10_000),
+      uint256(100_00),
       'liquidationBonusFactor mismatch'
     );
   }
@@ -458,7 +470,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
     assertTrue(hub.isSpokeListed(assetId, proposal.USDG_MAPLE_ESPOKE()), 'spoke not listed');
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.USDG_MAPLE_ESPOKE());
-    assertEq(uint256(cfg.addCap), uint256(10000000), 'addCap mismatch');
+    assertEq(uint256(cfg.addCap), uint256(10_000_000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(9500000), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
@@ -471,7 +483,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     uint256 assetId = hub.getAssetId(proposal.SYRUPUSDG());
     assertTrue(hub.isSpokeListed(assetId, proposal.USDG_MAPLE_ESPOKE()), 'spoke not listed');
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.USDG_MAPLE_ESPOKE());
-    assertEq(uint256(cfg.addCap), uint256(10000000), 'addCap mismatch');
+    assertEq(uint256(cfg.addCap), uint256(10_000_000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(0), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
@@ -519,6 +531,52 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       ),
       true,
       'positionManager active mismatch'
+    );
+  }
+
+  function test_reservePriceSources_USDG_MAPLE_ESPOKE() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke spoke = ISpoke(proposal.USDG_MAPLE_ESPOKE());
+    IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
+    IAaveOracle oracle = IAaveOracle(spoke.ORACLE());
+    assertEq(
+      oracle.getReserveSource(
+        spoke.getReserveId(address(hub), hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING))
+      ),
+      proposal.USDG_MAPLE_ESPOKE_USDG_PRICE_FEED(),
+      'USDG price source mismatch'
+    );
+    assertEq(
+      oracle.getReserveSource(
+        spoke.getReserveId(address(hub), hub.getAssetId(proposal.SYRUPUSDG()))
+      ),
+      proposal.USDG_MAPLE_ESPOKE_SYRUPUSDG_PRICE_FEED(),
+      'syrupUSDG price source mismatch'
+    );
+  }
+
+  /// @dev syrupUSDG is priced through two capped layers: the syrupUSDG/USDG ratio adapter on top
+  /// of the capped USDG/USD feed, which also prices the USDG reserve.
+  function test_priceFeedParameters() public view {
+    IPriceCapAdapter syrupUsdgFeed = IPriceCapAdapter(
+      proposal.USDG_MAPLE_ESPOKE_SYRUPUSDG_PRICE_FEED()
+    );
+    assertEq(
+      address(syrupUsdgFeed.BASE_TO_USD_AGGREGATOR()),
+      proposal.USDG_MAPLE_ESPOKE_USDG_PRICE_FEED(),
+      'base to usd aggregator mismatch'
+    );
+    assertEq(syrupUsdgFeed.RATIO_PROVIDER(), proposal.SYRUPUSDG(), 'ratio provider mismatch');
+    assertEq(uint256(syrupUsdgFeed.MINIMUM_SNAPSHOT_DELAY()), 7 days, 'snapshot delay mismatch');
+    assertEq(
+      syrupUsdgFeed.getMaxYearlyGrowthRatePercent(),
+      8_45,
+      'maxYearlyRatioGrowthPercent mismatch'
+    );
+    assertEq(
+      IPriceCapAdapterStable(proposal.USDG_MAPLE_ESPOKE_USDG_PRICE_FEED()).getPriceCap(),
+      int256(1.04e8),
+      'USDG priceCap mismatch'
     );
   }
 

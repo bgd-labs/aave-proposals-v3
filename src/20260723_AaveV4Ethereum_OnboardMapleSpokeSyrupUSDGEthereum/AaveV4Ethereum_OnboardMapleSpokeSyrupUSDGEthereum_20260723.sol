@@ -46,12 +46,18 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     returns (IConfigEngine.TargetFunctionRoleUpdate[] memory)
   {
     IConfigEngine.TargetFunctionRoleUpdate[]
-      memory items = new IConfigEngine.TargetFunctionRoleUpdate[](1);
+      memory items = new IConfigEngine.TargetFunctionRoleUpdate[](2);
     items[0] = IConfigEngine.TargetFunctionRoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
       target: USDG_MAPLE_ESPOKE,
       selectors: Roles.getSpokeConfiguratorRoleSelectors(),
       roleId: Roles.SPOKE_CONFIGURATOR_ROLE
+    });
+    items[1] = IConfigEngine.TargetFunctionRoleUpdate({
+      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
+      target: USDG_MAPLE_ESPOKE,
+      selectors: Roles.getSpokePositionUpdaterRoleSelectors(),
+      roleId: Roles.SPOKE_USER_POSITION_UPDATER_ROLE
     });
     return items;
   }
@@ -72,7 +78,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
         rateGrowthAfterOptimal: uint32(35_00)
       }),
       tokenization: IConfigEngine.TokenizationSpokeConfig({
-        addCap: 1000000,
+        addCap: 1_000_000,
         proxyAdminOwner: PROTOCOL_SECURITY_COUNCIL,
         name: 'Wrapped Aave Global Dollar USDG',
         symbol: 'waGlobalDollarUSDG'
@@ -160,9 +166,9 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     items[0] = IConfigEngine.LiquidationConfigUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
       spoke: USDG_MAPLE_ESPOKE,
-      targetHealthFactor: 1_027_700_000_000_000_000,
-      healthFactorForMaxBonus: 990_000_000_000_000_000,
-      liquidationBonusFactor: 10_000
+      targetHealthFactor: 1.0277e18,
+      healthFactorForMaxBonus: 0.99e18,
+      liquidationBonusFactor: 100_00
     });
     return items;
   }
@@ -174,46 +180,35 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     returns (IConfigEngine.SpokeToAssetsAddition[] memory)
   {
     IConfigEngine.SpokeToAssetsAddition[] memory items = new IConfigEngine.SpokeToAssetsAddition[](
-      2
+      1
     );
-    {
-      IConfigEngine.SpokeAssetConfig[] memory subAssets = new IConfigEngine.SpokeAssetConfig[](1);
-      subAssets[0] = IConfigEngine.SpokeAssetConfig({
-        underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
-        config: IHub.SpokeConfig({
-          addCap: 10000000,
-          drawCap: 9500000,
-          riskPremiumThreshold: 0,
-          active: true,
-          halted: false
-        })
-      });
-      items[0] = IConfigEngine.SpokeToAssetsAddition({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
-        hub: address(AaveV4EthereumHubs.PAXOS_HUB),
-        spoke: USDG_MAPLE_ESPOKE,
-        assets: subAssets
-      });
-    }
-    {
-      IConfigEngine.SpokeAssetConfig[] memory subAssets = new IConfigEngine.SpokeAssetConfig[](1);
-      subAssets[0] = IConfigEngine.SpokeAssetConfig({
-        underlying: SYRUPUSDG,
-        config: IHub.SpokeConfig({
-          addCap: 10000000,
-          drawCap: 0,
-          riskPremiumThreshold: 0,
-          active: true,
-          halted: false
-        })
-      });
-      items[1] = IConfigEngine.SpokeToAssetsAddition({
-        hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
-        hub: address(AaveV4EthereumHubs.PAXOS_HUB),
-        spoke: USDG_MAPLE_ESPOKE,
-        assets: subAssets
-      });
-    }
+    IConfigEngine.SpokeAssetConfig[] memory subAssets = new IConfigEngine.SpokeAssetConfig[](2);
+    subAssets[0] = IConfigEngine.SpokeAssetConfig({
+      underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
+      config: IHub.SpokeConfig({
+        addCap: 10_000_000,
+        drawCap: 9500000,
+        riskPremiumThreshold: 0,
+        active: true,
+        halted: false
+      })
+    });
+    subAssets[1] = IConfigEngine.SpokeAssetConfig({
+      underlying: SYRUPUSDG,
+      config: IHub.SpokeConfig({
+        addCap: 10_000_000,
+        drawCap: 0,
+        riskPremiumThreshold: 0,
+        active: true,
+        halted: false
+      })
+    });
+    items[0] = IConfigEngine.SpokeToAssetsAddition({
+      hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
+      hub: address(AaveV4EthereumHubs.PAXOS_HUB),
+      spoke: USDG_MAPLE_ESPOKE,
+      assets: subAssets
+    });
     return items;
   }
 

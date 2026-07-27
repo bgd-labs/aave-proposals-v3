@@ -27,14 +27,20 @@ This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub a
 
 **Maple Spoke configuration**
 
-| Parameter                        | syrupUSDG |
-| -------------------------------- | --------: |
-| Collateral Factor                |    92.00% |
-| Max Liquidation Bonus            |     4.00% |
-| Borrowable                       |     FALSE |
-| Liquidation Fee                  |    10.00% |
-| Dynamic Liquidation Bonus Factor |   100.00% |
-| Target Health Factor             |    1.0277 |
+| Parameter             | syrupUSDG |  USDG |
+| --------------------- | --------: | ----: |
+| Collateral Factor     |    92.00% | 0.00% |
+| Max Liquidation Bonus |     4.00% | 0.00% |
+| Liquidation Fee       |    10.00% | 0.00% |
+| Borrowable            |     FALSE |  TRUE |
+
+**Dynamic liquidation configuration**
+
+| Parameter                   |   Value |
+| --------------------------- | ------: |
+| Target Health Factor        |  1.0277 |
+| Health Factor for Max Bonus |    0.99 |
+| Liquidation Bonus Factor    | 100.00% |
 
 **Caps**
 
@@ -55,7 +61,27 @@ This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub a
 
 **Oracle configuration**
 
-syrupUSDG is priced using the Maple syrupUSDG/USDG internal exchange rate (`convertToExitAssets`) combined with the Chainlink USDG/USD feed via a CAPO adapter, configured with a snapshot delay of 7 days and a `maxYearlyRatioGrowthPercent` of 8.45%.
+syrupUSDG is priced through two stacked capped adapters, each applying its own cap.
+
+_USDG / USD_
+
+The USDG leg is a `PriceCapAdapterStable` over the Chainlink USDG/USD feed, so an upward USDG depeg is not passed through to the protocol. This adapter is also the price source of the USDG reserve on the Maple Spoke.
+
+| Parameter       |                                                                                                                                        Value |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------: |
+| Contract        |                                                                                                   0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4 |
+| Underlying feed | Chainlink USDG / USD ([0x14f0737d6b705259e521EA6E9E3506AC78dBd311](https://etherscan.io/address/0x14f0737d6b705259e521EA6E9E3506AC78dBd311)) |
+| `priceCap`      |                                                                                                                                     1.04 USD |
+
+_syrupUSDG / USDG / USD_
+
+The syrupUSDG leg is a CAPO adapter combining the Maple syrupUSDG/USDG internal exchange rate (`convertToExitAssets`) with the capped USDG/USD price above, capping the yearly growth of that ratio.
+
+| Parameter                     |                                      Value |
+| ----------------------------- | -----------------------------------------: |
+| Contract                      | 0x5A6FcB0ebc018b6FD94Fc5f5A9F0948d0D40f040 |
+| `MINIMUM_SNAPSHOT_DELAY`      |                                     7 days |
+| `maxYearlyRatioGrowthPercent` |                                      8.45% |
 
 ## Disclaimer
 

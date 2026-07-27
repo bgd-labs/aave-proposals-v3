@@ -98,11 +98,11 @@ export const config: ConfigFile = {
               spoke: '0x774b9655413c34809c1f1b16b654465A89EBE989',
               targetHealthFactor: {
                 kind: 'literal',
-                value: '1_027_700_000_000_000_000_000_000_000_000_000_000',
+                value: '1_027_700_000_000_000_000',
               },
               healthFactorForMaxBonus: {
                 kind: 'literal',
-                value: '990_000_000_000_000_000_000_000_000_000_000_000',
+                value: '990_000_000_000_000_000',
               },
               liquidationBonusFactor: {kind: 'literal', value: '10_000'},
             },
