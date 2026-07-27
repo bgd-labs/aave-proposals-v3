@@ -25,7 +25,7 @@ This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub a
 
 **syrupUSDG**: [https://etherscan.io/address/0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A](https://etherscan.io/address/0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A)
 
-**Maple Spoke configuration**
+**USDG Maple Spoke configuration**
 
 | Parameter             | syrupUSDG |  USDG |
 | --------------------- | --------: | ----: |
@@ -45,11 +45,11 @@ This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub a
 
 **Caps**
 
-| Hub               | Spoke                    | Reserve   | Add Cap | Draw Cap |
-| ----------------- | ------------------------ | --------- | ------- | -------- |
-| Global Dollar Hub | Maple Spoke              | syrupUSDG | 10M     | 0        |
-| Global Dollar Hub | Maple Spoke              | USDG      | 10M     | 9.5M     |
-| Global Dollar Hub | waGlobalDollarUSDG Spoke | USDG      | 1M      | 0        |
+| Hub               | Spoke              | Reserve   | Add Cap | Draw Cap |
+| ----------------- | ------------------ | --------- | ------- | -------- |
+| Global Dollar Hub | USDG Maple Spoke   | syrupUSDG | 10M     | 0        |
+| Global Dollar Hub | USDG Maple Spoke   | USDG      | 10M     | 9.5M     |
+| Global Dollar Hub | Tokenization Spoke | USDG      | 1M      | 0        |
 
 **USDG interest rate configuration**
 
@@ -67,7 +67,7 @@ syrupUSDG is priced through two stacked capped adapters, each applying its own c
 
 _USDG / USD_
 
-The USDG leg is a `PriceCapAdapterStable` over the Chainlink USDG/USD feed, so an upward USDG depeg is not passed through to the protocol. This adapter is also the price source of the USDG reserve on the Maple Spoke.
+The USDG leg is a `PriceCapAdapterStable` over the Chainlink USDG/USD feed, so an upward USDG depeg is not passed through to the protocol. This adapter is also the price source of the USDG reserve on the USDG Maple Spoke.
 
 | Parameter       |                                                                                                                                        Value |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------: |
