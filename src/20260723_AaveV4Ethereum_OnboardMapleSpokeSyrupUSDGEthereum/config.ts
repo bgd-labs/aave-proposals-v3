@@ -76,7 +76,7 @@ export const config: ConfigFile = {
               spoke: '0x774b9655413c34809c1f1b16b654465A89EBE989',
               hub: 'AaveV4EthereumHubs.PAXOS_HUB',
               underlying: '0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A',
-              priceSource: '0x31745e344fc5986c900826940E5ac2C5DC97b4DE',
+              priceSource: '0x5A6FcB0ebc018b6FD94Fc5f5A9F0948d0D40f040',
               config: {
                 collateralRisk: '0',
                 paused: false,
@@ -167,7 +167,7 @@ export const config: ConfigFile = {
           ],
         },
       },
-      cache: {blockNumber: 25595817},
+      cache: {blockNumber: 25624300},
     },
   },
 };

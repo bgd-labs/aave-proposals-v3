@@ -17,7 +17,7 @@ import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
  */
 contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4PayloadEthereum {
   // https://etherscan.io/address/0x774b9655413c34809c1f1b16b654465A89EBE989
-  address public constant USDG_MAPLE_SPOKE = 0x774b9655413c34809c1f1b16b654465A89EBE989;
+  address public constant USDG_MAPLE_ESPOKE = 0x774b9655413c34809c1f1b16b654465A89EBE989;
 
   // https://etherscan.io/address/0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A
   address public constant SYRUPUSDG = 0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A;
@@ -32,11 +32,11 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     0xD7eC225DC053151100A0ef47b94a77AAD9C413b7;
 
   // https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4
-  address public constant USDG_MAPLE_SPOKE_USDG_PRICE_FEED =
+  address public constant USDG_MAPLE_ESPOKE_USDG_PRICE_FEED =
     0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
-  // https://etherscan.io/address/0x31745e344fc5986c900826940E5ac2C5DC97b4DE
-  address public constant USDG_MAPLE_SPOKE_SYRUPUSDG_PRICE_FEED =
-    0x31745e344fc5986c900826940E5ac2C5DC97b4DE;
+  // https://etherscan.io/address/0x5A6FcB0ebc018b6FD94Fc5f5A9F0948d0D40f040
+  address public constant USDG_MAPLE_ESPOKE_SYRUPUSDG_PRICE_FEED =
+    0x5A6FcB0ebc018b6FD94Fc5f5A9F0948d0D40f040;
 
   function accessManagerTargetFunctionRoleUpdates()
     public
@@ -48,7 +48,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
       memory items = new IConfigEngine.TargetFunctionRoleUpdate[](1);
     items[0] = IConfigEngine.TargetFunctionRoleUpdate({
       authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: USDG_MAPLE_SPOKE,
+      target: USDG_MAPLE_ESPOKE,
       selectors: Roles.getSpokeConfiguratorRoleSelectors(),
       roleId: Roles.SPOKE_CONFIGURATOR_ROLE
     });
@@ -109,10 +109,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     IConfigEngine.ReserveListing[] memory items = new IConfigEngine.ReserveListing[](2);
     items[0] = IConfigEngine.ReserveListing({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       hub: address(AaveV4EthereumHubs.PAXOS_HUB),
       underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
-      priceSource: USDG_MAPLE_SPOKE_USDG_PRICE_FEED,
+      priceSource: USDG_MAPLE_ESPOKE_USDG_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
@@ -128,10 +128,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     });
     items[1] = IConfigEngine.ReserveListing({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       hub: address(AaveV4EthereumHubs.PAXOS_HUB),
       underlying: SYRUPUSDG,
-      priceSource: USDG_MAPLE_SPOKE_SYRUPUSDG_PRICE_FEED,
+      priceSource: USDG_MAPLE_ESPOKE_SYRUPUSDG_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
@@ -158,7 +158,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
       memory items = new IConfigEngine.LiquidationConfigUpdate[](1);
     items[0] = IConfigEngine.LiquidationConfigUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       targetHealthFactor: 1_027_700_000_000_000_000,
       healthFactorForMaxBonus: 990_000_000_000_000_000,
       liquidationBonusFactor: 10_000
@@ -190,7 +190,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
       items[0] = IConfigEngine.SpokeToAssetsAddition({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(AaveV4EthereumHubs.PAXOS_HUB),
-        spoke: USDG_MAPLE_SPOKE,
+        spoke: USDG_MAPLE_ESPOKE,
         assets: subAssets
       });
     }
@@ -209,7 +209,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
       items[1] = IConfigEngine.SpokeToAssetsAddition({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(AaveV4EthereumHubs.PAXOS_HUB),
-        spoke: USDG_MAPLE_SPOKE,
+        spoke: USDG_MAPLE_ESPOKE,
         assets: subAssets
       });
     }
@@ -227,25 +227,25 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723 is AaveV4Pay
     );
     items[0] = IConfigEngine.PositionManagerUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       positionManager: address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER),
       active: true
     });
     items[1] = IConfigEngine.PositionManagerUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       positionManager: address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER),
       active: true
     });
     items[2] = IConfigEngine.PositionManagerUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       positionManager: address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER),
       active: true
     });
     items[3] = IConfigEngine.PositionManagerUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: USDG_MAPLE_SPOKE,
+      spoke: USDG_MAPLE_ESPOKE,
       positionManager: address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY),
       active: true
     });
