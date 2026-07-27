@@ -91,8 +91,8 @@ Aave Labs has no direct financial relationship with Maple Finance, Global Dollar
 
 ## References
 
-- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260723_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723.sol)
-- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260723_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723.t.sol)
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/c8f27eed59d4f279fcc60b045af684268a9a54db/src/20260723_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/c8f27eed59d4f279fcc60b045af684268a9a54db/src/20260723_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdg-on-aave-v4-global-dollar-hub/25281)
 
 ## Copyright
