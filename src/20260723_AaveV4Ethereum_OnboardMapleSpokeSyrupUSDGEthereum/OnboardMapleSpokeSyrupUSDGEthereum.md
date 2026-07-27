@@ -32,6 +32,7 @@ This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub a
 | Collateral Factor     |    92.00% | 0.00% |
 | Max Liquidation Bonus |     4.00% | 0.00% |
 | Liquidation Fee       |    10.00% | 0.00% |
+| Collateral Risk       |     0.00% | 0.00% |
 | Borrowable            |     FALSE |  TRUE |
 
 **Dynamic liquidation configuration**
