@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-onboard-syrupusdg-on-a
 
 ## Simple Summary
 
-This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub and onboards syrupUSDG, a yield-bearing token from Maple Finance, as a collateral asset on that spoke. The listing follows the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum.
+This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub and onboards syrupUSDG, a yield-bearing token from Maple Finance, as collateral. The listing follows the parameters recommended by the Risk Service Providers engaged with the DAO on the governance forum.
 
 ## Motivation
 
