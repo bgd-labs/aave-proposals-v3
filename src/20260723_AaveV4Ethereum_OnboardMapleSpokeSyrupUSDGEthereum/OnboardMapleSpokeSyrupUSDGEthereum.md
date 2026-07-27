@@ -23,7 +23,7 @@ Onboarding syrupUSDG to the Global Dollar Hub:
 
 This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub and lists syrupUSDG as a collateral asset on it.
 
-**syrupUSDG**: [TO BE ADDED]
+**syrupUSDG**: [https://etherscan.io/address/0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A](https://etherscan.io/address/0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A)
 
 **Maple Spoke configuration**
 
@@ -44,10 +44,11 @@ This proposal deploys a dedicated Maple Spoke on the Aave V4 Global Dollar Hub a
 
 **Caps**
 
-| Asset     | Add Cap | Draw Cap |
-| --------- | ------- | -------- |
-| syrupUSDG | 10M     | 0        |
-| USDG      | 10M     | 9.5M     |
+| Hub               | Spoke                    | Reserve   | Add Cap | Draw Cap |
+| ----------------- | ------------------------ | --------- | ------- | -------- |
+| Global Dollar Hub | Maple Spoke              | syrupUSDG | 10M     | 0        |
+| Global Dollar Hub | Maple Spoke              | USDG      | 10M     | 9.5M     |
+| Global Dollar Hub | waGlobalDollarUSDG Spoke | USDG      | 1M      | 0        |
 
 **USDG interest rate configuration**
 
@@ -89,8 +90,8 @@ Aave Labs has no direct financial relationship with Maple Finance, Global Dollar
 
 ## References
 
-- Implementation: [TO BE ADDED]
-- Tests: [TO BE ADDED]
+- Implementation: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260723_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723.sol)
+- Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260723_AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum/AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdg-on-aave-v4-global-dollar-hub/25281)
 
 ## Copyright
