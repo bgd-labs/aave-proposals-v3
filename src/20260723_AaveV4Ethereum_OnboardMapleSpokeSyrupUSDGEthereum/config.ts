@@ -32,8 +32,8 @@ export const config: ConfigFile = {
               tokenization: {
                 addCap: '1000000',
                 proxyAdminOwner: '0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9',
-                name: 'Wrapped Aave Paxos USDG',
-                symbol: 'waPaxosUSDG',
+                name: 'Wrapped Aave Global Dollar USDG',
+                symbol: 'waGlobalDollarUSDG',
               },
             },
             {

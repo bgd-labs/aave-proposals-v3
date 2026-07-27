@@ -48,8 +48,8 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
   }
 
   /// @dev The default suite only e2e-tests tokenization spokes in the address book, which
-  /// does not yet include the one this payload deploys for USDG on the Paxos Hub.
-  function test_e2e_tokenizationSpoke_PAXOS_HUB_USDG() public {
+  /// does not yet include the one this payload deploys for USDG on the Global Dollar Hub.
+  function test_e2e_tokenizationSpoke_GLOBAL_DOLLAR_HUB_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
@@ -116,7 +116,11 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(listings[0].hub, address(AaveV4EthereumHubs.PAXOS_HUB), 'USDG hub');
     assertEq(listings[0].feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE), 'USDG feeReceiver');
     assertEq(listings[0].liquidityFee, 20_00, 'USDG liquidityFee');
-    assertEq(listings[0].irStrategy, proposal.PAXOS_HUB_USDG_IR_STRATEGY(), 'USDG irStrategy');
+    assertEq(
+      listings[0].irStrategy,
+      proposal.GLOBAL_DOLLAR_HUB_USDG_IR_STRATEGY(),
+      'USDG irStrategy'
+    );
     assertEq(uint256(listings[0].irData.optimalUsageRatio), 90_00, 'USDG optimalUsageRatio');
     assertEq(uint256(listings[0].irData.baseDrawnRate), 0, 'USDG baseDrawnRate');
     assertEq(uint256(listings[0].irData.rateGrowthBeforeOptimal), 4_00, 'USDG slope1');
@@ -127,8 +131,12 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       proposal.SECURITY_COUNCIL_V4(),
       'USDG tokenization proxyAdminOwner'
     );
-    assertEq(listings[0].tokenization.name, 'Wrapped Aave Paxos USDG', 'USDG tokenization name');
-    assertEq(listings[0].tokenization.symbol, 'waPaxosUSDG', 'USDG tokenization symbol');
+    assertEq(
+      listings[0].tokenization.name,
+      'Wrapped Aave Global Dollar USDG',
+      'USDG tokenization name'
+    );
+    assertEq(listings[0].tokenization.symbol, 'waGlobalDollarUSDG', 'USDG tokenization symbol');
 
     assertEq(listings[1].underlying, proposal.SYRUPUSDG(), 'syrupUSDG underlying');
     assertEq(listings[1].hub, address(AaveV4EthereumHubs.PAXOS_HUB), 'syrupUSDG hub');
@@ -140,7 +148,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(listings[1].liquidityFee, 0, 'syrupUSDG liquidityFee');
     assertEq(
       listings[1].irStrategy,
-      proposal.PAXOS_HUB_SYRUPUSDG_IR_STRATEGY(),
+      proposal.GLOBAL_DOLLAR_HUB_SYRUPUSDG_IR_STRATEGY(),
       'syrupUSDG irStrategy'
     );
     assertEq(uint256(listings[1].irData.optimalUsageRatio), 99_00, 'syrupUSDG optimalUsageRatio');
@@ -271,7 +279,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(updates[3].active, true, 'signature gateway active');
   }
 
-  function test_hubAssetListing_PAXOS_HUB_USDG() public {
+  function test_hubAssetListing_GLOBAL_DOLLAR_HUB_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     assertTrue(hub.isUnderlyingListed(AaveV4EthereumAssets.USDG_UNDERLYING), 'asset not listed');
@@ -285,7 +293,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       'decimals mismatch'
     );
     assertEq(cfg.feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE), 'feeReceiver mismatch');
-    assertEq(cfg.irStrategy, proposal.PAXOS_HUB_USDG_IR_STRATEGY(), 'irStrategy mismatch');
+    assertEq(cfg.irStrategy, proposal.GLOBAL_DOLLAR_HUB_USDG_IR_STRATEGY(), 'irStrategy mismatch');
     assertEq(uint256(cfg.liquidityFee), uint256(20_00), 'liquidityFee mismatch');
     IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
       cfg.irStrategy
@@ -307,17 +315,17 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(uint256(tokenizationCfg.addCap), uint256(1000000), 'tokenization addCap mismatch');
     assertEq(
       IERC20Metadata(tokenizationSpoke).name(),
-      'Wrapped Aave Paxos USDG',
+      'Wrapped Aave Global Dollar USDG',
       'tokenization name mismatch'
     );
     assertEq(
       IERC20Metadata(tokenizationSpoke).symbol(),
-      'waPaxosUSDG',
+      'waGlobalDollarUSDG',
       'tokenization symbol mismatch'
     );
   }
 
-  function test_hubAssetListing_PAXOS_HUB_SYRUPUSDG() public {
+  function test_hubAssetListing_GLOBAL_DOLLAR_HUB_SYRUPUSDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     assertTrue(hub.isUnderlyingListed(proposal.SYRUPUSDG()), 'asset not listed');
@@ -331,7 +339,11 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       'decimals mismatch'
     );
     assertEq(cfg.feeReceiver, address(AaveV4Ethereum.TREASURY_SPOKE), 'feeReceiver mismatch');
-    assertEq(cfg.irStrategy, proposal.PAXOS_HUB_SYRUPUSDG_IR_STRATEGY(), 'irStrategy mismatch');
+    assertEq(
+      cfg.irStrategy,
+      proposal.GLOBAL_DOLLAR_HUB_SYRUPUSDG_IR_STRATEGY(),
+      'irStrategy mismatch'
+    );
     assertEq(uint256(cfg.liquidityFee), uint256(0), 'liquidityFee mismatch');
     IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
       cfg.irStrategy
@@ -346,7 +358,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(uint256(irData.rateGrowthAfterOptimal), uint256(0), 'rateGrowthAfterOptimal mismatch');
   }
 
-  function test_tokenizationSpoke_PAXOS_HUB_USDG_proxyAdminOwner() public {
+  function test_tokenizationSpoke_GLOBAL_DOLLAR_HUB_USDG_proxyAdminOwner() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
@@ -440,7 +452,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_hubSpokeToAssetsAddition_PAXOS_HUB_USDG_MAPLE_ESPOKE_USDG() public {
+  function test_hubSpokeToAssetsAddition_GLOBAL_DOLLAR_HUB_USDG_MAPLE_ESPOKE_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
@@ -453,7 +465,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_hubSpokeToAssetsAddition_PAXOS_HUB_USDG_MAPLE_ESPOKE_SYRUPUSDG() public {
+  function test_hubSpokeToAssetsAddition_GLOBAL_DOLLAR_HUB_USDG_MAPLE_ESPOKE_SYRUPUSDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(proposal.SYRUPUSDG());
