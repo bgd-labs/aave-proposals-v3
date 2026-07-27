@@ -41,10 +41,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
   }
 
   /// @dev The default suite only e2e-tests spokes in the address book, which does not
-  /// yet include the Maple Spoke. Exercise both reserves (USDG & syrupUSDG) here.
-  function test_e2e_MAPLE_SPOKE() public {
+  /// yet include the USDG Maple Spoke. Exercise both reserves (USDG & syrupUSDG) here.
+  function test_e2e_USDG_MAPLE_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    e2eTestSpoke(ISpoke(proposal.MAPLE_SPOKE()));
+    e2eTestSpoke(ISpoke(proposal.USDG_MAPLE_SPOKE()));
   }
 
   /// @dev The default suite only e2e-tests tokenization spokes in the address book, which
@@ -62,7 +62,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       .accessManagerTargetFunctionRoleUpdates();
     assertEq(updates.length, 1, 'updates length mismatch');
     assertEq(updates[0].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(updates[0].target, proposal.MAPLE_SPOKE(), 'target');
+    assertEq(updates[0].target, proposal.USDG_MAPLE_SPOKE(), 'target');
     assertEq(uint256(updates[0].roleId), 301, 'roleId');
     assertEq(updates[0].selectors.length, 7, 'selectors length');
     assertEq(
@@ -90,7 +90,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_spokeConfiguratorRolesWired_MAPLE_SPOKE() public {
+  function test_spokeConfiguratorRolesWired_USDG_MAPLE_SPOKE() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory updates = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -153,10 +153,14 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     IConfigEngine.ReserveListing[] memory listings = proposal.spokeReserveListings();
     assertEq(listings.length, 2, 'listings length mismatch');
 
-    assertEq(listings[0].spoke, proposal.MAPLE_SPOKE(), 'USDG spoke');
+    assertEq(listings[0].spoke, proposal.USDG_MAPLE_SPOKE(), 'USDG spoke');
     assertEq(listings[0].hub, address(AaveV4EthereumHubs.PAXOS_HUB), 'USDG hub');
     assertEq(listings[0].underlying, AaveV4EthereumAssets.USDG_UNDERLYING, 'USDG underlying');
-    assertEq(listings[0].priceSource, proposal.MAPLE_SPOKE_USDG_PRICE_FEED(), 'USDG priceSource');
+    assertEq(
+      listings[0].priceSource,
+      proposal.USDG_MAPLE_SPOKE_USDG_PRICE_FEED(),
+      'USDG priceSource'
+    );
     assertEq(uint256(listings[0].config.collateralRisk), 0, 'USDG collateralRisk');
     assertEq(listings[0].config.borrowable, true, 'USDG borrowable');
     assertEq(listings[0].config.receiveSharesEnabled, true, 'USDG receiveSharesEnabled');
@@ -164,12 +168,12 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(uint256(listings[0].dynamicConfig.maxLiquidationBonus), 100_00, 'USDG maxLiqBonus');
     assertEq(uint256(listings[0].dynamicConfig.liquidationFee), 0, 'USDG liquidationFee');
 
-    assertEq(listings[1].spoke, proposal.MAPLE_SPOKE(), 'syrupUSDG spoke');
+    assertEq(listings[1].spoke, proposal.USDG_MAPLE_SPOKE(), 'syrupUSDG spoke');
     assertEq(listings[1].hub, address(AaveV4EthereumHubs.PAXOS_HUB), 'syrupUSDG hub');
     assertEq(listings[1].underlying, proposal.SYRUPUSDG(), 'syrupUSDG underlying');
     assertEq(
       listings[1].priceSource,
-      proposal.MAPLE_SPOKE_SYRUPUSDG_PRICE_FEED(),
+      proposal.USDG_MAPLE_SPOKE_SYRUPUSDG_PRICE_FEED(),
       'syrupUSDG priceSource'
     );
     assertEq(uint256(listings[1].config.collateralRisk), 0, 'syrupUSDG collateralRisk');
@@ -192,7 +196,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     IConfigEngine.SpokeToAssetsAddition[] memory additions = proposal.hubSpokeToAssetsAdditions();
     assertEq(additions.length, 2, 'additions length mismatch');
 
-    assertEq(additions[0].spoke, proposal.MAPLE_SPOKE(), 'USDG spoke');
+    assertEq(additions[0].spoke, proposal.USDG_MAPLE_SPOKE(), 'USDG spoke');
     assertEq(
       additions[0].assets[0].underlying,
       AaveV4EthereumAssets.USDG_UNDERLYING,
@@ -208,7 +212,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(additions[0].assets[0].config.active, true, 'USDG active');
     assertEq(additions[0].assets[0].config.halted, false, 'USDG halted');
 
-    assertEq(additions[1].spoke, proposal.MAPLE_SPOKE(), 'syrupUSDG spoke');
+    assertEq(additions[1].spoke, proposal.USDG_MAPLE_SPOKE(), 'syrupUSDG spoke');
     assertEq(additions[1].assets[0].underlying, proposal.SYRUPUSDG(), 'syrupUSDG underlying');
     assertEq(uint256(additions[1].assets[0].config.addCap), 10000000, 'syrupUSDG addCap');
     assertEq(uint256(additions[1].assets[0].config.drawCap), 0, 'syrupUSDG drawCap');
@@ -226,7 +230,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
       .spokeLiquidationConfigUpdates();
     assertEq(updates.length, 1, 'updates length mismatch');
 
-    assertEq(updates[0].spoke, proposal.MAPLE_SPOKE(), 'spoke');
+    assertEq(updates[0].spoke, proposal.USDG_MAPLE_SPOKE(), 'spoke');
     assertEq(updates[0].targetHealthFactor, 1_027_700_000_000_000_000, 'targetHealthFactor');
     assertEq(
       updates[0].healthFactorForMaxBonus,
@@ -240,7 +244,7 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     IConfigEngine.PositionManagerUpdate[] memory updates = proposal.spokePositionManagerUpdates();
     assertEq(updates.length, 4, 'updates length mismatch');
 
-    assertEq(updates[0].spoke, proposal.MAPLE_SPOKE(), 'giver spoke');
+    assertEq(updates[0].spoke, proposal.USDG_MAPLE_SPOKE(), 'giver spoke');
     assertEq(
       updates[0].positionManager,
       address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER),
@@ -355,9 +359,9 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_spokeReserveListing_MAPLE_SPOKE_USDG() public {
+  function test_spokeReserveListing_USDG_MAPLE_SPOKE_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke spoke = ISpoke(proposal.MAPLE_SPOKE());
+    ISpoke spoke = ISpoke(proposal.USDG_MAPLE_SPOKE());
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
@@ -385,9 +389,9 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(uint256(dyn.liquidationFee), uint256(0), 'liquidationFee mismatch');
   }
 
-  function test_spokeReserveListing_MAPLE_SPOKE_SYRUPUSDG() public {
+  function test_spokeReserveListing_USDG_MAPLE_SPOKE_SYRUPUSDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke spoke = ISpoke(proposal.MAPLE_SPOKE());
+    ISpoke spoke = ISpoke(proposal.USDG_MAPLE_SPOKE());
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(proposal.SYRUPUSDG());
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
@@ -415,9 +419,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(uint256(dyn.liquidationFee), uint256(10_00), 'liquidationFee mismatch');
   }
 
-  function test_spokeLiquidationConfigUpdate_MAPLE_SPOKE() public {
+  function test_spokeLiquidationConfigUpdate_USDG_MAPLE_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.LiquidationConfig memory cfg = ISpoke(proposal.MAPLE_SPOKE()).getLiquidationConfig();
+    ISpoke.LiquidationConfig memory cfg = ISpoke(proposal.USDG_MAPLE_SPOKE())
+      .getLiquidationConfig();
     assertEq(
       uint256(cfg.targetHealthFactor),
       uint256(1_027_700_000_000_000_000),
@@ -435,12 +440,12 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_hubSpokeToAssetsAddition_PAXOS_HUB_MAPLE_SPOKE_USDG() public {
+  function test_hubSpokeToAssetsAddition_PAXOS_HUB_USDG_MAPLE_SPOKE_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.USDG_UNDERLYING);
-    assertTrue(hub.isSpokeListed(assetId, proposal.MAPLE_SPOKE()), 'spoke not listed');
-    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.MAPLE_SPOKE());
+    assertTrue(hub.isSpokeListed(assetId, proposal.USDG_MAPLE_SPOKE()), 'spoke not listed');
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.USDG_MAPLE_SPOKE());
     assertEq(uint256(cfg.addCap), uint256(10000000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(9500000), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
@@ -448,12 +453,12 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_hubSpokeToAssetsAddition_PAXOS_HUB_MAPLE_SPOKE_SYRUPUSDG() public {
+  function test_hubSpokeToAssetsAddition_PAXOS_HUB_USDG_MAPLE_SPOKE_SYRUPUSDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.PAXOS_HUB));
     uint256 assetId = hub.getAssetId(proposal.SYRUPUSDG());
-    assertTrue(hub.isSpokeListed(assetId, proposal.MAPLE_SPOKE()), 'spoke not listed');
-    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.MAPLE_SPOKE());
+    assertTrue(hub.isSpokeListed(assetId, proposal.USDG_MAPLE_SPOKE()), 'spoke not listed');
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.USDG_MAPLE_SPOKE());
     assertEq(uint256(cfg.addCap), uint256(10000000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(0), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
@@ -461,10 +466,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_spokePositionManagerUpdate_MAPLE_SPOKE_GIVER_POSITION_MANAGER() public {
+  function test_spokePositionManagerUpdate_USDG_MAPLE_SPOKE_GIVER_POSITION_MANAGER() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(
-      ISpoke(proposal.MAPLE_SPOKE()).isPositionManagerActive(
+      ISpoke(proposal.USDG_MAPLE_SPOKE()).isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER)
       ),
       true,
@@ -472,10 +477,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_spokePositionManagerUpdate_MAPLE_SPOKE_TAKER_POSITION_MANAGER() public {
+  function test_spokePositionManagerUpdate_USDG_MAPLE_SPOKE_TAKER_POSITION_MANAGER() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(
-      ISpoke(proposal.MAPLE_SPOKE()).isPositionManagerActive(
+      ISpoke(proposal.USDG_MAPLE_SPOKE()).isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER)
       ),
       true,
@@ -483,10 +488,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_spokePositionManagerUpdate_MAPLE_SPOKE_CONFIG_POSITION_MANAGER() public {
+  function test_spokePositionManagerUpdate_USDG_MAPLE_SPOKE_CONFIG_POSITION_MANAGER() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(
-      ISpoke(proposal.MAPLE_SPOKE()).isPositionManagerActive(
+      ISpoke(proposal.USDG_MAPLE_SPOKE()).isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER)
       ),
       true,
@@ -494,10 +499,10 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
     );
   }
 
-  function test_spokePositionManagerUpdate_MAPLE_SPOKE_SIGNATURE_GATEWAY() public {
+  function test_spokePositionManagerUpdate_USDG_MAPLE_SPOKE_SIGNATURE_GATEWAY() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(
-      ISpoke(proposal.MAPLE_SPOKE()).isPositionManagerActive(
+      ISpoke(proposal.USDG_MAPLE_SPOKE()).isPositionManagerActive(
         address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY)
       ),
       true,
@@ -506,12 +511,12 @@ contract AaveV4Ethereum_OnboardMapleSpokeSyrupUSDGEthereum_20260723_Test is
   }
 
   /// @dev The TokenizationSpoke is the USDG spoke that is neither the fee receiver
-  /// (registered at index 0 on listing) nor the Maple Spoke.
+  /// (registered at index 0 on listing) nor the USDG Maple Spoke.
   function _findTokenizationSpoke(IHub hub, uint256 assetId) internal view returns (address) {
     uint256 count = hub.getSpokeCount(assetId);
     for (uint256 i; i < count; ++i) {
       address spoke = hub.getSpokeAddress(assetId, i);
-      if (spoke != address(AaveV4Ethereum.TREASURY_SPOKE) && spoke != proposal.MAPLE_SPOKE()) {
+      if (spoke != address(AaveV4Ethereum.TREASURY_SPOKE) && spoke != proposal.USDG_MAPLE_SPOKE()) {
         return spoke;
       }
     }
