@@ -9,7 +9,7 @@ import {hubAssetListing} from '../hub/hubAssetListing';
 import {promptHubAssetListing} from '../hub/hubAssetListingPrompt';
 import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
-import {spokeConfiguratorWiring, hubConfiguratorWiring} from '../accessWiring';
+import {spokeWiring, hubConfiguratorWiring} from '../accessWiring';
 import {
   V4HubAssetListing,
   V4HubSpokeToAssetsAddition,
@@ -73,11 +73,11 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
           wiredSpokes.add(spoke.expr);
           if (
             await confirm({
-              message: `Wire SpokeConfigurator role on fresh spoke ${spoke.key}?`,
+              message: `Wire SpokeConfigurator & user-position-updater roles on fresh spoke ${spoke.key}?`,
               default: true,
             })
           ) {
-            cfg.targetFunctionRoles.push(spokeConfiguratorWiring(spoke.expr));
+            cfg.targetFunctionRoles.push(...spokeWiring(m, spoke.expr));
           }
         }
         console.log(`Spoke config for ${asset.label} on ${spoke.key}`);

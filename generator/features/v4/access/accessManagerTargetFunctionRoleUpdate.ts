@@ -3,7 +3,28 @@ import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../../../t
 import {V4TargetFunctionRoleUpdate} from '../../types';
 import {addressPrompt} from '../../../prompts/addressPrompt';
 import {buildAddressConstant, sanitizeIdentifier} from '../constants';
-import {wrapAddress} from '../testHelpers';
+import {accessorIdentifier, wrapAddress} from '../testHelpers';
+
+/// Shared test helper asserting a wiring item landed on the target, and that the wired
+/// selectors carry the same role on a reference contract when one is given.
+function rolesWiredHelper(market: MarketIdentifier): string {
+  const accessManager = `IAccessManager(address(${market}.ACCESS_MANAGER))`;
+  return `function _assertRolesWired(
+    IConfigEngine.TargetFunctionRoleUpdate memory item,
+    address referenceTarget
+  ) internal view {
+    for (uint256 i; i < item.selectors.length; ++i) {
+      uint64 roleId = ${accessManager}.getTargetFunctionRole(item.target, item.selectors[i]);
+      assertEq(uint256(roleId), uint256(item.roleId), 'role not wired');
+      if (referenceTarget == address(0)) continue;
+      assertEq(
+        uint256(roleId),
+        uint256(${accessManager}.getTargetFunctionRole(referenceTarget, item.selectors[i])),
+        'role divergence vs reference target'
+      );
+    }
+  }`;
+}
 
 /// Codegen for a target-function-role update's `target`: a raw address is emitted as
 /// a named constant; a codegen expr (accessor or payload constant) is used directly.
@@ -19,6 +40,12 @@ function targetCodegen(
     return targetName;
   }
   return wrapAddress(c.target);
+}
+
+/// Solidity-identifier-safe key for a target, used in generated test names.
+function targetIdentifier(c: V4TargetFunctionRoleUpdate, ix: number): string {
+  if (c.target.startsWith('0x')) return `ROLE_${sanitizeIdentifier(c.roleId)}_TARGET_${ix}`;
+  return accessorIdentifier(c.target);
 }
 
 function targetTestCodegen(c: V4TargetFunctionRoleUpdate, ix: number): string {
@@ -99,18 +126,17 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
         assertEq(items.length, ${cfg.length}, 'length');
         ${inputAsserts.join('\n        ')}
       }`;
-    const testFns = cfg.map((c, ix) => {
-      const targetTestExpr = targetTestCodegen(c, ix);
-      return `function test_accessManagerTargetFunctionRoleUpdate_${sanitizeIdentifier(c.roleId)}_${ix}() public {
+    // One test per target: every role wired on the same contract is asserted together.
+    const byTarget = new Map<string, number[]>();
+    cfg.forEach((c, ix) => byTarget.set(c.target, [...(byTarget.get(c.target) ?? []), ix]));
+    const testFns = [...byTarget].map(([, ixs]) => {
+      const reference = cfg[ixs[0]].referenceTarget;
+      const referenceExpr = reference ? wrapAddress(reference) : 'address(0)';
+      const asserts = ixs.map((ix) => `_assertRolesWired(items[${ix}], ${referenceExpr});`);
+      return `function test_rolesWired_${targetIdentifier(cfg[ixs[0]], ixs[0])}() public {
         IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal.accessManagerTargetFunctionRoleUpdates();
         GovV3Helpers.executePayload(vm, address(proposal));
-        for (uint256 i; i < items[${ix}].selectors.length; ++i) {
-          assertEq(
-            uint256(IAccessManager(address(${market}.ACCESS_MANAGER)).getTargetFunctionRole(${targetTestExpr}, items[${ix}].selectors[i])),
-            uint256(${c.roleId}),
-            'selector role mismatch'
-          );
-        }
+        ${asserts.join('\n        ')}
       }`;
     });
     const response: CodeArtifact = {
@@ -123,7 +149,7 @@ export const accessManagerTargetFunctionRoleUpdate: FeatureModule<V4TargetFuncti
           },
         },
       },
-      test: {fn: [inputTest, ...testFns]},
+      test: {fn: [inputTest, ...testFns], helpers: [rolesWiredHelper(market)]},
     };
     return response;
   },

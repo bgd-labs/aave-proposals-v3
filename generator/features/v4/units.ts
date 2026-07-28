@@ -5,8 +5,11 @@ import {translateJsPercentToSol} from '../../prompts/percentPrompt';
 const WAD_DECIMALS = 18;
 
 /// Group a plain integer string with `_` every three digits (`1000000` -> `1_000_000`).
+/// Already grouped values are re-grouped from scratch, so it is safe to apply twice.
 export function groupThousands(value: string): string {
-  return value.replace(/\B(?=(\d{3})+(?!\d))/g, '_');
+  return String(value)
+    .replace(/_/g, '')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, '_');
 }
 
 /// Convert a human percentage string to a grouped BPS Solidity literal:
@@ -16,13 +19,22 @@ export function percentToBps(value: string): string {
   return translateJsPercentToSol(value);
 }
 
-/// Convert a human decimal string to a WAD (1e18) Solidity literal:
-/// `1.0277` -> `1_027_700_000_000_000_000`, `0.99` -> `990_000_000_000_000_000`.
+/// Convert a human decimal string to a WAD (1e18) Solidity literal in scientific
+/// notation, which keeps the human value readable in the payload:
+/// `1.0277` -> `1.0277e18`, `0.99` -> `0.99e18`, `1` -> `1e18`, `0` -> `0`.
 export function decimalToWad(value: string): string {
-  const [intPart, fracRaw = ''] = value.split('.');
-  const frac = (fracRaw + '0'.repeat(WAD_DECIMALS)).slice(0, WAD_DECIMALS);
-  const wad = BigInt(intPart || '0') * 10n ** BigInt(WAD_DECIMALS) + BigInt(frac || '0');
-  return groupThousands(wad.toString());
+  const normalized = String(value).replace(/_/g, '');
+  if (Number(normalized) === 0) return '0';
+  const [intPart, fracRaw = ''] = normalized.split('.');
+  const frac = fracRaw.slice(0, WAD_DECIMALS).replace(/0+$/, '');
+  const mantissa = frac ? `${intPart || '0'}.${frac}` : intPart || '0';
+  return `${mantissa}e${WAD_DECIMALS}`;
+}
+
+/// Render a Sentinel whose literal value is a whole-unit amount (a cap), grouping it.
+export function renderWholeSentinel(s: Sentinel): string {
+  if (s.kind === 'literal') return groupThousands(String(s.value));
+  return renderSentinel(s);
 }
 
 /// Render a Sentinel whose literal value is a human percentage, converting to BPS.

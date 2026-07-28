@@ -1,14 +1,8 @@
 import {confirm} from '@inquirer/prompts';
 import {Hex, isHex} from 'viem';
-import {
-  CodeArtifact,
-  FEATURE,
-  FeatureModule,
-  MarketConfig,
-  MarketIdentifierV4,
-} from '../../../types';
-import {V4HubAssetListing, V4HubSpokeToAssetsAddition, V4SpokeReserveListing} from '../../types';
-import {renderBpsSentinel, percentToBps} from '../units';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
+import {V4HubAssetListing} from '../../types';
+import {groupThousands, renderBpsSentinel, percentToBps} from '../units';
 import {buildAddressConstant} from '../constants';
 import {
   accessorIdentifier,
@@ -34,55 +28,24 @@ function esc(s: string): string {
   return s.replace(/'/g, "\\'");
 }
 
-/// Collect the codegen exprs of every non-tokenization Spoke the payload references
-/// for a given (hub, asset): reserve listings and hub spoke-to-assets additions,
-/// across atomic features and the onboarding bundles.
-function referencedSpokes(
-  configs: MarketConfig['configs'],
-  hubLib: string,
-  underlying: string,
-): string[] {
-  const spokes = new Set<string>();
-  const onboardReserve = configs[FEATURE.V4_USECASE_ONBOARD_RESERVE_TO_SPOKE];
-  const onboardAsset = configs[FEATURE.V4_USECASE_ONBOARD_ASSET_TO_HUB];
-  const listings: V4SpokeReserveListing[] = [
-    ...(configs[FEATURE.V4_SPOKE_RESERVE_LISTING] ?? []),
-    ...(onboardReserve?.listings ?? []),
-  ];
-  for (const l of listings) {
-    if (l.hub === hubLib && l.underlying === underlying) spokes.add(l.spoke);
-  }
-  const additions: V4HubSpokeToAssetsAddition[] = [
-    ...(configs[FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION] ?? []),
-    ...(onboardReserve?.hubSpokeAdditions ?? []),
-    ...(onboardAsset?.spokeAdditions ?? []),
-  ];
-  for (const a of additions) {
-    if (a.hubLib === hubLib && a.assets.some((x) => x.underlying === underlying))
-      spokes.add(a.spoke);
-  }
-  return [...spokes];
-}
-
-/// Build the shared test helper that locates a payload-deployed TokenizationSpoke:
-/// the asset's Spoke on the Hub that is neither the fee receiver (index 0) nor any
-/// Spoke the payload explicitly references for that asset.
-function tokenizationSpokeHelper(
-  c: V4HubAssetListing,
-  hubKey: string,
-  assetKey: string,
-  configs: MarketConfig['configs'],
-): string {
-  const excluded = [c.feeReceiver, ...referencedSpokes(configs, c.hubLib, c.underlying)];
-  const skips = excluded.map((e) => `spoke == ${testAddressRef(e)}`).join(' || ');
-  return `function _findTokenizationSpoke_${hubKey}_${assetKey}() internal view returns (address) {
+/// Build the shared test helper that locates the TokenizationSpoke this payload deploys:
+/// the only Spoke kind exposing `asset()`, so a successful call over the listed underlying
+/// identifies it among the asset's Spokes on the Hub. Iterating backwards returns the most
+/// recently registered one, which is the payload's even when the asset already had a
+/// TokenizationSpoke that this listing replaces.
+function tokenizationSpokeHelper(c: V4HubAssetListing, hubKey: string, assetKey: string): string {
+  const underlying = testAddressRef(c.underlying);
+  return `/// @dev The TokenizationSpoke is the only Spoke kind exposing \`asset()\`; scanning the
+  /// Hub's spokes for this asset backwards returns the most recently registered one, which is
+  /// the one this payload deploys even if the asset already had a TokenizationSpoke.
+  function _findTokenizationSpoke_${hubKey}_${assetKey}() internal view returns (address) {
     IHub hub = IHub(${wrapAddress(c.hubLib)});
-    uint256 assetId = hub.getAssetId(${testAddressRef(c.underlying)});
-    uint256 count = hub.getSpokeCount(assetId);
-    for (uint256 i; i < count; ++i) {
-      address spoke = hub.getSpokeAddress(assetId, i);
-      if (${skips}) continue;
-      return spoke;
+    uint256 assetId = hub.getAssetId(${underlying});
+    for (uint256 i = hub.getSpokeCount(assetId); i > 0; --i) {
+      address spoke = hub.getSpokeAddress(assetId, i - 1);
+      try ITokenizationSpoke(spoke).asset() returns (address tokenized) {
+        if (tokenized == ${underlying}) return spoke;
+      } catch {}
     }
     revert('tokenization spoke not found');
   }`;
@@ -105,7 +68,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
     }
     return response;
   },
-  build({market, cfg, configs}) {
+  build({market, cfg}) {
     const constants: string[] = [];
     const prepared = cfg.map((c) => {
       const {hubKey, assetKey} = hubAssetKey(c.hubLib, c.underlying);
@@ -137,7 +100,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
           rateGrowthAfterOptimal: uint32(${renderBpsSentinel(c.irData.rateGrowthAfterOptimal)})
         }),
         tokenization: IConfigEngine.TokenizationSpokeConfig({
-          addCap: ${c.tokenization ? c.tokenization.addCap : '0'},
+          addCap: ${c.tokenization ? groupThousands(c.tokenization.addCap) : '0'},
           proxyAdminOwner: ${c.tokenization ? wrapAddress(c.tokenization.proxyAdminOwner) : 'address(0)'},
           name: '${c.tokenization ? esc(c.tokenization.name) : ''}',
           symbol: '${c.tokenization ? esc(c.tokenization.symbol) : ''}'
@@ -159,7 +122,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       ];
       if (c.tokenization) {
         lines.push(
-          `assertEq(items[${ix}].tokenization.addCap, ${c.tokenization.addCap}, 'tokenization addCap');`,
+          `assertEq(items[${ix}].tokenization.addCap, ${groupThousands(c.tokenization.addCap)}, 'tokenization addCap');`,
           `assertEq(items[${ix}].tokenization.proxyAdminOwner, ${testAddressRef(c.tokenization.proxyAdminOwner)}, 'tokenization proxyAdminOwner');`,
           `assertEq(items[${ix}].tokenization.name, '${esc(c.tokenization.name)}', 'tokenization name');`,
           `assertEq(items[${ix}].tokenization.symbol, '${esc(c.tokenization.symbol)}', 'tokenization symbol');`,
@@ -178,11 +141,11 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       const underlying = testAddressRef(c.underlying);
       let tokenizationAsserts = '';
       if (c.tokenization) {
-        helpers.push(tokenizationSpokeHelper(c, hubKey, assetKey, configs));
+        helpers.push(tokenizationSpokeHelper(c, hubKey, assetKey));
         tokenizationAsserts = `
         address tokenizationSpoke = _findTokenizationSpoke_${hubKey}_${assetKey}();
         IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
-        assertEq(uint256(tokenizationCfg.addCap), uint256(${c.tokenization.addCap}), 'tokenization addCap mismatch');
+        assertEq(uint256(tokenizationCfg.addCap), uint256(${groupThousands(c.tokenization.addCap)}), 'tokenization addCap mismatch');
         assertEq(IERC20Metadata(tokenizationSpoke).name(), '${esc(c.tokenization.name)}', 'tokenization name mismatch');
         assertEq(IERC20Metadata(tokenizationSpoke).symbol(), '${esc(c.tokenization.symbol)}', 'tokenization symbol mismatch');`;
       }

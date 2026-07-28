@@ -5,6 +5,7 @@ import {
   groupThousands,
   renderBpsSentinel,
   renderWadSentinel,
+  renderWholeSentinel,
 } from './units';
 import {literal, keepCurrent} from './sentinels';
 
@@ -28,10 +29,15 @@ describe('percentToBps', () => {
 });
 
 describe('decimalToWad', () => {
-  it('converts decimals to WAD literals', () => {
-    expect(decimalToWad('1.0277')).toBe('1_027_700_000_000_000_000');
-    expect(decimalToWad('0.99')).toBe('990_000_000_000_000_000');
-    expect(decimalToWad('1')).toBe('1_000_000_000_000_000_000');
+  it('converts decimals to scientific WAD literals', () => {
+    expect(decimalToWad('1.0277')).toBe('1.0277e18');
+    expect(decimalToWad('0.99')).toBe('0.99e18');
+    expect(decimalToWad('1')).toBe('1e18');
+  });
+
+  it('trims trailing fractional zeros and renders zero as 0', () => {
+    expect(decimalToWad('1.50')).toBe('1.5e18');
+    expect(decimalToWad('0')).toBe('0');
   });
 });
 
@@ -39,6 +45,10 @@ describe('groupThousands', () => {
   it('groups by three digits', () => {
     expect(groupThousands('10000000')).toBe('10_000_000');
     expect(groupThousands('0')).toBe('0');
+  });
+
+  it('re-groups already grouped values', () => {
+    expect(groupThousands('1_000_000')).toBe('1_000_000');
   });
 });
 
@@ -51,7 +61,14 @@ describe('renderBpsSentinel', () => {
 
 describe('renderWadSentinel', () => {
   it('converts literals to WAD and passes through keepCurrent', () => {
-    expect(renderWadSentinel(literal('1.0277'))).toBe('1_027_700_000_000_000_000');
+    expect(renderWadSentinel(literal('1.0277'))).toBe('1.0277e18');
     expect(renderWadSentinel(keepCurrent())).toBe('EngineFlags.KEEP_CURRENT');
+  });
+});
+
+describe('renderWholeSentinel', () => {
+  it('groups literals and passes through keepCurrent', () => {
+    expect(renderWholeSentinel(literal('10000000'))).toBe('10_000_000');
+    expect(renderWholeSentinel(keepCurrent())).toBe('EngineFlags.KEEP_CURRENT');
   });
 });

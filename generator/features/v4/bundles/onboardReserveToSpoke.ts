@@ -20,7 +20,7 @@ import {spokeLiquidationConfigUpdate} from '../spoke/spokeLiquidationConfigUpdat
 import {spokePositionManagerUpdate} from '../spoke/spokePositionManagerUpdate';
 import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
-import {spokeConfiguratorWiring, hubConfiguratorWiring} from '../accessWiring';
+import {spokeWiring, hubConfiguratorWiring} from '../accessWiring';
 import {
   V4SpokeReserveListing,
   V4SpokeReserveConfigUpdate,
@@ -156,11 +156,11 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
         wiredSpokes.add(spoke.expr);
         if (
           await confirm({
-            message: `Wire SpokeConfigurator role on fresh spoke ${spoke.key}?`,
+            message: `Wire SpokeConfigurator & user-position-updater roles on fresh spoke ${spoke.key}?`,
             default: true,
           })
         ) {
-          cfg.targetFunctionRoles.push(spokeConfiguratorWiring(spoke.expr));
+          cfg.targetFunctionRoles.push(...spokeWiring(m, spoke.expr));
         }
       }
 

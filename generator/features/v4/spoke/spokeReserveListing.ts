@@ -140,6 +140,25 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         assertEq(uint256(dyn.liquidationFee), uint256(${percentToBps(c.dynamicConfig.liquidationFee)}), 'liquidationFee mismatch');
       }`;
     });
+    // One price-source test per spoke, reading back through the spoke's own oracle.
+    const spokes = [...new Set(cfg.map((c) => c.spoke))];
+    const priceSourceTests = spokes.map((s) => {
+      const asserts = cfg
+        .filter((c) => c.spoke === s)
+        .map(
+          (c) => `assertEq(
+            oracle.getReserveSource(spoke.getReserveId(${wrapAddress(c.hub)}, IHub(${wrapAddress(c.hub)}).getAssetId(${testAddressRef(c.underlying)}))),
+            proposal.${priceFeedConstantName(c.spoke, c.underlying)}(),
+            '${assetIdentifier(c.underlying)} price source mismatch'
+          );`,
+        );
+      return `function test_reservePriceSources_${accessorIdentifier(s)}() public {
+        GovV3Helpers.executePayload(vm, address(proposal));
+        ISpoke spoke = ISpoke(${testAddressRef(s)});
+        IAaveOracle oracle = IAaveOracle(spoke.ORACLE());
+        ${asserts.join('\n        ')}
+      }`;
+    });
     // e2e-test each payload-deployed Spoke (a bare payload constant, not an address-book
     // accessor); the default suite only covers Spokes already in the address book.
     const newSpokes = [...new Set(cfg.filter((c) => !c.spoke.includes('.')).map((c) => c.spoke))];
@@ -159,7 +178,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
           },
         },
       },
-      test: {fn: [inputTest, ...testFns, ...e2eTests]},
+      test: {fn: [inputTest, ...testFns, ...priceSourceTests, ...e2eTests]},
     };
     return response;
   },

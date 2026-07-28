@@ -318,6 +318,9 @@ export interface V4TargetFunctionRoleUpdate {
   /// Solidity expressions for the wired selectors, used to generate assertions
   /// when `selectorsExpr` is set (e.g. `['ISpoke.addReserve.selector', ...]`).
   selectorAsserts?: string[];
+  /// Codegen expr of an already-wired contract of the same kind; generated tests assert
+  /// the selectors carry the same role there, catching divergence from the market wiring.
+  referenceTarget?: string;
 }
 
 export interface V4TargetAdminDelayUpdate {

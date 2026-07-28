@@ -1,6 +1,6 @@
 import {getAddress, isHex} from 'viem';
 import {Sentinel} from '../types';
-import {renderBpsSentinel} from './units';
+import {renderBpsSentinel, renderWholeSentinel} from './units';
 
 /// Strip `<Lib>.` prefix and any trailing `_UNDERLYING` from a library accessor.
 export function shortKey(accessor: string): string {
@@ -77,6 +77,19 @@ export function assertBpsSentinelField(
   if (s.kind === 'keepCurrent')
     return `assertEq(uint256(${cfgVar}.${field}), uint256(${beforeVar}.${field}), '${field} unchanged');`;
   return `assertEq(uint256(${cfgVar}.${field}), uint256(${renderBpsSentinel(s)}), '${field} mismatch');`;
+}
+
+/// Assertion for a whole-unit (cap) Sentinel field: literal -> equals the grouped value,
+/// keepCurrent -> equals the pre-execution `before` snapshot.
+export function assertWholeSentinelField(
+  field: string,
+  s: Sentinel,
+  cfgVar = 'cfg',
+  beforeVar = 'before',
+): string {
+  if (s.kind === 'keepCurrent')
+    return `assertEq(uint256(${cfgVar}.${field}), uint256(${beforeVar}.${field}), '${field} unchanged');`;
+  return `assertEq(uint256(${cfgVar}.${field}), uint256(${renderWholeSentinel(s)}), '${field} mismatch');`;
 }
 
 /// Render an address-or-lib-accessor as a Solidity expression. Hex literals are

@@ -3,7 +3,7 @@ import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../..
 import {V4HubSpokeToAssetsAddition} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {percentPrompt} from '../../../prompts/percentPrompt';
-import {percentToBps} from '../units';
+import {groupThousands, percentToBps} from '../units';
 import {assetKeys, assetLibAccessor} from '../marketBook';
 import {selectHub, selectSpoke} from '../hubSpokeSelect';
 import {
@@ -13,6 +13,20 @@ import {
   testAddressRef,
   wrapAddress,
 } from '../testHelpers';
+
+/// Merge every entry targeting the same (hub, spoke) into a single registration
+/// carrying all its assets, so onboarding N assets on one spoke emits one item with
+/// an N-asset array instead of N items.
+function aggregateByHubSpoke(cfg: V4HubSpokeToAssetsAddition[]): V4HubSpokeToAssetsAddition[] {
+  const merged = new Map<string, V4HubSpokeToAssetsAddition>();
+  for (const c of cfg) {
+    const key = `${c.hubLib}|${c.spoke}`;
+    const existing = merged.get(key);
+    if (existing) existing.assets = [...existing.assets, ...c.assets];
+    else merged.set(key, {...c, assets: [...c.assets]});
+  }
+  return [...merged.values()];
+}
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
   value: FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION,
@@ -65,15 +79,16 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
     }
     return response;
   },
-  build({market, cfg}) {
+  build({market, cfg: rawCfg}) {
+    const cfg = aggregateByHubSpoke(rawCfg);
     const entries = cfg.map((c) => {
       const inner = c.assets
         .map(
           (a, jx) => `subAssets[${jx}] = IConfigEngine.SpokeAssetConfig({
             underlying: ${checksumAddress(a.underlying)},
             config: IHub.SpokeConfig({
-              addCap: ${a.addCap},
-              drawCap: ${a.drawCap},
+              addCap: ${groupThousands(a.addCap)},
+              drawCap: ${groupThousands(a.drawCap)},
               riskPremiumThreshold: ${percentToBps(a.riskPremiumThreshold)},
               active: ${a.active},
               halted: ${a.halted}
@@ -94,10 +109,11 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
     });
     const inputAsserts = cfg.flatMap((c, ix) => [
       `assertEq(items[${ix}].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+      `assertEq(items[${ix}].assets.length, ${c.assets.length}, 'assets length');`,
       ...c.assets.flatMap((a, jx) => [
         `assertEq(items[${ix}].assets[${jx}].underlying, ${testAddressRef(a.underlying)}, 'underlying');`,
-        `assertEq(uint256(items[${ix}].assets[${jx}].config.addCap), ${a.addCap}, 'addCap');`,
-        `assertEq(uint256(items[${ix}].assets[${jx}].config.drawCap), ${a.drawCap}, 'drawCap');`,
+        `assertEq(uint256(items[${ix}].assets[${jx}].config.addCap), ${groupThousands(a.addCap)}, 'addCap');`,
+        `assertEq(uint256(items[${ix}].assets[${jx}].config.drawCap), ${groupThousands(a.drawCap)}, 'drawCap');`,
         `assertEq(uint256(items[${ix}].assets[${jx}].config.riskPremiumThreshold), ${percentToBps(a.riskPremiumThreshold)}, 'riskPremiumThreshold');`,
         `assertEq(items[${ix}].assets[${jx}].config.active, ${a.active}, 'active');`,
         `assertEq(items[${ix}].assets[${jx}].config.halted, ${a.halted}, 'halted');`,
@@ -121,8 +137,8 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
             uint256 assetId = hub.getAssetId(${testAddressRef(a.underlying)});
             assertTrue(hub.isSpokeListed(assetId, ${testAddressRef(c.spoke)}), 'spoke not listed');
             IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, ${testAddressRef(c.spoke)});
-            assertEq(uint256(cfg.addCap), uint256(${a.addCap}), 'addCap mismatch');
-            assertEq(uint256(cfg.drawCap), uint256(${a.drawCap}), 'drawCap mismatch');
+            assertEq(uint256(cfg.addCap), uint256(${groupThousands(a.addCap)}), 'addCap mismatch');
+            assertEq(uint256(cfg.drawCap), uint256(${groupThousands(a.drawCap)}), 'drawCap mismatch');
             assertEq(uint256(cfg.riskPremiumThreshold), uint256(${percentToBps(a.riskPremiumThreshold)}), 'riskPremiumThreshold mismatch');
             assertEq(cfg.active, ${a.active}, 'active mismatch');
             assertEq(cfg.halted, ${a.halted}, 'halted mismatch');

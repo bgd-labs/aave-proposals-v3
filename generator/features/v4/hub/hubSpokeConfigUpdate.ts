@@ -3,13 +3,14 @@ import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../..
 import {V4HubSpokeConfigUpdate} from '../../types';
 import {assetKeys, assetLibAccessor} from '../marketBook';
 import {selectHub, selectSpokes} from '../hubSpokeSelect';
-import {renderSentinel, renderBoolAsUint} from '../sentinels';
-import {renderBpsSentinel} from '../units';
+import {renderBoolAsUint} from '../sentinels';
+import {renderBpsSentinel, renderWholeSentinel} from '../units';
 import {sentinelWhole, sentinelPercent, sentinelBool} from '../sentinelPrompts';
 import {
   accessorIdentifier,
   assertBpsSentinelField,
   assertSentinelField,
+  assertWholeSentinelField,
   shortKey,
   checksumAddress,
   wrapAddress,
@@ -54,8 +55,8 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
         hub: ${wrapAddress(c.hubLib)},
         underlying: ${checksumAddress(c.underlying)},
         spoke: ${wrapAddress(c.spoke)},
-        addCap: ${renderSentinel(c.addCap)},
-        drawCap: ${renderSentinel(c.drawCap)},
+        addCap: ${renderWholeSentinel(c.addCap)},
+        drawCap: ${renderWholeSentinel(c.drawCap)},
         riskPremiumThreshold: ${renderBpsSentinel(c.riskPremiumThreshold)},
         active: ${renderBoolAsUint(c.active)},
         halted: ${renderBoolAsUint(c.halted)}
@@ -66,8 +67,8 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = shortKey(c.underlying);
       const asserts = [
-        assertSentinelField('addCap', c.addCap, 'uint'),
-        assertSentinelField('drawCap', c.drawCap, 'uint'),
+        assertWholeSentinelField('addCap', c.addCap),
+        assertWholeSentinelField('drawCap', c.drawCap),
         assertBpsSentinelField('riskPremiumThreshold', c.riskPremiumThreshold),
         assertSentinelField('active', c.active, 'bool'),
         assertSentinelField('halted', c.halted, 'bool'),

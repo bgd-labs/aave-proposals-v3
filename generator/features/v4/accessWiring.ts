@@ -1,4 +1,6 @@
+import {MarketIdentifierV4} from '../../types';
 import {V4TargetFunctionRoleUpdate} from '../types';
+import {getV4Book, spokeLibAccessor} from './marketBook';
 
 /// The 7 Spoke selectors mapped to SPOKE_CONFIGURATOR_ROLE, in the order returned by
 /// Roles.getSpokeConfiguratorRoleSelectors(); used for generated wiring assertions.
@@ -12,16 +14,45 @@ const SPOKE_CONFIGURATOR_SELECTORS = [
   'ISpoke.updateReservePriceSource.selector',
 ];
 
-/// AccessManager wiring granting SPOKE_CONFIGURATOR_ROLE the SpokeConfigurator
-/// selectors on a freshly deployed Spoke, so the payload can configure it.
-export function spokeConfiguratorWiring(spokeExpr: string): V4TargetFunctionRoleUpdate {
-  return {
-    target: spokeExpr,
-    selectors: [],
-    selectorsExpr: 'Roles.getSpokeConfiguratorRoleSelectors()',
-    roleId: 'Roles.SPOKE_CONFIGURATOR_ROLE',
-    selectorAsserts: SPOKE_CONFIGURATOR_SELECTORS,
-  };
+/// The 2 Spoke selectors mapped to SPOKE_USER_POSITION_UPDATER_ROLE, in the order
+/// returned by Roles.getSpokePositionUpdaterRoleSelectors().
+const SPOKE_POSITION_UPDATER_SELECTORS = [
+  'ISpoke.updateUserDynamicConfig.selector',
+  'ISpoke.updateUserRiskPremium.selector',
+];
+
+/// An already-wired Spoke of the market, used by generated tests to assert a freshly
+/// wired Spoke does not diverge from the canonical selector-to-role mapping.
+function referenceSpoke(market: MarketIdentifierV4): string | undefined {
+  return getV4Book(market).SPOKES.MAIN_SPOKE ? spokeLibAccessor(market, 'MAIN_SPOKE') : undefined;
+}
+
+/// AccessManager wiring a freshly deployed Spoke needs to be configurable by governance
+/// and to let the position managers update user positions: the SpokeConfigurator
+/// selectors and the user-position-updater selectors, each on its own role.
+export function spokeWiring(
+  market: MarketIdentifierV4,
+  spokeExpr: string,
+): V4TargetFunctionRoleUpdate[] {
+  const referenceTarget = referenceSpoke(market);
+  return [
+    {
+      target: spokeExpr,
+      selectors: [],
+      selectorsExpr: 'Roles.getSpokeConfiguratorRoleSelectors()',
+      roleId: 'Roles.SPOKE_CONFIGURATOR_ROLE',
+      selectorAsserts: SPOKE_CONFIGURATOR_SELECTORS,
+      referenceTarget,
+    },
+    {
+      target: spokeExpr,
+      selectors: [],
+      selectorsExpr: 'Roles.getSpokePositionUpdaterRoleSelectors()',
+      roleId: 'Roles.SPOKE_USER_POSITION_UPDATER_ROLE',
+      selectorAsserts: SPOKE_POSITION_UPDATER_SELECTORS,
+      referenceTarget,
+    },
+  ];
 }
 
 /// AccessManager wiring granting HUB_CONFIGURATOR_ROLE the HubConfigurator
