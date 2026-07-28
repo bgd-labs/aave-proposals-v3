@@ -24,8 +24,10 @@ function hubAssetKey(hubAccessor: string, underlying: string) {
   return {hubKey, assetKey: assetIdentifier(underlying)};
 }
 
+/// Escape a string for a single-quoted Solidity literal. Backslashes first, so the
+/// escapes added for quotes are not themselves escaped.
 function esc(s: string): string {
-  return s.replace(/'/g, "\\'");
+  return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 
 /// Build the shared test helper that locates the TokenizationSpoke this payload deploys:
@@ -108,33 +110,28 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       });`,
     );
 
-    const inputAsserts = prepared.flatMap(({c, irStrategyTestRef}, ix) => {
+    const inputAsserts = prepared.map(({c, irStrategyTestRef}) => {
       const lines = [
-        `assertEq(items[${ix}].hub, ${wrapAddress(c.hubLib)}, 'hub');`,
-        `assertEq(items[${ix}].underlying, ${testAddressRef(c.underlying)}, 'underlying');`,
-        `assertEq(items[${ix}].feeReceiver, ${testAddressRef(c.feeReceiver)}, 'feeReceiver');`,
-        `assertEq(items[${ix}].liquidityFee, ${percentToBps(c.liquidityFee)}, 'liquidityFee');`,
-        `assertEq(items[${ix}].irStrategy, ${irStrategyTestRef}, 'irStrategy');`,
-        `assertEq(uint256(items[${ix}].irData.optimalUsageRatio), ${renderBpsSentinel(c.irData.optimalUsageRatio)}, 'optimalUsageRatio');`,
-        `assertEq(uint256(items[${ix}].irData.baseDrawnRate), ${renderBpsSentinel(c.irData.baseDrawnRate)}, 'baseDrawnRate');`,
-        `assertEq(uint256(items[${ix}].irData.rateGrowthBeforeOptimal), ${renderBpsSentinel(c.irData.rateGrowthBeforeOptimal)}, 'rateGrowthBeforeOptimal');`,
-        `assertEq(uint256(items[${ix}].irData.rateGrowthAfterOptimal), ${renderBpsSentinel(c.irData.rateGrowthAfterOptimal)}, 'rateGrowthAfterOptimal');`,
+        `assertEq(items[__INDEX__].hub, ${wrapAddress(c.hubLib)}, 'hub');`,
+        `assertEq(items[__INDEX__].underlying, ${testAddressRef(c.underlying)}, 'underlying');`,
+        `assertEq(items[__INDEX__].feeReceiver, ${testAddressRef(c.feeReceiver)}, 'feeReceiver');`,
+        `assertEq(items[__INDEX__].liquidityFee, ${percentToBps(c.liquidityFee)}, 'liquidityFee');`,
+        `assertEq(items[__INDEX__].irStrategy, ${irStrategyTestRef}, 'irStrategy');`,
+        `assertEq(uint256(items[__INDEX__].irData.optimalUsageRatio), ${renderBpsSentinel(c.irData.optimalUsageRatio)}, 'optimalUsageRatio');`,
+        `assertEq(uint256(items[__INDEX__].irData.baseDrawnRate), ${renderBpsSentinel(c.irData.baseDrawnRate)}, 'baseDrawnRate');`,
+        `assertEq(uint256(items[__INDEX__].irData.rateGrowthBeforeOptimal), ${renderBpsSentinel(c.irData.rateGrowthBeforeOptimal)}, 'rateGrowthBeforeOptimal');`,
+        `assertEq(uint256(items[__INDEX__].irData.rateGrowthAfterOptimal), ${renderBpsSentinel(c.irData.rateGrowthAfterOptimal)}, 'rateGrowthAfterOptimal');`,
       ];
       if (c.tokenization) {
         lines.push(
-          `assertEq(items[${ix}].tokenization.addCap, ${groupThousands(c.tokenization.addCap)}, 'tokenization addCap');`,
-          `assertEq(items[${ix}].tokenization.proxyAdminOwner, ${testAddressRef(c.tokenization.proxyAdminOwner)}, 'tokenization proxyAdminOwner');`,
-          `assertEq(items[${ix}].tokenization.name, '${esc(c.tokenization.name)}', 'tokenization name');`,
-          `assertEq(items[${ix}].tokenization.symbol, '${esc(c.tokenization.symbol)}', 'tokenization symbol');`,
+          `assertEq(items[__INDEX__].tokenization.addCap, ${groupThousands(c.tokenization.addCap)}, 'tokenization addCap');`,
+          `assertEq(items[__INDEX__].tokenization.proxyAdminOwner, ${testAddressRef(c.tokenization.proxyAdminOwner)}, 'tokenization proxyAdminOwner');`,
+          `assertEq(items[__INDEX__].tokenization.name, '${esc(c.tokenization.name)}', 'tokenization name');`,
+          `assertEq(items[__INDEX__].tokenization.symbol, '${esc(c.tokenization.symbol)}', 'tokenization symbol');`,
         );
       }
-      return lines;
+      return lines.join('\n        ');
     });
-    const inputTest = `function test_hubAssetListingsInput() public view {
-        IConfigEngine.AssetListing[] memory items = proposal.hubAssetListings();
-        assertEq(items.length, ${cfg.length}, 'length');
-        ${inputAsserts.join('\n        ')}
-      }`;
 
     const helpers: string[] = [];
     const testFns = prepared.map(({c, hubKey, assetKey, irStrategyTestRef}) => {
@@ -206,10 +203,11 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
           hubAssetListings: {
             returnType: 'IConfigEngine.AssetListing',
             entries,
+            inputAsserts,
           },
         },
       },
-      test: {fn: [inputTest, ...testFns, ...proxyAdminTests, ...e2eTests], helpers},
+      test: {fn: [...testFns, ...proxyAdminTests, ...e2eTests], helpers},
     };
     return response;
   },

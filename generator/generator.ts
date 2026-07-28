@@ -45,9 +45,11 @@ export async function generateFiles(
 
   async function createPayloadAndTest(options: Options, market: MarketIdentifier) {
     const contractName = generateContractName(options, market);
-    const testCode = testTemplate(options, marketConfigs[market]!, market);
+    // merges the v4 getters (and the tests over them) before the test template reads
+    // the artifacts, so a getter fed by several features is asserted once as a whole
     finalizeV4Artifacts(marketConfigs[market]!);
     finalizeV4EntityConstants(marketConfigs[market]!, market);
+    const testCode = testTemplate(options, marketConfigs[market]!, market);
 
     return {
       market,

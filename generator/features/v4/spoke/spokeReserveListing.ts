@@ -94,25 +94,22 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         })
       });`,
     );
-    const inputAsserts = cfg.flatMap((c, ix) => [
-      `assertEq(items[${ix}].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
-      `assertEq(items[${ix}].hub, ${wrapAddress(c.hub)}, 'hub');`,
-      `assertEq(items[${ix}].underlying, ${testAddressRef(c.underlying)}, 'underlying');`,
-      `assertEq(items[${ix}].priceSource, proposal.${priceFeedConstantName(c.spoke, c.underlying)}(), 'priceSource');`,
-      `assertEq(uint256(items[${ix}].config.collateralRisk), ${percentToBps(c.config.collateralRisk)}, 'collateralRisk');`,
-      `assertEq(items[${ix}].config.paused, ${c.config.paused}, 'paused');`,
-      `assertEq(items[${ix}].config.frozen, ${c.config.frozen}, 'frozen');`,
-      `assertEq(items[${ix}].config.borrowable, ${c.config.borrowable}, 'borrowable');`,
-      `assertEq(items[${ix}].config.receiveSharesEnabled, ${c.config.receiveSharesEnabled}, 'receiveSharesEnabled');`,
-      `assertEq(uint256(items[${ix}].dynamicConfig.collateralFactor), ${percentToBps(c.dynamicConfig.collateralFactor)}, 'collateralFactor');`,
-      `assertEq(uint256(items[${ix}].dynamicConfig.maxLiquidationBonus), ${percentToBps(c.dynamicConfig.maxLiquidationBonus)}, 'maxLiquidationBonus');`,
-      `assertEq(uint256(items[${ix}].dynamicConfig.liquidationFee), ${percentToBps(c.dynamicConfig.liquidationFee)}, 'liquidationFee');`,
-    ]);
-    const inputTest = `function test_spokeReserveListingsInput() public view {
-        IConfigEngine.ReserveListing[] memory items = proposal.spokeReserveListings();
-        assertEq(items.length, ${cfg.length}, 'length');
-        ${inputAsserts.join('\n        ')}
-      }`;
+    const inputAsserts = cfg.map((c) =>
+      [
+        `assertEq(items[__INDEX__].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+        `assertEq(items[__INDEX__].hub, ${wrapAddress(c.hub)}, 'hub');`,
+        `assertEq(items[__INDEX__].underlying, ${testAddressRef(c.underlying)}, 'underlying');`,
+        `assertEq(items[__INDEX__].priceSource, proposal.${priceFeedConstantName(c.spoke, c.underlying)}(), 'priceSource');`,
+        `assertEq(uint256(items[__INDEX__].config.collateralRisk), ${percentToBps(c.config.collateralRisk)}, 'collateralRisk');`,
+        `assertEq(items[__INDEX__].config.paused, ${c.config.paused}, 'paused');`,
+        `assertEq(items[__INDEX__].config.frozen, ${c.config.frozen}, 'frozen');`,
+        `assertEq(items[__INDEX__].config.borrowable, ${c.config.borrowable}, 'borrowable');`,
+        `assertEq(items[__INDEX__].config.receiveSharesEnabled, ${c.config.receiveSharesEnabled}, 'receiveSharesEnabled');`,
+        `assertEq(uint256(items[__INDEX__].dynamicConfig.collateralFactor), ${percentToBps(c.dynamicConfig.collateralFactor)}, 'collateralFactor');`,
+        `assertEq(uint256(items[__INDEX__].dynamicConfig.maxLiquidationBonus), ${percentToBps(c.dynamicConfig.maxLiquidationBonus)}, 'maxLiquidationBonus');`,
+        `assertEq(uint256(items[__INDEX__].dynamicConfig.liquidationFee), ${percentToBps(c.dynamicConfig.liquidationFee)}, 'liquidationFee');`,
+      ].join('\n        '),
+    );
     const testFns = cfg.map((c) => {
       const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = assetIdentifier(c.underlying);
@@ -175,10 +172,11 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
           spokeReserveListings: {
             returnType: 'IConfigEngine.ReserveListing',
             entries,
+            inputAsserts,
           },
         },
       },
-      test: {fn: [inputTest, ...testFns, ...priceSourceTests, ...e2eTests]},
+      test: {fn: [...testFns, ...priceSourceTests, ...e2eTests]},
     };
     return response;
   },

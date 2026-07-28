@@ -41,20 +41,17 @@ export const spokePositionManagerUpdate: FeatureModule<V4SpokePositionManagerUpd
         active: ${c.active}
       });`,
     );
-    const inputAsserts = cfg.flatMap((c, ix) => [
-      `assertEq(items[${ix}].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
-      `assertEq(items[${ix}].positionManager, ${wrapAddress(c.positionManager)}, 'positionManager');`,
-      `assertEq(items[${ix}].active, ${c.active}, 'active');`,
-    ]);
-    const inputTest = `function test_spokePositionManagerUpdatesInput() public view {
-        IConfigEngine.PositionManagerUpdate[] memory items = proposal.spokePositionManagerUpdates();
-        assertEq(items.length, ${cfg.length}, 'length');
-        ${inputAsserts.join('\n        ')}
-      }`;
-    const testFns = cfg.map((c, ix) => {
+    const inputAsserts = cfg.map((c) =>
+      [
+        `assertEq(items[__INDEX__].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+        `assertEq(items[__INDEX__].positionManager, ${wrapAddress(c.positionManager)}, 'positionManager');`,
+        `assertEq(items[__INDEX__].active, ${c.active}, 'active');`,
+      ].join('\n        '),
+    );
+    const testFns = cfg.map((c) => {
       const spokeKey = accessorIdentifier(c.spoke);
       const pmKey = shortKey(c.positionManager);
-      return `function test_spokePositionManagerUpdate_${spokeKey}_${pmKey}_${ix}() public {
+      return `function test_spokePositionManagerUpdate_${spokeKey}_${pmKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         assertEq(
           ISpoke(${testAddressRef(c.spoke)}).isPositionManagerActive(${wrapAddress(c.positionManager)}),
@@ -69,10 +66,11 @@ export const spokePositionManagerUpdate: FeatureModule<V4SpokePositionManagerUpd
           spokePositionManagerUpdates: {
             returnType: 'IConfigEngine.PositionManagerUpdate',
             entries,
+            inputAsserts,
           },
         },
       },
-      test: {fn: [inputTest, ...testFns]},
+      test: {fn: testFns},
     };
     return response;
   },

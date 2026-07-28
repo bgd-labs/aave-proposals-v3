@@ -106,6 +106,11 @@ export type MarketConfigs = Partial<Record<MarketIdentifier, MarketConfig>>;
 export type V4GetterEntry = {
   returnType: string;
   entries: string[];
+  /// Assertions over the getter's entries, one block per entry and parallel to
+  /// `entries`, referencing the entry as `items[__INDEX__]`. Emitted as a single
+  /// `test_<getter>Input()` once every feature contributing to the getter has been
+  /// merged, so the indices match the merged array rather than one feature's slice.
+  inputAsserts?: string[];
 };
 
 export type CodeArtifact = {

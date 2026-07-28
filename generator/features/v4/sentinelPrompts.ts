@@ -1,7 +1,8 @@
-import {select, input} from '@inquirer/prompts';
+import {select} from '@inquirer/prompts';
 import {Sentinel} from '../types';
 import {numberPrompt} from '../../prompts/numberPrompt';
 import {percentPrompt} from '../../prompts/percentPrompt';
+import {decimalPrompt} from '../../prompts/decimalPrompt';
 import {addressPrompt} from '../../prompts/addressPrompt';
 import {keepCurrent, keepCurrentAddress, literal, enabled, disabled} from './sentinels';
 
@@ -19,10 +20,7 @@ export async function sentinelWhole(message: string): Promise<Sentinel> {
 
 /// Decimal (health-factor) input -> literal (converted to WAD at build) or keepCurrent.
 export async function sentinelWad(message: string): Promise<Sentinel> {
-  const v = await input({
-    message: `${message} (empty = keep current)`,
-    validate: (x) => x === '' || !isNaN(Number(x)) || 'Enter a decimal number',
-  });
+  const v = await decimalPrompt({message: `${message} (empty = keep current)`});
   return v ? literal(v) : keepCurrent();
 }
 

@@ -57,7 +57,7 @@ export const config: ConfigFile = {
             tokenization: {
               addCap: '1000',
               proxyAdminOwner: 'GovernanceV3Ethereum.EXECUTOR_LVL_1',
-              name: 'TS',
+              name: "TS\\\\'x",
               symbol: 'TS',
             },
           },
@@ -302,7 +302,8 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
   address public constant ROLE_1_ACCOUNT_0 = 0x2222222222222222222222222222222222222222;
 
   // https://etherscan.io/address/0x2222222222222222222222222222222222222222
-  address public constant ROLE_1_TARGET_0 = 0x2222222222222222222222222222222222222222;
+  address public constant ROLE_1_TARGET_CUSTOM_22222222 =
+    0x2222222222222222222222222222222222222222;
 
   // https://etherscan.io/address/0x2222222222222222222222222222222222222222
   address public constant TARGET_ADMIN_DELAY_TARGET_0 = 0x2222222222222222222222222222222222222222;
@@ -328,7 +329,7 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
       tokenization: IConfigEngine.TokenizationSpokeConfig({
         addCap: 1_000,
         proxyAdminOwner: address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
-        name: 'TS',
+        name: "TS\\\\'x",
         symbol: 'TS'
       })
     });
@@ -661,7 +662,7 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
       selectors[0] = bytes4(0x12345678);
       items[0] = IConfigEngine.TargetFunctionRoleUpdate({
         authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-        target: ROLE_1_TARGET_0,
+        target: ROLE_1_TARGET_CUSTOM_22222222,
         selectors: selectors,
         roleId: 1
       });
@@ -759,28 +760,6 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     defaultTest('AaveV4Ethereum_V4Every_20260521', address(proposal));
   }
 
-  function test_hubAssetListingsInput() public view {
-    IConfigEngine.AssetListing[] memory items = proposal.hubAssetListings();
-    assertEq(items.length, 1, 'length');
-    assertEq(items[0].hub, address(AaveV4EthereumHubs.CORE_HUB), 'hub');
-    assertEq(items[0].underlying, address(AaveV4EthereumAssets.WETH_UNDERLYING), 'underlying');
-    assertEq(items[0].feeReceiver, 0x2222222222222222222222222222222222222222, 'feeReceiver');
-    assertEq(items[0].liquidityFee, 1_00, 'liquidityFee');
-    assertEq(items[0].irStrategy, proposal.CORE_HUB_WETH_IR_STRATEGY(), 'irStrategy');
-    assertEq(uint256(items[0].irData.optimalUsageRatio), 80_00, 'optimalUsageRatio');
-    assertEq(uint256(items[0].irData.baseDrawnRate), 0, 'baseDrawnRate');
-    assertEq(uint256(items[0].irData.rateGrowthBeforeOptimal), 4_00, 'rateGrowthBeforeOptimal');
-    assertEq(uint256(items[0].irData.rateGrowthAfterOptimal), 60_00, 'rateGrowthAfterOptimal');
-    assertEq(items[0].tokenization.addCap, 1_000, 'tokenization addCap');
-    assertEq(
-      items[0].tokenization.proxyAdminOwner,
-      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
-      'tokenization proxyAdminOwner'
-    );
-    assertEq(items[0].tokenization.name, 'TS', 'tokenization name');
-    assertEq(items[0].tokenization.symbol, 'TS', 'tokenization symbol');
-  }
-
   function test_hubAssetListing_CORE_HUB_WETH() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
@@ -822,7 +801,7 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     address tokenizationSpoke = _findTokenizationSpoke_CORE_HUB_WETH();
     IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
     assertEq(uint256(tokenizationCfg.addCap), uint256(1_000), 'tokenization addCap mismatch');
-    assertEq(IERC20Metadata(tokenizationSpoke).name(), 'TS', 'tokenization name mismatch');
+    assertEq(IERC20Metadata(tokenizationSpoke).name(), "TS\\\\'x", 'tokenization name mismatch');
     assertEq(IERC20Metadata(tokenizationSpoke).symbol(), 'TS', 'tokenization symbol mismatch');
   }
 
@@ -856,23 +835,6 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
       before.reinvestmentController,
       'reinvestmentController unchanged'
     );
-  }
-
-  function test_hubSpokeToAssetsAdditionsInput() public view {
-    IConfigEngine.SpokeToAssetsAddition[] memory items = proposal.hubSpokeToAssetsAdditions();
-    assertEq(items.length, 1, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
-    assertEq(items[0].assets.length, 1, 'assets length');
-    assertEq(
-      items[0].assets[0].underlying,
-      address(AaveV4EthereumAssets.WETH_UNDERLYING),
-      'underlying'
-    );
-    assertEq(uint256(items[0].assets[0].config.addCap), 1_000, 'addCap');
-    assertEq(uint256(items[0].assets[0].config.drawCap), 500, 'drawCap');
-    assertEq(uint256(items[0].assets[0].config.riskPremiumThreshold), 1_00, 'riskPremiumThreshold');
-    assertEq(items[0].assets[0].config.active, true, 'active');
-    assertEq(items[0].assets[0].config.halted, false, 'halted');
   }
 
   function test_hubSpokeToAssetsAddition_CORE_HUB_MAIN_SPOKE_WETH() public {
@@ -982,23 +944,6 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     }
   }
 
-  function test_spokeReserveListingsInput() public view {
-    IConfigEngine.ReserveListing[] memory items = proposal.spokeReserveListings();
-    assertEq(items.length, 1, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
-    assertEq(items[0].hub, address(AaveV4EthereumHubs.CORE_HUB), 'hub');
-    assertEq(items[0].underlying, address(AaveV4EthereumAssets.WETH_UNDERLYING), 'underlying');
-    assertEq(items[0].priceSource, proposal.MAIN_SPOKE_WETH_PRICE_FEED(), 'priceSource');
-    assertEq(uint256(items[0].config.collateralRisk), 0, 'collateralRisk');
-    assertEq(items[0].config.paused, false, 'paused');
-    assertEq(items[0].config.frozen, false, 'frozen');
-    assertEq(items[0].config.borrowable, true, 'borrowable');
-    assertEq(items[0].config.receiveSharesEnabled, true, 'receiveSharesEnabled');
-    assertEq(uint256(items[0].dynamicConfig.collateralFactor), 80_00, 'collateralFactor');
-    assertEq(uint256(items[0].dynamicConfig.maxLiquidationBonus), 105_00, 'maxLiquidationBonus');
-    assertEq(uint256(items[0].dynamicConfig.liquidationFee), 1_00, 'liquidationFee');
-  }
-
   function test_spokeReserveListing_MAIN_SPOKE_WETH() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
@@ -1074,15 +1019,6 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     );
   }
 
-  function test_spokeLiquidationConfigUpdatesInput() public view {
-    IConfigEngine.LiquidationConfigUpdate[] memory items = proposal.spokeLiquidationConfigUpdates();
-    assertEq(items.length, 1, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
-    assertEq(items[0].targetHealthFactor, 1.5e18, 'targetHealthFactor');
-    assertEq(items[0].healthFactorForMaxBonus, EngineFlags.KEEP_CURRENT, 'healthFactorForMaxBonus');
-    assertEq(items[0].liquidationBonusFactor, 100_00, 'liquidationBonusFactor');
-  }
-
   function test_spokeLiquidationConfigUpdate_MAIN_SPOKE() public {
     ISpoke.LiquidationConfig memory before = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE))
       .getLiquidationConfig();
@@ -1142,19 +1078,7 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     );
   }
 
-  function test_spokePositionManagerUpdatesInput() public view {
-    IConfigEngine.PositionManagerUpdate[] memory items = proposal.spokePositionManagerUpdates();
-    assertEq(items.length, 1, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
-    assertEq(
-      items[0].positionManager,
-      0x1111111111111111111111111111111111111111,
-      'positionManager'
-    );
-    assertEq(items[0].active, true, 'active');
-  }
-
-  function test_spokePositionManagerUpdate_MAIN_SPOKE_0x1111111111111111111111111111111111111111_0()
+  function test_spokePositionManagerUpdate_MAIN_SPOKE_0x1111111111111111111111111111111111111111()
     public
   {
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -1184,20 +1108,17 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     );
   }
 
-  function test_accessManagerTargetFunctionRoleUpdatesInput() public view {
-    IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
-      .accessManagerTargetFunctionRoleUpdates();
-    assertEq(items.length, 1, 'length');
-    assertEq(items[0].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[0].target, proposal.ROLE_1_TARGET_0(), 'target');
-    assertEq(uint256(items[0].roleId), uint256(1), 'roleId');
-  }
-
-  function test_rolesWired_ROLE_1_TARGET_0() public {
+  function test_rolesWired_ROLE_1_TARGET_CUSTOM_22222222() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
-    _assertRolesWired(items[0], address(0));
+    uint256 matched;
+    for (uint256 i; i < items.length; ++i) {
+      if (items[i].target != proposal.ROLE_1_TARGET_CUSTOM_22222222()) continue;
+      _assertRolesWired(items[i], address(0));
+      ++matched;
+    }
+    assertGt(matched, 0, 'no wiring for target');
   }
 
   function test_accessManagerTargetAdminDelayUpdate_0() public {
@@ -1237,6 +1158,92 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
       ),
       'role not renounced'
     );
+  }
+
+  function test_hubAssetListingsInput() public view {
+    IConfigEngine.AssetListing[] memory items = proposal.hubAssetListings();
+    assertEq(items.length, 1, 'length');
+    assertEq(items[0].hub, address(AaveV4EthereumHubs.CORE_HUB), 'hub');
+    assertEq(items[0].underlying, address(AaveV4EthereumAssets.WETH_UNDERLYING), 'underlying');
+    assertEq(items[0].feeReceiver, 0x2222222222222222222222222222222222222222, 'feeReceiver');
+    assertEq(items[0].liquidityFee, 1_00, 'liquidityFee');
+    assertEq(items[0].irStrategy, proposal.CORE_HUB_WETH_IR_STRATEGY(), 'irStrategy');
+    assertEq(uint256(items[0].irData.optimalUsageRatio), 80_00, 'optimalUsageRatio');
+    assertEq(uint256(items[0].irData.baseDrawnRate), 0, 'baseDrawnRate');
+    assertEq(uint256(items[0].irData.rateGrowthBeforeOptimal), 4_00, 'rateGrowthBeforeOptimal');
+    assertEq(uint256(items[0].irData.rateGrowthAfterOptimal), 60_00, 'rateGrowthAfterOptimal');
+    assertEq(items[0].tokenization.addCap, 1_000, 'tokenization addCap');
+    assertEq(
+      items[0].tokenization.proxyAdminOwner,
+      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'tokenization proxyAdminOwner'
+    );
+    assertEq(items[0].tokenization.name, "TS\\\\'x", 'tokenization name');
+    assertEq(items[0].tokenization.symbol, 'TS', 'tokenization symbol');
+  }
+
+  function test_hubSpokeToAssetsAdditionsInput() public view {
+    IConfigEngine.SpokeToAssetsAddition[] memory items = proposal.hubSpokeToAssetsAdditions();
+    assertEq(items.length, 1, 'length');
+    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
+    assertEq(items[0].assets.length, 1, 'assets length');
+    assertEq(
+      items[0].assets[0].underlying,
+      address(AaveV4EthereumAssets.WETH_UNDERLYING),
+      'underlying'
+    );
+    assertEq(uint256(items[0].assets[0].config.addCap), 1_000, 'addCap');
+    assertEq(uint256(items[0].assets[0].config.drawCap), 500, 'drawCap');
+    assertEq(uint256(items[0].assets[0].config.riskPremiumThreshold), 1_00, 'riskPremiumThreshold');
+    assertEq(items[0].assets[0].config.active, true, 'active');
+    assertEq(items[0].assets[0].config.halted, false, 'halted');
+  }
+
+  function test_spokeReserveListingsInput() public view {
+    IConfigEngine.ReserveListing[] memory items = proposal.spokeReserveListings();
+    assertEq(items.length, 1, 'length');
+    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
+    assertEq(items[0].hub, address(AaveV4EthereumHubs.CORE_HUB), 'hub');
+    assertEq(items[0].underlying, address(AaveV4EthereumAssets.WETH_UNDERLYING), 'underlying');
+    assertEq(items[0].priceSource, proposal.MAIN_SPOKE_WETH_PRICE_FEED(), 'priceSource');
+    assertEq(uint256(items[0].config.collateralRisk), 0, 'collateralRisk');
+    assertEq(items[0].config.paused, false, 'paused');
+    assertEq(items[0].config.frozen, false, 'frozen');
+    assertEq(items[0].config.borrowable, true, 'borrowable');
+    assertEq(items[0].config.receiveSharesEnabled, true, 'receiveSharesEnabled');
+    assertEq(uint256(items[0].dynamicConfig.collateralFactor), 80_00, 'collateralFactor');
+    assertEq(uint256(items[0].dynamicConfig.maxLiquidationBonus), 105_00, 'maxLiquidationBonus');
+    assertEq(uint256(items[0].dynamicConfig.liquidationFee), 1_00, 'liquidationFee');
+  }
+
+  function test_spokeLiquidationConfigUpdatesInput() public view {
+    IConfigEngine.LiquidationConfigUpdate[] memory items = proposal.spokeLiquidationConfigUpdates();
+    assertEq(items.length, 1, 'length');
+    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
+    assertEq(items[0].targetHealthFactor, 1.5e18, 'targetHealthFactor');
+    assertEq(items[0].healthFactorForMaxBonus, EngineFlags.KEEP_CURRENT, 'healthFactorForMaxBonus');
+    assertEq(items[0].liquidationBonusFactor, 100_00, 'liquidationBonusFactor');
+  }
+
+  function test_spokePositionManagerUpdatesInput() public view {
+    IConfigEngine.PositionManagerUpdate[] memory items = proposal.spokePositionManagerUpdates();
+    assertEq(items.length, 1, 'length');
+    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'spoke');
+    assertEq(
+      items[0].positionManager,
+      0x1111111111111111111111111111111111111111,
+      'positionManager'
+    );
+    assertEq(items[0].active, true, 'active');
+  }
+
+  function test_accessManagerTargetFunctionRoleUpdatesInput() public view {
+    IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
+      .accessManagerTargetFunctionRoleUpdates();
+    assertEq(items.length, 1, 'length');
+    assertEq(items[0].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
+    assertEq(items[0].target, proposal.ROLE_1_TARGET_CUSTOM_22222222(), 'target');
+    assertEq(uint256(items[0].roleId), uint256(1), 'roleId');
   }
 
   /// @dev The TokenizationSpoke is the only Spoke kind exposing \`asset()\`; scanning the

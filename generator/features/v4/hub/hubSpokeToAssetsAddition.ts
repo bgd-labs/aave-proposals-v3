@@ -107,23 +107,20 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         });
       }`;
     });
-    const inputAsserts = cfg.flatMap((c, ix) => [
-      `assertEq(items[${ix}].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
-      `assertEq(items[${ix}].assets.length, ${c.assets.length}, 'assets length');`,
-      ...c.assets.flatMap((a, jx) => [
-        `assertEq(items[${ix}].assets[${jx}].underlying, ${testAddressRef(a.underlying)}, 'underlying');`,
-        `assertEq(uint256(items[${ix}].assets[${jx}].config.addCap), ${groupThousands(a.addCap)}, 'addCap');`,
-        `assertEq(uint256(items[${ix}].assets[${jx}].config.drawCap), ${groupThousands(a.drawCap)}, 'drawCap');`,
-        `assertEq(uint256(items[${ix}].assets[${jx}].config.riskPremiumThreshold), ${percentToBps(a.riskPremiumThreshold)}, 'riskPremiumThreshold');`,
-        `assertEq(items[${ix}].assets[${jx}].config.active, ${a.active}, 'active');`,
-        `assertEq(items[${ix}].assets[${jx}].config.halted, ${a.halted}, 'halted');`,
-      ]),
-    ]);
-    const inputTest = `function test_hubSpokeToAssetsAdditionsInput() public view {
-        IConfigEngine.SpokeToAssetsAddition[] memory items = proposal.hubSpokeToAssetsAdditions();
-        assertEq(items.length, ${cfg.length}, 'length');
-        ${inputAsserts.join('\n        ')}
-      }`;
+    const inputAsserts = cfg.map((c) =>
+      [
+        `assertEq(items[__INDEX__].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+        `assertEq(items[__INDEX__].assets.length, ${c.assets.length}, 'assets length');`,
+        ...c.assets.flatMap((a, jx) => [
+          `assertEq(items[__INDEX__].assets[${jx}].underlying, ${testAddressRef(a.underlying)}, 'underlying');`,
+          `assertEq(uint256(items[__INDEX__].assets[${jx}].config.addCap), ${groupThousands(a.addCap)}, 'addCap');`,
+          `assertEq(uint256(items[__INDEX__].assets[${jx}].config.drawCap), ${groupThousands(a.drawCap)}, 'drawCap');`,
+          `assertEq(uint256(items[__INDEX__].assets[${jx}].config.riskPremiumThreshold), ${percentToBps(a.riskPremiumThreshold)}, 'riskPremiumThreshold');`,
+          `assertEq(items[__INDEX__].assets[${jx}].config.active, ${a.active}, 'active');`,
+          `assertEq(items[__INDEX__].assets[${jx}].config.halted, ${a.halted}, 'halted');`,
+        ]),
+      ].join('\n        '),
+    );
     const testFns: string[] = [];
     for (const c of cfg) {
       const hubKey = accessorIdentifier(c.hubLib);
@@ -152,10 +149,11 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
           hubSpokeToAssetsAdditions: {
             returnType: 'IConfigEngine.SpokeToAssetsAddition',
             entries,
+            inputAsserts,
           },
         },
       },
-      test: {fn: [inputTest, ...testFns]},
+      test: {fn: testFns},
     };
     return response;
   },

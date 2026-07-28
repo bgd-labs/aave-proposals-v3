@@ -17,6 +17,9 @@ export function finalizeV4EntityConstants(
   marketConfig.artifacts.unshift({code: {constants}});
 }
 
+const resolveIndices = (blocks: string[]) =>
+  blocks.map((block, ix) => block.replace(/__INDEX__/g, ix.toString()));
+
 export function finalizeV4Artifacts(marketConfig: MarketConfig): void {
   const merged: Record<string, V4GetterEntry> = {};
   for (const artifact of marketConfig.artifacts) {
@@ -24,9 +27,10 @@ export function finalizeV4Artifacts(marketConfig: MarketConfig): void {
     if (!getters) continue;
     for (const [name, value] of Object.entries(getters)) {
       if (!merged[name]) {
-        merged[name] = {returnType: value.returnType, entries: []};
+        merged[name] = {returnType: value.returnType, entries: [], inputAsserts: []};
       }
       merged[name].entries.push(...value.entries);
+      merged[name].inputAsserts!.push(...(value.inputAsserts ?? []));
     }
     delete artifact.code!.v4Getters;
   }
@@ -34,16 +38,23 @@ export function finalizeV4Artifacts(marketConfig: MarketConfig): void {
   if (names.length === 0) return;
   const fn = names.map((name) => {
     const value = merged[name];
-    const lines = value.entries
-      .map((entry, ix) => entry.replace(/__INDEX__/g, ix.toString()))
-      .join('\n');
     return `function ${name}() public pure override returns (${value.returnType}[] memory) {
         ${value.returnType}[] memory items = new ${value.returnType}[](${value.entries.length});
-        ${lines}
+        ${resolveIndices(value.entries).join('\n')}
         return items;
       }`;
   });
-  marketConfig.artifacts.push({code: {fn}});
+  const testFn = names
+    .filter((name) => merged[name].inputAsserts!.length > 0)
+    .map((name) => {
+      const value = merged[name];
+      return `function test_${name}Input() public view {
+        ${value.returnType}[] memory items = proposal.${name}();
+        assertEq(items.length, ${value.entries.length}, 'length');
+        ${resolveIndices(value.inputAsserts!).join('\n        ')}
+      }`;
+    });
+  marketConfig.artifacts.push({code: {fn}, test: {fn: testFn}});
 }
 
 export function mergeArtifact(target: CodeArtifact, source: CodeArtifact) {
@@ -64,6 +75,7 @@ export function mergeArtifact(target: CodeArtifact, source: CodeArtifact) {
       target.code.v4Getters[name] = {
         returnType: entry.returnType,
         entries: existing ? [...existing.entries, ...entry.entries] : [...entry.entries],
+        inputAsserts: [...(existing?.inputAsserts ?? []), ...(entry.inputAsserts ?? [])],
       };
     }
   }

@@ -8,6 +8,8 @@ import {promptFeeReceiver} from '../feeReceiver';
 import {promptProxyAdminOwner} from '../proxyAdminOwner';
 import {promptIrStrategy} from '../irStrategy';
 
+const nonEmpty = (v: string) => v.trim().length > 0 || 'A value is required';
+
 /// Shared prompt flow for listing an asset on a Hub. Collects fee receiver, IR
 /// strategy and interest rate data (as human percentages), and an optional
 /// TokenizationSpoke. Offers a non-borrowable collateral preset that fills the
@@ -47,8 +49,9 @@ export async function promptHubAssetListing(
     tokenization = {
       addCap: (await numberPrompt({message: 'TokenizationSpoke addCap (whole units)'})) || '0',
       proxyAdminOwner: await promptProxyAdminOwner(m),
-      name: await input({message: 'TokenizationSpoke name'}),
-      symbol: await input({message: 'TokenizationSpoke symbol'}),
+      // an empty name reverts the deployment in HubEngine._deployAndRegisterTokenizationSpoke
+      name: await input({message: 'TokenizationSpoke name', validate: nonEmpty}),
+      symbol: await input({message: 'TokenizationSpoke symbol', validate: nonEmpty}),
     };
   }
 

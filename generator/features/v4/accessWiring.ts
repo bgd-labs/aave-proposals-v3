@@ -55,13 +55,41 @@ export function spokeWiring(
   ];
 }
 
-/// AccessManager wiring granting HUB_CONFIGURATOR_ROLE the HubConfigurator
-/// selectors on a freshly deployed Hub.
-export function hubConfiguratorWiring(hubExpr: string): V4TargetFunctionRoleUpdate {
-  return {
-    target: hubExpr,
-    selectors: [],
-    selectorsExpr: 'Roles.getHubConfiguratorRoleSelectors()',
-    roleId: 'Roles.HUB_CONFIGURATOR_ROLE',
-  };
+/// The 5 Hub selectors mapped to HUB_CONFIGURATOR_ROLE, in the order returned by
+/// Roles.getHubConfiguratorRoleSelectors().
+const HUB_CONFIGURATOR_SELECTORS = [
+  'IHub.addAsset.selector',
+  'IHub.updateAssetConfig.selector',
+  'IHub.addSpoke.selector',
+  'IHub.updateSpokeConfig.selector',
+  'IHub.setInterestRateData.selector',
+];
+
+/// AccessManager wiring a freshly deployed Hub needs: the three granular Hub roles
+/// that `AaveV4HubRolesProcedure.setupHubAllRoles` maps on a deployment, so a
+/// generated Hub does not diverge from the ones already deployed.
+export function hubWiring(hubExpr: string): V4TargetFunctionRoleUpdate[] {
+  return [
+    {
+      target: hubExpr,
+      selectors: [],
+      selectorsExpr: 'Roles.getHubConfiguratorRoleSelectors()',
+      roleId: 'Roles.HUB_CONFIGURATOR_ROLE',
+      selectorAsserts: HUB_CONFIGURATOR_SELECTORS,
+    },
+    {
+      target: hubExpr,
+      selectors: [],
+      selectorsExpr: 'Roles.getHubFeeMinterRoleSelectors()',
+      roleId: 'Roles.HUB_FEE_MINTER_ROLE',
+      selectorAsserts: ['IHub.mintFeeShares.selector'],
+    },
+    {
+      target: hubExpr,
+      selectors: [],
+      selectorsExpr: 'Roles.getHubDeficitEliminatorRoleSelectors()',
+      roleId: 'Roles.HUB_DEFICIT_ELIMINATOR_ROLE',
+      selectorAsserts: ['IHub.eliminateDeficit.selector'],
+    },
+  ];
 }

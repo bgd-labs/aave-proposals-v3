@@ -1,6 +1,7 @@
-import {checkbox, input, confirm} from '@inquirer/prompts';
+import {checkbox, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {percentPrompt} from '../../../prompts/percentPrompt';
+import {decimalPrompt} from '../../../prompts/decimalPrompt';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
 import {positionManagerKeys, positionManagerLibAccessor} from '../marketBook';
@@ -20,7 +21,7 @@ import {spokeLiquidationConfigUpdate} from '../spoke/spokeLiquidationConfigUpdat
 import {spokePositionManagerUpdate} from '../spoke/spokePositionManagerUpdate';
 import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
-import {spokeWiring, hubConfiguratorWiring} from '../accessWiring';
+import {spokeWiring, hubWiring} from '../accessWiring';
 import {
   V4SpokeReserveListing,
   V4SpokeReserveConfigUpdate,
@@ -44,16 +45,14 @@ type BundleCfg = {
 };
 
 async function liquidationPrompt(spokeExpr: string): Promise<V4SpokeLiquidationConfigUpdate> {
-  const t =
-    (await input({
-      message: 'targetHealthFactor (health factor, e.g. 1.05)',
-      validate: (x) => x === '' || !isNaN(Number(x)) || 'Enter a decimal number',
-    })) || '1';
-  const h =
-    (await input({
-      message: 'healthFactorForMaxBonus (health factor)',
-      validate: (x) => x === '' || !isNaN(Number(x)) || 'Enter a decimal number',
-    })) || '1';
+  const t = await decimalPrompt({
+    message: 'targetHealthFactor (health factor, e.g. 1.05)',
+    required: true,
+  });
+  const h = await decimalPrompt({
+    message: 'healthFactorForMaxBonus (health factor)',
+    required: true,
+  });
   const b = (await percentPrompt({message: 'liquidationBonusFactor (%)'})) || '0';
   return {
     spokeLib: spokeExpr,
@@ -134,6 +133,10 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
     };
     const wiredSpokes = new Set<string>();
     const wiredHubs = new Set<string>();
+    // liquidation thresholds and position managers are spoke-wide, so onboarding a
+    // second asset to the same spoke must not push a second entry for it
+    const configuredLiquidation = new Set<string>();
+    const configuredPositionManagers = new Set<string>();
     let more = true;
     while (more) {
       const hub = await selectHub(m);
@@ -145,11 +148,11 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
         wiredHubs.add(hub.expr);
         if (
           await confirm({
-            message: `Wire HubConfigurator role on fresh hub ${hub.key}?`,
+            message: `Wire configurator, fee-minter & deficit-eliminator roles on fresh hub ${hub.key}?`,
             default: true,
           })
         ) {
-          cfg.targetFunctionRoles.push(hubConfiguratorWiring(hub.expr));
+          cfg.targetFunctionRoles.push(...hubWiring(hub.expr));
         }
       }
       if (spoke.isNew && !wiredSpokes.has(spoke.expr)) {
@@ -235,17 +238,22 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
           },
         });
         if (
-          await confirm({
+          !configuredLiquidation.has(spoke.expr) &&
+          (await confirm({
             message:
               'Configure liquidation thresholds for this spoke now? (recommended on first listing)',
             default: true,
-          })
+          }))
         ) {
+          configuredLiquidation.add(spoke.expr);
           cfg.liquidationUpdates.push(await liquidationPrompt(spoke.expr));
         }
       }
 
-      cfg.pmUpdates.push(...(await selectPositionManagers(m, spoke.expr)));
+      if (!configuredPositionManagers.has(spoke.expr)) {
+        configuredPositionManagers.add(spoke.expr);
+        cfg.pmUpdates.push(...(await selectPositionManagers(m, spoke.expr)));
+      }
 
       more = await confirm({message: 'Onboard another reserve?', default: false});
     }

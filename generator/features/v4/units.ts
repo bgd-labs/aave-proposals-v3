@@ -22,11 +22,18 @@ export function percentToBps(value: string): string {
 /// Convert a human decimal string to a WAD (1e18) Solidity literal in scientific
 /// notation, which keeps the human value readable in the payload:
 /// `1.0277` -> `1.0277e18`, `0.99` -> `0.99e18`, `1` -> `1e18`, `0` -> `0`.
+/// Only plain decimal notation is accepted: exponents, hex and signs would suffix into
+/// a literal that does not compile, and more precision than a WAD holds would be
+/// silently dropped, so both are rejected rather than emitted.
 export function decimalToWad(value: string): string {
   const normalized = String(value).replace(/_/g, '');
+  if (!/^(\d+(\.\d*)?|\.\d+)$/.test(normalized))
+    throw new Error(`'${value}' is not a plain decimal number`);
   if (Number(normalized) === 0) return '0';
   const [intPart, fracRaw = ''] = normalized.split('.');
-  const frac = fracRaw.slice(0, WAD_DECIMALS).replace(/0+$/, '');
+  const frac = fracRaw.replace(/0+$/, '');
+  if (frac.length > WAD_DECIMALS)
+    throw new Error(`'${value}' has more than ${WAD_DECIMALS} decimals`);
   const mantissa = frac ? `${intPart || '0'}.${frac}` : intPart || '0';
   return `${mantissa}e${WAD_DECIMALS}`;
 }

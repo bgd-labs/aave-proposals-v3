@@ -9,7 +9,7 @@ import {hubAssetListing} from '../hub/hubAssetListing';
 import {promptHubAssetListing} from '../hub/hubAssetListingPrompt';
 import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
-import {spokeWiring, hubConfiguratorWiring} from '../accessWiring';
+import {spokeWiring, hubWiring} from '../accessWiring';
 import {
   V4HubAssetListing,
   V4HubSpokeToAssetsAddition,
@@ -41,11 +41,11 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
         wiredHubs.add(hub.expr);
         if (
           await confirm({
-            message: `Wire HubConfigurator role on fresh hub ${hub.key}?`,
+            message: `Wire configurator, fee-minter & deficit-eliminator roles on fresh hub ${hub.key}?`,
             default: true,
           })
         ) {
-          cfg.targetFunctionRoles.push(hubConfiguratorWiring(hub.expr));
+          cfg.targetFunctionRoles.push(...hubWiring(hub.expr));
         }
       }
 

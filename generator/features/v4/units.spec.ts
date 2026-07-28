@@ -39,6 +39,17 @@ describe('decimalToWad', () => {
     expect(decimalToWad('1.50')).toBe('1.5e18');
     expect(decimalToWad('0')).toBe('0');
   });
+
+  it('rejects anything that is not plain decimal notation', () => {
+    for (const value of ['1e-3', '0x10', 'Infinity', '-1', '', '.', '1.2.3']) {
+      expect(() => decimalToWad(value)).toThrow();
+    }
+  });
+
+  it('rejects more precision than a WAD holds', () => {
+    expect(decimalToWad(`1.${'0'.repeat(17)}9`)).toBe(`1.${'0'.repeat(17)}9e18`);
+    expect(() => decimalToWad(`1.${'0'.repeat(18)}9`)).toThrow();
+  });
 });
 
 describe('groupThousands', () => {

@@ -1,25 +1,11 @@
-import {confirm, input} from '@inquirer/prompts';
+import {confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeLiquidationConfigUpdate} from '../../types';
-import {percentPrompt} from '../../../prompts/percentPrompt';
 import {selectSpoke} from '../hubSpokeSelect';
-import {keepCurrent, literal} from '../sentinels';
+import {sentinelPercent, sentinelWad} from '../sentinelPrompts';
 import {Sentinel} from '../../types';
 import {renderBpsSentinel, renderWadSentinel} from '../units';
 import {accessorIdentifier, testAddressRef, wrapAddress} from '../testHelpers';
-
-async function sentinelWad(message: string): Promise<Sentinel> {
-  const v = await input({
-    message: `${message} (empty = keep current)`,
-    validate: (x) => x === '' || !isNaN(Number(x)) || 'Enter a decimal number',
-  });
-  return v ? literal(v) : keepCurrent();
-}
-
-async function sentinelPercent(message: string): Promise<Sentinel> {
-  const v = await percentPrompt({message: `${message} (empty = keep current)`});
-  return v ? literal(v) : keepCurrent();
-}
 
 /// Assert a Sentinel-driven liquidation field: literal -> expected value, keepCurrent -> unchanged.
 function assertField(field: string, s: Sentinel, rendered: string, cfgVar = 'cfg'): string {
@@ -64,20 +50,15 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
         liquidationBonusFactor: ${r.bonusFactor}
       });`;
     });
-    const inputAsserts = cfg.flatMap((c, ix) => {
+    const inputAsserts = cfg.map((c) => {
       const r = rendered(c);
       return [
-        `assertEq(items[${ix}].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
-        `assertEq(items[${ix}].targetHealthFactor, ${r.target}, 'targetHealthFactor');`,
-        `assertEq(items[${ix}].healthFactorForMaxBonus, ${r.maxBonus}, 'healthFactorForMaxBonus');`,
-        `assertEq(items[${ix}].liquidationBonusFactor, ${r.bonusFactor}, 'liquidationBonusFactor');`,
-      ];
+        `assertEq(items[__INDEX__].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+        `assertEq(items[__INDEX__].targetHealthFactor, ${r.target}, 'targetHealthFactor');`,
+        `assertEq(items[__INDEX__].healthFactorForMaxBonus, ${r.maxBonus}, 'healthFactorForMaxBonus');`,
+        `assertEq(items[__INDEX__].liquidationBonusFactor, ${r.bonusFactor}, 'liquidationBonusFactor');`,
+      ].join('\n        ');
     });
-    const inputTest = `function test_spokeLiquidationConfigUpdatesInput() public view {
-        IConfigEngine.LiquidationConfigUpdate[] memory items = proposal.spokeLiquidationConfigUpdates();
-        assertEq(items.length, ${cfg.length}, 'length');
-        ${inputAsserts.join('\n        ')}
-      }`;
     const testFns = cfg.map((c) => {
       const spokeKey = accessorIdentifier(c.spoke);
       const r = rendered(c);
@@ -106,10 +87,11 @@ export const spokeLiquidationConfigUpdate: FeatureModule<V4SpokeLiquidationConfi
           spokeLiquidationConfigUpdates: {
             returnType: 'IConfigEngine.LiquidationConfigUpdate',
             entries,
+            inputAsserts,
           },
         },
       },
-      test: {fn: [inputTest, ...testFns]},
+      test: {fn: testFns},
     };
     return response;
   },
