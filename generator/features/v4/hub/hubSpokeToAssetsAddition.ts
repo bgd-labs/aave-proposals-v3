@@ -14,18 +14,16 @@ import {
   wrapAddress,
 } from '../testHelpers';
 
-/// Merge every entry targeting the same (hub, spoke) into a single registration
-/// carrying all its assets, so onboarding N assets on one spoke emits one item with
-/// an N-asset array instead of N items.
-function aggregateByHubSpoke(cfg: V4HubSpokeToAssetsAddition[]): V4HubSpokeToAssetsAddition[] {
-  const merged = new Map<string, V4HubSpokeToAssetsAddition>();
-  for (const c of cfg) {
-    const key = `${c.hubLib}|${c.spoke}`;
-    const existing = merged.get(key);
-    if (existing) existing.assets = [...existing.assets, ...c.assets];
-    else merged.set(key, {...c, assets: [...c.assets]});
-  }
-  return [...merged.values()];
+/// Appends to the registration already targeting the same (hub, spoke) instead of pushing
+/// a second one, so onboarding N assets on a spoke collects them under a single entry.
+export function pushSpokeAssets(
+  additions: V4HubSpokeToAssetsAddition[],
+  target: Omit<V4HubSpokeToAssetsAddition, 'assets'>,
+  assets: V4HubSpokeToAssetsAddition['assets'],
+): void {
+  const existing = additions.find((a) => a.hubLib === target.hubLib && a.spoke === target.spoke);
+  if (existing) existing.assets.push(...assets);
+  else additions.push({...target, assets: [...assets]});
 }
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
@@ -69,18 +67,12 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
           halted,
         });
       }
-      response.push({
-        hubLib: hub.expr,
-        hub: hub.key,
-        spoke: spoke.expr,
-        assets: assetConfigs,
-      });
+      pushSpokeAssets(response, {hubLib: hub.expr, hub: hub.key, spoke: spoke.expr}, assetConfigs);
       more = await confirm({message: 'Register another spoke?', default: false});
     }
     return response;
   },
-  build({market, cfg: rawCfg}) {
-    const cfg = aggregateByHubSpoke(rawCfg);
+  build({market, cfg}) {
     const entries = cfg.map((c) => {
       const inner = c.assets
         .map(

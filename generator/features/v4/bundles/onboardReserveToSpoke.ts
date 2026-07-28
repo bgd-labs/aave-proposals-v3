@@ -19,7 +19,7 @@ import {promptHubAssetListing} from '../hub/hubAssetListingPrompt';
 import {spokeReserveConfigUpdate} from '../spoke/spokeReserveConfigUpdate';
 import {spokeLiquidationConfigUpdate} from '../spoke/spokeLiquidationConfigUpdate';
 import {spokePositionManagerUpdate} from '../spoke/spokePositionManagerUpdate';
-import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
+import {hubSpokeToAssetsAddition, pushSpokeAssets} from '../hub/hubSpokeToAssetsAddition';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
 import {spokeWiring, hubWiring} from '../accessWiring';
 import {
@@ -214,12 +214,11 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
             default: true,
           })
         ) {
-          cfg.hubSpokeAdditions.push({
-            hubLib: hub.expr,
-            hub: hub.key,
-            spoke: spoke.expr,
-            assets: [{underlying: asset.expr, ...(await spokeAssetConfig(asset.label))}],
-          });
+          pushSpokeAssets(
+            cfg.hubSpokeAdditions,
+            {hubLib: hub.expr, hub: hub.key, spoke: spoke.expr},
+            [{underlying: asset.expr, ...(await spokeAssetConfig(asset.label))}],
+          );
         }
         const priceSource = await addressPrompt({message: 'Price source', required: true});
         cfg.listings.push({

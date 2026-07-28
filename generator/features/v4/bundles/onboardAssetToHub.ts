@@ -7,7 +7,7 @@ import {selectAsset} from '../assetSelect';
 import {readHubAssets, isAssetListedOnHub} from '../onchain';
 import {hubAssetListing} from '../hub/hubAssetListing';
 import {promptHubAssetListing} from '../hub/hubAssetListingPrompt';
-import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
+import {hubSpokeToAssetsAddition, pushSpokeAssets} from '../hub/hubSpokeToAssetsAddition';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
 import {spokeWiring, hubWiring} from '../accessWiring';
 import {
@@ -91,12 +91,9 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
           active = await confirm({message: 'active?', default: true});
           halted = await confirm({message: 'halted?', default: false});
         }
-        cfg.spokeAdditions.push({
-          hubLib: hub.expr,
-          hub: hub.key,
-          spoke: spoke.expr,
-          assets: [{underlying: asset.expr, addCap, drawCap, riskPremiumThreshold, active, halted}],
-        });
+        pushSpokeAssets(cfg.spokeAdditions, {hubLib: hub.expr, hub: hub.key, spoke: spoke.expr}, [
+          {underlying: asset.expr, addCap, drawCap, riskPremiumThreshold, active, halted},
+        ]);
       }
       more = await confirm({message: 'Onboard another asset?', default: false});
     }
