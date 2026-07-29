@@ -1,9 +1,11 @@
-import {select, input, confirm} from '@inquirer/prompts';
+import {checkbox, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
+import {percentPrompt} from '../../../prompts/percentPrompt';
+import {decimalPrompt} from '../../../prompts/decimalPrompt';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
 import {positionManagerKeys, positionManagerLibAccessor} from '../marketBook';
-import {selectHub, selectSpoke, SelectedHub} from '../hubSpokeSelect';
+import {selectHub, selectSpoke} from '../hubSpokeSelect';
 import {selectAsset} from '../assetSelect';
 import {
   readSpokeReserves,
@@ -11,13 +13,15 @@ import {
   readHubAssets,
   isAssetListedOnHub,
 } from '../onchain';
-import {promptProxyAdminOwner} from '../proxyAdminOwner';
 import {spokeReserveListing} from '../spoke/spokeReserveListing';
 import {hubAssetListing} from '../hub/hubAssetListing';
+import {promptHubAssetListing} from '../hub/hubAssetListingPrompt';
 import {spokeReserveConfigUpdate} from '../spoke/spokeReserveConfigUpdate';
 import {spokeLiquidationConfigUpdate} from '../spoke/spokeLiquidationConfigUpdate';
 import {spokePositionManagerUpdate} from '../spoke/spokePositionManagerUpdate';
-import {hubSpokeToAssetsAddition} from '../hub/hubSpokeToAssetsAddition';
+import {hubSpokeToAssetsAddition, pushSpokeAssets} from '../hub/hubSpokeToAssetsAddition';
+import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
+import {spokeWiring, hubWiring} from '../accessWiring';
 import {
   V4SpokeReserveListing,
   V4SpokeReserveConfigUpdate,
@@ -25,11 +29,13 @@ import {
   V4SpokePositionManagerUpdate,
   V4HubSpokeToAssetsAddition,
   V4HubAssetListing,
+  V4TargetFunctionRoleUpdate,
 } from '../../types';
 import {keepCurrent, keepCurrentAddress, literal, enabled, disabled} from '../sentinels';
 import {mergeArtifact} from '../bundleHelpers';
 
 type BundleCfg = {
+  targetFunctionRoles: V4TargetFunctionRoleUpdate[];
   hubAssetListings: V4HubAssetListing[];
   listings: V4SpokeReserveListing[];
   updates: V4SpokeReserveConfigUpdate[];
@@ -38,79 +44,99 @@ type BundleCfg = {
   pmUpdates: V4SpokePositionManagerUpdate[];
 };
 
-async function liquidationPrompt(spokeAcc: string): Promise<V4SpokeLiquidationConfigUpdate> {
-  const t = (await numberPrompt({message: 'targetHealthFactor (WAD)'})) || '0';
-  const h = (await numberPrompt({message: 'healthFactorForMaxBonus (WAD)'})) || '0';
-  const b = (await numberPrompt({message: 'liquidationBonusFactor (bps)'})) || '0';
+async function liquidationPrompt(spokeExpr: string): Promise<V4SpokeLiquidationConfigUpdate> {
+  const t = await decimalPrompt({
+    message: 'targetHealthFactor (health factor, e.g. 1.05)',
+    required: true,
+  });
+  const h = await decimalPrompt({
+    message: 'healthFactorForMaxBonus (health factor)',
+    required: true,
+  });
+  const b = (await percentPrompt({message: 'liquidationBonusFactor (%)'})) || '0';
   return {
-    spokeLib: spokeAcc,
-    spoke: spokeAcc,
-    targetHealthFactor: literal(t.replace(/\B(?=(\d{3})+(?!\d))/g, '_')),
-    healthFactorForMaxBonus: literal(h.replace(/\B(?=(\d{3})+(?!\d))/g, '_')),
-    liquidationBonusFactor: literal(b.replace(/\B(?=(\d{3})+(?!\d))/g, '_')),
+    spokeLib: spokeExpr,
+    spoke: spokeExpr,
+    targetHealthFactor: literal(t),
+    healthFactorForMaxBonus: literal(h),
+    liquidationBonusFactor: literal(b),
   };
 }
 
-async function hubAssetListingPrompt(
-  m: MarketIdentifierV4,
-  hub: SelectedHub,
-  underlying: string,
-): Promise<V4HubAssetListing> {
-  const feeReceiver = await addressPrompt({
-    message: 'Fee receiver (Spoke address)',
-    required: true,
-  });
-  const liquidityFee = (await numberPrompt({message: 'liquidityFee (bps)'})) || '0';
-  const irStrategy = await addressPrompt({message: 'IR strategy address', required: true});
-  const optimalUsageRatio =
-    (await numberPrompt({message: 'optimalUsageRatio (bps, uint16)'})) || '0';
-  const baseDrawnRate = (await numberPrompt({message: 'baseDrawnRate (bps, uint32)'})) || '0';
-  const rateGrowthBeforeOptimal =
-    (await numberPrompt({message: 'rateGrowthBeforeOptimal (bps, uint32)'})) || '0';
-  const rateGrowthAfterOptimal =
-    (await numberPrompt({message: 'rateGrowthAfterOptimal (bps, uint32)'})) || '0';
-  const withTokenization = await confirm({
-    message: 'Deploy a TokenizationSpoke for this asset?',
+async function spokeReserveConfig(): Promise<V4SpokeReserveListing['config']> {
+  const config = {
+    collateralRisk: (await percentPrompt({message: 'collateralRisk (%)'})) || '0',
+    paused: false,
+    frozen: false,
+    borrowable: true,
+    receiveSharesEnabled: true,
+  };
+  const customize = await confirm({
+    message: 'Customize reserve flags (paused/frozen/borrowable/receiveShares)?',
     default: false,
   });
-  let tokenization: V4HubAssetListing['tokenization'];
-  if (withTokenization) {
-    tokenization = {
-      addCap: (await numberPrompt({message: 'TokenizationSpoke addCap'})) || '0',
-      proxyAdminOwner: await promptProxyAdminOwner(m),
-      name: await input({message: 'TokenizationSpoke name'}),
-      symbol: await input({message: 'TokenizationSpoke symbol'}),
-    };
+  if (customize) {
+    config.paused = await confirm({message: 'paused?', default: false});
+    config.frozen = await confirm({message: 'frozen?', default: false});
+    config.borrowable = await confirm({message: 'borrowable?', default: true});
+    config.receiveSharesEnabled = await confirm({message: 'receiveSharesEnabled?', default: true});
   }
-  return {
-    hubLib: hub.expr,
-    hub: hub.key,
-    underlying,
-    feeReceiver: feeReceiver as `0x${string}`,
-    liquidityFee,
-    irStrategy: irStrategy as `0x${string}`,
-    irData: {
-      optimalUsageRatio: literal(optimalUsageRatio),
-      baseDrawnRate: literal(baseDrawnRate),
-      rateGrowthBeforeOptimal: literal(rateGrowthBeforeOptimal),
-      rateGrowthAfterOptimal: literal(rateGrowthAfterOptimal),
-    },
-    tokenization,
-  };
+  return config;
+}
+
+async function spokeAssetConfig(
+  label: string,
+): Promise<V4HubSpokeToAssetsAddition['assets'][number]['config'] & {underlying?: never}> {
+  const addCap = (await numberPrompt({message: `${label} addCap (whole units)`})) || '0';
+  const drawCap = (await numberPrompt({message: `${label} drawCap (whole units)`})) || '0';
+  const riskPremiumThreshold =
+    (await percentPrompt({message: `${label} riskPremiumThreshold (%)`})) || '0';
+  let active = true;
+  let halted = false;
+  if (await confirm({message: `${label}: customize active/halted flags?`, default: false})) {
+    active = await confirm({message: `${label} active?`, default: true});
+    halted = await confirm({message: `${label} halted?`, default: false});
+  }
+  return {addCap, drawCap, riskPremiumThreshold, active, halted};
+}
+
+async function selectPositionManagers(
+  m: MarketIdentifierV4,
+  spokeExpr: string,
+): Promise<V4SpokePositionManagerUpdate[]> {
+  const pms = await checkbox({
+    message: 'Enable PositionManagers on this spoke (none = skip)',
+    choices: positionManagerKeys(m).map((k) => ({name: k, value: k})),
+  });
+  return pms.map((pm) => ({
+    spokeLib: spokeExpr,
+    spoke: spokeExpr,
+    positionManager: positionManagerLibAccessor(m, pm) as `0x${string}`,
+    active: true,
+  }));
 }
 
 export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
   value: FEATURE.V4_USECASE_ONBOARD_RESERVE_TO_SPOKE,
   description:
-    'Bundle: onboard a reserve to a Spoke (full flow: hub registration, listing, liquidation, position manager)',
+    'Bundle: onboard a reserve to a Spoke (fresh-spoke wiring, hub registration, listing, liquidation, position managers)',
   async cli({market, cache}) {
     const m = market as MarketIdentifierV4;
-    const hubAssetListings: V4HubAssetListing[] = [];
-    const listings: V4SpokeReserveListing[] = [];
-    const updates: V4SpokeReserveConfigUpdate[] = [];
-    const liquidationUpdates: V4SpokeLiquidationConfigUpdate[] = [];
-    const hubSpokeAdditions: V4HubSpokeToAssetsAddition[] = [];
-    const pmUpdates: V4SpokePositionManagerUpdate[] = [];
+    const cfg: BundleCfg = {
+      targetFunctionRoles: [],
+      hubAssetListings: [],
+      listings: [],
+      updates: [],
+      liquidationUpdates: [],
+      hubSpokeAdditions: [],
+      pmUpdates: [],
+    };
+    const wiredSpokes = new Set<string>();
+    const wiredHubs = new Set<string>();
+    // liquidation thresholds and position managers are spoke-wide, so onboarding a
+    // second asset to the same spoke must not push a second entry for it
+    const configuredLiquidation = new Set<string>();
+    const configuredPositionManagers = new Set<string>();
     let more = true;
     while (more) {
       const hub = await selectHub(m);
@@ -118,19 +144,42 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
       const asset = await selectAsset(m);
       const underlying = asset.underlying;
 
-      const reserves = await readSpokeReserves(m, spoke.address, cache.blockNumber);
-      const existing = isReserveListedOnSpoke(reserves, underlying);
+      if (hub.isNew && !wiredHubs.has(hub.expr)) {
+        wiredHubs.add(hub.expr);
+        if (
+          await confirm({
+            message: `Wire configurator, fee-minter & deficit-eliminator roles on fresh hub ${hub.key}?`,
+            default: true,
+          })
+        ) {
+          cfg.targetFunctionRoles.push(...hubWiring(hub.expr));
+        }
+      }
+      if (spoke.isNew && !wiredSpokes.has(spoke.expr)) {
+        wiredSpokes.add(spoke.expr);
+        if (
+          await confirm({
+            message: `Wire SpokeConfigurator & user-position-updater roles on fresh spoke ${spoke.key}?`,
+            default: true,
+          })
+        ) {
+          cfg.targetFunctionRoles.push(...spokeWiring(m, spoke.expr));
+        }
+      }
+
+      const existing = spoke.isNew
+        ? undefined
+        : isReserveListedOnSpoke(
+            await readSpokeReserves(m, spoke.address, cache.blockNumber),
+            underlying,
+          );
 
       if (existing) {
         console.log(
           `${asset.label} is already listed on ${spoke.key} (reserveId=${existing.reserveId}). Falling back to config update.`,
         );
-        const wantsUpdate = await confirm({
-          message: 'Apply a reserve config update?',
-          default: true,
-        });
-        if (wantsUpdate) {
-          updates.push({
+        if (await confirm({message: 'Apply a reserve config update?', default: true})) {
+          cfg.updates.push({
             spokeLib: spoke.expr,
             spoke: spoke.expr,
             hub: hub.expr,
@@ -144,156 +193,84 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
           });
         }
       } else {
-        const hubAssets = await readHubAssets(m, hub.address, cache.blockNumber);
-        const onHub = isAssetListedOnHub(hubAssets, underlying);
+        const onHub = hub.isNew
+          ? undefined
+          : isAssetListedOnHub(await readHubAssets(m, hub.address, cache.blockNumber), underlying);
         if (!onHub) {
           console.log(
             `${asset.label} is not registered on hub ${hub.key}. Collecting hub asset listing parameters first.`,
           );
-          hubAssetListings.push(await hubAssetListingPrompt(m, hub, asset.expr));
+          cfg.hubAssetListings.push(
+            await promptHubAssetListing(m, {
+              hubLib: hub.expr,
+              hub: hub.key,
+              underlying: asset.expr,
+            }),
+          );
         }
-        const registerOnHub = await confirm({
-          message: `Register ${asset.label} on hub ${hub.key} for spoke ${spoke.key}?`,
-          default: true,
-        });
-        if (registerOnHub) {
-          hubSpokeAdditions.push({
-            hubLib: hub.expr,
-            hub: hub.key,
-            spoke: spoke.expr,
-            assets: [
-              {
-                underlying: asset.expr,
-                addCap:
-                  (await numberPrompt({message: `${asset.label} addCap (uint40, whole units)`})) ||
-                  '0',
-                drawCap:
-                  (await numberPrompt({message: `${asset.label} drawCap (uint40, whole units)`})) ||
-                  '0',
-                riskPremiumThreshold:
-                  (await numberPrompt({message: `${asset.label} riskPremiumThreshold (bps)`})) ||
-                  '0',
-                active: await confirm({message: `${asset.label} active?`, default: true}),
-                halted: await confirm({message: `${asset.label} halted?`, default: false}),
-              },
-            ],
-          });
+        if (
+          await confirm({
+            message: `Register ${asset.label} on hub ${hub.key} for spoke ${spoke.key}?`,
+            default: true,
+          })
+        ) {
+          pushSpokeAssets(
+            cfg.hubSpokeAdditions,
+            {hubLib: hub.expr, hub: hub.key, spoke: spoke.expr},
+            [{underlying: asset.expr, ...(await spokeAssetConfig(asset.label))}],
+          );
         }
         const priceSource = await addressPrompt({message: 'Price source', required: true});
-        listings.push({
+        cfg.listings.push({
           spokeLib: spoke.expr,
           spoke: spoke.expr,
           hub: hub.expr,
           underlying: asset.expr,
           priceSource: priceSource as `0x${string}`,
-          config: {
-            collateralRisk: (await numberPrompt({message: 'collateralRisk (bps)'})) || '0',
-            paused: await confirm({message: 'paused?', default: false}),
-            frozen: await confirm({message: 'frozen?', default: false}),
-            borrowable: await confirm({message: 'borrowable?', default: true}),
-            receiveSharesEnabled: await confirm({message: 'receiveSharesEnabled?', default: true}),
-          },
+          config: await spokeReserveConfig(),
           dynamicConfig: {
-            collateralFactor: (await numberPrompt({message: 'collateralFactor (bps)'})) || '0',
+            collateralFactor: (await percentPrompt({message: 'collateralFactor (%)'})) || '0',
             maxLiquidationBonus:
-              (await numberPrompt({message: 'maxLiquidationBonus (bps)'})) || '0',
-            liquidationFee: (await numberPrompt({message: 'liquidationFee (bps)'})) || '0',
+              (await percentPrompt({message: 'maxLiquidationBonus (%, full value e.g. 104)'})) ||
+              '0',
+            liquidationFee: (await percentPrompt({message: 'liquidationFee (%)'})) || '0',
           },
         });
-        const wantsLiquidation = await confirm({
-          message:
-            'Configure liquidation thresholds for this spoke now? (recommended on first listing)',
-          default: true,
-        });
-        if (wantsLiquidation) {
-          liquidationUpdates.push(await liquidationPrompt(spoke.expr));
+        if (
+          !configuredLiquidation.has(spoke.expr) &&
+          (await confirm({
+            message:
+              'Configure liquidation thresholds for this spoke now? (recommended on first listing)',
+            default: true,
+          }))
+        ) {
+          configuredLiquidation.add(spoke.expr);
+          cfg.liquidationUpdates.push(await liquidationPrompt(spoke.expr));
         }
       }
 
-      const wantsPm = await confirm({
-        message: 'Enable a PositionManager on this spoke?',
-        default: false,
-      });
-      if (wantsPm) {
-        const pm = await select({
-          message: 'Select PositionManager',
-          choices: positionManagerKeys(m).map((k) => ({name: k, value: k})),
-        });
-        const active = await confirm({message: 'Active?', default: true});
-        pmUpdates.push({
-          spokeLib: spoke.expr,
-          spoke: spoke.expr,
-          positionManager: positionManagerLibAccessor(m, pm) as `0x${string}`,
-          active,
-        });
+      if (!configuredPositionManagers.has(spoke.expr)) {
+        configuredPositionManagers.add(spoke.expr);
+        cfg.pmUpdates.push(...(await selectPositionManagers(m, spoke.expr)));
       }
 
       more = await confirm({message: 'Onboard another reserve?', default: false});
     }
-    return {hubAssetListings, listings, updates, liquidationUpdates, hubSpokeAdditions, pmUpdates};
+    return cfg;
   },
   build({options, market, cache, cfg, configs}) {
     const artifact: CodeArtifact = {code: {}};
-    const hubAssetListings = cfg.hubAssetListings ?? [];
-    const listings = cfg.listings ?? [];
-    const updates = cfg.updates ?? [];
-    const liquidationUpdates = cfg.liquidationUpdates ?? [];
-    const hubSpokeAdditions = cfg.hubSpokeAdditions ?? [];
-    const pmUpdates = cfg.pmUpdates ?? [];
-    if (hubAssetListings.length > 0) {
-      mergeArtifact(
-        artifact,
-        hubAssetListing.build({options, market, cache, cfg: hubAssetListings, configs}),
-      );
-    }
-    if (listings.length > 0) {
-      mergeArtifact(
-        artifact,
-        spokeReserveListing.build({options, market, cache, cfg: listings, configs}),
-      );
-    }
-    if (updates.length > 0) {
-      mergeArtifact(
-        artifact,
-        spokeReserveConfigUpdate.build({options, market, cache, cfg: updates, configs}),
-      );
-    }
-    if (liquidationUpdates.length > 0) {
-      mergeArtifact(
-        artifact,
-        spokeLiquidationConfigUpdate.build({
-          options,
-          market,
-          cache,
-          cfg: liquidationUpdates,
-          configs,
-        }),
-      );
-    }
-    if (hubSpokeAdditions.length > 0) {
-      mergeArtifact(
-        artifact,
-        hubSpokeToAssetsAddition.build({
-          options,
-          market,
-          cache,
-          cfg: hubSpokeAdditions,
-          configs,
-        }),
-      );
-    }
-    if (pmUpdates.length > 0) {
-      mergeArtifact(
-        artifact,
-        spokePositionManagerUpdate.build({
-          options,
-          market,
-          cache,
-          cfg: pmUpdates,
-          configs,
-        }),
-      );
-    }
+    const delegate = (mod: {build: Function}, sub: unknown[]) => {
+      if (sub.length > 0)
+        mergeArtifact(artifact, mod.build({options, market, cache, cfg: sub, configs}));
+    };
+    delegate(accessManagerTargetFunctionRoleUpdate, cfg.targetFunctionRoles ?? []);
+    delegate(hubAssetListing, cfg.hubAssetListings ?? []);
+    delegate(spokeReserveListing, cfg.listings ?? []);
+    delegate(spokeReserveConfigUpdate, cfg.updates ?? []);
+    delegate(spokeLiquidationConfigUpdate, cfg.liquidationUpdates ?? []);
+    delegate(hubSpokeToAssetsAddition, cfg.hubSpokeAdditions ?? []);
+    delegate(spokePositionManagerUpdate, cfg.pmUpdates ?? []);
     return artifact;
   },
 };

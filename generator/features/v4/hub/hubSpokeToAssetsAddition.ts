@@ -2,9 +2,29 @@ import {checkbox, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeToAssetsAddition} from '../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
+import {percentPrompt} from '../../../prompts/percentPrompt';
+import {groupThousands, percentToBps} from '../units';
 import {assetKeys, assetLibAccessor} from '../marketBook';
 import {selectHub, selectSpoke} from '../hubSpokeSelect';
-import {accessorIdentifier, assetIdentifier, checksumAddress} from '../testHelpers';
+import {
+  accessorIdentifier,
+  assetIdentifier,
+  checksumAddress,
+  testAddressRef,
+  wrapAddress,
+} from '../testHelpers';
+
+/// Appends to the registration already targeting the same (hub, spoke) instead of pushing
+/// a second one, so onboarding N assets on a spoke collects them under a single entry.
+export function pushSpokeAssets(
+  additions: V4HubSpokeToAssetsAddition[],
+  target: Omit<V4HubSpokeToAssetsAddition, 'assets'>,
+  assets: V4HubSpokeToAssetsAddition['assets'],
+): void {
+  const existing = additions.find((a) => a.hubLib === target.hubLib && a.spoke === target.spoke);
+  if (existing) existing.assets.push(...assets);
+  else additions.push({...target, assets: [...assets]});
+}
 
 export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[]> = {
   value: FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION,
@@ -24,22 +44,30 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
       const assetConfigs = [] as V4HubSpokeToAssetsAddition['assets'];
       for (const asset of assets) {
         console.log(`Config for ${asset} on ${spoke.key}`);
+        const addCap = (await numberPrompt({message: `${asset} addCap (whole units)`})) || '0';
+        const drawCap = (await numberPrompt({message: `${asset} drawCap (whole units)`})) || '0';
+        const riskPremiumThreshold =
+          (await percentPrompt({message: `${asset} riskPremiumThreshold (%)`})) || '0';
+        let active = true;
+        let halted = false;
+        const customize = await confirm({
+          message: `${asset}: customize active/halted flags?`,
+          default: false,
+        });
+        if (customize) {
+          active = await confirm({message: `${asset} active?`, default: true});
+          halted = await confirm({message: `${asset} halted?`, default: false});
+        }
         assetConfigs.push({
           underlying: assetLibAccessor(m, asset),
-          addCap: (await numberPrompt({message: `${asset} addCap (uint40, whole units)`})) || '0',
-          drawCap: (await numberPrompt({message: `${asset} drawCap (uint40, whole units)`})) || '0',
-          riskPremiumThreshold:
-            (await numberPrompt({message: `${asset} riskPremiumThreshold (bps)`})) || '0',
-          active: await confirm({message: `${asset} active?`, default: true}),
-          halted: await confirm({message: `${asset} halted?`, default: false}),
+          addCap,
+          drawCap,
+          riskPremiumThreshold,
+          active,
+          halted,
         });
       }
-      response.push({
-        hubLib: hub.expr,
-        hub: hub.key,
-        spoke: spoke.expr,
-        assets: assetConfigs,
-      });
+      pushSpokeAssets(response, {hubLib: hub.expr, hub: hub.key, spoke: spoke.expr}, assetConfigs);
       more = await confirm({message: 'Register another spoke?', default: false});
     }
     return response;
@@ -51,9 +79,9 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
           (a, jx) => `subAssets[${jx}] = IConfigEngine.SpokeAssetConfig({
             underlying: ${checksumAddress(a.underlying)},
             config: IHub.SpokeConfig({
-              addCap: ${a.addCap},
-              drawCap: ${a.drawCap},
-              riskPremiumThreshold: ${a.riskPremiumThreshold},
+              addCap: ${groupThousands(a.addCap)},
+              drawCap: ${groupThousands(a.drawCap)},
+              riskPremiumThreshold: ${percentToBps(a.riskPremiumThreshold)},
               active: ${a.active},
               halted: ${a.halted}
             })
@@ -65,12 +93,26 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         ${inner}
         items[__INDEX__] = IConfigEngine.SpokeToAssetsAddition({
           hubConfigurator: ${market}.HUB_CONFIGURATOR,
-          hub: address(${c.hubLib}),
-          spoke: address(${c.spoke}),
+          hub: ${wrapAddress(c.hubLib)},
+          spoke: ${wrapAddress(c.spoke)},
           assets: subAssets
         });
       }`;
     });
+    const inputAsserts = cfg.map((c) =>
+      [
+        `assertEq(items[__INDEX__].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
+        `assertEq(items[__INDEX__].assets.length, ${c.assets.length}, 'assets length');`,
+        ...c.assets.flatMap((a, jx) => [
+          `assertEq(items[__INDEX__].assets[${jx}].underlying, ${testAddressRef(a.underlying)}, 'underlying');`,
+          `assertEq(uint256(items[__INDEX__].assets[${jx}].config.addCap), ${groupThousands(a.addCap)}, 'addCap');`,
+          `assertEq(uint256(items[__INDEX__].assets[${jx}].config.drawCap), ${groupThousands(a.drawCap)}, 'drawCap');`,
+          `assertEq(uint256(items[__INDEX__].assets[${jx}].config.riskPremiumThreshold), ${percentToBps(a.riskPremiumThreshold)}, 'riskPremiumThreshold');`,
+          `assertEq(items[__INDEX__].assets[${jx}].config.active, ${a.active}, 'active');`,
+          `assertEq(items[__INDEX__].assets[${jx}].config.halted, ${a.halted}, 'halted');`,
+        ]),
+      ].join('\n        '),
+    );
     const testFns: string[] = [];
     for (const c of cfg) {
       const hubKey = accessorIdentifier(c.hubLib);
@@ -80,13 +122,13 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
         testFns.push(
           `function test_hubSpokeToAssetsAddition_${hubKey}_${spokeKey}_${assetKey}() public {
             GovV3Helpers.executePayload(vm, address(proposal));
-            IHub hub = IHub(address(${c.hubLib}));
-            uint256 assetId = hub.getAssetId(${checksumAddress(a.underlying)});
-            assertTrue(hub.isSpokeListed(assetId, address(${c.spoke})), 'spoke not listed');
-            IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(${c.spoke}));
-            assertEq(uint256(cfg.addCap), uint256(${a.addCap}), 'addCap mismatch');
-            assertEq(uint256(cfg.drawCap), uint256(${a.drawCap}), 'drawCap mismatch');
-            assertEq(uint256(cfg.riskPremiumThreshold), uint256(${a.riskPremiumThreshold}), 'riskPremiumThreshold mismatch');
+            IHub hub = IHub(${wrapAddress(c.hubLib)});
+            uint256 assetId = hub.getAssetId(${testAddressRef(a.underlying)});
+            assertTrue(hub.isSpokeListed(assetId, ${testAddressRef(c.spoke)}), 'spoke not listed');
+            IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, ${testAddressRef(c.spoke)});
+            assertEq(uint256(cfg.addCap), uint256(${groupThousands(a.addCap)}), 'addCap mismatch');
+            assertEq(uint256(cfg.drawCap), uint256(${groupThousands(a.drawCap)}), 'drawCap mismatch');
+            assertEq(uint256(cfg.riskPremiumThreshold), uint256(${percentToBps(a.riskPremiumThreshold)}), 'riskPremiumThreshold mismatch');
             assertEq(cfg.active, ${a.active}, 'active mismatch');
             assertEq(cfg.halted, ${a.halted}, 'halted mismatch');
           }`,
@@ -99,6 +141,7 @@ export const hubSpokeToAssetsAddition: FeatureModule<V4HubSpokeToAssetsAddition[
           hubSpokeToAssetsAdditions: {
             returnType: 'IConfigEngine.SpokeToAssetsAddition',
             entries,
+            inputAsserts,
           },
         },
       },

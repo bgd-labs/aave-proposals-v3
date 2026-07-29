@@ -1,18 +1,17 @@
 import {select, input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeDynamicReserveConfigUpdate} from '../../types';
-import {numberPrompt} from '../../../prompts/numberPrompt';
 import {assetKeys, assetLibAccessor} from '../marketBook';
 import {selectHub, selectSpoke} from '../hubSpokeSelect';
-import {keepCurrent, literal, renderSentinel} from '../sentinels';
-import {Sentinel} from '../../types';
-import {accessorIdentifier, assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
-
-async function sentinelNumber(message: string): Promise<Sentinel> {
-  const v = await numberPrompt({message: `${message} (empty = keep current)`});
-  if (!v) return keepCurrent();
-  return literal(v.replace(/\B(?=(\d{3})+(?!\d))/g, '_'));
-}
+import {renderBpsSentinel} from '../units';
+import {sentinelPercent} from '../sentinelPrompts';
+import {
+  accessorIdentifier,
+  assertBpsSentinelField,
+  shortKey,
+  checksumAddress,
+  wrapAddress,
+} from '../testHelpers';
 
 export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserveConfigUpdate[]> = {
   value: FEATURE.V4_SPOKE_DYNAMIC_RESERVE_CONFIG_UPDATE,
@@ -35,9 +34,9 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
         hub: hub.expr,
         underlying: assetLibAccessor(m, asset),
         dynamicConfigKey,
-        collateralFactor: await sentinelNumber('collateralFactor (bps)'),
-        maxLiquidationBonus: await sentinelNumber('maxLiquidationBonus (bps)'),
-        liquidationFee: await sentinelNumber('liquidationFee (bps)'),
+        collateralFactor: await sentinelPercent('collateralFactor (%)'),
+        maxLiquidationBonus: await sentinelPercent('maxLiquidationBonus (%, full value e.g. 104)'),
+        liquidationFee: await sentinelPercent('liquidationFee (%)'),
       });
       more = await confirm({message: 'Add another?', default: false});
     }
@@ -47,32 +46,26 @@ export const spokeDynamicReserveConfigUpdate: FeatureModule<V4SpokeDynamicReserv
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IConfigEngine.DynamicReserveConfigUpdate({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
-        spoke: address(${c.spoke}),
-        hub: address(${c.hub}),
+        spoke: ${wrapAddress(c.spoke)},
+        hub: ${wrapAddress(c.hub)},
         underlying: ${checksumAddress(c.underlying)},
         dynamicConfigKey: ${c.dynamicConfigKey},
-        collateralFactor: ${renderSentinel(c.collateralFactor)},
-        maxLiquidationBonus: ${renderSentinel(c.maxLiquidationBonus)},
-        liquidationFee: ${renderSentinel(c.liquidationFee)}
+        collateralFactor: ${renderBpsSentinel(c.collateralFactor)},
+        maxLiquidationBonus: ${renderBpsSentinel(c.maxLiquidationBonus)},
+        liquidationFee: ${renderBpsSentinel(c.liquidationFee)}
       });`,
     );
     const testFns = cfg.map((c) => {
       const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = shortKey(c.underlying);
       const asserts = [
-        assertSentinelField('collateralFactor', c.collateralFactor, 'uint', 'dyn', 'beforeDyn'),
-        assertSentinelField(
-          'maxLiquidationBonus',
-          c.maxLiquidationBonus,
-          'uint',
-          'dyn',
-          'beforeDyn',
-        ),
-        assertSentinelField('liquidationFee', c.liquidationFee, 'uint', 'dyn', 'beforeDyn'),
+        assertBpsSentinelField('collateralFactor', c.collateralFactor, 'dyn', 'beforeDyn'),
+        assertBpsSentinelField('maxLiquidationBonus', c.maxLiquidationBonus, 'dyn', 'beforeDyn'),
+        assertBpsSentinelField('liquidationFee', c.liquidationFee, 'dyn', 'beforeDyn'),
       ];
       return `function test_spokeDynamicReserveConfigUpdate_${spokeKey}_${assetKey}_${c.dynamicConfigKey}() public {
-        ISpoke spoke = ISpoke(address(${c.spoke}));
-        IHub hub = IHub(address(${c.hub}));
+        ISpoke spoke = ISpoke(${wrapAddress(c.spoke)});
+        IHub hub = IHub(${wrapAddress(c.hub)});
         uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
         uint256 reserveId = spoke.getReserveId(address(hub), assetId);
         ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(reserveId, uint32(${c.dynamicConfigKey}));

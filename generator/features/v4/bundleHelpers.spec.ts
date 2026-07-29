@@ -51,6 +51,56 @@ describe('finalizeV4Artifacts', () => {
     expect(out).toContain('items[1] = b;');
   });
 
+  it('emits one input test per getter, indexed against the merged entries', () => {
+    const marketConfig: MarketConfig = {
+      configs: {},
+      artifacts: [
+        {
+          code: {
+            v4Getters: {
+              getList: {
+                returnType: 'T',
+                entries: ['items[__INDEX__] = a;'],
+                inputAsserts: ["assertEq(items[__INDEX__].v, 'a');"],
+              },
+            },
+          },
+        },
+        {
+          code: {
+            v4Getters: {
+              getList: {
+                returnType: 'T',
+                entries: ['items[__INDEX__] = b;'],
+                inputAsserts: ["assertEq(items[__INDEX__].v, 'b');"],
+              },
+            },
+          },
+        },
+      ],
+      cache: {blockNumber: 0},
+    };
+    finalizeV4Artifacts(marketConfig);
+    const testFns = marketConfig.artifacts[2].test!.fn!;
+    expect(testFns).toHaveLength(1);
+    expect(testFns[0]).toContain('function test_getListInput() public view');
+    expect(testFns[0]).toContain("assertEq(items.length, 2, 'length');");
+    expect(testFns[0]).toContain("assertEq(items[0].v, 'a');");
+    expect(testFns[0]).toContain("assertEq(items[1].v, 'b');");
+  });
+
+  it('emits no input test for a getter without asserts', () => {
+    const marketConfig: MarketConfig = {
+      configs: {},
+      artifacts: [
+        {code: {v4Getters: {getList: {returnType: 'T', entries: ['items[__INDEX__] = a;']}}}},
+      ],
+      cache: {blockNumber: 0},
+    };
+    finalizeV4Artifacts(marketConfig);
+    expect(marketConfig.artifacts[1].test!.fn).toEqual([]);
+  });
+
   it('is a no-op when no artifact has v4Getters', () => {
     const marketConfig: MarketConfig = {
       configs: {},

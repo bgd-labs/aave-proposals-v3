@@ -1,41 +1,20 @@
-import {select, checkbox} from '@inquirer/prompts';
+import {checkbox} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeConfigUpdate} from '../../types';
-import {numberPrompt} from '../../../prompts/numberPrompt';
-import {getV4Book, assetKeys, assetLibAccessor} from '../marketBook';
+import {assetKeys, assetLibAccessor} from '../marketBook';
 import {selectHub, selectSpokes} from '../hubSpokeSelect';
+import {renderBoolAsUint} from '../sentinels';
+import {renderBpsSentinel, renderWholeSentinel} from '../units';
+import {sentinelWhole, sentinelPercent, sentinelBool} from '../sentinelPrompts';
 import {
-  keepCurrent,
-  keepCurrentAddress,
-  literal,
-  renderSentinel,
-  renderBoolAsUint,
-  enabled,
-  disabled,
-} from '../sentinels';
-import {Sentinel} from '../../types';
-import {accessorIdentifier, assertSentinelField, shortKey, checksumAddress} from '../testHelpers';
-
-async function sentinelNumberPrompt(message: string): Promise<Sentinel> {
-  const value = await numberPrompt({message: `${message} (empty = keep current)`});
-  if (!value || value.length === 0) return keepCurrent();
-  return literal(value.replace(/\B(?=(\d{3})+(?!\d))/g, '_'));
-}
-
-async function sentinelBoolPrompt(message: string): Promise<Sentinel> {
-  const choice = await select({
-    message,
-    choices: [
-      {name: 'keep current', value: 'keep'},
-      {name: 'enable', value: 'enable'},
-      {name: 'disable', value: 'disable'},
-    ],
-    default: 'keep',
-  });
-  if (choice === 'enable') return enabled();
-  if (choice === 'disable') return disabled();
-  return keepCurrent();
-}
+  accessorIdentifier,
+  assertBpsSentinelField,
+  assertSentinelField,
+  assertWholeSentinelField,
+  shortKey,
+  checksumAddress,
+  wrapAddress,
+} from '../testHelpers';
 
 export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
   value: FEATURE.V4_HUB_SPOKE_CONFIG_UPDATE,
@@ -57,13 +36,13 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
           hub: hub.key,
           underlying: assetLibAccessor(m, asset),
           spoke: spoke.expr,
-          addCap: await sentinelNumberPrompt(`${spoke.key}/${asset} new addCap`),
-          drawCap: await sentinelNumberPrompt(`${spoke.key}/${asset} new drawCap`),
-          riskPremiumThreshold: await sentinelNumberPrompt(
-            `${spoke.key}/${asset} new riskPremiumThreshold (bps)`,
+          addCap: await sentinelWhole(`${spoke.key}/${asset} new addCap (whole units)`),
+          drawCap: await sentinelWhole(`${spoke.key}/${asset} new drawCap (whole units)`),
+          riskPremiumThreshold: await sentinelPercent(
+            `${spoke.key}/${asset} new riskPremiumThreshold (%)`,
           ),
-          active: await sentinelBoolPrompt(`${spoke.key}/${asset} active?`),
-          halted: await sentinelBoolPrompt(`${spoke.key}/${asset} halted?`),
+          active: await sentinelBool(`${spoke.key}/${asset} active?`),
+          halted: await sentinelBool(`${spoke.key}/${asset} halted?`),
         });
       }
     }
@@ -73,12 +52,12 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
     const entries = cfg.map(
       (c) => `items[__INDEX__] = IConfigEngine.SpokeConfigUpdate({
         hubConfigurator: ${market}.HUB_CONFIGURATOR,
-        hub: address(${c.hubLib}),
+        hub: ${wrapAddress(c.hubLib)},
         underlying: ${checksumAddress(c.underlying)},
-        spoke: address(${c.spoke}),
-        addCap: ${renderSentinel(c.addCap)},
-        drawCap: ${renderSentinel(c.drawCap)},
-        riskPremiumThreshold: ${renderSentinel(c.riskPremiumThreshold)},
+        spoke: ${wrapAddress(c.spoke)},
+        addCap: ${renderWholeSentinel(c.addCap)},
+        drawCap: ${renderWholeSentinel(c.drawCap)},
+        riskPremiumThreshold: ${renderBpsSentinel(c.riskPremiumThreshold)},
         active: ${renderBoolAsUint(c.active)},
         halted: ${renderBoolAsUint(c.halted)}
       });`,
@@ -88,18 +67,18 @@ export const hubSpokeConfigUpdate: FeatureModule<V4HubSpokeConfigUpdate[]> = {
       const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = shortKey(c.underlying);
       const asserts = [
-        assertSentinelField('addCap', c.addCap, 'uint'),
-        assertSentinelField('drawCap', c.drawCap, 'uint'),
-        assertSentinelField('riskPremiumThreshold', c.riskPremiumThreshold, 'uint'),
+        assertWholeSentinelField('addCap', c.addCap),
+        assertWholeSentinelField('drawCap', c.drawCap),
+        assertBpsSentinelField('riskPremiumThreshold', c.riskPremiumThreshold),
         assertSentinelField('active', c.active, 'bool'),
         assertSentinelField('halted', c.halted, 'bool'),
       ];
       return `function test_hubSpokeConfigUpdate_${hubKey}_${spokeKey}_${assetKey}() public {
-        IHub hub = IHub(address(${c.hubLib}));
+        IHub hub = IHub(${wrapAddress(c.hubLib)});
         uint256 assetId = hub.getAssetId(${checksumAddress(c.underlying)});
-        IHub.SpokeConfig memory before = hub.getSpokeConfig(assetId, address(${c.spoke}));
+        IHub.SpokeConfig memory before = hub.getSpokeConfig(assetId, ${wrapAddress(c.spoke)});
         GovV3Helpers.executePayload(vm, address(proposal));
-        IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, address(${c.spoke}));
+        IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, ${wrapAddress(c.spoke)});
         ${asserts.join('\n        ')}
       }`;
     });

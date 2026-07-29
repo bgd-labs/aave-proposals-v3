@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "vitest generator",
+    "test:codegen": "vite-node generator/scripts/compileGenerated",
     "lint": "prettier . --check",
     "lint:fix": "prettier . --write",
     "generate": "vite-node generator/cli",

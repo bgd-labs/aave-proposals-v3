@@ -151,9 +151,13 @@ export interface V4HubAssetListing {
   hubLib: string;
   hub: string;
   underlying: string;
-  feeReceiver: Hex;
+  /// Codegen expression: an address-book accessor or a labeled constant.
+  feeReceiver: string;
+  /// Human percentage (e.g. `20` for 20%); converted to BPS at build time.
   liquidityFee: string;
-  irStrategy: Hex;
+  /// Codegen expression: an `<Market>IRStrategies.<KEY>` accessor, or a raw
+  /// address literal that build emits as a per-listing named constant.
+  irStrategy: string;
   irData: V4InterestRateData;
   tokenization?: V4TokenizationSpokeConfig;
 }
@@ -303,9 +307,20 @@ export interface V4RoleUpdate {
 }
 
 export interface V4TargetFunctionRoleUpdate {
-  target: Hex;
+  /// Target: a raw address (emitted as a named constant) or a codegen expr.
+  target: string;
+  /// Explicit bytes4 selector literals (ignored when `selectorsExpr` is set).
   selectors: string[];
+  /// Solidity expression yielding a `bytes4[]` (e.g. `Roles.getSpokeConfiguratorRoleSelectors()`).
+  selectorsExpr?: string;
+  /// Role id: a number, or an expr like `Roles.SPOKE_CONFIGURATOR_ROLE`.
   roleId: string;
+  /// Solidity expressions for the wired selectors, used to generate assertions
+  /// when `selectorsExpr` is set (e.g. `['ISpoke.addReserve.selector', ...]`).
+  selectorAsserts?: string[];
+  /// Codegen expr of an already-wired contract of the same kind; generated tests assert
+  /// the selectors carry the same role there, catching divergence from the market wiring.
+  referenceTarget?: string;
 }
 
 export interface V4TargetAdminDelayUpdate {

@@ -63,6 +63,7 @@ import {tuneSpokeRisk} from './features/v4/bundles/tuneSpokeRisk';
 import {tuneReserveRisk} from './features/v4/bundles/tuneReserveRisk';
 import {wirePositionManager} from './features/v4/bundles/wirePositionManager';
 import {manageRole} from './features/v4/bundles/manageRole';
+import {hydrate as hydrateLabels} from './features/v4/labelRegistry';
 import {generateFiles, writeFiles} from './generator';
 import {getClient} from '@aave-dao/toolbox';
 import {getBlockNumber} from 'viem/actions';
@@ -210,6 +211,7 @@ if (options.configFile) {
   for (const market of options.markets) {
     const modules = getFeatureModules(market);
     if (marketConfigs[market]) {
+      hydrateLabels(market as any, marketConfigs[market]!.labels);
       marketConfigs[market]!.artifacts = [];
       for (const feature of Object.keys(marketConfigs[market]!.configs)) {
         const module = modules.find((m) => m.value === feature)!;

@@ -1,4 +1,4 @@
-import {Hex, PublicClient} from 'viem';
+import {Hex, PublicClient, erc20Abi} from 'viem';
 import {IHubV4_ABI, ISpokeV4_ABI} from '@aave-dao/aave-address-book/abis';
 import {CHAIN_TO_CHAIN_ID, getMarketChain} from '../../common';
 import {MarketIdentifierV4} from '../../types';
@@ -142,6 +142,15 @@ export async function readSpokeReserves(
     });
   }
   return out;
+}
+
+export async function readErc20Symbol(market: MarketIdentifierV4, address: Hex): Promise<string> {
+  const client = getViemClientForMarket(market);
+  return (await client.readContract({
+    address,
+    abi: erc20Abi,
+    functionName: 'symbol',
+  })) as string;
 }
 
 export function isAssetListedOnHub(
