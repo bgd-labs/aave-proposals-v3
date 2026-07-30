@@ -1,0 +1,36 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3Arbitrum',
+      'AaveV3Avalanche',
+      'AaveV3Base',
+      'AaveV3Gnosis',
+      'AaveV3Mantle',
+      'AaveV3Plasma',
+      'AaveV3Monad',
+      'AaveV3XLayer',
+      'AaveV3Ink',
+    ],
+    title: 'Remote GSM Launch: XLayer',
+    shortName: 'RemoteGSMLaunchXLayer',
+    date: '20260729',
+    author: 'TokenLogic',
+    discussion: 'TODO_FORUM_POST_PENDING',
+    snapshot: 'TODO_SNAPSHOT_PENDING',
+    votingNetwork: 'AVALANCHE',
+  },
+  poolOptions: {
+    AaveV3Ethereum: {configs: {}, cache: {blockNumber: 25576000}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 485940600}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 90814900}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 48893400}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 47304500}},
+    AaveV3Mantle: {configs: {OTHERS: {}}, cache: {blockNumber: 98222900}},
+    AaveV3Plasma: {configs: {OTHERS: {}}, cache: {blockNumber: 27635800}},
+    AaveV3Monad: {configs: {OTHERS: {}}, cache: {blockNumber: 89055500}},
+    AaveV3XLayer: {configs: {OTHERS: {}}, cache: {blockNumber: 65807100}},
+    AaveV3Ink: {configs: {OTHERS: {}}, cache: {blockNumber: 51077800}},
+  },
+};
