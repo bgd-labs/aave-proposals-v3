@@ -1,0 +1,109 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {GhoXLayer} from 'aave-address-book/GhoXLayer.sol';
+import {AaveV3XLayer} from 'aave-address-book/AaveV3XLayer.sol';
+import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+
+import {CCIPChainSelectors} from 'src/helpers/gho-launch/constants/CCIPChainSelectors.sol';
+import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
+import {IGsm} from 'src/interfaces/IGsm.sol';
+import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
+
+import {RemoteGSMLaunchXLayerSetup} from './setup/RemoteGSMLaunchXLayerSetup.sol';
+
+/**
+ * @title Remote GSM Launch: XLayer
+ * @author TokenLogic
+ * - Snapshot: TODO_SNAPSHOT_PENDING
+ * - Discussion: TODO_FORUM_POST_PENDING
+ *
+ * NOTE: granting RISK_ADMIN_ROLE on AaveV3XLayer.ACL_MANAGER to a GhoAaveSteward
+ * is intentionally OUT OF SCOPE for this proposal. If a steward is not already
+ * empowered on XLayer, that grant must be made in a separate proposal before
+ * the steward can call updateGhoBorrowCap / updateGhoBorrowRate / updateGhoSupplyCap.
+ *
+ * NOTE (CCIP receiver assumption): this proposal assumes the CCIP token-pool on
+ * the XLayer lane delivers bridged GHO to `AaveV3XLayer.COLLECTOR`. The
+ * Collector -> GhoReserve transfer below depends on that. If the CCIP receiver
+ * for this lane is anything other than the Collector, this payload will revert.
+ * Verify on-chain before deploy.
+ */
+contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericExecutor {
+  // TODO: set the X-Layer GhoReserve address once deployed.
+  IGhoReserve public constant GHO_RESERVE = IGhoReserve(address(0));
+
+  // TODO: set the X-Layer GhoGsmSteward address once deployed.
+  address public constant GHO_GSM_STEWARD = address(0);
+
+  // TODO: set the X-Layer GsmRegistry address once deployed.
+  address public constant GSM_REGISTRY = address(0);
+
+  // GSM USDC
+  // TODO: set the X-Layer USDC GSM address once deployed.
+  address public constant GSM_USDC = address(0);
+
+  // TODO: set the X-Layer USDC OracleSwapFreezer address once deployed.
+  address public constant USDC_ORACLE_SWAP_FREEZER = address(0);
+
+  // TODO: set the X-Layer USDC GSM fee strategy address once deployed.
+  address public constant GSM_USDC_FEE_STRATEGY = address(0);
+
+  function execute() external {
+    GHO_RESERVE.grantRole(GHO_RESERVE.LIMIT_MANAGER_ROLE(), GhoXLayer.RISK_COUNCIL);
+
+    _wireGsm(
+      IGsm(GSM_USDC),
+      RemoteGSMLaunchXLayerSetup.GSM_USDC_RESERVE_LIMIT,
+      USDC_ORACLE_SWAP_FREEZER,
+      RemoteGSMLaunchXLayerSetup.GSM_USDC_INITIAL_EXPOSURE_CAP,
+      GSM_USDC_FEE_STRATEGY
+    );
+
+    AaveV3XLayer.COLLECTOR.transfer(
+      IERC20(GhoXLayer.GHO_TOKEN),
+      address(GHO_RESERVE),
+      RemoteGSMLaunchXLayerSetup.GHO_BRIDGE_AMOUNT
+    );
+
+    // Restore ONLY the XLayer <> Ethereum lane rate-limit config to its standard values, undoing
+    // the temporary inbound bump from Part 1. Every other lane is intentionally left untouched.
+    // Facilitator Bucket Capacity does not need to change.
+    RemoteGSMLaunchXLayerSetup.restoreLaneRateLimitConfig(
+      GhoXLayer.GHO_CCIP_TOKEN_POOL,
+      CCIPChainSelectors.ETHEREUM
+    );
+  }
+
+  function _wireGsm(
+    IGsm gsm,
+    uint128 reserveLimit,
+    address oracleSwapFreezer,
+    uint128 initialExposureCap,
+    address feeStrategy
+  ) internal {
+    gsm.updateGhoReserve(address(GHO_RESERVE));
+
+    // Enroll GSM as entity and set limit
+    GHO_RESERVE.addEntity(address(gsm));
+    GHO_RESERVE.setLimit(address(gsm), reserveLimit);
+
+    // Add GSM Swap Freezer role to OracleSwapFreezers
+    bytes32 swapFreezerRole = gsm.SWAP_FREEZER_ROLE();
+    gsm.grantRole(swapFreezerRole, oracleSwapFreezer);
+    gsm.grantRole(swapFreezerRole, GovernanceV3XLayer.EXECUTOR_LVL_1);
+
+    // Add GSM to GSM Registry
+    IGsmRegistry(GSM_REGISTRY).addGsm(address(gsm));
+
+    // GHO GSM Steward
+    gsm.grantRole(gsm.CONFIGURATOR_ROLE(), GHO_GSM_STEWARD);
+
+    // Update deployed exposure cap to initial value
+    gsm.updateExposureCap(initialExposureCap);
+
+    gsm.updateFeeStrategy(feeStrategy);
+  }
+}
