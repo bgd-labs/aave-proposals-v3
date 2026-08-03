@@ -156,6 +156,25 @@ Asset: aEthLidoGHO `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
 Amount: 50,000
 Spender: TokenLogic `0xAA088dfF3dcF619664094945028d44E779F19894`
 
+### Stable Vaults
+
+Add the following allowances to a new dedicated Stable Vault incentives SAFE as discussed in the launch [proposal](https://governance.aave.com/t/arfc-aave-app-launch/25307).
+
+Network: Mainnet
+Asset: aEthLidoGHO `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
+Amount: 300,000
+Spender: Stable Vault Incentives `0x4cc755fBFAE135933b64865E7D7Ea6ae778A4D43`
+
+Network: Mainnet
+Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
+Amount: 100,000
+Spender: Stable Vault Incentives `0x4cc755fBFAE135933b64865E7D7Ea6ae778A4D43`
+
+Network: Mainnet
+Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
+Amount: 100,000
+Spender: Stable Vault Incentives `0x4cc755fBFAE135933b64865E7D7Ea6ae778A4D43`
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Ethereum_July2026FundingUpdate_20260715.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Arbitrum_July2026FundingUpdate_20260715.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Base_July2026FundingUpdate_20260715.sol), [AaveV3Gnosis](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Gnosis_July2026FundingUpdate_20260715.sol),[AaveV3Sonic](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Sonic_July2026FundingUpdate_20260715.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Plasma_July2026FundingUpdate_20260715.sol)
