@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import {EthereumScript, PolygonScript, AvalancheScript, ArbitrumScript, OptimismScript, MetisScript, BaseScript, GnosisScript, BNBScript, ScrollScript, LineaScript, SonicScript, CeloScript, MantleScript, SoneiumScript, PlasmaScript, MegaEthScript, MonadScript, XLayerScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, ArbitrumScript, OptimismScript, BaseScript, GnosisScript, BNBScript, ScrollScript, LineaScript, SonicScript, CeloScript, MantleScript, PlasmaScript, MegaEthScript, MonadScript, XLayerScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
@@ -12,7 +12,6 @@ import {AaveV3Polygon_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
 import {AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
-import {AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
@@ -21,7 +20,6 @@ import {AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignme
 import {AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
-import {AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 import {AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
@@ -141,29 +139,6 @@ contract DeployOptimism is OptimismScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
-        .creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
- * @dev Deploy Metis
- * deploy-command: make deploy-ledger contract=src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol:DeployMetis chain=metis
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol/1088/run-latest.json
- */
-contract DeployMetis is MetisScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
         .creationCode
     );
 
@@ -362,29 +337,6 @@ contract DeployMantle is MantleScript {
 }
 
 /**
- * @dev Deploy Soneium
- * deploy-command: make deploy-ledger contract=src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol:DeploySoneium chain=soneium
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol/1868/run-latest.json
- */
-contract DeploySoneium is SoneiumScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
-        .creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Deploy Plasma
  * deploy-command: make deploy-ledger contract=src/20260720_Multi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol:DeployPlasma chain=plasma
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.s.sol/9745/run-latest.json
@@ -483,7 +435,7 @@ contract DeployXLayer is XLayerScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](20);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](17);
 
     // compose actions for validation
     {
@@ -549,22 +501,12 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsMetis[0] = GovV3Helpers.buildAction(
-        type(AaveV3Metis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
-          .creationCode
-      );
-      payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
         memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
@@ -574,7 +516,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+      payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
     }
 
     {
@@ -584,7 +526,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[8] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+      payloads[7] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
@@ -594,17 +536,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[9] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720'
-      );
-      payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+      payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
     }
 
     {
@@ -614,7 +546,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[11] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+      payloads[9] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
@@ -624,7 +556,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[12] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+      payloads[10] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
     }
 
     {
@@ -634,7 +566,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[13] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+      payloads[11] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
     }
 
     {
@@ -644,17 +576,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[14] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsSoneium = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsSoneium[0] = GovV3Helpers.buildAction(
-        type(AaveV3Soneium_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
-          .creationCode
-      );
-      payloads[15] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
+      payloads[12] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
     }
 
     {
@@ -664,7 +586,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[16] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[13] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     {
@@ -674,7 +596,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[17] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
+      payloads[14] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
     }
 
     {
@@ -684,7 +606,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[18] = GovV3Helpers.buildMonadPayload(vm, actionsMonad);
+      payloads[15] = GovV3Helpers.buildMonadPayload(vm, actionsMonad);
     }
 
     {
@@ -694,7 +616,7 @@ contract CreateProposal is EthereumScript {
         type(AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720)
           .creationCode
       );
-      payloads[19] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
+      payloads[16] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
     }
 
     // create proposal
