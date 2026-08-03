@@ -156,12 +156,6 @@ Asset: aEthLidoGHO `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
 Amount: 50,000
 Spender: TokenLogic `0xAA088dfF3dcF619664094945028d44E779F19894`
 
-### Rescue USDC
-
-As can be seen on this forum [post](https://governance.aave.com/t/request-include-25k-usdc-sent-directly-to-v3-pool-in-next-rescue-mission-phase/25317), 25,000 USDC was erroneously sent directly to the AToken instance of USDC on Aave V3 Ethereum.
-
-A rescue operation will be performed for this big amount in this proposal, where the 25,000 USDC will be sent to the original sender in this transaction which can be found [here](https://etherscan.io/tx/0x6a4cd27125fe4916909efdb9e6cc79f298ce514e56bd4851e92641f71c666b5c).
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Ethereum_July2026FundingUpdate_20260715.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Arbitrum_July2026FundingUpdate_20260715.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Base_July2026FundingUpdate_20260715.sol), [AaveV3Gnosis](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Gnosis_July2026FundingUpdate_20260715.sol),[AaveV3Sonic](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Sonic_July2026FundingUpdate_20260715.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260715_Multi_July2026FundingUpdate/AaveV3Plasma_July2026FundingUpdate_20260715.sol)

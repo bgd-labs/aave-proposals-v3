@@ -73,6 +73,48 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715_Test is ProtocolV3TestBas
     assertEq(allowanceAfterAhab, proposal.WBTC_MONAD_ALLOWANCE());
   }
 
+  function test_stableVaults() public {
+    uint256 allowanceBeforeGho = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.STABLE_VAULT_INCENTIVES_SAFE()
+    );
+
+    uint256 allowanceBeforeUsdc = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.STABLE_VAULT_INCENTIVES_SAFE()
+    );
+
+    uint256 allowanceBeforeUsdt = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.STABLE_VAULT_INCENTIVES_SAFE()
+    );
+
+    assertEq(allowanceBeforeGho, 0);
+    assertEq(allowanceBeforeUsdc, 0);
+    assertEq(allowanceBeforeUsdt, 0);
+
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceAfterGho = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.STABLE_VAULT_INCENTIVES_SAFE()
+    );
+
+    uint256 allowanceAfterUsdc = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.STABLE_VAULT_INCENTIVES_SAFE()
+    );
+
+    uint256 allowanceAfterUsdt = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.STABLE_VAULT_INCENTIVES_SAFE()
+    );
+
+    assertEq(allowanceAfterGho, proposal.STABLE_VAULT_GHO_ALLOWANCE());
+    assertEq(allowanceAfterUsdc, proposal.STABLE_VAULT_USDC_ALLOWANCE());
+    assertEq(allowanceAfterUsdt, proposal.STABLE_VAULT_USDT_ALLOWANCE());
+  }
+
   function test_cancelMeritUsdcAllowance() public {
     uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
@@ -287,25 +329,4 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715_Test is ProtocolV3TestBas
       )
     );
   }
-
-  // function test_rescueTokens() public {
-  //   uint256 usdcBalanceBeforeUser = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-  //     proposal.RESCUE_USDC_OWNER()
-  //   );
-  //   uint256 usdcBalanceBeforeAToken = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-  //     AaveV3EthereumAssets.USDC_A_TOKEN
-  //   );
-
-  //   executePayload(vm, address(proposal));
-
-  //   uint256 usdcBalanceAfterUser = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-  //     proposal.RESCUE_USDC_OWNER()
-  //   );
-  //   uint256 usdcBalanceAfterAToken = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-  //     AaveV3EthereumAssets.USDC_A_TOKEN
-  //   );
-
-  //   assertEq(usdcBalanceAfterUser, usdcBalanceBeforeUser + proposal.RESCUE_USDC_AMOUNT());
-  //   assertEq(usdcBalanceAfterAToken, usdcBalanceBeforeAToken + proposal.RESCUE_USDC_AMOUNT());
-  // }
 }

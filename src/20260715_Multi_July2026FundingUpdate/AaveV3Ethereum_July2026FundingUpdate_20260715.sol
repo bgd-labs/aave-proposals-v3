@@ -21,8 +21,15 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
   uint256 public constant GHO_MONAD_ALLOWANCE = 500_000 ether;
   uint256 public constant WBTC_MONAD_ALLOWANCE = 72e8;
 
+  // https://etherscan.io/address/0xAA088dfF3dcF619664094945028d44E779F19894
   address public constant TOKEN_LOGIC = 0xAA088dfF3dcF619664094945028d44E779F19894;
   uint256 public constant REIMBURSEMENTS_GHO_AMOUNT = 50_000 ether;
+
+  // https://etherscan.io/address/0x4cc755fBFAE135933b64865E7D7Ea6ae778A4D43
+  address public constant STABLE_VAULT_INCENTIVES_SAFE = 0x4cc755fBFAE135933b64865E7D7Ea6ae778A4D43;
+  uint256 public constant STABLE_VAULT_GHO_ALLOWANCE = 300_000 ether;
+  uint256 public constant STABLE_VAULT_USDC_ALLOWANCE = 100_000e6;
+  uint256 public constant STABLE_VAULT_USDT_ALLOWANCE = 100_000e6;
 
   address public constant RESCUE_USDC_OWNER = 0x32FcF748e4dCEBD1081BfcccB94eB721101F27C0;
   uint256 public constant RESCUE_USDC_AMOUNT = 25_000e6;
@@ -37,13 +44,13 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
   uint256 public constant PYUSD_SWAP_BUDGET_AMOUNT = 500_000e6;
 
   function execute() external {
+    _cancelAllowances();
     _monad();
+    _stableVaults();
     _depositEth();
     _reimbursements();
     _replenishAllowances();
     _swapPaths();
-    _cancelAllowances();
-    _rescueTokens();
   }
 
   function _cancelAllowances() internal {
@@ -65,6 +72,26 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
       IERC20(AaveV3EthereumAssets.WBTC_A_TOKEN),
       MiscEthereum.AHAB_SAFE,
       WBTC_MONAD_ALLOWANCE
+    );
+  }
+
+  function _stableVaults() internal {
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
+      STABLE_VAULT_INCENTIVES_SAFE,
+      STABLE_VAULT_GHO_ALLOWANCE
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
+      STABLE_VAULT_INCENTIVES_SAFE,
+      STABLE_VAULT_USDC_ALLOWANCE
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
+      STABLE_VAULT_INCENTIVES_SAFE,
+      STABLE_VAULT_USDT_ALLOWANCE
     );
   }
 
@@ -163,13 +190,5 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
       AaveV3EthereumAssets.WETH_UNDERLYING,
       true
     );
-  }
-
-  function _rescueTokens() internal {
-    //   IAToken(AaveV3EthereumAssets.USDC_A_TOKEN).rescueTokens(
-    //     AaveV3EthereumAssets.USDC_UNDERLYING,
-    //     RESCUE_USDC_OWNER,
-    //     RESCUE_USDC_AMOUNT
-    //   );
   }
 }
