@@ -1,7 +1,7 @@
 // sum.test.js
 import {expect, describe, it} from 'vitest';
-import {assetListing} from './assetListing';
-import {MOCK_OPTIONS, assetListingConfig} from './mocks/configs';
+import {assetListing, assetListingCustom} from './assetListing';
+import {MOCK_OPTIONS, assetListingConfig, assetListingCustomConfig} from './mocks/configs';
 import {generateFiles} from '../generator';
 import {FEATURE, MarketConfigs} from '../types';
 
@@ -11,6 +11,17 @@ describe('feature: assetListing', () => {
       options: MOCK_OPTIONS,
       market: 'AaveV3Ethereum',
       cfg: assetListingConfig,
+      cache: {blockNumber: 42},
+      configs: {},
+    });
+    expect(output).toMatchSnapshot();
+  });
+
+  it('should return reasonable custom code', () => {
+    const output = assetListingCustom.build({
+      options: MOCK_OPTIONS,
+      market: 'AaveV3Ethereum',
+      cfg: assetListingCustomConfig,
       cache: {blockNumber: 42},
       configs: {},
     });

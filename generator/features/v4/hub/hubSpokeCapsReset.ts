@@ -1,27 +1,19 @@
-import {select, checkbox} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubSpokeCapsReset} from '../../types';
-import {hubKeys, rawSpokeKeys, hubLibAccessor} from '../marketBook';
-import {shortKey} from '../testHelpers';
+import {selectHub, selectSpokes} from '../hubSpokeSelect';
+import {accessorIdentifier} from '../testHelpers';
 
 export const hubSpokeCapsReset: FeatureModule<V4HubSpokeCapsReset[]> = {
   value: FEATURE.V4_HUB_SPOKE_CAPS_RESET,
   description: 'Hub: reset spoke caps',
   async cli({market}) {
     const m = market as MarketIdentifierV4;
-    const hub = await select({
-      message: 'Select hub',
-      choices: hubKeys(m).map((k) => ({name: k, value: k})),
-    });
-    const spokes = await checkbox({
-      message: 'Select spokes to reset caps',
-      choices: rawSpokeKeys(m).map((s) => ({name: s.key, value: s})),
-      required: true,
-    });
+    const hub = await selectHub(m);
+    const spokes = await selectSpokes(m, {message: 'Select spokes to reset caps', raw: true});
     return spokes.map((s) => ({
-      hubLib: hubLibAccessor(m, hub),
-      hub: hub,
-      spoke: s.accessor,
+      hubLib: hub.expr,
+      hub: hub.key,
+      spoke: s.expr,
     }));
   },
   build({market, cfg}) {
@@ -33,8 +25,8 @@ export const hubSpokeCapsReset: FeatureModule<V4HubSpokeCapsReset[]> = {
       });`,
     );
     const testFns = cfg.map((c) => {
-      const hubKey = shortKey(c.hubLib);
-      const spokeKey = shortKey(c.spoke);
+      const hubKey = accessorIdentifier(c.hubLib);
+      const spokeKey = accessorIdentifier(c.spoke);
       return `function test_hubSpokeCapsReset_${hubKey}_${spokeKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         IHub hub = IHub(address(${c.hubLib}));

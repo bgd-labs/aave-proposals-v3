@@ -30,12 +30,19 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
       const guardian = await uint64SentinelPrompt('New guardian role (uint64)');
       const grantDelay = await uint32SentinelPrompt('New grant delay (uint32, seconds)');
       const label = await input({message: 'New label (empty = keep current)'});
+      const labelUpdate = label
+        ? await confirm({
+            message: 'Is the role already labeled? (relabel clears the existing label first)',
+            default: false,
+          })
+        : false;
       response.push({
         roleId,
         admin,
         guardian,
         grantDelay,
         label,
+        labelUpdate,
       });
       more = await confirm({message: 'Add another?', default: false});
     }
@@ -49,7 +56,8 @@ export const accessManagerRoleUpdate: FeatureModule<V4RoleUpdate[]> = {
         admin: ${renderSentinel(c.admin)},
         guardian: ${renderSentinel(c.guardian)},
         grantDelay: ${renderSentinel(c.grantDelay)},
-        label: '${c.label.replace(/'/g, "\\'")}'
+        label: '${c.label.replace(/'/g, "\\'")}',
+        labelUpdate: ${c.labelUpdate}
       });`,
     );
     const testFns = cfg.map((c, ix) => {

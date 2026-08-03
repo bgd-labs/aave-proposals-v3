@@ -85,5 +85,6 @@ megaeth = "${RPC_MEGAETH}"
 monad = "${RPC_MONAD}"
 mainnet_virtual = "${RPC_TENDERLY_VIRTUAL_MAINNET}"
 arbitrum_virtual = "${RPC_TENDERLY_VIRTUAL_ARBITRUM}"
+monad_virtual = "${RPC_TENDERLY_VIRTUAL_MONAD}"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config

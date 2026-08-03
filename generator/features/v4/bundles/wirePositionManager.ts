@@ -1,6 +1,7 @@
-import {select, checkbox, input, confirm} from '@inquirer/prompts';
+import {select, input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
-import {positionManagerKeys, spokeKeys, spokeLibAccessor} from '../marketBook';
+import {positionManagerKeys} from '../marketBook';
+import {selectSpokes} from '../hubSpokeSelect';
 import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
 import {spokePositionManagerUpdate} from '../spoke/spokePositionManagerUpdate';
 import {positionManagerSpokeRegistration} from '../positionManager/positionManagerSpokeRegistration';
@@ -50,15 +51,14 @@ export const wirePositionManager: FeatureModule<BundleCfg> = {
       });
     }
 
-    const spokes = await checkbox({
+    const spokes = await selectSpokes(m, {
       message: 'Activate/deactivate PM on which spokes?',
-      choices: spokeKeys(m).map((k) => ({name: k, value: k})),
     });
     const active = await confirm({message: 'Activate (yes) or deactivate (no)?', default: true});
     for (const spoke of spokes) {
       result.spokeActivations.push({
-        spokeLib: spokeLibAccessor(m, spoke),
-        spoke: spokeLibAccessor(m, spoke),
+        spokeLib: spoke.expr,
+        spoke: spoke.expr,
         positionManager: pmAccessor,
         active,
       });
@@ -72,7 +72,7 @@ export const wirePositionManager: FeatureModule<BundleCfg> = {
       for (const spoke of spokes) {
         result.pmRegistrations.push({
           positionManager: pmAccessor,
-          spoke: spokeLibAccessor(m, spoke),
+          spoke: spoke.expr,
           registered: active,
         });
       }

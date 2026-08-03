@@ -59,14 +59,19 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
   return {
     aToken: await addressPrompt({message: 'aToken implementation', required: true}),
     vToken: await addressPrompt({message: 'vToken implementation', required: true}),
-    sToken: await addressPrompt({message: 'sToken implementation', required: true}),
   };
 }
 
-function generateAssetListingSol(cfg: Listing) {
-  return `asset: ${cfg.assetSymbol},
+// Relax address fields because rendered Solidity may use variable names instead of literal addresses.
+type RenderableListing = Omit<Listing, 'asset' | 'priceFeed'> & {
+  asset: string;
+  priceFeed: string;
+};
+
+function renderListingSol(cfg: RenderableListing) {
+  return `asset: ${cfg.asset},
   assetSymbol: "${cfg.assetSymbol}",
-  priceFeed: ${cfg.assetSymbol}_PRICE_FEED,
+  priceFeed: ${cfg.priceFeed},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
   ltv: ${translateJsPercentToSol(cfg.ltv)},
@@ -86,6 +91,37 @@ function generateAssetListingSol(cfg: Listing) {
   })`;
 }
 
+function generateAssetListingSol(cfg: Listing) {
+  return renderListingSol({
+    ...cfg,
+    asset: cfg.assetSymbol,
+    priceFeed: `${cfg.assetSymbol}_PRICE_FEED`,
+  });
+}
+
+function listingOverrides(cfgs: Listing[], fnName: string): string[] {
+  return [
+    `function ${fnName}() internal pure override returns (ExpectedListing[] memory listings) {
+      listings = new ExpectedListing[](${cfgs.length});
+
+      ${cfgs
+        .map(
+          (cfg, ix) => `listings[${ix}] = ExpectedListing({
+                 listing: IAaveV3ConfigEngine.Listing({
+                   ${renderListingSol({
+                     ...cfg,
+                     asset: translateJsAddressToSol(cfg.asset),
+                     priceFeed: translateJsAddressToSol(cfg.priceFeed),
+                   })}
+                 }),
+                 decimals: ${cfg.decimals}
+               });`,
+        )
+        .join('\n')}
+    }`,
+  ];
+}
+
 export const assetListing: FeatureModule<Listing[]> = {
   value: FEATURE.ASSET_LISTING,
   description: 'newListings (listing a new asset)',
@@ -100,6 +136,22 @@ export const assetListing: FeatureModule<Listing[]> = {
     return response;
   },
   build({market, cfg}) {
+    const listingTests = cfg.map((cfg) => {
+      let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
+            ${testExecuteProposal(market)}
+            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
+          }\n`;
+      if (isAddress(cfg.admin)) {
+        listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
+	      ${testExecuteProposal(market)}
+              address a${cfg.assetSymbol} = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	    }\n`;
+      }
+      return listingTest;
+    });
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
@@ -152,22 +204,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         ],
       },
       test: {
-        fn: cfg.map((cfg) => {
-          let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
-            ${testExecuteProposal(market)}
-            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
-          }\n`;
-          if (isAddress(cfg.admin)) {
-            listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
-	      ${testExecuteProposal(market)}
-              address a${cfg.assetSymbol} = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	    }\n`;
-          }
-          return listingTest;
-        }),
+        fn: [...listingTests, ...listingOverrides(cfg, '_expectedListings')],
       },
       aip: {
         specification: cfg.map((cfg) => {
@@ -229,6 +266,13 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
     return response;
   },
   build({market, cfg}) {
+    const listingTests = cfg.map(
+      (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
+            ${testExecuteProposal(market)}
+            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
+          }`,
+    );
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
@@ -256,12 +300,11 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.ListingWithCustomImpl(
                 IAaveV3ConfigEngine.Listing({
-                  ${generateAssetListingSol(cfg.base)},
-                  IAaveV3ConfigEngine.TokenImplementations({
-                    aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
-                    vToken: ${translateJsAddressToSol(cfg.implementations.vToken)},
-                    sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
-                  })
+                  ${generateAssetListingSol(cfg.base)}
+                }),
+                IAaveV3ConfigEngine.TokenImplementations({
+                  aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
+                  vToken: ${translateJsAddressToSol(cfg.implementations.vToken)}
                 })
              );`,
             )
@@ -272,13 +315,13 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         ],
       },
       test: {
-        fn: cfg.map(
-          (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
-            ${testExecuteProposal(market)}
-            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
-            assertGte(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
-          }`,
-        ),
+        fn: [
+          ...listingTests,
+          ...listingOverrides(
+            cfg.map((cfg) => cfg.base),
+            '_expectedCustomListings',
+          ),
+        ],
       },
     };
     return response;

@@ -31,12 +31,12 @@ export const proposalTemplate = (
       .map((artifact) => artifact.code?.constants)
       .flat()
       .filter((f): f is string => f !== undefined),
-  ).join('\n');
+  ).join('\n\n');
   const functions = marketConfig.artifacts
     .map((artifact) => artifact.code?.fn)
     .flat()
     .filter((f) => f !== undefined)
-    .join('\n');
+    .join('\n\n');
   const innerExecute = marketConfig.artifacts
     .map((artifact) => artifact.code?.execute)
     .flat()
