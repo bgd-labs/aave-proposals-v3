@@ -1,6 +1,9 @@
 import {expect, describe, it} from 'vitest';
 import {collateralsUpdates} from './collateralsUpdates';
 import {MOCK_OPTIONS, collateralUpdates as collateralUpdatesConfig} from './mocks/configs';
+import {generateFiles} from '../generator';
+import {FEATURE, MarketConfigs} from '../types';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
 
 describe('feature: collateralsUpdates', () => {
   const output = collateralsUpdates.build({
@@ -14,6 +17,20 @@ describe('feature: collateralsUpdates', () => {
   it('should return reasonable code', () => {
     expect(output).toMatchSnapshot();
   });
+
+  it('generates compilable Solidity', async () => {
+    const configs = {[FEATURE.COLLATERALS_UPDATE]: collateralUpdatesConfig};
+    const marketConfigs: MarketConfigs = {
+      AaveV3Ethereum: {
+        market: 'AaveV3Ethereum',
+        artifacts: [output],
+        configs,
+        cache: {blockNumber: 42},
+      },
+    };
+
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, marketConfigs));
+  }, 60_000);
 
   it('encodes set fields as values and empty fields as KEEP_CURRENT on the payload struct', () => {
     const code = (output.code?.fn?.join('\n') ?? '').replace(/\s+/g, ' ');
