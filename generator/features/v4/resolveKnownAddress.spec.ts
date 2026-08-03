@@ -34,7 +34,7 @@ describe('resolveKnownAddress', () => {
 
   it('returns undefined for an unknown address', () => {
     expect(
-      resolveKnownAddress(MARKET, '0x774b9655413c34809c1f1b16b654465A89EBE989'),
+      resolveKnownAddress(MARKET, '0x000000000000000000000000000000000000dEaD'),
     ).toBeUndefined();
   });
 });

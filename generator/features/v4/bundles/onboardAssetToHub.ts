@@ -8,17 +8,14 @@ import {readHubAssets, isAssetListedOnHub} from '../onchain';
 import {hubAssetListing} from '../hub/hubAssetListing';
 import {promptHubAssetListing} from '../hub/hubAssetListingPrompt';
 import {hubSpokeToAssetsAddition, pushSpokeAssets} from '../hub/hubSpokeToAssetsAddition';
-import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
-import {spokeWiring, hubWiring} from '../accessWiring';
-import {
-  V4HubAssetListing,
-  V4HubSpokeToAssetsAddition,
-  V4TargetFunctionRoleUpdate,
-} from '../../types';
+import {accessWiringArtifact} from '../accessWiring';
+import {V4HubAssetListing, V4HubSpokeToAssetsAddition} from '../../types';
 import {mergeArtifact} from '../bundleHelpers';
 
 type BundleCfg = {
-  targetFunctionRoles: V4TargetFunctionRoleUpdate[];
+  /// Codegen exprs of freshly deployed hubs/spokes needing their AccessManager wiring.
+  freshHubs: string[];
+  freshSpokes: string[];
   listings: V4HubAssetListing[];
   spokeAdditions: V4HubSpokeToAssetsAddition[];
 };
@@ -29,7 +26,7 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
     'Bundle: onboard an asset to a Hub (fresh-deploy wiring; skips listing if already present; optionally registers spokes)',
   async cli({market, cache}) {
     const m = market as MarketIdentifierV4;
-    const cfg: BundleCfg = {targetFunctionRoles: [], listings: [], spokeAdditions: []};
+    const cfg: BundleCfg = {freshHubs: [], freshSpokes: [], listings: [], spokeAdditions: []};
     const wiredSpokes = new Set<string>();
     const wiredHubs = new Set<string>();
     let more = true;
@@ -45,7 +42,7 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
             default: true,
           })
         ) {
-          cfg.targetFunctionRoles.push(...hubWiring(hub.expr));
+          cfg.freshHubs.push(hub.expr);
         }
       }
 
@@ -61,7 +58,12 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
         );
       } else {
         cfg.listings.push(
-          await promptHubAssetListing(m, {hubLib: hub.expr, hub: hub.key, underlying: asset.expr}),
+          await promptHubAssetListing(m, {
+            hubLib: hub.expr,
+            hub: hub.key,
+            underlying: asset.expr,
+            underlyingAddress: asset.underlying,
+          }),
         );
       }
 
@@ -77,7 +79,7 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
               default: true,
             })
           ) {
-            cfg.targetFunctionRoles.push(...spokeWiring(m, spoke.expr));
+            cfg.freshSpokes.push(spoke.expr);
           }
         }
         console.log(`Spoke config for ${asset.label} on ${spoke.key}`);
@@ -105,7 +107,14 @@ export const onboardAssetToHub: FeatureModule<BundleCfg> = {
       if (sub.length > 0)
         mergeArtifact(artifact, mod.build({options, market, cache, cfg: sub, configs}));
     };
-    delegate(accessManagerTargetFunctionRoleUpdate, cfg.targetFunctionRoles ?? []);
+    const freshHubs = cfg.freshHubs ?? [];
+    const freshSpokes = cfg.freshSpokes ?? [];
+    if (freshHubs.length > 0 || freshSpokes.length > 0) {
+      mergeArtifact(
+        artifact,
+        accessWiringArtifact(market as MarketIdentifierV4, {hubs: freshHubs, spokes: freshSpokes}),
+      );
+    }
     delegate(hubAssetListing, cfg.listings ?? []);
     delegate(hubSpokeToAssetsAddition, cfg.spokeAdditions ?? []);
     return artifact;

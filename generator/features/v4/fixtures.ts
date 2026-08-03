@@ -20,7 +20,6 @@ import {accessManagerTargetFunctionRoleUpdate} from './access/accessManagerTarge
 import {accessManagerTargetAdminDelayUpdate} from './access/accessManagerTargetAdminDelayUpdate';
 import {positionManagerSpokeRegistration} from './positionManager/positionManagerSpokeRegistration';
 import {positionManagerRoleRenouncement} from './positionManager/positionManagerRoleRenouncement';
-import {hubWiring, spokeWiring} from './accessWiring';
 import {onboardAssetToHub} from './bundles/onboardAssetToHub';
 import {onboardReserveToSpoke} from './bundles/onboardReserveToSpoke';
 import {tuneSpokeRisk} from './bundles/tuneSpokeRisk';
@@ -104,6 +103,15 @@ export function allModulesFixture(): Fixture {
         name: "TS\\'x",
         symbol: 'TS',
       },
+    },
+    {
+      hubLib: HUB,
+      hub: HUB,
+      underlying: RESERVE_ASSET,
+      feeReceiver: ADDR,
+      liquidityFee: '0',
+      irStrategy: ADDR,
+      irPreset: 'nonBorrowable',
     },
   ];
 
@@ -354,7 +362,8 @@ export function useCasesFixture(): Fixture {
   };
 
   const onboardAssetCfg = {
-    targetFunctionRoles: hubWiring(HUB),
+    freshHubs: [HUB],
+    freshSpokes: [],
     listings: [
       {
         hubLib: HUB,
@@ -392,7 +401,8 @@ export function useCasesFixture(): Fixture {
   };
 
   const onboardReserveCfg = {
-    targetFunctionRoles: spokeWiring('AaveV4Ethereum', SPOKE),
+    freshHubs: [],
+    freshSpokes: [SPOKE],
     hubAssetListings: [
       {
         hubLib: HUB,

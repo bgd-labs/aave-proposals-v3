@@ -20,8 +20,7 @@ import {spokeReserveConfigUpdate} from '../spoke/spokeReserveConfigUpdate';
 import {spokeLiquidationConfigUpdate} from '../spoke/spokeLiquidationConfigUpdate';
 import {spokePositionManagerUpdate} from '../spoke/spokePositionManagerUpdate';
 import {hubSpokeToAssetsAddition, pushSpokeAssets} from '../hub/hubSpokeToAssetsAddition';
-import {accessManagerTargetFunctionRoleUpdate} from '../access/accessManagerTargetFunctionRoleUpdate';
-import {spokeWiring, hubWiring} from '../accessWiring';
+import {accessWiringArtifact} from '../accessWiring';
 import {
   V4SpokeReserveListing,
   V4SpokeReserveConfigUpdate,
@@ -29,13 +28,14 @@ import {
   V4SpokePositionManagerUpdate,
   V4HubSpokeToAssetsAddition,
   V4HubAssetListing,
-  V4TargetFunctionRoleUpdate,
 } from '../../types';
 import {keepCurrent, keepCurrentAddress, literal, enabled, disabled} from '../sentinels';
 import {mergeArtifact} from '../bundleHelpers';
 
 type BundleCfg = {
-  targetFunctionRoles: V4TargetFunctionRoleUpdate[];
+  /// Codegen exprs of freshly deployed hubs/spokes needing their AccessManager wiring.
+  freshHubs: string[];
+  freshSpokes: string[];
   hubAssetListings: V4HubAssetListing[];
   listings: V4SpokeReserveListing[];
   updates: V4SpokeReserveConfigUpdate[];
@@ -123,7 +123,8 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
   async cli({market, cache}) {
     const m = market as MarketIdentifierV4;
     const cfg: BundleCfg = {
-      targetFunctionRoles: [],
+      freshHubs: [],
+      freshSpokes: [],
       hubAssetListings: [],
       listings: [],
       updates: [],
@@ -152,7 +153,7 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
             default: true,
           })
         ) {
-          cfg.targetFunctionRoles.push(...hubWiring(hub.expr));
+          cfg.freshHubs.push(hub.expr);
         }
       }
       if (spoke.isNew && !wiredSpokes.has(spoke.expr)) {
@@ -163,7 +164,7 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
             default: true,
           })
         ) {
-          cfg.targetFunctionRoles.push(...spokeWiring(m, spoke.expr));
+          cfg.freshSpokes.push(spoke.expr);
         }
       }
 
@@ -205,6 +206,7 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
               hubLib: hub.expr,
               hub: hub.key,
               underlying: asset.expr,
+              underlyingAddress: underlying,
             }),
           );
         }
@@ -264,7 +266,14 @@ export const onboardReserveToSpoke: FeatureModule<BundleCfg> = {
       if (sub.length > 0)
         mergeArtifact(artifact, mod.build({options, market, cache, cfg: sub, configs}));
     };
-    delegate(accessManagerTargetFunctionRoleUpdate, cfg.targetFunctionRoles ?? []);
+    const freshHubs = cfg.freshHubs ?? [];
+    const freshSpokes = cfg.freshSpokes ?? [];
+    if (freshHubs.length > 0 || freshSpokes.length > 0) {
+      mergeArtifact(
+        artifact,
+        accessWiringArtifact(market as MarketIdentifierV4, {hubs: freshHubs, spokes: freshSpokes}),
+      );
+    }
     delegate(hubAssetListing, cfg.hubAssetListings ?? []);
     delegate(spokeReserveListing, cfg.listings ?? []);
     delegate(spokeReserveConfigUpdate, cfg.updates ?? []);

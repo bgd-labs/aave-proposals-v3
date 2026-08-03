@@ -111,6 +111,13 @@ export type V4GetterEntry = {
   /// `test_<getter>Input()` once every feature contributing to the getter has been
   /// merged, so the indices match the merged array rather than one feature's slice.
   inputAsserts?: string[];
+  /// Solidity expressions each yielding a `<returnType>[] memory`, appended to the
+  /// getter's own entries via `arrayMerge`. Used where a helpers library already builds
+  /// the array (role wiring), so the payload declares intent instead of re-listing it.
+  arrayExprs?: string[];
+  /// Solidity function concatenating two `<returnType>[] memory`, required with
+  /// `arrayExprs` (e.g. `V4RoleWiring.merge`).
+  arrayMerge?: string;
 };
 
 export type CodeArtifact = {
@@ -123,9 +130,6 @@ export type CodeArtifact = {
   test?: {
     fn?: string[];
     updatedAssets?: string[];
-    /// Shared test-contract members (helper functions, constants) emitted once
-    /// after dedup, so multiple features can rely on the same helper.
-    helpers?: string[];
   };
   aip?: {
     specification: string[];
@@ -257,12 +261,14 @@ export interface MarketConfig {
     [FEATURE.V4_PM_SPOKE_REGISTRATION]?: V4PMSpokeRegistration[];
     [FEATURE.V4_PM_ROLE_RENOUNCEMENT]?: V4PMRoleRenouncement[];
     [FEATURE.V4_USECASE_ONBOARD_ASSET_TO_HUB]?: {
-      targetFunctionRoles: V4TargetFunctionRoleUpdate[];
+      freshHubs: string[];
+      freshSpokes: string[];
       listings: V4HubAssetListing[];
       spokeAdditions: V4HubSpokeToAssetsAddition[];
     };
     [FEATURE.V4_USECASE_ONBOARD_RESERVE_TO_SPOKE]?: {
-      targetFunctionRoles: V4TargetFunctionRoleUpdate[];
+      freshHubs: string[];
+      freshSpokes: string[];
       hubAssetListings: V4HubAssetListing[];
       listings: V4SpokeReserveListing[];
       updates: V4SpokeReserveConfigUpdate[];
