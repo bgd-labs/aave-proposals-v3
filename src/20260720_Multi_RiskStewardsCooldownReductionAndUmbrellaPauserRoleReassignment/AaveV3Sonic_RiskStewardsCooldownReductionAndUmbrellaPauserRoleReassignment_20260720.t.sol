@@ -18,7 +18,7 @@ contract AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignm
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 76230463);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 77016455);
     proposal = new AaveV3Sonic_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

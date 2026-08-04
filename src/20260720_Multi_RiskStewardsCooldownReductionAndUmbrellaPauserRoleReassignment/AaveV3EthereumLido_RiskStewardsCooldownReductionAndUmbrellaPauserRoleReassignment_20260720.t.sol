@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleRe
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25573446);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25680707);
     proposal = new AaveV3EthereumLido_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

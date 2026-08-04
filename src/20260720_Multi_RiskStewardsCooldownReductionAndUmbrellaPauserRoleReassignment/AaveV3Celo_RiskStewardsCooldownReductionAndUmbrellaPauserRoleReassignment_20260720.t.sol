@@ -18,7 +18,7 @@ contract AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignme
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('celo'), 72643966);
+    vm.createSelectFork(vm.rpcUrl('celo'), 73935621);
     proposal = new AaveV3Celo_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

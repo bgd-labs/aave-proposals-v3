@@ -18,7 +18,7 @@ contract AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassi
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 154472973);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 155118800);
     proposal = new AaveV3Optimism_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

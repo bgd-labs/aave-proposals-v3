@@ -18,7 +18,7 @@ contract AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignmen
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 111078294);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 113947131);
     proposal = new AaveV3BNB_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

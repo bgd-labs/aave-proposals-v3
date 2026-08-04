@@ -18,7 +18,7 @@ contract AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 34420750);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 34562415);
     proposal = new AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

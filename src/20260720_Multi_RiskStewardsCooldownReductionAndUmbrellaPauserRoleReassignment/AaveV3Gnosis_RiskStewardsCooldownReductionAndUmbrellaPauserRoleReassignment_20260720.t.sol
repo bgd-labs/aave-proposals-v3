@@ -18,7 +18,7 @@ contract AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 47298396);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 47550292);
     proposal = new AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 
@@ -30,7 +30,9 @@ contract AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
     defaultTest(
       'AaveV3Gnosis_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720',
       AaveV3Gnosis.POOL,
-      address(proposal)
+      address(proposal),
+      false,
+      false
     );
   }
 

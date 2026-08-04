@@ -18,7 +18,7 @@ contract AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 27604372);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 28895943);
     proposal = new AaveV3Plasma_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

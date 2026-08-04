@@ -18,7 +18,7 @@ contract AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassig
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('megaeth'), 21747715);
+    vm.createSelectFork(vm.rpcUrl('megaeth'), 23039369);
     proposal = new AaveV3MegaEth_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 
