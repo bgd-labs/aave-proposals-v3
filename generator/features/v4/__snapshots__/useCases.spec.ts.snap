@@ -624,7 +624,7 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
     uint256 matched;
     for (uint256 i; i < items.length; ++i) {
       if (items[i].target != address(AaveV4EthereumHubs.CORE_HUB)) continue;
-      _assertRolesWired(items[i], address(0));
+      _assertRolesWired(items[i], address(AaveV4EthereumHubs.CORE_HUB));
       ++matched;
     }
     assertGt(matched, 0, 'no wiring for target');

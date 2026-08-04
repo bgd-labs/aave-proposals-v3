@@ -1,7 +1,15 @@
 import {CodeArtifact, MarketIdentifierV4} from '../../types';
-import {getV4Book, spokeLibAccessor} from './marketBook';
+import {getV4Book, hubLibAccessor, spokeLibAccessor} from './marketBook';
 import {accessorIdentifier, testAddressRef, wrapAddress} from './testHelpers';
 import {rolesWiredTest} from './access/accessManagerTargetFunctionRoleUpdate';
+
+/// An already-wired Hub of the market, used by generated tests to assert a freshly
+/// wired Hub does not diverge from the canonical selector-to-role mapping.
+function referenceHub(market: MarketIdentifierV4): string {
+  return getV4Book(market).HUBS.CORE_HUB
+    ? wrapAddress(hubLibAccessor(market, 'CORE_HUB'))
+    : 'address(0)';
+}
 
 /// An already-wired Spoke of the market, used by generated tests to assert a freshly
 /// wired Spoke does not diverge from the canonical selector-to-role mapping.
@@ -27,7 +35,7 @@ export function accessWiringArtifact(
     ),
   ];
   const hubTests = entities.hubs.map((hub) =>
-    rolesWiredTest(accessorIdentifier(hub), testAddressRef(hub), 'address(0)'),
+    rolesWiredTest(accessorIdentifier(hub), testAddressRef(hub), referenceHub(market)),
   );
   const spokeTests = entities.spokes.flatMap((spoke) => [
     rolesWiredTest(accessorIdentifier(spoke), testAddressRef(spoke), referenceSpoke(market)),

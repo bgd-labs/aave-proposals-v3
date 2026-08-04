@@ -27,8 +27,14 @@ const foldArrays = (parts: string[], arrayMerge: string) =>
 
 /// Body of a merged getter: the entries it collected, then any library-built arrays
 /// appended after them, so the entry indices the input assertions use hold.
-function getterBody(value: V4GetterEntry): string {
+function getterBody(name: string, value: V4GetterEntry): string {
   const arrays = value.arrayExprs ?? [];
+  if (value.entries.length === 0 && arrays.length === 0) {
+    throw new Error(`getter ${name}: no entries and no arrayExprs to return`);
+  }
+  if (arrays.length > 0 && !value.arrayMerge) {
+    throw new Error(`getter ${name}: arrayExprs given without an arrayMerge to fold them`);
+  }
   if (value.entries.length === 0) return `return ${foldArrays(arrays, value.arrayMerge!)};`;
   const items = `${value.returnType}[] memory items = new ${value.returnType}[](${value.entries.length});
         ${resolveIndices(value.entries).join('\n')}`;
@@ -63,7 +69,7 @@ export function finalizeV4Artifacts(marketConfig: MarketConfig): void {
     (
       name,
     ) => `function ${name}() public pure override returns (${merged[name].returnType}[] memory) {
-        ${getterBody(merged[name])}
+        ${getterBody(name, merged[name])}
       }`,
   );
   const testFn = names
