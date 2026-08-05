@@ -66,6 +66,11 @@ const ASSET = 'AaveV4EthereumAssets.WETH_UNDERLYING';
 const RESERVE_ASSET = 'AaveV4EthereumAssets.USDC_UNDERLYING';
 const PM = '0x1111111111111111111111111111111111111111';
 const ADDR = '0x2222222222222222222222222222222222222222';
+// fresh deploys are by definition not in the address book, so they are raw addresses:
+// a book entity here would make the generated wiring test compare a hub or spoke
+// against itself instead of against the market's already-wired reference
+const FRESH_HUB = '0x3333333333333333333333333333333333333333';
+const FRESH_SPOKE = '0x4444444444444444444444444444444444444444';
 
 export type Fixture = {options: Options; marketConfigs: MarketConfigs};
 
@@ -362,7 +367,7 @@ export function useCasesFixture(): Fixture {
   };
 
   const onboardAssetCfg = {
-    freshHubs: [HUB],
+    freshHubs: [FRESH_HUB],
     freshSpokes: [],
     listings: [
       {
@@ -402,7 +407,7 @@ export function useCasesFixture(): Fixture {
 
   const onboardReserveCfg = {
     freshHubs: [],
-    freshSpokes: [SPOKE],
+    freshSpokes: [FRESH_SPOKE],
     hubAssetListings: [
       {
         hubLib: HUB,

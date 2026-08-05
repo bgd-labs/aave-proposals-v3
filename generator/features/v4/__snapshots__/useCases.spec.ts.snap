@@ -41,7 +41,7 @@ export const config: ConfigFile = {
     AaveV4Ethereum: {
       configs: {
         V4_USECASE_ONBOARD_ASSET_TO_HUB: {
-          freshHubs: ['AaveV4EthereumHubs.CORE_HUB'],
+          freshHubs: ['0x3333333333333333333333333333333333333333'],
           freshSpokes: [],
           listings: [
             {
@@ -79,7 +79,7 @@ export const config: ConfigFile = {
         },
         V4_USECASE_ONBOARD_RESERVE_TO_SPOKE: {
           freshHubs: [],
-          freshSpokes: ['AaveV4EthereumSpokes.MAIN_SPOKE'],
+          freshSpokes: ['0x4444444444444444444444444444444444444444'],
           hubAssetListings: [
             {
               hubLib: 'AaveV4EthereumHubs.CORE_HUB',
@@ -245,7 +245,7 @@ export const config: ConfigFile = {
       "payload": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
@@ -302,12 +302,12 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
           items,
           V4RoleWiring.hubWiring(
             address(AaveV4Ethereum.ACCESS_MANAGER),
-            address(AaveV4EthereumHubs.CORE_HUB)
+            0x3333333333333333333333333333333333333333
           )
         ),
         V4RoleWiring.spokeWiring(
           address(AaveV4Ethereum.ACCESS_MANAGER),
-          address(AaveV4EthereumSpokes.MAIN_SPOKE)
+          0x4444444444444444444444444444444444444444
         )
       );
   }
@@ -617,13 +617,13 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
     defaultTest('AaveV4Ethereum_V4EveryUseCase_20260521', address(proposal));
   }
 
-  function test_rolesWired_CORE_HUB() public {
+  function test_rolesWired_CUSTOM_33333333() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
     uint256 matched;
     for (uint256 i; i < items.length; ++i) {
-      if (items[i].target != address(AaveV4EthereumHubs.CORE_HUB)) continue;
+      if (items[i].target != 0x3333333333333333333333333333333333333333) continue;
       _assertRolesWired(items[i], address(AaveV4EthereumHubs.CORE_HUB));
       ++matched;
     }
@@ -694,21 +694,21 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_rolesWired_MAIN_SPOKE() public {
+  function test_rolesWired_CUSTOM_44444444() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
     uint256 matched;
     for (uint256 i; i < items.length; ++i) {
-      if (items[i].target != address(AaveV4EthereumSpokes.MAIN_SPOKE)) continue;
+      if (items[i].target != 0x4444444444444444444444444444444444444444) continue;
       _assertRolesWired(items[i], address(AaveV4EthereumSpokes.MAIN_SPOKE));
       ++matched;
     }
     assertGt(matched, 0, 'no wiring for target');
   }
 
-  function test_spokeDeployment_MAIN_SPOKE() public view {
-    _assertSpokeDeployment(ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE)));
+  function test_spokeDeployment_CUSTOM_44444444() public view {
+    _assertSpokeDeployment(ISpoke(0x4444444444444444444444444444444444444444));
   }
 
   function test_hubAssetListing_CORE_HUB_USDC() public {
