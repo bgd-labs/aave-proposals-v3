@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {Vm} from 'forge-std/Vm.sol';
 import {AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603} from './AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol';
 import {MaintenanceGrantALRETRY_ROLEOnADITestBase, IRetryRoleProposal} from './MaintenanceGrantALRETRY_ROLEOnADITestBase.sol';
 
@@ -13,6 +11,7 @@ import {MaintenanceGrantALRETRY_ROLEOnADITestBase, IRetryRoleProposal} from './M
  * @dev Test for AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603.t.sol -vv
  */
+/// forge-config: default.isolate = true
 contract AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
   MaintenanceGrantALRETRY_ROLEOnADITestBase
 {
@@ -47,15 +46,11 @@ contract AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
     return 'AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603';
   }
 
-  // This is an a.DI (chain-level) action: it is delivered to and executed by the Ink a.DI
-  // PayloadsController (GovernanceV3Ink.PAYLOADS_CONTROLLER) - the same controller buildInkPayload and
-  // test_role_grant use. defaultTest() otherwise derives the controller from the pool, which for the
-  // InkWhitelabel pool is its own permissioned controller (a different executor, not the GranularGuardian
-  // admin), so we override the execution hook to route through the a.DI controller.
-  function executePayload(Vm, address payload, IPool) internal override {
-    GovV3Helpers.executePayload(vm, payload, address(GovernanceV3Ink.PAYLOADS_CONTROLLER));
-  }
-
+  // This is an a.DI (chain-level) action, delivered to and executed by the Ink a.DI PayloadsController
+  // (GovernanceV3Ink.PAYLOADS_CONTROLLER) - the same controller test_role_grant uses. Passing it
+  // explicitly is required because defaultTest() otherwise derives the controller from the pool, which
+  // for the InkWhitelabel pool is its own permissioned controller whose executor is not the
+  // GranularGuardian admin.
   // e2e is disabled: the InkWhitelabel pool has paused reserves the harness cannot unpause.
   function test_defaultProposalExecution() public override {
     defaultTest({
@@ -63,7 +58,8 @@ contract AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
       pool: AaveV3InkWhitelabel.POOL,
       payload: address(proposal),
       runE2E: false,
-      runSeatbelt: true
+      runSeatbelt: true,
+      payloadsController: GovernanceV3Ink.PAYLOADS_CONTROLLER
     });
   }
 }

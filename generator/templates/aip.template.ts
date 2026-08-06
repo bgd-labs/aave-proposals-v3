@@ -1,7 +1,7 @@
-import {generateContractName, generateFolderName} from '../common';
-import {Options, PoolConfigs, PoolIdentifier} from '../types';
+import {generateContractName, generateFolderName, isWhitelabelMarket} from '../common';
+import {Options, MarketConfigs, MarketIdentifier} from '../types';
 
-export function generateAIP(options: Options, configs: PoolConfigs) {
+export function generateAIP(options: Options, configs: MarketConfigs) {
   return `---
 title: ${options.title ? `"${options.title}"` : 'TODO'}
 author: ${options.author ? `"${options.author}"` : 'TODO'}
@@ -20,9 +20,10 @@ discussions: ${options.discussion ? `"${options.discussion}"` : 'TODO'}${
 
 ## Specification
 
-${Object.keys(configs)
-  .map((pool) => {
-    return configs[pool as keyof typeof configs]!.artifacts.filter(
+${(Object.keys(configs) as MarketIdentifier[])
+  .filter((market) => !isWhitelabelMarket(market))
+  .map((market) => {
+    return configs[market as keyof typeof configs]!.artifacts.filter(
       (artifact) => artifact.aip?.specification,
     ).map((artifact) => artifact.aip?.specification);
   })
@@ -31,20 +32,22 @@ ${Object.keys(configs)
 
 ## References
 
-- Implementation: ${options.pools
+- Implementation: ${options.markets
+    .filter((market) => !isWhitelabelMarket(market))
     .map(
-      (pool) =>
-        `[${pool}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${pool === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
+      (market) =>
+        `[${market}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${market === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
           options,
-        )}/${generateContractName(options, pool)}.sol)`,
+        )}/${generateContractName(options, market)}.sol)`,
     )
     .join(', ')}
-- Tests: ${options.pools
+- Tests: ${options.markets
+    .filter((market) => !isWhitelabelMarket(market))
     .map(
-      (pool) =>
-        `[${pool}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${pool === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
+      (market) =>
+        `[${market}](https://github.com/aave-dao/aave-proposals-v3/blob/main/${market === 'AaveV3ZkSync' ? 'zksync/src' : 'src'}/${generateFolderName(
           options,
-        )}/${generateContractName(options, pool)}.t.sol)`,
+        )}/${generateContractName(options, market)}.t.sol)`,
     )
     .join(', ')}${
     options.snapshot

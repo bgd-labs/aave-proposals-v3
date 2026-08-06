@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {Vm} from 'forge-std/Vm.sol';
 import {GhoCCIPChains} from '../constants/GhoCCIPChains.sol';
 import {AaveV3GHORemoteLaneTest_PreExecution, BaseAaveV3GHORemoteLaneTest_PostExecution} from './AaveV3GHORemoteLaneTest.sol';
 import {IPool as IPool_CCIP} from 'src/interfaces/ccip/tokenPool/IPool.sol';
@@ -430,32 +431,42 @@ abstract contract AaveV3GHOEthereumRemoteLane_1_6_Test_PostExecution is
     uint256 currentBridgedAmount = IUpgradeableLockReleaseTokenPool_1_5_1(address(LOCAL_TOKEN_POOL))
       .getCurrentBridgedAmount();
 
-    (
-      IClient.EVM2AnyMessage memory message,
-      IInternal.EVM2AnyRampMessage memory eventArg
-    ) = _getTokenMessage_1_6(
-        CCIPSendParams({
-          amount: amount,
-          sender: alice,
-          destChainSelector: supportedChains[chainIndex].chainSelector,
-          destToken: supportedChains[chainIndex].ghoToken
-        })
-      );
+    uint64 destChainSelector = supportedChains[chainIndex].chainSelector;
+    address onRamp = LOCAL_CCIP_ROUTER.getOnRamp(destChainSelector);
 
-    IOnRamp_1_6 onRamp = IOnRamp_1_6(
-      LOCAL_CCIP_ROUTER.getOnRamp(supportedChains[chainIndex].chainSelector)
-    );
-    uint64 sequenceNumber = onRamp.getExpectedNextSequenceNumber(
-      supportedChains[chainIndex].chainSelector
-    );
+    CCIPSendParams memory sendParams = CCIPSendParams({
+      amount: amount,
+      sender: alice,
+      destChainSelector: destChainSelector,
+      destToken: supportedChains[chainIndex].ghoToken
+    });
 
-    vm.expectEmit(address(LOCAL_TOKEN_POOL));
-    emit Locked(address(onRamp), amount);
-    vm.expectEmit(address(onRamp));
-    emit CCIPMessageSent(supportedChains[chainIndex].chainSelector, sequenceNumber, eventArg);
+    if (_isOnRamp_2_0(onRamp)) {
+      // OnRamp 2.0.0 emits a different `CCIPMessageSent` whose body uses CCIP's compact custom
+      // encoding, so assert the indexed lane + sender on the event instead of reconstructing it.
+      (IClient.EVM2AnyMessage memory message, ) = _buildUserMessage_1_6(sendParams);
 
-    vm.prank(alice);
-    LOCAL_CCIP_ROUTER.ccipSend(supportedChains[chainIndex].chainSelector, message);
+      vm.recordLogs();
+      vm.prank(alice);
+      LOCAL_CCIP_ROUTER.ccipSend(destChainSelector, message);
+
+      _assertCCIPMessageSent_2_0(vm.getRecordedLogs(), onRamp, destChainSelector, alice);
+    } else {
+      (
+        IClient.EVM2AnyMessage memory message,
+        IInternal.EVM2AnyRampMessage memory eventArg
+      ) = _getTokenMessage_1_6(sendParams);
+
+      uint64 sequenceNumber = IOnRamp_1_6(onRamp).getExpectedNextSequenceNumber(destChainSelector);
+
+      vm.expectEmit(address(LOCAL_TOKEN_POOL));
+      emit Locked(onRamp, amount);
+      vm.expectEmit(onRamp);
+      emit CCIPMessageSent(destChainSelector, sequenceNumber, eventArg);
+
+      vm.prank(alice);
+      LOCAL_CCIP_ROUTER.ccipSend(destChainSelector, message);
+    }
 
     assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance - amount);
     assertEq(

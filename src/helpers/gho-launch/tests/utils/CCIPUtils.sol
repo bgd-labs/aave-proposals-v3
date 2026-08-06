@@ -6,6 +6,7 @@ import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IEVM2EVMOnRamp, IOnRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {INonceManager} from 'src/interfaces/ccip/INonceManager.sol';
+import {ILegacyFeeQuoter} from 'src/interfaces/ccip/ILegacyFeeQuoter.sol';
 
 library CCIPUtils {
   bytes32 internal constant LEAF_DOMAIN_SEPARATOR =
@@ -16,7 +17,6 @@ library CCIPUtils {
   bytes32 internal constant EVM_2_ANY_MESSAGE_HASH = keccak256('EVM2AnyMessageHashV1');
   bytes4 public constant EVM_EXTRA_ARGS_V1_TAG = 0x97a657c9;
   bytes4 public constant GENERIC_EXTRA_ARGS_V2_TAG = 0x181dcf10;
-  uint32 internal constant DEFAULT_TOKEN_DEST_GAS_OVERHEAD = 90_000;
 
   struct SourceTokenData {
     bytes sourcePoolAddress;
@@ -126,17 +126,29 @@ library CCIPUtils {
     MessageToEventParams memory params
   ) public view returns (IInternal.EVM2AnyRampMessage memory) {
     IOnRamp_1_6 onRamp = IOnRamp_1_6(params.router.getOnRamp(params.destChainSelector));
+    ILegacyFeeQuoter feeQuoter = ILegacyFeeQuoter(onRamp.getDynamicConfig().feeQuoter);
 
-    bytes memory args = new bytes(params.message.extraArgs.length - 4);
-    for (uint256 i = 4; i < params.message.extraArgs.length; ++i) {
-      args[i - 4] = params.message.extraArgs[i];
-    }
-
-    IOnRamp_1_6.StaticConfig memory config = onRamp.getStaticConfig();
-    uint64 nonce = INonceManager(config.nonceManager).getOutboundNonce(
+    // The OnRamp emits the FeeQuoter-converted extraArgs (e.g. with `allowOutOfOrderExecution`
+    // forced on for lanes that enforce it), not the raw user supplied args. The same flag also
+    // drives the emitted nonce: out-of-order lanes emit nonce 0 instead of an ordered nonce.
+    (, bool isOutOfOrderExecution, bytes memory convertedExtraArgs) = feeQuoter.processMessageArgs(
       params.destChainSelector,
-      params.originalSender
-    ) + 1;
+      params.message.feeToken,
+      params.feeTokenAmount,
+      params.message.extraArgs,
+      params.message.receiver
+    );
+
+    uint64 nonce = 0;
+    if (!isOutOfOrderExecution) {
+      IOnRamp_1_6.StaticConfig memory config = onRamp.getStaticConfig();
+      nonce =
+        INonceManager(config.nonceManager).getOutboundNonce(
+          params.destChainSelector,
+          params.originalSender
+        ) +
+        1;
+    }
 
     IInternal.EVM2AnyRampMessage memory messageEvent = IInternal.EVM2AnyRampMessage({
       header: IInternal.RampMessageHeader({
@@ -149,7 +161,7 @@ library CCIPUtils {
       sender: params.originalSender,
       data: params.message.data,
       receiver: params.message.receiver,
-      extraArgs: params.message.extraArgs,
+      extraArgs: convertedExtraArgs,
       feeToken: params.message.feeToken,
       feeTokenAmount: params.feeTokenAmount,
       feeValueJuels: params.feeTokenAmount,
@@ -163,10 +175,22 @@ library CCIPUtils {
           params.message.tokenAmounts[i].token
         ),
         destTokenAddress: abi.encode(params.destinationToken),
-        extraData: abi.encode(18),
+        extraData: abi.encode(getTokenDecimals(params.sourceToken)),
         amount: params.message.tokenAmounts[i].amount,
-        destExecData: abi.encode(DEFAULT_TOKEN_DEST_GAS_OVERHEAD)
+        // Placeholder; the real dest gas amount is resolved by the FeeQuoter below.
+        destExecData: ''
       });
+    }
+
+    // The per-token `destExecData` (encoded dest gas amount) is computed by the FeeQuoter from the
+    // lane/token config, not a fixed default, so read it back instead of hardcoding.
+    bytes[] memory destExecDataPerToken = feeQuoter.processPoolReturnData(
+      params.destChainSelector,
+      messageEvent.tokenAmounts,
+      params.message.tokenAmounts
+    );
+    for (uint256 i = 0; i < messageEvent.tokenAmounts.length; ++i) {
+      messageEvent.tokenAmounts[i].destExecData = destExecDataPerToken[i];
     }
 
     messageEvent.header.messageId = hash_1_6(

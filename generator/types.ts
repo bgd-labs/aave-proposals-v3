@@ -12,17 +12,41 @@ import {
   FreezeUpdate,
   EmissionUpdate,
   EModeCategoryCreation,
+  V4HubAssetListing,
+  V4HubAssetConfigUpdate,
+  V4HubSpokeToAssetsAddition,
+  V4HubSpokeConfigUpdate,
+  V4HubAssetHalt,
+  V4HubAssetDeactivation,
+  V4HubAssetCapsReset,
+  V4HubSpokeDeactivation,
+  V4HubSpokeCapsReset,
+  V4SpokeReserveListing,
+  V4SpokeReserveConfigUpdate,
+  V4SpokeLiquidationConfigUpdate,
+  V4SpokeDynamicReserveConfigAddition,
+  V4SpokeDynamicReserveConfigUpdate,
+  V4SpokePositionManagerUpdate,
+  V4RoleMembership,
+  V4RoleUpdate,
+  V4TargetFunctionRoleUpdate,
+  V4TargetAdminDelayUpdate,
+  V4PMSpokeRegistration,
+  V4PMRoleRenouncement,
+  VotingNetwork,
 } from './features/types';
 import {FlashBorrower} from './features/flashBorrower';
 
-export const V2_POOLS = [
+export type {VotingNetwork};
+
+export const V2_MARKETS = [
   'AaveV2Ethereum',
   'AaveV2EthereumAMM',
   'AaveV2Polygon',
   'AaveV2Avalanche',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
-export const V3_POOLS = [
+export const V3_MARKETS = [
   'AaveV3Ethereum',
   'AaveV3EthereumLido',
   'AaveV3EthereumEtherFi',
@@ -45,21 +69,29 @@ export const V3_POOLS = [
   'AaveV3Mantle',
   'AaveV3MegaEth',
   'AaveV3XLayer',
+  'AaveV3Monad',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
-export const POOLS = [
-  ...V2_POOLS,
-  ...V3_POOLS,
+export const V4_MARKETS = [
+  'AaveV4Ethereum',
+  'AaveV4Avalanche',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
-export type PoolIdentifier = (typeof POOLS)[number];
-export type PoolIdentifierV3 = (typeof V3_POOLS)[number];
+export const MARKETS = [
+  ...V2_MARKETS,
+  ...V3_MARKETS,
+  ...V4_MARKETS,
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export type MarketIdentifier = (typeof MARKETS)[number];
+export type MarketIdentifierV3 = (typeof V3_MARKETS)[number];
+export type MarketIdentifierV4 = (typeof V4_MARKETS)[number];
 
 export interface Options {
   force?: boolean;
-  pools: PoolIdentifier[];
+  markets: MarketIdentifier[];
   title: string;
-  votingNetwork?: VOTING_NETWORK;
+  votingNetwork?: VOTING_NETWORK | VotingNetwork;
   // automatically generated shortName from title
   shortName: string;
   author: string;
@@ -69,16 +101,35 @@ export interface Options {
   date: string;
 }
 
-export type PoolConfigs = Partial<Record<PoolIdentifier, PoolConfig>>;
+export type MarketConfigs = Partial<Record<MarketIdentifier, MarketConfig>>;
+
+export type V4GetterEntry = {
+  returnType: string;
+  entries: string[];
+  /// Assertions over the getter's entries, one block per entry and parallel to
+  /// `entries`, referencing the entry as `items[__INDEX__]`. Emitted as a single
+  /// `test_<getter>Input()` once every feature contributing to the getter has been
+  /// merged, so the indices match the merged array rather than one feature's slice.
+  inputAsserts?: string[];
+  /// Solidity expressions each yielding a `<returnType>[] memory`, appended to the
+  /// getter's own entries via `arrayMerge`. Used where a helpers library already builds
+  /// the array (role wiring), so the payload declares intent instead of re-listing it.
+  arrayExprs?: string[];
+  /// Solidity function concatenating two `<returnType>[] memory`, required with
+  /// `arrayExprs` (e.g. `V4RoleWiring.merge`).
+  arrayMerge?: string;
+};
 
 export type CodeArtifact = {
   code?: {
     constants?: string[];
     fn?: string[];
     execute?: string[];
+    v4Getters?: Record<string, V4GetterEntry>;
   };
   test?: {
     fn?: string[];
+    updatedAssets?: string[];
   };
   aip?: {
     specification: string[];
@@ -100,6 +151,33 @@ export enum FEATURE {
   RATE_UPDATE_V2 = 'RATE_UPDATE_V2',
   FREEZE = 'FREEZE',
   EMISSION = 'EMISSION',
+  V4_HUB_ASSET_LISTING = 'V4_HUB_ASSET_LISTING',
+  V4_HUB_ASSET_CONFIG_UPDATE = 'V4_HUB_ASSET_CONFIG_UPDATE',
+  V4_HUB_SPOKE_TO_ASSETS_ADDITION = 'V4_HUB_SPOKE_TO_ASSETS_ADDITION',
+  V4_HUB_SPOKE_CONFIG_UPDATE = 'V4_HUB_SPOKE_CONFIG_UPDATE',
+  V4_HUB_ASSET_HALT = 'V4_HUB_ASSET_HALT',
+  V4_HUB_ASSET_DEACTIVATION = 'V4_HUB_ASSET_DEACTIVATION',
+  V4_HUB_ASSET_CAPS_RESET = 'V4_HUB_ASSET_CAPS_RESET',
+  V4_HUB_SPOKE_DEACTIVATION = 'V4_HUB_SPOKE_DEACTIVATION',
+  V4_HUB_SPOKE_CAPS_RESET = 'V4_HUB_SPOKE_CAPS_RESET',
+  V4_SPOKE_RESERVE_LISTING = 'V4_SPOKE_RESERVE_LISTING',
+  V4_SPOKE_RESERVE_CONFIG_UPDATE = 'V4_SPOKE_RESERVE_CONFIG_UPDATE',
+  V4_SPOKE_LIQUIDATION_CONFIG_UPDATE = 'V4_SPOKE_LIQUIDATION_CONFIG_UPDATE',
+  V4_SPOKE_DYNAMIC_RESERVE_CONFIG_ADDITION = 'V4_SPOKE_DYNAMIC_RESERVE_CONFIG_ADDITION',
+  V4_SPOKE_DYNAMIC_RESERVE_CONFIG_UPDATE = 'V4_SPOKE_DYNAMIC_RESERVE_CONFIG_UPDATE',
+  V4_SPOKE_POSITION_MANAGER_UPDATE = 'V4_SPOKE_POSITION_MANAGER_UPDATE',
+  V4_AM_ROLE_MEMBERSHIP = 'V4_AM_ROLE_MEMBERSHIP',
+  V4_AM_ROLE_UPDATE = 'V4_AM_ROLE_UPDATE',
+  V4_AM_TARGET_FUNCTION_ROLE_UPDATE = 'V4_AM_TARGET_FUNCTION_ROLE_UPDATE',
+  V4_AM_TARGET_ADMIN_DELAY_UPDATE = 'V4_AM_TARGET_ADMIN_DELAY_UPDATE',
+  V4_PM_SPOKE_REGISTRATION = 'V4_PM_SPOKE_REGISTRATION',
+  V4_PM_ROLE_RENOUNCEMENT = 'V4_PM_ROLE_RENOUNCEMENT',
+  V4_USECASE_ONBOARD_ASSET_TO_HUB = 'V4_USECASE_ONBOARD_ASSET_TO_HUB',
+  V4_USECASE_ONBOARD_RESERVE_TO_SPOKE = 'V4_USECASE_ONBOARD_RESERVE_TO_SPOKE',
+  V4_USECASE_TUNE_SPOKE_RISK = 'V4_USECASE_TUNE_SPOKE_RISK',
+  V4_USECASE_TUNE_RESERVE_RISK = 'V4_USECASE_TUNE_RESERVE_RISK',
+  V4_USECASE_WIRE_POSITION_MANAGER = 'V4_USECASE_WIRE_POSITION_MANAGER',
+  V4_USECASE_MANAGE_ROLE = 'V4_USECASE_MANAGE_ROLE',
   OTHERS = 'OTHERS',
 }
 
@@ -114,16 +192,16 @@ export interface FeatureModule<T extends {} = {}> {
   value: FEATURE;
   cli: (args: {
     options: Options;
-    pool: PoolIdentifier;
-    cache: PoolCache;
-    configs: PoolConfig['configs'];
+    market: MarketIdentifier;
+    cache: MarketCache;
+    configs: MarketConfig['configs'];
   }) => Promise<T>;
   build: (args: {
     options: Options;
-    pool: PoolIdentifier;
-    cache: PoolCache;
+    market: MarketIdentifier;
+    cache: MarketCache;
     cfg: T;
-    configs: PoolConfig['configs'];
+    configs: MarketConfig['configs'];
   }) => CodeArtifact;
 }
 
@@ -135,16 +213,16 @@ export const ENGINE_FLAGS = {
   DISABLED: 'DISABLED',
 } as const;
 
-export const AVAILABLE_VERSIONS = {V2: 'V2', V3: 'V3'} as const;
+export const AVAILABLE_VERSIONS = {V2: 'V2', V3: 'V3', V4: 'V4'} as const;
 
 export type ConfigFile = {
   rootOptions: Options;
-  poolOptions: Partial<Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>>;
+  marketOptions: Partial<Record<MarketIdentifier, Omit<MarketConfig, 'artifacts'>>>;
 };
 
-export type PoolCache = {blockNumber: number};
+export type MarketCache = {blockNumber: number};
 
-export interface PoolConfig {
+export interface MarketConfig {
   artifacts: CodeArtifact[];
   configs: {
     [FEATURE.ASSET_LISTING]?: Listing[];
@@ -161,9 +239,64 @@ export interface PoolConfig {
     [FEATURE.RATE_UPDATE_V2]?: RateStrategyUpdate[];
     [FEATURE.FREEZE]?: FreezeUpdate[];
     [FEATURE.EMISSION]?: EmissionUpdate[];
+    [FEATURE.V4_HUB_ASSET_LISTING]?: V4HubAssetListing[];
+    [FEATURE.V4_HUB_ASSET_CONFIG_UPDATE]?: V4HubAssetConfigUpdate[];
+    [FEATURE.V4_HUB_SPOKE_TO_ASSETS_ADDITION]?: V4HubSpokeToAssetsAddition[];
+    [FEATURE.V4_HUB_SPOKE_CONFIG_UPDATE]?: V4HubSpokeConfigUpdate[];
+    [FEATURE.V4_HUB_ASSET_HALT]?: V4HubAssetHalt[];
+    [FEATURE.V4_HUB_ASSET_DEACTIVATION]?: V4HubAssetDeactivation[];
+    [FEATURE.V4_HUB_ASSET_CAPS_RESET]?: V4HubAssetCapsReset[];
+    [FEATURE.V4_HUB_SPOKE_DEACTIVATION]?: V4HubSpokeDeactivation[];
+    [FEATURE.V4_HUB_SPOKE_CAPS_RESET]?: V4HubSpokeCapsReset[];
+    [FEATURE.V4_SPOKE_RESERVE_LISTING]?: V4SpokeReserveListing[];
+    [FEATURE.V4_SPOKE_RESERVE_CONFIG_UPDATE]?: V4SpokeReserveConfigUpdate[];
+    [FEATURE.V4_SPOKE_LIQUIDATION_CONFIG_UPDATE]?: V4SpokeLiquidationConfigUpdate[];
+    [FEATURE.V4_SPOKE_DYNAMIC_RESERVE_CONFIG_ADDITION]?: V4SpokeDynamicReserveConfigAddition[];
+    [FEATURE.V4_SPOKE_DYNAMIC_RESERVE_CONFIG_UPDATE]?: V4SpokeDynamicReserveConfigUpdate[];
+    [FEATURE.V4_SPOKE_POSITION_MANAGER_UPDATE]?: V4SpokePositionManagerUpdate[];
+    [FEATURE.V4_AM_ROLE_MEMBERSHIP]?: V4RoleMembership[];
+    [FEATURE.V4_AM_ROLE_UPDATE]?: V4RoleUpdate[];
+    [FEATURE.V4_AM_TARGET_FUNCTION_ROLE_UPDATE]?: V4TargetFunctionRoleUpdate[];
+    [FEATURE.V4_AM_TARGET_ADMIN_DELAY_UPDATE]?: V4TargetAdminDelayUpdate[];
+    [FEATURE.V4_PM_SPOKE_REGISTRATION]?: V4PMSpokeRegistration[];
+    [FEATURE.V4_PM_ROLE_RENOUNCEMENT]?: V4PMRoleRenouncement[];
+    [FEATURE.V4_USECASE_ONBOARD_ASSET_TO_HUB]?: {
+      freshHubs: string[];
+      freshSpokes: string[];
+      listings: V4HubAssetListing[];
+      spokeAdditions: V4HubSpokeToAssetsAddition[];
+    };
+    [FEATURE.V4_USECASE_ONBOARD_RESERVE_TO_SPOKE]?: {
+      freshHubs: string[];
+      freshSpokes: string[];
+      hubAssetListings: V4HubAssetListing[];
+      listings: V4SpokeReserveListing[];
+      updates: V4SpokeReserveConfigUpdate[];
+      liquidationUpdates: V4SpokeLiquidationConfigUpdate[];
+      hubSpokeAdditions: V4HubSpokeToAssetsAddition[];
+      pmUpdates: V4SpokePositionManagerUpdate[];
+    };
+    [FEATURE.V4_USECASE_TUNE_SPOKE_RISK]?: V4HubSpokeConfigUpdate[];
+    [FEATURE.V4_USECASE_TUNE_RESERVE_RISK]?: {
+      reserveUpdates: V4SpokeReserveConfigUpdate[];
+      liquidationUpdates: V4SpokeLiquidationConfigUpdate[];
+      dynamicUpdates: V4SpokeDynamicReserveConfigUpdate[];
+    };
+    [FEATURE.V4_USECASE_WIRE_POSITION_MANAGER]?: {
+      targetFunctionRoles: V4TargetFunctionRoleUpdate[];
+      spokeActivations: V4SpokePositionManagerUpdate[];
+      pmRegistrations: V4PMSpokeRegistration[];
+    };
+    [FEATURE.V4_USECASE_MANAGE_ROLE]?: {
+      memberships: V4RoleMembership[];
+      updates: V4RoleUpdate[];
+    };
     [FEATURE.OTHERS]?: {};
   };
-  cache: PoolCache;
+  cache: MarketCache;
+  /// Custom (non-address-book) V4 entities labeled during generation, keyed by
+  /// lowercased address, so a `-c` regeneration re-hydrates the label registry.
+  labels?: Record<string, {label: string; address: string; kind: string}>;
 }
 
 export type Scripts = {
@@ -175,5 +308,5 @@ export type Files = {
   jsonConfig: string;
   scripts: Scripts;
   aip: string;
-  payloads: {pool: PoolIdentifier; payload: string; test: string; contractName: string}[];
+  payloads: {market: MarketIdentifier; payload: string; test: string; contractName: string}[];
 };

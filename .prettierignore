@@ -7,3 +7,4 @@ broadcast
 etherscan
 .assets
 *.snap
+pnpm-lock.yaml

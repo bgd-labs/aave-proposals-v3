@@ -1,9 +1,9 @@
 import {checkbox} from '@inquirer/prompts';
-import {GenericPoolPrompt} from './types';
+import {GenericMarketPrompt} from './types';
 import {getAssets} from '../common';
-import {FEATURE, PoolConfig, PoolIdentifier} from '../types';
+import {FEATURE, MarketConfig, MarketIdentifier} from '../types';
 
-interface AssetsSelectPrompt extends GenericPoolPrompt {
+interface AssetsSelectPrompt extends GenericMarketPrompt {
   additionalAssets?: string[];
 }
 
@@ -12,12 +12,12 @@ interface AssetsSelectPrompt extends GenericPoolPrompt {
  * TODO: enforce selection of at least one asset (next version of inquirer ships with required)
  */
 export async function assetsSelectPrompt({
-  pool,
+  market,
   message,
   additionalAssets = [],
 }: AssetsSelectPrompt) {
   const choices = [
-    ...getAssets(pool).map((asset) => ({name: asset, value: asset})),
+    ...getAssets(market).map((asset) => ({name: asset, value: asset})),
     ...additionalAssets.map((asset) => ({name: `${asset} (new listing)`, value: asset})),
   ];
   return await checkbox({
@@ -28,14 +28,14 @@ export async function assetsSelectPrompt({
 
 export function translateAssetToAssetLibUnderlying(
   value: string,
-  pool: PoolIdentifier,
+  market: MarketIdentifier,
   newListings: ReadonlySet<string> = new Set(),
 ) {
   if (newListings.has(value)) return value;
-  return `${pool}Assets.${value}_UNDERLYING`;
+  return `${market}Assets.${value}_UNDERLYING`;
 }
 
-export function getNewListingSymbols(configs: PoolConfig['configs']): string[] {
+export function getNewListingSymbols(configs: MarketConfig['configs']): string[] {
   const symbols: string[] = [];
   const standard = configs[FEATURE.ASSET_LISTING];
   if (standard) symbols.push(...standard.map((l) => l.assetSymbol));

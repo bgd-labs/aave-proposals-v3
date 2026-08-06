@@ -1,10 +1,10 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {fetchBorrowUpdate} from './borrowsUpdates';
 import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
-import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
+import {CHAIN_TO_CHAIN_ID, getMarketChain, getExplorerLink, toSolidityIdentifier} from '../common';
 import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {testExecuteProposal} from '../utils/constants';
@@ -13,15 +13,15 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {getClient, IERC20Metadata_ABI} from '@bgd-labs/toolbox';
+import {getClient, IERC20Metadata_ABI} from '@aave-dao/toolbox';
 
-async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
+async function fetchListing(market: MarketIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
     message: 'Enter the address of the asset you want to list',
     required: true,
   });
 
-  const chain = getPoolChain(pool);
+  const chain = getMarketChain(market);
   const erc20 = getContract({
     abi: IERC20Metadata_ABI,
     client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
@@ -37,14 +37,16 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const decimals = await erc20.read.decimals();
 
   return {
-    assetSymbol: await stringPrompt({
-      message: 'Enter the asset symbol',
-      required: true,
-      defaultValue: symbol,
-    }),
+    assetSymbol: toSolidityIdentifier(
+      await stringPrompt({
+        message: 'Enter the asset symbol',
+        required: true,
+        defaultValue: symbol,
+      }),
+    ),
     decimals,
     priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
-    ...(await fetchCollateralUpdate(pool, true)),
+    ...(await fetchCollateralUpdate(market, true)),
     ...(await fetchBorrowUpdate(true)),
     ...(await fetchCapsUpdate(true)),
     rateStrategyParams: await fetchRateStrategyParamsV3(true),
@@ -57,17 +59,20 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
   return {
     aToken: await addressPrompt({message: 'aToken implementation', required: true}),
     vToken: await addressPrompt({message: 'vToken implementation', required: true}),
-    sToken: await addressPrompt({message: 'sToken implementation', required: true}),
   };
 }
 
-function generateAssetListingSol(cfg: Listing) {
-  return `asset: ${cfg.assetSymbol},
+// Relax address fields because rendered Solidity may use variable names instead of literal addresses.
+type RenderableListing = Omit<Listing, 'asset' | 'priceFeed'> & {
+  asset: string;
+  priceFeed: string;
+};
+
+function renderListingSol(cfg: RenderableListing) {
+  return `asset: ${cfg.asset},
   assetSymbol: "${cfg.assetSymbol}",
-  priceFeed: ${cfg.assetSymbol}_PRICE_FEED,
+  priceFeed: ${cfg.priceFeed},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
-  borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
-  withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
   ltv: ${translateJsPercentToSol(cfg.ltv)},
   liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
@@ -75,7 +80,6 @@ function generateAssetListingSol(cfg: Listing) {
   reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)},
   supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
   borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
-  debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
   liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
   rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
      optimalUsageRatio: ${translateJsPercentToSol(cfg.rateStrategyParams.optimalUtilizationRate)},
@@ -87,24 +91,71 @@ function generateAssetListingSol(cfg: Listing) {
   })`;
 }
 
+function generateAssetListingSol(cfg: Listing) {
+  return renderListingSol({
+    ...cfg,
+    asset: cfg.assetSymbol,
+    priceFeed: `${cfg.assetSymbol}_PRICE_FEED`,
+  });
+}
+
+function listingOverrides(cfgs: Listing[], fnName: string): string[] {
+  return [
+    `function ${fnName}() internal pure override returns (ExpectedListing[] memory listings) {
+      listings = new ExpectedListing[](${cfgs.length});
+
+      ${cfgs
+        .map(
+          (cfg, ix) => `listings[${ix}] = ExpectedListing({
+                 listing: IAaveV3ConfigEngine.Listing({
+                   ${renderListingSol({
+                     ...cfg,
+                     asset: translateJsAddressToSol(cfg.asset),
+                     priceFeed: translateJsAddressToSol(cfg.priceFeed),
+                   })}
+                 }),
+                 decimals: ${cfg.decimals}
+               });`,
+        )
+        .join('\n')}
+    }`,
+  ];
+}
+
 export const assetListing: FeatureModule<Listing[]> = {
   value: FEATURE.ASSET_LISTING,
   description: 'newListings (listing a new asset)',
-  async cli({pool}) {
+  async cli({market}) {
     const response: Listing[] = [];
-    console.log(`Fetching information for Assets assets on ${pool}`);
+    console.log(`Fetching information for Assets assets on ${market}`);
     let more: boolean = true;
     while (more) {
-      response.push(await fetchListing(pool));
+      response.push(await fetchListing(market));
       more = await confirm({message: 'Do you want to list another asset?', default: false});
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
+    const listingTests = cfg.map((cfg) => {
+      let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
+            ${testExecuteProposal(market)}
+            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(address(${market}.DUST_BIN)), 10 ** ${cfg.decimals});
+          }\n`;
+      if (isAddress(cfg.admin)) {
+        listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
+	      ${testExecuteProposal(market)}
+              address a${cfg.assetSymbol} = ${market}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	      assertEq(IEmissionManager(${market}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	    }\n`;
+      }
+      return listingTest;
+    });
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
-          const chainId = CHAIN_TO_CHAIN_ID[getPoolChain(pool)];
+          const chainId = CHAIN_TO_CHAIN_ID[getMarketChain(market)];
           let listingConstant = `// ${getExplorerLink(chainId, cfg.asset)}\n`;
           listingConstant += `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};\n`;
           listingConstant += `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};\n`;
@@ -139,43 +190,27 @@ export const assetListing: FeatureModule<Listing[]> = {
           return listings;
         }`,
           `function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
-          IERC20(asset).forceApprove(address(${pool}.POOL), seedAmount);
-          ${pool}.POOL.supply(asset, seedAmount, address(${pool}.DUST_BIN), 0);
+          IERC20(asset).forceApprove(address(${market}.POOL), seedAmount);
+          ${market}.POOL.supply(asset, seedAmount, address(${market}.DUST_BIN), 0);
 
           if (lmAdmin != address(0)) {
-            address aToken = ${pool}.POOL.getReserveAToken(asset);
-            address vToken = ${pool}.POOL.getReserveVariableDebtToken(asset);
-            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
-            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
-            IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
+            address aToken = ${market}.POOL.getReserveAToken(asset);
+            address vToken = ${market}.POOL.getReserveVariableDebtToken(asset);
+            IEmissionManager(${market}.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
+            IEmissionManager(${market}.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+            IEmissionManager(${market}.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
 	  }
         }`,
         ],
       },
       test: {
-        fn: cfg.map((cfg) => {
-          let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
-            ${testExecuteProposal(pool)}
-            address aTokenAddress = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-            assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.DUST_BIN)), 10 ** ${cfg.decimals});
-          }\n`;
-          if (isAddress(cfg.admin)) {
-            listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
-	      ${testExecuteProposal(pool)}
-              address a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
-	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
-	    }\n`;
-          }
-          return listingTest;
-        }),
+        fn: [...listingTests, ...listingOverrides(cfg, '_expectedListings')],
       },
       aip: {
         specification: cfg.map((cfg) => {
           let listingTemplate = `The table below illustrates the configured risk parameters for **${cfg.assetSymbol}**\n\n`;
           listingTemplate += `| Parameter | Value |\n`;
           listingTemplate += `| --- | --: |\n`;
-          listingTemplate += `| Isolation Mode | ${cfg.debtCeiling !== '0'} |\n`;
           listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
           listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
           listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
@@ -183,9 +218,6 @@ export const assetListing: FeatureModule<Listing[]> = {
           )} |\n`;
           listingTemplate += `| Borrow Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
             cfg.borrowCap,
-          )} |\n`;
-          listingTemplate += `| Debt Ceiling | USD ${transformNumberToHumanReadable(
-            cfg.debtCeiling,
           )} |\n`;
           listingTemplate += `| LTV | ${transformNumberToPercent(cfg.ltv)} |\n`;
           listingTemplate += `| LT | ${transformNumberToPercent(cfg.liqThreshold)} |\n`;
@@ -209,11 +241,9 @@ export const assetListing: FeatureModule<Listing[]> = {
             cfg.rateStrategyParams.optimalUtilizationRate,
           )} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
-          listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
-          listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
           listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
           if (isAddress(cfg.admin)) {
-            listingTemplate += `\nAdditionally [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;
+            listingTemplate += `\nAdditionally [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getMarketChain(market)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;
           }
           return listingTemplate;
         }),
@@ -226,20 +256,27 @@ export const assetListing: FeatureModule<Listing[]> = {
 export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
   value: FEATURE.ASSET_LISTING_CUSTOM,
   description: 'newListingsCustom (listing a new asset, with custom implementations)',
-  async cli({pool}) {
+  async cli({market}) {
     const response: ListingWithCustomImpl[] = [];
     let more: boolean = true;
     while (more) {
-      response.push({base: await fetchListing(pool), implementations: await fetchCustomImpl()});
+      response.push({base: await fetchListing(market), implementations: await fetchCustomImpl()});
       more = await confirm({message: 'Do you want to list another asset?', default: false});
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
+    const listingTests = cfg.map(
+      (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
+            ${testExecuteProposal(market)}
+            address aTokenAddress = ${market}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(${market}.DUST_BIN), 10 ** ${cfg.base.decimals});
+          }`,
+    );
     const response: CodeArtifact = {
       code: {
         constants: cfg.map((cfg) => {
-          const chainId = CHAIN_TO_CHAIN_ID[getPoolChain(pool)];
+          const chainId = CHAIN_TO_CHAIN_ID[getMarketChain(market)];
           let listingConstant = `// ${getExplorerLink(chainId, cfg.base.asset)}\n`;
           listingConstant += `address public constant ${cfg.base.assetSymbol} = ${translateJsAddressToSol(cfg.base.asset)};\n`;
           if (isAddress(cfg.base.priceFeed)) {
@@ -250,8 +287,8 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         }),
         execute: cfg.map(
           (cfg) =>
-            `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${pool}.POOL), 10 ** ${cfg.base.decimals});
-            ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.DUST_BIN, 0);`,
+            `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${market}.POOL), 10 ** ${cfg.base.decimals});
+            ${market}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${market}.DUST_BIN, 0);`,
         ),
         fn: [
           `function newListingsCustom() public pure override returns (IAaveV3ConfigEngine.ListingWithCustomImpl[] memory) {
@@ -263,12 +300,11 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.ListingWithCustomImpl(
                 IAaveV3ConfigEngine.Listing({
-                  ${generateAssetListingSol(cfg.base)},
-                  IAaveV3ConfigEngine.TokenImplementations({
-                    aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
-                    vToken: ${translateJsAddressToSol(cfg.implementations.vToken)},
-                    sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
-                  })
+                  ${generateAssetListingSol(cfg.base)}
+                }),
+                IAaveV3ConfigEngine.TokenImplementations({
+                  aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
+                  vToken: ${translateJsAddressToSol(cfg.implementations.vToken)}
                 })
              );`,
             )
@@ -279,13 +315,13 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         ],
       },
       test: {
-        fn: cfg.map(
-          (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
-            ${testExecuteProposal(pool)}
-            address aTokenAddress = ${pool}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
-            assertGte(IERC20(aTokenAddress).balanceOf(${pool}.DUST_BIN), 10 ** ${cfg.base.decimals});
-          }`,
-        ),
+        fn: [
+          ...listingTests,
+          ...listingOverrides(
+            cfg.map((cfg) => cfg.base),
+            '_expectedCustomListings',
+          ),
+        ],
       },
     };
     return response;

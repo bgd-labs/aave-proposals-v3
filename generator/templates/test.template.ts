@@ -2,30 +2,94 @@ import {
   generateContractName,
   generateFolderName,
   getChainAlias,
-  getPoolChain,
-  isV2Pool,
-  isWhitelabelPool,
+  getMarketChain,
+  getTestBase,
+  isWhitelabelMarket,
 } from '../common';
-import {Options, PoolConfig, PoolIdentifier} from '../types';
+import {Options, MarketConfig, MarketIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
-export const testTemplate = (options: Options, poolConfig: PoolConfig, pool: PoolIdentifier) => {
+/// Two features asking for the exact same test emit it once. Two features emitting the
+/// same test name with different bodies means they configure the same entity in
+/// conflicting ways, which the payload cannot satisfy either, so it fails here rather
+/// than generating a test contract that does not compile.
+function dedupeTestFns(fns: string[]): string[] {
+  const byName = new Map<string, string>();
+  for (const fn of fns) {
+    // keyed by the whole block when there is no name to key on, so nothing is dropped
+    const name = fn.match(/function\s+(\w+)\s*\(/)?.[1] ?? fn;
+    const existing = byName.get(name);
+    if (existing === undefined) {
+      byName.set(name, fn);
+      continue;
+    }
+    if (existing.trim() !== fn.trim()) {
+      throw new Error(
+        `conflicting definitions of ${name}: the same entity is configured twice with different values`,
+      );
+    }
+  }
+  return [...byName.values()];
+}
+
+export const testTemplate = (
+  options: Options,
+  marketConfig: MarketConfig,
+  market: MarketIdentifier,
+) => {
   const folderName = generateFolderName(options);
-  const chain = getPoolChain(pool);
-  const contractName = generateContractName(options, pool);
+  const chain = getMarketChain(market);
+  const isZkSync = chain === 'ZkSync';
+  const contractName = generateContractName(options, market);
+  const {v4, testBase} = getTestBase(market);
 
-  const testBase = isV2Pool(pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
+  const functions = dedupeTestFns(
+    marketConfig.artifacts
+      .map((artifact) => artifact.test?.fn)
+      .flat()
+      .filter((f): f is string => f !== undefined),
+  ).join('\n\n');
 
-  const functions = poolConfig.artifacts
-    .map((artifact) => artifact.test?.fn)
-    .flat()
-    .filter((f) => f !== undefined)
-    .join('\n');
+  const testBaseImports = [testBase, 'ReserveConfig'];
+  if (testBase === 'ProtocolV3TestBase' && functions.includes('ExpectedListing')) {
+    testBaseImports.push('ExpectedListing');
+  }
+  const testBasePath = isZkSync ? 'zksync/src/' : 'src/';
+
+  const testBaseImport = v4
+    ? `import {${testBase}} from 'aave-helpers/src/v4-protocol-test/${testBase}.sol';`
+    : `import {${testBaseImports.join(', ')}} from 'aave-helpers/${testBasePath}${testBase}.sol';`;
+
+  const defaultTestCall = v4
+    ? `defaultTest('${contractName}', address(proposal));`
+    : `defaultTest('${contractName}', ${market}.POOL, address(proposal) ${isWhitelabelMarket(market) ? ', true, true' : ''});`;
+
+  const updatedAssets = Array.from(
+    new Set(
+      marketConfig.artifacts
+        .map((artifact) => artifact.test?.updatedAssets)
+        .flat()
+        .filter((asset) => asset !== undefined),
+    ),
+  );
+  const reserveConfigChangesTest =
+    testBase === 'ProtocolV3TestBase'
+      ? `
+  /**
+   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   */
+  function test_reserveConfigChanges() public {
+    address[] memory updatedAssets = new address[](${updatedAssets.length});
+    ${updatedAssets.map((asset, ix) => `updatedAssets[${ix}] = ${asset};`).join('\n    ')}
+    reserveConfigChangesTest(${market}.POOL, address(proposal), updatedAssets);
+  }
+`
+      : '';
 
   let template = `
 import 'forge-std/Test.sol';
-import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';
+${testBaseImport}
 import {${contractName}} from './${contractName}.sol';
 
 /**
@@ -36,7 +100,7 @@ contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
 
   function setUp() public ${chain === 'ZkSync' ? 'override' : ''} {
-    vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${poolConfig.cache.blockNumber});
+    vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${marketConfig.cache.blockNumber});
     proposal = new ${contractName}();
 
     ${chain === 'ZkSync' ? 'super.setUp();' : ''}
@@ -44,11 +108,13 @@ contract ${contractName}_Test is ${testBase} {
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
+   * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    defaultTest('${contractName}', ${pool}.POOL, address(proposal) ${isWhitelabelPool(pool) ? ', true, true' : ''});
+    ${defaultTestCall}
   }
 
+  ${reserveConfigChangesTest}
   ${functions}
 }`;
   return prefixWithPragma(prefixWithImports(template));

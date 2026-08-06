@@ -34,4 +34,7 @@ library CCIPChainTokenAdminRegistries {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
   address constant XLAYER = 0xeCf1eAEE01E82F3388dECD7f4C3792374f3f72F3;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/monad-mainnet
+  address constant MONAD = 0x11ACd984DD680363117B310f6ebdf78fD6c0195f;
 }

@@ -11,6 +11,7 @@ import {MaintenanceGrantALRETRY_ROLEOnADITestBase, IRetryRoleProposal} from './M
  * @dev Test for AaveV3Sonic_MaintenanceGrantALRETRY_ROLEOnADI_20260603
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3Sonic_MaintenanceGrantALRETRY_ROLEOnADI_20260603.t.sol -vv
  */
+/// forge-config: default.isolate = true
 contract AaveV3Sonic_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
   MaintenanceGrantALRETRY_ROLEOnADITestBase
 {

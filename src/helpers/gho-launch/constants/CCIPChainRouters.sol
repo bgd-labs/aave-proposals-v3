@@ -34,4 +34,7 @@ library CCIPChainRouters {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
   address constant XLAYER = 0xF2b6Cb7867EB5502C3249dD37D7bc1Cc148e5232;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/monad-mainnet
+  address constant MONAD = 0x33566fE5976AAa420F3d5C64996641Fc3858CaDB;
 }

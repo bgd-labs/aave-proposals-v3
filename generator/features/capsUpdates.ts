@@ -1,4 +1,4 @@
-import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifier} from '../types';
 import {CapsUpdate, CapsUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
@@ -21,14 +21,38 @@ export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePar
 
 type CapsUpdates = CapsUpdate[];
 
+function renderCapsUpdateEntries(market: MarketIdentifier, cfgs: CapsUpdates, varName: string) {
+  return cfgs
+    .map(
+      (cfg, ix) => `${varName}[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, market)},
+               supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
+               borrowCap: ${translateJsNumberToSol(cfg.borrowCap)}
+             });`,
+    )
+    .join('\n');
+}
+
+function capsUpdateOverrides(market: MarketIdentifier, cfgs: CapsUpdates): string[] {
+  return [
+    `function _expectedCapsChanges() internal pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
+      IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate;
+      capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](${cfgs.length});
+
+      ${renderCapsUpdateEntries(market, cfgs, 'capsUpdate')}
+      return capsUpdate;
+    }`,
+  ];
+}
+
 export const capsUpdates: FeatureModule<CapsUpdates> = {
   value: FEATURE.CAPS_UPDATE,
   description: 'CapsUpdates (supplyCap, borrowCap)',
-  async cli({pool}) {
-    console.log(`Fetching information for CapsUpdates on ${pool}`);
+  async cli({market}) {
+    console.log(`Fetching information for CapsUpdates on ${market}`);
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
-      pool,
+      market,
     });
 
     const response: CapsUpdates = [];
@@ -38,7 +62,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     }
     return response;
   },
-  build({pool, cfg}) {
+  build({market, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -47,19 +71,15 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
             cfg.length
           });
 
-          ${cfg
-            .map(
-              (cfg, ix) => `capsUpdate[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
-               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
-               supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
-               borrowCap: ${translateJsNumberToSol(cfg.borrowCap)}
-             });`,
-            )
-            .join('\n')}
+          ${renderCapsUpdateEntries(market, cfg, 'capsUpdate')}
 
           return capsUpdate;
         }`,
         ],
+      },
+      test: {
+        fn: capsUpdateOverrides(market, cfg),
+        updatedAssets: cfg.map((cfg) => translateAssetToAssetLibUnderlying(cfg.asset, market)),
       },
     };
     return response;

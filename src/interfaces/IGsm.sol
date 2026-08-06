@@ -111,6 +111,12 @@ interface IGsm {
   function updateGhoReserve(address ghoReserve) external;
 
   /**
+   * @notice Returns the GhoReserve the GSM draws GHO from
+   * @return The address of the GhoReserve
+   */
+  function getGhoReserve() external view returns (address);
+
+  /**
    * @notice Returns the EIP712 domain separator
    * @return The EIP712 domain separator
    */

@@ -15,7 +15,7 @@ The tooling documentation is co-located with the relevant smart contracts.
 
 **This repository**:
 
-3. **Proposal Generation** → Generate proposal files (`npm run generate`)
+3. **Proposal Generation** → Generate proposal files (`pnpm generate`)
 4. **Payload Deployment** → Deploy to target chain (e.g., Arbitrum)
 5. **AIP Creation** → Create on-chain proposal
 
@@ -45,7 +45,7 @@ Smart contracts that execute protocol changes on specific chains. Payloads inher
 
 ### Generator (`generator/`)
 
-Interactive CLI tool to bootstrap proposal files. Runs `npm run generate` to create `.sol` (payload), `.t.sol` (tests), `.s.sol` (deployment scripts), `.md` (AIP documentation), and `config.ts` (reproducibility config) files based on interactive prompts for chains, features, and parameters.
+Interactive CLI tool to bootstrap proposal files. Runs `pnpm generate` to create `.sol` (payload), `.t.sol` (tests), `.s.sol` (deployment scripts), `.md` (AIP documentation), and `config.ts` (reproducibility config) files based on interactive prompts for chains, features, and parameters.
 
 See [Generator Guide](./generator/README.md) for detailed usage.
 
@@ -66,7 +66,7 @@ Foundry (Forge) with fork testing, snapshot diffing, and comprehensive validatio
 ```sh
 cp .env.example .env
 forge install
-npm i
+pnpm i
 ```
 
 ### Test
@@ -85,7 +85,7 @@ See [Testing Guide](./docs/TESTING_GUIDE.md) for more detailed information.
 Generate required files:
 
 ```sh
-npm run generate
+pnpm generate
 ```
 
 See [Generator Guide](./generator/README.md) for detailed usage.
@@ -143,7 +143,7 @@ If Etherscan verification fails:
 3. Replace `chain` with appropriate chainId
 4. Replace `hash` with deployment transaction hash
 5. Run `FOUNDRY_PROFILE=<chainAlias> forge build --force`
-6. Run `FOUNDRY_PROFILE=<chainAlias> npx catapulta-verify -b verify.json`
+6. Run `FOUNDRY_PROFILE=<chainAlias> pnpm dlx catapulta-verify -b verify.json`
 
 ## Related Documentation
 

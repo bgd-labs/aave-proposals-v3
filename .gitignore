@@ -26,3 +26,5 @@ reports/*
 etherscan
 
 verify.json
+
+snapshot/

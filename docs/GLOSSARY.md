@@ -31,7 +31,7 @@ Standardized interface (`IAaveV3ConfigEngine`) for protocol parameter updates. P
 
 ### Generator
 
-[CLI tool](../generator/cli.ts) (`npm run generate`) that creates proposal files interactively. Generates `.sol`, `.t.sol`, `.s.sol`, and `.md` files based on user prompts.
+[CLI tool](../generator/cli.ts) (`pnpm generate`) that creates proposal files interactively. Generates `.sol`, `.t.sol`, `.s.sol`, and `.md` files based on user prompts.
 
 ### Feature Module
 

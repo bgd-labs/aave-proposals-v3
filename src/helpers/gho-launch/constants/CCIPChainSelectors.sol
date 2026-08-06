@@ -34,4 +34,7 @@ library CCIPChainSelectors {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-xlayer-1
   uint64 constant XLAYER = 3016212468291539606;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/monad-mainnet
+  uint64 constant MONAD = 8481857512324358265;
 }

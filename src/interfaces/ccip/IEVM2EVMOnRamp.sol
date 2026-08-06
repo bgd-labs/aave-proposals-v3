@@ -50,6 +50,21 @@ interface IOnRamp_1_6 is ITypeAndVersion {
   ) external view returns (address);
 }
 
+interface IOnRamp_2_0 is ITypeAndVersion {
+  /// @dev OnRamp 2.0.0 static config. Differs from 1.6 only in the third field
+  /// (`maxUSDCentsPerMessage` instead of `nonceManager`); `chainSelector` is still first.
+  struct StaticConfig {
+    uint64 chainSelector; // ────╮ Source chain selector.
+    address rmnRemote; // ───────╯ RMN remote address.
+    uint32 maxUSDCentsPerMessage; // Max USD cents value of a message, 0 = no limit.
+    address tokenAdminRegistry; // Token admin registry address.
+  }
+
+  /// @notice Returns the static onRamp config.
+  /// @return the static configuration.
+  function getStaticConfig() external view returns (StaticConfig memory);
+}
+
 interface IEVM2EVMOnRamp is ITypeAndVersion {
   struct TokenTransferFeeConfig {
     uint32 minFeeUSDCents; // ──────────╮ Minimum fee to charge per token transfer, multiples of 0.01 USD

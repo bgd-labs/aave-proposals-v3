@@ -28,7 +28,7 @@ describe('prompts', () => {
     });
   });
 
-  describe('percentInput', () => {
+  describe('percentPrompt', () => {
     it('handles "yes"', async () => {
       const {answer, events, getScreen} = await render(percentPrompt, {
         message: 'Enter number?',

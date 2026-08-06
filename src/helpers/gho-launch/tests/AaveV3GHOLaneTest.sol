@@ -2,13 +2,15 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
+import {Vm} from 'forge-std/Vm.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
-import {IEVM2EVMOnRamp, IOnRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
+import {IEVM2EVMOnRamp, IOnRamp_1_6, IOnRamp_2_0} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5, IOffRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
+import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -288,6 +290,17 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     assertEq(router.getOnRamp(dstSelector), address(onRamp));
   }
 
+  function _assertOnRamp_2_0(
+    address onRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view virtual {
+    assertEq(ITypeAndVersion(onRamp).typeAndVersion(), 'OnRamp 2.0.0');
+    assertEq(IOnRamp_2_0(onRamp).getStaticConfig().chainSelector, srcSelector);
+    assertEq(router.getOnRamp(dstSelector), onRamp);
+  }
+
   function _assertOffRamp(
     IEVM2EVMOffRamp_1_5 offRamp,
     uint64 srcSelector,
@@ -340,24 +353,28 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     return (message, eventArg);
   }
 
-  function _getTokenMessage_1_6(
+  // Builds the user-facing CCIP message and funds/approves the LINK fee, without reconstructing the
+  // emitted ramp event. Shared by both the 1.6 (full reconstruction) and 2.0 (lighter assertion) paths.
+  function _buildUserMessage_1_6(
     CCIPSendParams memory params
-  ) internal virtual returns (IClient.EVM2AnyMessage memory, IInternal.EVM2AnyRampMessage memory) {
-    IClient.EVM2AnyMessage memory message = CCIPUtils.generateMessage_1_6(
-      params.sender,
-      1,
-      LOCAL_LINK_TOKEN
-    );
+  ) internal virtual returns (IClient.EVM2AnyMessage memory message, uint256 feeAmount) {
+    message = CCIPUtils.generateMessage_1_6(params.sender, 1, LOCAL_LINK_TOKEN);
     message.tokenAmounts[0] = IClient.EVMTokenAmount({
       token: address(LOCAL_GHO_TOKEN),
       amount: params.amount
     });
 
-    uint256 feeAmount = LOCAL_CCIP_ROUTER.getFee(params.destChainSelector, message);
+    feeAmount = LOCAL_CCIP_ROUTER.getFee(params.destChainSelector, message);
     deal(LOCAL_LINK_TOKEN, params.sender, feeAmount);
 
-    vm.prank(alice);
+    vm.prank(params.sender);
     IERC20(LOCAL_LINK_TOKEN).approve(address(LOCAL_CCIP_ROUTER), feeAmount);
+  }
+
+  function _getTokenMessage_1_6(
+    CCIPSendParams memory params
+  ) internal virtual returns (IClient.EVM2AnyMessage memory, IInternal.EVM2AnyRampMessage memory) {
+    (IClient.EVM2AnyMessage memory message, uint256 feeAmount) = _buildUserMessage_1_6(params);
 
     IInternal.EVM2AnyRampMessage memory eventArg = CCIPUtils.messageToEvent_1_6(
       CCIPUtils.MessageToEventParams({
@@ -373,6 +390,49 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     );
 
     return (message, eventArg);
+  }
+
+  /// @dev topic0 of OnRamp 2.0.0's `CCIPMessageSent(uint64,address,bytes32,address,uint256,bytes,(address,uint32,uint32,uint256,bytes)[],bytes[])`.
+  /// The 2.0 message body uses CCIP's compact custom encoding (not an ABI struct), so instead of
+  /// reconstructing it we assert the indexed `destChainSelector` + `sender` on the emitted event.
+  bytes32 internal constant CCIP_MESSAGE_SENT_2_0_TOPIC =
+    0x371bc2ff0a006f4ef863b1d27a065d4e9f938b6d883eb154572b4aea593b32cc;
+
+  function _isOnRamp_2_0(address onRamp) internal view virtual returns (bool) {
+    return
+      keccak256(bytes(ITypeAndVersion(onRamp).typeAndVersion())) ==
+      keccak256(bytes('OnRamp 2.0.0'));
+  }
+
+  /// @dev Asserts that `onRamp` emitted the 2.0 `CCIPMessageSent` for the expected lane and sender.
+  function _assertCCIPMessageSent_2_0(
+    Vm.Log[] memory logs,
+    address onRamp,
+    uint64 destChainSelector,
+    address sender
+  ) internal virtual {
+    bool found;
+    for (uint256 i = 0; i < logs.length; i++) {
+      if (
+        logs[i].emitter == onRamp &&
+        logs[i].topics.length == 4 &&
+        logs[i].topics[0] == CCIP_MESSAGE_SENT_2_0_TOPIC
+      ) {
+        assertEq(
+          uint256(logs[i].topics[1]),
+          uint256(destChainSelector),
+          'CCIPMessageSent 2.0: destChainSelector mismatch'
+        );
+        assertEq(
+          address(uint160(uint256(logs[i].topics[2]))),
+          sender,
+          'CCIPMessageSent 2.0: sender mismatch'
+        );
+        found = true;
+        break;
+      }
+    }
+    assertTrue(found, 'CCIPMessageSent 2.0 not emitted by onRamp');
   }
 
   function _tokenBucketToConfig(

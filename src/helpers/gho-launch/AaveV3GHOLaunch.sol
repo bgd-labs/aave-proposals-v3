@@ -28,7 +28,7 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
    * @notice Default CCIP bucket capacity to configure for the CCIP GHO Token Pool. Override `getCCIPBucketCapacity` in
    * order to change this value.
    */
-  uint128 internal constant DEFAULT_CCIP_BUCKET_CAPACITY = 40_000_000e18;
+  uint128 internal constant DEFAULT_CCIP_BUCKET_CAPACITY = 150_000_000e18;
 
   /**
    * @notice Constructor

@@ -12,8 +12,8 @@ import {GhoCCIPChains} from './constants/GhoCCIPChains.sol';
  * @notice Proposal Executor that sets Aave V3 GHO Lane through CCIP
  */
 abstract contract AaveV3GHOLane is IProposalGenericExecutor {
-  uint128 internal constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
-  uint128 internal constant DEFAULT_RATE_LIMITER_RATE = 300e18;
+  uint128 internal constant DEFAULT_RATE_LIMITER_CAPACITY = 5_000_000e18;
+  uint128 internal constant DEFAULT_RATE_LIMITER_RATE = 1_000e18;
 
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
 

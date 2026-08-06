@@ -1,5 +1,5 @@
 <!--
-Thank you for your contribution! Please ensure you run `npm run lint` and `npm test` to verify the code is properly linted and the tests are passing.
+Thank you for your contribution! Please ensure you run `pnpm lint` and `pnpm test` to verify the code is properly linted and the tests are passing.
 
 The following checklist is only relevant for proposal PRs. Remove this section if not applicable.
 

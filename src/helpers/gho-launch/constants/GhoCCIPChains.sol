@@ -39,6 +39,9 @@ import {GovernanceV3Mantle} from 'aave-address-book/GovernanceV3Mantle.sol';
 import {AaveV3XLayer} from 'aave-address-book/AaveV3XLayer.sol';
 import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
 
+import {AaveV3Monad} from 'aave-address-book/AaveV3Monad.sol';
+import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
+
 /**
  * @title GhoCCIPChains
  * @author Aave Labs
@@ -79,7 +82,7 @@ library GhoCCIPChains {
    * @return An array with all the ChainInfo constants supported
    */
   function getAllChains() public pure returns (ChainInfo[] memory) {
-    ChainInfo[] memory allChains = new ChainInfo[](9);
+    ChainInfo[] memory allChains = new ChainInfo[](10);
     allChains[0] = ETHEREUM();
     allChains[1] = ARBITRUM();
     allChains[2] = BASE();
@@ -89,6 +92,7 @@ library GhoCCIPChains {
     allChains[6] = PLASMA();
     allChains[7] = MANTLE();
     allChains[8] = XLAYER();
+    allChains[9] = MONAD();
     return allChains;
   }
 
@@ -373,6 +377,28 @@ library GhoCCIPChains {
         owner: GovernanceV3XLayer.EXECUTOR_LVL_1,
         ccipRouter: CCIPChainRouters.XLAYER,
         linkToken: 0x8aF9711B44695a5A081F25AB9903DDB73aCf8FA9,
+        isVersion_1_6: true
+      });
+  }
+
+  /**
+   * @notice Returns the ChainInfo constant for Monad
+   * @return The ChainInfo constant for Monad
+   */
+  function MONAD() public pure returns (ChainInfo memory) {
+    return
+      ChainInfo({
+        chainSelector: CCIPChainSelectors.MONAD,
+        ghoToken: 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73,
+        ghoCCIPTokenPool: 0xA5AE05b71c3F170E12E7620Fdf7679721aec1EC8,
+        ghoBucketSteward: 0xDe6539018B095353A40753Dc54C91C68c9487D4E,
+        ghoAaveCoreSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
+        ghoCCIPSteward: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
+        aclManager: address(AaveV3Monad.ACL_MANAGER),
+        tokenAdminRegistry: CCIPChainTokenAdminRegistries.MONAD,
+        owner: GovernanceV3Monad.EXECUTOR_LVL_1,
+        ccipRouter: CCIPChainRouters.MONAD,
+        linkToken: 0x76f257B1DDA5cC71bee4eF637Fbdde4C801310A9, // https://docs.chain.link/resources/link-token-contracts#monad-mainnet
         isVersion_1_6: true
       });
   }
