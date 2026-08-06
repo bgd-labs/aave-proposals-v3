@@ -5,7 +5,7 @@ import {GovernanceV3BNB} from 'aave-address-book/GovernanceV3BNB.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IGranularGuardianAccessControl} from 'src/interfaces/IGranularGuardian.sol';
 /**
- * @title Maintenance: Grant AL RETRY_ROLE on a.DI
+ * @title Maintenance: Grant AL RETRY_ROLE on a.DI (Part 1)
  * @author Aave Labs
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-grant-aave-labs-retry-role-on-a-di/25020

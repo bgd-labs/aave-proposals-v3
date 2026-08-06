@@ -5,24 +5,24 @@ import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
-import {AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603} from './AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol';
+import {AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2} from './AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {IGranularGuardianAccessControl} from 'src/interfaces/IGranularGuardian.sol';
 import {ISafe} from 'src/interfaces/ISafe.sol';
 import {IWithGuardian} from 'solidity-utils/contracts/access-control/interfaces/IWithGuardian.sol';
 
 /**
- * @dev Test for AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603
- * command: FOUNDRY_PROFILE=zksync forge test --zksync --match-path=zksync/src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603.t.sol -vv
+ * @dev Test for AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2
+ * command: FOUNDRY_PROFILE=zksync forge test --zksync --match-path=zksync/src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI_Part2/AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.t.sol -vv
  */
-contract AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is ProtocolV3TestBase {
-  AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603 internal proposal;
+contract AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2_Test is ProtocolV3TestBase {
+  AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2 internal proposal;
   IGranularGuardianAccessControl internal GRANULAR_GUARDIAN =
     IGranularGuardianAccessControl(GovernanceV3ZkSync.GRANULAR_GUARDIAN);
 
   function setUp() public override {
     vm.createSelectFork(vm.rpcUrl('zksync'), 70419537);
-    proposal = new AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603();
+    proposal = new AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2();
 
     super.setUp();
   }
@@ -32,7 +32,7 @@ contract AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is Protoco
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603',
+      'AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2',
       AaveV3ZkSync.POOL,
       address(proposal)
     );

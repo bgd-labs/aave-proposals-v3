@@ -4,15 +4,15 @@ pragma solidity ^0.8.0;
 import {AaveV3MegaEth} from 'aave-address-book/AaveV3MegaEth.sol';
 import {GovernanceV3MegaEth} from 'aave-address-book/GovernanceV3MegaEth.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
-import {AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603} from './AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol';
-import {MaintenanceGrantALRETRY_ROLEOnADITestBase, IRetryRoleProposal} from './MaintenanceGrantALRETRY_ROLEOnADITestBase.sol';
+import {AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2} from './AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.sol';
+import {MaintenanceGrantALRETRY_ROLEOnADITestBase, IRetryRoleProposal} from '../20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/MaintenanceGrantALRETRY_ROLEOnADITestBase.sol';
 
 /**
- * @dev Test for AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603.t.sol -vv
+ * @dev Test for AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI_Part2/AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.t.sol -vv
  */
 /// forge-config: default.isolate = true
-contract AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
+contract AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2_Test is
   MaintenanceGrantALRETRY_ROLEOnADITestBase
 {
   function _createFork() internal override {
@@ -21,7 +21,9 @@ contract AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
 
   function _deployProposal() internal override returns (IRetryRoleProposal) {
     return
-      IRetryRoleProposal(address(new AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603()));
+      IRetryRoleProposal(
+        address(new AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2())
+      );
   }
 
   function _POOL() internal pure override returns (IPool) {
@@ -41,6 +43,6 @@ contract AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Test is
   }
 
   function _reportName() internal pure override returns (string memory) {
-    return 'AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603';
+    return 'AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2';
   }
 }

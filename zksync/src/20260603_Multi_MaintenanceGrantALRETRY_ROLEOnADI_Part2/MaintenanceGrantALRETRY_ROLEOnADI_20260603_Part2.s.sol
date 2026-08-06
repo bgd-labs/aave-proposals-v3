@@ -4,17 +4,17 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603} from './AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603.sol';
+import {AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2} from './AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.sol';
 
 /**
  * @dev Deploy ZkSync
- * deploy-command: make deploy-ledger-zk contract=zksync/src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI/MaintenanceGrantALRETRY_ROLEOnADI_20260603.s.sol:DeployZkSync chain=zksync
+ * deploy-command: make deploy-ledger-zk contract=zksync/src/20260603_Multi_MaintenanceGrantALRETRY_ROLEOnADI_Part2/MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2.s.sol:DeployZkSync chain=zksync
  */
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = address(
-      new AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603{salt: 'aave'}()
+      new AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2{salt: 'aave'}()
     );
 
     // compose action
