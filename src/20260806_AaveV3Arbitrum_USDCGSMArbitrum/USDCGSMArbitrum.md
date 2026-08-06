@@ -21,6 +21,7 @@ With USDC.e related assets soon to be deprecated as can be seen on this forum [p
 - Grant `SWAP_FREEZER_ROLE` to the asset's `OracleSwapFreezer` and to the Arbitrum executor.
 - Register it in the `GsmRegistry` and grant `CONFIGURATOR_ROLE` to the `GhoGsmSteward`.
 - Set the initial exposure cap to 20M of the underlying (6 decimals) and attach the 0% mint / 0.10% burn fee strategy.
+- Seize previous USDC.e GSM, revoke roles, remove as entity and remove from GSM Registry
 
 ## References
 

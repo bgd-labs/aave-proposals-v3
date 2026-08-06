@@ -13,6 +13,8 @@ import {IGsmFeeStrategy} from 'src/interfaces/IGsmFeeStrategy.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
+import {IOracleSwapFreezer} from 'src/interfaces/IOracleSwapFreezer.sol';
+import {IFixedPriceStrategy4626} from 'src/interfaces/IFixedPriceStrategy4626.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {AaveV3Arbitrum_USDCGSMArbitrum_20260806} from './AaveV3Arbitrum_USDCGSMArbitrum_20260806.sol';
@@ -50,6 +52,17 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     reserveConfigChangesTest(AaveV3Arbitrum.POOL, address(proposal), updatedAssets);
   }
 
+  function test_rolesAreTheSame() public view {
+    assertTrue(
+      IGsm(GhoArbitrum.GSM_USDC).LIQUIDATOR_ROLE() ==
+        IGsm(proposal.NEW_GSM_USDC()).LIQUIDATOR_ROLE()
+    );
+    assertTrue(
+      IGsm(GhoArbitrum.GSM_USDC).SWAP_FREEZER_ROLE() ==
+        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE()
+    );
+  }
+
   function test_checkConfig() public {
     assertEq(IGhoReserve(GhoArbitrum.GHO_RESERVE).totalEntities(), 1);
 
@@ -58,10 +71,10 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     // We replace one GSM with the new one so this remains the same
     assertEq(IGhoReserve(GhoArbitrum.GHO_RESERVE).totalEntities(), 1);
 
-    uint256 limit = IGhoReserve(GhoArbitrum.GHO_RESERVE).getLimit(proposal.GSM_USDC());
+    uint256 limit = IGhoReserve(GhoArbitrum.GHO_RESERVE).getLimit(proposal.NEW_GSM_USDC());
     assertEq(limit, proposal.RESERVE_LIMIT_GSM());
 
-    (uint256 excess, uint256 deficit) = IGsm4626(proposal.GSM_USDC()).getCurrentBacking();
+    (uint256 excess, uint256 deficit) = IGsm4626(proposal.NEW_GSM_USDC()).getCurrentBacking();
     assertEq(excess, 0);
     assertEq(deficit, 0);
 
@@ -69,12 +82,12 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertEq(
       IGhoReserve(GhoArbitrum.GHO_RESERVE).getUsed(GhoArbitrum.GSM_USDC),
       0,
-      'Delta for GHO needed on stataUSDC is too wide'
+      'Used is not zero for old GSM'
     );
     assertEq(
-      IGhoReserve(GhoArbitrum.GHO_RESERVE).getUsed(proposal.GSM_USDC()),
+      IGhoReserve(GhoArbitrum.GHO_RESERVE).getUsed(proposal.NEW_GSM_USDC()),
       0,
-      'Delta for GHO needed on stataUSDC is too wide'
+      'Used is not zero for new GSM'
     );
 
     GsmConfig memory gsmUsdcConfig = GsmConfig({
@@ -91,7 +104,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     });
 
     _checkGsmConfig(
-      IGsm(proposal.GSM_USDC()),
+      IGsm(proposal.NEW_GSM_USDC()),
       AaveV3ArbitrumAssets.USDCn_STATA_TOKEN,
       IOracleSwapFreezer(proposal.USDC_ORACLE_SWAP_FREEZER()),
       gsmUsdcConfig
@@ -104,7 +117,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertTrue(IGsm(GhoArbitrum.GSM_USDC).getIsSeized());
 
     assertEq(IERC20(GhoArbitrum.GHO_TOKEN).balanceOf(GhoArbitrum.GSM_USDC), 0);
-    assertEq(IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).balanceOf(GhoArbitrum.GSM_USDC), 0);
+    assertEq(IERC20(AaveV3ArbitrumAssets.USDC_STATA_TOKEN).balanceOf(GhoArbitrum.GSM_USDC), 0);
 
     assertEq(IGsm(GhoArbitrum.GSM_USDC).getAvailableUnderlyingExposure(), 0, 'wrong exposure cap');
 
@@ -140,8 +153,8 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
   function test_oracleSwapFreezer() public {
     // OracleSwapFreezer is not authorized
     assertEq(
-      IGsm(proposal.GSM_USDC()).hasRole(
-        IGsm(proposal.GSM_USDC()).SWAP_FREEZER_ROLE(),
+      IGsm(proposal.NEW_GSM_USDC()).hasRole(
+        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE(),
         proposal.USDC_ORACLE_SWAP_FREEZER()
       ),
       false
@@ -163,15 +176,15 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertEq(canPerformUpkeep, false);
 
     usdcFreezer.performUpkeep(bytes(''));
-    assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), false);
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getIsFrozen(), false);
 
     // Payload execution
     executePayload(vm, address(proposal));
 
     // Freezers is authorized now
     assertEq(
-      IGsm(proposal.GSM_USDC()).hasRole(
-        IGsm(proposal.GSM_USDC()).SWAP_FREEZER_ROLE(),
+      IGsm(proposal.NEW_GSM_USDC()).hasRole(
+        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE(),
         proposal.USDC_ORACLE_SWAP_FREEZER()
       ),
       true
@@ -182,7 +195,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertEq(canPerformUpkeep, true);
 
     usdcFreezer.performUpkeep(bytes(''));
-    assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), true);
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getIsFrozen(), true);
 
     // Price back to normal
     _mockAssetPrice(
@@ -195,12 +208,12 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertEq(canPerformUpkeep, true);
 
     usdcFreezer.performUpkeep(bytes(''));
-    assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), false);
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getIsFrozen(), false);
   }
 
   function test_checkRoles() public {
     executePayload(vm, address(proposal));
-    _checkRolesConfig(IGsm(proposal.GSM_USDC()));
+    _checkRolesConfig(IGsm(proposal.NEW_GSM_USDC()));
   }
 
   function test_oldGsmSeized() public {
@@ -214,6 +227,16 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     IGsm(GhoArbitrum.GSM_USDC).sellAsset(1000e6, address(this));
   }
 
+  function test_gsmRegistryEntities() public {
+    assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmListLength(), 1);
+    assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmAtIndex(0), GhoArbitrum.GSM_USDC);
+
+    executePayload(vm, address(proposal));
+
+    assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmListLength(), 1);
+    assertEq(IGsmRegistry(proposal.GSM_REGISTRY()).getGsmAtIndex(0), proposal.NEW_GSM_USDC());
+  }
+
   function test_ghoReserveEntities() public {
     assertTrue(
       IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(GhoArbitrum.GSM_USDC),
@@ -221,7 +244,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     );
 
     assertFalse(
-      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(proposal.GSM_USDC()),
+      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(proposal.NEW_GSM_USDC()),
       'USDC GSM not registered as entity'
     );
 
@@ -233,7 +256,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     );
 
     assertTrue(
-      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(proposal.GSM_USDC()),
+      IGhoReserve(address(GhoArbitrum.GHO_RESERVE)).isEntity(proposal.NEW_GSM_USDC()),
       'USDC GSM not registered as entity'
     );
   }
@@ -243,19 +266,22 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
 
     deal(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN, address(this), 1_000e6);
 
-    IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).approve(proposal.GSM_USDC(), 1_000e6);
-    IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING).approve(proposal.GSM_USDC(), 1_200 ether);
+    IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).approve(proposal.NEW_GSM_USDC(), 1_000e6);
+    IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDC(), 1_200 ether);
 
     uint256 amountUnderlying = 1_000e6;
     uint256 balanceBeforeUsdcGsm = IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).balanceOf(
-      proposal.GSM_USDC()
+      proposal.NEW_GSM_USDC()
     );
 
     uint256 balanceGhoBefore = IGhoToken(GhoArbitrum.GHO_TOKEN).balanceOf(address(this));
-    (, uint256 ghoBought) = IGsm(proposal.GSM_USDC()).sellAsset(amountUnderlying, address(this));
+    (, uint256 ghoBought) = IGsm(proposal.NEW_GSM_USDC()).sellAsset(
+      amountUnderlying,
+      address(this)
+    );
 
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).balanceOf(proposal.GSM_USDC()),
+      IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
       balanceBeforeUsdcGsm + amountUnderlying,
       'amounts USDC after sellAsset not equal'
     );
@@ -266,9 +292,9 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
       'GHO balance after sellAsset not equal'
     );
 
-    (, uint256 ghoSold) = IGsm(proposal.GSM_USDC()).buyAsset(500e6, address(this));
+    (, uint256 ghoSold) = IGsm(proposal.NEW_GSM_USDC()).buyAsset(500e6, address(this));
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).balanceOf(proposal.GSM_USDC()),
+      IERC20(AaveV3ArbitrumAssets.USDCn_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
       balanceBeforeUsdcGsm + amountUnderlying - 500e6,
       'stataUSDC balance after buyAsset not equal'
     );
@@ -277,6 +303,13 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
       IGhoToken(GhoArbitrum.GHO_TOKEN).balanceOf(address(this)),
       balanceGhoBefore + ghoBought - ghoSold,
       'GHO balance after buyAsset not equal'
+    );
+
+    // The buy fee is retained by the GSM as accrued fees instead of being returned to the reserve,
+    // so the outstanding usage is higher than the net GHO the user swapped by exactly that fee
+    assertEq(
+      IGhoReserve(GhoArbitrum.GHO_RESERVE).getUsed(proposal.NEW_GSM_USDC()),
+      ghoBought - ghoSold + IGsm(proposal.NEW_GSM_USDC()).getAccruedFees()
     );
   }
 
@@ -293,35 +326,35 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
   function test_ghoGsmSteward_updateExposureCap() public {
     executePayload(vm, address(proposal));
 
-    uint128 oldExposureCap = IGsm(proposal.GSM_USDC()).getExposureCap();
+    uint128 oldExposureCap = IGsm(proposal.NEW_GSM_USDC()).getExposureCap();
     uint128 newExposureCap = oldExposureCap + 1;
 
     vm.startPrank(GhoArbitrum.RISK_COUNCIL);
     IGsmSteward(GhoArbitrum.GHO_GSM_STEWARD).updateGsmExposureCap(
-      proposal.GSM_USDC(),
+      proposal.NEW_GSM_USDC(),
       newExposureCap
     );
 
-    uint128 currentExposureCap = IGsm(proposal.GSM_USDC()).getExposureCap();
+    uint128 currentExposureCap = IGsm(proposal.NEW_GSM_USDC()).getExposureCap();
     assertEq(currentExposureCap, newExposureCap);
   }
 
   function test_ghoGsmSteward_updateGsmBuySellFees() public {
     executePayload(vm, address(proposal));
 
-    address feeStrategy = IGsm(proposal.GSM_USDC()).getFeeStrategy();
+    address feeStrategy = IGsm(proposal.NEW_GSM_USDC()).getFeeStrategy();
     uint256 buyFee = IGsmFeeStrategy(feeStrategy).getBuyFee(1e4);
     uint256 sellFee = IGsmFeeStrategy(feeStrategy).getSellFee(1e4);
 
     vm.startPrank(GhoArbitrum.RISK_COUNCIL);
 
     IGsmSteward(GhoArbitrum.GHO_GSM_STEWARD).updateGsmBuySellFees(
-      proposal.GSM_USDC(),
+      proposal.NEW_GSM_USDC(),
       buyFee + 1,
       sellFee
     );
 
-    address newStrategy = IGsm(proposal.GSM_USDC()).getFeeStrategy();
+    address newStrategy = IGsm(proposal.NEW_GSM_USDC()).getFeeStrategy();
     uint256 newBuyFee = IGsmFeeStrategy(newStrategy).getBuyFee(1e4);
 
     assertEq(newBuyFee, buyFee + 1);
@@ -437,18 +470,4 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertEq(freezer.ADDRESS_PROVIDER(), address(AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER));
     assertEq(freezer.GSM(), address(gsm));
   }
-}
-
-interface IOracleSwapFreezer {
-  function ADDRESS_PROVIDER() external view returns (address);
-  function GSM() external view returns (address);
-  function getCanUnfreeze() external view returns (bool);
-  function getFreezeBound() external view returns (uint128, uint128);
-  function getUnfreezeBound() external view returns (uint128, uint128);
-  function checkUpkeep(bytes calldata) external view returns (bool, bytes memory);
-  function performUpkeep(bytes calldata) external;
-}
-interface IFixedPriceStrategy4626 {
-  function getAssetPriceInGho(uint256 assetAmount, bool roundUp) external view returns (uint256);
-  function getGhoPriceInAsset(uint256 ghoAmount, bool roundUp) external view returns (uint256);
 }

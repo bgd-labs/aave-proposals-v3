@@ -2,8 +2,8 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     markets: ['AaveV3Arbitrum'],
-    title: 'USDC GSM Arbitrum',
-    shortName: 'USDCGSMArbitrum',
+    title: 'USDC Native GSM Arbitrum',
+    shortName: 'USDCNativeGSMArbitrum',
     date: '20260806',
     author: '@TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-launch-remotegsm-on-arbitrum/24986',
