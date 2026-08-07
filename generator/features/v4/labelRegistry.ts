@@ -76,3 +76,18 @@ export function hydrate(
 export function resetRegistry(): void {
   registry.clear();
 }
+
+/// Human name of a Hub for the tokenization wrapper naming convention
+/// (`Wrapped Aave <hub> <symbol>` / `wa<hub><symbol>`): the hub key without its `_HUB`
+/// suffix, title-cased (`PAXOS_HUB` -> `Paxos`). Works the same for a custom hub, whose
+/// key is its assigned label. Only ever a prefilled default: the display name is a
+/// naming decision that changes (the Paxos hub shipped wrappers as `waPaxos*`, then as
+/// `waGlobalDollar*`), so the operator edits it when it does.
+export function hubDisplayName(hubKey: string): string {
+  return hubKey
+    .replace(/_HUB$/, '')
+    .split('_')
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}

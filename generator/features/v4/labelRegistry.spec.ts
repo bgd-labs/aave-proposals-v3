@@ -7,6 +7,7 @@ import {
   hydrate,
   resetRegistry,
   toConstantName,
+  hubDisplayName,
 } from './labelRegistry';
 
 const MARKET = 'AaveV4Ethereum';
@@ -26,6 +27,12 @@ describe('labelRegistry', () => {
     expect(e.label).toBe('MAPLE_SPOKE');
     expect(e.address).toBe('0x774b9655413c34809c1f1b16b654465A89EBE989');
     expect(lookupByAddress(MARKET, ADDR.toLowerCase())?.label).toBe('MAPLE_SPOKE');
+  });
+
+  it('derives a hub display name from a book key or a custom label', () => {
+    expect(hubDisplayName('CORE_HUB')).toBe('Core');
+    expect(hubDisplayName('PAXOS_HUB')).toBe('Paxos');
+    expect(hubDisplayName(toConstantName('Global Dollar Hub'))).toBe('Global Dollar');
   });
 
   it('lists new entities and round-trips through snapshot/hydrate', () => {

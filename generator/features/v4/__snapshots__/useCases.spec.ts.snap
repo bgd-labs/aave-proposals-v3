@@ -41,35 +41,8 @@ export const config: ConfigFile = {
     AaveV4Ethereum: {
       configs: {
         V4_USECASE_ONBOARD_ASSET_TO_HUB: {
-          targetFunctionRoles: [
-            {
-              target: 'AaveV4EthereumHubs.CORE_HUB',
-              selectors: [],
-              selectorsExpr: 'Roles.getHubConfiguratorRoleSelectors()',
-              roleId: 'Roles.HUB_CONFIGURATOR_ROLE',
-              selectorAsserts: [
-                'IHub.addAsset.selector',
-                'IHub.updateAssetConfig.selector',
-                'IHub.addSpoke.selector',
-                'IHub.updateSpokeConfig.selector',
-                'IHub.setInterestRateData.selector',
-              ],
-            },
-            {
-              target: 'AaveV4EthereumHubs.CORE_HUB',
-              selectors: [],
-              selectorsExpr: 'Roles.getHubFeeMinterRoleSelectors()',
-              roleId: 'Roles.HUB_FEE_MINTER_ROLE',
-              selectorAsserts: ['IHub.mintFeeShares.selector'],
-            },
-            {
-              target: 'AaveV4EthereumHubs.CORE_HUB',
-              selectors: [],
-              selectorsExpr: 'Roles.getHubDeficitEliminatorRoleSelectors()',
-              roleId: 'Roles.HUB_DEFICIT_ELIMINATOR_ROLE',
-              selectorAsserts: ['IHub.eliminateDeficit.selector'],
-            },
-          ],
+          freshHubs: ['0x3333333333333333333333333333333333333333'],
+          freshSpokes: [],
           listings: [
             {
               hubLib: 'AaveV4EthereumHubs.CORE_HUB',
@@ -105,35 +78,8 @@ export const config: ConfigFile = {
           ],
         },
         V4_USECASE_ONBOARD_RESERVE_TO_SPOKE: {
-          targetFunctionRoles: [
-            {
-              target: 'AaveV4EthereumSpokes.MAIN_SPOKE',
-              selectors: [],
-              selectorsExpr: 'Roles.getSpokeConfiguratorRoleSelectors()',
-              roleId: 'Roles.SPOKE_CONFIGURATOR_ROLE',
-              selectorAsserts: [
-                'ISpoke.updateLiquidationConfig.selector',
-                'ISpoke.addReserve.selector',
-                'ISpoke.updateReserveConfig.selector',
-                'ISpoke.updateDynamicReserveConfig.selector',
-                'ISpoke.addDynamicReserveConfig.selector',
-                'ISpoke.updatePositionManager.selector',
-                'ISpoke.updateReservePriceSource.selector',
-              ],
-              referenceTarget: 'AaveV4EthereumSpokes.MAIN_SPOKE',
-            },
-            {
-              target: 'AaveV4EthereumSpokes.MAIN_SPOKE',
-              selectors: [],
-              selectorsExpr: 'Roles.getSpokePositionUpdaterRoleSelectors()',
-              roleId: 'Roles.SPOKE_USER_POSITION_UPDATER_ROLE',
-              selectorAsserts: [
-                'ISpoke.updateUserDynamicConfig.selector',
-                'ISpoke.updateUserRiskPremium.selector',
-              ],
-              referenceTarget: 'AaveV4EthereumSpokes.MAIN_SPOKE',
-            },
-          ],
+          freshHubs: [],
+          freshSpokes: ['0x4444444444444444444444444444444444444444'],
           hubAssetListings: [
             {
               hubLib: 'AaveV4EthereumHubs.CORE_HUB',
@@ -299,14 +245,15 @@ export const config: ConfigFile = {
       "payload": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
-import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
+import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
+import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
 
 /**
  * @title V4 every use-case
@@ -338,48 +285,31 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
     returns (IConfigEngine.TargetFunctionRoleUpdate[] memory)
   {
     IConfigEngine.TargetFunctionRoleUpdate[]
-      memory items = new IConfigEngine.TargetFunctionRoleUpdate[](6);
-    items[0] = IConfigEngine.TargetFunctionRoleUpdate({
-      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: address(AaveV4EthereumHubs.CORE_HUB),
-      selectors: Roles.getHubConfiguratorRoleSelectors(),
-      roleId: Roles.HUB_CONFIGURATOR_ROLE
-    });
-    items[1] = IConfigEngine.TargetFunctionRoleUpdate({
-      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: address(AaveV4EthereumHubs.CORE_HUB),
-      selectors: Roles.getHubFeeMinterRoleSelectors(),
-      roleId: Roles.HUB_FEE_MINTER_ROLE
-    });
-    items[2] = IConfigEngine.TargetFunctionRoleUpdate({
-      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: address(AaveV4EthereumHubs.CORE_HUB),
-      selectors: Roles.getHubDeficitEliminatorRoleSelectors(),
-      roleId: Roles.HUB_DEFICIT_ELIMINATOR_ROLE
-    });
-    items[3] = IConfigEngine.TargetFunctionRoleUpdate({
-      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: address(AaveV4EthereumSpokes.MAIN_SPOKE),
-      selectors: Roles.getSpokeConfiguratorRoleSelectors(),
-      roleId: Roles.SPOKE_CONFIGURATOR_ROLE
-    });
-    items[4] = IConfigEngine.TargetFunctionRoleUpdate({
-      authority: address(AaveV4Ethereum.ACCESS_MANAGER),
-      target: address(AaveV4EthereumSpokes.MAIN_SPOKE),
-      selectors: Roles.getSpokePositionUpdaterRoleSelectors(),
-      roleId: Roles.SPOKE_USER_POSITION_UPDATER_ROLE
-    });
+      memory items = new IConfigEngine.TargetFunctionRoleUpdate[](1);
     {
       bytes4[] memory selectors = new bytes4[](1);
       selectors[0] = bytes4(0x12345678);
-      items[5] = IConfigEngine.TargetFunctionRoleUpdate({
+      items[0] = IConfigEngine.TargetFunctionRoleUpdate({
         authority: address(AaveV4Ethereum.ACCESS_MANAGER),
         target: ROLE_1_TARGET_CUSTOM_11111111,
         selectors: selectors,
         roleId: 1
       });
     }
-    return items;
+    return
+      V4RoleWiring.merge(
+        V4RoleWiring.merge(
+          items,
+          V4RoleWiring.hubWiring(
+            address(AaveV4Ethereum.ACCESS_MANAGER),
+            0x3333333333333333333333333333333333333333
+          )
+        ),
+        V4RoleWiring.spokeWiring(
+          address(AaveV4Ethereum.ACCESS_MANAGER),
+          0x4444444444444444444444444444444444444444
+        )
+      );
   }
 
   function hubAssetListings() public pure override returns (IConfigEngine.AssetListing[] memory) {
@@ -397,12 +327,7 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
         rateGrowthBeforeOptimal: uint32(4_00),
         rateGrowthAfterOptimal: uint32(60_00)
       }),
-      tokenization: IConfigEngine.TokenizationSpokeConfig({
-        addCap: 0,
-        proxyAdminOwner: address(0),
-        name: '',
-        symbol: ''
-      })
+      tokenization: V4EngineDefaults.noTokenization()
     });
     items[1] = IConfigEngine.AssetListing({
       hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
@@ -417,12 +342,7 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521 is AaveV4PayloadEthereum {
         rateGrowthBeforeOptimal: uint32(4_00),
         rateGrowthAfterOptimal: uint32(60_00)
       }),
-      tokenization: IConfigEngine.TokenizationSpokeConfig({
-        addCap: 0,
-        proxyAdminOwner: address(0),
-        name: '',
-        symbol: ''
-      })
+      tokenization: V4EngineDefaults.noTokenization()
     });
     return items;
   }
@@ -671,7 +591,6 @@ import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
 import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';
-import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 
 import 'forge-std/Test.sol';
@@ -698,14 +617,14 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
     defaultTest('AaveV4Ethereum_V4EveryUseCase_20260521', address(proposal));
   }
 
-  function test_rolesWired_CORE_HUB() public {
+  function test_rolesWired_CUSTOM_33333333() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
     uint256 matched;
     for (uint256 i; i < items.length; ++i) {
-      if (items[i].target != address(AaveV4EthereumHubs.CORE_HUB)) continue;
-      _assertRolesWired(items[i], address(0));
+      if (items[i].target != 0x3333333333333333333333333333333333333333) continue;
+      _assertRolesWired(items[i], address(AaveV4EthereumHubs.CORE_HUB));
       ++matched;
     }
     assertGt(matched, 0, 'no wiring for target');
@@ -749,6 +668,11 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
       uint256(60_00),
       'rateGrowthAfterOptimal mismatch'
     );
+    assertEq(
+      _findTokenizationSpoke(hub, address(AaveV4EthereumAssets.WETH_UNDERLYING)),
+      address(0),
+      'unexpected tokenization spoke'
+    );
   }
 
   function test_hubSpokeToAssetsAddition_CORE_HUB_MAIN_SPOKE_WETH() public {
@@ -770,17 +694,21 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_rolesWired_MAIN_SPOKE() public {
+  function test_rolesWired_CUSTOM_44444444() public {
     IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
       .accessManagerTargetFunctionRoleUpdates();
     GovV3Helpers.executePayload(vm, address(proposal));
     uint256 matched;
     for (uint256 i; i < items.length; ++i) {
-      if (items[i].target != address(AaveV4EthereumSpokes.MAIN_SPOKE)) continue;
+      if (items[i].target != 0x4444444444444444444444444444444444444444) continue;
       _assertRolesWired(items[i], address(AaveV4EthereumSpokes.MAIN_SPOKE));
       ++matched;
     }
     assertGt(matched, 0, 'no wiring for target');
+  }
+
+  function test_spokeDeployment_CUSTOM_44444444() public view {
+    _assertSpokeDeployment(ISpoke(0x4444444444444444444444444444444444444444));
   }
 
   function test_hubAssetListing_CORE_HUB_USDC() public {
@@ -820,6 +748,11 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
       uint256(irData.rateGrowthAfterOptimal),
       uint256(60_00),
       'rateGrowthAfterOptimal mismatch'
+    );
+    assertEq(
+      _findTokenizationSpoke(hub, address(AaveV4EthereumAssets.USDC_UNDERLYING)),
+      address(0),
+      'unexpected tokenization spoke'
     );
   }
 
@@ -1038,82 +971,10 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
   function test_accessManagerTargetFunctionRoleUpdatesInput() public view {
     IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
       .accessManagerTargetFunctionRoleUpdates();
-    assertEq(items.length, 6, 'length');
+    assertGe(items.length, 1, 'length');
     assertEq(items[0].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[0].target, address(AaveV4EthereumHubs.CORE_HUB), 'target');
-    assertEq(uint256(items[0].roleId), uint256(Roles.HUB_CONFIGURATOR_ROLE), 'roleId');
-    assertEq(items[0].selectors.length, 5, 'selectors length');
-    assertEq(uint32(items[0].selectors[0]), uint32(IHub.addAsset.selector), 'selector 0');
-    assertEq(uint32(items[0].selectors[1]), uint32(IHub.updateAssetConfig.selector), 'selector 1');
-    assertEq(uint32(items[0].selectors[2]), uint32(IHub.addSpoke.selector), 'selector 2');
-    assertEq(uint32(items[0].selectors[3]), uint32(IHub.updateSpokeConfig.selector), 'selector 3');
-    assertEq(
-      uint32(items[0].selectors[4]),
-      uint32(IHub.setInterestRateData.selector),
-      'selector 4'
-    );
-    assertEq(items[1].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[1].target, address(AaveV4EthereumHubs.CORE_HUB), 'target');
-    assertEq(uint256(items[1].roleId), uint256(Roles.HUB_FEE_MINTER_ROLE), 'roleId');
-    assertEq(items[1].selectors.length, 1, 'selectors length');
-    assertEq(uint32(items[1].selectors[0]), uint32(IHub.mintFeeShares.selector), 'selector 0');
-    assertEq(items[2].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[2].target, address(AaveV4EthereumHubs.CORE_HUB), 'target');
-    assertEq(uint256(items[2].roleId), uint256(Roles.HUB_DEFICIT_ELIMINATOR_ROLE), 'roleId');
-    assertEq(items[2].selectors.length, 1, 'selectors length');
-    assertEq(uint32(items[2].selectors[0]), uint32(IHub.eliminateDeficit.selector), 'selector 0');
-    assertEq(items[3].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[3].target, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'target');
-    assertEq(uint256(items[3].roleId), uint256(Roles.SPOKE_CONFIGURATOR_ROLE), 'roleId');
-    assertEq(items[3].selectors.length, 7, 'selectors length');
-    assertEq(
-      uint32(items[3].selectors[0]),
-      uint32(ISpoke.updateLiquidationConfig.selector),
-      'selector 0'
-    );
-    assertEq(uint32(items[3].selectors[1]), uint32(ISpoke.addReserve.selector), 'selector 1');
-    assertEq(
-      uint32(items[3].selectors[2]),
-      uint32(ISpoke.updateReserveConfig.selector),
-      'selector 2'
-    );
-    assertEq(
-      uint32(items[3].selectors[3]),
-      uint32(ISpoke.updateDynamicReserveConfig.selector),
-      'selector 3'
-    );
-    assertEq(
-      uint32(items[3].selectors[4]),
-      uint32(ISpoke.addDynamicReserveConfig.selector),
-      'selector 4'
-    );
-    assertEq(
-      uint32(items[3].selectors[5]),
-      uint32(ISpoke.updatePositionManager.selector),
-      'selector 5'
-    );
-    assertEq(
-      uint32(items[3].selectors[6]),
-      uint32(ISpoke.updateReservePriceSource.selector),
-      'selector 6'
-    );
-    assertEq(items[4].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[4].target, address(AaveV4EthereumSpokes.MAIN_SPOKE), 'target');
-    assertEq(uint256(items[4].roleId), uint256(Roles.SPOKE_USER_POSITION_UPDATER_ROLE), 'roleId');
-    assertEq(items[4].selectors.length, 2, 'selectors length');
-    assertEq(
-      uint32(items[4].selectors[0]),
-      uint32(ISpoke.updateUserDynamicConfig.selector),
-      'selector 0'
-    );
-    assertEq(
-      uint32(items[4].selectors[1]),
-      uint32(ISpoke.updateUserRiskPremium.selector),
-      'selector 1'
-    );
-    assertEq(items[5].authority, address(AaveV4Ethereum.ACCESS_MANAGER), 'authority');
-    assertEq(items[5].target, proposal.ROLE_1_TARGET_CUSTOM_11111111(), 'target');
-    assertEq(uint256(items[5].roleId), uint256(1), 'roleId');
+    assertEq(items[0].target, proposal.ROLE_1_TARGET_CUSTOM_11111111(), 'target');
+    assertEq(uint256(items[0].roleId), uint256(1), 'roleId');
   }
 
   function test_hubAssetListingsInput() public view {
@@ -1204,30 +1065,6 @@ contract AaveV4Ethereum_V4EveryUseCase_20260521_Test is ProtocolV4TestBaseEthere
       'positionManager'
     );
     assertEq(items[0].active, true, 'active');
-  }
-
-  function _assertRolesWired(
-    IConfigEngine.TargetFunctionRoleUpdate memory item,
-    address referenceTarget
-  ) internal view {
-    for (uint256 i; i < item.selectors.length; ++i) {
-      uint64 roleId = IAccessManager(address(AaveV4Ethereum.ACCESS_MANAGER)).getTargetFunctionRole(
-        item.target,
-        item.selectors[i]
-      );
-      assertEq(uint256(roleId), uint256(item.roleId), 'role not wired');
-      if (referenceTarget == address(0)) continue;
-      assertEq(
-        uint256(roleId),
-        uint256(
-          IAccessManager(address(AaveV4Ethereum.ACCESS_MANAGER)).getTargetFunctionRole(
-            referenceTarget,
-            item.selectors[i]
-          )
-        ),
-        'role divergence vs reference target'
-      );
-    }
   }
 }
 ",

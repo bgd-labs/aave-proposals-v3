@@ -1,95 +1,60 @@
-import {MarketIdentifierV4} from '../../types';
-import {V4TargetFunctionRoleUpdate} from '../types';
-import {getV4Book, spokeLibAccessor} from './marketBook';
+import {CodeArtifact, MarketIdentifierV4} from '../../types';
+import {getV4Book, hubLibAccessor, spokeLibAccessor} from './marketBook';
+import {accessorIdentifier, testAddressRef, wrapAddress} from './testHelpers';
+import {rolesWiredTest} from './access/accessManagerTargetFunctionRoleUpdate';
 
-/// The 7 Spoke selectors mapped to SPOKE_CONFIGURATOR_ROLE, in the order returned by
-/// Roles.getSpokeConfiguratorRoleSelectors(); used for generated wiring assertions.
-const SPOKE_CONFIGURATOR_SELECTORS = [
-  'ISpoke.updateLiquidationConfig.selector',
-  'ISpoke.addReserve.selector',
-  'ISpoke.updateReserveConfig.selector',
-  'ISpoke.updateDynamicReserveConfig.selector',
-  'ISpoke.addDynamicReserveConfig.selector',
-  'ISpoke.updatePositionManager.selector',
-  'ISpoke.updateReservePriceSource.selector',
-];
-
-/// The 2 Spoke selectors mapped to SPOKE_USER_POSITION_UPDATER_ROLE, in the order
-/// returned by Roles.getSpokePositionUpdaterRoleSelectors().
-const SPOKE_POSITION_UPDATER_SELECTORS = [
-  'ISpoke.updateUserDynamicConfig.selector',
-  'ISpoke.updateUserRiskPremium.selector',
-];
+/// An already-wired Hub of the market, used by generated tests to assert a freshly
+/// wired Hub does not diverge from the canonical selector-to-role mapping.
+function referenceHub(market: MarketIdentifierV4): string {
+  return getV4Book(market).HUBS.CORE_HUB
+    ? wrapAddress(hubLibAccessor(market, 'CORE_HUB'))
+    : 'address(0)';
+}
 
 /// An already-wired Spoke of the market, used by generated tests to assert a freshly
 /// wired Spoke does not diverge from the canonical selector-to-role mapping.
-function referenceSpoke(market: MarketIdentifierV4): string | undefined {
-  return getV4Book(market).SPOKES.MAIN_SPOKE ? spokeLibAccessor(market, 'MAIN_SPOKE') : undefined;
+function referenceSpoke(market: MarketIdentifierV4): string {
+  return getV4Book(market).SPOKES.MAIN_SPOKE
+    ? wrapAddress(spokeLibAccessor(market, 'MAIN_SPOKE'))
+    : 'address(0)';
 }
 
-/// AccessManager wiring a freshly deployed Spoke needs to be configurable by governance
-/// and to let the position managers update user positions: the SpokeConfigurator
-/// selectors and the user-position-updater selectors, each on its own role.
-export function spokeWiring(
+/// The AccessManager wiring a freshly deployed Hub or Spoke needs, as a `V4RoleWiring`
+/// call. The library pins the selectors against the deployment procedures, so a payload
+/// declares "wire this entity" instead of re-listing selectors that go stale whenever
+/// the procedures gain or reorder one.
+export function accessWiringArtifact(
   market: MarketIdentifierV4,
-  spokeExpr: string,
-): V4TargetFunctionRoleUpdate[] {
-  const referenceTarget = referenceSpoke(market);
-  return [
-    {
-      target: spokeExpr,
-      selectors: [],
-      selectorsExpr: 'Roles.getSpokeConfiguratorRoleSelectors()',
-      roleId: 'Roles.SPOKE_CONFIGURATOR_ROLE',
-      selectorAsserts: SPOKE_CONFIGURATOR_SELECTORS,
-      referenceTarget,
-    },
-    {
-      target: spokeExpr,
-      selectors: [],
-      selectorsExpr: 'Roles.getSpokePositionUpdaterRoleSelectors()',
-      roleId: 'Roles.SPOKE_USER_POSITION_UPDATER_ROLE',
-      selectorAsserts: SPOKE_POSITION_UPDATER_SELECTORS,
-      referenceTarget,
-    },
+  entities: {hubs: string[]; spokes: string[]},
+): CodeArtifact {
+  const authority = `address(${market}.ACCESS_MANAGER)`;
+  const arrayExprs = [
+    ...entities.hubs.map((hub) => `V4RoleWiring.hubWiring(${authority}, ${wrapAddress(hub)})`),
+    ...entities.spokes.map(
+      (spoke) => `V4RoleWiring.spokeWiring(${authority}, ${wrapAddress(spoke)})`,
+    ),
   ];
-}
-
-/// The 5 Hub selectors mapped to HUB_CONFIGURATOR_ROLE, in the order returned by
-/// Roles.getHubConfiguratorRoleSelectors().
-const HUB_CONFIGURATOR_SELECTORS = [
-  'IHub.addAsset.selector',
-  'IHub.updateAssetConfig.selector',
-  'IHub.addSpoke.selector',
-  'IHub.updateSpokeConfig.selector',
-  'IHub.setInterestRateData.selector',
-];
-
-/// AccessManager wiring a freshly deployed Hub needs: the three granular Hub roles
-/// that `AaveV4HubRolesProcedure.setupHubAllRoles` maps on a deployment, so a
-/// generated Hub does not diverge from the ones already deployed.
-export function hubWiring(hubExpr: string): V4TargetFunctionRoleUpdate[] {
-  return [
-    {
-      target: hubExpr,
-      selectors: [],
-      selectorsExpr: 'Roles.getHubConfiguratorRoleSelectors()',
-      roleId: 'Roles.HUB_CONFIGURATOR_ROLE',
-      selectorAsserts: HUB_CONFIGURATOR_SELECTORS,
+  const hubTests = entities.hubs.map((hub) =>
+    rolesWiredTest(accessorIdentifier(hub), testAddressRef(hub), referenceHub(market)),
+  );
+  const spokeTests = entities.spokes.flatMap((spoke) => [
+    rolesWiredTest(accessorIdentifier(spoke), testAddressRef(spoke), referenceSpoke(market)),
+    // the config engine configures a spoke but never checks this market deployed it
+    `function test_spokeDeployment_${accessorIdentifier(spoke)}() public view {
+        _assertSpokeDeployment(ISpoke(${testAddressRef(spoke)}));
+      }`,
+  ]);
+  return {
+    code: {
+      v4Getters: {
+        accessManagerTargetFunctionRoleUpdates: {
+          returnType: 'IConfigEngine.TargetFunctionRoleUpdate',
+          entries: [],
+          arrayExprs,
+          arrayMerge: 'V4RoleWiring.merge',
+        },
+      },
     },
-    {
-      target: hubExpr,
-      selectors: [],
-      selectorsExpr: 'Roles.getHubFeeMinterRoleSelectors()',
-      roleId: 'Roles.HUB_FEE_MINTER_ROLE',
-      selectorAsserts: ['IHub.mintFeeShares.selector'],
-    },
-    {
-      target: hubExpr,
-      selectors: [],
-      selectorsExpr: 'Roles.getHubDeficitEliminatorRoleSelectors()',
-      roleId: 'Roles.HUB_DEFICIT_ELIMINATOR_ROLE',
-      selectorAsserts: ['IHub.eliminateDeficit.selector'],
-    },
-  ];
+    test: {fn: [...hubTests, ...spokeTests]},
+  };
 }

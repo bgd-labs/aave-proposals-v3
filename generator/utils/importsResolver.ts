@@ -124,6 +124,12 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, '\\bRoles\\.')) {
     imports += `import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';\n`;
   }
+  if (findMatch(code, '\\bV4EngineDefaults\\.')) {
+    imports += `import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';\n`;
+  }
+  if (findMatch(code, '\\bV4RoleWiring\\.')) {
+    imports += `import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';\n`;
+  }
   if (findMatch(code, '(?<!I)\\bOwnable\\b')) {
     imports += `import {Ownable} from 'openzeppelin-contracts/contracts/access/Ownable.sol';\n`;
   }

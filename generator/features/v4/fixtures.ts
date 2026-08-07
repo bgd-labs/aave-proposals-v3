@@ -20,7 +20,6 @@ import {accessManagerTargetFunctionRoleUpdate} from './access/accessManagerTarge
 import {accessManagerTargetAdminDelayUpdate} from './access/accessManagerTargetAdminDelayUpdate';
 import {positionManagerSpokeRegistration} from './positionManager/positionManagerSpokeRegistration';
 import {positionManagerRoleRenouncement} from './positionManager/positionManagerRoleRenouncement';
-import {hubWiring, spokeWiring} from './accessWiring';
 import {onboardAssetToHub} from './bundles/onboardAssetToHub';
 import {onboardReserveToSpoke} from './bundles/onboardReserveToSpoke';
 import {tuneSpokeRisk} from './bundles/tuneSpokeRisk';
@@ -67,6 +66,11 @@ const ASSET = 'AaveV4EthereumAssets.WETH_UNDERLYING';
 const RESERVE_ASSET = 'AaveV4EthereumAssets.USDC_UNDERLYING';
 const PM = '0x1111111111111111111111111111111111111111';
 const ADDR = '0x2222222222222222222222222222222222222222';
+// fresh deploys are by definition not in the address book, so they are raw addresses:
+// a book entity here would make the generated wiring test compare a hub or spoke
+// against itself instead of against the market's already-wired reference
+const FRESH_HUB = '0x3333333333333333333333333333333333333333';
+const FRESH_SPOKE = '0x4444444444444444444444444444444444444444';
 
 export type Fixture = {options: Options; marketConfigs: MarketConfigs};
 
@@ -104,6 +108,15 @@ export function allModulesFixture(): Fixture {
         name: "TS\\'x",
         symbol: 'TS',
       },
+    },
+    {
+      hubLib: HUB,
+      hub: HUB,
+      underlying: RESERVE_ASSET,
+      feeReceiver: ADDR,
+      liquidityFee: '0',
+      irStrategy: ADDR,
+      irPreset: 'nonBorrowable',
     },
   ];
 
@@ -354,7 +367,8 @@ export function useCasesFixture(): Fixture {
   };
 
   const onboardAssetCfg = {
-    targetFunctionRoles: hubWiring(HUB),
+    freshHubs: [FRESH_HUB],
+    freshSpokes: [],
     listings: [
       {
         hubLib: HUB,
@@ -392,7 +406,8 @@ export function useCasesFixture(): Fixture {
   };
 
   const onboardReserveCfg = {
-    targetFunctionRoles: spokeWiring('AaveV4Ethereum', SPOKE),
+    freshHubs: [],
+    freshSpokes: [FRESH_SPOKE],
     hubAssetListings: [
       {
         hubLib: HUB,

@@ -73,4 +73,16 @@ jobs:
         run: pnpm test:codegen
 
   test-js:
-    uses: aave-dao/github-workflows/.github/workflows/test-node.yml@main
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: aave-dao/github-workflows/.github/actions/setup-node@main
+
+      - name: Run Foundry setup
+        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+
+      - name: Run tests
+        run: pnpm test

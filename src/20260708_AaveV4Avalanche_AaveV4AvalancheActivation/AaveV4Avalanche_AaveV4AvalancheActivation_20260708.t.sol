@@ -26,8 +26,6 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
   address internal constant V4_SECURITY_COUNCIL = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
   address internal constant SECURITY_COUNCIL_EXECUTOR = 0xb619fA61e795D47f517702e63ce50292370561F1;
   address internal constant GOV_EXECUTOR = GovernanceV3Avalanche.EXECUTOR_LVL_1;
-  bytes32 internal constant EIP1967_ADMIN_SLOT =
-    0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
 
   AaveV4Avalanche_AaveV4AvalancheActivation_20260708 internal proposal;
 
@@ -379,10 +377,5 @@ contract AaveV4Avalanche_AaveV4AvalancheActivation_20260708_Test is ProtocolV4Te
     for (uint256 i; i < selectors.length; ++i) {
       assertEq(ACCESS_MANAGER.getTargetFunctionRole(target, selectors[i]), expectedRole);
     }
-  }
-
-  function _proxyAdminOwner(address proxy) internal view returns (address) {
-    address proxyAdmin = address(uint160(uint256(vm.load(proxy, EIP1967_ADMIN_SLOT))));
-    return IOwnable2Step(proxyAdmin).owner();
   }
 }
