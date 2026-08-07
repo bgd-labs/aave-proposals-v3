@@ -6,7 +6,8 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 
-import {RiskStewardCooldownReductionBase} from './RiskStewardCooldownReductionBase.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {RiskStewardCooldownReduction} from './RiskStewardCooldownReduction.sol';
 
 /**
  * @title Risk Stewards Cooldown Reduction & Umbrella Pauser Role Reassignment
@@ -15,12 +16,12 @@ import {RiskStewardCooldownReductionBase} from './RiskStewardCooldownReductionBa
  * - Discussion: https://governance.aave.com/t/arfc-risk-stewards-cooldown-reduction-umbrella-pauser-role-reassignment/25068
  */
 contract AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720 is
-  RiskStewardCooldownReductionBase
+  IProposalGenericExecutor
 {
   bytes32 public constant PAUSE_GUARDIAN_ROLE = keccak256('PAUSE_GUARDIAN_ROLE');
 
   function execute() external {
-    _setRiskStewardMinDelay(AaveV3Ethereum.RISK_STEWARD);
+    RiskStewardCooldownReduction.setRiskStewardMinDelay(AaveV3Ethereum.RISK_STEWARD);
 
     IAccessControl(address(UmbrellaEthereum.UMBRELLA)).grantRole(
       PAUSE_GUARDIAN_ROLE,

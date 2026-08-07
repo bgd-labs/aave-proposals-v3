@@ -2,7 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
-import {RiskStewardCooldownReductionBase} from './RiskStewardCooldownReductionBase.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {RiskStewardCooldownReduction} from './RiskStewardCooldownReduction.sol';
 
 /**
  * @title Risk Stewards Cooldown Reduction & Umbrella Pauser Role Reassignment
@@ -11,9 +12,9 @@ import {RiskStewardCooldownReductionBase} from './RiskStewardCooldownReductionBa
  * - Discussion: https://governance.aave.com/t/arfc-risk-stewards-cooldown-reduction-umbrella-pauser-role-reassignment/25068
  */
 contract AaveV3Scroll_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720 is
-  RiskStewardCooldownReductionBase
+  IProposalGenericExecutor
 {
   function execute() external {
-    _setRiskStewardMinDelay(AaveV3Scroll.RISK_STEWARD);
+    RiskStewardCooldownReduction.setRiskStewardMinDelay(AaveV3Scroll.RISK_STEWARD);
   }
 }
