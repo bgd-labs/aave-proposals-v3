@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IAaveV4ConfigEngine as IConfigEngine, IHubConfigurator, ISpokeConfigurator} from 'aave-address-book/AaveV4.sol';
+import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 
 /**
  * @title IRiskStewardV4
@@ -69,9 +70,16 @@ interface IRiskStewardV4 {
     OracleConfig oracle;
   }
 
+  struct PriceCapLstUpdate {
+    address oracle;
+    IPriceCapAdapter.PriceCapUpdateParams priceCapUpdateParams;
+  }
+
   function setConfig(Config calldata config) external;
 
   function updateHubSpokeCaps(IConfigEngine.SpokeConfigUpdate[] calldata updates) external;
+
+  function updateLstPriceCaps(PriceCapLstUpdate[] calldata updates) external;
 
   function getConfig() external view returns (Config memory);
 

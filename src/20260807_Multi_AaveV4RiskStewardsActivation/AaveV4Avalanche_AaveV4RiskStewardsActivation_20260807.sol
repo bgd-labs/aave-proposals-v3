@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {AaveV4Avalanche} from 'aave-address-book/AaveV4Avalanche.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
@@ -17,11 +18,11 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGener
   address public constant RISK_STEWARD = 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107;
 
   function execute() external override {
-    _grantConfiguratorRoles();
+    _grantRoles();
     IRiskStewardV4(RISK_STEWARD).setConfig(_riskStewardConfig());
   }
 
-  function _grantConfiguratorRoles() internal {
+  function _grantRoles() internal {
     AaveV4Avalanche.ACCESS_MANAGER.grantRole({
       roleId: Roles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
       account: RISK_STEWARD,
@@ -32,6 +33,8 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGener
       account: RISK_STEWARD,
       executionDelay: 0
     });
+    // the CAPO adapters behind the v4 price sources gate setCapParameters on the v3 ACL manager
+    AaveV3Avalanche.ACL_MANAGER.addRiskAdmin(RISK_STEWARD);
   }
 
   function _riskStewardConfig() internal pure returns (IRiskStewardV4.Config memory) {

@@ -46,6 +46,8 @@ On Aave V4 Ethereum, the payload targets the Risk Steward at [0x6f48d9Cdb8EE6E17
 
 In addition, each Risk Steward is granted the `HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE` (200) and the `SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE` (400) on its network's AccessManager, with no execution delay. Without both roles the Risk Steward cannot reach the configurators and the configuration above has no effect.
 
+Each Risk Steward is also granted `RISK_ADMIN` on its network's Aave V3 ACL Manager. The CAPO adapters serving the V4 price sources are shared with V3 and gate `setCapParameters` on the V3 ACL Manager, so without this role the `priceCapLst`, `priceCapStable` and `discountRatePendle` bounds above would be unusable.
+
 Listings, spoke registrations, position manager updates, price sources, pause and freeze flags, borrowability, liquidation fees and interest rate strategy addresses remain governance-only and are out of the Risk Stewards' scope.
 
 ## References

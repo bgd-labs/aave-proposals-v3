@@ -9,6 +9,7 @@ import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4Ethereum
 import {IAaveV4ConfigEngine as IConfigEngine, IHub, ISpoke, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
+import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IRiskSteward} from 'src/interfaces/IRiskSteward.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {ProtocolV4TestBaseEthereum} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseEthereum.sol';
@@ -22,6 +23,9 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4
   IHub internal constant CORE_HUB = AaveV4EthereumHubs.CORE_HUB;
   ISpoke internal constant MAIN_SPOKE = AaveV4EthereumSpokes.MAIN_SPOKE;
   address internal constant WETH = AaveV4EthereumAssets.WETH_UNDERLYING;
+  // capped wstETH / stETH(ETH) / USD, the price source of wstETH on the main spoke
+  IPriceCapAdapter internal constant wstETH_CAPO_ADAPTER =
+    IPriceCapAdapter(0xe1D97bF61901B075E9626c8A2340a7De385861Ef);
 
   AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807 internal proposal;
   IRiskStewardV4 internal steward;
@@ -68,6 +72,42 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4
     );
     assertTrue(isSpokeAdmin, 'spoke configurator role not granted');
     assertEq(uint256(spokeDelay), 0, 'spoke configurator role delay');
+
+    assertTrue(
+      AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.RISK_STEWARD()),
+      'risk admin role not granted'
+    );
+  }
+
+  function test_riskCouncilCanUpdateLstPriceCap() public activated {
+    uint16 growthBefore = uint16(wstETH_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent());
+    uint16 growthAfter = growthBefore + growthBefore / 20;
+    IRiskStewardV4.PriceCapLstUpdate[] memory updates = _lstPriceCapUpdate(growthAfter);
+    address riskCouncil = steward.RISK_COUNCIL();
+
+    vm.prank(riskCouncil);
+    steward.updateLstPriceCaps(updates);
+
+    assertEq(
+      wstETH_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent(),
+      growthAfter,
+      'maxYearlyGrowthRatePercent not updated'
+    );
+  }
+
+  function _lstPriceCapUpdate(
+    uint16 maxYearlyRatioGrowthPercent
+  ) internal view returns (IRiskStewardV4.PriceCapLstUpdate[] memory) {
+    IRiskStewardV4.PriceCapLstUpdate[] memory updates = new IRiskStewardV4.PriceCapLstUpdate[](1);
+    updates[0] = IRiskStewardV4.PriceCapLstUpdate({
+      oracle: address(wstETH_CAPO_ADAPTER),
+      priceCapUpdateParams: IPriceCapAdapter.PriceCapUpdateParams({
+        snapshotRatio: uint104(uint256(wstETH_CAPO_ADAPTER.getRatio())),
+        snapshotTimestamp: uint48(block.timestamp - wstETH_CAPO_ADAPTER.MINIMUM_SNAPSHOT_DELAY()),
+        maxYearlyRatioGrowthPercent: maxYearlyRatioGrowthPercent
+      })
+    });
+    return updates;
   }
 
   function test_riskStewardConfig() public activated {

@@ -9,6 +9,7 @@ import {AaveV4Avalanche, AaveV4AvalancheHubs, AaveV4AvalancheSpokes, AaveV4Avala
 import {IAaveV4ConfigEngine as IConfigEngine, IHub, ISpoke} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
+import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IRiskSteward} from 'src/interfaces/IRiskSteward.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {ProtocolV4TestBaseAvalanche} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseAvalanche.sol';
@@ -22,6 +23,9 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
   IHub internal constant CORE_HUB = AaveV4AvalancheHubs.CORE_HUB;
   ISpoke internal constant MAIN_SPOKE = AaveV4AvalancheSpokes.MAIN_SPOKE;
   address internal constant WAVAX = AaveV4AvalancheAssets.WAVAX_UNDERLYING;
+  // capped sAVAX / AVAX / USD, the price source of sAVAX on the AVAX correlated spoke
+  IPriceCapAdapter internal constant sAVAX_CAPO_ADAPTER =
+    IPriceCapAdapter(0xB2B332f27e4B7305649a228C31Ed9858c5a6bAD9);
 
   AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 internal proposal;
   IRiskStewardV4 internal steward;
@@ -68,6 +72,42 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
     );
     assertTrue(isSpokeAdmin, 'spoke configurator role not granted');
     assertEq(uint256(spokeDelay), 0, 'spoke configurator role delay');
+
+    assertTrue(
+      AaveV3Avalanche.ACL_MANAGER.isRiskAdmin(proposal.RISK_STEWARD()),
+      'risk admin role not granted'
+    );
+  }
+
+  function test_riskCouncilCanUpdateLstPriceCap() public activated {
+    uint16 growthBefore = uint16(sAVAX_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent());
+    uint16 growthAfter = growthBefore + growthBefore / 20;
+    IRiskStewardV4.PriceCapLstUpdate[] memory updates = _lstPriceCapUpdate(growthAfter);
+    address riskCouncil = steward.RISK_COUNCIL();
+
+    vm.prank(riskCouncil);
+    steward.updateLstPriceCaps(updates);
+
+    assertEq(
+      sAVAX_CAPO_ADAPTER.getMaxYearlyGrowthRatePercent(),
+      growthAfter,
+      'maxYearlyGrowthRatePercent not updated'
+    );
+  }
+
+  function _lstPriceCapUpdate(
+    uint16 maxYearlyRatioGrowthPercent
+  ) internal view returns (IRiskStewardV4.PriceCapLstUpdate[] memory) {
+    IRiskStewardV4.PriceCapLstUpdate[] memory updates = new IRiskStewardV4.PriceCapLstUpdate[](1);
+    updates[0] = IRiskStewardV4.PriceCapLstUpdate({
+      oracle: address(sAVAX_CAPO_ADAPTER),
+      priceCapUpdateParams: IPriceCapAdapter.PriceCapUpdateParams({
+        snapshotRatio: uint104(uint256(sAVAX_CAPO_ADAPTER.getRatio())),
+        snapshotTimestamp: uint48(block.timestamp - sAVAX_CAPO_ADAPTER.MINIMUM_SNAPSHOT_DELAY()),
+        maxYearlyRatioGrowthPercent: maxYearlyRatioGrowthPercent
+      })
+    });
+    return updates;
   }
 
   function test_riskStewardConfig() public activated {

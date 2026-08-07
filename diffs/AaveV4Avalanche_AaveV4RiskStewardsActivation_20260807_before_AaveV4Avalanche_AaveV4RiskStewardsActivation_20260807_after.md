@@ -17,23 +17,29 @@
 | 0 | RoleGranted(roleId: 200, account: 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107, delay: 0, since: 1786090593, newMember: true) |
 | 1 | RoleGranted(roleId: 400, account: 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107, delay: 0, since: 1786090593, newMember: true) |
 
+#### 0xa72636CbcAa8F5FF95B2cc47F3CDEe83F3294a0B (AaveV3Avalanche.ACL_MANAGER)
+
+| index | event |
+| --- | --- |
+| 2 | RoleGranted(role: 0x8aa855a911518ecfbe5bc3088c8f3dda7badf130faaf8ace33fdc33828e18167, account: 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107, sender: 0x3C06dce358add17aAf230f2234bCCC4afd50d090) |
+
 #### 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107
 
 | index | event |
 | --- | --- |
-| 2 | topics: `0x2329cbe7a0a6163d660474fbbc2e37d4b23710a3427e5cace6b371f5dba354b6`, data: `0x000000000000000000000000bdf92ed96ff6d678469afaffa1e7d37b25beaa33...` |
+| 3 | topics: `0x2329cbe7a0a6163d660474fbbc2e37d4b23710a3427e5cace6b371f5dba354b6`, data: `0x000000000000000000000000bdf92ed96ff6d678469afaffa1e7d37b25beaa33...` |
 
 #### 0x3C06dce358add17aAf230f2234bCCC4afd50d090 (AaveV2Avalanche.POOL_ADMIN, AaveV3Avalanche.ACL_ADMIN, GovernanceV3Avalanche.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 3 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1786090593, withDelegatecall: true, resultData: 0x) |
+| 4 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1786090593, withDelegatecall: true, resultData: 0x) |
 
 #### 0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80 (GovernanceV3Avalanche.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 4 | PayloadExecuted(payloadId: 122) |
+| 5 | PayloadExecuted(payloadId: 122) |
 
 ## Raw storage changes
 
@@ -43,6 +49,12 @@
 | --- | --- | --- |
 | 0x0c91243f75e216cf1d80d738f653c23abf15a7e3590b83c6e4772e2ddcffe533 | 0x006a759460000000000002000000000000000000000000000000000000000000 | 0x006a759460000000000003000000000000000000000000000000000000000000 |
 | 0x0c91243f75e216cf1d80d738f653c23abf15a7e3590b83c6e4772e2ddcffe534 | 0x000000000000000000093a800000000000006aa3b8e100000000000000000000 | 0x000000000000000000093a800000000000006aa3b8e10000000000006a759461 |
+
+### 0xa72636cbcaa8f5ff95b2cc47f3cdee83f3294a0b (AaveV3Avalanche.ACL_MANAGER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xa6e98b9d4b61083554d3215798b04fea9ba5219508b982cf5c1e47b0014f8ddf | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000000000000000000000000000000000000000000001 |
 
 ### 0xd8d7abc42c1c938bdec94ff8da1b3cd5b7e3b107
 
