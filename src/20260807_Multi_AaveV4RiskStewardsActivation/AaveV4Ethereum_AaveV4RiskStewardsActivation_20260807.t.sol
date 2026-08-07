@@ -9,7 +9,7 @@ import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumSpokes, AaveV4Ethereum
 import {IAaveV4ConfigEngine as IConfigEngine, IHub, ISpoke, ITokenizationSpoke} from 'aave-address-book/AaveV4.sol';
 import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
-import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
+import {AaveV4ConfiguratorRoles} from './AaveV4ConfiguratorRoles.sol';
 import {IPendlePriceCapAdapter} from 'src/interfaces/IPendlePriceCapAdapter.sol';
 import {IPriceCapAdapter} from 'src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from 'src/interfaces/IPriceCapAdapterStable.sol';
@@ -70,24 +70,167 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4
   }
 
   function test_rolesGranted() public activated {
-    (bool isHubAdmin, uint32 hubDelay) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(
-      Roles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
-      proposal.RISK_STEWARD()
-    );
-    assertTrue(isHubAdmin, 'hub configurator role not granted');
-    assertEq(uint256(hubDelay), 0, 'hub configurator role delay');
+    uint64[] memory granted = new uint64[](4);
+    granted[0] = AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_RISK_MANAGEMENT_ROLE;
+    granted[1] = AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_EMERGENCY_ROLE;
+    granted[2] = AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_RISK_MANAGEMENT_ROLE;
+    granted[3] = AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_EMERGENCY_ROLE;
 
-    (bool isSpokeAdmin, uint32 spokeDelay) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(
-      Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
-      proposal.RISK_STEWARD()
-    );
-    assertTrue(isSpokeAdmin, 'spoke configurator role not granted');
-    assertEq(uint256(spokeDelay), 0, 'spoke configurator role delay');
+    for (uint256 i; i < granted.length; ++i) {
+      (bool hasRole, uint32 delay) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(
+        granted[i],
+        proposal.RISK_STEWARD()
+      );
+      assertTrue(hasRole, string.concat('role not granted: ', vm.toString(granted[i])));
+      assertEq(uint256(delay), 0, string.concat('role delay: ', vm.toString(granted[i])));
+    }
 
     assertTrue(
       AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.RISK_STEWARD()),
       'risk admin role not granted'
     );
+  }
+
+  /// @dev The steward is deliberately not given the flag, listing or domain admin roles.
+  function test_stewardNotGrantedRemainingRoles() public activated {
+    uint64[] memory withheld = new uint64[](8);
+    withheld[0] = AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE;
+    withheld[1] = AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_SPOKE_ACTIVE_ROLE;
+    withheld[2] = AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_SPOKE_HALTED_ROLE;
+    withheld[3] = AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_LISTING_ROLE;
+    withheld[4] = AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE;
+    withheld[5] = AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_PAUSE_ROLE;
+    withheld[6] = AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_FREEZE_ROLE;
+    withheld[7] = AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_LISTING_ROLE;
+
+    for (uint256 i; i < withheld.length; ++i) {
+      (bool hasRole, ) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(
+        withheld[i],
+        proposal.RISK_STEWARD()
+      );
+      assertFalse(hasRole, string.concat('role should be withheld: ', vm.toString(withheld[i])));
+    }
+  }
+
+  /// @dev Every selector of each new role must resolve to that role on its own configurator, and
+  /// the domain admin roles must be left holding only the residual selectors.
+  function test_configuratorSelectorsSplitAcrossRoles() public activated {
+    _assertHubRoleSelectors(AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE);
+    uint64[] memory hubRoles = AaveV4ConfiguratorRoles.hubRoles();
+    for (uint256 i; i < hubRoles.length; ++i) {
+      _assertHubRoleSelectors(hubRoles[i]);
+    }
+
+    _assertSpokeRoleSelectors(AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE);
+    uint64[] memory spokeRoles = AaveV4ConfiguratorRoles.spokeRoles();
+    for (uint256 i; i < spokeRoles.length; ++i) {
+      _assertSpokeRoleSelectors(spokeRoles[i]);
+    }
+  }
+
+  /// @dev Each address that held a domain admin role keeps the same reach through the new roles.
+  function test_domainAdminsCarriedOverToNewRoles() public {
+    address[] memory hubAdmins = _roleMembers(
+      AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE
+    );
+    address[] memory spokeAdmins = _roleMembers(
+      AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE
+    );
+    assertGt(hubAdmins.length, 0, 'no hub domain admin to carry over');
+    assertGt(spokeAdmins.length, 0, 'no spoke domain admin to carry over');
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _assertHoldsAll(hubAdmins, AaveV4ConfiguratorRoles.hubRoles());
+    _assertHoldsAll(spokeAdmins, AaveV4ConfiguratorRoles.spokeRoles());
+  }
+
+  function test_newRolesLabeled() public activated {
+    string[10] memory labels = [
+      'HUB_CONFIGURATOR_SPOKE_ACTIVE_ROLE',
+      'HUB_CONFIGURATOR_SPOKE_HALTED_ROLE',
+      'HUB_CONFIGURATOR_LISTING_ROLE',
+      'HUB_CONFIGURATOR_EMERGENCY_ROLE',
+      'HUB_CONFIGURATOR_RISK_MANAGEMENT_ROLE',
+      'SPOKE_CONFIGURATOR_PAUSE_ROLE',
+      'SPOKE_CONFIGURATOR_FREEZE_ROLE',
+      'SPOKE_CONFIGURATOR_LISTING_ROLE',
+      'SPOKE_CONFIGURATOR_EMERGENCY_ROLE',
+      'SPOKE_CONFIGURATOR_RISK_MANAGEMENT_ROLE'
+    ];
+    uint64[] memory roles = new uint64[](10);
+    uint64[] memory hubRoles = AaveV4ConfiguratorRoles.hubRoles();
+    uint64[] memory spokeRoles = AaveV4ConfiguratorRoles.spokeRoles();
+    for (uint256 i; i < 5; ++i) {
+      roles[i] = hubRoles[i];
+      roles[i + 5] = spokeRoles[i];
+    }
+
+    for (uint256 i; i < roles.length; ++i) {
+      assertEq(
+        AaveV4Ethereum.ACCESS_MANAGER.getLabelOfRole(roles[i]),
+        labels[i],
+        string.concat('label mismatch: ', vm.toString(roles[i]))
+      );
+      assertEq(
+        uint256(AaveV4Ethereum.ACCESS_MANAGER.getRoleOfLabel(labels[i])),
+        uint256(roles[i]),
+        string.concat('reverse label mismatch: ', labels[i])
+      );
+    }
+  }
+
+  function _assertHubRoleSelectors(uint64 role) internal view {
+    bytes4[] memory selectors = AaveV4ConfiguratorRoles.hubSelectors(role);
+    for (uint256 i; i < selectors.length; ++i) {
+      assertEq(
+        uint256(
+          AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
+            address(AaveV4Ethereum.HUB_CONFIGURATOR),
+            selectors[i]
+          )
+        ),
+        uint256(role),
+        string.concat('hub selector role mismatch: ', vm.toString(role))
+      );
+    }
+  }
+
+  function _assertSpokeRoleSelectors(uint64 role) internal view {
+    bytes4[] memory selectors = AaveV4ConfiguratorRoles.spokeSelectors(role);
+    for (uint256 i; i < selectors.length; ++i) {
+      assertEq(
+        uint256(
+          AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
+            address(AaveV4Ethereum.SPOKE_CONFIGURATOR),
+            selectors[i]
+          )
+        ),
+        uint256(role),
+        string.concat('spoke selector role mismatch: ', vm.toString(role))
+      );
+    }
+  }
+
+  function _roleMembers(uint64 role) internal view returns (address[] memory) {
+    uint256 count = AaveV4Ethereum.ACCESS_MANAGER.getRoleMemberCount(role);
+    address[] memory members = new address[](count);
+    for (uint256 i; i < count; ++i) {
+      members[i] = AaveV4Ethereum.ACCESS_MANAGER.getRoleMember(role, i);
+    }
+    return members;
+  }
+
+  function _assertHoldsAll(address[] memory accounts, uint64[] memory roles) internal view {
+    for (uint256 i; i < accounts.length; ++i) {
+      for (uint256 j; j < roles.length; ++j) {
+        (bool hasRole, ) = AaveV4Ethereum.ACCESS_MANAGER.hasRole(roles[j], accounts[i]);
+        assertTrue(
+          hasRole,
+          string.concat(vm.toString(accounts[i]), ' missing role ', vm.toString(roles[j]))
+        );
+      }
+    }
   }
 
   function test_riskCouncilCanUpdateLstPriceCap() public activated {

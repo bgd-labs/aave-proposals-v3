@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {AaveV4Avalanche} from 'aave-address-book/AaveV4Avalanche.sol';
-import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
+import {AaveV4ConfiguratorRoles} from './AaveV4ConfiguratorRoles.sol';
 
 /**
  * @title AaveV4RiskStewardsActivation
@@ -18,18 +18,35 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGener
   address public constant RISK_STEWARD = 0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107;
 
   function execute() external override {
+    AaveV4ConfiguratorRoles.breakDownDomainAdminRoles(
+      AaveV4Avalanche.ACCESS_MANAGER,
+      AaveV4Avalanche.HUB_CONFIGURATOR,
+      AaveV4Avalanche.SPOKE_CONFIGURATOR
+    );
     _grantRoles();
     IRiskStewardV4(RISK_STEWARD).setConfig(_riskStewardConfig());
   }
 
+  /// @dev The steward only needs risk management to run its own entrypoints; emergency is granted
+  /// alongside it so it can also de-risk without a new proposal.
   function _grantRoles() internal {
     AaveV4Avalanche.ACCESS_MANAGER.grantRole({
-      roleId: Roles.HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
+      roleId: AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_RISK_MANAGEMENT_ROLE,
       account: RISK_STEWARD,
       executionDelay: 0
     });
     AaveV4Avalanche.ACCESS_MANAGER.grantRole({
-      roleId: Roles.SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE,
+      roleId: AaveV4ConfiguratorRoles.HUB_CONFIGURATOR_EMERGENCY_ROLE,
+      account: RISK_STEWARD,
+      executionDelay: 0
+    });
+    AaveV4Avalanche.ACCESS_MANAGER.grantRole({
+      roleId: AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_RISK_MANAGEMENT_ROLE,
+      account: RISK_STEWARD,
+      executionDelay: 0
+    });
+    AaveV4Avalanche.ACCESS_MANAGER.grantRole({
+      roleId: AaveV4ConfiguratorRoles.SPOKE_CONFIGURATOR_EMERGENCY_ROLE,
       account: RISK_STEWARD,
       executionDelay: 0
     });
