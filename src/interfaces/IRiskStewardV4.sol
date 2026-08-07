@@ -75,11 +75,41 @@ interface IRiskStewardV4 {
     IPriceCapAdapter.PriceCapUpdateParams priceCapUpdateParams;
   }
 
+  struct PriceCapStableUpdate {
+    address oracle;
+    uint256 priceCap;
+  }
+
+  struct DiscountRatePendleUpdate {
+    address oracle;
+    uint256 discountRate;
+  }
+
   function setConfig(Config calldata config) external;
+
+  function updateHubAssetIRs(IConfigEngine.AssetConfigUpdate[] calldata updates) external;
 
   function updateHubSpokeCaps(IConfigEngine.SpokeConfigUpdate[] calldata updates) external;
 
+  function updateReserveConfigs(IConfigEngine.ReserveConfigUpdate[] calldata updates) external;
+
+  function updateDynamicReserveConfigs(
+    IConfigEngine.DynamicReserveConfigUpdate[] calldata updates
+  ) external;
+
+  function addDynamicReserveConfigs(
+    IConfigEngine.DynamicReserveConfigAddition[] calldata additions
+  ) external;
+
+  function updateSpokeLiquidationConfigs(
+    IConfigEngine.LiquidationConfigUpdate[] calldata updates
+  ) external;
+
   function updateLstPriceCaps(PriceCapLstUpdate[] calldata updates) external;
+
+  function updateStablePriceCaps(PriceCapStableUpdate[] calldata updates) external;
+
+  function updatePendleDiscountRates(DiscountRatePendleUpdate[] calldata updates) external;
 
   function getConfig() external view returns (Config memory);
 
