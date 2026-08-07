@@ -1,0 +1,59 @@
+---
+title: "Aave V4 Risk Stewards Activation"
+author: "Aave Labs"
+discussions: "TODO"
+---
+
+## Simple Summary
+
+This proposal activates the Risk Stewards on Aave V4 Ethereum and Aave V4 Avalanche, by setting their risk configuration and granting them the AccessManager roles they need to operate.
+
+The bounds (`maxPercentChange`) follow LlamaRisk's recommended configuration, which carries most of them over from the corresponding V3 Risk Stewards unchanged. The cooldowns (`minDelay`) on the interest rate, cap and `collateralRisk` parameters are set to 36 hours, in line with the reduction ratified for the V3 Risk Stewards; every other parameter keeps a 72 hour cooldown, and the Pendle discount rate keeps its 48 hour cooldown.
+
+## Motivation
+
+The V4 Risk Stewards are deployed on both networks but hold no configuration and no permissions, so risk parameter maintenance on V4 still requires a full governance cycle for every change.
+
+Configuring them alongside their V3 counterparts keeps a single risk mandate across protocol versions: the same risk council, and the same limits on how far a single update can move a parameter wherever V4 has a V3 equivalent. The parameters that are new in V4 — `collateralRisk`, the bounds applied when appending a new dynamic reserve config, and the spoke liquidation config — follow LlamaRisk's recommendation, as do the two interest rate parameters they widened relative to their V3 analogs.
+
+`collateralRisk` sits at or near 0 under normal conditions and is bounded absolutely, so it gets a wide 300% bound and the reduced 36 hour cooldown: that combination lets the risk premium be lifted far enough, fast enough, to push borrowers toward repayment inside a single stress window.
+
+The 36 hour cooldowns are applied to both networks so the two V4 Risk Stewards do not diverge.
+
+## Specification
+
+On Aave V4 Ethereum, the payload targets the Risk Steward at [0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1](https://etherscan.io/address/0x6f48d9Cdb8EE6E17c96B2d8Aec128af426A295c1). On Aave V4 Avalanche, it targets the Risk Steward at [0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107](https://snowscan.xyz/address/0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107). Both payloads apply the same configuration:
+
+| Scope  | Parameter                        | Cooldown | Max change per update | Mode     |
+| ------ | -------------------------------- | -------- | --------------------- | -------- |
+| Hub    | `optimalUsageRatio`              | 36 hours | 3%                    | absolute |
+| Hub    | `baseDrawnRate`                  | 36 hours | 3%                    | absolute |
+| Hub    | `rateGrowthBeforeOptimal`        | 36 hours | 3%                    | absolute |
+| Hub    | `rateGrowthAfterOptimal`         | 36 hours | 20%                   | absolute |
+| Hub    | `addCap`                         | 36 hours | 100%                  | relative |
+| Hub    | `drawCap`                        | 36 hours | 100%                  | relative |
+| Spoke  | `collateralRisk`                 | 36 hours | 300%                  | absolute |
+| Spoke  | `collateralFactor` (update)      | 72 hours | 0.5%                  | absolute |
+| Spoke  | `maxLiquidationBonus` (update)   | 72 hours | 0.5%                  | absolute |
+| Spoke  | `collateralFactor` (addition)    | 72 hours | 100%                  | absolute |
+| Spoke  | `maxLiquidationBonus` (addition) | 72 hours | 0.5%                  | absolute |
+| Spoke  | `targetHealthFactor`             | 72 hours | 5%                    | relative |
+| Spoke  | `healthFactorForMaxBonus`        | 72 hours | 5%                    | relative |
+| Spoke  | `liquidationBonusFactor`         | 72 hours | 5%                    | absolute |
+| Oracle | `priceCapLst`                    | 72 hours | 5%                    | relative |
+| Oracle | `priceCapStable`                 | 72 hours | 0.5%                  | relative |
+| Oracle | `discountRatePendle`             | 48 hours | 0.025                 | absolute |
+
+In addition, each Risk Steward is granted the `HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE` (200) and the `SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE` (400) on its network's AccessManager, with no execution delay. Without both roles the Risk Steward cannot reach the configurators and the configuration above has no effect.
+
+Listings, spoke registrations, position manager updates, price sources, pause and freeze flags, borrowability, liquidation fees and interest rate strategy addresses remain governance-only and are out of the Risk Stewards' scope.
+
+## References
+
+- Implementation: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol)
+- Tests: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.t.sol)
+- Discussion: TODO
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
