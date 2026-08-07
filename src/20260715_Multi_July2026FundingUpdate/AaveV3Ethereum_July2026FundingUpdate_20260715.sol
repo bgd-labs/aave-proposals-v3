@@ -31,21 +31,11 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
   uint256 public constant STABLE_VAULT_USDC_ALLOWANCE = 100_000e6;
   uint256 public constant STABLE_VAULT_USDT_ALLOWANCE = 100_000e6;
 
-  address public constant RESCUE_USDC_OWNER = 0x32FcF748e4dCEBD1081BfcccB94eB721101F27C0;
-  uint256 public constant RESCUE_USDC_AMOUNT = 25_000e6;
-
-  uint256 public constant WETH_SWAP_BUDGET_AMOUNT = 5_000 ether;
-  uint256 public constant USDT_SWAP_BUDGET_AMOUNT = 10_000_000e6;
-  uint256 public constant USDC_SWAP_BUDGET_AMOUNT = 10_000_000e6;
-  uint256 public constant USDe_SWAP_BUDGET_AMOUNT = 1_000_000 ether;
-  uint256 public constant USDS_SWAP_BUDGET_AMOUNT = 1_000_000 ether;
-  uint256 public constant DAI_SWAP_BUDGET_AMOUNT = 1_000_000 ether;
-  uint256 public constant RLUSD_SWAP_BUDGET_AMOUNT = 1_000_000 ether;
   uint256 public constant PYUSD_SWAP_BUDGET_AMOUNT = 500_000e6;
 
   function execute() external {
     _cancelAllowances();
-    _monad();
+    _addAllowanceForMonadIncentives();
     _stableVaults();
     _depositEth();
     _reimbursements();
@@ -61,7 +51,7 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
     );
   }
 
-  function _monad() internal {
+  function _addAllowanceForMonadIncentives() internal {
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       MiscEthereum.ALC_SAFE,
@@ -123,34 +113,6 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
 
   function _replenishAllowances() internal {
     IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.WETH_UNDERLYING,
-      WETH_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      USDT_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      USDC_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.USDe_UNDERLYING,
-      USDe_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.USDS_UNDERLYING,
-      USDS_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      DAI_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
-      AaveV3EthereumAssets.RLUSD_UNDERLYING,
-      RLUSD_SWAP_BUDGET_AMOUNT
-    );
-    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       PYUSD_SWAP_BUDGET_AMOUNT
     );
@@ -187,6 +149,25 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715 is IProposalGenericExecut
     );
     IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).setSwappablePair(
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.WETH_UNDERLYING,
+      true
+    );
+
+    // Various Swap Paths
+    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDe_UNDERLYING,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      true
+    );
+
+    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      true
+    );
+
+    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.WETH_UNDERLYING,
       true
     );

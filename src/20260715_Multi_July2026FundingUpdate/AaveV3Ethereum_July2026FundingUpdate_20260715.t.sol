@@ -15,6 +15,11 @@ import {AaveV3Ethereum_July2026FundingUpdate_20260715} from './AaveV3Ethereum_Ju
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260715_Multi_July2026FundingUpdate/AaveV3Ethereum_July2026FundingUpdate_20260715.t.sol -vv
  */
 contract AaveV3Ethereum_July2026FundingUpdate_20260715_Test is ProtocolV3TestBase {
+  struct SwapPair {
+    address from;
+    address to;
+  }
+
   AaveV3Ethereum_July2026FundingUpdate_20260715 internal proposal;
 
   function setUp() public {
@@ -174,159 +179,69 @@ contract AaveV3Ethereum_July2026FundingUpdate_20260715_Test is ProtocolV3TestBas
   }
 
   function test_replenishSwapTokenBudget() public {
-    uint256 budgetWethBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.WETH_UNDERLYING);
-
-    uint256 budgetUsdtBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.USDT_UNDERLYING);
-
-    uint256 budgetUsdcBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.USDC_UNDERLYING);
-
-    uint256 budgetUsdeBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.USDe_UNDERLYING);
-
-    uint256 budgetUsdsBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.USDS_UNDERLYING);
-
-    uint256 budgetDaiBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.DAI_UNDERLYING);
-
-    uint256 budgetRlusdBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.RLUSD_UNDERLYING);
-
     uint256 budgetPyusdBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
       .tokenBudget(AaveV3EthereumAssets.PYUSD_UNDERLYING);
 
     executePayload(vm, address(proposal));
 
-    {
-      uint256 budgetWethAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-        .tokenBudget(AaveV3EthereumAssets.WETH_UNDERLYING);
-
-      uint256 budgetUsdtAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-        .tokenBudget(AaveV3EthereumAssets.USDT_UNDERLYING);
-
-      uint256 budgetUsdcAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-        .tokenBudget(AaveV3EthereumAssets.USDC_UNDERLYING);
-
-      assertEq(budgetWethAfter, budgetWethBefore + proposal.WETH_SWAP_BUDGET_AMOUNT());
-      assertEq(budgetUsdtAfter, budgetUsdtBefore + proposal.USDT_SWAP_BUDGET_AMOUNT());
-      assertEq(budgetUsdcAfter, budgetUsdcBefore + proposal.USDC_SWAP_BUDGET_AMOUNT());
-    }
-
-    {
-      uint256 budgetUsdeAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-        .tokenBudget(AaveV3EthereumAssets.USDe_UNDERLYING);
-
-      uint256 budgetUsdsAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-        .tokenBudget(AaveV3EthereumAssets.USDS_UNDERLYING);
-
-      uint256 budgetDaiAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-        .tokenBudget(AaveV3EthereumAssets.DAI_UNDERLYING);
-
-      assertEq(budgetUsdeAfter, budgetUsdeBefore + proposal.USDe_SWAP_BUDGET_AMOUNT());
-      assertEq(budgetUsdsAfter, budgetUsdsBefore + proposal.USDS_SWAP_BUDGET_AMOUNT());
-      assertEq(budgetDaiAfter, budgetDaiBefore + proposal.DAI_SWAP_BUDGET_AMOUNT());
-    }
-
-    uint256 budgetRlusdAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
-      .tokenBudget(AaveV3EthereumAssets.RLUSD_UNDERLYING);
-
     uint256 budgetPyusdAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
       .tokenBudget(AaveV3EthereumAssets.PYUSD_UNDERLYING);
 
-    assertEq(budgetRlusdAfter, budgetRlusdBefore + proposal.RLUSD_SWAP_BUDGET_AMOUNT());
     assertEq(budgetPyusdAfter, budgetPyusdBefore + proposal.PYUSD_SWAP_BUDGET_AMOUNT());
   }
 
   function test_swapPaths() public {
-    IMainnetSwapSteward steward = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD);
+    SwapPair[] memory pairs = _newSwapPairs();
 
-    assertFalse(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.RLUSD_UNDERLYING,
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      )
-    );
-
-    assertFalse(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.RLUSD_UNDERLYING,
-        AaveV3EthereumAssets.AAVE_UNDERLYING
-      )
-    );
-
-    assertFalse(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.RLUSD_UNDERLYING,
-        AaveV3EthereumAssets.WETH_UNDERLYING
-      )
-    );
-
-    assertFalse(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.PYUSD_UNDERLYING,
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      )
-    );
-
-    assertFalse(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.PYUSD_UNDERLYING,
-        AaveV3EthereumAssets.AAVE_UNDERLYING
-      )
-    );
-
-    assertFalse(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.PYUSD_UNDERLYING,
-        AaveV3EthereumAssets.WETH_UNDERLYING
-      )
-    );
+    _assertSwapPairs(pairs, false);
 
     executePayload(vm, address(proposal));
 
-    assertTrue(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.RLUSD_UNDERLYING,
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      )
+    _assertSwapPairs(pairs, true);
+  }
+
+  /**
+   * @dev the swappable pairs the payload enables, in the same order as the payload configures them.
+   */
+  function _newSwapPairs() internal pure returns (SwapPair[] memory pairs) {
+    pairs = new SwapPair[](9);
+
+    // rlUSD Swap Paths
+    pairs[0] = SwapPair(AaveV3EthereumAssets.RLUSD_UNDERLYING, AaveV3EthereumAssets.GHO_UNDERLYING);
+    pairs[1] = SwapPair(
+      AaveV3EthereumAssets.RLUSD_UNDERLYING,
+      AaveV3EthereumAssets.AAVE_UNDERLYING
+    );
+    pairs[2] = SwapPair(
+      AaveV3EthereumAssets.RLUSD_UNDERLYING,
+      AaveV3EthereumAssets.WETH_UNDERLYING
     );
 
-    assertTrue(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.RLUSD_UNDERLYING,
-        AaveV3EthereumAssets.AAVE_UNDERLYING
-      )
+    // pyUSD Swap Paths
+    pairs[3] = SwapPair(AaveV3EthereumAssets.PYUSD_UNDERLYING, AaveV3EthereumAssets.GHO_UNDERLYING);
+    pairs[4] = SwapPair(
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.AAVE_UNDERLYING
+    );
+    pairs[5] = SwapPair(
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.WETH_UNDERLYING
     );
 
-    assertTrue(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.RLUSD_UNDERLYING,
-        AaveV3EthereumAssets.WETH_UNDERLYING
-      )
-    );
+    // Various Swap Paths
+    pairs[6] = SwapPair(AaveV3EthereumAssets.USDe_UNDERLYING, AaveV3EthereumAssets.AAVE_UNDERLYING);
+    pairs[7] = SwapPair(AaveV3EthereumAssets.DAI_UNDERLYING, AaveV3EthereumAssets.AAVE_UNDERLYING);
+    pairs[8] = SwapPair(AaveV3EthereumAssets.DAI_UNDERLYING, AaveV3EthereumAssets.WETH_UNDERLYING);
+  }
 
-    assertTrue(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.PYUSD_UNDERLYING,
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      )
-    );
+  /**
+   * @dev asserts every pair is approved (or not) on the steward.
+   */
+  function _assertSwapPairs(SwapPair[] memory pairs, bool expected) internal view {
+    IMainnetSwapSteward steward = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD);
 
-    assertTrue(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.PYUSD_UNDERLYING,
-        AaveV3EthereumAssets.AAVE_UNDERLYING
-      )
-    );
-
-    assertTrue(
-      steward.swapApprovedToken(
-        AaveV3EthereumAssets.PYUSD_UNDERLYING,
-        AaveV3EthereumAssets.WETH_UNDERLYING
-      )
-    );
+    for (uint256 i; i < pairs.length; i++) {
+      assertEq(steward.swapApprovedToken(pairs[i].from, pairs[i].to), expected);
+    }
   }
 }

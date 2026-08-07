@@ -20,9 +20,9 @@ contract AaveV3Arbitrum_July2026FundingUpdate_20260715 is IProposalGenericExecut
   uint256 public constant GHO_ALLOWANCE = 55_000 ether;
 
   function execute() external {
+    _cancelOldAllowances();
     _depositEth();
     _allowances();
-    _cancelOldAllowances();
   }
 
   function _depositEth() internal {
@@ -50,10 +50,14 @@ contract AaveV3Arbitrum_July2026FundingUpdate_20260715 is IProposalGenericExecut
       currentAllowanceWeth + WETH_ALLOWANCE
     );
 
+    uint256 currentAllowanceUsdc = IERC20(AaveV3ArbitrumAssets.USDCn_A_TOKEN).allowance(
+      address(AaveV3Arbitrum.COLLECTOR),
+      MiscArbitrum.AFC_SAFE
+    );
     AaveV3Arbitrum.COLLECTOR.approve(
       IERC20(AaveV3ArbitrumAssets.USDCn_A_TOKEN),
       MiscArbitrum.AFC_SAFE,
-      USDCn_ALLOWANCE
+      currentAllowanceUsdc + USDCn_ALLOWANCE
     );
 
     uint256 currentAllowanceUsdt = IERC20(AaveV3ArbitrumAssets.USDT_A_TOKEN).allowance(

@@ -10,6 +10,8 @@ This publication presents the July Funding Update, consisting of the following k
 
 - Acquire GHO to support the runway; and
 - Create Allowances to support Operations.
+- Increase Swap Steward allowances
+- Pay back audit costs
 
 ## Motivation
 
@@ -20,10 +22,6 @@ The MainnetSwapSteward and Aave Finance Committee (AFC) will continue executing 
 ### Reimburse Audit Costs
 
 Reimburse TokenLogic for costs incurred in facilitating the audit of one Chainlink PR that was modified to accommodate the GHO ↔ sGHO two-way swap layer. The value of the Audit performed by Trail of Bits was 50,000 aEthLidoGHO.
-
-### Incentive Campaign
-
-To support the continued success of the friendly Tydro deployment, a 5M GHO budget has been discussed with the Tydro team. During June, 2.5M of the 5M GHO was acquired and moved to the Ink Network, ready to support the Kraken DeFi Borrow campaign. The balance will be moved in line with operational requirements.
 
 ## Specification
 
@@ -37,20 +35,21 @@ Use the MainnetSwapSteward to acquire 8M GHO for deposit into the Prime instance
 
 #### Refresh MainnetSwapSteward Allowances
 
-To support the acquisition of GHO, wETH and AAVE, replenish Allowances on the MainnetSwapSteward.
+To support the acquisition of GHO, wETH and AAVE, add missing token swap paths.
 
-| Token | Budget | Acquirable Assets |
-| ----- | ------ | ----------------- |
-| ETH   | 5k     | GHO, AAVE         |
-| USDC  | 10M    | GHO, AAVE, wETH   |
-| USDT  | 10M    | GHO, AAVE, wETH   |
-| USDe  | 1M     | GHO, AAVE, wETH   |
-| USDS  | 1M     | GHO, AAVE, wETH   |
-| DAI   | 1M     | GHO, AAVE, wETH   |
-| rlUSD | 1M     | GHO, AAVE, wETH   |
-| pyUSD | 0.5M   | GHO, AAVE, wETH   |
+| Token | Acquirable Assets |
+| ----- | ----------------- |
+| ETH   | GHO, AAVE         |
+| USDC  | GHO, AAVE, wETH   |
+| USDT  | GHO, AAVE, wETH   |
+| USDe  | GHO, AAVE, wETH   |
+| USDS  | GHO, AAVE, wETH   |
+| DAI   | GHO, AAVE, wETH   |
+| rlUSD | GHO, AAVE, wETH   |
+| pyUSD | GHO, AAVE, wETH   |
 
 Where the path is not configured (i.e., pyUSD → GHO), we’ll add this path as a swappable pair with its respective oracle.
+Additionally, increase the pyUSD token budget by 500,000 units.
 
 #### Monad Incentives
 
@@ -96,7 +95,7 @@ Asset: aPlaPT_USDe_18JUN2026 `0xDEdFF537fCBa1169E673F78EE23D109885741016`
 Asset: aPlaWETH `0xf1aB7f60128924d69f6d7dE25A20eF70bBd43d07`
 Asset: aPlaweETH `0xAf1a7a488c8348b41d5860C04162af7d3D38A996`
 Asset: aPlasUSDe `0xC1A318493fF07a68fE438Cee60a7AD0d0DBa300E`
-Amount: Balance at time of execution
+Amount: Balance at time of execution, plus a small buffer to cover interest accrued between execution and transfer (100 units for the stable-correlated assets, 2 for aPlaWETH and aPlaweETH)
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 
 ### Refresh the Following Allowances

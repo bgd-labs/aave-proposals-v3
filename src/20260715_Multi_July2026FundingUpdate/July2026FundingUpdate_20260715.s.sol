@@ -81,7 +81,7 @@ contract DeployBase is BaseScript {
 /**
  * @dev Deploy Gnosis
  * deploy-command: make deploy-ledger contract=src/20260715_Multi_July2026FundingUpdate/July2026FundingUpdate_20260715.s.sol:DeployGnosis chain=gnosis
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/July2026FundingUpdate_20260715.s.sol/8453/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/July2026FundingUpdate_20260715.s.sol/100/run-latest.json
  */
 contract DeployGnosis is GnosisScript {
   function run() external broadcast {

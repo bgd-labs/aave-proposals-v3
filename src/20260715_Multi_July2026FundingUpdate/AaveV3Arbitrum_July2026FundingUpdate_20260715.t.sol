@@ -66,12 +66,12 @@ contract AaveV3Arbitrum_July2026FundingUpdate_20260715_Test is ProtocolV3TestBas
   }
 
   function test_approvals_weth() public {
-    assertGt(
+    assertEq(
       IERC20(AaveV3ArbitrumAssets.WETH_A_TOKEN).allowance(
         address(AaveV3Arbitrum.COLLECTOR),
         MiscArbitrum.AFC_SAFE
       ),
-      0
+      14000000000000000000
     );
     _assertAllowanceIncrease(AaveV3ArbitrumAssets.WETH_A_TOKEN, proposal.WETH_ALLOWANCE());
   }
@@ -88,12 +88,12 @@ contract AaveV3Arbitrum_July2026FundingUpdate_20260715_Test is ProtocolV3TestBas
   }
 
   function test_approvals_usdt() public {
-    assertGt(
+    assertEq(
       IERC20(AaveV3ArbitrumAssets.USDT_A_TOKEN).allowance(
         address(AaveV3Arbitrum.COLLECTOR),
         MiscArbitrum.AFC_SAFE
       ),
-      0
+      19999999998
     );
     _assertAllowanceIncrease(AaveV3ArbitrumAssets.USDT_A_TOKEN, proposal.USDT_ALLOWANCE());
   }

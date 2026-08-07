@@ -14,11 +14,18 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Plasma_July2026FundingUpdate_20260715 is IProposalGenericExecutor {
   uint256 public constant USDT_ALLOWANCE = 3_000_000e6;
+
+  // https://etherscan.io/address/0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e
   address public constant AHAB_SAFE = 0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e;
+
+  /// @dev Buffers covering interest accrued between execution and the AFC pulling the balance.
+  ///      Split by asset class so the notional headroom is comparable across both.
+  uint256 public constant ALLOWANCE_BUFFER_STABLE = 100 ether;
+  uint256 public constant ALLOWANCE_BUFFER_ETH = 2 ether;
 
   function execute() external {
     _smallAllowances();
-    _refreshUsdtAllowance();
+    _replaceAfcSafeUSDTAllowanceWithAhabSafeAllowance();
   }
 
   function _smallAllowances() internal {
@@ -27,7 +34,7 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715 is IProposalGenericExecutor
       MiscPlasma.AFC_SAFE,
       IERC20(AaveV3PlasmaAssets.PT_sUSDE_9APR2026_A_TOKEN).balanceOf(
         address(AaveV3Plasma.COLLECTOR)
-      )
+      ) + ALLOWANCE_BUFFER_STABLE
     );
 
     AaveV3Plasma.COLLECTOR.approve(
@@ -35,7 +42,7 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715 is IProposalGenericExecutor
       MiscPlasma.AFC_SAFE,
       IERC20(AaveV3PlasmaAssets.PT_USDe_15JAN2026_A_TOKEN).balanceOf(
         address(AaveV3Plasma.COLLECTOR)
-      )
+      ) + ALLOWANCE_BUFFER_STABLE
     );
 
     AaveV3Plasma.COLLECTOR.approve(
@@ -43,7 +50,7 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715 is IProposalGenericExecutor
       MiscPlasma.AFC_SAFE,
       IERC20(AaveV3PlasmaAssets.PT_sUSDE_18JUN2026_A_TOKEN).balanceOf(
         address(AaveV3Plasma.COLLECTOR)
-      )
+      ) + ALLOWANCE_BUFFER_STABLE
     );
 
     AaveV3Plasma.COLLECTOR.approve(
@@ -51,13 +58,15 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715 is IProposalGenericExecutor
       MiscPlasma.AFC_SAFE,
       IERC20(AaveV3PlasmaAssets.PT_sUSDE_15JAN2026_A_TOKEN).balanceOf(
         address(AaveV3Plasma.COLLECTOR)
-      )
+      ) + ALLOWANCE_BUFFER_STABLE
     );
 
     AaveV3Plasma.COLLECTOR.approve(
       IERC20(AaveV3PlasmaAssets.PT_USDe_9APR2026_A_TOKEN),
       MiscPlasma.AFC_SAFE,
-      IERC20(AaveV3PlasmaAssets.PT_USDe_9APR2026_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR))
+      IERC20(AaveV3PlasmaAssets.PT_USDe_9APR2026_A_TOKEN).balanceOf(
+        address(AaveV3Plasma.COLLECTOR)
+      ) + ALLOWANCE_BUFFER_STABLE
     );
 
     AaveV3Plasma.COLLECTOR.approve(
@@ -65,29 +74,32 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715 is IProposalGenericExecutor
       MiscPlasma.AFC_SAFE,
       IERC20(AaveV3PlasmaAssets.PT_USDe_18JUN2026_A_TOKEN).balanceOf(
         address(AaveV3Plasma.COLLECTOR)
-      )
+      ) + ALLOWANCE_BUFFER_STABLE
     );
 
     AaveV3Plasma.COLLECTOR.approve(
       IERC20(AaveV3PlasmaAssets.WETH_A_TOKEN),
       MiscPlasma.AFC_SAFE,
-      IERC20(AaveV3PlasmaAssets.WETH_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR))
+      IERC20(AaveV3PlasmaAssets.WETH_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR)) +
+        ALLOWANCE_BUFFER_ETH
     );
 
     AaveV3Plasma.COLLECTOR.approve(
       IERC20(AaveV3PlasmaAssets.weETH_A_TOKEN),
       MiscPlasma.AFC_SAFE,
-      IERC20(AaveV3PlasmaAssets.weETH_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR))
+      IERC20(AaveV3PlasmaAssets.weETH_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR)) +
+        ALLOWANCE_BUFFER_ETH
     );
 
     AaveV3Plasma.COLLECTOR.approve(
       IERC20(AaveV3PlasmaAssets.sUSDe_A_TOKEN),
       MiscPlasma.AFC_SAFE,
-      IERC20(AaveV3PlasmaAssets.sUSDe_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR))
+      IERC20(AaveV3PlasmaAssets.sUSDe_A_TOKEN).balanceOf(address(AaveV3Plasma.COLLECTOR)) +
+        ALLOWANCE_BUFFER_STABLE
     );
   }
 
-  function _refreshUsdtAllowance() internal {
+  function _replaceAfcSafeUSDTAllowanceWithAhabSafeAllowance() internal {
     AaveV3Plasma.COLLECTOR.approve(
       IERC20(AaveV3PlasmaAssets.USDT0_A_TOKEN),
       MiscPlasma.AFC_SAFE,

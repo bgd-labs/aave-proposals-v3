@@ -41,39 +41,60 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715_Test is ProtocolV3TestBase 
   }
 
   function test_approvals_ptSusde9Apr2026() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.PT_sUSDE_9APR2026_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.PT_sUSDE_9APR2026_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_ptUsde15Jan2026() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.PT_USDe_15JAN2026_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.PT_USDe_15JAN2026_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_ptSusde18Jun2026() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.PT_sUSDE_18JUN2026_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.PT_sUSDE_18JUN2026_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_ptSusde15Jan2026() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.PT_sUSDE_15JAN2026_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.PT_sUSDE_15JAN2026_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_ptUsde9Apr2026() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.PT_USDe_9APR2026_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.PT_USDe_9APR2026_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_ptUsde18Jun2026() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.PT_USDe_18JUN2026_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.PT_USDe_18JUN2026_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_weth() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.WETH_A_TOKEN);
+    _assertFullBalanceApproval(AaveV3PlasmaAssets.WETH_A_TOKEN, proposal.ALLOWANCE_BUFFER_ETH());
   }
 
   function test_approvals_weEth() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.weETH_A_TOKEN);
+    _assertFullBalanceApproval(AaveV3PlasmaAssets.weETH_A_TOKEN, proposal.ALLOWANCE_BUFFER_ETH());
   }
 
   function test_approvals_usde() public {
-    _assertFullBalanceApproval(AaveV3PlasmaAssets.sUSDe_A_TOKEN);
+    _assertFullBalanceApproval(
+      AaveV3PlasmaAssets.sUSDe_A_TOKEN,
+      proposal.ALLOWANCE_BUFFER_STABLE()
+    );
   }
 
   function test_approvals_usdt() public {
@@ -106,10 +127,11 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715_Test is ProtocolV3TestBase 
   }
 
   /**
-   * @dev the collector approves the AFC safe for its full aToken balance, so the
-   *      resulting allowance must equal the collector's balance (approvals move no tokens).
+   * @dev the collector approves the AFC safe for its full aToken balance plus a buffer covering
+   *      interest accrued between execution and transfer, so the resulting allowance must equal
+   *      the collector's balance plus that buffer (approvals move no tokens).
    */
-  function _assertFullBalanceApproval(address aToken) internal {
+  function _assertFullBalanceApproval(address aToken, uint256 buffer) internal {
     uint256 collectorBalance = IERC20(aToken).balanceOf(address(AaveV3Plasma.COLLECTOR));
 
     executePayload(vm, address(proposal));
@@ -118,6 +140,6 @@ contract AaveV3Plasma_July2026FundingUpdate_20260715_Test is ProtocolV3TestBase 
       address(AaveV3Plasma.COLLECTOR),
       MiscPlasma.AFC_SAFE
     );
-    assertEq(allowanceAfter, collectorBalance);
+    assertEq(allowanceAfter, collectorBalance + buffer);
   }
 }
