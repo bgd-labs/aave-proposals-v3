@@ -83,7 +83,7 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
 
     _executePayloadOn(xlayer, xlayerPart2);
 
-    // Assert Part 2 landed the bridged GHO in the reserve and configured the USDC GSM.
+    // Assert Part 2 landed the bridged GHO in the reserve and configured the USDG GSM.
     _refork(XLAYER);
     _assertXLayerPart2(AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2(xlayerPart2));
   }
@@ -91,7 +91,7 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
   /// @dev End-state checks for XLayer Part 2, read from the payload's own constants so the
   /// expected addresses can't drift from what was executed.
   function _assertXLayerPart2(AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 payload) internal {
-    address gsm = payload.GSM_USDC();
+    address gsm = payload.GSM_USDG();
     IGhoReserve reserve = payload.GHO_RESERVE();
 
     // Bridged GHO reached the reserve (Collector -> GhoReserve forward in Part 2).
@@ -102,17 +102,17 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
     );
     // GSM enrolled with its reserve draw limit.
     require(
-      reserve.getLimit(gsm) == RemoteGSMLaunchXLayerSetup.GSM_USDC_RESERVE_LIMIT,
+      reserve.getLimit(gsm) == RemoteGSMLaunchXLayerSetup.GSM_USDG_RESERVE_LIMIT,
       'XLayer Part2: wrong GSM reserve limit'
     );
     // GSM wired to the reserve and configured with cap + fee strategy.
     require(IGsm(gsm).getGhoReserve() == address(reserve), 'XLayer Part2: GSM reserve not set');
     require(
-      IGsm(gsm).getExposureCap() == RemoteGSMLaunchXLayerSetup.GSM_USDC_INITIAL_EXPOSURE_CAP,
+      IGsm(gsm).getExposureCap() == RemoteGSMLaunchXLayerSetup.GSM_USDG_INITIAL_EXPOSURE_CAP,
       'XLayer Part2: wrong GSM exposure cap'
     );
     require(
-      IGsm(gsm).getFeeStrategy() == payload.GSM_USDC_FEE_STRATEGY(),
+      IGsm(gsm).getFeeStrategy() == payload.GSM_USDG_FEE_STRATEGY(),
       'XLayer Part2: fee strategy not set'
     );
     // GSM registered in the registry.
