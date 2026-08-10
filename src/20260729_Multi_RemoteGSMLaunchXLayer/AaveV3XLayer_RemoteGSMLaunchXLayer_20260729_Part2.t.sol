@@ -55,9 +55,9 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   address internal constant CCIP_ETH_OFFRAMP = address(0);
 
   // XLayer USDC assets are not in AaveV3XLayerAssets yet.
-  // TODO: set the X-Layer USDC stata (GSM underlying) and USDC underlying addresses once available.
-  address internal constant USDC_STATA_TOKEN = address(0);
-  address internal constant USDC_UNDERLYING = address(0);
+  // TODO: rename to USDG.
+  address internal constant USDC_STATA_TOKEN = address(0x97e7620A3229b3daC7049C537B0E29DA2D1021E1);
+  address internal constant USDC_UNDERLYING = address(0x4ae46a509F6b1D9056937BA4500cb143933D2dc8);
 
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1 internal part1;
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 internal proposal;

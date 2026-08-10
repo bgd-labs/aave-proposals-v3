@@ -32,6 +32,7 @@ library RemoteGSMLaunchXLayerSetup {
   uint128 public constant EXPECTED_BUCKET_CAPACITY = 200_000_000 ether;
 
   // GSM USDC
+  // TODO: rename to USDG
   // Maximum amount that can be withdrawn by GSM (can be changed by steward later)
   uint128 public constant GSM_USDC_RESERVE_LIMIT = 25_000_000 ether;
 

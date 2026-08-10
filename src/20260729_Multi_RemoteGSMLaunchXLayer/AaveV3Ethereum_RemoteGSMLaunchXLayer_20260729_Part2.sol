@@ -23,9 +23,7 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGeneric
   using SafeERC20 for IERC20;
 
   // GhoDirectFacilitator Constants
-  // TODO: set the X-Layer-scoped GhoDirectFacilitator address once deployed (mints the 50M GHO on
-  // Ethereum that is bridged to X-Layer). This is a NEW deploy, distinct from the Monad one.
-  address public constant DIRECT_FACILITATOR = address(0);
+  address public constant DIRECT_FACILITATOR = address(0x0aEeb8c6eE6c9616ab2834e3E0dCe967d8637006);
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSM XLayer';
 
   // Ethereum-side AaveGhoCcipBridge (target-agnostic; the destination lane is configured below).
