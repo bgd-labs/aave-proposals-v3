@@ -32,24 +32,24 @@ import {RemoteGSMLaunchXLayerSetup} from './setup/RemoteGSMLaunchXLayerSetup.sol
  * Verify on-chain before deploy.
  */
 contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericExecutor {
-  // TODO: set the X-Layer GhoReserve address once deployed.
-  IGhoReserve public constant GHO_RESERVE = IGhoReserve(address(0));
+  IGhoReserve public constant GHO_RESERVE =
+    IGhoReserve(address(0xE25F86A114Aabcb774d6E7d8826F743A1b8cD12A));
 
-  // TODO: set the X-Layer GhoGsmSteward address once deployed.
-  address public constant GHO_GSM_STEWARD = address(0);
+  address public constant GHO_GSM_STEWARD = address(0x2CF06F6116DE4da4f6d5541dF09981825820CE20);
 
-  // TODO: set the X-Layer GsmRegistry address once deployed.
-  address public constant GSM_REGISTRY = address(0);
+  address public constant GSM_REGISTRY = address(0x1ECD8281BB799Ef055A379c27846B683cbeB6752);
 
-  // GSM USDC
-  // TODO: set the X-Layer USDC GSM address once deployed.
-  address public constant GSM_USDC = address(0);
+  // GSM USDG
+  // TODO: rename to USDG
+  address public constant GSM_USDC = address(0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787);
 
-  // TODO: set the X-Layer USDC OracleSwapFreezer address once deployed.
-  address public constant USDC_ORACLE_SWAP_FREEZER = address(0);
+  // TODO: rename to USDG
+  address public constant USDC_ORACLE_SWAP_FREEZER =
+    address(0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2);
 
-  // TODO: set the X-Layer USDC GSM fee strategy address once deployed.
-  address public constant GSM_USDC_FEE_STRATEGY = address(0);
+  // TODO: rename to USDG
+  address public constant GSM_USDC_FEE_STRATEGY =
+    address(0xab1c66208266bbF5b2809ce1deDd3e5149eb4C94);
 
   function execute() external {
     GHO_RESERVE.grantRole(GHO_RESERVE.LIMIT_MANAGER_ROLE(), GhoXLayer.RISK_COUNCIL);
