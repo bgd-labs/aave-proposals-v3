@@ -23,6 +23,7 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGeneric
   using SafeERC20 for IERC20;
 
   // GhoDirectFacilitator Constants
+  // https://etherscan.io/address/0x0aEeb8c6eE6c9616ab2834e3E0dCe967d8637006
   address public constant DIRECT_FACILITATOR = address(0x0aEeb8c6eE6c9616ab2834e3E0dCe967d8637006);
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSM XLayer';
 
