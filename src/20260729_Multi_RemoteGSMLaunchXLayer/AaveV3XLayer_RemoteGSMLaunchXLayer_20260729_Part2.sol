@@ -41,25 +41,25 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericEx
 
   // GSM USDG
   // TODO: rename to USDG
-  address public constant GSM_USDC = address(0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787);
+  address public constant GSM_USDG = address(0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787);
 
   // TODO: rename to USDG
-  address public constant USDC_ORACLE_SWAP_FREEZER =
+  address public constant USDG_ORACLE_SWAP_FREEZER =
     address(0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2);
 
   // TODO: rename to USDG
-  address public constant GSM_USDC_FEE_STRATEGY =
+  address public constant GSM_USDG_FEE_STRATEGY =
     address(0xab1c66208266bbF5b2809ce1deDd3e5149eb4C94);
 
   function execute() external {
     GHO_RESERVE.grantRole(GHO_RESERVE.LIMIT_MANAGER_ROLE(), GhoXLayer.RISK_COUNCIL);
 
     _wireGsm(
-      IGsm(GSM_USDC),
-      RemoteGSMLaunchXLayerSetup.GSM_USDC_RESERVE_LIMIT,
-      USDC_ORACLE_SWAP_FREEZER,
-      RemoteGSMLaunchXLayerSetup.GSM_USDC_INITIAL_EXPOSURE_CAP,
-      GSM_USDC_FEE_STRATEGY
+      IGsm(GSM_USDG),
+      RemoteGSMLaunchXLayerSetup.GSM_USDG_RESERVE_LIMIT,
+      USDG_ORACLE_SWAP_FREEZER,
+      RemoteGSMLaunchXLayerSetup.GSM_USDG_INITIAL_EXPOSURE_CAP,
+      GSM_USDG_FEE_STRATEGY
     );
 
     AaveV3XLayer.COLLECTOR.transfer(
