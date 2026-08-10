@@ -54,10 +54,9 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   // TODO: set the Ethereum -> X-Layer CCIP OffRamp registered on the X-Layer router.
   address internal constant CCIP_ETH_OFFRAMP = address(0);
 
-  // XLayer USDG assets are not in AaveV3XLayerAssets yet.
-  // TODO: rename to USDG.
+  // XLayer USDG stata token is not in AaveV3XLayerAssets yet.
+  // https://www.oklink.com/x-layer/evm/address/0x97e7620A3229b3daC7049C537B0E29DA2D1021E1
   address internal constant USDG_STATA_TOKEN = address(0x97e7620A3229b3daC7049C537B0E29DA2D1021E1);
-  address internal constant USDG_UNDERLYING = address(0x4ae46a509F6b1D9056937BA4500cb143933D2dc8);
 
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1 internal part1;
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 internal proposal;
@@ -388,7 +387,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     _testOracleSwapFreezer(
       IGsm(proposal.GSM_USDG()),
       IOracleSwapFreezer(proposal.USDG_ORACLE_SWAP_FREEZER()),
-      USDG_UNDERLYING
+      AaveV3XLayerAssets.USDG_UNDERLYING
     );
   }
 

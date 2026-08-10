@@ -32,22 +32,25 @@ import {RemoteGSMLaunchXLayerSetup} from './setup/RemoteGSMLaunchXLayerSetup.sol
  * Verify on-chain before deploy.
  */
 contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericExecutor {
+  // https://www.oklink.com/x-layer/evm/address/0xE25F86A114Aabcb774d6E7d8826F743A1b8cD12A
   IGhoReserve public constant GHO_RESERVE =
     IGhoReserve(address(0xE25F86A114Aabcb774d6E7d8826F743A1b8cD12A));
 
+  // https://www.oklink.com/x-layer/evm/address/0x2CF06F6116DE4da4f6d5541dF09981825820CE20
   address public constant GHO_GSM_STEWARD = address(0x2CF06F6116DE4da4f6d5541dF09981825820CE20);
 
+  // https://www.oklink.com/x-layer/evm/address/0x1ECD8281BB799Ef055A379c27846B683cbeB6752
   address public constant GSM_REGISTRY = address(0x1ECD8281BB799Ef055A379c27846B683cbeB6752);
 
   // GSM USDG
-  // TODO: rename to USDG
+  // https://www.oklink.com/x-layer/evm/address/0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787
   address public constant GSM_USDG = address(0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787);
 
-  // TODO: rename to USDG
+  // https://www.oklink.com/x-layer/evm/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
   address public constant USDG_ORACLE_SWAP_FREEZER =
     address(0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2);
 
-  // TODO: rename to USDG
+  // https://www.oklink.com/x-layer/evm/address/0xab1c66208266bbF5b2809ce1deDd3e5149eb4C94
   address public constant GSM_USDG_FEE_STRATEGY =
     address(0xab1c66208266bbF5b2809ce1deDd3e5149eb4C94);
 
