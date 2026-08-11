@@ -51,7 +51,9 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
 
   // Ethereum -> XLayer CCIP OffRamp on the XLayer router. `test_ccipOffRampIsRegistered` re-checks
   // that it is a registered OffRamp at the pinned block.
-  // TODO: double check; there are 2 offramps for ethereum (0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e) / 0xA1d9f24ABb611EE43b276F5EcDf65Bab6fEBd924
+  // Note: The router currently has a second offramp registered (0xA1d9f24ABb611EE43b276F5EcDf65Bab6fEBd924),
+  // which corresponds to the legacy 1.5 interface. `0x77FD` is the correct one for the 1.6 interface.
+  // https://www.oklink.com/x-layer/evm/address/0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e
   address internal constant CCIP_ETH_OFFRAMP = address(0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e);
 
   // XLayer USDG stata token is not in AaveV3XLayerAssets yet.
