@@ -20,7 +20,7 @@ contract AaveV3Ink_RemoteGSMLaunchXLayer_20260729_Test is
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 51077800);
+    vm.createSelectFork(vm.rpcUrl('ink'), 52945574);
     proposal = new AaveV3Ink_RemoteGSMLaunchXLayer_20260729();
   }
 

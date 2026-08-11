@@ -19,7 +19,7 @@ contract AaveV3Avalanche_RemoteGSMLaunchXLayer_20260729_Test is
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 90814900);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 92551188);
     proposal = new AaveV3Avalanche_RemoteGSMLaunchXLayer_20260729();
   }
 

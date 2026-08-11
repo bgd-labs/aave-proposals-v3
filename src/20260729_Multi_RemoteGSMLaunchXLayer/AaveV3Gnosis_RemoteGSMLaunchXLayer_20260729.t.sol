@@ -19,7 +19,7 @@ contract AaveV3Gnosis_RemoteGSMLaunchXLayer_20260729_Test is
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 47304500);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 47668794);
     proposal = new AaveV3Gnosis_RemoteGSMLaunchXLayer_20260729();
   }
 
