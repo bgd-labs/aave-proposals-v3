@@ -30,7 +30,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1 is IProposalGenericEx
         RemoteGSMLaunchXLayerSetup.GHO_BRIDGE_AMOUNT.toUint128()
     );
 
-    // Temporarily widen the Ethereum -> XLayer inbound capacity to receive the one-off 50M seed
+    // Temporarily widen the Ethereum -> XLayer inbound capacity to receive the one-off 25M seed
     // (counterpart to the Ethereum Part 1 outbound step). The outbound (XLayer -> Ethereum)
     // direction is set to the standard config; Part 2 restores the whole lane to it.
     // The outbound direction already sits at DEFAULT_RATE_LIMITER_* on-chain, so rewriting it here

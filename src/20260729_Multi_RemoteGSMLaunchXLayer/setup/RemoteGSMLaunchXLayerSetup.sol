@@ -41,7 +41,7 @@ library RemoteGSMLaunchXLayerSetup {
   /**
    * @notice Restores the inbound and outbound CCIP rate-limit config of a single GHO lane to the
    * standard config, without touching any other lane on the pool.
-   * @dev Used to undo the temporary capacity bump applied for the one-off 50M seed bridge, so the
+   * @dev Used to undo the temporary capacity bump applied for the one-off 25M seed bridge, so the
    * Ethereum <> XLayer lane ends the proposal with the same config it had beforehand.
    * @param tokenPool The GHO CCIP token pool whose lane will be restored. Typed as
    * `IUpgradeableLockReleaseTokenPool`, but `setChainRateLimiterConfig` shares the same selector

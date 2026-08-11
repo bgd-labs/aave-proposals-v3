@@ -90,7 +90,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1_Test is ProtocolV3Tes
     assertEq(
       postFacilitator.bucketCapacity,
       RemoteGSMLaunchXLayerSetup.EXPECTED_BUCKET_CAPACITY,
-      'post-proposal facilitator capacity should be 200M'
+      'post-proposal facilitator capacity should be 225M'
     );
     assertEq(
       postFacilitator.bucketCapacity,

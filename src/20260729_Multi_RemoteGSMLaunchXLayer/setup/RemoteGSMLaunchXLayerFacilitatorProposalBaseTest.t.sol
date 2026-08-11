@@ -31,7 +31,7 @@ abstract contract RemoteGSMLaunchXLayerFacilitatorProposalBaseTest is ProtocolV3
     assertEq(
       postFacilitator.bucketCapacity,
       RemoteGSMLaunchXLayerSetup.EXPECTED_BUCKET_CAPACITY,
-      'post-proposal facilitator capacity should be 200M'
+      'post-proposal facilitator capacity should be 225M'
     );
     assertEq(
       postFacilitator.bucketCapacity,

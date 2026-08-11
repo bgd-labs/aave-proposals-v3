@@ -39,7 +39,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   using SafeERC20 for IERC20;
 
   // Existing Eth->XLayer inbound rate-limiter capacity at the pinned block, before Part 1 widens it.
-  // A 50M CCIP delivery exceeds this, which is what `test_ccipDeliveryRevertsWithoutPart1` asserts.
+  // A 25M CCIP delivery exceeds this, which is what `test_ccipDeliveryRevertsWithoutPart1` asserts.
   // The lane is now normalized, so this matches the standard per-lane capacity.
   uint256 internal constant EXISTING_ETH_INBOUND_RATE_LIMITER_CAPACITY =
     RemoteGSMLaunchXLayerSetup.DEFAULT_RATE_LIMITER_CAPACITY;
@@ -165,11 +165,11 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_ccipDeliveryRevertsWithoutPart1() public {
-    // Ordering guard for Part 1 -> Part 2. Part 2 depends on the 50M bridged from Ethereum landing on
+    // Ordering guard for Part 1 -> Part 2. Part 2 depends on the 25M bridged from Ethereum landing on
     // XLayer, which is only possible once Part 1 widens the Eth->XLayer inbound rate limiter
     // (EXISTING_ETH_INBOUND_RATE_LIMITER_CAPACITY -> TEMP_BRIDGE_CAPACITY). Re-fork to discard
     // setUp's Part 1 + simulated delivery, then show the delivery reverts on the inbound rate
-    // limiter without Part 1: 50M exceeds the existing capacity, so the funds cannot arrive if
+    // limiter without Part 1: 25M exceeds the existing capacity, so the funds cannot arrive if
     // Part 1 is skipped. (Whether the funds are actually bridged depends on the Ethereum payloads;
     // this only asserts XLayer cannot receive them until Part 1 runs.)
     vm.createSelectFork(vm.rpcUrl('xlayer'), 67674936);
