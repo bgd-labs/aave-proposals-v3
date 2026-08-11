@@ -9,13 +9,13 @@ import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/cci
  */
 library RemoteGSMLaunchXLayerSetup {
   // Amount to mint in Mainnet and bridge to XLayer
-  uint256 public constant GHO_BRIDGE_AMOUNT = 50_000_000 ether;
+  uint256 public constant GHO_BRIDGE_AMOUNT = 25_000_000 ether;
 
-  // 50M GHO bridge amount + 10% leeway in case of other bridges
-  uint128 public constant TEMP_BRIDGE_CAPACITY = 55_000_000 ether;
+  // 25M GHO bridge amount + 10% leeway in case of other bridges
+  uint128 public constant TEMP_BRIDGE_CAPACITY = 27_500_000 ether;
 
   // Standard per-lane transaction limit the Ethereum <> XLayer GHO lane is RESTORED to after
-  // the one-off 50M bridge. This proposal does NOT normalize every network's lanes: it only widens
+  // the one-off 25M bridge. This proposal does NOT normalize every network's lanes: it only widens
   // the single Ethereum <> XLayer lane for the transfer and then puts that lane back to its pre-execution config,
   // leaving every other lane untouched.
   // Verified on-chain to match the Ethereum <> XLayer GHO lane's current config in both directions,
@@ -29,15 +29,14 @@ library RemoteGSMLaunchXLayerSetup {
   uint128 public constant DIRECT_FACILITATOR_CAPACITY = uint128(GHO_BRIDGE_AMOUNT);
 
   // Expected GHO facilitator bucket capacity after payloads are executed
-  uint128 public constant EXPECTED_BUCKET_CAPACITY = 200_000_000 ether;
+  uint128 public constant EXPECTED_BUCKET_CAPACITY = 225_000_000 ether;
 
-  // GSM USDC
-  // TODO: rename to USDG
-  // Maximum amount that can be withdrawn by GSM (can be changed by steward later)
-  uint128 public constant GSM_USDC_RESERVE_LIMIT = 25_000_000 ether;
+  // GSM USDG
+  // Maximum GHO amount that can be withdrawn by GSM (can be changed by steward later)
+  uint128 public constant GSM_USDG_RESERVE_LIMIT = 12_500_000 ether; // 12.5M, 18 decimals
 
-  // 40M underlying (6 decimals).
-  uint128 public constant GSM_USDC_INITIAL_EXPOSURE_CAP = 40_000_000e6; // 40M, 6 decimals
+  // 20M underlying (6 decimals).
+  uint128 public constant GSM_USDG_INITIAL_EXPOSURE_CAP = 20_000_000e6; // 20M, 6 decimals
 
   /**
    * @notice Restores the inbound and outbound CCIP rate-limit config of a single GHO lane to the
