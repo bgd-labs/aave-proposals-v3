@@ -28,6 +28,12 @@ contract AaveV3Monad_RemoteGSMLaunchXLayer_20260729_Test is
    */
   /// forge-config: default.isolate = true
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Monad_RemoteGSMLaunchXLayer_20260729', AaveV3Monad.POOL, address(proposal));
+    defaultTest(
+      'AaveV3Monad_RemoteGSMLaunchXLayer_20260729',
+      AaveV3Monad.POOL,
+      address(proposal),
+      false,
+      false
+    );
   }
 }

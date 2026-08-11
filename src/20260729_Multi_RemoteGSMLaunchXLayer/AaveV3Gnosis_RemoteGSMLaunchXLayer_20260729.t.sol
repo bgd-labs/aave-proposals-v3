@@ -31,7 +31,9 @@ contract AaveV3Gnosis_RemoteGSMLaunchXLayer_20260729_Test is
     defaultTest(
       'AaveV3Gnosis_RemoteGSMLaunchXLayer_20260729',
       AaveV3Gnosis.POOL,
-      address(proposal)
+      address(proposal),
+      false,
+      false
     );
   }
 }
