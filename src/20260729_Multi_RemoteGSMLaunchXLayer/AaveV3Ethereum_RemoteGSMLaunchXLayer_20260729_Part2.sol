@@ -83,7 +83,7 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGeneric
     // Restore ONLY the Ethereum <> XLayer lane rate-limit config to its standard values, undoing
     // the temporary bump from Part 1. Every other lane is intentionally left untouched so this
     // proposal does not change GHO lane capacities across the rest of the network.
-    // NOTE: the global bridge limit raised in Part 1 is intentionally NOT reduced here: the 50M
+    // NOTE: the global bridge limit raised in Part 1 is intentionally NOT reduced here: the 25M
     // just bridged out is now part of the locked supply, so the elevated limit reflects reality.
     RemoteGSMLaunchXLayerSetup.restoreLaneRateLimitConfig(
       GhoEthereum.GHO_CCIP_TOKEN_POOL,
