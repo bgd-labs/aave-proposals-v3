@@ -19,7 +19,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1_Test is ProtocolV3Tes
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 65807100);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 67674936);
     proposal = new AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1();
   }
 

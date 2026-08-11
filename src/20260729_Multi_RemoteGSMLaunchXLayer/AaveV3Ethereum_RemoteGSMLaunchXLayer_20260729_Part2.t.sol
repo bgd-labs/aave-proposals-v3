@@ -26,7 +26,7 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
   AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25576000);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25731136);
     part1 = new AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part1();
     proposal = new AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2();
 

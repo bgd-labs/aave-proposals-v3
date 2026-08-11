@@ -19,7 +19,7 @@ contract AaveV3Base_RemoteGSMLaunchXLayer_20260729_Test is
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 48893400);
+    vm.createSelectFork(vm.rpcUrl('base'), 49827271);
     proposal = new AaveV3Base_RemoteGSMLaunchXLayer_20260729();
   }
 

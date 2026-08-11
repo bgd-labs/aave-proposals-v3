@@ -19,7 +19,7 @@ contract AaveV3Arbitrum_RemoteGSMLaunchXLayer_20260729_Test is
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 485940600);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 493392463);
     proposal = new AaveV3Arbitrum_RemoteGSMLaunchXLayer_20260729();
   }
 

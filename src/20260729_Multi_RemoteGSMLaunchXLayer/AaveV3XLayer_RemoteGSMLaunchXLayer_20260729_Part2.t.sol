@@ -68,7 +68,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   uint128 internal ccipPoolFacilitatorBucketLevelBeforeCcipDelivery;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 65807100);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 67674936);
     part1 = new AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1();
     proposal = new AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2();
 
@@ -170,7 +170,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     // limiter without Part 1: 50M exceeds the existing capacity, so the funds cannot arrive if
     // Part 1 is skipped. (Whether the funds are actually bridged depends on the Ethereum payloads;
     // this only asserts XLayer cannot receive them until Part 1 runs.)
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 65807100);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 67674936);
 
     vm.expectRevert(
       abi.encodeWithSelector(
