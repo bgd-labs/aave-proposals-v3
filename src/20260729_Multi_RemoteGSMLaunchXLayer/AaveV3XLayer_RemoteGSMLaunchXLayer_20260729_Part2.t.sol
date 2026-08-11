@@ -5,7 +5,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {GhoXLayer} from 'aave-address-book/GhoXLayer.sol';
-import {AaveV3XLayer} from 'aave-address-book/AaveV3XLayer.sol';
+import {AaveV3XLayer, AaveV3XLayerAssets} from 'aave-address-book/AaveV3XLayer.sol';
 import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -44,15 +44,15 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   uint256 internal constant EXISTING_ETH_INBOUND_RATE_LIMITER_CAPACITY =
     RemoteGSMLaunchXLayerSetup.DEFAULT_RATE_LIMITER_CAPACITY;
 
-  // The USDG GSM is deployed (outside governance) with a default 40M exposure cap; the payload sets
+  // The USDG GSM is deployed (outside governance) with a default 20M exposure cap; the payload sets
   // it to GSM_USDG_INITIAL_EXPOSURE_CAP (currently the same value). Pinned as pre-state so the post checks can't
   // pass vacuously against a GSM redeployed already-configured (which would let a dropped payload line slip through).
-  uint128 internal constant GSM_USDG_DEPLOY_EXPOSURE_CAP = 40_000_000e6;
+  uint128 internal constant GSM_USDG_DEPLOY_EXPOSURE_CAP = 20_000_000e6;
 
   // Ethereum -> XLayer CCIP OffRamp on the XLayer router. `test_ccipOffRampIsRegistered` re-checks
   // that it is a registered OffRamp at the pinned block.
-  // TODO: double check; there are 2 offramps for ethereum (0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e)
-  address internal constant CCIP_ETH_OFFRAMP = address(0xA1d9f24ABb611EE43b276F5EcDf65Bab6fEBd924);
+  // TODO: double check; there are 2 offramps for ethereum (0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e) / 0xA1d9f24ABb611EE43b276F5EcDf65Bab6fEBd924
+  address internal constant CCIP_ETH_OFFRAMP = address(0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e);
 
   // XLayer USDG stata token is not in AaveV3XLayerAssets yet.
   // https://www.oklink.com/x-layer/evm/address/0x97e7620A3229b3daC7049C537B0E29DA2D1021E1
@@ -130,7 +130,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     assertEq(registry.getGsmAtIndex(0), proposal.GSM_USDG());
   }
 
-  function test_ccipOffRampIsRegistered() public {
+  function test_ccipOffRampIsRegistered() public view {
     // Guard: if CCIP rotates the Eth -> XLayer OffRamp at a future block, this test fails
     // with a clear signal before the more-opaque `releaseOrMint` revert in setUp shows up
     // elsewhere in the suite.
@@ -140,7 +140,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     );
   }
 
-  function test_ccipDeliveryMintsToCollector() public {
+  function test_ccipDeliveryMintsToCollector() public view {
     // setUp ran Part 1 then simulated a CCIP delivery via releaseOrMint. Assert the
     // Collector and the GHO_CCIP_TOKEN_POOL facilitator both moved by BRIDGED_AMOUNT.
     // If Part 1's facilitator-capacity update is misconfigured (e.g. capacity below
