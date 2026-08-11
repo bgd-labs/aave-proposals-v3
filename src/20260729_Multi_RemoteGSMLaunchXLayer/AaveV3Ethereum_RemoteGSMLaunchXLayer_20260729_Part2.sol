@@ -36,8 +36,9 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGeneric
 
   // AaveGhoCcipBridge on XLayer (counterpart that will receive the CCIP message and forward GHO
   // to the XLayer Collector).
-  // TODO: set the X-Layer AaveGhoCcipBridge address once deployed.
-  address public constant XLAYER_BRIDGE_DESTINATION = address(0);
+  // https://www.oklink.com/x-layer/evm/address/0x49a6105F195460140C22a1Be7A2b1A7Bd7C7faf8
+  address public constant XLAYER_BRIDGE_DESTINATION =
+    address(0x49a6105F195460140C22a1Be7A2b1A7Bd7C7faf8);
 
   // Typical bridge-receive gas limits sit in the 200k–500k range; pick a value that
   // covers the receive + Collector forwarding path with comfortable headroom.
