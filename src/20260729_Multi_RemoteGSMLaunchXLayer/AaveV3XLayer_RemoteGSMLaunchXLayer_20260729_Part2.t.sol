@@ -51,8 +51,8 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
 
   // Ethereum -> XLayer CCIP OffRamp on the XLayer router. `test_ccipOffRampIsRegistered` re-checks
   // that it is a registered OffRamp at the pinned block.
-  // TODO: set the Ethereum -> X-Layer CCIP OffRamp registered on the X-Layer router.
-  address internal constant CCIP_ETH_OFFRAMP = address(0);
+  // TODO: double check; there are 2 offramps for ethereum (0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e)
+  address internal constant CCIP_ETH_OFFRAMP = address(0xA1d9f24ABb611EE43b276F5EcDf65Bab6fEBd924);
 
   // XLayer USDG stata token is not in AaveV3XLayerAssets yet.
   // https://www.oklink.com/x-layer/evm/address/0x97e7620A3229b3daC7049C537B0E29DA2D1021E1
@@ -87,12 +87,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     // Simulate CCIP delivery end-to-end: prank as the Eth->XLayer OffRamp and call `releaseOrMint`
     // on the GHO CCIP token pool. The pool acts as a GHO facilitator, so this routes through
     // `IGhoToken.mint` and exercises the facilitator bucket check that Part 1 just configured.
-    // TODO(X-Layer): the Eth->X-Layer OffRamp is not yet known (CCIP_ETH_OFFRAMP == address(0)),
-    // so the delivery simulation is skipped for now. Un-guard once the OffRamp is set; every test
-    // below is also skipped until the X-Layer GSM addresses are deployed.
-    if (CCIP_ETH_OFFRAMP != address(0)) {
-      _simulateCcipDeliveryToCollector(RemoteGSMLaunchXLayerSetup.GHO_BRIDGE_AMOUNT);
-    }
+    _simulateCcipDeliveryToCollector(RemoteGSMLaunchXLayerSetup.GHO_BRIDGE_AMOUNT);
   }
 
   /**
@@ -101,9 +96,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
    */
   /// forge-config: default.isolate = true
   function test_defaultProposalExecution() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     defaultTest(
       'AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2',
       AaveV3XLayer.POOL,
@@ -114,9 +106,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_ghoReserveIsFunded() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     assertEq(IERC20(GhoXLayer.GHO_TOKEN).balanceOf(address(proposal.GHO_RESERVE())), 0);
 
     executePayload(vm, address(proposal));
@@ -128,9 +117,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_gsmIsRegisteredUnderGsmRegistry() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     IGsmRegistry registry = IGsmRegistry(proposal.GSM_REGISTRY());
 
     assertEq(registry.getGsmListLength(), 0);
@@ -145,9 +131,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_ccipOffRampIsRegistered() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     // Guard: if CCIP rotates the Eth -> XLayer OffRamp at a future block, this test fails
     // with a clear signal before the more-opaque `releaseOrMint` revert in setUp shows up
     // elsewhere in the suite.
@@ -158,9 +141,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_ccipDeliveryMintsToCollector() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     // setUp ran Part 1 then simulated a CCIP delivery via releaseOrMint. Assert the
     // Collector and the GHO_CCIP_TOKEN_POOL facilitator both moved by BRIDGED_AMOUNT.
     // If Part 1's facilitator-capacity update is misconfigured (e.g. capacity below
@@ -183,9 +163,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_ccipDeliveryRevertsWithoutPart1() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     // Ordering guard for Part 1 -> Part 2. Part 2 depends on the 50M bridged from Ethereum landing on
     // XLayer, which is only possible once Part 1 widens the Eth->XLayer inbound rate limiter
     // (EXISTING_ETH_INBOUND_RATE_LIMITER_CAPACITY -> TEMP_BRIDGE_CAPACITY). Re-fork to discard
@@ -207,9 +184,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_laneRateLimitRestored() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     // setUp() already executes Part 1 and warps 1 second; the inbound rate limiter is
     // already widened by this point.
 
@@ -266,9 +240,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_otherLanesUntouched() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     // This proposal must not change any lane other than the single XLayer <> Ethereum lane. Iterate
     // every supported chain except Ethereum (the lane the proposal temporarily widens and then restores),
     // snapshot both directions before and after execution, and assert the config is unchanged.
@@ -321,9 +292,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_gsmRegisteredAsEntity() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     executePayload(vm, address(proposal));
 
     assertTrue(
@@ -333,9 +301,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_checkGsmConfig_USDG() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     IGsm gsm = IGsm(proposal.GSM_USDG());
     IGhoReserve reserve = IGhoReserve(address(proposal.GHO_RESERVE()));
 
@@ -381,9 +346,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_oracleSwapFreezer_USDG() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     _testOracleSwapFreezer(
       IGsm(proposal.GSM_USDG()),
       IOracleSwapFreezer(proposal.USDG_ORACLE_SWAP_FREEZER()),
@@ -392,9 +354,6 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_checkRoles_USDG() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     IGsm gsm = IGsm(proposal.GSM_USDG());
 
     // Pre-state: the payload grants these four roles. Assert they are ungranted beforehand so the
@@ -408,23 +367,14 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   }
 
   function test_gsmIsOperational_USDG() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     _testGsmIsOperational(IGsm(proposal.GSM_USDG()), USDG_STATA_TOKEN);
   }
 
   function test_ghoGsmSteward_updateExposureCap_USDG() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     _testUpdateExposureCap(IGsm(proposal.GSM_USDG()));
   }
 
   function test_ghoGsmSteward_updateGsmBuySellFees_USDG() public {
-    // TODO(X-Layer): un-skip once the X-Layer GSM contracts (GhoReserve, USDG GSM, GsmRegistry,
-    // GhoGsmSteward, fee strategy, OracleSwapFreezer, CCIP OffRamp, USDG assets) are deployed.
-    vm.skip(true);
     _testUpdateBuySellFees(IGsm(proposal.GSM_USDG()));
   }
 

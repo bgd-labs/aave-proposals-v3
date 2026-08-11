@@ -42,8 +42,6 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
    */
   /// forge-config: default.isolate = true
   function test_defaultProposalExecution() public {
-    // TODO(X-Layer): un-skip once the X-Layer GhoDirectFacilitator and XLAYER_BRIDGE_DESTINATION are deployed (currently address(0), so the payload reverts).
-    vm.skip(true);
     defaultTest(
       'AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2',
       AaveV3Ethereum.POOL,
@@ -52,8 +50,6 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
   }
 
   function test_directFacilitatorName() public {
-    // TODO(X-Layer): un-skip once the X-Layer GhoDirectFacilitator and XLAYER_BRIDGE_DESTINATION are deployed (currently address(0), so the payload reverts).
-    vm.skip(true);
     executePayload(vm, address(proposal));
 
     assertEq(
@@ -92,8 +88,6 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
   }
 
   function test_ccipBridgeDestinationChainSetUp() public {
-    // TODO(X-Layer): un-skip once the X-Layer GhoDirectFacilitator and XLAYER_BRIDGE_DESTINATION are deployed (currently address(0), so the payload reverts).
-    vm.skip(true);
     IAaveGhoCcipBridge bridge = IAaveGhoCcipBridge(proposal.CCIP_BRIDGE());
 
     IAaveGhoCcipBridge.RemoteChainConfig memory config = bridge.getDestinationRemoteConfig(
@@ -114,8 +108,6 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
   }
 
   function test_bridgeLaneRestored() public {
-    // TODO(X-Layer): un-skip once the X-Layer GhoDirectFacilitator and XLAYER_BRIDGE_DESTINATION are deployed (currently address(0), so the payload reverts).
-    vm.skip(true);
     // setUp already executed Part 1, which raised the outbound rate limiter for the XLayer lane to
     // (capacity = TEMP_BRIDGE_CAPACITY, rate = TEMP_BRIDGE_CAPACITY - 1) and warped 1 second so
     // the bucket refilled to capacity.
@@ -165,8 +157,6 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
   }
 
   function test_bridge() public {
-    // TODO(X-Layer): un-skip once the X-Layer GhoDirectFacilitator and XLAYER_BRIDGE_DESTINATION are deployed (currently address(0), so the payload reverts).
-    vm.skip(true);
     // setUp already executed Part 1, raising the bridge limit and outbound rate limiter
     // on the GHO_CCIP_TOKEN_POOL so Part 2's bridge step has the headroom it needs.
     IGhoToken.Facilitator memory facilitator = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING)
@@ -217,8 +207,6 @@ contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3T
   }
 
   function test_otherLanesUntouched() public {
-    // TODO(X-Layer): un-skip once the X-Layer GhoDirectFacilitator and XLAYER_BRIDGE_DESTINATION are deployed (currently address(0), so the payload reverts).
-    vm.skip(true);
     // This proposal must not change any lane other than the single Ethereum <> XLayer lane. Iterate
     // every supported chain except XLayer (the lane the proposal temporarily widens and then restores),
     // snapshot both directions before and after execution, and assert the config is unchanged.
