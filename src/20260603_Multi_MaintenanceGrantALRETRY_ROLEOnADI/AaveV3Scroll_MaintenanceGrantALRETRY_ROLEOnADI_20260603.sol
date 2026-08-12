@@ -21,7 +21,8 @@ contract AaveV3Scroll_MaintenanceGrantALRETRY_ROLEOnADI_20260603 is IProposalGen
       AAVE_LABS_GUARDIAN
     );
 
-    // set the GranularGuardian as the CrossChainController guardian
+    // on Scroll the CrossChainController guardian is still an external multisig, so the
+    // GranularGuardian cannot forward retries; every other a.DI network already points to it
     IWithGuardian(GovernanceV3Scroll.CROSS_CHAIN_CONTROLLER).updateGuardian(
       GovernanceV3Scroll.GRANULAR_GUARDIAN
     );

@@ -21,7 +21,8 @@ contract AaveV3Metis_MaintenanceGrantALRETRY_ROLEOnADI_20260603 is IProposalGene
       AAVE_LABS_GUARDIAN
     );
 
-    // set the GranularGuardian as the CrossChainController guardian
+    // on Metis the CrossChainController guardian is still an external multisig, so the
+    // GranularGuardian cannot forward retries; every other a.DI network already points to it
     IWithGuardian(GovernanceV3Metis.CROSS_CHAIN_CONTROLLER).updateGuardian(
       GovernanceV3Metis.GRANULAR_GUARDIAN
     );

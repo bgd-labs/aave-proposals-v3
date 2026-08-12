@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-grant-aave-labs-retry-
 
 ## Simple Summary
 
-This proposal grants the Aave Labs multisig the RETRY_GUARDIAN role on a.DI’s granular access controls.
+This proposal grants the Aave Labs multisig the RETRY_ROLE on a.DI’s granular access controls.
 
 Recipient: 0x2B99790c35a401be873FA7Eb514D9220736BB1cA
 
@@ -28,7 +28,9 @@ Aave Labs multisig: 0x2B99790c35a401be873FA7Eb514D9220736BB1cA
 
 The role will be used by Aave Labs as a technical service provider to support retry operations for already-sent a.DI messages when needed.
 
-The role grant covers twenty networks in total. Forwarding that many payloads through a.DI in a single proposal execution would risk running out of gas, so it is split across two proposals of ten networks each. This proposal covers the ten networks listed below; the remaining ten are covered by Part 2. The two proposals are otherwise identical in intent and grant the same role to the same multisig.
+The role grant covers the twenty networks where a.DI is live: Ethereum, Polygon, Avalanche, Optimism, Arbitrum, Metis, Base, Gnosis, Scroll, BNB, ZkSync, Linea, Celo, Sonic, Soneium, Plasma, Mantle, MegaEth, XLayer and Ink. Forwarding that many payloads through a.DI in a single proposal execution would risk running out of gas, so it is split across two proposals of ten networks each. This proposal covers Ethereum, Polygon, Avalanche, Optimism, Arbitrum, Metis, Base, Gnosis, Scroll and BNB; the remaining ten are covered by Part 2. The two proposals are otherwise identical in intent and grant the same role to the same multisig.
+
+On Scroll and Metis the payload also sets the GranularGuardian as guardian of the CrossChainController, a role currently held by an external multisig on those two networks. The GranularGuardian can only forward retry calls to the CrossChainController while it holds that role, so without this change the RETRY_ROLE grant would have no effect on Scroll and Metis. All other a.DI networks already have the GranularGuardian set as CrossChainController guardian, so this brings both networks in line with the default a.DI configuration.
 
 ## References
 
