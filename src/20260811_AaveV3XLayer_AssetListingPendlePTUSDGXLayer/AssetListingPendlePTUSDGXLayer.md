@@ -41,7 +41,7 @@ The table below illustrates the configured risk parameters for **PT_USDG_29OCT20
 | Parameter                      |                                      Value |
 | ------------------------------ | -----------------------------------------: |
 | Borrowable                     |                                   DISABLED |
-| Collateral Enabled             |                                       true |
+| Collateral Enabled             |                      DISABLED (eMode only) |
 | Supply Cap (PT_USDG_29OCT2026) |                                 35,000,000 |
 | Borrow Cap (PT_USDG_29OCT2026) |                                          1 |
 | LTV                            |                                        0 % |

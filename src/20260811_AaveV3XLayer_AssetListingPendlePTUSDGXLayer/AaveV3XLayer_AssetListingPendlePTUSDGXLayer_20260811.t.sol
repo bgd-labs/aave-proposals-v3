@@ -59,7 +59,8 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     address aTokenAddress = AaveV3XLayer.POOL.getReserveAToken(proposal.PT_USDG_29OCT2026());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3XLayer.DUST_BIN)),
-      proposal.PT_USDG_29OCT2026_SEED_AMOUNT()
+      proposal.PT_USDG_29OCT2026_SEED_AMOUNT(),
+      'DustBin should hold at least the seed amount'
     );
   }
 
@@ -106,7 +107,8 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     collaterals_PTUSDGStablecoins[0] = proposal.PT_USDG_29OCT2026();
     assertEq(
       AaveV3XLayer.POOL.getEModeCategoryCollateralBitmap(eMode_PTUSDGStablecoins),
-      _toBitmap(collaterals_PTUSDGStablecoins)
+      _toBitmap(collaterals_PTUSDGStablecoins),
+      'eMode collateral bitmap should contain exactly PT-USDG'
     );
 
     address[] memory borrowables_PTUSDGStablecoins = new address[](3);
@@ -115,7 +117,8 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     borrowables_PTUSDGStablecoins[2] = AaveV3XLayerAssets.GHO_UNDERLYING;
     assertEq(
       AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(eMode_PTUSDGStablecoins),
-      _toBitmap(borrowables_PTUSDGStablecoins)
+      _toBitmap(borrowables_PTUSDGStablecoins),
+      'eMode borrowable bitmap should contain exactly USDT0, USDG and GHO'
     );
   }
 
@@ -164,10 +167,18 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     bool isolated
   ) internal view {
     DataTypes.CollateralConfig memory cfg = AaveV3XLayer.POOL.getEModeCategoryCollateralConfig(id);
-    assertEq(cfg.ltv, ltv);
-    assertEq(cfg.liquidationThreshold, liquidationThreshold);
-    assertEq(cfg.liquidationBonus, liquidationBonus);
-    assertEq(AaveV3XLayer.POOL.getIsEModeCategoryIsolated(id), isolated);
+    assertEq(cfg.ltv, ltv, 'unexpected eMode ltv');
+    assertEq(
+      cfg.liquidationThreshold,
+      liquidationThreshold,
+      'unexpected eMode liquidation threshold'
+    );
+    assertEq(cfg.liquidationBonus, liquidationBonus, 'unexpected eMode liquidation bonus');
+    assertEq(
+      AaveV3XLayer.POOL.getIsEModeCategoryIsolated(id),
+      isolated,
+      'unexpected eMode isolation flag'
+    );
   }
 
   function _toBitmap(address[] memory assets) internal view returns (uint128 bitmap) {
@@ -198,7 +209,7 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     AaveV3XLayer.POOL.borrow(borrowAsset, borrowAmount, 2, 0, user);
 
     address vToken = AaveV3XLayer.POOL.getReserveVariableDebtToken(borrowAsset);
-    assertApproxEqAbs(IERC20(vToken).balanceOf(user), borrowAmount, 1);
+    assertApproxEqAbs(IERC20(vToken).balanceOf(user), borrowAmount, 1, 'borrowed amount mismatch');
 
     IERC20(borrowAsset).approve(address(AaveV3XLayer.POOL), borrowAmount);
     AaveV3XLayer.POOL.repay(borrowAsset, borrowAmount, 2, user);
@@ -207,6 +218,7 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     vm.stopPrank();
   }
 
+  // TODO: remove this mock once the linear discount oracle is deployed and plugged in
   function _mockPtUsdgPriceFeed() internal {
     vm.mockCall(
       proposal.PT_USDG_29OCT2026_PRICE_FEED(),
