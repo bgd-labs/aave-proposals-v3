@@ -33,7 +33,7 @@ library RemoteGSMLaunchXLayerSetup {
 
   // GSM USDG
   // Maximum GHO amount that can be withdrawn by GSM (can be changed by steward later)
-  uint128 public constant GSM_USDG_RESERVE_LIMIT = 12_500_000 ether; // 12.5M, 18 decimals
+  uint128 public constant GSM_USDG_RESERVE_LIMIT = 25_000_000 ether; // 25M, 18 decimals
 
   // 20M underlying (6 decimals).
   uint128 public constant GSM_USDG_INITIAL_EXPOSURE_CAP = 20_000_000e6; // 20M, 6 decimals
