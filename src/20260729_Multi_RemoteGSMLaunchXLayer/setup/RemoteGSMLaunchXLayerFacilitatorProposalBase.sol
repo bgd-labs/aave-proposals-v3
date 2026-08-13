@@ -11,7 +11,7 @@ import {RemoteGSMLaunchXLayerSetup} from './RemoteGSMLaunchXLayerSetup.sol';
  * @title Remote GSM Launch: XLayer
  * @author TokenLogic
  * - Snapshot: TODO_SNAPSHOT_PENDING
- * - Discussion: TODO_FORUM_POST_PENDING
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-x-layer/23175
  */
 abstract contract RemoteGSMLaunchXLayerFacilitatorProposalBase is IProposalGenericExecutor {
   using SafeCast for uint256;

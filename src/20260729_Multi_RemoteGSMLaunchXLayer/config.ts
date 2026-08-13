@@ -17,7 +17,7 @@ export const config: ConfigFile = {
     shortName: 'RemoteGSMLaunchXLayer',
     date: '20260729',
     author: 'TokenLogic',
-    discussion: 'TODO_FORUM_POST_PENDING',
+    discussion: 'https://governance.aave.com/t/arfc-deploy-aave-v3-on-x-layer/23175',
     snapshot: 'TODO_SNAPSHOT_PENDING',
     votingNetwork: 'AVALANCHE',
   },

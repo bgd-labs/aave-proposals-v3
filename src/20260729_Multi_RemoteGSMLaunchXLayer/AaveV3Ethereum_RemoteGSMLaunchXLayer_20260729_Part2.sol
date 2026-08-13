@@ -17,7 +17,7 @@ import {RemoteGSMLaunchXLayerSetup} from './setup/RemoteGSMLaunchXLayerSetup.sol
  * @title Remote GSM Launch: XLayer
  * @author TokenLogic
  * - Snapshot: TODO_SNAPSHOT_PENDING
- * - Discussion: TODO_FORUM_POST_PENDING
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-x-layer/23175
  */
 contract AaveV3Ethereum_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
