@@ -16,45 +16,43 @@ The PT is priced via the dynamic linear discount rate oracle used for Pendle PTs
 
 ## Specification
 
-| Field             | Value                                      |
-| ----------------- | ------------------------------------------ |
-| Asset             | PT-USDG-29OCT2026                          |
-| PT token          | 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362 |
-| Pendle market     | 0xcFB506cb34DD340e80d3dF8764182a5187636032 |
-| SY token          | 0x1F336F899f77B084133bc14a81170837ED618D1b |
-| YT token          | 0x5E67C8D19EEa0Fd0d0Da35E4008b56e87C931724 |
-| Underlying (USDG) | 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 |
-| Maturity          | 29 October 2026                            |
-| Borrowable        | No                                         |
-| Collateral (core) | No (eMode only)                            |
-| Supply Cap        | 35,000,000                                 |
-| Reserve Factor    | 20%                                        |
+| Field             | Value                                                                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Asset             | PT-USDG-29OCT2026                                                                                                               |
+| PT token          | [0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362](https://www.oklink.com/x-layer/address/0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362) |
+| Pendle market     | [0xcFB506cb34DD340e80d3dF8764182a5187636032](https://www.oklink.com/x-layer/address/0xcFB506cb34DD340e80d3dF8764182a5187636032) |
+| SY token          | [0x1F336F899f77B084133bc14a81170837ED618D1b](https://www.oklink.com/x-layer/address/0x1F336F899f77B084133bc14a81170837ED618D1b) |
+| YT token          | [0x5E67C8D19EEa0Fd0d0Da35E4008b56e87C931724](https://www.oklink.com/x-layer/address/0x5E67C8D19EEa0Fd0d0Da35E4008b56e87C931724) |
+| Underlying (USDG) | [0x4ae46a509F6b1D9056937BA4500cb143933D2dc8](https://www.oklink.com/x-layer/address/0x4ae46a509F6b1D9056937BA4500cb143933D2dc8) |
+| Maturity          | 29 October 2026                                                                                                                 |
 
-**New eMode** (indicative target, subject to Risk Service Provider assessment; borrowables: USDT0, USDG, GHO):
+**New eMode** (indicative target, subject to Risk Service Provider assessment):
 
-| eMode               | Collateral        | LTV | LT  | Liq. Bonus |
-| ------------------- | ----------------- | --- | --- | ---------- |
-| PT USDG Stablecoins | PT-USDG-29OCT2026 | 93% | 95% | 2.44%      |
+| eMode               | Collateral        | Borrowable       | LTV | LT  | Liq. Bonus |
+| ------------------- | ----------------- | ---------------- | --- | --- | ---------- |
+| PT USDG Stablecoins | PT-USDG-29OCT2026 | USDT0, USDG, GHO | 93% | 95% | 2.44%      |
 
 The table below illustrates the configured risk parameters for **PT_USDG_29OCT2026**
 
-| Parameter                      |                                      Value |
-| ------------------------------ | -----------------------------------------: |
-| Borrowable                     |                                   DISABLED |
-| Collateral Enabled             |                      DISABLED (eMode only) |
-| Supply Cap (PT_USDG_29OCT2026) |                                 35,000,000 |
-| Borrow Cap (PT_USDG_29OCT2026) |                                          1 |
-| LTV                            |                                        0 % |
-| LT                             |                                        0 % |
-| Liquidation Bonus              |                                        0 % |
-| Liquidation Protocol Fee       |                                       10 % |
-| Reserve Factor                 |                                       20 % |
-| Base Variable Borrow Rate      |                                        0 % |
-| Variable Slope 1               |                                       10 % |
-| Variable Slope 2               |                                      300 % |
-| Uoptimal                       |                                       45 % |
-| Flashloanable                  |                                    ENABLED |
-| Oracle                         | 0x0000000000000000000000000000000000000001 |
+| Parameter                 |                                       PT-USDG-29OCT2026 |
+| ------------------------- | ------------------------------------------------------: |
+| Isolation Mode            |                                                      No |
+| Borrowable                |                                                      No |
+| Collateral Enabled        |                                        No (E-Mode only) |
+| Supply Cap                |                                              35,000,000 |
+| Borrow Cap                |                                                       1 |
+| Debt Ceiling              |                                                     N/A |
+| LTV                       |                                                      0% |
+| Liquidation Threshold     |                                                      0% |
+| Liquidation Bonus         |                                                      0% |
+| Liquidation Protocol Fee  |                                                     10% |
+| Reserve Factor            |                                                     20% |
+| Base Variable Borrow Rate |                                                      0% |
+| Variable Rate Slope 1     |                                                     10% |
+| Variable Rate Slope 2     |                                                    300% |
+| Optimal Utilization       |                                                     45% |
+| Flashloanable             |                                                     Yes |
+| Oracle                    | Placeholder — pending linear discount oracle deployment |
 
 ## References
 

@@ -144,7 +144,7 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     AaveV3XLayer.POOL.supply(proposal.PT_USDG_29OCT2026(), supplyAmount, user, 0);
 
     // LTV is 0 outside the e-mode, so the borrow must revert
-    vm.expectRevert(abi.encodeWithSelector(Errors.LtvValidationFailed.selector));
+    vm.expectRevert(Errors.LtvValidationFailed.selector);
     AaveV3XLayer.POOL.borrow(AaveV3XLayerAssets.USDT_UNDERLYING, 1, 2, 0, user);
 
     vm.stopPrank();
