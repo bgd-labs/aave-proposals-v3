@@ -42,7 +42,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericEx
   // https://www.oklink.com/x-layer/evm/address/0x1ECD8281BB799Ef055A379c27846B683cbeB6752
   address public constant GSM_REGISTRY = address(0x1ECD8281BB799Ef055A379c27846B683cbeB6752);
 
-  // GSM USDG
+  // GSM USDG (stataUSDG)
   // https://www.oklink.com/x-layer/evm/address/0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787
   address public constant GSM_USDG = address(0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787);
 
