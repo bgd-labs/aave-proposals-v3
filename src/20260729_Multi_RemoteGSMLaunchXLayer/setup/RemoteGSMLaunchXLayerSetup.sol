@@ -5,7 +5,7 @@ import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/cci
 
 /**
  * @notice Common setup library containing constants and helper functions used in the proposal.
- * @dev See forum post for reference: https://governance.aave.com/t/arfc-deploy-aave-v3-on-x-layer/23175.
+ * @dev See forum post for reference: https://governance.aave.com/t/arfc-launch-gho-on-x-layer/23178.
  */
 library RemoteGSMLaunchXLayerSetup {
   // Amount to mint in Mainnet and bridge to XLayer
