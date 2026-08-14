@@ -18,7 +18,7 @@ import {RemoteGSMLaunchXLayerSetup} from './setup/RemoteGSMLaunchXLayerSetup.sol
  * @title Remote GSM Launch: XLayer
  * @author TokenLogic
  * - Snapshot: TODO_SNAPSHOT_PENDING
- * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-x-layer/23175
+ * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-x-layer/23178
  *
  * NOTE: granting RISK_ADMIN_ROLE on AaveV3XLayer.ACL_MANAGER to a GhoAaveSteward
  * is intentionally OUT OF SCOPE for this proposal. If a steward is not already
