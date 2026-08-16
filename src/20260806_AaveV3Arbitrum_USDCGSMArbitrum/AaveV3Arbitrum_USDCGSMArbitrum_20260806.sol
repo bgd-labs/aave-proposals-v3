@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
@@ -32,15 +31,10 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(GhoArbitrum.GSM_USDC).SWAP_FREEZER_ROLE();
 
   function execute() external {
-    _updateNewGsm();
     _seize();
     _grantAccess();
     _updateFeeStrategy();
     _revokeAccess();
-  }
-
-  function _updateNewGsm() internal {
-    IGsm(NEW_GSM_USDC).updateGhoReserve(GhoArbitrum.GHO_RESERVE);
   }
 
   function _seize() internal {

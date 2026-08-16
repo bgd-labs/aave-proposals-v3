@@ -20,8 +20,11 @@ With USDC.e related assets soon to be deprecated as can be seen on this forum [p
 - Point it at the `GhoReserve`, enroll it as an entity with a 25M GHO reserve limit.
 - Grant `SWAP_FREEZER_ROLE` to the asset's `OracleSwapFreezer` and to the Arbitrum executor.
 - Register it in the `GsmRegistry` and grant `CONFIGURATOR_ROLE` to the `GhoGsmSteward`.
-- Set the initial exposure cap to 20M of the underlying (6 decimals) and attach the 0% mint / 0.10% burn fee strategy.
+- Initial values set at deploy time equal to current USDC.e
 - Seize previous USDC.e GSM, revoke roles, remove as entity and remove from GSM Registry
+
+New GSM address: [0x1aEe7A618B0CC687cCED9aB796e464062f1508CA](https://arbiscan.io/address/0x1aEe7A618B0CC687cCED9aB796e464062f1508CA)
+New Oracle Swap Freezer address: [0x4daF7FCe9EfcA48e9274b35b5A7B4639b0DdFCCa](https://arbiscan.io/address/0x4daF7FCe9EfcA48e9274b35b5A7B4639b0DdFCCa)
 
 ## References
 
