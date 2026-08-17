@@ -434,6 +434,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     GsmConfig memory config
   ) internal view {
     assertEq(gsm.UNDERLYING_ASSET(), underlying, 'wrong underlying asset');
+    assertEq(gsm.getGhoReserve(), GhoArbitrum.GHO_RESERVE, 'wrong gho reserve');
     assertEq(gsm.getExposureCap(), config.exposureCap, 'wrong exposure cap');
     assertEq(gsm.getIsFrozen(), config.isFrozen, 'wrong freeze state');
     assertEq(gsm.getIsSeized(), config.isSeized, 'wrong seized state');

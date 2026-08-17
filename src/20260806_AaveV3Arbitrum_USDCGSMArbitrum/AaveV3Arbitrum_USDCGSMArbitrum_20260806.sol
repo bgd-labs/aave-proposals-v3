@@ -13,7 +13,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @title USDC GSM Arbitrum
  * @author @TokenLogic
  * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0xf24321514fb593af9e5082d26a1358819ec0f648db8fdb5c2b083f53ef785793
- * - Discussion: https://governance.aave.com/t/arfc-launch-remotegsm-on-arbitrum/24986
+ * - Discussion: https://governance.aave.com/t/arfc-launch-remotegsm-on-arbitrum/24986/5
  */
 contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0x1aEe7A618B0CC687cCED9aB796e464062f1508CA
@@ -71,6 +71,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
 
   function _revokeAccess() internal {
     // Remove existing GSMs from Registry and Reserve
+    IGhoReserve(GhoArbitrum.GHO_RESERVE).setLimit(GhoArbitrum.GSM_USDC, 0);
     IGsmRegistry(GSM_REGISTRY).removeGsm(GhoArbitrum.GSM_USDC);
     IGhoReserve(GhoArbitrum.GHO_RESERVE).removeEntity(GhoArbitrum.GSM_USDC);
 
