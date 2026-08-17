@@ -10,7 +10,7 @@ import {RemoteGSMLaunchXLayerSetup} from './RemoteGSMLaunchXLayerSetup.sol';
 /**
  * @title Remote GSM Launch: XLayer
  * @author TokenLogic
- * - Snapshot: TODO_SNAPSHOT_PENDING
+ * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0xed5edc3f33a3b5d845452df717c18a3eb105a2eae8ab8be34cbf0832dfe8a20a
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-x-layer/23178
  */
 abstract contract RemoteGSMLaunchXLayerFacilitatorProposalBase is IProposalGenericExecutor {
