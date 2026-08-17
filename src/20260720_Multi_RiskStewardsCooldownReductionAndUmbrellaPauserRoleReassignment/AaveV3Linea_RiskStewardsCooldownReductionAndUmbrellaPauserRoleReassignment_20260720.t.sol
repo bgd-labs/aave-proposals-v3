@@ -18,7 +18,7 @@ contract AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignm
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('linea'), 31614467);
+    vm.createSelectFork(vm.rpcUrl('linea'), 31741907);
     proposal = new AaveV3Linea_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

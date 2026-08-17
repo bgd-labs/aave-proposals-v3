@@ -18,7 +18,7 @@ contract AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 98853033);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 99416553);
     proposal = new AaveV3Mantle_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

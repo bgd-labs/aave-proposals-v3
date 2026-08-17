@@ -18,7 +18,7 @@ contract AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReass
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 91994807);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 93019784);
     proposal = new AaveV3Avalanche_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

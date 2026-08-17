@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassi
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 490973924);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 495456603);
     proposal = new AaveV3Arbitrum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

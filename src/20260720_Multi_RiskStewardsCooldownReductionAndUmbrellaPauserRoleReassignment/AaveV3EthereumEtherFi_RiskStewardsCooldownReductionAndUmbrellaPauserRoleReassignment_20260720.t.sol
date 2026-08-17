@@ -18,7 +18,7 @@ contract AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRol
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25680707);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25774279);
     proposal = new AaveV3EthereumEtherFi_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

@@ -18,7 +18,7 @@ contract AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassign
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 67067343);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68194385);
     proposal = new AaveV3XLayer_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 

@@ -18,7 +18,7 @@ contract AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignm
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 93027357);
+    vm.createSelectFork(vm.rpcUrl('monad'), 96755251);
     proposal = new AaveV3Monad_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720();
   }
 
