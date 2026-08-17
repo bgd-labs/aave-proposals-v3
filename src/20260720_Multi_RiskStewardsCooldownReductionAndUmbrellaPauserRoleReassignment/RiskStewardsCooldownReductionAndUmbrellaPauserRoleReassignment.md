@@ -9,7 +9,7 @@ snapshot: "https://snapshot.org/#/aavedao.eth/proposal/0x7083921f2f549ffa2cdc294
 
 This ARFC operationalises two changes surfaced after the active incident response management over the past months. First, the Risk Steward `minDelay` is reduced from 72 hours to 36 hours on six cap and IRM parameters where the conservative cap posture meaningfully constrains response speed. Second, the pause role on Aave Umbrella stkTokens is reassigned to the Aave Protocol Guardian, the standing Aave-wide emergency multisig that already holds pause and freeze authority across Aave deployments, with all other Umbrella governance action permissions remaining with the Aave Governance Executor.
 
-The cooldown change addresses a friction surfaced over the past month as LlamaRisk has tightened supply and borrow caps on listed assets closer to their current utilisation. This conservative cap posture is the principal lever Aave has used to bound exposure. It has, however, a structural side effect: when caps sit close to organic demand, the 72-hour Risk Steward cooldown becomes a binding constraint on the next cap raise after the demand suddenly increases, turning the defensive posture into a blocker on healthy growth. Reducing `minDelay` to 36 hours on the seven cap and IRM parameters relieves this constraint without weakening any `maxPercentChange` bound.
+The cooldown change addresses a friction surfaced over the past month as LlamaRisk has tightened supply and borrow caps on listed assets closer to their current utilisation. This conservative cap posture is the principal lever Aave has used to bound exposure. It has, however, a structural side effect: when caps sit close to organic demand, the 72-hour Risk Steward cooldown becomes a binding constraint on the next cap raise after the demand suddenly increases, turning the defensive posture into a blocker on healthy growth. Reducing `minDelay` to 36 hours on the six cap and IRM parameters relieves this constraint without weakening any `maxPercentChange` bound.
 
 In parallel, Umbrella pause reassignment addresses the operational friction observed when stkwaWETH had to be paused during the rsETH incident response. The `PAUSE_GUARDIAN_ROLE` on Umbrella (which governs both pause and unpause) currently sits behind the Aave Governance Executor rather than behind Aave's standing emergency body, which meant the action had to be routed through a full AIP cycle. Reassigning `PAUSE_GUARDIAN_ROLE` to the Aave Protocol Guardian, the multisig that already holds emergency pause authority across the rest of the protocol, restores the role assignment originally specified at Umbrella's activation and ensures that future stkToken pauses can be executed at incident response speed. Configuration authority on Umbrella (token creation, parameter changes, role management under `DEFAULT_ADMIN_ROLE`) remains solely with the Aave Governance Executor.
 
@@ -28,7 +28,7 @@ The current Risk Steward [`RiskConfig`](https://etherscan.io/address/0xFCE597866
 - `minDelay` is the minimum time between consecutive changes to the same parameter on the same reserve.
 - `maxPercentChange` is the largest single-step change accepted, with semantics that vary by parameter: collateral and rate parameters use absolute difference bounds, cap parameters use relative difference of the current cap.
 
-The proposed change reduces `minDelay` from 72 hours to 36 hours on the seven cap and IRM parameters where the defensive cap posture meaningfully constrains response speed. The higher-impact collateral and E-Mode parameters (base LTV, LT, LB and their E-Mode equivalents, both price caps) stay at the 72-hour minimum because changes there have a larger downstream effect on existing positions. The Pendle discount rate stays at its existing 48-hour minimum, already tighter than the cap and IRM cadence proposed here. `maxPercentChange` bounds are unchanged across every parameter under this proposal.
+The proposed change reduces `minDelay` from 72 hours to 36 hours on the six cap and IRM parameters where the defensive cap posture meaningfully constrains response speed. The higher-impact collateral and E-Mode parameters (base LTV, LT, LB and their E-Mode equivalents, both price caps) stay at the 72-hour minimum because changes there have a larger downstream effect on existing positions. The Pendle discount rate stays at its existing 48-hour minimum, already tighter than the cap and IRM cadence proposed here. `maxPercentChange` bounds are unchanged across every parameter under this proposal.
 
 The intent is symmetric with the previewed Cap Oracle defensive automation: a faster downward path on caps through the oracle automatization, and a faster upward path on caps and rates through tighter manual cadence, so that the defensive cap posture does not turn into a soft cap on legitimate organic growth.
 
@@ -85,6 +85,28 @@ The role separation in this proposal runs along the emergency vs. configuration 
 
 - Grant `PAUSE_GUARDIAN_ROLE` on the Umbrella controller (`0xD400fc38ED4732893174325693a63C30ee3881a8`) to the Aave Protocol Guardian (`0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30`) on Ethereum Mainnet. This authorises the Protocol Guardian to call `pauseStk(stkToken)` and `unpauseStk(stkToken)` on every stkToken currently managed by the controller and any future stkToken added under it.
 - On the Risk Steward [`RiskConfig`](https://etherscan.io/address/0xFCE597866Ffaf617EFdcA1C1Ad50eBCB16B5171E), set `minDelay` to 36 hours on `baseVariableBorrowRate`, `variableRateSlope1`, `variableRateSlope2`, `optimalUsageRatio`, `supplyCap`, and `borrowCap` (reduced from 72 hours).
+
+### Amendment
+
+For the purpose of clarity at the AIP implementation phase, the following list of market deployments are to be affected by this change:
+
+- Ethereum (Core, Lido, and EtherFi deployments)
+- Polygon
+- Avalanche
+- Arbitrum
+- Optimism
+- Base
+- Gnosis
+- BNB Chain
+- Scroll
+- Linea
+- Sonic
+- Celo
+- Mantle
+- Plasma
+- MegaETH
+- Monad
+- X Layer
 
 ## References
 
