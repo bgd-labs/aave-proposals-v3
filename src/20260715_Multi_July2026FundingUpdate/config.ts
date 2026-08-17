@@ -14,7 +14,8 @@ export const config: ConfigFile = {
     date: '20260715',
     author: 'TokenLogic',
     discussion: 'https://governance.aave.com/t/direct-to-aip-july-2026-funding-update/25277',
-    snapshot: 'Direct-to-AIP',
+    snapshot:
+      'https://snapshot.box/#/s:aavedao.eth/proposal/0x2f86020fc038694a5c4738e3982e4fa92eb315aaa4d3ce2fa2be2a5808a9280b',
     votingNetwork: 'AVALANCHE',
   },
   marketOptions: {

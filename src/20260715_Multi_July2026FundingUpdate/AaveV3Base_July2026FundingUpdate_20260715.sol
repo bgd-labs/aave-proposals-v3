@@ -9,7 +9,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title July 2026 Funding Update
  * @author TokenLogic
- * - Snapshot: Direct-to-AIP
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2f86020fc038694a5c4738e3982e4fa92eb315aaa4d3ce2fa2be2a5808a9280b
  * - Discussion: https://governance.aave.com/t/direct-to-aip-july-2026-funding-update/25277
  */
 contract AaveV3Base_July2026FundingUpdate_20260715 is IProposalGenericExecutor {
