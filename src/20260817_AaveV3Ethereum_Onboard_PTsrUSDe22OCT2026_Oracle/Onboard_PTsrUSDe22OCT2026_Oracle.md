@@ -7,7 +7,7 @@ snapshot: "direct-to-aip"
 
 ## Simple Summary
 
-Registers two risk agents on the Aave-owned AgentHub so that discount rate and eMode risk parameters for PT-srUSDe-22OCT2026 on Aave V3 Ethereum Core can be maintained automatically from the LlamaRisk PT Risk Oracle, within bounds this proposal sets.
+Deploys and registers two risk agents on the Aave-owned AgentHub so that discount rate and eMode risk parameters for PT-srUSDe-22OCT2026 on Aave V3 Ethereum Core can be maintained automatically from the LlamaRisk PT Risk Oracle, within bounds this proposal sets.
 
 ## Motivation
 
@@ -21,13 +21,15 @@ The pipeline publishes to a RiskOracle that only LlamaRisk's router can write to
 
 The payload performs three groups of actions.
 
-**1. Register the discount rate agent.** `registerAgent` on `MiscEthereum.AGENT_HUB`, consuming `PendleDiscountRateUpdate` records from the LlamaRisk RiskOracle, allowed to act only on PT-srUSDe-22OCT2026. Minimum delay 2 days, expiration period 2 days.
+**1. Deploy and register the discount rate agent.** The payload deploys `AaveDiscountRateAgent` from `aave-dao/aave-risk-agents`, then calls `registerAgent` on `MiscEthereum.AGENT_HUB`, consuming `PendleDiscountRateUpdate` records from the LlamaRisk RiskOracle, allowed to act only on PT-srUSDe-22OCT2026. Minimum delay 2 days, expiration period 2 days.
 
-**2. Register the eMode agent.** `registerAgent` for the same oracle, consuming `EModeCategoryUpdate`, allowed to act only on eMode categories 47 and 48. Minimum delay 3 days, expiration period 3 days. Its agent context encodes `AaveV3Ethereum.CONFIG_ENGINE`, which it delegatecalls to apply category updates.
+**2. Deploy and register the eMode agent.** `AaveEModeAgent` from the same repository, registered for the same oracle, consuming `EModeCategoryUpdate`, allowed to act only on eMode categories 47 and 48. Minimum delay 3 days, expiration period 3 days. Its agent context encodes `AaveV3Ethereum.CONFIG_ENGINE`, which it delegatecalls to apply category updates.
 
 Both are registered with `admin` set to `GovernanceV3Ethereum.EXECUTOR_LVL_1`, which already owns the AgentHub, and with `isAgentPermissioned` and `isMarketsFromAgentEnabled` at their defaults.
 
-**3. Grant `RISK_ADMIN` and bound the ranges.** `addRiskAdmin` on `AaveV3Ethereum.ACL_MANAGER` for both agent addresses, then `setDefaultRangeConfig` on `MiscEthereum.RANGE_VALIDATION_MODULE` for each parameter each agent can move.
+Both agents are constructed by `execute` rather than deployed ahead of the vote. Every address they are bound to is immutable and comes from the address book, so deploying them inside the payload means the code that governance reviews is the code that ends up registered, with no separate address to check and no window in which a registered agent could point at something the proposal did not build. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
+
+**3. Grant `RISK_ADMIN` and bound the ranges.** `addRiskAdmin` on `AaveV3Ethereum.ACL_MANAGER` for both freshly deployed agents, then `setDefaultRangeConfig` on `MiscEthereum.RANGE_VALIDATION_MODULE` for each parameter each agent can move.
 
 The role is required because of how the agents write. The discount rate agent resolves the PT price source through the Aave oracle and calls `setDiscountRatePerYear` on the `PendlePriceCapAdapter`, which gates that call on `isRiskAdmin || isPoolAdmin`. The eMode agent delegatecalls the config engine, and because delegatecall preserves the caller, the PoolConfigurator sees the agent rather than the engine, so the role has to sit on the agent there as well.
 
@@ -57,11 +59,11 @@ No reserve configuration is changed by this payload. The snapshot diff is empty 
 
 ## Deployed Contracts
 
-The three LlamaRisk addresses are placeholders in this draft and will be filled before submission, once the stack is deployed and verified on mainnet.
+- `LLAMARISK_RISK_ORACLE`: [0x8346170dcE5455A1205f55A0b5448E67e42CD270](https://etherscan.io/address/0x8346170dcE5455A1205f55A0b5448E67e42CD270)
 
-- `LLAMARISK_RISK_ORACLE`: TBD (placeholder)
-- `DISCOUNT_RATE_AGENT`: TBD (placeholder)
-- `EMODE_AGENT`: TBD (placeholder)
+That is the only LlamaRisk address the payload names. It is a BGD stock `RiskOracle`, owned by the LlamaRisk multisig, constructed with `PendleDiscountRateUpdate` and `EModeCategoryUpdate` and nothing else, and writable only by the LlamaRisk router. It is deployed ahead of the vote because it is shared across every PT this instance onboards rather than being an artifact of this proposal.
+
+Both agents are deployed by `execute`, so they have no address until the payload runs. After execution they are readable from the hub as `getAgentAddress(agentId)` for the two ids the payload consumed.
 
 Existing Aave contracts referenced, all from the address book:
 
@@ -71,9 +73,16 @@ Existing Aave contracts referenced, all from the address book:
 - Config engine: `AaveV3Ethereum.CONFIG_ENGINE`
 - Agent admin: `GovernanceV3Ethereum.EXECUTOR_LVL_1`
 
+### Agent source
+
+Both agents are the stock BGD implementations from [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents), added to this repository as a submodule and compiled into the payload. Nothing is forked or modified.
+
+The submodule is pinned to the head of [aave-risk-agents#6](https://github.com/aave-dao/aave-risk-agents/pull/6), which restores the `isolated` field that `AaveEModeAgent` must pass to the current config engine. Without it the agent builds a five-field `EModeCategoryUpdate` that no longer matches any function on the deployed engine, and every eMode injection reverts. That pull request has to be merged, and this submodule repointed at a commit on `main`, before the proposal is submitted.
+
 ## References
 
 - Implementation: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol](https://github.com/llama-risk/aave-proposals-v3/blob/main/src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol)
+- Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
 - Tests: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol](https://github.com/llama-risk/aave-proposals-v3/blob/main/src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol)
 - [Discussion](https://gov.discussion.placeholder)
 

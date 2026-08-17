@@ -2,13 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {
-  AaveV3Ethereum,
-  AaveV3EthereumAssets,
-  AaveV3EthereumEModes
-} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveDiscountRateAgent} from 'aave-risk-agents/src/contracts/agent/AaveDiscountRateAgent.sol';
+import {AaveEModeAgent} from 'aave-risk-agents/src/contracts/agent/AaveEModeAgent.sol';
 import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
@@ -20,22 +18,17 @@ import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
  */
 contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGenericExecutor {
   // ---------------------------------------------------------------------------------------------
-  // LlamaRisk deployments on Ethereum mainnet (llamaguard-risk-oracles stack)
-  // TODO: replace the three placeholders with the deployed addresses before submission
+  // LlamaRisk deployment on Ethereum mainnet (llamaguard-risk-oracles stack)
   // ---------------------------------------------------------------------------------------------
 
   /// @dev BGD stock RiskOracle, written only by the LlamaguardRiskOracleRouter, which in turn is
-  ///      written only by the Chainlink CRE forwarder. Constructed with the two suffixed update
-  ///      types below and nothing else.
-  address public constant LLAMARISK_RISK_ORACLE = 0x0000000000000000000000000000000000000000;
-
-  /// @dev AaveDiscountRateAgent(MiscEthereum.AGENT_HUB, MiscEthereum.RANGE_VALIDATION_MODULE,
-  ///      '', AaveV3Ethereum.POOL, AaveV3Ethereum.ORACLE)
-  address public constant DISCOUNT_RATE_AGENT = 0x0000000000000000000000000000000000000000;
-
-  /// @dev AaveEModeAgent(MiscEthereum.AGENT_HUB, MiscEthereum.RANGE_VALIDATION_MODULE, '',
-  ///      AaveV3Ethereum.POOL)
-  address public constant EMODE_AGENT = 0x0000000000000000000000000000000000000000;
+  ///      written only by the Chainlink CRE forwarder. Constructed with the two update types below
+  ///      and nothing else, and owned by the LlamaRisk multisig.
+  ///
+  ///      This is the one address the payload cannot derive. Both agents are deployed by `execute`,
+  ///      so they need no constant; the RiskOracle is deployed ahead of the vote, because it is
+  ///      shared across every PT this instance ever onboards and is not a per-proposal artifact.
+  address public constant LLAMARISK_RISK_ORACLE = 0x8346170dcE5455A1205f55A0b5448E67e42CD270;
 
   // ---------------------------------------------------------------------------------------------
   // Registration parameters
@@ -47,12 +40,16 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
   ///      multisig. Mainnet has no permissioned payloads controller executor to use instead.
   address public constant AGENT_ADMIN = GovernanceV3Ethereum.EXECUTOR_LVL_1;
 
-  /// @dev Unsuffixed. The agents' `updateTypeSuffix` parameter exists so that one shared RiskOracle
-  ///      can feed several Aave instances without their records colliding, but the LlamaRisk
-  ///      RiskOracle is dedicated to this stack and feeds nothing else, so both agents are
-  ///      constructed with an empty suffix. These strings must match the agents' `getUpdateType()`
-  ///      and the types the RiskOracle was constructed with, or the hub will never match a published
-  ///      record to an agent.
+  /// @dev The agents' `updateTypeSuffix` constructor parameter exists so that one shared RiskOracle
+  ///      can feed several Aave instances without their records colliding. The LlamaRisk RiskOracle
+  ///      is dedicated to this stack and feeds nothing else, so the suffix is empty and the
+  ///      registered types are the base types below.
+  string public constant UPDATE_TYPE_SUFFIX = '';
+
+  /// @dev Base update types, and the types the RiskOracle publishes. Each agent concatenates its
+  ///      own base type with the suffix at construction, and rejects any record whose type does not
+  ///      match, so registering these strings under the same two constants the agents are built from
+  ///      is what keeps the hub, the agents and the oracle in agreement.
   string public constant DISCOUNT_UPDATE_TYPE = 'PendleDiscountRateUpdate';
   string public constant EMODE_UPDATE_TYPE = 'EModeCategoryUpdate';
 
@@ -79,22 +76,46 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
   uint120 public constant EMODE_RANGE_ABS_BPS = 50;
 
   function execute() external {
-    // 1. Register the discount-rate agent, consuming PendleDiscountRateUpdate records from the
-    //    LlamaRisk RiskOracle for PT-srUSDe-22OCT2026.
+    // 1. Deploy the discount-rate agent and register it, consuming PendleDiscountRateUpdate records
+    //    from the LlamaRisk RiskOracle for PT-srUSDe-22OCT2026.
+    //
+    //    The agent is deployed here rather than beforehand so that the code governance votes on is
+    //    the code that ends up registered. Everything it is bound to is immutable and comes from the
+    //    address book, so there is nothing left to check against a pre-deployed address, and there
+    //    is no window in which a registered agent points at something the proposal did not build.
+    address discountRateAgent = address(
+      new AaveDiscountRateAgent(
+        MiscEthereum.AGENT_HUB,
+        MiscEthereum.RANGE_VALIDATION_MODULE,
+        UPDATE_TYPE_SUFFIX,
+        address(AaveV3Ethereum.POOL),
+        address(AaveV3Ethereum.ORACLE)
+      )
+    );
+
     address[] memory ptMarkets = new address[](1);
     ptMarkets[0] = AaveV3EthereumAssets.PT_srUSDe_22OCT2026_UNDERLYING;
 
     uint256 discountAgentId = _registerAgentAndGrantRole(
-      DISCOUNT_RATE_AGENT,
+      discountRateAgent,
       DISCOUNT_EXPIRATION_PERIOD,
       DISCOUNT_MINIMUM_DELAY,
-      DISCOUNT_UPDATE_TYPE,
+      string.concat(DISCOUNT_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
       bytes(''),
       ptMarkets
     );
 
-    // 2. Register the eMode agent for the two PT-srUSDe-22OCT2026 eMode categories. eMode ids are
-    //    encoded as addresses, following the chaos-agents convention.
+    // 2. Deploy the eMode agent and register it for the two PT-srUSDe-22OCT2026 eMode categories.
+    //    eMode ids are encoded as addresses, following the chaos-agents convention.
+    address eModeAgent = address(
+      new AaveEModeAgent(
+        MiscEthereum.AGENT_HUB,
+        MiscEthereum.RANGE_VALIDATION_MODULE,
+        UPDATE_TYPE_SUFFIX,
+        address(AaveV3Ethereum.POOL)
+      )
+    );
+
     address[] memory eModeMarkets = new address[](2);
     eModeMarkets[0] = address(
       uint160(AaveV3EthereumEModes.sUSDe_PT_srUSDe_22OCT2026__USDC_USDT_USDe)
@@ -102,10 +123,10 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
     eModeMarkets[1] = address(uint160(AaveV3EthereumEModes.sUSDe_PT_srUSDe_22OCT2026__USDe));
 
     uint256 eModeAgentId = _registerAgentAndGrantRole(
-      EMODE_AGENT,
+      eModeAgent,
       EMODE_EXPIRATION_PERIOD,
       EMODE_MINIMUM_DELAY,
-      EMODE_UPDATE_TYPE,
+      string.concat(EMODE_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
       // the eMode agent delegatecalls updateEModeCategories on the target decoded from its context
       abi.encode(AaveV3Ethereum.CONFIG_ENGINE),
       eModeMarkets
@@ -114,7 +135,11 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
     // 3. Bound every parameter step the agents can inject. A freshly assigned agent id inherits no
     //    default range config, and the module treats a missing config as a zero bound, so without
     //    these four calls every injection is silently rejected.
-    _setDefaultRange(discountAgentId, DISCOUNT_UPDATE_TYPE, DISCOUNT_RANGE_ABS);
+    _setDefaultRange(
+      discountAgentId,
+      string.concat(DISCOUNT_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
+      DISCOUNT_RANGE_ABS
+    );
     _setDefaultRange(eModeAgentId, 'EModeLTV', EMODE_RANGE_ABS_BPS);
     _setDefaultRange(eModeAgentId, 'EModeLiquidationThreshold', EMODE_RANGE_ABS_BPS);
     _setDefaultRange(eModeAgentId, 'EModeLiquidationBonus', EMODE_RANGE_ABS_BPS);

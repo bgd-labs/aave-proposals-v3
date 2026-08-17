@@ -1,16 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {
-  AaveV3Ethereum,
-  AaveV3EthereumAssets,
-  AaveV3EthereumEModes
-} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveDiscountRateAgent} from 'aave-risk-agents/src/contracts/agent/AaveDiscountRateAgent.sol';
+import {AaveEModeAgent} from 'aave-risk-agents/src/contracts/agent/AaveEModeAgent.sol';
 import {AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817} from './AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
@@ -67,6 +65,42 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     _noReservesConfigsChangesApartNewListings(allConfigsBefore, allConfigsAfter);
   }
 
+  /// @dev The payload deploys both agents itself, so there is no pre-deployed address to assert
+  ///      against. What is asserted instead is that the code the hub now points at is code this
+  ///      execution created, and that it is bound to the intended hub, module, pool and oracle.
+  ///      Those bindings are immutable, so this is the only moment they can be checked at all.
+  function test_agentsDeployedAndWired() public {
+    IAgentHub hub = IAgentHub(MiscEthereum.AGENT_HUB);
+
+    executePayload(vm, address(proposal));
+
+    AaveDiscountRateAgent discountAgent = AaveDiscountRateAgent(
+      hub.getAgentAddress(discountAgentId)
+    );
+    AaveEModeAgent eModeAgent = AaveEModeAgent(hub.getAgentAddress(eModeAgentId));
+
+    assertGt(address(discountAgent).code.length, 0, 'discount agent has no code');
+    assertGt(address(eModeAgent).code.length, 0, 'eMode agent has no code');
+
+    assertEq(discountAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
+    assertEq(
+      address(discountAgent.RANGE_VALIDATION_MODULE()),
+      MiscEthereum.RANGE_VALIDATION_MODULE
+    );
+    assertEq(address(discountAgent.POOL()), address(AaveV3Ethereum.POOL));
+    assertEq(address(discountAgent.AAVE_ORACLE()), address(AaveV3Ethereum.ORACLE));
+
+    assertEq(eModeAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
+    assertEq(address(eModeAgent.RANGE_VALIDATION_MODULE()), MiscEthereum.RANGE_VALIDATION_MODULE);
+    assertEq(address(eModeAgent.POOL()), address(AaveV3Ethereum.POOL));
+
+    // The agent builds its own update type by concatenating its base type with the suffix, and
+    // rejects any record whose type differs. A mismatch against what the hub registered would be a
+    // stack that publishes and injects nothing, with no revert to point at it.
+    assertEq(discountAgent.getUpdateType(), hub.getUpdateType(discountAgentId));
+    assertEq(eModeAgent.getUpdateType(), hub.getUpdateType(eModeAgentId));
+  }
+
   function test_agentsRegisteredAndRiskAdminGranted() public {
     IAgentHub hub = IAgentHub(MiscEthereum.AGENT_HUB);
     uint256 countBefore = hub.getAgentCount();
@@ -76,7 +110,6 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertEq(hub.getAgentCount(), countBefore + 2, 'expected exactly two new agents');
 
     // Discount agent
-    assertEq(hub.getAgentAddress(discountAgentId), proposal.DISCOUNT_RATE_AGENT());
     assertTrue(hub.isAgentEnabled(discountAgentId), 'discount agent not enabled');
     assertEq(hub.getRiskOracle(discountAgentId), proposal.LLAMARISK_RISK_ORACLE());
     assertEq(hub.getUpdateType(discountAgentId), proposal.DISCOUNT_UPDATE_TYPE());
@@ -88,7 +121,6 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertEq(discountMarkets[0], AaveV3EthereumAssets.PT_srUSDe_22OCT2026_UNDERLYING);
 
     // eMode agent
-    assertEq(hub.getAgentAddress(eModeAgentId), proposal.EMODE_AGENT());
     assertTrue(hub.isAgentEnabled(eModeAgentId), 'eMode agent not enabled');
     assertEq(hub.getRiskOracle(eModeAgentId), proposal.LLAMARISK_RISK_ORACLE());
     assertEq(hub.getUpdateType(eModeAgentId), proposal.EMODE_UPDATE_TYPE());
@@ -116,11 +148,11 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     // Without the role neither agent can write: the discount one is rejected by the
     // PendlePriceCapAdapter, the eMode one by the PoolConfigurator.
     assertTrue(
-      AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.DISCOUNT_RATE_AGENT()),
+      AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(hub.getAgentAddress(discountAgentId)),
       'discount agent is not a risk admin'
     );
     assertTrue(
-      AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EMODE_AGENT()),
+      AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(hub.getAgentAddress(eModeAgentId)),
       'eMode agent is not a risk admin'
     );
   }
