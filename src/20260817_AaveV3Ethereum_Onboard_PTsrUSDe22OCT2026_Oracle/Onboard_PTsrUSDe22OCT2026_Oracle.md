@@ -77,7 +77,7 @@ Existing Aave contracts referenced, all from the address book:
 
 Both agents are the stock BGD implementations from [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents), added to this repository as a submodule and compiled into the payload. Nothing is forked or modified.
 
-The submodule is pinned to the head of [aave-risk-agents#6](https://github.com/aave-dao/aave-risk-agents/pull/6), which restores the `isolated` field that `AaveEModeAgent` must pass to the current config engine. Without it the agent builds a five-field `EModeCategoryUpdate` that no longer matches any function on the deployed engine, and every eMode injection reverts. That pull request has to be merged, and this submodule repointed at a commit on `main`, before the proposal is submitted.
+The submodule is pinned to the merged [aave-risk-agents#6](https://github.com/aave-dao/aave-risk-agents/pull/6) commit on `main`. That change restores the `isolated` field that `AaveEModeAgent` must pass to the current config engine and uses `EngineFlags.KEEP_CURRENT` to preserve the governance-configured isolation setting. Without it, the agent builds a five-field `EModeCategoryUpdate` that no longer matches any function on the deployed engine, and every eMode injection reverts.
 
 ## References
 

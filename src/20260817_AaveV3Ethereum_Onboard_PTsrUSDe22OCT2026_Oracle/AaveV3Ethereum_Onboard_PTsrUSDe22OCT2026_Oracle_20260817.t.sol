@@ -34,6 +34,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     eModeAgentId = startCount + 1;
   }
 
+  /// forge-config: default.isolate = true
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817',
