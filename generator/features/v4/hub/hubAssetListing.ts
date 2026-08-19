@@ -59,12 +59,19 @@ function irDataCodegen(c: V4HubAssetListing): string {
         })`;
 }
 
+/// The TokenizationSpoke's add cap as a Solidity expression. A non-borrowable asset accrues no
+/// interest, so its wrapper has no yield to offer and is registered with no room to add.
+function tokenizationAddCap(c: V4HubAssetListing): string {
+  if (c.irPreset === 'nonBorrowable') return '0';
+  return groupThousands(c.tokenization!.addCap);
+}
+
 /// Codegen for the listing's `tokenization` field: the config deploying an ERC4626
 /// wrapper, or the preset the engine reads as "no wrapper".
 function tokenizationCodegen(c: V4HubAssetListing): string {
   if (!c.tokenization) return 'V4EngineDefaults.noTokenization()';
   return `IConfigEngine.TokenizationSpokeConfig({
-          addCap: ${groupThousands(c.tokenization.addCap)},
+          addCap: ${tokenizationAddCap(c)},
           proxyAdminOwner: ${wrapAddress(c.tokenization.proxyAdminOwner)},
           name: '${esc(c.tokenization.name)}',
           symbol: '${esc(c.tokenization.symbol)}'
@@ -144,7 +151,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
       ];
       if (c.tokenization) {
         lines.push(
-          `assertEq(items[__INDEX__].tokenization.addCap, ${groupThousands(c.tokenization.addCap)}, 'tokenization addCap');`,
+          `assertEq(items[__INDEX__].tokenization.addCap, ${tokenizationAddCap(c)}, 'tokenization addCap');`,
           `assertEq(items[__INDEX__].tokenization.proxyAdminOwner, ${testAddressRef(c.tokenization.proxyAdminOwner)}, 'tokenization proxyAdminOwner');`,
           `assertEq(items[__INDEX__].tokenization.name, '${esc(c.tokenization.name)}', 'tokenization name');`,
           `assertEq(items[__INDEX__].tokenization.symbol, '${esc(c.tokenization.symbol)}', 'tokenization symbol');`,
@@ -162,7 +169,7 @@ export const hubAssetListing: FeatureModule<V4HubAssetListing[]> = {
         tokenizationAsserts = `
         address tokenizationSpoke = ${tokenizationSpokeExpr(c)};
         IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
-        assertEq(uint256(tokenizationCfg.addCap), uint256(${groupThousands(c.tokenization.addCap)}), 'tokenization addCap mismatch');
+        assertEq(uint256(tokenizationCfg.addCap), uint256(${tokenizationAddCap(c)}), 'tokenization addCap mismatch');
         assertEq(IERC20Metadata(tokenizationSpoke).name(), '${esc(c.tokenization.name)}', 'tokenization name mismatch');
         assertEq(IERC20Metadata(tokenizationSpoke).symbol(), '${esc(c.tokenization.symbol)}', 'tokenization symbol mismatch');`;
       }
