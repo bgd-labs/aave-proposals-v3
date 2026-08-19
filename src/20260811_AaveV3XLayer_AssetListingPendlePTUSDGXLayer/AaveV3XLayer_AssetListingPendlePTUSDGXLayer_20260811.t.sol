@@ -23,9 +23,8 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
   AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 67689611);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68395000);
     proposal = new AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811();
-    _mockPtUsdgPriceFeed();
     deal(
       proposal.PT_USDG_29OCT2026(),
       GovernanceV3XLayer.EXECUTOR_LVL_1,
@@ -64,14 +63,26 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     );
   }
 
+  function test_priceFeedReturnsSanePrice() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      AaveV3XLayer.ORACLE.getSourceOfAsset(proposal.PT_USDG_29OCT2026()),
+      proposal.PT_USDG_29OCT2026_PRICE_FEED(),
+      'PT-USDG should be priced by the configured linear discount oracle'
+    );
+    uint256 price = AaveV3XLayer.ORACLE.getAssetPrice(proposal.PT_USDG_29OCT2026());
+    assertGt(price, 0.9e8, 'PT-USDG price should be within a sane discount band');
+    assertLt(price, 1e8, 'PT-USDG should price below par (1 USD) before maturity');
+  }
+
   function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {
     listings = new ExpectedListing[](1);
 
     listings[0] = ExpectedListing({
       listing: IAaveV3ConfigEngine.Listing({
         asset: 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362,
-        assetSymbol: 'PT-USDG-29OCT2026', // on-chain symbol of the PT token
-        priceFeed: 0x0000000000000000000000000000000000000001,
+        assetSymbol: 'PT-USDG-29OCT2026',
+        priceFeed: 0x6052839E52ab454F164ee5668e5B523cF5A389Fc,
         enabledToBorrow: EngineFlags.DISABLED,
         flashloanable: EngineFlags.ENABLED,
         ltv: 0,
@@ -94,13 +105,13 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
 
   function test_eModeConfiguration() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    uint8 eMode_PTUSDGStablecoins = _findEModeCategoryId('PT USDG Stablecoins');
+    uint8 eMode_PTUSDGStablecoins = _findEModeCategoryId('PT_USDG__Stablecoins');
     _assertEModeCollateralConfig({
       id: eMode_PTUSDGStablecoins,
-      ltv: 93_00,
-      liquidationThreshold: 95_00,
-      liquidationBonus: 100_00 + 2_44,
-      isolated: false
+      ltv: 92_66,
+      liquidationThreshold: 94_66,
+      liquidationBonus: 100_00 + 2_34,
+      isolated: true
     });
 
     address[] memory collaterals_PTUSDGStablecoins = new address[](1);
@@ -120,14 +131,48 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
       _toBitmap(borrowables_PTUSDGStablecoins),
       'eMode borrowable bitmap should contain exactly USDT0, USDG and GHO'
     );
+
+    uint8 eMode_PTUSDGUSDG = _findEModeCategoryId('PT_USDG__USDG');
+    _assertEModeCollateralConfig({
+      id: eMode_PTUSDGUSDG,
+      ltv: 93_59,
+      liquidationThreshold: 95_59,
+      liquidationBonus: 100_00 + 1_34,
+      isolated: true
+    });
+
+    address[] memory collaterals_PTUSDGUSDG = new address[](1);
+    collaterals_PTUSDGUSDG[0] = proposal.PT_USDG_29OCT2026();
+    assertEq(
+      AaveV3XLayer.POOL.getEModeCategoryCollateralBitmap(eMode_PTUSDGUSDG),
+      _toBitmap(collaterals_PTUSDGUSDG),
+      'PT-USDG/USDG eMode collateral bitmap should contain exactly PT-USDG'
+    );
+
+    address[] memory borrowables_PTUSDGUSDG = new address[](1);
+    borrowables_PTUSDGUSDG[0] = AaveV3XLayerAssets.USDG_UNDERLYING;
+    assertEq(
+      AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(eMode_PTUSDGUSDG),
+      _toBitmap(borrowables_PTUSDGUSDG),
+      'PT-USDG/USDG eMode borrowable bitmap should contain exactly USDG'
+    );
   }
 
   function test_eMode_PTUSDGStablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode(
-      'PT USDG Stablecoins',
+      'PT_USDG__Stablecoins',
       proposal.PT_USDG_29OCT2026(),
       AaveV3XLayerAssets.USDT_UNDERLYING
+    );
+  }
+
+  function test_eMode_PTUSDGUSDG_supplyAndBorrow() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    _supplyAndBorrowInEMode(
+      'PT_USDG__USDG',
+      proposal.PT_USDG_29OCT2026(),
+      AaveV3XLayerAssets.USDG_UNDERLYING
     );
   }
 
@@ -216,24 +261,5 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     AaveV3XLayer.POOL.withdraw(collateral, supplyAmount / 2, user);
 
     vm.stopPrank();
-  }
-
-  // TODO: remove this mock once the linear discount oracle is deployed and plugged in
-  function _mockPtUsdgPriceFeed() internal {
-    vm.mockCall(
-      proposal.PT_USDG_29OCT2026_PRICE_FEED(),
-      abi.encodeWithSignature('latestAnswer()'),
-      abi.encode(int256(0.99e8))
-    );
-    vm.mockCall(
-      proposal.PT_USDG_29OCT2026_PRICE_FEED(),
-      abi.encodeWithSignature('decimals()'),
-      abi.encode(uint8(8))
-    );
-    vm.mockCall(
-      proposal.PT_USDG_29OCT2026_PRICE_FEED(),
-      abi.encodeWithSignature('description()'),
-      abi.encode('PT-USDG-29OCT2026 linear discount (mock)')
-    );
   }
 }

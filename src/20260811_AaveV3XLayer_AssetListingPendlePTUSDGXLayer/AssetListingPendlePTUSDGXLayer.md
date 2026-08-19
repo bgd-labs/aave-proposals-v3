@@ -6,13 +6,13 @@ discussions: "https://governance.aave.com/t/direct-to-aip-pt-usdg-x-layer/25464"
 
 ## Simple Summary
 
-This AIP lists PT-USDG-29OCT2026, the Pendle Principal Token for USDG maturing on 29 October 2026, on the Aave V3 X Layer instance as a non-borrowable asset, usable as collateral exclusively within a dedicated PT-USDG/stablecoin eMode.
+This AIP lists PT-USDG-29OCT2026, the Pendle Principal Token for USDG maturing on 29 October 2026, on the Aave V3 X Layer instance as a non-borrowable asset, usable as collateral exclusively within two dedicated isolated eModes (PT-USDG/stablecoins and PT-USDG/USDG).
 
 ## Motivation
 
-USDG is already a live reserve on Aave V3 X Layer, and Pendle has deployed a PT-USDG market on the network. Listing the PT enables fixed-yield USDG positions as collateral against stablecoin debt, mirroring the treatment of Pendle PT stablecoin assets on other Aave instances. X Layer is allocating incentives toward PT-USDG supplied on Aave.
+USDG is already a live reserve on Aave V3 X Layer, and Pendle has deployed a PT-USDG market on the network. Listing the PT enables fixed-yield USDG positions as collateral against stablecoin debt, mirroring the treatment of Pendle PT stablecoin assets on other Aave instances. X Layer is allocating incentives toward PT-USDG supplied on Aave, distributed through external incentive campaigns (no on-chain liquidity mining configuration is part of this proposal).
 
-The PT is priced via the dynamic linear discount rate oracle used for Pendle PTs across Aave V3; the oracle deployment and its discount parameters, along with final risk parameters, will be provided by the Risk Service Provider prior to the AIP stage.
+Final risk parameters were provided by LlamaRisk in the discussion thread, including the linear discount oracle rates: `initialDiscountRatePerYear` 3.106% and `maxDiscountRatePerYear` 11.080%. The PT is priced via the deployed linear discount oracle [0x6052839E52ab454F164ee5668e5B523cF5A389Fc](https://www.oklink.com/x-layer/address/0x6052839E52ab454F164ee5668e5B523cF5A389Fc) (`PT Capped USDG USDG/USD linear discount 29OCT2026`).
 
 ## Specification
 
@@ -26,33 +26,34 @@ The PT is priced via the dynamic linear discount rate oracle used for Pendle PTs
 | Underlying (USDG) | [0x4ae46a509F6b1D9056937BA4500cb143933D2dc8](https://www.oklink.com/x-layer/address/0x4ae46a509F6b1D9056937BA4500cb143933D2dc8) |
 | Maturity          | 29 October 2026                                                                                                                 |
 
-**New eMode** (indicative target, subject to Risk Service Provider assessment):
+**New eModes** (per LlamaRisk's final recommendation):
 
-| eMode               | Collateral        | Borrowable       | LTV | LT  | Liq. Bonus |
-| ------------------- | ----------------- | ---------------- | --- | --- | ---------- |
-| PT USDG Stablecoins | PT-USDG-29OCT2026 | USDT0, USDG, GHO | 93% | 95% | 2.44%      |
+| eMode                  | Collateral        | Borrowable       | LTV    | LT     | Liq. Bonus | Isolated |
+| ---------------------- | ----------------- | ---------------- | ------ | ------ | ---------- | -------- |
+| PT_USDG\_\_Stablecoins | PT-USDG-29OCT2026 | USDT0, USDG, GHO | 92.66% | 94.66% | 2.34%      | Yes      |
+| PT_USDG\_\_USDG        | PT-USDG-29OCT2026 | USDG             | 93.59% | 95.59% | 1.34%      | Yes      |
 
 The table below illustrates the configured risk parameters for **PT_USDG_29OCT2026**
 
-| Parameter                 |                                       PT-USDG-29OCT2026 |
-| ------------------------- | ------------------------------------------------------: |
-| Isolation Mode            |                                                      No |
-| Borrowable                |                                                      No |
-| Collateral Enabled        |                                        No (E-Mode only) |
-| Supply Cap                |                                              35,000,000 |
-| Borrow Cap                |                                                       1 |
-| Debt Ceiling              |                                                     N/A |
-| LTV                       |                                                      0% |
-| Liquidation Threshold     |                                                      0% |
-| Liquidation Bonus         |                                                      0% |
-| Liquidation Protocol Fee  |                                                     10% |
-| Reserve Factor            |                                                     20% |
-| Base Variable Borrow Rate |                                                      0% |
-| Variable Rate Slope 1     |                                                     10% |
-| Variable Rate Slope 2     |                                                    300% |
-| Optimal Utilization       |                                                     45% |
-| Flashloanable             |                                                     Yes |
-| Oracle                    | Placeholder — pending linear discount oracle deployment |
+| Parameter                 |                                                                                                               PT-USDG-29OCT2026 |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------: |
+| Isolation Mode            |                                                                                                                              No |
+| Borrowable                |                                                                                                                              No |
+| Collateral Enabled        |                                                                                                                No (E-Mode only) |
+| Supply Cap                |                                                                                                                      35,000,000 |
+| Borrow Cap                |                                                                                                                               1 |
+| Debt Ceiling              |                                                                                                                             N/A |
+| LTV                       |                                                                                                                              0% |
+| Liquidation Threshold     |                                                                                                                              0% |
+| Liquidation Bonus         |                                                                                                                              0% |
+| Liquidation Protocol Fee  |                                                                                                                             10% |
+| Reserve Factor            |                                                                                                                             20% |
+| Base Variable Borrow Rate |                                                                                                                              0% |
+| Variable Rate Slope 1     |                                                                                                                             10% |
+| Variable Rate Slope 2     |                                                                                                                            300% |
+| Optimal Utilization       |                                                                                                                             45% |
+| Flashloanable             |                                                                                                                             Yes |
+| Oracle                    | [0x6052839E52ab454F164ee5668e5B523cF5A389Fc](https://www.oklink.com/x-layer/address/0x6052839E52ab454F164ee5668e5B523cF5A389Fc) |
 
 ## References
 

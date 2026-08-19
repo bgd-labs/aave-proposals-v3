@@ -7,7 +7,6 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
-import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title Asset Listing - Pendle PT-USDG X Layer
@@ -21,11 +20,20 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 is AaveV3PayloadXL
   // https://www.oklink.com/xlayer/address/0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362
   address public constant PT_USDG_29OCT2026 = 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362;
   uint256 public constant PT_USDG_29OCT2026_SEED_AMOUNT = 1e6;
-  // TODO: replace with the PT-USDG linear discount rate oracle once deployed
-  address public constant PT_USDG_29OCT2026_PRICE_FEED = 0x0000000000000000000000000000000000000001;
+  // https://www.oklink.com/x-layer/address/0x6052839E52ab454F164ee5668e5B523cF5A389Fc
+  address public constant PT_USDG_29OCT2026_PRICE_FEED = 0x6052839E52ab454F164ee5668e5B523cF5A389Fc;
 
   function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(PT_USDG_29OCT2026, PT_USDG_29OCT2026_SEED_AMOUNT, address(0));
+    IERC20(PT_USDG_29OCT2026).forceApprove(
+      address(AaveV3XLayer.POOL),
+      PT_USDG_29OCT2026_SEED_AMOUNT
+    );
+    AaveV3XLayer.POOL.supply(
+      PT_USDG_29OCT2026,
+      PT_USDG_29OCT2026_SEED_AMOUNT,
+      address(AaveV3XLayer.DUST_BIN),
+      0
+    );
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -55,19 +63,6 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 is AaveV3PayloadXL
     return listings;
   }
 
-  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
-    IERC20(asset).forceApprove(address(AaveV3XLayer.POOL), seedAmount);
-    AaveV3XLayer.POOL.supply(asset, seedAmount, address(AaveV3XLayer.DUST_BIN), 0);
-
-    if (lmAdmin != address(0)) {
-      address aToken = AaveV3XLayer.POOL.getReserveAToken(asset);
-      address vToken = AaveV3XLayer.POOL.getReserveVariableDebtToken(asset);
-      IEmissionManager(AaveV3XLayer.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
-      IEmissionManager(AaveV3XLayer.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
-      IEmissionManager(AaveV3XLayer.EMISSION_MANAGER).setEmissionAdmin(vToken, lmAdmin);
-    }
-  }
-
   function eModeCategoryCreations()
     public
     pure
@@ -75,7 +70,7 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 is AaveV3PayloadXL
     returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
 
     address[] memory collateralAssets_PTUSDGStablecoins = new address[](1);
     address[] memory borrowableAssets_PTUSDGStablecoins = new address[](3);
@@ -85,15 +80,30 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 is AaveV3PayloadXL
     borrowableAssets_PTUSDGStablecoins[1] = AaveV3XLayerAssets.USDG_UNDERLYING;
     borrowableAssets_PTUSDGStablecoins[2] = AaveV3XLayerAssets.GHO_UNDERLYING;
 
-    // Indicative target per the forum post, subject to Risk Service Provider assessment.
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 93_00,
-      liqThreshold: 95_00,
-      liqBonus: 2_44,
-      label: 'PT USDG Stablecoins',
-      isolated: false,
+      ltv: 92_66,
+      liqThreshold: 94_66,
+      liqBonus: 2_34,
+      label: 'PT_USDG__Stablecoins',
+      isolated: true,
       collaterals: collateralAssets_PTUSDGStablecoins,
       borrowables: borrowableAssets_PTUSDGStablecoins
+    });
+
+    address[] memory collateralAssets_PTUSDGUSDG = new address[](1);
+    address[] memory borrowableAssets_PTUSDGUSDG = new address[](1);
+
+    collateralAssets_PTUSDGUSDG[0] = PT_USDG_29OCT2026;
+    borrowableAssets_PTUSDGUSDG[0] = AaveV3XLayerAssets.USDG_UNDERLYING;
+
+    eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 93_59,
+      liqThreshold: 95_59,
+      liqBonus: 1_34,
+      label: 'PT_USDG__USDG',
+      isolated: true,
+      collaterals: collateralAssets_PTUSDGUSDG,
+      borrowables: borrowableAssets_PTUSDGUSDG
     });
 
     return eModeCreations;
