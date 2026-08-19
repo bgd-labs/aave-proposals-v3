@@ -69,6 +69,12 @@ export const config: ConfigFile = {
             liquidityFee: '0',
             irStrategy: '0x2222222222222222222222222222222222222222',
             irPreset: 'nonBorrowable',
+            tokenization: {
+              addCap: '1000',
+              proxyAdminOwner: 'GovernanceV3Ethereum.EXECUTOR_LVL_1',
+              name: 'TS2',
+              symbol: 'TS2',
+            },
           },
         ],
         V4_HUB_ASSET_CONFIG_UPDATE: [
@@ -354,7 +360,12 @@ contract AaveV4Ethereum_V4Every_20260521 is AaveV4PayloadEthereum {
       liquidityFee: 0,
       irStrategy: CORE_HUB_USDC_IR_STRATEGY,
       irData: V4EngineDefaults.nonBorrowableIRData(),
-      tokenization: V4EngineDefaults.noTokenization()
+      tokenization: IConfigEngine.TokenizationSpokeConfig({
+        addCap: 0,
+        proxyAdminOwner: address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+        name: 'TS2',
+        symbol: 'TS2'
+      })
     });
     return items;
   }
@@ -869,11 +880,14 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
       'rateGrowthBeforeOptimal mismatch'
     );
     assertEq(uint256(irData.rateGrowthAfterOptimal), uint256(0), 'rateGrowthAfterOptimal mismatch');
-    assertEq(
-      _findTokenizationSpoke(hub, address(AaveV4EthereumAssets.USDC_UNDERLYING)),
-      address(0),
-      'unexpected tokenization spoke'
+    address tokenizationSpoke = _getTokenizationSpoke(
+      IHub(address(AaveV4EthereumHubs.CORE_HUB)),
+      address(AaveV4EthereumAssets.USDC_UNDERLYING)
     );
+    IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
+    assertEq(uint256(tokenizationCfg.addCap), uint256(0), 'tokenization addCap mismatch');
+    assertEq(IERC20Metadata(tokenizationSpoke).name(), 'TS2', 'tokenization name mismatch');
+    assertEq(IERC20Metadata(tokenizationSpoke).symbol(), 'TS2', 'tokenization symbol mismatch');
   }
 
   function test_tokenizationSpoke_CORE_HUB_WETH_proxyAdminOwner() public {
@@ -890,6 +904,20 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     );
   }
 
+  function test_tokenizationSpoke_CORE_HUB_USDC_proxyAdminOwner() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      _proxyAdminOwner(
+        _getTokenizationSpoke(
+          IHub(address(AaveV4EthereumHubs.CORE_HUB)),
+          address(AaveV4EthereumAssets.USDC_UNDERLYING)
+        )
+      ),
+      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'proxyAdmin owner mismatch'
+    );
+  }
+
   function test_e2e_tokenizationSpoke_CORE_HUB_WETH() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     e2eTestTokenizationSpoke(
@@ -897,6 +925,18 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
         _getTokenizationSpoke(
           IHub(address(AaveV4EthereumHubs.CORE_HUB)),
           address(AaveV4EthereumAssets.WETH_UNDERLYING)
+        )
+      )
+    );
+  }
+
+  function test_e2e_tokenizationSpoke_CORE_HUB_USDC() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestTokenizationSpoke(
+      ITokenizationSpoke(
+        _getTokenizationSpoke(
+          IHub(address(AaveV4EthereumHubs.CORE_HUB)),
+          address(AaveV4EthereumAssets.USDC_UNDERLYING)
         )
       )
     );
@@ -1274,6 +1314,14 @@ contract AaveV4Ethereum_V4Every_20260521_Test is ProtocolV4TestBaseEthereum {
     assertEq(uint256(items[1].irData.baseDrawnRate), 0, 'baseDrawnRate');
     assertEq(uint256(items[1].irData.rateGrowthBeforeOptimal), 0, 'rateGrowthBeforeOptimal');
     assertEq(uint256(items[1].irData.rateGrowthAfterOptimal), 0, 'rateGrowthAfterOptimal');
+    assertEq(items[1].tokenization.addCap, 0, 'tokenization addCap');
+    assertEq(
+      items[1].tokenization.proxyAdminOwner,
+      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'tokenization proxyAdminOwner'
+    );
+    assertEq(items[1].tokenization.name, 'TS2', 'tokenization name');
+    assertEq(items[1].tokenization.symbol, 'TS2', 'tokenization symbol');
   }
 
   function test_hubSpokeToAssetsAdditionsInput() public view {
