@@ -23,8 +23,10 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
   uint256 internal discountAgentId;
   uint256 internal eModeAgentId;
 
+  uint256 internal constant FORK_BLOCK = 25781839;
+
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'));
+    vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
     proposal = new AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817();
 
     // The ids the payload will be handed, derived from the live count rather than hardcoded, since
@@ -164,10 +166,14 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
   function test_rangeConfiguration() public {
     executePayload(vm, address(proposal));
 
-    _assertAbsoluteRange(discountAgentId, proposal.DISCOUNT_UPDATE_TYPE(), 1e16);
-    _assertAbsoluteRange(eModeAgentId, 'EModeLTV', 50);
-    _assertAbsoluteRange(eModeAgentId, 'EModeLiquidationThreshold', 50);
-    _assertAbsoluteRange(eModeAgentId, 'EModeLiquidationBonus', 50);
+    _assertAbsoluteRange(
+      discountAgentId,
+      proposal.DISCOUNT_UPDATE_TYPE(),
+      proposal.DISCOUNT_RANGE_ABS()
+    );
+    _assertAbsoluteRange(eModeAgentId, 'EModeLTV', proposal.EMODE_RANGE_ABS_BPS());
+    _assertAbsoluteRange(eModeAgentId, 'EModeLiquidationThreshold', proposal.EMODE_RANGE_ABS_BPS());
+    _assertAbsoluteRange(eModeAgentId, 'EModeLiquidationBonus', proposal.EMODE_RANGE_ABS_BPS());
   }
 
   function _assertAbsoluteRange(

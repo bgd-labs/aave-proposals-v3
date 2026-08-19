@@ -7,8 +7,8 @@ export const config: ConfigFile = {
     date: '20260817',
     author: 'LlamaRisk',
     discussion: 'https://gov.discussion.placeholder',
-    snapshot: 'direct-to-aip',
+    snapshot: 'direct-to-AIP',
     votingNetwork: 'AVALANCHE',
   },
-  marketOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 0}}},
+  marketOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25781839}}},
 };

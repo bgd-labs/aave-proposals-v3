@@ -2,7 +2,6 @@
 title: "Onboard PT-srUSDe-22OCT2026 to the LlamaRisk PT Risk Oracle"
 author: "LlamaRisk"
 discussions: "https://gov.discussion.placeholder"
-snapshot: "direct-to-aip"
 ---
 
 ## Simple Summary
@@ -60,8 +59,10 @@ No reserve configuration is changed by this payload. The snapshot diff is empty 
 ## Deployed Contracts
 
 - `LLAMARISK_RISK_ORACLE`: [0x8346170dcE5455A1205f55A0b5448E67e42CD270](https://etherscan.io/address/0x8346170dcE5455A1205f55A0b5448E67e42CD270)
+- `LLAMAGUARD_ROUTER`: [0xE2c9B46353D1ED959caA91369b853D84b616A0Fd](https://etherscan.io/address/0xE2c9B46353D1ED959caA91369b853D84b616A0Fd)
+- `CHAINLINK_CRE_FORWARDER`: [0x0b93082D9b3C7C97fAcd250082899BAcf3af3885](https://etherscan.io/address/0x0b93082D9b3C7C97fAcd250082899BAcf3af3885)
 
-That is the only LlamaRisk address the payload names. It is a BGD stock `RiskOracle`, owned by the LlamaRisk multisig, constructed with `PendleDiscountRateUpdate` and `EModeCategoryUpdate` and nothing else, and writable only by the LlamaRisk router. It is deployed ahead of the vote because it is shared across every PT this instance onboards rather than being an artifact of this proposal.
+The payload only references the RiskOracle directly. The Router and CRE Forwarder are included above to make the complete write path easier to review.
 
 Both agents are deployed by `execute`, so they have no address until the payload runs. After execution they are readable from the hub as `getAgentAddress(agentId)` for the two ids the payload consumed.
 
@@ -81,9 +82,9 @@ The submodule is pinned to the merged [aave-risk-agents#6](https://github.com/aa
 
 ## References
 
-- Implementation: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol](https://github.com/llama-risk/aave-proposals-v3/blob/main/src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol)
+- Implementation: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol](./AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol)
 - Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
-- Tests: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol](https://github.com/llama-risk/aave-proposals-v3/blob/main/src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol)
+- Tests: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol](./AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol)
 - [Discussion](https://gov.discussion.placeholder)
 
 ## Copyright

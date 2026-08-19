@@ -13,7 +13,7 @@ import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 /**
  * @title Onboard_PTsrUSDe22OCT2026_Oracle
  * @author LlamaRisk
- * - Snapshot: Direct-to-AIP
+ * - Snapshot: direct-to-AIP
  * - Discussion: https://gov.discussion.placeholder
  */
 contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGenericExecutor {
