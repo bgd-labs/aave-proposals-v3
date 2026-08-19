@@ -7,10 +7,13 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817} from './AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';
 import {IBaseAaveAgent, IAaveDiscountRateAgent} from '../interfaces/IBaseAaveAgent.sol';
+import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
+import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817
@@ -23,6 +26,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
   uint256 internal eModeAgentId;
 
   uint256 internal constant FORK_BLOCK = 25789439;
+
+  // https://etherscan.io/address/0xe2c9b46353d1ed959caa91369b853d84b616a0fd
+  address internal constant LLAMAGUARD_ROUTER = 0xE2c9B46353D1ED959caA91369b853D84b616A0Fd;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
@@ -109,7 +115,14 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertEq(hub.getRiskOracle(discountAgentId), proposal.LLAMARISK_RISK_ORACLE());
     assertEq(hub.getUpdateType(discountAgentId), proposal.DISCOUNT_UPDATE_TYPE());
     assertEq(hub.getAgentAdmin(discountAgentId), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(hub.getAgentAddress(discountAgentId), proposal.DISCOUNT_RATE_AGENT());
+    assertEq(hub.getExpirationPeriod(discountAgentId), proposal.DISCOUNT_EXPIRATION_PERIOD());
     assertEq(hub.getMinimumDelay(discountAgentId), proposal.DISCOUNT_MINIMUM_DELAY());
+    assertEq(hub.getAgentContext(discountAgentId), bytes(''));
+    assertFalse(hub.isAgentPermissioned(discountAgentId));
+    assertFalse(hub.isMarketsFromAgentEnabled(discountAgentId));
+    assertEq(hub.getRestrictedMarkets(discountAgentId).length, 0);
+    assertEq(hub.getPermissionedSenders(discountAgentId).length, 0);
 
     address[] memory discountMarkets = hub.getAllowedMarkets(discountAgentId);
     assertEq(discountMarkets.length, 1, 'discount agent should allow one market');
@@ -119,7 +132,14 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertTrue(hub.isAgentEnabled(eModeAgentId), 'eMode agent not enabled');
     assertEq(hub.getRiskOracle(eModeAgentId), proposal.LLAMARISK_RISK_ORACLE());
     assertEq(hub.getUpdateType(eModeAgentId), proposal.EMODE_UPDATE_TYPE());
+    assertEq(hub.getAgentAdmin(eModeAgentId), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(hub.getAgentAddress(eModeAgentId), proposal.EMODE_AGENT());
+    assertEq(hub.getExpirationPeriod(eModeAgentId), proposal.EMODE_EXPIRATION_PERIOD());
     assertEq(hub.getMinimumDelay(eModeAgentId), proposal.EMODE_MINIMUM_DELAY());
+    assertFalse(hub.isAgentPermissioned(eModeAgentId));
+    assertFalse(hub.isMarketsFromAgentEnabled(eModeAgentId));
+    assertEq(hub.getRestrictedMarkets(eModeAgentId).length, 0);
+    assertEq(hub.getPermissionedSenders(eModeAgentId).length, 0);
 
     // The delegatecall target the eMode agent decodes from its context. A wrong engine here is the
     // difference between an injection landing and reverting.
@@ -150,6 +170,91 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
       AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(hub.getAgentAddress(eModeAgentId)),
       'eMode agent is not a risk admin'
     );
+  }
+
+  function test_e2eAgentsInjectRiskOracleUpdates() public {
+    executePayload(vm, address(proposal));
+
+    IAgentHub hub = IAgentHub(MiscEthereum.AGENT_HUB);
+    address pt = AaveV3EthereumAssets.PT_srUSDe_22OCT2026_UNDERLYING;
+    IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(pt)
+    );
+    uint256 newDiscountRate = adapter.discountRatePerYear() + proposal.DISCOUNT_RANGE_ABS() / 2;
+
+    uint8 eModeCategory = AaveV3EthereumEModes.sUSDe_PT_srUSDe_22OCT2026__USDC_USDT_USDe;
+    address eModeMarket = address(uint160(eModeCategory));
+    DataTypes.CollateralConfig memory eModeBefore = AaveV3Ethereum
+      .POOL
+      .getEModeCategoryCollateralConfig(eModeCategory);
+    bool isolatedBefore = AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(eModeCategory);
+    uint256 newLtv = eModeBefore.ltv - 10;
+    uint256 newLiquidationThreshold = eModeBefore.liquidationThreshold - 10;
+    uint256 newLiquidationBonus = eModeBefore.liquidationBonus - 100_00 - 10;
+
+    _publishUpdate(proposal.DISCOUNT_UPDATE_TYPE(), pt, abi.encodePacked(newDiscountRate));
+    _publishUpdate(
+      proposal.EMODE_UPDATE_TYPE(),
+      eModeMarket,
+      abi.encode(newLtv, newLiquidationThreshold, newLiquidationBonus)
+    );
+
+    uint256[] memory agentIds = new uint256[](2);
+    agentIds[0] = discountAgentId;
+    agentIds[1] = eModeAgentId;
+
+    (bool shouldExecute, IAgentHub.ActionData[] memory actions) = hub.check(agentIds);
+    assertTrue(shouldExecute);
+    assertEq(actions.length, 2);
+    assertEq(actions[0].agentId, discountAgentId);
+    assertEq(actions[0].markets.length, 1);
+    assertEq(actions[0].markets[0], pt);
+    assertEq(actions[1].agentId, eModeAgentId);
+    assertEq(actions[1].markets.length, 1);
+    assertEq(actions[1].markets[0], eModeMarket);
+
+    hub.execute(actions);
+
+    assertEq(adapter.discountRatePerYear(), newDiscountRate);
+    DataTypes.CollateralConfig memory eModeAfter = AaveV3Ethereum
+      .POOL
+      .getEModeCategoryCollateralConfig(eModeCategory);
+    assertEq(eModeAfter.ltv, newLtv);
+    assertEq(eModeAfter.liquidationThreshold, newLiquidationThreshold);
+    assertEq(eModeAfter.liquidationBonus, newLiquidationBonus + 100_00);
+    assertEq(AaveV3Ethereum.POOL.getIsEModeCategoryIsolated(eModeCategory), isolatedBefore);
+
+    vm.expectRevert(IAgentHub.NoActionCanBePerformed.selector);
+    hub.execute(actions);
+  }
+
+  function test_revertOutOfRangeDiscountUpdate() public {
+    executePayload(vm, address(proposal));
+
+    IAgentHub hub = IAgentHub(MiscEthereum.AGENT_HUB);
+    address pt = AaveV3EthereumAssets.PT_srUSDe_22OCT2026_UNDERLYING;
+    IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(pt)
+    );
+
+    _publishUpdate(
+      proposal.DISCOUNT_UPDATE_TYPE(),
+      pt,
+      abi.encodePacked(adapter.discountRatePerYear() + proposal.DISCOUNT_RANGE_ABS() + 1)
+    );
+
+    uint256[] memory agentIds = new uint256[](1);
+    agentIds[0] = discountAgentId;
+    (bool shouldExecute, ) = hub.check(agentIds);
+    assertFalse(shouldExecute);
+
+    address[] memory markets = new address[](1);
+    markets[0] = pt;
+    IAgentHub.ActionData[] memory actions = new IAgentHub.ActionData[](1);
+    actions[0] = IAgentHub.ActionData({agentId: discountAgentId, markets: markets});
+
+    vm.expectRevert(IAgentHub.NoActionCanBePerformed.selector);
+    hub.execute(actions);
   }
 
   /// @dev A fresh agent id inherits no default range config, and the module reads a missing config
@@ -183,5 +288,15 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     // does not have, which would leave the first one unbounded.
     assertFalse(config.isIncreaseRelative, 'increase should be absolute');
     assertFalse(config.isDecreaseRelative, 'decrease should be absolute');
+  }
+
+  function _publishUpdate(
+    string memory updateType,
+    address market,
+    bytes memory newValue
+  ) internal {
+    IRiskOracle riskOracle = IRiskOracle(proposal.LLAMARISK_RISK_ORACLE());
+    vm.prank(LLAMAGUARD_ROUTER);
+    riskOracle.publishRiskParameterUpdate('e2e-test', newValue, updateType, market, bytes(''));
   }
 }
