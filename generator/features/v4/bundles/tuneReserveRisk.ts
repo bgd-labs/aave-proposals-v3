@@ -2,15 +2,8 @@ import {select, checkbox, input, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-  getV4Book,
-} from '../marketBook';
+import {assetKeys, assetLibAccessor, getV4Book} from '../marketBook';
+import {selectHub, selectSpoke} from '../hubSpokeSelect';
 import {readSpokeReserves} from '../onchain';
 import {spokeReserveConfigUpdate} from '../spoke/spokeReserveConfigUpdate';
 import {spokeLiquidationConfigUpdate} from '../spoke/spokeLiquidationConfigUpdate';
@@ -67,27 +60,21 @@ export const tuneReserveRisk: FeatureModule<BundleCfg> = {
     const result: BundleCfg = {reserveUpdates: [], liquidationUpdates: [], dynamicUpdates: []};
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const reserves = await readSpokeReserves(m, spoke, cache.blockNumber);
+      const hub = await selectHub(m);
+      const spoke = await selectSpoke(m);
+      const reserves = await readSpokeReserves(m, spoke.address, cache.blockNumber);
       const candidateAssets = assetKeys(m).filter((k) =>
         reserves.some(
           (r) => r.underlying.toLowerCase() === (book.ASSETS[k].UNDERLYING as string).toLowerCase(),
         ),
       );
       if (candidateAssets.length === 0) {
-        console.log(`No listed reserves on ${spoke}; skipping.`);
+        console.log(`No listed reserves on ${spoke.key}; skipping.`);
         more = await confirm({message: 'Tune more?', default: false});
         continue;
       }
       const assets = await checkbox({
-        message: `Select reserves on ${spoke} to tune`,
+        message: `Select reserves on ${spoke.key} to tune`,
         choices: candidateAssets.map((k) => ({name: k, value: k})),
         required: true,
       });
@@ -105,9 +92,9 @@ export const tuneReserveRisk: FeatureModule<BundleCfg> = {
       for (const asset of assets) {
         if (wantReserveCfg) {
           result.reserveUpdates.push({
-            spokeLib: spokeLibAccessor(m, spoke),
-            spoke: spokeLibAccessor(m, spoke),
-            hub: hubLibAccessor(m, hub),
+            spokeLib: spoke.expr,
+            spoke: spoke.expr,
+            hub: hub.expr,
             underlying: assetLibAccessor(m, asset),
             priceSource: await sentinelAddress(`${asset} priceSource`),
             collateralRisk: await sentinelNumber(`${asset} collateralRisk (bps)`),
@@ -122,9 +109,9 @@ export const tuneReserveRisk: FeatureModule<BundleCfg> = {
             message: `${asset} dynamicConfigKey (uint32)`,
           });
           result.dynamicUpdates.push({
-            spokeLib: spokeLibAccessor(m, spoke),
-            spoke: spokeLibAccessor(m, spoke),
-            hub: hubLibAccessor(m, hub),
+            spokeLib: spoke.expr,
+            spoke: spoke.expr,
+            hub: hub.expr,
             underlying: assetLibAccessor(m, asset),
             dynamicConfigKey,
             collateralFactor: await sentinelNumber(`${asset} collateralFactor (bps)`),
@@ -135,8 +122,8 @@ export const tuneReserveRisk: FeatureModule<BundleCfg> = {
       }
       if (wantLiquidation) {
         result.liquidationUpdates.push({
-          spokeLib: spokeLibAccessor(m, spoke),
-          spoke: spokeLibAccessor(m, spoke),
+          spokeLib: spoke.expr,
+          spoke: spoke.expr,
           targetHealthFactor: await sentinelNumber('targetHealthFactor (WAD)'),
           healthFactorForMaxBonus: await sentinelNumber('healthFactorForMaxBonus (WAD)'),
           liquidationBonusFactor: await sentinelNumber('liquidationBonusFactor (bps)'),

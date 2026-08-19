@@ -1,9 +1,10 @@
 // sum.test.js
 import {expect, describe, it} from 'vitest';
-import {assetListing} from './assetListing';
-import {MOCK_OPTIONS, assetListingConfig} from './mocks/configs';
+import {assetListing, assetListingCustom} from './assetListing';
+import {MOCK_OPTIONS, assetListingConfig, assetListingCustomConfig} from './mocks/configs';
 import {generateFiles} from '../generator';
 import {FEATURE, MarketConfigs} from '../types';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
 
 describe('feature: assetListing', () => {
   it('should return reasonable code', () => {
@@ -11,6 +12,17 @@ describe('feature: assetListing', () => {
       options: MOCK_OPTIONS,
       market: 'AaveV3Ethereum',
       cfg: assetListingConfig,
+      cache: {blockNumber: 42},
+      configs: {},
+    });
+    expect(output).toMatchSnapshot();
+  });
+
+  it('should return reasonable custom code', () => {
+    const output = assetListingCustom.build({
+      options: MOCK_OPTIONS,
+      market: 'AaveV3Ethereum',
+      cfg: assetListingCustomConfig,
       cache: {blockNumber: 42},
       configs: {},
     });
@@ -37,4 +49,36 @@ describe('feature: assetListing', () => {
     const files = await generateFiles(MOCK_OPTIONS, marketConfigs);
     expect(files).toMatchSnapshot();
   });
+
+  it('generates compilable files for every listing variant', async () => {
+    const configs = {
+      [FEATURE.ASSET_LISTING]: assetListingConfig,
+      [FEATURE.ASSET_LISTING_CUSTOM]: assetListingCustomConfig,
+    };
+    const marketConfigs: MarketConfigs = {
+      [MOCK_OPTIONS.markets[0]]: {
+        market: MOCK_OPTIONS.markets[0],
+        artifacts: [
+          assetListing.build({
+            options: MOCK_OPTIONS,
+            market: 'AaveV3Ethereum',
+            cfg: assetListingConfig,
+            cache: {blockNumber: 42},
+            configs,
+          }),
+          assetListingCustom.build({
+            options: MOCK_OPTIONS,
+            market: 'AaveV3Ethereum',
+            cfg: assetListingCustomConfig,
+            cache: {blockNumber: 42},
+            configs,
+          }),
+        ],
+        configs,
+        cache: {blockNumber: 42},
+      },
+    };
+
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, marketConfigs));
+  }, 60_000);
 });

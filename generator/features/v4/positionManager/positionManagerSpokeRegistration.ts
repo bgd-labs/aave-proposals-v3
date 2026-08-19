@@ -1,13 +1,9 @@
-import {select, checkbox, confirm} from '@inquirer/prompts';
+import {select, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4PMSpokeRegistration} from '../../types';
-import {
-  positionManagerKeys,
-  spokeKeys,
-  positionManagerLibAccessor,
-  spokeLibAccessor,
-} from '../marketBook';
-import {shortKey} from '../testHelpers';
+import {positionManagerKeys, positionManagerLibAccessor} from '../marketBook';
+import {selectSpokes} from '../hubSpokeSelect';
+import {accessorIdentifier, shortKey} from '../testHelpers';
 
 export const positionManagerSpokeRegistration: FeatureModule<V4PMSpokeRegistration[]> = {
   value: FEATURE.V4_PM_SPOKE_REGISTRATION,
@@ -19,16 +15,12 @@ export const positionManagerSpokeRegistration: FeatureModule<V4PMSpokeRegistrati
       message: 'Select PositionManager',
       choices: positionManagerKeys(m).map((k) => ({name: k, value: k})),
     });
-    const spokes = await checkbox({
-      message: 'Select spokes',
-      choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      required: true,
-    });
+    const spokes = await selectSpokes(m, {message: 'Select spokes'});
     const registered = await confirm({message: 'Register? (no = deregister)', default: true});
     for (const spoke of spokes) {
       response.push({
         positionManager: positionManagerLibAccessor(m, pm) as `0x${string}`,
-        spoke: spokeLibAccessor(m, spoke),
+        spoke: spoke.expr,
         registered,
       });
     }
@@ -44,7 +36,7 @@ export const positionManagerSpokeRegistration: FeatureModule<V4PMSpokeRegistrati
     );
     const testFns = cfg.map((c, ix) => {
       const pmKey = shortKey(c.positionManager);
-      const spokeKey = shortKey(c.spoke);
+      const spokeKey = accessorIdentifier(c.spoke);
       return `function test_positionManagerSpokeRegistration_${pmKey}_${spokeKey}_${ix}() public {
         GovV3Helpers.executePayload(vm, address(proposal));
         assertEq(

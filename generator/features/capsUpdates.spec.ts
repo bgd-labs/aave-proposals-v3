@@ -1,6 +1,9 @@
 import {expect, describe, it} from 'vitest';
 import {capsUpdates} from './capsUpdates';
 import {MOCK_OPTIONS, capsUpdates as capsUpdatesConfig} from './mocks/configs';
+import {generateFiles} from '../generator';
+import {FEATURE, MarketConfigs} from '../types';
+import {compileGeneratedFiles} from '../utils/compileGeneratedFiles';
 
 describe('feature: capsUpdates', () => {
   const output = capsUpdates.build({
@@ -14,6 +17,20 @@ describe('feature: capsUpdates', () => {
   it('should return reasonable code', () => {
     expect(output).toMatchSnapshot();
   });
+
+  it('generates compilable Solidity', async () => {
+    const configs = {[FEATURE.CAPS_UPDATE]: capsUpdatesConfig};
+    const marketConfigs: MarketConfigs = {
+      AaveV3Ethereum: {
+        market: 'AaveV3Ethereum',
+        artifacts: [output],
+        configs,
+        cache: {blockNumber: 42},
+      },
+    };
+
+    compileGeneratedFiles(await generateFiles(MOCK_OPTIONS, marketConfigs));
+  }, 60_000);
 
   it('declares updated assets for reserve config validation', () => {
     expect(output.test?.updatedAssets).toEqual([

@@ -11,7 +11,6 @@ export interface AssetSelector {
 export interface TokenImplementations {
   aToken: Hex;
   vToken: Hex;
-  sToken: Hex;
 }
 
 export interface CapsUpdatePartial {
@@ -143,6 +142,7 @@ export interface V4InterestRateData {
 
 export interface V4TokenizationSpokeConfig {
   addCap: string;
+  proxyAdminOwner: string;
   name: string;
   symbol: string;
 }
@@ -151,10 +151,17 @@ export interface V4HubAssetListing {
   hubLib: string;
   hub: string;
   underlying: string;
-  feeReceiver: Hex;
+  /// Codegen expression: an address-book accessor or a labeled constant.
+  feeReceiver: string;
+  /// Human percentage (e.g. `20` for 20%); converted to BPS at build time.
   liquidityFee: string;
-  irStrategy: Hex;
-  irData: V4InterestRateData;
+  /// Codegen expression: an `<Market>IRStrategies.<KEY>` accessor, or a raw
+  /// address literal that build emits as a per-listing named constant.
+  irStrategy: string;
+  /// Collected interest rate data; unset when `irPreset` supplies it.
+  irData?: V4InterestRateData;
+  /// Conventional preset filling `irData` from `V4EngineDefaults` instead of collected values.
+  irPreset?: 'nonBorrowable';
   tokenization?: V4TokenizationSpokeConfig;
 }
 
@@ -299,11 +306,15 @@ export interface V4RoleUpdate {
   guardian: Sentinel;
   grantDelay: Sentinel;
   label: string;
+  labelUpdate: boolean;
 }
 
 export interface V4TargetFunctionRoleUpdate {
-  target: Hex;
+  /// Target: a raw address (emitted as a named constant) or a codegen expr.
+  target: string;
+  /// Explicit bytes4 selector literals.
   selectors: string[];
+  /// Role id: a number, or an expr like `Roles.SPOKE_CONFIGURATOR_ROLE`.
   roleId: string;
 }
 

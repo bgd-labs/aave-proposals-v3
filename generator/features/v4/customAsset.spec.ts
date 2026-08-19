@@ -72,11 +72,11 @@ describe('listing a custom ERC20 address', () => {
       },
     ];
     const out = hubAssetListing.build({...ctx, cfg});
-    expect(out.code!.constants!.join('\n')).toContain('CORE_HUB_CUSTOM_3606EB48_FEE_RECEIVER');
+    expect(out.code!.constants!.join('\n')).toContain('CORE_HUB_CUSTOM_3606EB48_IR_STRATEGY');
     expect(out.code!.v4Getters!.hubAssetListings.entries[0]).toContain(
       `underlying: ${CUSTOM_CHECKSUMMED}`,
     );
-    expect(out.test!.fn![0]).toContain('test_hubAssetListing_CORE_HUB_CUSTOM_3606EB48');
+    expect(out.test!.fn!.join('\n')).toContain('test_hubAssetListing_CORE_HUB_CUSTOM_3606EB48');
   });
 
   it('spokeReserveListing builds a valid price-feed constant and checksummed underlying', () => {
@@ -106,6 +106,8 @@ describe('listing a custom ERC20 address', () => {
     expect(out.code!.v4Getters!.spokeReserveListings.entries[0]).toContain(
       `underlying: ${CUSTOM_CHECKSUMMED}`,
     );
-    expect(out.test!.fn![0]).toContain('test_spokeReserveListing_MAIN_SPOKE_CUSTOM_3606EB48');
+    expect(out.test!.fn!.join('\n')).toContain(
+      'test_spokeReserveListing_MAIN_SPOKE_CUSTOM_3606EB48',
+    );
   });
 });

@@ -5,6 +5,7 @@ import {
   EModeCategoryCreation,
   EModeCategoryUpdate,
   Listing,
+  ListingWithCustomImpl,
   PriceFeedUpdate,
   RateStrategyUpdate,
 } from '../types';
@@ -46,6 +47,21 @@ export const assetListingConfig: Listing[] = [
     },
     eModeCategory: 'AaveV3EthereumEModes.NONE',
     asset: '0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5',
+  },
+];
+
+export const assetListingCustomConfig: ListingWithCustomImpl[] = [
+  {
+    base: {
+      ...assetListingConfig[0],
+      assetSymbol: 'CUSTOM_PSP',
+      asset: '0x1111111111111111111111111111111111111111',
+      priceFeed: '0x2222222222222222222222222222222222222222',
+    },
+    implementations: {
+      aToken: '0x3333333333333333333333333333333333333333',
+      vToken: '0x4444444444444444444444444444444444444444',
+    },
   },
 ];
 

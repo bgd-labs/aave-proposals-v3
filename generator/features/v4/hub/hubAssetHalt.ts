@@ -1,26 +1,24 @@
-import {select, checkbox} from '@inquirer/prompts';
+import {checkbox} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4HubAssetHalt} from '../../types';
-import {hubKeys, assetKeys, hubLibAccessor, assetLibAccessor} from '../marketBook';
-import {shortKey, checksumAddress} from '../testHelpers';
+import {assetKeys, assetLibAccessor} from '../marketBook';
+import {selectHub} from '../hubSpokeSelect';
+import {accessorIdentifier, shortKey, checksumAddress} from '../testHelpers';
 
 export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
   value: FEATURE.V4_HUB_ASSET_HALT,
   description: 'Hub: halt assets',
   async cli({market}) {
     const m = market as MarketIdentifierV4;
-    const hub = await select({
-      message: 'Select hub',
-      choices: hubKeys(m).map((k) => ({name: k, value: k})),
-    });
+    const hub = await selectHub(m);
     const assets = await checkbox({
       message: 'Select assets to halt',
       choices: assetKeys(m).map((k) => ({name: k, value: k})),
       required: true,
     });
     return assets.map((asset) => ({
-      hubLib: hubLibAccessor(m, hub),
-      hub: hub,
+      hubLib: hub.expr,
+      hub: hub.key,
       underlying: assetLibAccessor(m, asset),
     }));
   },
@@ -33,7 +31,7 @@ export const hubAssetHalt: FeatureModule<V4HubAssetHalt[]> = {
       });`,
     );
     const testFns = cfg.map((c) => {
-      const hubKey = shortKey(c.hubLib);
+      const hubKey = accessorIdentifier(c.hubLib);
       const assetKey = shortKey(c.underlying);
       return `function test_hubAssetHalt_${hubKey}_${assetKey}() public {
         GovV3Helpers.executePayload(vm, address(proposal));

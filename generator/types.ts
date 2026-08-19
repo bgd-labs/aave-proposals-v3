@@ -74,6 +74,7 @@ export const V3_MARKETS = [
 
 export const V4_MARKETS = [
   'AaveV4Ethereum',
+  'AaveV4Avalanche',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const MARKETS = [
@@ -105,6 +106,18 @@ export type MarketConfigs = Partial<Record<MarketIdentifier, MarketConfig>>;
 export type V4GetterEntry = {
   returnType: string;
   entries: string[];
+  /// Assertions over the getter's entries, one block per entry and parallel to
+  /// `entries`, referencing the entry as `items[__INDEX__]`. Emitted as a single
+  /// `test_<getter>Input()` once every feature contributing to the getter has been
+  /// merged, so the indices match the merged array rather than one feature's slice.
+  inputAsserts?: string[];
+  /// Solidity expressions each yielding a `<returnType>[] memory`, appended to the
+  /// getter's own entries via `arrayMerge`. Used where a helpers library already builds
+  /// the array (role wiring), so the payload declares intent instead of re-listing it.
+  arrayExprs?: string[];
+  /// Solidity function concatenating two `<returnType>[] memory`, required with
+  /// `arrayExprs` (e.g. `V4RoleWiring.merge`).
+  arrayMerge?: string;
 };
 
 export type CodeArtifact = {
@@ -248,10 +261,14 @@ export interface MarketConfig {
     [FEATURE.V4_PM_SPOKE_REGISTRATION]?: V4PMSpokeRegistration[];
     [FEATURE.V4_PM_ROLE_RENOUNCEMENT]?: V4PMRoleRenouncement[];
     [FEATURE.V4_USECASE_ONBOARD_ASSET_TO_HUB]?: {
+      freshHubs: string[];
+      freshSpokes: string[];
       listings: V4HubAssetListing[];
       spokeAdditions: V4HubSpokeToAssetsAddition[];
     };
     [FEATURE.V4_USECASE_ONBOARD_RESERVE_TO_SPOKE]?: {
+      freshHubs: string[];
+      freshSpokes: string[];
       hubAssetListings: V4HubAssetListing[];
       listings: V4SpokeReserveListing[];
       updates: V4SpokeReserveConfigUpdate[];
@@ -277,6 +294,9 @@ export interface MarketConfig {
     [FEATURE.OTHERS]?: {};
   };
   cache: MarketCache;
+  /// Custom (non-address-book) V4 entities labeled during generation, keyed by
+  /// lowercased address, so a `-c` regeneration re-hydrates the label registry.
+  labels?: Record<string, {label: string; address: string; kind: string}>;
 }
 
 export type Scripts = {

@@ -2,13 +2,9 @@ import {select, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4PMRoleRenouncement} from '../../types';
 import {addressPrompt} from '../../../prompts/addressPrompt';
-import {
-  positionManagerKeys,
-  positionManagerLibAccessor,
-  spokeKeys,
-  spokeLibAccessor,
-} from '../marketBook';
-import {shortKey} from '../testHelpers';
+import {positionManagerKeys, positionManagerLibAccessor} from '../marketBook';
+import {selectSpoke} from '../hubSpokeSelect';
+import {accessorIdentifier, shortKey} from '../testHelpers';
 import {buildAddressConstant} from '../constants';
 
 export const positionManagerRoleRenouncement: FeatureModule<V4PMRoleRenouncement[]> = {
@@ -23,14 +19,11 @@ export const positionManagerRoleRenouncement: FeatureModule<V4PMRoleRenouncement
         message: 'Select PositionManager',
         choices: positionManagerKeys(m).map((k) => ({name: k, value: k})),
       });
-      const spoke = await select({
-        message: 'Select spoke',
-        choices: spokeKeys(m).map((k) => ({name: k, value: k})),
-      });
+      const spoke = await selectSpoke(m);
       const user = await addressPrompt({message: 'User to renounce role for', required: true});
       response.push({
         positionManager: positionManagerLibAccessor(m, pm) as `0x${string}`,
-        spoke: spokeLibAccessor(m, spoke),
+        spoke: spoke.expr,
         user: user as `0x${string}`,
       });
       more = await confirm({message: 'Add another?', default: false});
@@ -50,7 +43,7 @@ export const positionManagerRoleRenouncement: FeatureModule<V4PMRoleRenouncement
     });
     const testFns = cfg.map((c, ix) => {
       const pmKey = shortKey(c.positionManager);
-      const spokeKey = shortKey(c.spoke);
+      const spokeKey = accessorIdentifier(c.spoke);
       const userName = `PM_ROLE_RENOUNCE_USER_${ix}`;
       return `function test_positionManagerRoleRenouncement_${pmKey}_${spokeKey}_${ix}() public {
         GovV3Helpers.executePayload(vm, address(proposal));

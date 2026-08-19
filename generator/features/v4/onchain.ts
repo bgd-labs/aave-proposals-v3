@@ -1,9 +1,8 @@
-import {Hex, PublicClient} from 'viem';
-import {IHubV4_ABI, ISpokeV4_ABI} from '@aave-dao/aave-address-book';
+import {Hex, PublicClient, erc20Abi} from 'viem';
+import {IHubV4_ABI, ISpokeV4_ABI} from '@aave-dao/aave-address-book/abis';
 import {CHAIN_TO_CHAIN_ID, getMarketChain} from '../../common';
 import {MarketIdentifierV4} from '../../types';
 import {getClient} from '@aave-dao/toolbox';
-import {getV4Book} from './marketBook';
 
 export const PAUSED_MASK = 0x01;
 export const FROZEN_MASK = 0x02;
@@ -46,11 +45,10 @@ export function getViemClientForMarket(
 
 export async function readHubAssets(
   market: MarketIdentifierV4,
-  hubKey: string,
+  hub: Hex,
   blockNumber?: number,
 ): Promise<HubAssetSnapshot[]> {
   const client = getViemClientForMarket(market);
-  const hub = getV4Book(market).HUBS[hubKey] as Hex;
   const count = await client.readContract({
     address: hub,
     abi: IHubV4_ABI,
@@ -81,12 +79,11 @@ export async function readHubAssets(
 
 export async function readHubSpokeAddresses(
   market: MarketIdentifierV4,
-  hubKey: string,
+  hub: Hex,
   assetId: number,
   blockNumber?: number,
 ): Promise<Hex[]> {
   const client = getViemClientForMarket(market);
-  const hub = getV4Book(market).HUBS[hubKey] as Hex;
   const count = await client.readContract({
     address: hub,
     abi: IHubV4_ABI,
@@ -110,11 +107,10 @@ export async function readHubSpokeAddresses(
 
 export async function readSpokeReserves(
   market: MarketIdentifierV4,
-  spokeKey: string,
+  spoke: Hex,
   blockNumber?: number,
 ): Promise<SpokeReserveSnapshot[]> {
   const client = getViemClientForMarket(market);
-  const spoke = getV4Book(market).SPOKES[spokeKey] as Hex;
   const count = await client.readContract({
     address: spoke,
     abi: ISpokeV4_ABI,
@@ -146,6 +142,15 @@ export async function readSpokeReserves(
     });
   }
   return out;
+}
+
+export async function readErc20Symbol(market: MarketIdentifierV4, address: Hex): Promise<string> {
+  const client = getViemClientForMarket(market);
+  return (await client.readContract({
+    address,
+    abi: erc20Abi,
+    functionName: 'symbol',
+  })) as string;
 }
 
 export function isAssetListedOnHub(

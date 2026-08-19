@@ -1,15 +1,8 @@
 import {select, checkbox, confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {numberPrompt} from '../../../prompts/numberPrompt';
-import {
-  hubKeys,
-  spokeKeys,
-  assetKeys,
-  hubLibAccessor,
-  spokeLibAccessor,
-  assetLibAccessor,
-  getV4Book,
-} from '../marketBook';
+import {spokeKeys, assetKeys, assetLibAccessor, getV4Book} from '../marketBook';
+import {selectHub, selectSpokes} from '../hubSpokeSelect';
 import {readHubAssets, readHubSpokeAddresses} from '../onchain';
 import {hubSpokeConfigUpdate} from '../hub/hubSpokeConfigUpdate';
 import {V4HubSpokeConfigUpdate} from '../../types';
@@ -46,11 +39,8 @@ export const tuneSpokeRisk: FeatureModule<V4HubSpokeConfigUpdate[]> = {
     const updates: V4HubSpokeConfigUpdate[] = [];
     let more = true;
     while (more) {
-      const hub = await select({
-        message: 'Select hub',
-        choices: hubKeys(m).map((k) => ({name: k, value: k})),
-      });
-      const hubAssets = await readHubAssets(m, hub, cache.blockNumber);
+      const hub = await selectHub(m);
+      const hubAssets = await readHubAssets(m, hub.address, cache.blockNumber);
 
       const candidateAssets = assetKeys(m).filter((k) =>
         hubAssets.some(
@@ -70,7 +60,7 @@ export const tuneSpokeRisk: FeatureModule<V4HubSpokeConfigUpdate[]> = {
         )!;
         const registeredSpokeAddrs = await readHubSpokeAddresses(
           m,
-          hub,
+          hub.address,
           hubAsset.assetId,
           cache.blockNumber,
         );
@@ -79,27 +69,26 @@ export const tuneSpokeRisk: FeatureModule<V4HubSpokeConfigUpdate[]> = {
           lowerRegistered.has((book.SPOKES[k] as string).toLowerCase()),
         );
         if (candidateSpokes.length === 0) {
-          console.log(`No spokes registered on ${hub} for ${asset}; skipping.`);
+          console.log(`No spokes registered on ${hub.key} for ${asset}; skipping.`);
           continue;
         }
-        const spokes = await checkbox({
+        const spokes = await selectSpokes(m, {
           message: `Select spokes for ${asset}`,
-          choices: candidateSpokes.map((k) => ({name: k, value: k})),
-          required: true,
+          only: candidateSpokes,
         });
         for (const spoke of spokes) {
           updates.push({
-            hubLib: hubLibAccessor(m, hub),
-            hub,
+            hubLib: hub.expr,
+            hub: hub.key,
             underlying: assetLibAccessor(m, asset),
-            spoke: spokeLibAccessor(m, spoke),
-            addCap: await sentinelNumber(`${spoke}/${asset} addCap`),
-            drawCap: await sentinelNumber(`${spoke}/${asset} drawCap`),
+            spoke: spoke.expr,
+            addCap: await sentinelNumber(`${spoke.key}/${asset} addCap`),
+            drawCap: await sentinelNumber(`${spoke.key}/${asset} drawCap`),
             riskPremiumThreshold: await sentinelNumber(
-              `${spoke}/${asset} riskPremiumThreshold (bps)`,
+              `${spoke.key}/${asset} riskPremiumThreshold (bps)`,
             ),
-            active: await sentinelBool(`${spoke}/${asset} active?`),
-            halted: await sentinelBool(`${spoke}/${asset} halted?`),
+            active: await sentinelBool(`${spoke.key}/${asset} active?`),
+            halted: await sentinelBool(`${spoke.key}/${asset} halted?`),
           });
         }
       }

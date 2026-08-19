@@ -6,9 +6,6 @@
     }
   },
   "lib/aave-umbrella": {
-    "tag": {
-      "name": "v1.0.0",
-      "rev": "d34359f567da4fbb58685e114cd1b824d8300fac"
-    }
+    "rev": "c279bf145eb58e013fd24f97b10e4bf6058236a1"
   }
 }

@@ -27,6 +27,7 @@ function generateAddressBookImports(code: string) {
     'SpokePriceFeeds',
     'TokenizationSpokes',
     'PositionManagers',
+    'IRStrategies',
     'ExternalLibraries',
     'Getters',
   ];
@@ -84,7 +85,9 @@ export function prefixWithImports(code: string) {
   }
   if (findMatch(code, '\\bIConfigEngine\\b')) {
     imports += `import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';\n`;
-    imports += `import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';\n`;
+    if (findMatch(code, 'EngineFlags')) {
+      imports += `import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';\n`;
+    }
   } else if (findMatch(code, 'EngineFlags')) {
     imports += `import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';\n`;
   }
@@ -103,6 +106,9 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, '\\bISpoke\\b')) {
     imports += `import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';\n`;
   }
+  if (findMatch(code, '\\bIAaveOracle\\b')) {
+    imports += `import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';\n`;
+  }
   if (findMatch(code, '\\bIAssetInterestRateStrategy\\b')) {
     imports += `import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';\n`;
   }
@@ -111,6 +117,21 @@ export function prefixWithImports(code: string) {
   }
   if (findMatch(code, '\\bIPositionManagerBase\\b')) {
     imports += `import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';\n`;
+  }
+  if (findMatch(code, '\\bITokenizationSpoke\\b')) {
+    imports += `import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';\n`;
+  }
+  if (findMatch(code, '\\bRoles\\.')) {
+    imports += `import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';\n`;
+  }
+  if (findMatch(code, '\\bV4EngineDefaults\\.')) {
+    imports += `import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';\n`;
+  }
+  if (findMatch(code, '\\bV4RoleWiring\\.')) {
+    imports += `import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';\n`;
+  }
+  if (findMatch(code, '(?<!I)\\bOwnable\\b')) {
+    imports += `import {Ownable} from 'openzeppelin-contracts/contracts/access/Ownable.sol';\n`;
   }
   // common imports
   if (findMatch(code, '\\bIERC20\\b')) {

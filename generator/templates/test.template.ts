@@ -10,6 +10,29 @@ import {Options, MarketConfig, MarketIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
+/// Two features asking for the exact same test emit it once. Two features emitting the
+/// same test name with different bodies means they configure the same entity in
+/// conflicting ways, which the payload cannot satisfy either, so it fails here rather
+/// than generating a test contract that does not compile.
+function dedupeTestFns(fns: string[]): string[] {
+  const byName = new Map<string, string>();
+  for (const fn of fns) {
+    // keyed by the whole block when there is no name to key on, so nothing is dropped
+    const name = fn.match(/function\s+(\w+)\s*\(/)?.[1] ?? fn;
+    const existing = byName.get(name);
+    if (existing === undefined) {
+      byName.set(name, fn);
+      continue;
+    }
+    if (existing.trim() !== fn.trim()) {
+      throw new Error(
+        `conflicting definitions of ${name}: the same entity is configured twice with different values`,
+      );
+    }
+  }
+  return [...byName.values()];
+}
+
 export const testTemplate = (
   options: Options,
   marketConfig: MarketConfig,
@@ -17,18 +40,26 @@ export const testTemplate = (
 ) => {
   const folderName = generateFolderName(options);
   const chain = getMarketChain(market);
+  const isZkSync = chain === 'ZkSync';
   const contractName = generateContractName(options, market);
   const {v4, testBase} = getTestBase(market);
 
-  const functions = marketConfig.artifacts
-    .map((artifact) => artifact.test?.fn)
-    .flat()
-    .filter((f) => f !== undefined)
-    .join('\n');
+  const functions = dedupeTestFns(
+    marketConfig.artifacts
+      .map((artifact) => artifact.test?.fn)
+      .flat()
+      .filter((f): f is string => f !== undefined),
+  ).join('\n\n');
+
+  const testBaseImports = [testBase, 'ReserveConfig'];
+  if (testBase === 'ProtocolV3TestBase' && functions.includes('ExpectedListing')) {
+    testBaseImports.push('ExpectedListing');
+  }
+  const testBasePath = isZkSync ? 'zksync/src/' : 'src/';
 
   const testBaseImport = v4
     ? `import {${testBase}} from 'aave-helpers/src/v4-protocol-test/${testBase}.sol';`
-    : `import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';`;
+    : `import {${testBaseImports.join(', ')}} from 'aave-helpers/${testBasePath}${testBase}.sol';`;
 
   const defaultTestCall = v4
     ? `defaultTest('${contractName}', address(proposal));`
