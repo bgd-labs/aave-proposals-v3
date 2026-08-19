@@ -4,7 +4,7 @@
 
 | index | event |
 | --- | --- |
-| 0 | topics: `0x2fe089883ee853d6a7f39d545de3bbbf7a6b34933b9a3c53b6f3ea027bae2efc`, `0x2fc2f777d043c38eec8ad58f94964d56da6134bfff9a925e0b4a063cde044df8`, data: `0x` |
+| 0 | RiskConfigSet(riskConfig: 0x2fc2f777d043c38eec8ad58f94964d56da6134bfff9a925e0b4a063cde044df8) |
 
 #### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
 
