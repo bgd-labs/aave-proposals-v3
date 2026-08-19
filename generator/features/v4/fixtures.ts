@@ -117,6 +117,13 @@ export function allModulesFixture(): Fixture {
       liquidityFee: '0',
       irStrategy: ADDR,
       irPreset: 'nonBorrowable',
+      // a nonzero addCap the preset has to override
+      tokenization: {
+        addCap: '1000',
+        proxyAdminOwner: 'GovernanceV3Ethereum.EXECUTOR_LVL_1',
+        name: 'TS2',
+        symbol: 'TS2',
+      },
     },
   ];
 
