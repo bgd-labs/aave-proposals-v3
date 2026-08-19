@@ -10,5 +10,5 @@ export const config: ConfigFile = {
     snapshot: 'direct-to-AIP',
     votingNetwork: 'AVALANCHE',
   },
-  marketOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25781839}}},
+  marketOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 25789439}}},
 };

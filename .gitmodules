@@ -4,6 +4,3 @@
 [submodule "lib/aave-helpers"]
 	path = lib/aave-helpers
 	url = https://github.com/aave-dao/aave-helpers
-[submodule "lib/aave-risk-agents"]
-	path = lib/aave-risk-agents
-	url = https://github.com/aave-dao/aave-risk-agents

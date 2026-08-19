@@ -7,10 +7,9 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveDiscountRateAgent} from 'aave-risk-agents/src/contracts/agent/AaveDiscountRateAgent.sol';
-import {AaveEModeAgent} from 'aave-risk-agents/src/contracts/agent/AaveEModeAgent.sol';
 import {AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817} from './AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';
+import {IBaseAaveAgent, IAaveDiscountRateAgent} from '../interfaces/IBaseAaveAgent.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
 /**
@@ -23,7 +22,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
   uint256 internal discountAgentId;
   uint256 internal eModeAgentId;
 
-  uint256 internal constant FORK_BLOCK = 25781839;
+  uint256 internal constant FORK_BLOCK = 25789439;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
@@ -68,38 +67,31 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     _noReservesConfigsChangesApartNewListings(allConfigsBefore, allConfigsAfter);
   }
 
-  /// @dev The payload deploys both agents itself, so there is no pre-deployed address to assert
-  ///      against. What is asserted instead is that the code the hub now points at is code this
-  ///      execution created, and that it is bound to the intended hub, module, pool and oracle.
-  ///      Those bindings are immutable, so this is the only moment they can be checked at all.
-  function test_agentsDeployedAndWired() public {
+  /// @dev Both agents are pre-deployed. Their immutable dependencies are checked before the payload
+  ///      registers their addresses in the AgentHub.
+  function test_agentsPredeployedAndWired() public {
     IAgentHub hub = IAgentHub(MiscEthereum.AGENT_HUB);
+    IAaveDiscountRateAgent discountAgent = IAaveDiscountRateAgent(proposal.DISCOUNT_RATE_AGENT());
+    IBaseAaveAgent eModeAgent = IBaseAaveAgent(proposal.EMODE_AGENT());
+
+    assertGt(proposal.DISCOUNT_RATE_AGENT().code.length, 0, 'discount agent has no code');
+    assertGt(proposal.EMODE_AGENT().code.length, 0, 'eMode agent has no code');
+
+    assertEq(discountAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
+    assertEq(discountAgent.RANGE_VALIDATION_MODULE(), MiscEthereum.RANGE_VALIDATION_MODULE);
+    assertEq(discountAgent.POOL(), address(AaveV3Ethereum.POOL));
+    assertEq(discountAgent.AAVE_ORACLE(), address(AaveV3Ethereum.ORACLE));
+    assertEq(discountAgent.getUpdateType(), proposal.DISCOUNT_UPDATE_TYPE());
+
+    assertEq(eModeAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
+    assertEq(eModeAgent.RANGE_VALIDATION_MODULE(), MiscEthereum.RANGE_VALIDATION_MODULE);
+    assertEq(eModeAgent.POOL(), address(AaveV3Ethereum.POOL));
+    assertEq(eModeAgent.getUpdateType(), proposal.EMODE_UPDATE_TYPE());
 
     executePayload(vm, address(proposal));
 
-    AaveDiscountRateAgent discountAgent = AaveDiscountRateAgent(
-      hub.getAgentAddress(discountAgentId)
-    );
-    AaveEModeAgent eModeAgent = AaveEModeAgent(hub.getAgentAddress(eModeAgentId));
-
-    assertGt(address(discountAgent).code.length, 0, 'discount agent has no code');
-    assertGt(address(eModeAgent).code.length, 0, 'eMode agent has no code');
-
-    assertEq(discountAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
-    assertEq(
-      address(discountAgent.RANGE_VALIDATION_MODULE()),
-      MiscEthereum.RANGE_VALIDATION_MODULE
-    );
-    assertEq(address(discountAgent.POOL()), address(AaveV3Ethereum.POOL));
-    assertEq(address(discountAgent.AAVE_ORACLE()), address(AaveV3Ethereum.ORACLE));
-
-    assertEq(eModeAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
-    assertEq(address(eModeAgent.RANGE_VALIDATION_MODULE()), MiscEthereum.RANGE_VALIDATION_MODULE);
-    assertEq(address(eModeAgent.POOL()), address(AaveV3Ethereum.POOL));
-
-    // The agent builds its own update type by concatenating its base type with the suffix, and
-    // rejects any record whose type differs. A mismatch against what the hub registered would be a
-    // stack that publishes and injects nothing, with no revert to point at it.
+    assertEq(hub.getAgentAddress(discountAgentId), proposal.DISCOUNT_RATE_AGENT());
+    assertEq(hub.getAgentAddress(eModeAgentId), proposal.EMODE_AGENT());
     assertEq(discountAgent.getUpdateType(), hub.getUpdateType(discountAgentId));
     assertEq(eModeAgent.getUpdateType(), hub.getUpdateType(eModeAgentId));
   }

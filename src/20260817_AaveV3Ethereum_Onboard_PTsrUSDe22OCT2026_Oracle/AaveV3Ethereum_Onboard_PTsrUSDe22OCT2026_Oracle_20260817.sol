@@ -5,8 +5,6 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3Ethereum, AaveV3EthereumAssets, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {AaveDiscountRateAgent} from 'aave-risk-agents/src/contracts/agent/AaveDiscountRateAgent.sol';
-import {AaveEModeAgent} from 'aave-risk-agents/src/contracts/agent/AaveEModeAgent.sol';
 import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
@@ -25,10 +23,15 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
   ///      written only by the Chainlink CRE forwarder. Constructed with the two update types below
   ///      and nothing else, and owned by the LlamaRisk multisig.
   ///
-  ///      This is the one address the payload cannot derive. Both agents are deployed by `execute`,
-  ///      so they need no constant; the RiskOracle is deployed ahead of the vote, because it is
-  ///      shared across every PT this instance ever onboards and is not a per-proposal artifact.
+  ///      The RiskOracle is deployed ahead of the vote because it is shared across every PT this
+  ///      instance onboards and is not a per-proposal artifact.
   address public constant LLAMARISK_RISK_ORACLE = 0x8346170dcE5455A1205f55A0b5448E67e42CD270;
+
+  // https://etherscan.io/address/0xa142d56b1b77cafdf3a6cca885b471483a56551e
+  address public constant DISCOUNT_RATE_AGENT = 0xA142d56B1b77CAfdf3A6cCA885B471483A56551e;
+
+  // https://etherscan.io/address/0x5100392fcdb4515f53af2056bdf3887a85b7a8d9
+  address public constant EMODE_AGENT = 0x5100392FCDB4515F53AF2056bDf3887A85b7a8d9;
 
   // ---------------------------------------------------------------------------------------------
   // Registration parameters
@@ -76,22 +79,8 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
   uint120 public constant EMODE_RANGE_ABS_BPS = 50;
 
   function execute() external {
-    // 1. Deploy the discount-rate agent and register it, consuming PendleDiscountRateUpdate records
-    //    from the LlamaRisk RiskOracle for PT-srUSDe-22OCT2026.
-    //
-    //    The agent is deployed here rather than beforehand so that the code governance votes on is
-    //    the code that ends up registered. Everything it is bound to is immutable and comes from the
-    //    address book, so there is nothing left to check against a pre-deployed address, and there
-    //    is no window in which a registered agent points at something the proposal did not build.
-    address discountRateAgent = address(
-      new AaveDiscountRateAgent(
-        MiscEthereum.AGENT_HUB,
-        MiscEthereum.RANGE_VALIDATION_MODULE,
-        UPDATE_TYPE_SUFFIX,
-        address(AaveV3Ethereum.POOL),
-        address(AaveV3Ethereum.ORACLE)
-      )
-    );
+    // 1. Register the pre-deployed discount-rate agent for PT-srUSDe-22OCT2026.
+    address discountRateAgent = DISCOUNT_RATE_AGENT;
 
     address[] memory ptMarkets = new address[](1);
     ptMarkets[0] = AaveV3EthereumAssets.PT_srUSDe_22OCT2026_UNDERLYING;
@@ -105,16 +94,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is IProposalGe
       ptMarkets
     );
 
-    // 2. Deploy the eMode agent and register it for the two PT-srUSDe-22OCT2026 eMode categories.
+    // 2. Register the pre-deployed eMode agent for the two PT-srUSDe-22OCT2026 eMode categories.
     //    eMode ids are encoded as addresses, following the chaos-agents convention.
-    address eModeAgent = address(
-      new AaveEModeAgent(
-        MiscEthereum.AGENT_HUB,
-        MiscEthereum.RANGE_VALIDATION_MODULE,
-        UPDATE_TYPE_SUFFIX,
-        address(AaveV3Ethereum.POOL)
-      )
-    );
+    address eModeAgent = EMODE_AGENT;
 
     address[] memory eModeMarkets = new address[](2);
     eModeMarkets[0] = address(
