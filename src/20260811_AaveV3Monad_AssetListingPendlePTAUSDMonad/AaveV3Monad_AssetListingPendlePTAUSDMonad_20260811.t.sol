@@ -37,13 +37,11 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    // Framework e2e disabled: an existing Monad reserve's token is incompatible with forge's
-    // deal() used by the generic e2e. PT-AUSD flows are covered by the dedicated tests below.
     defaultTest(
       'AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811',
       AaveV3Monad.POOL,
       address(proposal),
-      false,
+      true,
       false
     );
   }
@@ -69,6 +67,11 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
 
   function test_priceFeedReturnsSanePrice() public {
     GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      AaveV3Monad.ORACLE.getSourceOfAsset(proposal.PT_AUSD_8OCT2026()),
+      proposal.PT_AUSD_8OCT2026_PRICE_FEED(),
+      'PT-AUSD should be priced by the configured linear discount oracle'
+    );
     uint256 price = AaveV3Monad.ORACLE.getAssetPrice(proposal.PT_AUSD_8OCT2026());
     assertGt(price, 0.9e8, 'PT-AUSD price should be within a sane discount band');
     assertLt(price, 1e8, 'PT-AUSD should price below par (1 USD) before maturity');
@@ -104,13 +107,13 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
 
   function test_eModeConfiguration() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    uint8 eMode_PTAgoraStablecoins = _findEModeCategoryId('PT Agora Stablecoins');
+    uint8 eMode_PTAgoraStablecoins = _findEModeCategoryId('PT_Agora__Stablecoins');
     _assertEModeCollateralConfig({
       id: eMode_PTAgoraStablecoins,
       ltv: 93_00,
       liquidationThreshold: 95_00,
       liquidationBonus: 100_00 + 2_44,
-      isolated: false
+      isolated: true
     });
 
     address[] memory collaterals_PTAgoraStablecoins = new address[](1);
@@ -136,7 +139,7 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
   function test_eMode_PTAgoraStablecoins_supplyAndBorrow() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     _supplyAndBorrowInEMode(
-      'PT Agora Stablecoins',
+      'PT_Agora__Stablecoins',
       proposal.PT_AUSD_8OCT2026(),
       AaveV3MonadAssets.USDT0_UNDERLYING
     );

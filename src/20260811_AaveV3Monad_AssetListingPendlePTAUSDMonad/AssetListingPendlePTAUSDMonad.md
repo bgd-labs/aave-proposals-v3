@@ -29,9 +29,9 @@ The proposal was approved via ARFC and Snapshot (99.99% For), with final risk pa
 
 **New eMode** (per LlamaRisk's final recommendation):
 
-| eMode                | Collateral       | Borrowable             | LTV | LT  | Liq. Bonus |
-| -------------------- | ---------------- | ---------------------- | --- | --- | ---------- |
-| PT Agora Stablecoins | PT-AUSD-8OCT2026 | USDT0, USDC, GHO, USDe | 93% | 95% | 2.44%      |
+| eMode                   | Collateral       | Borrowable             | LTV | LT  | Liq. Bonus | Isolated |
+| ----------------------- | ---------------- | ---------------------- | --- | --- | ---------- | -------- |
+| PT_Agora\_\_Stablecoins | PT-AUSD-8OCT2026 | USDT0, USDC, GHO, USDe | 93% | 95% | 2.44%      | Yes      |
 
 The table below illustrates the configured risk parameters for **PT_AUSD_8OCT2026**
 

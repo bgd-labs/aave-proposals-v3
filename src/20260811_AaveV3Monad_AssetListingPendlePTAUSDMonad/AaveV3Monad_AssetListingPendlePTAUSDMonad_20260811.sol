@@ -83,8 +83,8 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811 is AaveV3PayloadMona
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 2_44,
-      label: 'PT Agora Stablecoins',
-      isolated: false,
+      label: 'PT_Agora__Stablecoins',
+      isolated: true,
       collaterals: collateralAssets_PTAgoraStablecoins,
       borrowables: borrowableAssets_PTAgoraStablecoins
     });
