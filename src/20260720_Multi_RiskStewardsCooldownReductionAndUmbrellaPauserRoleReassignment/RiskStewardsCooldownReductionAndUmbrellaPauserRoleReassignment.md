@@ -23,7 +23,7 @@ On Umbrella, the [\[Direct-to-AIP\] Pause stkwaWETH Umbrella Staked Token on Eth
 
 #### Background
 
-The current Risk Steward [`RiskConfig`](https://etherscan.io/address/0xFCE597866Ffaf617EFdcA1C1Ad50eBCB16B5171E) enforces per-parameter constraints, where:
+The current Risk Steward [`RiskConfig`](https://etherscan.io/address/0x13a9CC64344b02bACC5AD9Cf38B5711F1B9ec3d4) enforces per-parameter constraints, where:
 
 - `minDelay` is the minimum time between consecutive changes to the same parameter on the same reserve.
 - `maxPercentChange` is the largest single-step change accepted, with semantics that vary by parameter: collateral and rate parameters use absolute difference bounds, cap parameters use relative difference of the current cap.
@@ -84,7 +84,7 @@ The role separation in this proposal runs along the emergency vs. configuration 
 ## Specification
 
 - Grant `PAUSE_GUARDIAN_ROLE` on the Umbrella controller (`0xD400fc38ED4732893174325693a63C30ee3881a8`) to the Aave Protocol Guardian (`0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30`) on Ethereum Mainnet. This authorises the Protocol Guardian to call `pauseStk(stkToken)` and `unpauseStk(stkToken)` on every stkToken currently managed by the controller and any future stkToken added under it.
-- On the Risk Steward [`RiskConfig`](https://etherscan.io/address/0xFCE597866Ffaf617EFdcA1C1Ad50eBCB16B5171E), set `minDelay` to 36 hours on `baseVariableBorrowRate`, `variableRateSlope1`, `variableRateSlope2`, `optimalUsageRatio`, `supplyCap`, and `borrowCap` (reduced from 72 hours).
+- On the Risk Steward [`RiskConfig`](https://etherscan.io/address/0x13a9CC64344b02bACC5AD9Cf38B5711F1B9ec3d4), set `minDelay` to 36 hours on `baseVariableBorrowRate`, `variableRateSlope1`, `variableRateSlope2`, `optimalUsageRatio`, `supplyCap`, and `borrowCap` (reduced from 72 hours).
 
 ### Amendment
 

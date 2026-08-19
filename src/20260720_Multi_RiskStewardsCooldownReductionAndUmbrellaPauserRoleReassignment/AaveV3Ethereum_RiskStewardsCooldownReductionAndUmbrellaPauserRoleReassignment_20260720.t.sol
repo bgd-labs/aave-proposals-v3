@@ -5,15 +5,12 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {UmbrellaEthereum, UmbrellaEthereumAssets} from 'aave-address-book/UmbrellaEthereum.sol';
-import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 
 import 'forge-std/Test.sol';
+import {IStakeToken} from '../interfaces/IStakeToken.sol';
+import {IUmbrella} from '../interfaces/IUmbrella.sol';
 import {RiskStewardCooldownReductionBaseTest} from './RiskStewardCooldownReductionBaseTest.sol';
 import {AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
-
-interface IPausable {
-  function paused() external view returns (bool);
-}
 
 /**
  * @dev Test for AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720
@@ -47,22 +44,18 @@ contract AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassi
   }
 
   function test_umbrellaPauseGuardianRole() public {
-    IAccessControl umbrellaAccessControl = IAccessControl(address(UmbrellaEthereum.UMBRELLA));
-    bytes32 pauseGuardianRole = proposal.PAUSE_GUARDIAN_ROLE();
+    IUmbrella umbrella = IUmbrella(address(UmbrellaEthereum.UMBRELLA));
+    bytes32 pauseGuardianRole = umbrella.PAUSE_GUARDIAN_ROLE();
 
-    assertFalse(umbrellaAccessControl.hasRole(pauseGuardianRole, MiscEthereum.PROTOCOL_GUARDIAN));
-    assertTrue(
-      umbrellaAccessControl.hasRole(pauseGuardianRole, GovernanceV3Ethereum.EXECUTOR_LVL_1)
-    );
+    assertFalse(umbrella.hasRole(pauseGuardianRole, MiscEthereum.PROTOCOL_GUARDIAN));
+    assertTrue(umbrella.hasRole(pauseGuardianRole, GovernanceV3Ethereum.EXECUTOR_LVL_1));
 
     executePayload(vm, address(proposal), AaveV3Ethereum.POOL);
 
-    assertTrue(umbrellaAccessControl.hasRole(pauseGuardianRole, MiscEthereum.PROTOCOL_GUARDIAN));
-    assertTrue(
-      umbrellaAccessControl.hasRole(pauseGuardianRole, GovernanceV3Ethereum.EXECUTOR_LVL_1)
-    );
+    assertTrue(umbrella.hasRole(pauseGuardianRole, MiscEthereum.PROTOCOL_GUARDIAN));
+    assertTrue(umbrella.hasRole(pauseGuardianRole, GovernanceV3Ethereum.EXECUTOR_LVL_1));
 
-    address[] memory stakeTokens = UmbrellaEthereum.UMBRELLA.getStkTokens();
+    address[] memory stakeTokens = umbrella.getStkTokens();
     assertEq(stakeTokens.length, 4);
     assertEq(stakeTokens[0], UmbrellaEthereumAssets.STK_WA_USDC_V1);
     assertEq(stakeTokens[1], UmbrellaEthereumAssets.STK_WA_USDT_V1);
@@ -71,11 +64,11 @@ contract AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassi
 
     vm.startPrank(MiscEthereum.PROTOCOL_GUARDIAN);
     for (uint256 i; i < stakeTokens.length; ++i) {
-      assertFalse(IPausable(stakeTokens[i]).paused());
-      UmbrellaEthereum.UMBRELLA.pauseStk(stakeTokens[i]);
-      assertTrue(IPausable(stakeTokens[i]).paused());
-      UmbrellaEthereum.UMBRELLA.unpauseStk(stakeTokens[i]);
-      assertFalse(IPausable(stakeTokens[i]).paused());
+      assertFalse(IStakeToken(stakeTokens[i]).paused());
+      umbrella.pauseStk(stakeTokens[i]);
+      assertTrue(IStakeToken(stakeTokens[i]).paused());
+      umbrella.unpauseStk(stakeTokens[i]);
+      assertFalse(IStakeToken(stakeTokens[i]).paused());
     }
     vm.stopPrank();
   }
