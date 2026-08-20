@@ -6,12 +6,16 @@ generator/templates/test.template.ts
 generator/features/__snapshots__/assetListing.spec.ts.snap
   s_1b298b9aaba146::t_252b09cce599e6 486,489-491
   s_22f80b5bcb6d41::t_35582623f72b39 470,477
+  s_59edd78a894f70::t_615ca75a5f0866 485,487,490-491
+  s_e151e0076adb13::t_37244d074c8c19 659-662
 generator/features/__snapshots__/priceFeedsUpdate.spec.ts.snap
   s_1b298b9aaba146::t_4cec0150ea8176 110,113-114
   s_22f80b5bcb6d41::t_426335042fca91 94,101
 generator/features/assetListing.ts
   s_22f80b5bcb6d41::t_fcbd0c4876012b 10
   s_22f80b5bcb6d41::t_ae8803da71d2e3 148,165,270,278
+generator/features/assetListing.spec.ts
+  s_0221e6de41ee68::t_66bb844bc695da 38,43-45,48,49-50,52-54
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -19,6 +23,9 @@ generator/features/assetListing.ts
   "base_commit_sha": "c73cdc0e4250565e1be73aca5fc6718000dfc5ca",
   "prompts": {},
   "humans": {
+    "h_89d2da8ff33004": {
+      "author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
     "h_8b974fbabf2fb7": {
       "author": "Alberto <albe@AMWM-H65F40J09H.local>"
     }
@@ -31,6 +38,14 @@ generator/features/assetListing.ts
         "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_0221e6de41ee68": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8595-db9a-7cb3-9cc3-5ec61b4fbd39",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
     },
     "s_0a8dcf3bcd71ba": {
       "agent_id": {
@@ -63,6 +78,14 @@ generator/features/assetListing.ts
         "model": "gpt-5.5"
       },
       "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
+    },
+    "s_3c139ce5290e35": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a01f25-ed71-71e2-9996-184e34a2b97f",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     },
     "s_3c613cca907125": {
       "agent_id": {
@@ -128,6 +151,14 @@ generator/features/assetListing.ts
       },
       "human_author": "Alberto <albe@AMWM-H65F40J09H.local>"
     },
+    "s_9f64eda37ab66b": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f5c12-c8cd-7501-a70d-3f73ef1f5357",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
     "s_a29e3e9eb1cbe2": {
       "agent_id": {
         "tool": "codex",
@@ -152,11 +183,27 @@ generator/features/assetListing.ts
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     },
+    "s_d2f5fa2e73328c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f6059-0e02-7f23-a53a-7fe8c03fd7fc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
     "s_e0a2e21ba98a93": {
       "agent_id": {
         "tool": "codex",
         "id": "019f478d-c6dc-7220-bac5-767eb1b8d88f",
         "model": "gpt-5.5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    },
+    "s_e151e0076adb13": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7eb5-171d-7360-8a64-a74e7e4500f8",
+        "model": "gpt-5.6-sol"
       },
       "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
     },
