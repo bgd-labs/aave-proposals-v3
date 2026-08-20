@@ -1,0 +1,41 @@
+## Event logs
+
+#### 0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131 (AaveV3Sonic.ASSETS.wS.A_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | Approval(owner: 0x1aB55bBdD5DF0782BBCf73553Af93BC6B29A286B, spender: 0x565B80842eCEDad88A2564Ea375CE875Ed3bAdeC, value: 0 [0, 18 decimals]) |
+
+#### 0x7b62461a3570c6AC8a9f8330421576e417B71EE7 (AaveV3Sonic.ACL_ADMIN, GovernanceV3Sonic.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1784118942, withDelegatecall: true, resultData: 0x) |
+
+#### 0x0846C28Dd54DEA4Fd7Fb31bcc5EB81673D68c695 (GovernanceV3Sonic.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 15) |
+
+## Raw storage changes
+
+### 0x0846c28dd54dea4fd7fb31bcc5eb81673d68c695 (GovernanceV3Sonic.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xf60b7f6a315ec68a6ac240e69dca53652b38627f709a2caa217d9e18af4d7a60 | 0x006a577e9d000000000002000000000000000000000000000000000000000000 | 0x006a577e9d000000000003000000000000000000000000000000000000000000 |
+| 0xf60b7f6a315ec68a6ac240e69dca53652b38627f709a2caa217d9e18af4d7a61 | 0x000000000000000000093a800000000000006a85a31e00000000000000000000 | 0x000000000000000000093a800000000000006a85a31e0000000000006a577e9e |
+
+### 0x6c5e14a212c1c3e4baf6f871ac9b1a969918c131 (AaveV3Sonic.ASSETS.wS.A_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0xd0f4d7cf6e140df926b66d5c2f354d8fa4eff74dcb921b8c0c79f9d743561d44 | 0x000000000000000000000000000000000000000000003f870857a3e0e3800000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+
+
+## Raw diff
+
+```json
+{}
+```
