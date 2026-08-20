@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Monad, AaveV3MonadAssets} from 'aave-address-book/AaveV3Monad.sol';
-import {GovernanceV3Monad} from 'aave-address-book/GovernanceV3Monad.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -15,6 +14,18 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811} from './AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811.sol';
 
+interface IPendlePriceCapAdapter {
+  function discountRatePerYear() external view returns (uint256);
+
+  function MAX_DISCOUNT_RATE_PER_YEAR() external view returns (uint256);
+
+  function MATURITY() external view returns (uint256);
+
+  function PENDLE_PRINCIPAL_TOKEN() external view returns (address);
+
+  function ASSET_TO_USD_AGGREGATOR() external view returns (address);
+}
+
 /**
  * @dev Test for AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260811_AaveV3Monad_AssetListingPendlePTAUSDMonad/AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811.t.sol -vv
@@ -23,13 +34,8 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
   AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 97080000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 97672700);
     proposal = new AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811();
-    deal(
-      proposal.PT_AUSD_8OCT2026(),
-      GovernanceV3Monad.EXECUTOR_LVL_1,
-      proposal.PT_AUSD_8OCT2026_SEED_AMOUNT()
-    );
   }
 
   /**
@@ -40,9 +46,7 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
     defaultTest(
       'AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811',
       AaveV3Monad.POOL,
-      address(proposal),
-      true,
-      false
+      address(proposal)
     );
   }
 
@@ -75,6 +79,29 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
     uint256 price = AaveV3Monad.ORACLE.getAssetPrice(proposal.PT_AUSD_8OCT2026());
     assertGt(price, 0.9e8, 'PT-AUSD price should be within a sane discount band');
     assertLt(price, 1e8, 'PT-AUSD should price below par (1 USD) before maturity');
+
+    IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(proposal.PT_AUSD_8OCT2026_PRICE_FEED());
+    assertEq(
+      adapter.discountRatePerYear(),
+      0.06661e18,
+      'initial discount rate should be 6.661% per LlamaRisk'
+    );
+    assertEq(
+      adapter.MAX_DISCOUNT_RATE_PER_YEAR(),
+      0.08829e18,
+      'max discount rate should be 8.829% per LlamaRisk'
+    );
+    assertEq(adapter.MATURITY(), 1791417600, 'maturity should be 8 October 2026 UTC');
+    assertEq(
+      adapter.PENDLE_PRINCIPAL_TOKEN(),
+      proposal.PT_AUSD_8OCT2026(),
+      'oracle should price the listed PT'
+    );
+    assertEq(
+      adapter.ASSET_TO_USD_AGGREGATOR(),
+      AaveV3MonadAssets.AUSD_ORACLE,
+      'underlying aggregator should be the Capped AUSD/USD feed'
+    );
   }
 
   function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {
@@ -83,7 +110,7 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811_Test is ProtocolV3Te
     listings[0] = ExpectedListing({
       listing: IAaveV3ConfigEngine.Listing({
         asset: 0x9FC74f8Ed616B5BaF52a170caa97d6d3898602d1,
-        assetSymbol: 'PT-AUSD-8OCT2026', // on-chain symbol of the PT token
+        assetSymbol: 'PT-AUSD-8OCT2026',
         priceFeed: 0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127,
         enabledToBorrow: EngineFlags.DISABLED,
         flashloanable: EngineFlags.ENABLED,

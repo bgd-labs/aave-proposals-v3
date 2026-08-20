@@ -19,7 +19,7 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811 is AaveV3PayloadMona
 
   // https://monadscan.com/address/0x9FC74f8Ed616B5BaF52a170caa97d6d3898602d1
   address public constant PT_AUSD_8OCT2026 = 0x9FC74f8Ed616B5BaF52a170caa97d6d3898602d1;
-  uint256 public constant PT_AUSD_8OCT2026_SEED_AMOUNT = 1e6;
+  uint256 public constant PT_AUSD_8OCT2026_SEED_AMOUNT = 100e6;
   // https://monadscan.com/address/0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127
   address public constant PT_AUSD_8OCT2026_PRICE_FEED = 0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127;
 
@@ -78,7 +78,6 @@ contract AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811 is AaveV3PayloadMona
     borrowableAssets_PTAgoraStablecoins[2] = AaveV3MonadAssets.GHO_UNDERLYING;
     borrowableAssets_PTAgoraStablecoins[3] = AaveV3MonadAssets.USDe_UNDERLYING;
 
-    // Final parameters per the LlamaRisk recommendation in the discussion thread.
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 93_00,
       liqThreshold: 95_00,
