@@ -55,11 +55,18 @@ The table below illustrates the configured risk parameters for **PT_AUSD_8OCT202
 | Flashloanable             |                                                                                                                    Yes |
 | Oracle                    | [0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127](https://monadscan.com/address/0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127) |
 
+**Linear Discount Rate Oracle**
+
+| Parameter                  | Value                                                                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| initialDiscountRatePerYear | 6.661%                                                                                                                 |
+| maxDiscountRatePerYear     | 8.829%                                                                                                                 |
+| Oracle                     | [0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127](https://monadscan.com/address/0x6D8f31268E94Bec0b0E07bc06b561b8B749F3127) |
+
 ## References
 
 - Implementation: [AaveV3Monad](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260811_AaveV3Monad_AssetListingPendlePTAUSDMonad/AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811.sol)
 - Tests: [AaveV3Monad](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260811_AaveV3Monad_AssetListingPendlePTAUSDMonad/AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811.t.sol)
-- Oracle deployment: [aave-price-feeds#164](https://github.com/aave-dao/aave-price-feeds/pull/164)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x1d5029f1b99b62843590e28d027a1a5aa21f4fe19f175284197c58779db14027)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-pt-ausd-8oct2026-to-aave-v3-monad-instance/25331)
 

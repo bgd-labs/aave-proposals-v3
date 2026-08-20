@@ -13,18 +13,7 @@ import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811} from './AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811.sol';
-
-interface IPendlePriceCapAdapter {
-  function discountRatePerYear() external view returns (uint256);
-
-  function MAX_DISCOUNT_RATE_PER_YEAR() external view returns (uint256);
-
-  function MATURITY() external view returns (uint256);
-
-  function PENDLE_PRINCIPAL_TOKEN() external view returns (address);
-
-  function ASSET_TO_USD_AGGREGATOR() external view returns (address);
-}
+import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
 
 /**
  * @dev Test for AaveV3Monad_AssetListingPendlePTAUSDMonad_20260811
