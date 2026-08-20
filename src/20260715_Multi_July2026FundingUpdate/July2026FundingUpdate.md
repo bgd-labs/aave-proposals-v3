@@ -157,7 +157,7 @@ Spender: TokenLogic `0xAA088dfF3dcF619664094945028d44E779F19894`
 
 ### Stable Vaults
 
-Add the following allowances to a new dedicated Stable Vault incentives SAFE as discussed in the launch [proposal](https://governance.aave.com/t/arfc-aave-app-launch/25307).
+Add the following allowances to a new dedicated Stable Vault incentives SAFE as discussed in the launch [proposal](https://governance.aave.com/t/arfc-aave-app-launch/25307). The Snapshot for it can be found [here](https://snapshot.box/#/s:aavedao.eth/proposal/0x2f86020fc038694a5c4738e3982e4fa92eb315aaa4d3ce2fa2be2a5808a9280b).
 
 Network: Mainnet
 Asset: aEthLidoGHO `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
