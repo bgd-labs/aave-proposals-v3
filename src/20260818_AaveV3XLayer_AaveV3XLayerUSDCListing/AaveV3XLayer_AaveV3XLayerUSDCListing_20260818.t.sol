@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3XLayer, AaveV3XLayerEModes} from 'aave-address-book/AaveV3XLayer.sol';
-import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -20,9 +19,8 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68334526);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68491480);
     proposal = new AaveV3XLayer_AaveV3XLayerUSDCListing_20260818();
-    deal(proposal.USDC(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
   }
 
   /**
@@ -30,15 +28,10 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    // Framework e2e disabled: USDC is seeded with 1 token (~$0.9999), which sits just below the
-    // generic e2e's "aToken supply must exceed $1" precondition for a freshly listed asset.
-    // Listing config and eMode wiring are covered by the dedicated tests below.
     defaultTest(
       'AaveV3XLayer_AaveV3XLayerUSDCListing_20260818',
       AaveV3XLayer.POOL,
-      address(proposal),
-      false,
-      false
+      address(proposal)
     );
   }
 
@@ -63,6 +56,11 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
 
   function test_priceFeedReturnsSanePrice() public {
     GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      AaveV3XLayer.ORACLE.getSourceOfAsset(proposal.USDC()),
+      proposal.USDC_PRICE_FEED(),
+      'USDC should be priced by the configured feed'
+    );
     uint256 price = AaveV3XLayer.ORACLE.getAssetPrice(proposal.USDC());
     assertGt(price, 0.95e8, 'USDC price should trade near 1 USD');
     assertLt(price, 1.05e8, 'USDC price should trade near 1 USD');

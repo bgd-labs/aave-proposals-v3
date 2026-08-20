@@ -19,7 +19,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
 
   // https://www.oklink.com/xlayer/address/0xB6CEceAB302E2E4948951eE7843FC24E92933061
   address public constant USDC = 0xB6CEceAB302E2E4948951eE7843FC24E92933061;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 10e6;
   // https://www.oklink.com/xlayer/address/0xB8a08c178D96C315FbFB5661ABD208477391BC40
   address public constant USDC_PRICE_FEED = 0xB8a08c178D96C315FbFB5661ABD208477391BC40;
 
