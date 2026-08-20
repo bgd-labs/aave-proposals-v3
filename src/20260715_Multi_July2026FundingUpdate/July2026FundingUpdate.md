@@ -2,7 +2,6 @@
 title: "July 2026 Funding Update"
 author: "TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-july-2026-funding-update/25277"
-snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x2f86020fc038694a5c4738e3982e4fa92eb315aaa4d3ce2fa2be2a5808a9280b"
 ---
 
 ## Simple Summary
@@ -96,7 +95,7 @@ Asset: aPlaPT_USDe_18JUN2026 `0xDEdFF537fCBa1169E673F78EE23D109885741016`
 Asset: aPlaWETH `0xf1aB7f60128924d69f6d7dE25A20eF70bBd43d07`
 Asset: aPlaweETH `0xAf1a7a488c8348b41d5860C04162af7d3D38A996`
 Asset: aPlasUSDe `0xC1A318493fF07a68fE438Cee60a7AD0d0DBa300E`
-Amount: Balance at time of execution, plus a small buffer to cover interest accrued between execution and transfer (100 units for the stable-correlated assets, 2 for aPlaWETH and aPlaweETH)
+Amount: Balance at time of execution, plus a 0.10% buffer to cover interest accrued between execution and transfer
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 
 ### Refresh the Following Allowances
@@ -180,7 +179,7 @@ Spender: Stable Vault Incentives `0x4cc755fBFAE135933b64865E7D7Ea6ae778A4D43`
 - Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Ethereum_July2026FundingUpdate_20260715.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Arbitrum_July2026FundingUpdate_20260715.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Base_July2026FundingUpdate_20260715.sol), [AaveV3Gnosis](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Gnosis_July2026FundingUpdate_20260715.sol),[AaveV3Sonic](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Sonic_July2026FundingUpdate_20260715.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Plasma_July2026FundingUpdate_20260715.sol)
 - Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Ethereum_July2026FundingUpdate_20260715.t.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Arbitrum_July2026FundingUpdate_20260715.t.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Base_July2026FundingUpdate_20260715.t.sol), [AaveV3Gnosis](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Gnosis_July2026FundingUpdate_20260715.t.sol),[AaveV3Sonic](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Sonic_July2026FundingUpdate_20260715.t.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/dc5eb0b8d5086a02c5a4643cbc7e66485c286755/src/20260715_Multi_July2026FundingUpdate/AaveV3Plasma_July2026FundingUpdate_20260715.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-july-2026-funding-update/25277)
-- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2f86020fc038694a5c4738e3982e4fa92eb315aaa4d3ce2fa2be2a5808a9280b)
+- Snapshot: Direct-to-AIP
 
 ## Copyright
 
