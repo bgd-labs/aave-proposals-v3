@@ -53,8 +53,12 @@ export async function promptHubAssetListing(
   if (withTokenization) {
     const hubName = hubDisplayName(entity.hub);
     const symbol = await readErc20Symbol(m, entity.underlyingAddress);
+    // the preset caps a non-borrowable asset's wrapper at 0, so there is nothing to collect
+    const addCap = nonBorrowable
+      ? '0'
+      : (await numberPrompt({message: 'TokenizationSpoke addCap (whole units)'})) || '0';
     tokenization = {
-      addCap: (await numberPrompt({message: 'TokenizationSpoke addCap (whole units)'})) || '0',
+      addCap,
       proxyAdminOwner: await promptProxyAdminOwner(m),
       // an empty name reverts the deployment in HubEngine._deployAndRegisterTokenizationSpoke
       name: await input({
