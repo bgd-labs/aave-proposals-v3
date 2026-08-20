@@ -5,10 +5,10 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {UmbrellaEthereum, UmbrellaEthereumAssets} from 'aave-address-book/UmbrellaEthereum.sol';
+import {IUmbrella} from 'aave-address-book/common/IUmbrella.sol';
 
 import 'forge-std/Test.sol';
 import {IStakeToken} from '../interfaces/IStakeToken.sol';
-import {IUmbrella} from '../interfaces/IUmbrella.sol';
 import {RiskStewardCooldownReductionBaseTest} from './RiskStewardCooldownReductionBaseTest.sol';
 import {AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720} from './AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassignment_20260720.sol';
 
@@ -44,7 +44,7 @@ contract AaveV3Ethereum_RiskStewardsCooldownReductionAndUmbrellaPauserRoleReassi
   }
 
   function test_umbrellaPauseGuardianRole() public {
-    IUmbrella umbrella = IUmbrella(address(UmbrellaEthereum.UMBRELLA));
+    IUmbrella umbrella = UmbrellaEthereum.UMBRELLA;
     bytes32 pauseGuardianRole = umbrella.PAUSE_GUARDIAN_ROLE();
 
     assertFalse(umbrella.hasRole(pauseGuardianRole, MiscEthereum.PROTOCOL_GUARDIAN));
