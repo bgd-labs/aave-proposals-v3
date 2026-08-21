@@ -37,7 +37,6 @@ actions[0] = GovV3Helpers.buildAction(payloadB);
 GovV3Helpers.createPayload(actions);
 ```
 
-- Separate governance proposals also separate voting and scheduling.
 - Recommend based on dependency and failure isolation, then ask when no choice was given.
 
 ## Reuse contract surfaces
