@@ -23,7 +23,7 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
   AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68513090);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68548250);
     proposal = new AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811();
   }
 

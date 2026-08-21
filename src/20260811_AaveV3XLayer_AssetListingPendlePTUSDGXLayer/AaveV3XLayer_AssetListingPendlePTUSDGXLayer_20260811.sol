@@ -19,7 +19,7 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 is AaveV3PayloadXL
 
   // https://www.oklink.com/xlayer/address/0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362
   address public constant PT_USDG_29OCT2026 = 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362;
-  uint256 public constant PT_USDG_29OCT2026_SEED_AMOUNT = 10e6;
+  uint256 public constant PT_USDG_29OCT2026_SEED_AMOUNT = 100e6;
   // https://www.oklink.com/x-layer/address/0x6052839E52ab454F164ee5668e5B523cF5A389Fc
   address public constant PT_USDG_29OCT2026_PRICE_FEED = 0x6052839E52ab454F164ee5668e5B523cF5A389Fc;
 
