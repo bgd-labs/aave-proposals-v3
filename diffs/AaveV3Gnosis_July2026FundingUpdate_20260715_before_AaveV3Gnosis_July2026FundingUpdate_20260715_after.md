@@ -1,0 +1,41 @@
+## Event logs
+
+#### 0xEdBC7449a9b594CA4E053D9737EC5Dc4CbCcBfb2 (AaveV3Gnosis.ASSETS.EURe.A_TOKEN)
+
+| index | event |
+| --- | --- |
+| 0 | Approval(owner: 0x3e652E97ff339B73421f824F5b03d75b62F1Fb51, spender: 0xdef1FA4CEfe67365ba046a7C630D6B885298E210, value: 0 [0, 18 decimals]) |
+
+#### 0x1dF462e2712496373A347f8ad10802a5E95f053D (AaveV3Gnosis.ACL_ADMIN, GovernanceV3Gnosis.EXECUTOR_LVL_1)
+
+| index | event |
+| --- | --- |
+| 1 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1784201585, withDelegatecall: true, resultData: 0x) |
+
+#### 0x9A1F491B86D09fC1484b5fab10041B189B60756b (GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
+
+| index | event |
+| --- | --- |
+| 2 | PayloadExecuted(payloadId: 81) |
+
+## Raw storage changes
+
+### 0x9a1f491b86d09fc1484b5fab10041b189b60756b (GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x0cc2e7a263101f3ec4cff7d64ef5961ae18d1d70e854cb40c5302bf7c043d7b9 | 0x006a58c170000000000002000000000000000000000000000000000000000000 | 0x006a58c170000000000003000000000000000000000000000000000000000000 |
+| 0x0cc2e7a263101f3ec4cff7d64ef5961ae18d1d70e854cb40c5302bf7c043d7ba | 0x000000000000000000093a800000000000006a86e5f100000000000000000000 | 0x000000000000000000093a800000000000006a86e5f10000000000006a58c171 |
+
+### 0xedbc7449a9b594ca4e053d9737ec5dc4cbccbfb2 (AaveV3Gnosis.ASSETS.EURe.A_TOKEN)
+
+| slot | previous value | new value |
+| --- | --- | --- |
+| 0x26254d1fd6f33309b8b2e2c70655e82d797daad8b1d0b4665f0d822c59a8cad0 | 0x00000000000000000000000000000000000000000000032d26d12e980b600000 | 0x0000000000000000000000000000000000000000000000000000000000000000 |
+
+
+## Raw diff
+
+```json
+{}
+```
