@@ -1,5 +1,5 @@
 ---
-title: "Aave V3 X Layer – USDC Listing"
+title: "Onboard USDC to Aave V3 X Layer"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-asset-listing-usdc-x-layer/25467"
 ---

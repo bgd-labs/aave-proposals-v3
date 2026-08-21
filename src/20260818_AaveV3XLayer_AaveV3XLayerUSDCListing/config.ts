@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     configFile: 'src/20260818_AaveV3XLayer_AaveV3XLayerUSDCListing/config.ts',
     markets: ['AaveV3XLayer'],
-    title: 'Aave V3 X Layer – USDC Listing',
+    title: 'Onboard USDC to Aave V3 X Layer',
     shortName: 'AaveV3XLayerUSDCListing',
     date: '20260818',
     author: '@TokenLogic',
@@ -69,7 +69,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 68491480},
+      cache: {blockNumber: 68550680},
     },
   },
 };

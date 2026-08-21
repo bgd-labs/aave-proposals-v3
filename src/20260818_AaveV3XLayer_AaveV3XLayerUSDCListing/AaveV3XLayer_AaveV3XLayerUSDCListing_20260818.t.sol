@@ -19,7 +19,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68491480);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68550680);
     proposal = new AaveV3XLayer_AaveV3XLayerUSDCListing_20260818();
   }
 
