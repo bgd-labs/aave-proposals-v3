@@ -31,4 +31,9 @@ interface IPendlePriceCapAdapter {
    * @notice Asset maturity timestamp
    */
   function MATURITY() external view returns (uint256);
+
+  /**
+   * @notice Pendle principal token priced by the adapter
+   */
+  function PENDLE_PRINCIPAL_TOKEN() external view returns (address);
 }

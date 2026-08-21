@@ -58,7 +58,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 68395000},
+      cache: {blockNumber: 68513090},
     },
   },
 };

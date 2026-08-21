@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3XLayer, AaveV3XLayerAssets} from 'aave-address-book/AaveV3XLayer.sol';
-import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -14,6 +13,7 @@ import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811} from './AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811.sol';
+import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
 
 /**
  * @dev Test for AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811
@@ -23,13 +23,8 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
   AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68395000);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68513090);
     proposal = new AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811();
-    deal(
-      proposal.PT_USDG_29OCT2026(),
-      GovernanceV3XLayer.EXECUTOR_LVL_1,
-      proposal.PT_USDG_29OCT2026_SEED_AMOUNT()
-    );
   }
 
   /**
@@ -73,6 +68,31 @@ contract AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811_Test is ProtocolV3
     uint256 price = AaveV3XLayer.ORACLE.getAssetPrice(proposal.PT_USDG_29OCT2026());
     assertGt(price, 0.9e8, 'PT-USDG price should be within a sane discount band');
     assertLt(price, 1e8, 'PT-USDG should price below par (1 USD) before maturity');
+
+    IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(
+      proposal.PT_USDG_29OCT2026_PRICE_FEED()
+    );
+    assertEq(
+      adapter.discountRatePerYear(),
+      0.03106e18,
+      'initial discount rate should be 3.106% per LlamaRisk'
+    );
+    assertEq(
+      adapter.MAX_DISCOUNT_RATE_PER_YEAR(),
+      0.1108e18,
+      'max discount rate should be 11.080% per LlamaRisk'
+    );
+    assertEq(adapter.MATURITY(), 1793232000, 'maturity should be 29 October 2026 UTC');
+    assertEq(
+      adapter.PENDLE_PRINCIPAL_TOKEN(),
+      proposal.PT_USDG_29OCT2026(),
+      'oracle should price the listed PT'
+    );
+    assertEq(
+      adapter.ASSET_TO_USD_AGGREGATOR(),
+      AaveV3XLayerAssets.USDG_ORACLE,
+      'underlying aggregator should be the Capped USDG/USD feed'
+    );
   }
 
   function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {

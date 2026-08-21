@@ -55,6 +55,14 @@ The table below illustrates the configured risk parameters for **PT_USDG_29OCT20
 | Flashloanable             |                                                                                                                             Yes |
 | Oracle                    | [0x6052839E52ab454F164ee5668e5B523cF5A389Fc](https://www.oklink.com/x-layer/address/0x6052839E52ab454F164ee5668e5B523cF5A389Fc) |
 
+**Linear Discount Rate Oracle**
+
+| Parameter                  | Value                                                                                                                           |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| initialDiscountRatePerYear | 3.106%                                                                                                                          |
+| maxDiscountRatePerYear     | 11.080%                                                                                                                         |
+| Oracle                     | [0x6052839E52ab454F164ee5668e5B523cF5A389Fc](https://www.oklink.com/x-layer/address/0x6052839E52ab454F164ee5668e5B523cF5A389Fc) |
+
 ## References
 
 - Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260811_AaveV3XLayer_AssetListingPendlePTUSDGXLayer/AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811.sol)
