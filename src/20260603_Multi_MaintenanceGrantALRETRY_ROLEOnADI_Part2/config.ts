@@ -2,7 +2,6 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     markets: [
-      'AaveV3ZkSync',
       'AaveV3Linea',
       'AaveV3Celo',
       'AaveV3Sonic',
@@ -23,7 +22,6 @@ export const config: ConfigFile = {
     votingNetwork: 'AVALANCHE',
   },
   marketOptions: {
-    AaveV3ZkSync: {configs: {OTHERS: {}}, cache: {blockNumber: 70419537}},
     AaveV3Linea: {configs: {OTHERS: {}}, cache: {blockNumber: 31054604}},
     AaveV3Celo: {configs: {OTHERS: {}}, cache: {blockNumber: 69723976}},
     AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 74071830}},

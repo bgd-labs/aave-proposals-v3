@@ -220,26 +220,16 @@ contract DeployInk is InkScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](9);
 
     // compose actions for validation
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2'
-      );
-      payloads[0] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
-    }
-
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsLinea[0] = GovV3Helpers.buildAction(
         type(AaveV3Linea_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[1] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+      payloads[0] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
@@ -248,7 +238,7 @@ contract CreateProposal is EthereumScript {
       actionsCelo[0] = GovV3Helpers.buildAction(
         type(AaveV3Celo_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[2] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+      payloads[1] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
     }
 
     {
@@ -257,7 +247,7 @@ contract CreateProposal is EthereumScript {
       actionsSonic[0] = GovV3Helpers.buildAction(
         type(AaveV3Sonic_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[3] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+      payloads[2] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
     }
 
     {
@@ -266,7 +256,7 @@ contract CreateProposal is EthereumScript {
       actionsSoneium[0] = GovV3Helpers.buildAction(
         type(AaveV3Soneium_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[4] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
+      payloads[3] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
     }
 
     {
@@ -275,7 +265,7 @@ contract CreateProposal is EthereumScript {
       actionsPlasma[0] = GovV3Helpers.buildAction(
         type(AaveV3Plasma_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[5] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[4] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     {
@@ -284,7 +274,7 @@ contract CreateProposal is EthereumScript {
       actionsMantle[0] = GovV3Helpers.buildAction(
         type(AaveV3Mantle_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[6] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
+      payloads[5] = GovV3Helpers.buildMantlePayload(vm, actionsMantle);
     }
 
     {
@@ -293,7 +283,7 @@ contract CreateProposal is EthereumScript {
       actionsMegaEth[0] = GovV3Helpers.buildAction(
         type(AaveV3MegaEth_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[7] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
+      payloads[6] = GovV3Helpers.buildMegaEthPayload(vm, actionsMegaEth);
     }
 
     {
@@ -302,7 +292,7 @@ contract CreateProposal is EthereumScript {
       actionsXLayer[0] = GovV3Helpers.buildAction(
         type(AaveV3XLayer_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[8] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
+      payloads[7] = GovV3Helpers.buildXLayerPayload(vm, actionsXLayer);
     }
 
     {
@@ -311,7 +301,7 @@ contract CreateProposal is EthereumScript {
       actionsInk[0] = GovV3Helpers.buildAction(
         type(AaveV3InkWhitelabel_MaintenanceGrantALRETRY_ROLEOnADI_20260603_Part2).creationCode
       );
-      payloads[9] = GovV3Helpers.buildInkPayload(vm, actionsInk);
+      payloads[8] = GovV3Helpers.buildInkPayload(vm, actionsInk);
     }
 
     // create proposal
