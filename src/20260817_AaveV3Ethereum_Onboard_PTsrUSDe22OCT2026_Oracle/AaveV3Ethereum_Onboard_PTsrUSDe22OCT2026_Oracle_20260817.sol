@@ -15,16 +15,6 @@ import {AgentHubAgentActivationPayload} from '../helpers/agent-hub/AgentHubAgent
 contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
   AgentHubAgentActivationPayload
 {
-  /// @dev Predeployed LlamaRisk RiskOracle shared by the PT oracle agents. The agents read their
-  ///      update records from this contract.
-  address public constant LLAMARISK_RISK_ORACLE = 0x8346170dcE5455A1205f55A0b5448E67e42CD270;
-
-  // https://etherscan.io/address/0xa142d56b1b77cafdf3a6cca885b471483a56551e
-  address public constant DISCOUNT_RATE_AGENT = 0xA142d56B1b77CAfdf3A6cCA885B471483A56551e;
-
-  // https://etherscan.io/address/0x5100392fcdb4515f53af2056bdf3887a85b7a8d9
-  address public constant EMODE_AGENT = 0x5100392FCDB4515F53AF2056bDf3887A85b7a8d9;
-
   /// @dev Governance executor authorized to manage the registered agents' configuration.
   address public constant AGENT_ADMIN = GovernanceV3Ethereum.EXECUTOR_LVL_1;
 
@@ -37,10 +27,10 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
       agentHub: MiscEthereum.AGENT_HUB,
       rangeValidationModule: MiscEthereum.RANGE_VALIDATION_MODULE,
       agentAdmin: AGENT_ADMIN,
-      riskOracle: LLAMARISK_RISK_ORACLE
+      riskOracle: MiscEthereum.LLAMARISK_RISK_ORACLE
     });
 
-    address discountRateAgent = DISCOUNT_RATE_AGENT;
+    address discountRateAgent = MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT;
 
     address[] memory ptMarkets = new address[](1);
     ptMarkets[0] = AaveV3EthereumAssets.PT_srUSDe_22OCT2026_UNDERLYING;
@@ -57,7 +47,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
       })
     );
 
-    address eModeAgent = EMODE_AGENT;
+    address eModeAgent = MiscEthereum.LLAMARISK_PT_EMODE_AGENT;
 
     address[] memory eModeMarkets = new address[](2);
     // The AgentHub represents eMode category ids as address values.

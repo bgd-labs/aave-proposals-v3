@@ -25,10 +25,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
   uint256 internal discountAgentId;
   uint256 internal eModeAgentId;
 
-  uint256 internal constant FORK_BLOCK = 25789439;
-
-  // https://etherscan.io/address/0xe2c9b46353d1ed959caa91369b853d84b616a0fd
-  address internal constant LLAMAGUARD_ROUTER = 0xE2c9B46353D1ED959caA91369b853D84b616A0Fd;
+  uint256 internal constant FORK_BLOCK = 25803800;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
@@ -77,11 +74,17 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
   ///      registers their addresses in the AgentHub.
   function test_agentsPredeployedAndWired() public {
     IAgentHub hub = IAgentHub(MiscEthereum.AGENT_HUB);
-    IAaveDiscountRateAgent discountAgent = IAaveDiscountRateAgent(proposal.DISCOUNT_RATE_AGENT());
-    IBaseAaveAgent eModeAgent = IBaseAaveAgent(proposal.EMODE_AGENT());
+    IAaveDiscountRateAgent discountAgent = IAaveDiscountRateAgent(
+      MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT
+    );
+    IBaseAaveAgent eModeAgent = IBaseAaveAgent(MiscEthereum.LLAMARISK_PT_EMODE_AGENT);
 
-    assertGt(proposal.DISCOUNT_RATE_AGENT().code.length, 0, 'discount agent has no code');
-    assertGt(proposal.EMODE_AGENT().code.length, 0, 'eMode agent has no code');
+    assertGt(
+      MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT.code.length,
+      0,
+      'discount agent has no code'
+    );
+    assertGt(MiscEthereum.LLAMARISK_PT_EMODE_AGENT.code.length, 0, 'eMode agent has no code');
 
     assertEq(discountAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
     assertEq(discountAgent.RANGE_VALIDATION_MODULE(), MiscEthereum.RANGE_VALIDATION_MODULE);
@@ -96,8 +99,8 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
 
     executePayload(vm, address(proposal));
 
-    assertEq(hub.getAgentAddress(discountAgentId), proposal.DISCOUNT_RATE_AGENT());
-    assertEq(hub.getAgentAddress(eModeAgentId), proposal.EMODE_AGENT());
+    assertEq(hub.getAgentAddress(discountAgentId), MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
+    assertEq(hub.getAgentAddress(eModeAgentId), MiscEthereum.LLAMARISK_PT_EMODE_AGENT);
     assertEq(discountAgent.getUpdateType(), hub.getUpdateType(discountAgentId));
     assertEq(eModeAgent.getUpdateType(), hub.getUpdateType(eModeAgentId));
   }
@@ -112,10 +115,10 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
 
     // Discount agent
     assertTrue(hub.isAgentEnabled(discountAgentId), 'discount agent not enabled');
-    assertEq(hub.getRiskOracle(discountAgentId), proposal.LLAMARISK_RISK_ORACLE());
+    assertEq(hub.getRiskOracle(discountAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(discountAgentId), proposal.DISCOUNT_UPDATE_TYPE());
     assertEq(hub.getAgentAdmin(discountAgentId), GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    assertEq(hub.getAgentAddress(discountAgentId), proposal.DISCOUNT_RATE_AGENT());
+    assertEq(hub.getAgentAddress(discountAgentId), MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
     assertEq(hub.getExpirationPeriod(discountAgentId), proposal.DISCOUNT_EXPIRATION_PERIOD());
     assertEq(hub.getMinimumDelay(discountAgentId), proposal.DISCOUNT_MINIMUM_DELAY());
     assertEq(hub.getAgentContext(discountAgentId), bytes(''));
@@ -130,10 +133,10 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
 
     // eMode agent
     assertTrue(hub.isAgentEnabled(eModeAgentId), 'eMode agent not enabled');
-    assertEq(hub.getRiskOracle(eModeAgentId), proposal.LLAMARISK_RISK_ORACLE());
+    assertEq(hub.getRiskOracle(eModeAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(eModeAgentId), proposal.EMODE_UPDATE_TYPE());
     assertEq(hub.getAgentAdmin(eModeAgentId), GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    assertEq(hub.getAgentAddress(eModeAgentId), proposal.EMODE_AGENT());
+    assertEq(hub.getAgentAddress(eModeAgentId), MiscEthereum.LLAMARISK_PT_EMODE_AGENT);
     assertEq(hub.getExpirationPeriod(eModeAgentId), proposal.EMODE_EXPIRATION_PERIOD());
     assertEq(hub.getMinimumDelay(eModeAgentId), proposal.EMODE_MINIMUM_DELAY());
     assertFalse(hub.isAgentPermissioned(eModeAgentId));
@@ -295,8 +298,8 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     address market,
     bytes memory newValue
   ) internal {
-    IRiskOracle riskOracle = IRiskOracle(proposal.LLAMARISK_RISK_ORACLE());
-    vm.prank(LLAMAGUARD_ROUTER);
+    IRiskOracle riskOracle = IRiskOracle(MiscEthereum.LLAMARISK_RISK_ORACLE);
+    vm.prank(MiscEthereum.LLAMARISK_RISK_ORACLE_ROUTER);
     riskOracle.publishRiskParameterUpdate('e2e-test', newValue, updateType, market, bytes(''));
   }
 }
