@@ -11,13 +11,32 @@ Apply only the guidance relevant to the current task. Surface hidden tradeoffs a
 
 - Compare the forum, deployments, config, payloads, tests, and Markdown; surface every mismatch.
 - Check every address-book address against addresses explicitly named in the forum. If they differ, identify the correct target and tell the user to coordinate a forum amendment before syncing code and Markdown.
-- Treat any implementation argument or configuration choice absent from the specification as an unresolved requirement. Surface it, explain its consequences, and ask the writer to amend the specification before choosing a value.
-- For multichain scope, list active chains separately from relevant deprecated, legacy, or partial deployments, including module availability and consequences, then ask which to include.
+- Treat any function argument passed by the implementation but absent from the specification as an unresolved requirement. Surface it, explain its consequences, and ask the writer to amend the specification before choosing a value.
+- For multichain scope, start from the set used by the Risk Stewards AIP: Ethereum (Core, Lido, and EtherFi), Polygon, Avalanche, Arbitrum, Optimism, Base, Gnosis, BNB Chain, Scroll, Linea, Sonic, Celo, Mantle, Plasma, MegaETH, Monad, and X Layer. Check whether it has changed, list relevant deprecated, legacy, or partial deployments separately with their consequences, then ask which chains to include.
 
 ## Choose execution shape
 
-- One payload ID with multiple actions is ordered and atomic; prefer it for dependent actions.
-- Multiple payload IDs in one governance proposal are failure-isolated but not ordered; prefer them for independent modules.
+- One `createPayload` call with multiple actions creates one payload ID. Actions execute sequentially and atomically: one revert rolls back the whole payload. Prefer this for dependent actions.
+
+```solidity
+IPayloadsControllerCore.ExecutionAction[] memory actions =
+  new IPayloadsControllerCore.ExecutionAction[](2);
+actions[0] = GovV3Helpers.buildAction(payloadA);
+actions[1] = GovV3Helpers.buildAction(payloadB);
+GovV3Helpers.createPayload(actions);
+```
+
+- Separate `createPayload` calls create separate payload IDs. Their executions are failure-isolated and have no ordering guarantee, even when included in one governance proposal. Prefer this for independent actions.
+
+```solidity
+IPayloadsControllerCore.ExecutionAction[] memory actions =
+  new IPayloadsControllerCore.ExecutionAction[](1);
+actions[0] = GovV3Helpers.buildAction(payloadA);
+GovV3Helpers.createPayload(actions);
+actions[0] = GovV3Helpers.buildAction(payloadB);
+GovV3Helpers.createPayload(actions);
+```
+
 - Separate governance proposals also separate voting and scheduling.
 - Recommend based on dependency and failure isolation, then ask when no choice was given.
 
@@ -32,7 +51,7 @@ Apply only the guidance relevant to the current task. Surface hidden tradeoffs a
 
 ## Keep implementation focused
 
-- Keep NatSpec and inline comments to intent and non-obvious invariants; keep proposal narrative in Markdown.
+- Keep NatSpec and inline comments to intent and non-obvious invariants.
 
 ## Test behavior
 
