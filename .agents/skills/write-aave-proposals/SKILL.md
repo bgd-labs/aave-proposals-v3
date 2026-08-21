@@ -13,10 +13,11 @@ Help the user question the implementation and verify that it matches the proposa
 - Check every address-book address against addresses explicitly named in the forum. If they differ, identify the correct target and tell the user to coordinate a forum amendment before syncing code and Markdown.
 - Treat any function argument passed by the implementation but absent from the specification as an unresolved requirement. Surface it, explain its consequences, and ask the writer to amend the specification before choosing a value.
 - If any information appears outdated, explain what likely changed and ask the user before updating the source or implementation with current information.
-- For multichain scope, start from the Risk Stewards reference split and verify its current status:
-  - Active: Ethereum (Core and Lido), Polygon, Avalanche, Arbitrum, Optimism, Base, Gnosis, BNB Chain, Scroll, Linea, Sonic, Celo, Mantle, Plasma, MegaETH, Monad, and X Layer.
-  - Deprecated: Ethereum EtherFi, Metis, Soneium, and zkSync.
-    Explain the consequences and ask which deployments to include.
+- For multichain scope, use this baseline and verify its current status:
+  - V3 active: Ethereum (Core, Prime, and Horizon), Plasma, Avalanche, BNB Chain, Gnosis, Aptos, Sonic, Monad, Base, Arbitrum, Mantle, Ink, X Layer, Polygon, Linea, Optimism, MegaETH, and Celo.
+  - V3 deprecated (legacy): Scroll, zkSync, Soneium, Metis, and Ethereum EtherFi.
+  - V4 active: Ethereum and Avalanche. No V4 deployments are deprecated.
+- Treat any V3 deployment absent from the active list as deprecated. Explain the consequences and ask which deployments to include.
 
 ## Choose execution shape
 
