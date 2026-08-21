@@ -19,7 +19,9 @@ Help the user question the implementation and verify that it matches the proposa
   - V4 active: Ethereum and Avalanche. No V4 deployments are deprecated.
 - Treat any V3 deployment absent from the active list as deprecated. Explain the consequences and ask which deployments to include.
 
-## Choose execution shape
+## Bootstrap and choose custom execution shape
+
+Always bootstrap the proposal with the repository generator. If it has no premade setup for the required action, preserve the generated structure and build the custom implementation from it. For custom proposals, choose how to register multiple actions:
 
 - One `createPayload` call with multiple actions creates one payload ID. Actions execute sequentially and atomically: one revert rolls back the whole payload. Prefer this for dependent actions.
 
