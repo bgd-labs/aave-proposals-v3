@@ -5,7 +5,7 @@ description: Use automatically when creating, implementing, testing, documenting
 
 # Write Aave Proposals
 
-Apply only the guidance relevant to the current task. Surface hidden tradeoffs and recommendations; do not silently make material choices.
+Help the user question the implementation and verify that it matches the proposal's actual intent; do not put the agent on autopilot or impose opinionated choices.
 
 ## Reconcile scope
 
