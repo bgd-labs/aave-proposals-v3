@@ -11,6 +11,7 @@ Apply only the guidance relevant to the current task. Surface hidden tradeoffs a
 
 - Compare the forum, deployments, config, payloads, tests, and Markdown; surface every mismatch.
 - Check every address-book address against addresses explicitly named in the forum. If they differ, identify the correct target and tell the user to coordinate a forum amendment before syncing code and Markdown.
+- Identify implementation-significant choices the forum leaves unspecified, such as isolation mode, caps, or collateral settings. Explain the options and consequences, ask the writer to decide, and coordinate a forum amendment instead of inferring a default.
 - For multichain scope, list active chains separately from relevant deprecated, legacy, or partial deployments, including module availability and consequences, then ask which to include.
 
 ## Choose execution shape
