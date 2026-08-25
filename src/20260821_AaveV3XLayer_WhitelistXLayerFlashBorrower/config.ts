@@ -1,0 +1,20 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    configFile: 'flashborrower-config.ts',
+    markets: ['AaveV3XLayer'],
+    title: 'Whitelist X Layer Flash Borrower',
+    shortName: 'WhitelistXLayerFlashBorrower',
+    date: '20260821',
+    author: '@TokenLogic',
+    discussion: '',
+    snapshot: 'direct-to-aip',
+    votingNetwork: 'AVALANCHE',
+  },
+  marketOptions: {
+    AaveV3XLayer: {
+      configs: {FLASH_BORROWER: {address: '0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d'}},
+      cache: {blockNumber: 68557900},
+    },
+  },
+};
