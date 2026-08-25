@@ -65,8 +65,8 @@ The table below illustrates the configured risk parameters for **PT_USDG_29OCT20
 
 ## References
 
-- Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260811_AaveV3XLayer_AssetListingPendlePTUSDGXLayer/AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811.sol)
-- Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260811_AaveV3XLayer_AssetListingPendlePTUSDGXLayer/AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811.t.sol)
+- Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/119c1a2002533d1cc3ffc01b922125113f39e10c/src/20260811_AaveV3XLayer_AssetListingPendlePTUSDGXLayer/AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811.sol)
+- Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/119c1a2002533d1cc3ffc01b922125113f39e10c/src/20260811_AaveV3XLayer_AssetListingPendlePTUSDGXLayer/AaveV3XLayer_AssetListingPendlePTUSDGXLayer_20260811.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-pt-usdg-x-layer/25464)
 
