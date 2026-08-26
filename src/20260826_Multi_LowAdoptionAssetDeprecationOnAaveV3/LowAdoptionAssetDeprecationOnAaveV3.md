@@ -9,7 +9,7 @@ snapshot: "https://snapshot.org/#/aavedao.eth/proposal/0x4ec0c13baf55472ecd538a2
 
 LlamaRisk, together with the Aave service providers working on risk surface reduction, recommends offboarding a broad set of low-activity Aave V3 reserves along with six whole deployments. The following specification lists the current configuration of each reserve and the parameter changes required to wind it down.
 
-The individual removals cover 49 reserves and 21 matured Pendle PTs across eleven deployments, holding $80.1M of supply and $11.5M of debt. The whole-market deprecations add 25 reserves across Sonic, Scroll, zkSync, Metis, Soneium and Aptos, holding $12.8M of supply and $4.1M of debt. A large share of the set is already in motion, with borrowing disabled, reserves frozen, or caps already reduced to 1 on most of it.
+The individual removals cover 49 reserves and 21 matured Pendle PTs across eleven deployments, holding $80.1M of supply and $11.5M of debt. The whole-market deprecations add 29 reserves across Sonic, Scroll, zkSync, Metis, Soneium and Aptos, holding $12.8M of supply and $4.1M of debt. A large share of the set is already in motion, with borrowing disabled, reserves frozen, or caps already reduced to 1 on most of it.
 
 A further set of V3 reserves flagged for Chainlink price feed risk is being offboarded through the [companion oracle deprecation ARFC](https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400). Those reserves receive a freeze, caps of 1 and a fixed-price oracle there, so they are listed in the cross-reference section below and excluded from the tables and specification of this document.
 
