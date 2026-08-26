@@ -63,7 +63,7 @@ USDm on Celo and SCR on Scroll are also covered by the oracle deprecation ARFC. 
 
 #### Ethereum Core
 
-The Ethereum Core scope is dominated by FBTC, a BTC liquid-staking wrapper holding about $11.1M of supply against $63k of borrowing. It was listed for collateral demand that has not materialised at scale, and its supplied balance has fallen from roughly $38.9M over the past six months as depositors migrated out. CRV and UNI carry the largest remaining borrow balances in scope, with supply roughly halving over the same window, CRV from $4.2M to $2.2M and UNI from $4.1M to $1.7M. The remainder is a long tail of reserves below $250k, most of them already frozen, borrow-disabled or capped to 1, where this proposal formalises a wind-down that is already underway.
+The Ethereum Core scope is dominated by BTC liquid-staking wrapper FBTC, which holds $11.1M of supply against $63k of borrowing. CRV and UNI carry the largest remaining borrow balances in scope, with supply roughly halving over the same window, CRV from $4.2M to $2.2M and UNI from $4.1M to $1.7M. The remainder is a long tail of reserves below $250k, most of them already frozen, borrow-disabled or capped to 1, where this proposal formalises a wind-down that is already underway.
 
 | Asset            | Supplied | Borrowed |  RF | State                                    | Borrowable | Collateral       | Reason           | Next steps                                        |
 | ---------------- | -------: | -------: | --: | ---------------------------------------- | ---------- | ---------------- | ---------------- | ------------------------------------------------- |
