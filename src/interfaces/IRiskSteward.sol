@@ -60,6 +60,8 @@ interface IRiskSteward {
 
   function getRiskConfig() external view returns (Config memory);
 
+  function setRiskConfig(Config memory riskConfig) external;
+
   function setAddressRestricted(address contractAddress, bool isRestricted) external;
 
   function isAddressRestricted(address contractAddress) external view returns (bool);
