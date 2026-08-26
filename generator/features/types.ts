@@ -241,7 +241,7 @@ export interface V4SpokeReserveListing {
   spoke: string;
   hub: string;
   underlying: string;
-  priceSource: string;
+  priceSource: Hex;
   config: V4ReserveConfig;
   dynamicConfig: V4DynamicReserveConfig;
 }

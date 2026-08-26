@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumSpokes, AaveV4EthereumAssets, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
@@ -312,7 +312,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
           IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB)).getAssetId(proposal.PAXG())
         )
       ),
-      AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_XAUt_PRICE_FEED,
+      proposal.GOLD_SPOKE_PAXG_PRICE_FEED(),
       'PAXG price source mismatch'
     );
     assertEq(
@@ -324,7 +324,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
           )
         )
       ),
-      AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_USDG_PRICE_FEED,
+      proposal.GOLD_SPOKE_USDG_PRICE_FEED(),
       'USDG price source mismatch'
     );
   }
@@ -342,7 +342,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
           )
         )
       ),
-      AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_USDG_PRICE_FEED,
+      proposal.USDG_PENDLE_SPOKE_USDG_PRICE_FEED(),
       'USDG price source mismatch'
     );
   }
@@ -457,11 +457,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(items[0].spoke, address(AaveV4EthereumSpokes.GOLD_SPOKE), 'spoke');
     assertEq(items[0].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
     assertEq(items[0].underlying, proposal.PAXG(), 'underlying');
-    assertEq(
-      items[0].priceSource,
-      AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_XAUt_PRICE_FEED,
-      'priceSource'
-    );
+    assertEq(items[0].priceSource, proposal.GOLD_SPOKE_PAXG_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[0].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[0].config.paused, false, 'paused');
     assertEq(items[0].config.frozen, false, 'frozen');
@@ -473,11 +469,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(items[1].spoke, address(AaveV4EthereumSpokes.GOLD_SPOKE), 'spoke');
     assertEq(items[1].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
     assertEq(items[1].underlying, address(AaveV4EthereumAssets.USDG_UNDERLYING), 'underlying');
-    assertEq(
-      items[1].priceSource,
-      AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_USDG_PRICE_FEED,
-      'priceSource'
-    );
+    assertEq(items[1].priceSource, proposal.GOLD_SPOKE_USDG_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[1].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[1].config.paused, false, 'paused');
     assertEq(items[1].config.frozen, false, 'frozen');
@@ -489,11 +481,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(items[2].spoke, address(AaveV4EthereumSpokes.USDG_PENDLE_SPOKE), 'spoke');
     assertEq(items[2].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
     assertEq(items[2].underlying, address(AaveV4EthereumAssets.USDG_UNDERLYING), 'underlying');
-    assertEq(
-      items[2].priceSource,
-      AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_USDG_PRICE_FEED,
-      'priceSource'
-    );
+    assertEq(items[2].priceSource, proposal.USDG_PENDLE_SPOKE_USDG_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[2].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[2].config.paused, false, 'paused');
     assertEq(items[2].config.frozen, false, 'frozen');

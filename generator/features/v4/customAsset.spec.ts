@@ -12,7 +12,6 @@ const ADDR = '0x2222222222222222222222222222222222222222';
 // lower-cased input to assert checksumming + identifier derivation
 const CUSTOM = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48';
 const CUSTOM_CHECKSUMMED = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
-const PRICE_FEED = 'AaveV4EthereumSpokePriceFeeds.MAIN_SPOKE_USDC_PRICE_FEED';
 
 const OPTS: Options = {
   markets: ['AaveV4Ethereum'],
@@ -110,36 +109,5 @@ describe('listing a custom ERC20 address', () => {
     expect(out.test!.fn!.join('\n')).toContain(
       'test_spokeReserveListing_MAIN_SPOKE_CUSTOM_3606EB48',
     );
-  });
-
-  it('spokeReserveListing preserves an address-book price-source expression', () => {
-    const cfg: V4SpokeReserveListing[] = [
-      {
-        spokeLib: SPOKE,
-        spoke: SPOKE,
-        hub: HUB,
-        underlying: 'AaveV4EthereumAssets.USDC_UNDERLYING',
-        priceSource: PRICE_FEED,
-        config: {
-          collateralRisk: '0',
-          paused: false,
-          frozen: false,
-          borrowable: true,
-          receiveSharesEnabled: true,
-        },
-        dynamicConfig: {
-          collateralFactor: '8000',
-          maxLiquidationBonus: '500',
-          liquidationFee: '100',
-        },
-      },
-    ];
-    const out = spokeReserveListing.build({...ctx, cfg});
-    expect(out.code!.constants).toEqual([]);
-    expect(out.code!.v4Getters!.spokeReserveListings.entries[0]).toContain(
-      `priceSource: ${PRICE_FEED}`,
-    );
-    expect(out.code!.v4Getters!.spokeReserveListings.inputAsserts![0]).toContain(PRICE_FEED);
-    expect(out.test!.fn!.join('\n')).toContain(PRICE_FEED);
   });
 });
