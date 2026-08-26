@@ -37,7 +37,7 @@ export const config: ConfigFile = {
               spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
               hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
               underlying: 'PAXG',
-              priceSource: '0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6',
+              priceSource: 'AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_XAUt_PRICE_FEED',
               config: {
                 collateralRisk: '0',
                 paused: false,
@@ -56,7 +56,7 @@ export const config: ConfigFile = {
               spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
               hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
               underlying: 'AaveV4EthereumAssets.USDG_UNDERLYING',
-              priceSource: '0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4',
+              priceSource: 'AaveV4EthereumSpokePriceFeeds.GOLD_SPOKE_USDG_PRICE_FEED',
               config: {
                 collateralRisk: '0',
                 paused: false,
@@ -75,7 +75,7 @@ export const config: ConfigFile = {
               spoke: 'AaveV4EthereumSpokes.USDG_PENDLE_SPOKE',
               hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
               underlying: 'AaveV4EthereumAssets.USDG_UNDERLYING',
-              priceSource: '0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4',
+              priceSource: 'AaveV4EthereumSpokePriceFeeds.USDG_PENDLE_SPOKE_USDG_PRICE_FEED',
               config: {
                 collateralRisk: '0',
                 paused: false,

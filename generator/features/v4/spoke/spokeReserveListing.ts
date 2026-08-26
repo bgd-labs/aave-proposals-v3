@@ -1,4 +1,5 @@
 import {confirm} from '@inquirer/prompts';
+import {Hex, isHex} from 'viem';
 import {CodeArtifact, FEATURE, FeatureModule, MarketIdentifierV4} from '../../../types';
 import {V4SpokeReserveListing} from '../../types';
 import {percentPrompt} from '../../../prompts/percentPrompt';
@@ -70,16 +71,28 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
     return response;
   },
   build({market, cfg}) {
-    const constants = cfg.map((c) =>
-      buildAddressConstant(market, priceFeedConstantName(c.spoke, c.underlying), c.priceSource),
-    );
-    const entries = cfg.map(
-      (c) => `items[__INDEX__] = IConfigEngine.ReserveListing({
+    const constants: string[] = [];
+    const prepared = cfg.map((c) => {
+      const priceSourceIsHex = isHex(c.priceSource) && c.priceSource.length === 42;
+      const priceSourceName = priceFeedConstantName(c.spoke, c.underlying);
+      if (priceSourceIsHex) {
+        constants.push(buildAddressConstant(market, priceSourceName, c.priceSource as Hex));
+      }
+      return {
+        c,
+        priceSourceRef: priceSourceIsHex ? priceSourceName : checksumAddress(c.priceSource),
+        priceSourceTestRef: priceSourceIsHex
+          ? `proposal.${priceSourceName}()`
+          : checksumAddress(c.priceSource),
+      };
+    });
+    const entries = prepared.map(
+      ({c, priceSourceRef}) => `items[__INDEX__] = IConfigEngine.ReserveListing({
         spokeConfigurator: ${market}.SPOKE_CONFIGURATOR,
         spoke: ${wrapAddress(c.spoke)},
         hub: ${wrapAddress(c.hub)},
         underlying: ${checksumAddress(c.underlying)},
-        priceSource: ${priceFeedConstantName(c.spoke, c.underlying)},
+        priceSource: ${priceSourceRef},
         config: ISpoke.ReserveConfig({
           collateralRisk: uint24(${percentToBps(c.config.collateralRisk)}),
           paused: ${c.config.paused},
@@ -94,12 +107,12 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         })
       });`,
     );
-    const inputAsserts = cfg.map((c) =>
+    const inputAsserts = prepared.map(({c, priceSourceTestRef}) =>
       [
         `assertEq(items[__INDEX__].spoke, ${testAddressRef(c.spoke)}, 'spoke');`,
         `assertEq(items[__INDEX__].hub, ${wrapAddress(c.hub)}, 'hub');`,
         `assertEq(items[__INDEX__].underlying, ${testAddressRef(c.underlying)}, 'underlying');`,
-        `assertEq(items[__INDEX__].priceSource, proposal.${priceFeedConstantName(c.spoke, c.underlying)}(), 'priceSource');`,
+        `assertEq(items[__INDEX__].priceSource, ${priceSourceTestRef}, 'priceSource');`,
         `assertEq(uint256(items[__INDEX__].config.collateralRisk), ${percentToBps(c.config.collateralRisk)}, 'collateralRisk');`,
         `assertEq(items[__INDEX__].config.paused, ${c.config.paused}, 'paused');`,
         `assertEq(items[__INDEX__].config.frozen, ${c.config.frozen}, 'frozen');`,
@@ -110,7 +123,7 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
         `assertEq(uint256(items[__INDEX__].dynamicConfig.liquidationFee), ${percentToBps(c.dynamicConfig.liquidationFee)}, 'liquidationFee');`,
       ].join('\n        '),
     );
-    const testFns = cfg.map((c) => {
+    const testFns = prepared.map(({c}) => {
       const spokeKey = accessorIdentifier(c.spoke);
       const assetKey = assetIdentifier(c.underlying);
       const underlying = testAddressRef(c.underlying);
@@ -140,12 +153,12 @@ export const spokeReserveListing: FeatureModule<V4SpokeReserveListing[]> = {
     // One price-source test per spoke, reading back through the spoke's own oracle.
     const spokes = [...new Set(cfg.map((c) => c.spoke))];
     const priceSourceTests = spokes.map((s) => {
-      const asserts = cfg
-        .filter((c) => c.spoke === s)
+      const asserts = prepared
+        .filter(({c}) => c.spoke === s)
         .map(
-          (c) => `assertEq(
+          ({c, priceSourceTestRef}) => `assertEq(
             oracle.getReserveSource(spoke.getReserveId(${wrapAddress(c.hub)}, IHub(${wrapAddress(c.hub)}).getAssetId(${testAddressRef(c.underlying)}))),
-            proposal.${priceFeedConstantName(c.spoke, c.underlying)}(),
+            ${priceSourceTestRef},
             '${assetIdentifier(c.underlying)} price source mismatch'
           );`,
         );
