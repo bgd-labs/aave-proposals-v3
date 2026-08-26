@@ -38,8 +38,8 @@
     "vitest": "^4.0.0"
   },
   "dependencies": {
-    "@aave-dao/aave-address-book": "^4.65.6",
-    "@aave-dao/aave-helpers-js": "^1.4.1",
+    "@aave-dao/aave-address-book": "^4.66.0",
+    "@aave-dao/aave-helpers-js": "^1.4.2",
     "@aave-dao/toolbox": "^0.5.1",
     "@inquirer/core": "^11.0.0",
     "@inquirer/prompts": "^8.0.0",
