@@ -23,8 +23,8 @@ export const config: ConfigFile = {
           hubAssetListings: [
             {
               hubLib: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
-              hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
-              underlying: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
+              hub: 'GLOBAL_DOLLAR_HUB',
+              underlying: 'PAXG',
               feeReceiver: 'AaveV4Ethereum.TREASURY_SPOKE',
               liquidityFee: '0',
               irStrategy: 'AaveV4EthereumIRStrategies.GLOBAL_DOLLAR_USDG_IR_STRATEGY',
@@ -36,7 +36,7 @@ export const config: ConfigFile = {
               spokeLib: 'AaveV4EthereumSpokes.GOLD_SPOKE',
               spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
               hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
-              underlying: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
+              underlying: 'PAXG',
               priceSource: '0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6',
               config: {
                 collateralRisk: '0',
@@ -103,11 +103,11 @@ export const config: ConfigFile = {
           hubSpokeAdditions: [
             {
               hubLib: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
-              hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
+              hub: 'GLOBAL_DOLLAR_HUB',
               spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
               assets: [
                 {
-                  underlying: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
+                  underlying: 'PAXG',
                   addCap: '2500',
                   drawCap: '0',
                   riskPremiumThreshold: '0',
@@ -126,7 +126,7 @@ export const config: ConfigFile = {
             },
             {
               hubLib: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
-              hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
+              hub: 'GLOBAL_DOLLAR_HUB',
               spoke: 'AaveV4EthereumSpokes.USDG_PENDLE_SPOKE',
               assets: [
                 {
@@ -143,7 +143,14 @@ export const config: ConfigFile = {
           pmUpdates: [],
         },
       },
-      cache: {blockNumber: 25824176},
+      cache: {blockNumber: 25833443},
+      labels: {
+        '0x45804880de22913dafe09f4980848ece6ecbaf78': {
+          label: 'PAXG',
+          address: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
+          kind: 'asset',
+        },
+      },
     },
   },
 };

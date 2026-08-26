@@ -15,15 +15,33 @@ import 'forge-std/Test.sol';
 import {ProtocolV4TestBaseEthereum} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseEthereum.sol';
 import {AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824} from './AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.sol';
 
+interface ITimelockController {
+  function getMinDelay() external view returns (uint256);
+
+  function DEFAULT_ADMIN_ROLE() external view returns (bytes32);
+
+  function PROPOSER_ROLE() external view returns (bytes32);
+
+  function EXECUTOR_ROLE() external view returns (bytes32);
+
+  function CANCELLER_ROLE() external view returns (bytes32);
+
+  function hasRole(bytes32 role, address account) external view returns (bool);
+}
+
 /**
  * @dev Test for AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.t.sol -vv
  */
 contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4TestBaseEthereum {
+  bytes32 internal constant ZEPPELINOS_ADMIN_SLOT = keccak256('org.zeppelinos.proxy.admin');
+  address internal constant PAXG_TIMELOCK = 0x4a515afE11581FD87BA90D6459DC93DB6591F5e3;
+  address internal constant PAXG_TIMELOCK_CONTROLLER = 0x3Af3e85f4f97De7AD0f000B724Fb77fE5ffc024B;
+
   AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25824176);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25833443);
     proposal = new AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824();
   }
 
@@ -58,6 +76,30 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
       'healthFactorForMaxBonus pre-state'
     );
     assertEq(uint256(cfg.liquidationBonusFactor), uint256(90_00), 'bonusFactor pre-state');
+  }
+
+  function test_paxgProxyAdminTimelock() public view {
+    address proxyAdmin = address(uint160(uint256(vm.load(proposal.PAXG(), ZEPPELINOS_ADMIN_SLOT))));
+    assertEq(proxyAdmin, PAXG_TIMELOCK, 'PAXG proxy admin is not the timelock');
+
+    ITimelockController timelock = ITimelockController(PAXG_TIMELOCK);
+    assertEq(timelock.getMinDelay(), 1 days, 'unexpected PAXG timelock delay');
+    assertTrue(
+      timelock.hasRole(timelock.PROPOSER_ROLE(), PAXG_TIMELOCK_CONTROLLER),
+      'unexpected PAXG timelock proposer'
+    );
+    assertTrue(
+      timelock.hasRole(timelock.EXECUTOR_ROLE(), PAXG_TIMELOCK_CONTROLLER),
+      'unexpected PAXG timelock executor'
+    );
+    assertTrue(
+      timelock.hasRole(timelock.CANCELLER_ROLE(), PAXG_TIMELOCK_CONTROLLER),
+      'unexpected PAXG timelock canceller'
+    );
+    assertTrue(
+      timelock.hasRole(timelock.DEFAULT_ADMIN_ROLE(), PAXG_TIMELOCK),
+      'timelock is not self-administered'
+    );
   }
 
   function test_existingGoldReserveConfigUnchanged() public {
