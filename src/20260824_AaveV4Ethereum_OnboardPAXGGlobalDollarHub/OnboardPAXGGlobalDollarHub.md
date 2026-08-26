@@ -39,11 +39,11 @@ As a non-crypto open-market spoke, it merits more conservative liquidation resto
 
 Spoke-level liquidation parameters:
 
-| Parameter               | Value | Rationale                                                                                                                       |
-| ----------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------- |
-| targetHealthFactor      | 1.20  | Open-market non-crypto collateral dynamics require more conservative post-liquidation restoration to reduce reliquidation risk. |
-| healthFactorForMaxBonus | 0.90  | Lower trigger avoids overpaying incentives too early while still reaching max LB before the deficit zone.                       |
-| liquidationBonusFactor  | 0.80  | Matches the Main Spoke baseline and preserves V3-equivalent Gold correlated asset bonus at HF~1 with a 1.25x max LB cap.        |
+| Parameter               | Value | Rationale                                                                                                                                      |
+| ----------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| targetHealthFactor      | 1.20  | Open-market non-crypto collateral dynamics require more conservative post-liquidation restoration than that of other Global Dollar Hub Spokes. |
+| healthFactorForMaxBonus | 0.90  | Lower trigger avoids overpaying incentives too early while still reaching max LB before the deficit zone.                                      |
+| liquidationBonusFactor  | 0.80  | Matches the Main Spoke baseline and preserves V3-equivalent Gold correlated asset bonus at HF~1 with a 1.25x max LB cap.                       |
 
 ### Spoke Parameters
 
