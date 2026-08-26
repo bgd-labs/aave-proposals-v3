@@ -29,6 +29,12 @@ export const config: ConfigFile = {
               liquidityFee: '0',
               irStrategy: 'AaveV4EthereumIRStrategies.GLOBAL_DOLLAR_USDG_IR_STRATEGY',
               irPreset: 'nonBorrowable',
+              tokenization: {
+                addCap: '0',
+                proxyAdminOwner: 'GovernanceV3Ethereum.EXECUTOR_LVL_1',
+                name: 'Wrapped Aave Global Dollar PAXG',
+                symbol: 'waGlobalDollarPAXG',
+              },
             },
           ],
           listings: [

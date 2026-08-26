@@ -8,8 +8,10 @@ import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
+import {ITokenizationSpoke} from 'aave-v4/spoke/interfaces/ITokenizationSpoke.sol';
 import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV4TestBaseEthereum} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseEthereum.sol';
@@ -70,10 +72,41 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
       'rateGrowthBeforeOptimal mismatch'
     );
     assertEq(uint256(irData.rateGrowthAfterOptimal), uint256(0), 'rateGrowthAfterOptimal mismatch');
+    address tokenizationSpoke = _getTokenizationSpoke(
+      IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB)),
+      proposal.PAXG()
+    );
+    IHub.SpokeConfig memory tokenizationCfg = hub.getSpokeConfig(assetId, tokenizationSpoke);
+    assertEq(uint256(tokenizationCfg.addCap), uint256(0), 'tokenization addCap mismatch');
     assertEq(
-      _findTokenizationSpoke(hub, proposal.PAXG()),
-      address(0),
-      'unexpected tokenization spoke'
+      IERC20Metadata(tokenizationSpoke).name(),
+      'Wrapped Aave Global Dollar PAXG',
+      'tokenization name mismatch'
+    );
+    assertEq(
+      IERC20Metadata(tokenizationSpoke).symbol(),
+      'waGlobalDollarPAXG',
+      'tokenization symbol mismatch'
+    );
+  }
+
+  function test_tokenizationSpoke_GLOBAL_DOLLAR_HUB_PAXG_proxyAdminOwner() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      _proxyAdminOwner(
+        _getTokenizationSpoke(IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB)), proposal.PAXG())
+      ),
+      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'proxyAdmin owner mismatch'
+    );
+  }
+
+  function test_e2e_tokenizationSpoke_GLOBAL_DOLLAR_HUB_PAXG() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    e2eTestTokenizationSpoke(
+      ITokenizationSpoke(
+        _getTokenizationSpoke(IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB)), proposal.PAXG())
+      )
     );
   }
 
@@ -315,6 +348,14 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(uint256(items[0].irData.baseDrawnRate), 0, 'baseDrawnRate');
     assertEq(uint256(items[0].irData.rateGrowthBeforeOptimal), 0, 'rateGrowthBeforeOptimal');
     assertEq(uint256(items[0].irData.rateGrowthAfterOptimal), 0, 'rateGrowthAfterOptimal');
+    assertEq(items[0].tokenization.addCap, 0, 'tokenization addCap');
+    assertEq(
+      items[0].tokenization.proxyAdminOwner,
+      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'tokenization proxyAdminOwner'
+    );
+    assertEq(items[0].tokenization.name, 'Wrapped Aave Global Dollar PAXG', 'tokenization name');
+    assertEq(items[0].tokenization.symbol, 'waGlobalDollarPAXG', 'tokenization symbol');
   }
 
   function test_spokeReserveListingsInput() public view {
