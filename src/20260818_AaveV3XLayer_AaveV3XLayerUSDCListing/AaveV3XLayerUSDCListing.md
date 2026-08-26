@@ -34,7 +34,17 @@ The table below illustrates the configured risk parameters for **USDC** ([0xB6CE
 | Variable Rate Slope 2     |                                                                                                                             40% |
 | Optimal Utilization       |                                                                                                                             90% |
 | Flashloanable             |                                                                                                                             Yes |
-| Oracle                    | [0xB8a08c178D96C315FbFB5661ABD208477391BC40](https://www.oklink.com/x-layer/address/0xB8a08c178D96C315FbFB5661ABD208477391BC40) |
+| Oracle                    | [0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC](https://www.oklink.com/x-layer/address/0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC) |
+
+**Price Cap Adapter**
+
+USDC is priced through a `PriceCapAdapterStable` (`Capped USDC / USD`), following the same configuration as the existing USDT0 and USDG stable oracles on X Layer.
+
+| Parameter       | Value                                                                                                                                                |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Adapter         | [0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC](https://www.oklink.com/x-layer/address/0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC)                      |
+| Underlying feed | [0xB8a08c178D96C315FbFB5661ABD208477391BC40](https://www.oklink.com/x-layer/address/0xB8a08c178D96C315FbFB5661ABD208477391BC40) (Chainlink USDC/USD) |
+| Price cap       | 1.04 USD                                                                                                                                             |
 
 **eMode updates:** USDC is enabled as a borrowable asset (not collateral) within the existing stablecoin eMode categories, alongside USDT0, USDG and GHO.
 

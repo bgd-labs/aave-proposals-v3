@@ -18,7 +18,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'USDC',
             decimals: 6,
-            priceFeed: '0xB8a08c178D96C315FbFB5661ABD208477391BC40',
+            priceFeed: '0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC',
             ltv: '70',
             liqThreshold: '75',
             liqBonus: '7.5',
@@ -69,7 +69,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 68550680},
+      cache: {blockNumber: 68945400},
     },
   },
 };

@@ -10,6 +10,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig, ExpectedListing} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3XLayer_AaveV3XLayerUSDCListing_20260818} from './AaveV3XLayer_AaveV3XLayerUSDCListing_20260818.sol';
+import {IPriceCapAdapterStable} from '../interfaces/IPriceCapAdapterStable.sol';
 
 /**
  * @dev Test for AaveV3XLayer_AaveV3XLayerUSDCListing_20260818
@@ -19,7 +20,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68550680);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 68945400);
     proposal = new AaveV3XLayer_AaveV3XLayerUSDCListing_20260818();
   }
 
@@ -64,6 +65,15 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
     uint256 price = AaveV3XLayer.ORACLE.getAssetPrice(proposal.USDC());
     assertGt(price, 0.95e8, 'USDC price should trade near 1 USD');
     assertLt(price, 1.05e8, 'USDC price should trade near 1 USD');
+
+    IPriceCapAdapterStable adapter = IPriceCapAdapterStable(proposal.USDC_PRICE_FEED());
+    assertEq(adapter.getPriceCap(), 1.04e8, 'price cap should be 1.04 USD');
+    assertEq(
+      adapter.ASSET_TO_USD_AGGREGATOR(),
+      0xB8a08c178D96C315FbFB5661ABD208477391BC40,
+      'underlying aggregator should be the Chainlink USDC/USD feed'
+    );
+    assertEq(adapter.isCapped(), false, 'USDC price should not be capped at the fork block');
   }
 
   function test_usdcBorrowableInStablecoinEModes() public {
@@ -100,7 +110,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
       listing: IAaveV3ConfigEngine.Listing({
         asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061,
         assetSymbol: 'USDC',
-        priceFeed: 0xB8a08c178D96C315FbFB5661ABD208477391BC40,
+        priceFeed: 0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC,
         enabledToBorrow: EngineFlags.ENABLED,
         flashloanable: EngineFlags.ENABLED,
         ltv: 70_00,
