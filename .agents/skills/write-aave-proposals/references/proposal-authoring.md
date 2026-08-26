@@ -5,6 +5,7 @@ Help the user question the implementation and verify that it matches the proposa
 ## Reconcile scope
 
 - Compare the forum, deployments, config, payloads, tests, and Markdown; surface every mismatch.
+- Build a complete before-and-after inventory of every material configuration change, recording its current onchain value, protocol scope, directional effect, and written rationale. Verify each row against actual protocol behavior and identify existing assets or positions affected by shared settings; do not sample changes or stop after finding the first issues. Treat any conflict between the value, rationale, and intended outcome as unresolved until the authoritative source reconciles it.
 - Check every address-book address against addresses explicitly named in the forum. If they differ, identify the correct target and tell the user to coordinate a forum amendment before syncing code and Markdown.
 - Treat any function argument passed by the implementation but absent from the specification as an unresolved requirement. Surface it, explain its consequences, and ask the writer to amend the specification before choosing a value.
 - If any information appears outdated, explain what likely changed and ask the user before updating the source or implementation with current information.
