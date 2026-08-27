@@ -9,6 +9,7 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817} from './AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol';
+import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';
 import {IBaseAaveAgent, IAaveDiscountRateAgent} from '../interfaces/IBaseAaveAgent.sol';
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
@@ -90,12 +91,12 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertEq(discountAgent.RANGE_VALIDATION_MODULE(), MiscEthereum.RANGE_VALIDATION_MODULE);
     assertEq(discountAgent.POOL(), address(AaveV3Ethereum.POOL));
     assertEq(discountAgent.AAVE_ORACLE(), address(AaveV3Ethereum.ORACLE));
-    assertEq(discountAgent.getUpdateType(), proposal.DISCOUNT_UPDATE_TYPE());
+    assertEq(discountAgent.getUpdateType(), AgentHubConfigs.DISCOUNT_UPDATE_TYPE);
 
     assertEq(eModeAgent.AGENT_HUB(), MiscEthereum.AGENT_HUB);
     assertEq(eModeAgent.RANGE_VALIDATION_MODULE(), MiscEthereum.RANGE_VALIDATION_MODULE);
     assertEq(eModeAgent.POOL(), address(AaveV3Ethereum.POOL));
-    assertEq(eModeAgent.getUpdateType(), proposal.EMODE_UPDATE_TYPE());
+    assertEq(eModeAgent.getUpdateType(), AgentHubConfigs.EMODE_UPDATE_TYPE);
 
     executePayload(vm, address(proposal));
 
@@ -116,11 +117,11 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     // Discount agent
     assertTrue(hub.isAgentEnabled(discountAgentId), 'discount agent not enabled');
     assertEq(hub.getRiskOracle(discountAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
-    assertEq(hub.getUpdateType(discountAgentId), proposal.DISCOUNT_UPDATE_TYPE());
+    assertEq(hub.getUpdateType(discountAgentId), AgentHubConfigs.DISCOUNT_UPDATE_TYPE);
     assertEq(hub.getAgentAdmin(discountAgentId), MiscEthereum.PROTOCOL_GUARDIAN);
     assertEq(hub.getAgentAddress(discountAgentId), MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
-    assertEq(hub.getExpirationPeriod(discountAgentId), proposal.DISCOUNT_EXPIRATION_PERIOD());
-    assertEq(hub.getMinimumDelay(discountAgentId), proposal.DISCOUNT_MINIMUM_DELAY());
+    assertEq(hub.getExpirationPeriod(discountAgentId), AgentHubConfigs.DISCOUNT_EXPIRATION_PERIOD);
+    assertEq(hub.getMinimumDelay(discountAgentId), AgentHubConfigs.DISCOUNT_MINIMUM_DELAY);
     assertEq(hub.getAgentContext(discountAgentId), bytes(''));
     assertFalse(hub.isAgentPermissioned(discountAgentId));
     assertFalse(hub.isMarketsFromAgentEnabled(discountAgentId));
@@ -134,11 +135,11 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     // eMode agent
     assertTrue(hub.isAgentEnabled(eModeAgentId), 'eMode agent not enabled');
     assertEq(hub.getRiskOracle(eModeAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
-    assertEq(hub.getUpdateType(eModeAgentId), proposal.EMODE_UPDATE_TYPE());
+    assertEq(hub.getUpdateType(eModeAgentId), AgentHubConfigs.EMODE_UPDATE_TYPE);
     assertEq(hub.getAgentAdmin(eModeAgentId), MiscEthereum.PROTOCOL_GUARDIAN);
     assertEq(hub.getAgentAddress(eModeAgentId), MiscEthereum.LLAMARISK_PT_EMODE_AGENT);
-    assertEq(hub.getExpirationPeriod(eModeAgentId), proposal.EMODE_EXPIRATION_PERIOD());
-    assertEq(hub.getMinimumDelay(eModeAgentId), proposal.EMODE_MINIMUM_DELAY());
+    assertEq(hub.getExpirationPeriod(eModeAgentId), AgentHubConfigs.EMODE_EXPIRATION_PERIOD);
+    assertEq(hub.getMinimumDelay(eModeAgentId), AgentHubConfigs.EMODE_MINIMUM_DELAY);
     assertFalse(hub.isAgentPermissioned(eModeAgentId));
     assertFalse(hub.isMarketsFromAgentEnabled(eModeAgentId));
     assertEq(hub.getRestrictedMarkets(eModeAgentId).length, 0);
@@ -183,7 +184,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     IPendlePriceCapAdapter adapter = IPendlePriceCapAdapter(
       AaveV3Ethereum.ORACLE.getSourceOfAsset(pt)
     );
-    uint256 newDiscountRate = adapter.discountRatePerYear() + proposal.DISCOUNT_RANGE_ABS() / 2;
+    uint256 newDiscountRate = adapter.discountRatePerYear() +
+      AgentHubConfigs.DISCOUNT_RANGE_ABS /
+      2;
 
     uint8 eModeCategory = AaveV3EthereumEModes.sUSDe_PT_srUSDe_22OCT2026__USDC_USDT_USDe;
     address eModeMarket = address(uint160(eModeCategory));
@@ -195,9 +198,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     uint256 newLiquidationThreshold = eModeBefore.liquidationThreshold - 10;
     uint256 newLiquidationBonus = eModeBefore.liquidationBonus - 100_00 - 10;
 
-    _publishUpdate(proposal.DISCOUNT_UPDATE_TYPE(), pt, abi.encodePacked(newDiscountRate));
+    _publishUpdate(AgentHubConfigs.DISCOUNT_UPDATE_TYPE, pt, abi.encodePacked(newDiscountRate));
     _publishUpdate(
-      proposal.EMODE_UPDATE_TYPE(),
+      AgentHubConfigs.EMODE_UPDATE_TYPE,
       eModeMarket,
       abi.encode(newLtv, newLiquidationThreshold, newLiquidationBonus)
     );
@@ -241,9 +244,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     );
 
     _publishUpdate(
-      proposal.DISCOUNT_UPDATE_TYPE(),
+      AgentHubConfigs.DISCOUNT_UPDATE_TYPE,
       pt,
-      abi.encodePacked(adapter.discountRatePerYear() + proposal.DISCOUNT_RANGE_ABS() + 1)
+      abi.encodePacked(adapter.discountRatePerYear() + AgentHubConfigs.DISCOUNT_RANGE_ABS + 1)
     );
 
     uint256[] memory agentIds = new uint256[](1);
@@ -268,12 +271,20 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
 
     _assertAbsoluteRange(
       discountAgentId,
-      proposal.DISCOUNT_UPDATE_TYPE(),
-      proposal.DISCOUNT_RANGE_ABS()
+      AgentHubConfigs.DISCOUNT_UPDATE_TYPE,
+      AgentHubConfigs.DISCOUNT_RANGE_ABS
     );
-    _assertAbsoluteRange(eModeAgentId, 'EModeLTV', proposal.EMODE_RANGE_ABS_BPS());
-    _assertAbsoluteRange(eModeAgentId, 'EModeLiquidationThreshold', proposal.EMODE_RANGE_ABS_BPS());
-    _assertAbsoluteRange(eModeAgentId, 'EModeLiquidationBonus', proposal.EMODE_RANGE_ABS_BPS());
+    _assertAbsoluteRange(eModeAgentId, 'EModeLTV', AgentHubConfigs.EMODE_RANGE_ABS_BPS);
+    _assertAbsoluteRange(
+      eModeAgentId,
+      'EModeLiquidationThreshold',
+      AgentHubConfigs.EMODE_RANGE_ABS_BPS
+    );
+    _assertAbsoluteRange(
+      eModeAgentId,
+      'EModeLiquidationBonus',
+      AgentHubConfigs.EMODE_RANGE_ABS_BPS
+    );
   }
 
   function _assertAbsoluteRange(

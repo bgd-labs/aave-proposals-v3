@@ -5,21 +5,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {IAgentHub, IAgentConfigurator} from '../../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../../interfaces/IRangeValidationModule.sol';
-import {AgentHubConfigs} from './Configs.sol';
 
 abstract contract AgentHubAgentActivationPayload is IProposalGenericExecutor {
-  string public constant DISCOUNT_UPDATE_TYPE = AgentHubConfigs.DISCOUNT_UPDATE_TYPE;
-  string public constant EMODE_UPDATE_TYPE = AgentHubConfigs.EMODE_UPDATE_TYPE;
-
-  uint256 public constant DISCOUNT_MINIMUM_DELAY = AgentHubConfigs.DISCOUNT_MINIMUM_DELAY;
-  uint256 public constant EMODE_MINIMUM_DELAY = AgentHubConfigs.EMODE_MINIMUM_DELAY;
-
-  uint256 public constant DISCOUNT_EXPIRATION_PERIOD = AgentHubConfigs.DISCOUNT_EXPIRATION_PERIOD;
-  uint256 public constant EMODE_EXPIRATION_PERIOD = AgentHubConfigs.EMODE_EXPIRATION_PERIOD;
-
-  uint120 public constant DISCOUNT_RANGE_ABS = AgentHubConfigs.DISCOUNT_RANGE_ABS;
-  uint120 public constant EMODE_RANGE_ABS_BPS = AgentHubConfigs.EMODE_RANGE_ABS_BPS;
-
   struct AgentHubConfig {
     address aclManager;
     address agentHub;

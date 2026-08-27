@@ -5,6 +5,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets, AaveV3EthereumEModes} from 'aave-a
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AgentHubAgentActivationPayload} from '../helpers/agent-hub/AgentHubAgentActivationPayload.sol';
+import {AgentHubConfigs} from '../helpers/agent-hub/Configs.sol';
 
 /**
  * @title Onboard_PTsrUSDe22OCT2026_Oracle
@@ -40,9 +41,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
       agentHubConfig,
       AgentActivationInput({
         agentAddress: discountRateAgent,
-        expirationPeriod: DISCOUNT_EXPIRATION_PERIOD,
-        minimumDelay: DISCOUNT_MINIMUM_DELAY,
-        updateType: string.concat(DISCOUNT_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
+        expirationPeriod: AgentHubConfigs.DISCOUNT_EXPIRATION_PERIOD,
+        minimumDelay: AgentHubConfigs.DISCOUNT_MINIMUM_DELAY,
+        updateType: string.concat(AgentHubConfigs.DISCOUNT_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
         agentContext: bytes(''),
         allowedMarkets: ptMarkets
       })
@@ -61,9 +62,9 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
       agentHubConfig,
       AgentActivationInput({
         agentAddress: eModeAgent,
-        expirationPeriod: EMODE_EXPIRATION_PERIOD,
-        minimumDelay: EMODE_MINIMUM_DELAY,
-        updateType: string.concat(EMODE_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
+        expirationPeriod: AgentHubConfigs.EMODE_EXPIRATION_PERIOD,
+        minimumDelay: AgentHubConfigs.EMODE_MINIMUM_DELAY,
+        updateType: string.concat(AgentHubConfigs.EMODE_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
         // The eMode agent executes updates through the Aave ConfigEngine.
         agentContext: abi.encode(AaveV3Ethereum.CONFIG_ENGINE),
         allowedMarkets: eModeMarkets
@@ -74,16 +75,21 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
     _setDefaultRange(
       agentHubConfig,
       discountAgentId,
-      string.concat(DISCOUNT_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
-      DISCOUNT_RANGE_ABS
+      string.concat(AgentHubConfigs.DISCOUNT_UPDATE_TYPE, UPDATE_TYPE_SUFFIX),
+      AgentHubConfigs.DISCOUNT_RANGE_ABS
     );
-    _setDefaultRange(agentHubConfig, eModeAgentId, 'EModeLTV', EMODE_RANGE_ABS_BPS);
+    _setDefaultRange(agentHubConfig, eModeAgentId, 'EModeLTV', AgentHubConfigs.EMODE_RANGE_ABS_BPS);
     _setDefaultRange(
       agentHubConfig,
       eModeAgentId,
       'EModeLiquidationThreshold',
-      EMODE_RANGE_ABS_BPS
+      AgentHubConfigs.EMODE_RANGE_ABS_BPS
     );
-    _setDefaultRange(agentHubConfig, eModeAgentId, 'EModeLiquidationBonus', EMODE_RANGE_ABS_BPS);
+    _setDefaultRange(
+      agentHubConfig,
+      eModeAgentId,
+      'EModeLiquidationBonus',
+      AgentHubConfigs.EMODE_RANGE_ABS_BPS
+    );
   }
 }
