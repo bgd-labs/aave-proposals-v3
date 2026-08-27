@@ -1,7 +1,7 @@
 ---
 title: "Onboard PT-srUSDe-22OCT2026 to the LlamaRisk PT Risk Oracle"
 author: "LlamaRisk"
-discussions: "https://gov.discussion.placeholder"
+discussions: "https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119"
 ---
 
 ## Simple Summary
@@ -83,7 +83,7 @@ Both predeployed agents are verified deployments of the stock BGD implementation
 - Implementation: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol](./AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol)
 - Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
 - Tests: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol](./AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol)
-- [Discussion](https://gov.discussion.placeholder)
+- [Discussion](https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119)
 
 ## Copyright
 

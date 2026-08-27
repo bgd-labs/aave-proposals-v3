@@ -10,7 +10,7 @@ import {AgentHubAgentActivationPayload} from '../helpers/agent-hub/AgentHubAgent
  * @title Onboard_PTsrUSDe22OCT2026_Oracle
  * @author LlamaRisk
  * - Snapshot: direct-to-AIP
- * - Discussion: https://gov.discussion.placeholder
+ * - Discussion: https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119
  */
 contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
   AgentHubAgentActivationPayload
