@@ -117,7 +117,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertTrue(hub.isAgentEnabled(discountAgentId), 'discount agent not enabled');
     assertEq(hub.getRiskOracle(discountAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(discountAgentId), proposal.DISCOUNT_UPDATE_TYPE());
-    assertEq(hub.getAgentAdmin(discountAgentId), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(hub.getAgentAdmin(discountAgentId), MiscEthereum.PROTOCOL_GUARDIAN);
     assertEq(hub.getAgentAddress(discountAgentId), MiscEthereum.LLAMARISK_PT_DISCOUNT_RATE_AGENT);
     assertEq(hub.getExpirationPeriod(discountAgentId), proposal.DISCOUNT_EXPIRATION_PERIOD());
     assertEq(hub.getMinimumDelay(discountAgentId), proposal.DISCOUNT_MINIMUM_DELAY());
@@ -135,7 +135,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
     assertTrue(hub.isAgentEnabled(eModeAgentId), 'eMode agent not enabled');
     assertEq(hub.getRiskOracle(eModeAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(eModeAgentId), proposal.EMODE_UPDATE_TYPE());
-    assertEq(hub.getAgentAdmin(eModeAgentId), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(hub.getAgentAdmin(eModeAgentId), MiscEthereum.PROTOCOL_GUARDIAN);
     assertEq(hub.getAgentAddress(eModeAgentId), MiscEthereum.LLAMARISK_PT_EMODE_AGENT);
     assertEq(hub.getExpirationPeriod(eModeAgentId), proposal.EMODE_EXPIRATION_PERIOD());
     assertEq(hub.getMinimumDelay(eModeAgentId), proposal.EMODE_MINIMUM_DELAY());

@@ -15,8 +15,9 @@ import {AgentHubAgentActivationPayload} from '../helpers/agent-hub/AgentHubAgent
 contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817 is
   AgentHubAgentActivationPayload
 {
-  /// @dev Governance executor authorized to manage the registered agents' configuration.
-  address public constant AGENT_ADMIN = GovernanceV3Ethereum.EXECUTOR_LVL_1;
+  /// @dev Protocol guardian, so a misbehaving agent can be disabled without a governance cycle.
+  ///      Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`.
+  address public constant AGENT_ADMIN = MiscEthereum.PROTOCOL_GUARDIAN;
 
   /// @dev No suffix is needed because this RiskOracle is dedicated to the LlamaGuard stack.
   string public constant UPDATE_TYPE_SUFFIX = '';
