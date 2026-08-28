@@ -6,7 +6,10 @@
     "Arbitrum",
     "Flashloanable",
     "Borrowable",
+    "predeployed",
     "stablecoins",
+    "timelock",
+    "timelocks",
     "usecase"
   ]
 }

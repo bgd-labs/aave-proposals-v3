@@ -114,7 +114,7 @@ contract AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817_Test is Protoc
 
     assertEq(hub.getAgentCount(), countBefore + 2, 'expected exactly two new agents');
 
-    // Discount agent
+    // Discount agent.
     assertTrue(hub.isAgentEnabled(discountAgentId), 'discount agent not enabled');
     assertEq(hub.getRiskOracle(discountAgentId), MiscEthereum.LLAMARISK_RISK_ORACLE);
     assertEq(hub.getUpdateType(discountAgentId), AgentHubConfigs.DISCOUNT_UPDATE_TYPE);
