@@ -24,7 +24,7 @@ The payload performs three groups of actions.
 
 **2. Register the eMode agent.** The predeployed `AaveEModeAgent` from `MiscEthereum.LLAMARISK_PT_EMODE_AGENT` is registered for the same oracle, consuming `EModeCategoryUpdate` and allowed to act only on eMode categories 47 and 48. Minimum delay 3 days, expiration period 3 days. Its agent context encodes `AaveV3Ethereum.CONFIG_ENGINE`, which it delegatecalls to apply category updates.
 
-Both are registered with `admin` set to `GovernanceV3Ethereum.EXECUTOR_LVL_1`, which already owns the AgentHub, and with `isAgentPermissioned` and `isMarketsFromAgentEnabled` at their defaults.
+Both are registered with `admin` set to `MiscEthereum.PROTOCOL_GUARDIAN`, so a misbehaving agent can be disabled without a governance cycle. Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`, and the AgentHub is owned by `GovernanceV3Ethereum.EXECUTOR_LVL_1`. Both `isAgentPermissioned` and `isMarketsFromAgentEnabled` are left at their defaults.
 
 Both agent addresses and the RiskOracle are imported from `MiscEthereum`. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
 
@@ -32,16 +32,16 @@ Both agent addresses and the RiskOracle are imported from `MiscEthereum`. Neithe
 
 The role is required because of how the agents write. The discount rate agent resolves the PT price source through the Aave oracle and calls `setDiscountRatePerYear` on the `PendlePriceCapAdapter`, which gates that call on `isRiskAdmin || isPoolAdmin`. The eMode agent delegatecalls the config engine, and because delegatecall preserves the caller, the PoolConfigurator sees the agent rather than the engine, so the role has to sit on the agent there as well.
 
-### Bounds
+### Bounds and timelocks
 
-Every bound is absolute rather than relative. A relative cap is measured against the last value the agent injected, which does not exist on a freshly assigned agent id, so a relative configuration would leave the first injection unbounded.
+Every bound is absolute rather than relative. A relative cap is measured against the last value the agent injected, which does not exist on a freshly assigned agent id, so a relative configuration would leave the first injection unbounded. The minimum delay is the timelock the hub enforces between injections per agent and market, and the expiration period is how long a published update remains applicable.
 
-| Agent         | Parameter                   | Maximum move per injection |
-| ------------- | --------------------------- | -------------------------- |
-| Discount rate | `PendleDiscountRateUpdate`  | 100 bps (`1e16`)           |
-| eMode         | `EModeLTV`                  | 50 bps                     |
-| eMode         | `EModeLiquidationThreshold` | 50 bps                     |
-| eMode         | `EModeLiquidationBonus`     | 50 bps                     |
+| Agent         | Parameter                   | Maximum move per injection | Minimum delay | Expiration period |
+| ------------- | --------------------------- | -------------------------- | ------------- | ----------------- |
+| Discount rate | `PendleDiscountRateUpdate`  | 100 bps (`1e16`)           | 2 days        | 2 days            |
+| eMode         | `EModeLTV`                  | 50 bps                     | 3 days        | 3 days            |
+| eMode         | `EModeLiquidationThreshold` | 50 bps                     | 3 days        | 3 days            |
+| eMode         | `EModeLiquidationBonus`     | 50 bps                     | 3 days        | 3 days            |
 
 These configurations are not optional. A fresh agent id inherits no default range config, and the module reads a missing config as a zero bound, which rejects every injection. Omitting them would produce a registered but permanently inert agent.
 
@@ -72,7 +72,8 @@ Existing Aave contracts referenced, all from the address book:
 - RangeValidationModule: `MiscEthereum.RANGE_VALIDATION_MODULE`
 - ACL manager: `AaveV3Ethereum.ACL_MANAGER`
 - Config engine: `AaveV3Ethereum.CONFIG_ENGINE`
-- Agent admin: `GovernanceV3Ethereum.EXECUTOR_LVL_1`
+- Agent admin: `MiscEthereum.PROTOCOL_GUARDIAN`
+- AgentHub owner: `GovernanceV3Ethereum.EXECUTOR_LVL_1`
 
 ### Agent source
 
@@ -80,9 +81,10 @@ Both predeployed agents are verified deployments of the stock BGD implementation
 
 ## References
 
-- Implementation: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol](./AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260817_AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle/AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol)
 - Agent implementations: [aave-dao/aave-risk-agents](https://github.com/aave-dao/aave-risk-agents)
-- Tests: [AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol](./AaveV3Ethereum_Onboard_PTsrUSDe22OCT2026_Oracle_20260817.t.sol)
+- Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-upgrade-pt-risk-oracle-to-protocol-owned-infrastructure-on-cre/25119)
 
 ## Copyright
