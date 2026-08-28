@@ -12,7 +12,6 @@ Help the user question the implementation and verify that it matches the proposa
   - V3 active: Ethereum (Core, Prime, and Horizon), Plasma, Avalanche, BNB Chain, Gnosis, Monad, Base, Arbitrum, Mantle, Ink, X Layer, Polygon, Linea, Optimism, MegaETH, and Celo.
   - V3 deprecated (legacy): Sonic, Scroll, zkSync, Metis, Soneium, Aptos, and Ethereum EtherFi.
   - V4 active: Ethereum and Avalanche. No V4 deployments are deprecated.
-- Treat any V3 deployment absent from the active list as deprecated. Deprecated status is context, not a prohibition: inform the user and let them decide whether to include the deployment.
 
 ## Validate the specification before implementation
 
