@@ -24,7 +24,7 @@ The payload performs three groups of actions.
 
 **2. Register the eMode agent.** The predeployed `AaveEModeAgent` from `MiscEthereum.LLAMARISK_PT_EMODE_AGENT` is registered for the same oracle, consuming `EModeCategoryUpdate` and allowed to act only on eMode categories 47 and 48. Minimum delay 3 days, expiration period 3 days. Its agent context encodes `AaveV3Ethereum.CONFIG_ENGINE`, which it delegatecalls to apply category updates.
 
-Both are registered with `admin` set to `GovernanceV3Ethereum.EXECUTOR_LVL_1`, which already owns the AgentHub, and with `isAgentPermissioned` and `isMarketsFromAgentEnabled` at their defaults.
+Both are registered with `admin` set to `MiscEthereum.PROTOCOL_GUARDIAN`, so a misbehaving agent can be disabled without a governance cycle. Registration stays governance-only: `registerAgent` and `setAgentAdmin` are `onlyOwner`, and the AgentHub is owned by `GovernanceV3Ethereum.EXECUTOR_LVL_1`. Both `isAgentPermissioned` and `isMarketsFromAgentEnabled` are left at their defaults.
 
 Both agent addresses and the RiskOracle are imported from `MiscEthereum`. Neither agent is registered with a suffixed update type: the LlamaRisk RiskOracle serves this stack alone, so the base types are unambiguous.
 
@@ -72,7 +72,8 @@ Existing Aave contracts referenced, all from the address book:
 - RangeValidationModule: `MiscEthereum.RANGE_VALIDATION_MODULE`
 - ACL manager: `AaveV3Ethereum.ACL_MANAGER`
 - Config engine: `AaveV3Ethereum.CONFIG_ENGINE`
-- Agent admin: `GovernanceV3Ethereum.EXECUTOR_LVL_1`
+- Agent admin: `MiscEthereum.PROTOCOL_GUARDIAN`
+- AgentHub owner: `GovernanceV3Ethereum.EXECUTOR_LVL_1`
 
 ### Agent source
 
