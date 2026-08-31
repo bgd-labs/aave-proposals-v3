@@ -1,29 +1,31 @@
 ---
-title: "Whitelist X Layer Flash Borrowers"
+title: "Add X Layer Loop Tool to FlashBorrowers"
 author: "@TokenLogic"
 discussions: TODO
 ---
 
 ## Simple Summary
 
-This AIP registers two X Layer team contracts as approved flash borrowers on the Aave V3 X Layer instance, enabling them to access flash liquidity with zero flash loan fees.
+This AIP adds the X Layer Loop Tool contracts to the Aave V3 X Layer FlashBorrowers whitelist, allowing them to access flash liquidity without incurring the Aave Flashloan Fee.
 
 ## Motivation
 
-The X Layer team is launching a looping product built on Aave V3 X Layer flash loans. The executor contracts implement the standard Aave `executeOperation` flash loan receiver interface, are wired to the Aave V3 X Layer Pool, and include an owner-controlled pause mechanism with authorized reporters as an operational kill-switch.
+X Layer has developed a Loop Tool to simplify position management and looping activity on the Aave V3 X Layer instance. The tool will be integrated into OKX Wallet as a user facing product, allowing users to create leveraged positions on Aave without manually performing multiple supply, borrow and re-supply transactions.
 
-Whitelisting these contracts removes the flash loan premium from every loop, improving the pricing of leveraged positions built on Aave V3 X Layer and driving borrowing volume to the instance.
+Certain Loop Tool transactions rely on Aave flash liquidity to execute the required position changes. Whitelisting the contracts as FlashBorrowers removes the Flashloan Fee from these transactions, reducing execution costs for users and encouraging greater usage of Aave V3 on X Layer.
+
+The X Layer team has confirmed that the whitelisted contracts will not be used by OKX's / X Layer's own liquidation bots; they are intended solely to support user facing looping and position management activity. This proposal does not change any reserve or risk parameters of the Aave V3 X Layer instance.
 
 ## Specification
 
-The proposal calls `ACLManager.addFlashBorrower` on Aave V3 X Layer for the following contracts:
+The payload calls `addFlashBorrower` on the Aave V3 X Layer `ACL_MANAGER` for the following contracts:
 
-| Contract         | Address                                                                                                                         |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Flash Borrower A | [0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d](https://www.oklink.com/x-layer/address/0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d) |
-| Flash Borrower B | [0x714A871d3B471FF7Ee6A1896B16c5f55884fd910](https://www.oklink.com/x-layer/address/0x714A871d3B471FF7Ee6A1896B16c5f55884fd910) |
+| Contract                       | Address                                                                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| X Layer Loop Tool - Test       | [0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d](https://www.oklink.com/x-layer/address/0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d) |
+| X Layer Loop Tool - Production | [0x714A871d3B471FF7Ee6A1896B16c5f55884fd910](https://www.oklink.com/x-layer/address/0x714A871d3B471FF7Ee6A1896B16c5f55884fd910) |
 
-Once registered, these contracts are exempt from flash loan fees when sourcing flash liquidity from the Aave V3 X Layer Pool.
+Once whitelisted, the Loop Tool contracts are exempt from Flashloan Fees on the Aave V3 X Layer instance.
 
 ## References
 

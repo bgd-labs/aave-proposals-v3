@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     configFile: 'flashborrower-config.ts',
     markets: ['AaveV3XLayer'],
-    title: 'Whitelist X Layer Flash Borrower',
+    title: 'Add X Layer Loop Tool to FlashBorrowers',
     shortName: 'WhitelistXLayerFlashBorrower',
     date: '20260821',
     author: '@TokenLogic',

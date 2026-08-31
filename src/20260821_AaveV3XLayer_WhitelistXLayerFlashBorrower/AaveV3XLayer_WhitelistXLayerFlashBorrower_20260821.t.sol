@@ -43,7 +43,15 @@ contract AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821_Test is ProtocolV3Te
 
   function test_isFlashBorrower() external {
     GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER_A()), true);
-    assertEq(AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER_B()), true);
+    assertEq(
+      AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.LOOP_TOOL_TEST()),
+      true,
+      'loop tool test contract should be whitelisted as flash borrower'
+    );
+    assertEq(
+      AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.LOOP_TOOL()),
+      true,
+      'loop tool contract should be whitelisted as flash borrower'
+    );
   }
 }
