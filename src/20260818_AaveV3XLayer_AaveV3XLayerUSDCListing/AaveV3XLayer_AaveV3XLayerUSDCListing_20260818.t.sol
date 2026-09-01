@@ -20,7 +20,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
   AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68945400);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 69442624);
     proposal = new AaveV3XLayer_AaveV3XLayerUSDCListing_20260818();
   }
 
@@ -80,11 +80,12 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
     GovV3Helpers.executePayload(vm, address(proposal));
     uint256 usdcReserveId = AaveV3XLayer.POOL.getReserveData(proposal.USDC()).id;
 
-    uint8[4] memory eModeIds = [
+    uint8[5] memory eModeIds = [
       AaveV3XLayerEModes.xBTC__USDT_USDG_GHO,
       AaveV3XLayerEModes.xETH__USDT_USDG_GHO,
       AaveV3XLayerEModes.xSOL__USDT_USDG_GHO,
-      AaveV3XLayerEModes.WOKB__USDT_USDG_GHO
+      AaveV3XLayerEModes.WOKB__USDT_USDG_GHO,
+      _findEModeCategoryId('PT_USDG__Stablecoins')
     ];
 
     for (uint256 i = 0; i < eModeIds.length; i++) {
@@ -113,21 +114,30 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
         priceFeed: 0x26AD1207EAA39F74FAC725599ce1c431C80eF6cC,
         enabledToBorrow: EngineFlags.ENABLED,
         flashloanable: EngineFlags.ENABLED,
-        ltv: 70_00,
-        liqThreshold: 75_00,
+        ltv: 75_00,
+        liqThreshold: 78_00,
         liqBonus: 7_50,
         reserveFactor: 10_00,
-        supplyCap: 50_000_000,
-        borrowCap: 48_000_000,
+        supplyCap: 35_000_000,
+        borrowCap: 32_000_000,
         liqProtocolFee: 10_00,
         rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
           optimalUsageRatio: 90_00,
           baseVariableBorrowRate: 0,
-          variableRateSlope1: 5_00,
+          variableRateSlope1: 4_00,
           variableRateSlope2: 40_00
         })
       }),
       decimals: 6
     });
+  }
+
+  function _findEModeCategoryId(string memory label) internal view returns (uint8) {
+    for (uint8 i = 1; i < 255; i++) {
+      if (keccak256(bytes(AaveV3XLayer.POOL.getEModeCategoryLabel(i))) == keccak256(bytes(label))) {
+        return i;
+      }
+    }
+    revert('eMode category not found');
   }
 }

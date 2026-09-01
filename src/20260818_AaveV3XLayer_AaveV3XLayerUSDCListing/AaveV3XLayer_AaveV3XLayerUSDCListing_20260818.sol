@@ -37,17 +37,17 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
       priceFeed: USDC_PRICE_FEED,
       enabledToBorrow: EngineFlags.ENABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 70_00,
-      liqThreshold: 75_00,
+      ltv: 75_00,
+      liqThreshold: 78_00,
       liqBonus: 7_50,
       reserveFactor: 10_00,
-      supplyCap: 50_000_000,
-      borrowCap: 48_000_000,
+      supplyCap: 35_000_000,
+      borrowCap: 32_000_000,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 5_00,
+        variableRateSlope1: 4_00,
         variableRateSlope2: 40_00
       })
     });
@@ -62,7 +62,7 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](5);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
@@ -88,6 +88,14 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 is AaveV3PayloadXLayer {
     assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDC,
       eModeCategory: AaveV3XLayerEModes.WOKB__USDT_USDG_GHO,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED,
+      ltvzero: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: USDC,
+      // PT_USDG__Stablecoins, constant not yet published in aave-address-book
+      eModeCategory: 7,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED,
       ltvzero: EngineFlags.DISABLED

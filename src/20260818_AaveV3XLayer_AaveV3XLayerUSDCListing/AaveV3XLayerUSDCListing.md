@@ -6,11 +6,11 @@ discussions: "https://governance.aave.com/t/direct-to-aip-asset-listing-usdc-x-l
 
 ## Simple Summary
 
-This AIP lists native USDC on the Aave V3 X Layer instance as a borrowable asset and collateral, and enables USDC as a borrowable asset within the existing xBTC, xETH, xSOL and wOKB stablecoin eModes.
+This AIP lists native USDC on the Aave V3 X Layer instance as a borrowable asset and collateral, and enables USDC as a borrowable asset within the existing xBTC, xETH, xSOL, wOKB and PT-USDG stablecoin eModes.
 
 ## Motivation
 
-On 6 August 2026, Circle launched native USDC and the Cross-Chain Transfer Protocol (CCTP) on X Layer. Native USDC is issued by Circle, fully reserved, and redeemable 1:1 for US dollars. Onboarding it to Aave V3 X Layer expands the range of high-quality stablecoins available to users alongside USDT0, USDG and GHO, and increases the stablecoin borrowing liquidity available to the existing xBTC, xETH, xSOL and wOKB eMode categories. The risk parameters below are specified in the Direct-to-AIP proposal.
+On 6 August 2026, Circle launched native USDC and the Cross-Chain Transfer Protocol (CCTP) on X Layer. Native USDC is issued by Circle, fully reserved, and redeemable 1:1 for US dollars. Onboarding it to Aave V3 X Layer expands the range of high-quality stablecoins available to users alongside USDT0, USDG and GHO, and increases the stablecoin borrowing liquidity available to the existing xBTC, xETH, xSOL, wOKB and PT-USDG eMode categories. The risk parameters below follow the revised LlamaRisk recommendation in the discussion thread.
 
 ## Specification
 
@@ -21,16 +21,16 @@ The table below illustrates the configured risk parameters for **USDC** ([0xB6CE
 | Isolation Mode            |                                                                                                                              No |
 | Borrowable                |                                                                                                                             Yes |
 | Collateral Enabled        |                                                                                                                             Yes |
-| Supply Cap                |                                                                                                                      50,000,000 |
-| Borrow Cap                |                                                                                                                      48,000,000 |
+| Supply Cap                |                                                                                                                      35,000,000 |
+| Borrow Cap                |                                                                                                                      32,000,000 |
 | Debt Ceiling              |                                                                                                                             N/A |
-| LTV                       |                                                                                                                             70% |
-| Liquidation Threshold     |                                                                                                                             75% |
+| LTV                       |                                                                                                                             75% |
+| Liquidation Threshold     |                                                                                                                             78% |
 | Liquidation Bonus         |                                                                                                                            7.5% |
 | Liquidation Protocol Fee  |                                                                                                                             10% |
 | Reserve Factor            |                                                                                                                             10% |
 | Base Variable Borrow Rate |                                                                                                                              0% |
-| Variable Rate Slope 1     |                                                                                                                              5% |
+| Variable Rate Slope 1     |                                                                                                                              4% |
 | Variable Rate Slope 2     |                                                                                                                             40% |
 | Optimal Utilization       |                                                                                                                             90% |
 | Flashloanable             |                                                                                                                             Yes |
@@ -48,12 +48,13 @@ USDC is priced through a `PriceCapAdapterStable` (`Capped USDC / USD`), followin
 
 **eMode updates:** USDC is enabled as a borrowable asset (not collateral) within the existing stablecoin eMode categories, alongside USDT0, USDG and GHO.
 
-| eMode                | Collateral | USDC Borrowable |
-| -------------------- | ---------- | --------------- |
-| xBTC Stablecoins (1) | xBTC       | Yes             |
-| xETH Stablecoins (2) | xETH       | Yes             |
-| xSOL Stablecoins (3) | xSOL       | Yes             |
-| wOKB Stablecoins (4) | wOKB       | Yes             |
+| eMode                      | Collateral        | USDC Borrowable |
+| -------------------------- | ----------------- | --------------- |
+| xBTC Stablecoins (1)       | xBTC              | Yes             |
+| xETH Stablecoins (2)       | xETH              | Yes             |
+| xSOL Stablecoins (3)       | xSOL              | Yes             |
+| wOKB Stablecoins (4)       | wOKB              | Yes             |
+| PT_USDG\_\_Stablecoins (7) | PT-USDG-29OCT2026 | Yes             |
 
 ## References
 
