@@ -19,7 +19,7 @@ export const config: ConfigFile = {
       configs: {
         V4_USECASE_ONBOARD_RESERVE_TO_SPOKE: {
           freshHubs: [],
-          freshSpokes: [],
+          freshSpokes: ['PAXG_GOLD_SPOKE'],
           hubAssetListings: [
             {
               hubLib: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
@@ -39,8 +39,8 @@ export const config: ConfigFile = {
           ],
           listings: [
             {
-              spokeLib: 'AaveV4EthereumSpokes.GOLD_SPOKE',
-              spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
+              spokeLib: 'PAXG_GOLD_SPOKE',
+              spoke: 'PAXG_GOLD_SPOKE',
               hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
               underlying: 'PAXG',
               priceSource: '0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6',
@@ -58,8 +58,8 @@ export const config: ConfigFile = {
               },
             },
             {
-              spokeLib: 'AaveV4EthereumSpokes.GOLD_SPOKE',
-              spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
+              spokeLib: 'PAXG_GOLD_SPOKE',
+              spoke: 'PAXG_GOLD_SPOKE',
               hub: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
               underlying: 'AaveV4EthereumAssets.USDG_UNDERLYING',
               priceSource: '0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4',
@@ -99,8 +99,8 @@ export const config: ConfigFile = {
           updates: [],
           liquidationUpdates: [
             {
-              spokeLib: 'AaveV4EthereumSpokes.GOLD_SPOKE',
-              spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
+              spokeLib: 'PAXG_GOLD_SPOKE',
+              spoke: 'PAXG_GOLD_SPOKE',
               targetHealthFactor: {kind: 'literal', value: '1.2'},
               healthFactorForMaxBonus: {kind: 'literal', value: '0.9'},
               liquidationBonusFactor: {kind: 'literal', value: '80'},
@@ -110,7 +110,7 @@ export const config: ConfigFile = {
             {
               hubLib: 'AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB',
               hub: 'GLOBAL_DOLLAR_HUB',
-              spoke: 'AaveV4EthereumSpokes.GOLD_SPOKE',
+              spoke: 'PAXG_GOLD_SPOKE',
               assets: [
                 {
                   underlying: 'PAXG',
@@ -149,12 +149,17 @@ export const config: ConfigFile = {
           pmUpdates: [],
         },
       },
-      cache: {blockNumber: 25833443},
+      cache: {blockNumber: 25883070},
       labels: {
         '0x45804880de22913dafe09f4980848ece6ecbaf78': {
           label: 'PAXG',
           address: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
           kind: 'asset',
+        },
+        '0x1f551c13702a54f913c7ff5b19002092f03f9b3d': {
+          label: 'PAXG_GOLD_SPOKE',
+          address: '0x1F551c13702A54F913C7Ff5b19002092F03f9B3d',
+          kind: 'spoke',
         },
       },
     },

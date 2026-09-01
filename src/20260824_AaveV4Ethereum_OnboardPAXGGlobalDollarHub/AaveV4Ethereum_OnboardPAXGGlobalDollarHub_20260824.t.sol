@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4EthereumSpokes, AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
@@ -43,7 +43,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
   AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25833443);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25883070);
     proposal = new AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824();
   }
 
@@ -52,32 +52,40 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824', address(proposal));
+    ISpoke[] memory addressBookSpokes = _getSpokes();
+    ISpoke[] memory spokes = new ISpoke[](addressBookSpokes.length + 1);
+    for (uint256 i; i < addressBookSpokes.length; ++i) {
+      spokes[i] = addressBookSpokes[i];
+    }
+    spokes[addressBookSpokes.length] = ISpoke(proposal.PAXG_GOLD_SPOKE());
+    defaultTest(
+      'AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824',
+      spokes,
+      _getTokenizationSpokes(),
+      address(proposal)
+    );
   }
 
   function test_preState() public view {
     IHub hub = IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB));
     uint256 usdgAssetId = hub.getAssetId(address(AaveV4EthereumAssets.USDG_UNDERLYING));
+    ISpoke paxgGoldSpoke = ISpoke(proposal.PAXG_GOLD_SPOKE());
 
     assertFalse(hub.isUnderlyingListed(proposal.PAXG()), 'PAXG already listed');
+    assertEq(paxgGoldSpoke.getReserveCount(), 0, 'PAXG Gold Spoke already configured');
     assertFalse(
-      hub.isSpokeListed(usdgAssetId, address(AaveV4EthereumSpokes.GOLD_SPOKE)),
-      'Global Dollar USDG already listed on Gold Spoke'
+      hub.isSpokeListed(usdgAssetId, proposal.PAXG_GOLD_SPOKE()),
+      'Global Dollar USDG already registered on PAXG Gold Spoke'
     );
     assertFalse(
       hub.isSpokeListed(usdgAssetId, address(AaveV4EthereumSpokes.USDG_PENDLE_SPOKE)),
       'Global Dollar USDG already listed on Pendle Spoke'
     );
 
-    ISpoke.LiquidationConfig memory cfg = ISpoke(address(AaveV4EthereumSpokes.GOLD_SPOKE))
-      .getLiquidationConfig();
-    assertEq(uint256(cfg.targetHealthFactor), uint256(1.3075e18), 'targetHealthFactor pre-state');
-    assertEq(
-      uint256(cfg.healthFactorForMaxBonus),
-      uint256(0.9e18),
-      'healthFactorForMaxBonus pre-state'
-    );
-    assertEq(uint256(cfg.liquidationBonusFactor), uint256(90_00), 'bonusFactor pre-state');
+    ISpoke.LiquidationConfig memory cfg = paxgGoldSpoke.getLiquidationConfig();
+    assertEq(uint256(cfg.targetHealthFactor), uint256(1e18), 'targetHealthFactor pre-state');
+    assertEq(uint256(cfg.healthFactorForMaxBonus), uint256(0), 'hfForMaxBonus pre-state');
+    assertEq(uint256(cfg.liquidationBonusFactor), uint256(0), 'bonusFactor pre-state');
   }
 
   function test_paxgProxyAdminTimelock() public view {
@@ -101,6 +109,14 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertTrue(
       timelock.hasRole(timelock.DEFAULT_ADMIN_ROLE(), PAXG_TIMELOCK),
       'timelock is not self-administered'
+    );
+  }
+
+  function test_paxgGoldSpokeProxyAdminOwner() public view {
+    assertEq(
+      _proxyAdminOwner(proposal.PAXG_GOLD_SPOKE()),
+      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'PAXG Gold Spoke proxy admin owner mismatch'
     );
   }
 
@@ -128,6 +144,23 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
       'maxLiquidationBonus changed'
     );
     assertEq(afterConfig.liquidationFee, before.liquidationFee, 'liquidationFee changed');
+  }
+
+  function test_rolesWired_PAXG_GOLD_SPOKE() public {
+    IConfigEngine.TargetFunctionRoleUpdate[] memory items = proposal
+      .accessManagerTargetFunctionRoleUpdates();
+    GovV3Helpers.executePayload(vm, address(proposal));
+    uint256 matched;
+    for (uint256 i; i < items.length; ++i) {
+      if (items[i].target != proposal.PAXG_GOLD_SPOKE()) continue;
+      _assertRolesWired(items[i], address(AaveV4EthereumSpokes.MAIN_SPOKE));
+      ++matched;
+    }
+    assertGt(matched, 0, 'no wiring for target');
+  }
+
+  function test_spokeDeployment_PAXG_GOLD_SPOKE() public view {
+    _assertSpokeDeployment(ISpoke(proposal.PAXG_GOLD_SPOKE()));
   }
 
   function test_hubAssetListing_GLOBAL_DOLLAR_HUB_PAXG() public {
@@ -203,9 +236,9 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     );
   }
 
-  function test_spokeReserveListing_GOLD_SPOKE_PAXG() public {
+  function test_spokeReserveListing_PAXG_GOLD_SPOKE_PAXG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.GOLD_SPOKE));
+    ISpoke spoke = ISpoke(proposal.PAXG_GOLD_SPOKE());
     IHub hub = IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB));
     uint256 assetId = hub.getAssetId(proposal.PAXG());
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
@@ -233,9 +266,9 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(uint256(dyn.liquidationFee), uint256(10_00), 'liquidationFee mismatch');
   }
 
-  function test_spokeReserveListing_GOLD_SPOKE_USDG() public {
+  function test_spokeReserveListing_PAXG_GOLD_SPOKE_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.GOLD_SPOKE));
+    ISpoke spoke = ISpoke(proposal.PAXG_GOLD_SPOKE());
     IHub hub = IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB));
     uint256 assetId = hub.getAssetId(address(AaveV4EthereumAssets.USDG_UNDERLYING));
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
@@ -301,9 +334,9 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(uint256(dyn.liquidationFee), uint256(0), 'liquidationFee mismatch');
   }
 
-  function test_reservePriceSources_GOLD_SPOKE() public {
+  function test_reservePriceSources_PAXG_GOLD_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.GOLD_SPOKE));
+    ISpoke spoke = ISpoke(proposal.PAXG_GOLD_SPOKE());
     IAaveOracle oracle = IAaveOracle(spoke.ORACLE());
     assertEq(
       oracle.getReserveSource(
@@ -312,7 +345,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
           IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB)).getAssetId(proposal.PAXG())
         )
       ),
-      proposal.GOLD_SPOKE_PAXG_PRICE_FEED(),
+      proposal.PAXG_GOLD_SPOKE_PAXG_PRICE_FEED(),
       'PAXG price source mismatch'
     );
     assertEq(
@@ -324,7 +357,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
           )
         )
       ),
-      proposal.GOLD_SPOKE_USDG_PRICE_FEED(),
+      proposal.PAXG_GOLD_SPOKE_USDG_PRICE_FEED(),
       'USDG price source mismatch'
     );
   }
@@ -347,10 +380,14 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     );
   }
 
-  function test_spokeLiquidationConfigUpdate_GOLD_SPOKE() public {
+  function test_e2e_PAXG_GOLD_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.LiquidationConfig memory cfg = ISpoke(address(AaveV4EthereumSpokes.GOLD_SPOKE))
-      .getLiquidationConfig();
+    e2eTestSpoke(ISpoke(proposal.PAXG_GOLD_SPOKE()));
+  }
+
+  function test_spokeLiquidationConfigUpdate_PAXG_GOLD_SPOKE() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke.LiquidationConfig memory cfg = ISpoke(proposal.PAXG_GOLD_SPOKE()).getLiquidationConfig();
     assertEq(uint256(cfg.targetHealthFactor), uint256(1.2e18), 'targetHealthFactor mismatch');
     assertEq(
       uint256(cfg.healthFactorForMaxBonus),
@@ -364,18 +401,12 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     );
   }
 
-  function test_hubSpokeToAssetsAddition_GLOBAL_DOLLAR_HUB_GOLD_SPOKE_PAXG() public {
+  function test_hubSpokeToAssetsAddition_GLOBAL_DOLLAR_HUB_PAXG_GOLD_SPOKE_PAXG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB));
     uint256 assetId = hub.getAssetId(proposal.PAXG());
-    assertTrue(
-      hub.isSpokeListed(assetId, address(AaveV4EthereumSpokes.GOLD_SPOKE)),
-      'spoke not listed'
-    );
-    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
-      assetId,
-      address(AaveV4EthereumSpokes.GOLD_SPOKE)
-    );
+    assertTrue(hub.isSpokeListed(assetId, proposal.PAXG_GOLD_SPOKE()), 'spoke not listed');
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.PAXG_GOLD_SPOKE());
     assertEq(uint256(cfg.addCap), uint256(2_500), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(0), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
@@ -383,18 +414,12 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
-  function test_hubSpokeToAssetsAddition_GLOBAL_DOLLAR_HUB_GOLD_SPOKE_USDG() public {
+  function test_hubSpokeToAssetsAddition_GLOBAL_DOLLAR_HUB_PAXG_GOLD_SPOKE_USDG() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     IHub hub = IHub(address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB));
     uint256 assetId = hub.getAssetId(address(AaveV4EthereumAssets.USDG_UNDERLYING));
-    assertTrue(
-      hub.isSpokeListed(assetId, address(AaveV4EthereumSpokes.GOLD_SPOKE)),
-      'spoke not listed'
-    );
-    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
-      assetId,
-      address(AaveV4EthereumSpokes.GOLD_SPOKE)
-    );
+    assertTrue(hub.isSpokeListed(assetId, proposal.PAXG_GOLD_SPOKE()), 'spoke not listed');
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.PAXG_GOLD_SPOKE());
     assertEq(uint256(cfg.addCap), uint256(5_000_000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(9_500_000), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
@@ -454,10 +479,10 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
   function test_spokeReserveListingsInput() public view {
     IConfigEngine.ReserveListing[] memory items = proposal.spokeReserveListings();
     assertEq(items.length, 3, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.GOLD_SPOKE), 'spoke');
+    assertEq(items[0].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
     assertEq(items[0].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
     assertEq(items[0].underlying, proposal.PAXG(), 'underlying');
-    assertEq(items[0].priceSource, proposal.GOLD_SPOKE_PAXG_PRICE_FEED(), 'priceSource');
+    assertEq(items[0].priceSource, proposal.PAXG_GOLD_SPOKE_PAXG_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[0].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[0].config.paused, false, 'paused');
     assertEq(items[0].config.frozen, false, 'frozen');
@@ -466,10 +491,10 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(uint256(items[0].dynamicConfig.collateralFactor), 75_00, 'collateralFactor');
     assertEq(uint256(items[0].dynamicConfig.maxLiquidationBonus), 106_50, 'maxLiquidationBonus');
     assertEq(uint256(items[0].dynamicConfig.liquidationFee), 10_00, 'liquidationFee');
-    assertEq(items[1].spoke, address(AaveV4EthereumSpokes.GOLD_SPOKE), 'spoke');
+    assertEq(items[1].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
     assertEq(items[1].hub, address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB), 'hub');
     assertEq(items[1].underlying, address(AaveV4EthereumAssets.USDG_UNDERLYING), 'underlying');
-    assertEq(items[1].priceSource, proposal.GOLD_SPOKE_USDG_PRICE_FEED(), 'priceSource');
+    assertEq(items[1].priceSource, proposal.PAXG_GOLD_SPOKE_USDG_PRICE_FEED(), 'priceSource');
     assertEq(uint256(items[1].config.collateralRisk), 0, 'collateralRisk');
     assertEq(items[1].config.paused, false, 'paused');
     assertEq(items[1].config.frozen, false, 'frozen');
@@ -495,7 +520,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
   function test_spokeLiquidationConfigUpdatesInput() public view {
     IConfigEngine.LiquidationConfigUpdate[] memory items = proposal.spokeLiquidationConfigUpdates();
     assertEq(items.length, 1, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.GOLD_SPOKE), 'spoke');
+    assertEq(items[0].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
     assertEq(items[0].targetHealthFactor, 1.2e18, 'targetHealthFactor');
     assertEq(items[0].healthFactorForMaxBonus, 0.9e18, 'healthFactorForMaxBonus');
     assertEq(items[0].liquidationBonusFactor, 80_00, 'liquidationBonusFactor');
@@ -504,7 +529,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
   function test_hubSpokeToAssetsAdditionsInput() public view {
     IConfigEngine.SpokeToAssetsAddition[] memory items = proposal.hubSpokeToAssetsAdditions();
     assertEq(items.length, 2, 'length');
-    assertEq(items[0].spoke, address(AaveV4EthereumSpokes.GOLD_SPOKE), 'spoke');
+    assertEq(items[0].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
     assertEq(items[0].assets.length, 2, 'assets length');
     assertEq(items[0].assets[0].underlying, proposal.PAXG(), 'underlying');
     assertEq(uint256(items[0].assets[0].config.addCap), 2_500, 'addCap');

@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumSpokes, AaveV4EthereumAssets} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumAssets, AaveV4EthereumSpokes} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
+import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
@@ -19,15 +20,29 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
   // https://etherscan.io/address/0x45804880De22913dAFE09f4980848ECE6EcbAf78
   address public constant PAXG = 0x45804880De22913dAFE09f4980848ECE6EcbAf78;
 
+  // https://etherscan.io/address/0x1F551c13702A54F913C7Ff5b19002092F03f9B3d
+  address public constant PAXG_GOLD_SPOKE = 0x1F551c13702A54F913C7Ff5b19002092F03f9B3d;
+
   // https://etherscan.io/address/0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6
-  address public constant GOLD_SPOKE_PAXG_PRICE_FEED = 0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6;
+  address public constant PAXG_GOLD_SPOKE_PAXG_PRICE_FEED =
+    0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6;
 
   // https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4
-  address public constant GOLD_SPOKE_USDG_PRICE_FEED = 0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
+  address public constant PAXG_GOLD_SPOKE_USDG_PRICE_FEED =
+    0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
 
   // https://etherscan.io/address/0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4
   address public constant USDG_PENDLE_SPOKE_USDG_PRICE_FEED =
     0x83D20dEEdcd4aC1313496c8CBcAad0fa298c0CE4;
+
+  function accessManagerTargetFunctionRoleUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.TargetFunctionRoleUpdate[] memory)
+  {
+    return V4RoleWiring.spokeWiring(address(AaveV4Ethereum.ACCESS_MANAGER), PAXG_GOLD_SPOKE);
+  }
 
   function hubAssetListings() public pure override returns (IConfigEngine.AssetListing[] memory) {
     IConfigEngine.AssetListing[] memory items = new IConfigEngine.AssetListing[](1);
@@ -58,10 +73,10 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
     IConfigEngine.ReserveListing[] memory items = new IConfigEngine.ReserveListing[](3);
     items[0] = IConfigEngine.ReserveListing({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: address(AaveV4EthereumSpokes.GOLD_SPOKE),
+      spoke: PAXG_GOLD_SPOKE,
       hub: address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB),
       underlying: PAXG,
-      priceSource: GOLD_SPOKE_PAXG_PRICE_FEED,
+      priceSource: PAXG_GOLD_SPOKE_PAXG_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
@@ -77,10 +92,10 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
     });
     items[1] = IConfigEngine.ReserveListing({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: address(AaveV4EthereumSpokes.GOLD_SPOKE),
+      spoke: PAXG_GOLD_SPOKE,
       hub: address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB),
       underlying: AaveV4EthereumAssets.USDG_UNDERLYING,
-      priceSource: GOLD_SPOKE_USDG_PRICE_FEED,
+      priceSource: PAXG_GOLD_SPOKE_USDG_PRICE_FEED,
       config: ISpoke.ReserveConfig({
         collateralRisk: uint24(0),
         paused: false,
@@ -126,7 +141,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
       memory items = new IConfigEngine.LiquidationConfigUpdate[](1);
     items[0] = IConfigEngine.LiquidationConfigUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: address(AaveV4EthereumSpokes.GOLD_SPOKE),
+      spoke: PAXG_GOLD_SPOKE,
       targetHealthFactor: 1.2e18,
       healthFactorForMaxBonus: 0.9e18,
       liquidationBonusFactor: 80_00
@@ -168,7 +183,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
       items[0] = IConfigEngine.SpokeToAssetsAddition({
         hubConfigurator: AaveV4Ethereum.HUB_CONFIGURATOR,
         hub: address(AaveV4EthereumHubs.GLOBAL_DOLLAR_HUB),
-        spoke: address(AaveV4EthereumSpokes.GOLD_SPOKE),
+        spoke: PAXG_GOLD_SPOKE,
         assets: subAssets
       });
     }
