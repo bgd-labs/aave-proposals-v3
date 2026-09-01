@@ -27,6 +27,10 @@ Token Address: [0x45804880De22913dAFE09f4980848ECE6EcbAf78](https://etherscan.io
 
 Likewise, adds PAXG as a collateral-only asset to a new Spoke named Gold Spoke. In parallel, to avoid additional governance proposals, enables native USDG as a borrowable reserve on the Pendle Spoke with a 4,000,000 USDG Draw Cap.
 
+The Gold Spoke is deployed at [0x1F551c13702A54F913C7Ff5b19002092F03f9B3d](https://etherscan.io/address/0x1F551c13702A54F913C7Ff5b19002092F03f9B3d#code). The payload wires this deployment to the Ethereum AccessManager and configures it with the PAXG and USDG reserves described below.
+
+PAXG is also registered with the Tokenization Spoke with an Add Cap of 0.
+
 Execution should only proceed after the PAXG proxy-admin timelock migration required by the LlamaRisk assessment has been verified onchain.
 
 ### Dynamic Liquidation Bonus Configuration
