@@ -20,8 +20,8 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
   // https://etherscan.io/address/0x45804880De22913dAFE09f4980848ECE6EcbAf78
   address public constant PAXG = 0x45804880De22913dAFE09f4980848ECE6EcbAf78;
 
-  // https://etherscan.io/address/0x1F551c13702A54F913C7Ff5b19002092F03f9B3d
-  address public constant PAXG_GOLD_SPOKE = 0x1F551c13702A54F913C7Ff5b19002092F03f9B3d;
+  // https://etherscan.io/address/0xAD75cE6354f87F3135cE10621d385d8D1e2562C2
+  address public constant PAXG_GOLD_SPOKE = 0xAD75cE6354f87F3135cE10621d385d8D1e2562C2;
 
   // https://etherscan.io/address/0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6
   address public constant PAXG_GOLD_SPOKE_PAXG_PRICE_FEED =

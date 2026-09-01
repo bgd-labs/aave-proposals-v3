@@ -39,11 +39,12 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
   bytes32 internal constant ZEPPELINOS_ADMIN_SLOT = keccak256('org.zeppelinos.proxy.admin');
   address internal constant PAXG_TIMELOCK = 0x4a515afE11581FD87BA90D6459DC93DB6591F5e3;
   address internal constant PAXG_TIMELOCK_CONTROLLER = 0x3Af3e85f4f97De7AD0f000B724Fb77fE5ffc024B;
+  address internal constant SECURITY_COUNCIL = 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9;
 
   AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 25883070);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 25883490);
     proposal = new AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824();
   }
 
@@ -115,7 +116,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
   function test_paxgGoldSpokeProxyAdminOwner() public view {
     assertEq(
       _proxyAdminOwner(proposal.PAXG_GOLD_SPOKE()),
-      address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      SECURITY_COUNCIL,
       'PAXG Gold Spoke proxy admin owner mismatch'
     );
   }

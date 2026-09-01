@@ -27,11 +27,9 @@ Token Address: [0x45804880De22913dAFE09f4980848ECE6EcbAf78](https://etherscan.io
 
 Likewise, adds PAXG as a collateral-only asset to a new Spoke named Gold Spoke. In parallel, to avoid additional governance proposals, enables native USDG as a borrowable reserve on the Pendle Spoke with a 4,000,000 USDG Draw Cap.
 
-The Gold Spoke is deployed at [0x1F551c13702A54F913C7Ff5b19002092F03f9B3d](https://etherscan.io/address/0x1F551c13702A54F913C7Ff5b19002092F03f9B3d#code). The payload wires this deployment to the Ethereum AccessManager and configures it with the PAXG and USDG reserves described below.
+The Gold Spoke is deployed at [0xAD75cE6354f87F3135cE10621d385d8D1e2562C2](https://etherscan.io/address/0xAD75cE6354f87F3135cE10621d385d8D1e2562C2#code). The payload wires this deployment to the Ethereum AccessManager and configures it with the PAXG and USDG reserves described below.
 
 PAXG is also registered with the Tokenization Spoke with an Add Cap of 0.
-
-Execution should only proceed after the PAXG proxy-admin timelock migration required by the LlamaRisk assessment has been verified onchain.
 
 ### Dynamic Liquidation Bonus Configuration
 
@@ -75,8 +73,8 @@ List PAXG against the Chainlink [XAU/USD price feed](https://etherscan.io/addres
 - Tests: [AaveV4Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260824_AaveV4Ethereum_OnboardPAXGGlobalDollarHub/AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x65be5cb5922bc73d14ba16b13d4e7ee5eaae2c6d9518c27b7ab9721fd2f637b1)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-paxg-to-the-global-dollar-hub-in-aave-v4-ethereum/25340)
-- [PAXG Gold Spoke](https://etherscan.io/address/0x1F551c13702A54F913C7Ff5b19002092F03f9B3d#code)
-- [PAXG Gold Spoke deployment](https://dashboard.tenderly.co/tx/mainnet/0xa92aafaa9f0d578da94e228590e4ddace3253713f90eae335f79cec189479853)
+- [PAXG Gold Spoke](https://etherscan.io/address/0xAD75cE6354f87F3135cE10621d385d8D1e2562C2#code)
+- [PAXG Gold Spoke deployment](https://dashboard.tenderly.co/tx/mainnet/0x0a25a8331f87012c0824a357abe33398b0680bcec3ccfc86d311a78318d92083)
 - [Aave Labs technical assessment](https://governance.aave.com/t/paxos-gold-paxg-on-aave-ethereum-assessments/25359/2)
 - [LlamaRisk risk assessment](https://governance.aave.com/t/paxos-gold-paxg-on-aave-ethereum-assessments/25359/3)
 

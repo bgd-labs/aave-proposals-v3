@@ -149,16 +149,16 @@ export const config: ConfigFile = {
           pmUpdates: [],
         },
       },
-      cache: {blockNumber: 25883070},
+      cache: {blockNumber: 25883490},
       labels: {
         '0x45804880de22913dafe09f4980848ece6ecbaf78': {
           label: 'PAXG',
           address: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
           kind: 'asset',
         },
-        '0x1f551c13702a54f913c7ff5b19002092f03f9b3d': {
+        '0xad75ce6354f87f3135ce10621d385d8d1e2562c2': {
           label: 'PAXG_GOLD_SPOKE',
-          address: '0x1F551c13702A54F913C7Ff5b19002092F03f9B3d',
+          address: '0xAD75cE6354f87F3135cE10621d385d8D1e2562C2',
           kind: 'spoke',
         },
       },
