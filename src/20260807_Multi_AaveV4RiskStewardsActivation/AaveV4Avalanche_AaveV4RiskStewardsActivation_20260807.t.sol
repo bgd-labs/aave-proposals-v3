@@ -493,12 +493,21 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
 
   function test_riskCouncilCannotAddDynamicReserveConfigsAboveBound() public activated {
     uint256 reserveId = _reserveId();
+    uint32 key = MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey;
+    address riskCouncil = steward.RISK_COUNCIL();
+
     ISpoke.DynamicReserveConfig memory outOfRange = MAIN_SPOKE.getDynamicReserveConfig(
       reserveId,
-      MAIN_SPOKE.getReserve(reserveId).dynamicConfigKey
+      key
     );
+    outOfRange.collateralFactor += 5_00 + 1;
+
+    vm.expectRevert(IRiskStewardV4.UpdateNotInRange.selector);
+    vm.prank(riskCouncil);
+    steward.addDynamicReserveConfigs(_dynamicReserveConfigAddition(outOfRange));
+
+    outOfRange = MAIN_SPOKE.getDynamicReserveConfig(reserveId, key);
     outOfRange.maxLiquidationBonus += 50 + 1;
-    address riskCouncil = steward.RISK_COUNCIL();
 
     vm.expectRevert(IRiskStewardV4.UpdateNotInRange.selector);
     vm.prank(riskCouncil);
@@ -736,7 +745,7 @@ contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV
       _assertParam(config.spoke.collateralRisk,                     36 hours, 300_00,     false,    'collateralRisk');
       _assertParam(config.spoke.dynamicUpdate.collateralFactor,     72 hours, 50,         false,    'dynamicUpdate collateralFactor');
       _assertParam(config.spoke.dynamicUpdate.maxLiquidationBonus,  72 hours, 50,         false,    'dynamicUpdate maxLiquidationBonus');
-      _assertParam(config.spoke.dynamicAdd.collateralFactor,        72 hours, 100_00,     false,    'dynamicAdd collateralFactor');
+      _assertParam(config.spoke.dynamicAdd.collateralFactor,        72 hours, 5_00,       false,    'dynamicAdd collateralFactor');
       _assertParam(config.spoke.dynamicAdd.maxLiquidationBonus,     72 hours, 50,         false,    'dynamicAdd maxLiquidationBonus');
       _assertParam(config.spoke.liquidation.targetHealthFactor,     72 hours, 5_00,       true,     'targetHealthFactor');
       _assertParam(config.spoke.liquidation.healthFactorForMaxBonus,72 hours, 5_00,       true,     'healthFactorForMaxBonus');

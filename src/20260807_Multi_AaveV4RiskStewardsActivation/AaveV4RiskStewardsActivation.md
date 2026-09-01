@@ -37,7 +37,7 @@ On Aave V4 Ethereum, the payload targets the Risk Steward at [0x6f48d9Cdb8EE6E17
 | Spoke  | `collateralRisk`                 | 36 hours | 300%                  | absolute |
 | Spoke  | `collateralFactor` (update)      | 72 hours | 0.5%                  | absolute |
 | Spoke  | `maxLiquidationBonus` (update)   | 72 hours | 0.5%                  | absolute |
-| Spoke  | `collateralFactor` (addition)    | 72 hours | 100%                  | absolute |
+| Spoke  | `collateralFactor` (addition)    | 72 hours | 5%                    | absolute |
 | Spoke  | `maxLiquidationBonus` (addition) | 72 hours | 0.5%                  | absolute |
 | Spoke  | `targetHealthFactor`             | 72 hours | 5%                    | relative |
 | Spoke  | `healthFactorForMaxBonus`        | 72 hours | 5%                    | relative |

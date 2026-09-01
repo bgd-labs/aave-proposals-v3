@@ -116,7 +116,7 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807 is IProposalGeneri
           dynamicAdd: IRiskStewardV4.SpokeDynamicConfig({
             collateralFactor: IRiskStewardV4.RiskParamConfig({
               minDelay: 72 hours,
-              maxPercentChange: 100_00,
+              maxPercentChange: 5_00,
               isChangeRelative: false
             }),
             maxLiquidationBonus: IRiskStewardV4.RiskParamConfig({
