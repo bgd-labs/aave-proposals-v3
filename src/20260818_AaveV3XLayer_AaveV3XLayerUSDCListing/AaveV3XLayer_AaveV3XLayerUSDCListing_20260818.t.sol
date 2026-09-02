@@ -19,6 +19,9 @@ import {IPriceCapAdapterStable} from '../interfaces/IPriceCapAdapterStable.sol';
 contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBase {
   AaveV3XLayer_AaveV3XLayerUSDCListing_20260818 internal proposal;
 
+  // https://www.oklink.com/xlayer/address/0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362
+  address internal constant PT_USDG_29OCT2026 = 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('xlayer'), 69442624);
     proposal = new AaveV3XLayer_AaveV3XLayerUSDCListing_20260818();
@@ -130,6 +133,39 @@ contract AaveV3XLayer_AaveV3XLayerUSDCListing_20260818_Test is ProtocolV3TestBas
       }),
       decimals: 6
     });
+  }
+
+  function test_eModeBorrowUsdc() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint8 eModeId = _findEModeCategoryId('PT_USDG__Stablecoins');
+    assertEq(eModeId, 7, 'hardcoded eMode id should match the PT_USDG__Stablecoins label');
+
+    address user = makeAddr('eModeBorrower');
+    address collateral = PT_USDG_29OCT2026;
+    uint256 supplyAmount = 1_000e6;
+    deal(collateral, user, supplyAmount);
+
+    vm.startPrank(user);
+    AaveV3XLayer.POOL.setUserEMode(eModeId);
+    IERC20(collateral).approve(address(AaveV3XLayer.POOL), supplyAmount);
+    AaveV3XLayer.POOL.supply(collateral, supplyAmount, user, 0);
+
+    uint256 borrowAmount = 100e6;
+    AaveV3XLayer.POOL.borrow(proposal.USDC(), borrowAmount, 2, 0, user);
+
+    address vToken = AaveV3XLayer.POOL.getReserveVariableDebtToken(proposal.USDC());
+    assertApproxEqAbs(
+      IERC20(vToken).balanceOf(user),
+      borrowAmount,
+      1,
+      'borrowed USDC amount mismatch'
+    );
+
+    IERC20(proposal.USDC()).approve(address(AaveV3XLayer.POOL), borrowAmount);
+    AaveV3XLayer.POOL.repay(proposal.USDC(), borrowAmount, 2, user);
+    AaveV3XLayer.POOL.withdraw(collateral, supplyAmount / 2, user);
+    vm.stopPrank();
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
