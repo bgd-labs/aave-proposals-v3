@@ -8,7 +8,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @title Add X Layer Loop Tool to FlashBorrowers
  * @author @TokenLogic
  * - Snapshot: direct-to-aip
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-add-x-layer-loop-tool-to-flashborrowers/25551
  */
 contract AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821 is IProposalGenericExecutor {
   // https://www.oklink.com/xlayer/address/0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d

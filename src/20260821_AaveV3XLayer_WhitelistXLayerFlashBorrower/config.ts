@@ -7,7 +7,8 @@ export const config: ConfigFile = {
     shortName: 'WhitelistXLayerFlashBorrower',
     date: '20260821',
     author: '@TokenLogic',
-    discussion: '',
+    discussion:
+      'https://governance.aave.com/t/direct-to-aip-add-x-layer-loop-tool-to-flashborrowers/25551',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },

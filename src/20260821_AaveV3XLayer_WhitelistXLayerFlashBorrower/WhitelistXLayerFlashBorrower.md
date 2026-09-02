@@ -1,7 +1,7 @@
 ---
 title: "Add X Layer Loop Tool to FlashBorrowers"
 author: "@TokenLogic"
-discussions: TODO
+discussions: "https://governance.aave.com/t/direct-to-aip-add-x-layer-loop-tool-to-flashborrowers/25551"
 ---
 
 ## Simple Summary
@@ -31,7 +31,7 @@ Once whitelisted, the Loop Tool contracts are exempt from Flashloan Fees on the 
 
 - Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821.sol)
 - Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821.t.sol)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-add-x-layer-loop-tool-to-flashborrowers/25551)
 
 ## Copyright
 
