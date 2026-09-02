@@ -31,7 +31,7 @@ export const config: ConfigFile = {
               irPreset: 'nonBorrowable',
               tokenization: {
                 addCap: '0',
-                proxyAdminOwner: 'GovernanceV3Ethereum.EXECUTOR_LVL_1',
+                proxyAdminOwner: '0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9',
                 name: 'Wrapped Aave Global Dollar PAXG',
                 symbol: 'waGlobalDollarPAXG',
               },

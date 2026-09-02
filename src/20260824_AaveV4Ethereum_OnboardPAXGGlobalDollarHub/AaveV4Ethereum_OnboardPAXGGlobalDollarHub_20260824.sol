@@ -8,7 +8,6 @@ import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
  * @title Onboard PAXG to Global Dollar Hub
@@ -56,7 +55,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
       irData: V4EngineDefaults.nonBorrowableIRData(),
       tokenization: IConfigEngine.TokenizationSpokeConfig({
         addCap: 0,
-        proxyAdminOwner: address(GovernanceV3Ethereum.EXECUTOR_LVL_1),
+        proxyAdminOwner: 0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9,
         name: 'Wrapped Aave Global Dollar PAXG',
         symbol: 'waGlobalDollarPAXG'
       })
