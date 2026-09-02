@@ -128,6 +128,35 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4
     }
   }
 
+  /// @dev The split above only proves each listed selector landed on its role. This proves the six
+  /// sets are exhaustive: a configurator function missing from the library would silently keep the
+  /// domain admin role instead of the granular one it belongs to.
+  function test_configuratorRolesCoverEverySelector() public activated {
+    bytes4[] memory hubSelectors = _interfaceSelectors('IHubConfigurator');
+    for (uint256 i; i < hubSelectors.length; ++i) {
+      uint64 role = AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
+        address(AaveV4Ethereum.HUB_CONFIGURATOR),
+        hubSelectors[i]
+      );
+      assertTrue(
+        _contains(AaveV4ConfiguratorRoles.hubSelectors(role), hubSelectors[i]),
+        string.concat('hub selector missing from the breakdown: ', vm.toString(hubSelectors[i]))
+      );
+    }
+
+    bytes4[] memory spokeSelectors = _interfaceSelectors('ISpokeConfigurator');
+    for (uint256 i; i < spokeSelectors.length; ++i) {
+      uint64 role = AaveV4Ethereum.ACCESS_MANAGER.getTargetFunctionRole(
+        address(AaveV4Ethereum.SPOKE_CONFIGURATOR),
+        spokeSelectors[i]
+      );
+      assertTrue(
+        _contains(AaveV4ConfiguratorRoles.spokeSelectors(role), spokeSelectors[i]),
+        string.concat('spoke selector missing from the breakdown: ', vm.toString(spokeSelectors[i]))
+      );
+    }
+  }
+
   /// @dev Each address that held a domain admin role keeps the same reach through the new roles.
   function test_domainAdminsCarriedOverToNewRoles() public {
     address[] memory hubAdmins = _roleMembers(
@@ -210,6 +239,28 @@ contract AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807_Test is ProtocolV4
         string.concat('spoke selector role mismatch: ', vm.toString(role))
       );
     }
+  }
+
+  /// @dev Reads the compiled ABI so the expected set comes from the interface, not from the library
+  /// under test.
+  function _interfaceSelectors(string memory name) internal view returns (bytes4[] memory) {
+    string memory path = string.concat('out/prague/', name, '.sol/', name, '.json');
+    if (!vm.isFile(path)) path = string.concat('out/shanghai/', name, '.sol/', name, '.json');
+    string[] memory signatures = vm.parseJsonKeys(vm.readFile(path), '.methodIdentifiers');
+    assertGt(signatures.length, 0, string.concat('no methods found for ', name));
+
+    bytes4[] memory selectors = new bytes4[](signatures.length);
+    for (uint256 i; i < signatures.length; ++i) {
+      selectors[i] = bytes4(keccak256(bytes(signatures[i])));
+    }
+    return selectors;
+  }
+
+  function _contains(bytes4[] memory selectors, bytes4 selector) internal pure returns (bool) {
+    for (uint256 i; i < selectors.length; ++i) {
+      if (selectors[i] == selector) return true;
+    }
+    return false;
   }
 
   function _roleMembers(uint64 role) internal view returns (address[] memory) {

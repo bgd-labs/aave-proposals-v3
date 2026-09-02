@@ -10,8 +10,8 @@ import {AaveV4ConfiguratorRoles} from './AaveV4ConfiguratorRoles.sol';
 /**
  * @title AaveV4RiskStewardsActivation
  * @author Aave Labs
- * - Snapshot: Direct-to-AIP
- * - Discussion: TODO
+ * - Snapshot: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510
  */
 contract AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807 is IProposalGenericExecutor {
   // https://snowscan.xyz/address/0xd8d7AbC42c1c938BdEC94fF8da1b3cd5b7e3b107

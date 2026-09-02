@@ -6,8 +6,8 @@ export const config: ConfigFile = {
     shortName: 'AaveV4RiskStewardsActivation',
     date: '20260807',
     author: 'Aave Labs',
-    discussion: 'TODO',
-    snapshot: 'Direct-to-AIP',
+    discussion: 'https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510',
+    snapshot: 'TODO',
     votingNetwork: 'AVALANCHE',
   },
   marketOptions: {

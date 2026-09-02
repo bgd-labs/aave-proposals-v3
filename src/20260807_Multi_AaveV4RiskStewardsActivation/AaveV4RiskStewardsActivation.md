@@ -1,7 +1,7 @@
 ---
 title: "Aave V4 Risk Stewards Activation"
 author: "Aave Labs"
-discussions: "TODO"
+discussions: "https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510"
 ---
 
 ## Simple Summary
@@ -75,7 +75,8 @@ The Risk Stewards receive neither flag role, nor the listing or domain admin rol
 
 - Implementation: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.sol), [AaveV4ConfiguratorRoles](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4ConfiguratorRoles.sol)
 - Tests: [AaveV4Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Ethereum_AaveV4RiskStewardsActivation_20260807.t.sol), [AaveV4Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260807_Multi_AaveV4RiskStewardsActivation/AaveV4Avalanche_AaveV4RiskStewardsActivation_20260807.t.sol)
-- Discussion: TODO
+- [Snapshot](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-activate-aave-risk-stewards-on-aave-v4/25510)
 
 ## Copyright
 
