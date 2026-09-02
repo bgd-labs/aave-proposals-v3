@@ -55,6 +55,18 @@ contract AaveV3Mantle_XAUtListing_20260805_Test is ProtocolV3TestBase {
     );
   }
 
+  function test_priceFeedReturnsSanePrice() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      AaveV3Mantle.ORACLE.getSourceOfAsset(proposal.XAUt()),
+      proposal.XAUt_PRICE_FEED(),
+      'XAUt should be priced by the configured XAU/USD feed'
+    );
+    uint256 price = AaveV3Mantle.ORACLE.getAssetPrice(proposal.XAUt());
+    assertGt(price, 1_000e8, 'XAUt (gold) price should be above 1,000 USD/oz');
+    assertLt(price, 100_000e8, 'XAUt price should be within a sane range');
+  }
+
   function _expectedListings() internal pure override returns (ExpectedListing[] memory listings) {
     listings = new ExpectedListing[](1);
 

@@ -18,18 +18,34 @@ XAUt is priced via the Chainlink XAU/USD feed on Mantle ([0x23A1105fd2C26BCc9EA6
 
 **XAUt listing:**
 
-| Parameter         | Value           |
-| ----------------- | --------------- |
-| Borrowable        | No              |
-| Collateral (core) | No (eMode only) |
-| Supply Cap        | 4,000 XAUt      |
-| Reserve Factor    | 20%             |
+| Parameter                 |                                                                                                                    XAUt |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------: |
+| Asset                     | [0x6199CCd9273A1E0e41e2cC18d9dAcd1E9382F58E](https://mantlescan.xyz/address/0x6199CCd9273A1E0e41e2cC18d9dAcd1E9382F58E) |
+| Isolation Mode            |                                                                                                                      No |
+| Borrowable                |                                                                                                                      No |
+| Collateral Enabled        |                                                                                                        No (E-Mode only) |
+| Supply Cap                |                                                                                                                   4,000 |
+| Borrow Cap                |                                                                                                                       1 |
+| Debt Ceiling              |                                                                                                                     N/A |
+| LTV                       |                                                                                                                      0% |
+| Liquidation Threshold     |                                                                                                                      0% |
+| Liquidation Bonus         |                                                                                                                      0% |
+| Liquidation Protocol Fee  |                                                                                                                     10% |
+| Reserve Factor            |                                                                                                                     20% |
+| Base Variable Borrow Rate |                                                                                                                      0% |
+| Variable Rate Slope 1     |                                                                                                                     10% |
+| Variable Rate Slope 2     |                                                                                                                    300% |
+| Optimal Utilization       |                                                                                                                     45% |
+| Flashloanable             |                                                                                                                     Yes |
+| Oracle                    | [0x23A1105fd2C26BCc9EA691725Bbda3f5F1bC0b78](https://mantlescan.xyz/address/0x23A1105fd2C26BCc9EA691725Bbda3f5F1bC0b78) |
 
 **New eMode** (borrowables: USDT0, USDC, GHO):
 
-| eMode            | Collateral | LTV | LT  | Liq. Bonus |
-| ---------------- | ---------- | --- | --- | ---------- |
-| XAUt Stablecoins | XAUt       | 70% | 75% | 6%         |
+| eMode            | Collateral | LTV | LT  | Liq. Bonus | Isolated |
+| ---------------- | ---------- | --- | --- | ---------- | -------- |
+| XAUt Stablecoins | XAUt       | 70% | 75% | 6%         | No       |
+
+The eMode is non-isolated: per LlamaRisk, listing XAUt at LTV 0 outside its dedicated Stablecoin eMode already achieves a level of risk isolation comparable to an Isolation Mode setup.
 
 ## References
 
