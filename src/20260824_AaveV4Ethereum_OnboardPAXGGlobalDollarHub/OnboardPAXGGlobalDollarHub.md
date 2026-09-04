@@ -8,7 +8,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x65be5cb5922bc73d14ba1
 
 ## Simple Summary
 
-This proposal onboards Pax Gold (PAXG) to the Aave V4 Global Dollar Hub on Ethereum. It deploys and configures the PAXG Gold Spoke, where PAXG is collateral only and USDG is borrowable, registers PAXG with the Tokenization Spoke with an Add Cap of 0, and enables native USDG as a borrowable reserve on the Pendle Spoke with a 4,000,000 USDG Draw Cap. Final asset configuration will be determined by the Risk Service Providers.
+This proposal onboards Pax Gold (PAXG) to the Aave V4 Global Dollar Hub on Ethereum. It deploys and configures the PAXG Gold Spoke, where PAXG is collateral only and USDG is borrowable, and enables native USDG as a borrowable reserve on the Pendle Spoke with a 4,000,000 USDG Draw Cap.
 
 ## Motivation
 
