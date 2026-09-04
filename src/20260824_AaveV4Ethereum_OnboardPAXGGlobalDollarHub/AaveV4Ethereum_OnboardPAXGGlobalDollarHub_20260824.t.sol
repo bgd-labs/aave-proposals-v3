@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4EthereumSpokes, AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumAssets, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4EthereumSpokes, AaveV4EthereumHubs, AaveV4Ethereum, AaveV4EthereumIRStrategies, AaveV4EthereumAssets, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
@@ -86,6 +86,37 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(uint256(cfg.targetHealthFactor), uint256(1e18), 'targetHealthFactor pre-state');
     assertEq(uint256(cfg.healthFactorForMaxBonus), uint256(0), 'hfForMaxBonus pre-state');
     assertEq(uint256(cfg.liquidationBonusFactor), uint256(0), 'bonusFactor pre-state');
+
+    assertFalse(
+      paxgGoldSpoke.isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER)
+      ),
+      'Giver Position Manager already active'
+    );
+    assertFalse(
+      paxgGoldSpoke.isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER)
+      ),
+      'Taker Position Manager already active'
+    );
+    assertFalse(
+      paxgGoldSpoke.isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER)
+      ),
+      'Config Position Manager already active'
+    );
+    assertFalse(
+      paxgGoldSpoke.isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.NATIVE_TOKEN_GATEWAY)
+      ),
+      'Native Token Gateway already active'
+    );
+    assertFalse(
+      paxgGoldSpoke.isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY)
+      ),
+      'Signature Gateway already active'
+    );
   }
 
   function test_paxgProxyAdminTimelock() public view {
@@ -446,6 +477,61 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(cfg.halted, false, 'halted mismatch');
   }
 
+  function test_spokePositionManagerUpdate_PAXG_GOLD_SPOKE_GIVER_POSITION_MANAGER() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      ISpoke(proposal.PAXG_GOLD_SPOKE()).isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER)
+      ),
+      true,
+      'positionManager active mismatch'
+    );
+  }
+
+  function test_spokePositionManagerUpdate_PAXG_GOLD_SPOKE_TAKER_POSITION_MANAGER() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      ISpoke(proposal.PAXG_GOLD_SPOKE()).isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER)
+      ),
+      true,
+      'positionManager active mismatch'
+    );
+  }
+
+  function test_spokePositionManagerUpdate_PAXG_GOLD_SPOKE_CONFIG_POSITION_MANAGER() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      ISpoke(proposal.PAXG_GOLD_SPOKE()).isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER)
+      ),
+      true,
+      'positionManager active mismatch'
+    );
+  }
+
+  function test_spokePositionManagerUpdate_PAXG_GOLD_SPOKE_NATIVE_TOKEN_GATEWAY() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      ISpoke(proposal.PAXG_GOLD_SPOKE()).isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.NATIVE_TOKEN_GATEWAY)
+      ),
+      true,
+      'positionManager active mismatch'
+    );
+  }
+
+  function test_spokePositionManagerUpdate_PAXG_GOLD_SPOKE_SIGNATURE_GATEWAY() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      ISpoke(proposal.PAXG_GOLD_SPOKE()).isPositionManagerActive(
+        address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY)
+      ),
+      true,
+      'positionManager active mismatch'
+    );
+  }
+
   function test_hubAssetListingsInput() public view {
     IConfigEngine.AssetListing[] memory items = proposal.hubAssetListings();
     assertEq(items.length, 1, 'length');
@@ -567,5 +653,45 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824_Test is ProtocolV4Te
     assertEq(uint256(items[1].assets[0].config.riskPremiumThreshold), 0, 'riskPremiumThreshold');
     assertEq(items[1].assets[0].config.active, true, 'active');
     assertEq(items[1].assets[0].config.halted, false, 'halted');
+  }
+
+  function test_spokePositionManagerUpdatesInput() public view {
+    IConfigEngine.PositionManagerUpdate[] memory items = proposal.spokePositionManagerUpdates();
+    assertEq(items.length, 5, 'length');
+    assertEq(items[0].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
+    assertEq(
+      items[0].positionManager,
+      address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER),
+      'positionManager'
+    );
+    assertEq(items[0].active, true, 'active');
+    assertEq(items[1].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
+    assertEq(
+      items[1].positionManager,
+      address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER),
+      'positionManager'
+    );
+    assertEq(items[1].active, true, 'active');
+    assertEq(items[2].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
+    assertEq(
+      items[2].positionManager,
+      address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER),
+      'positionManager'
+    );
+    assertEq(items[2].active, true, 'active');
+    assertEq(items[3].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
+    assertEq(
+      items[3].positionManager,
+      address(AaveV4EthereumPositionManagers.NATIVE_TOKEN_GATEWAY),
+      'positionManager'
+    );
+    assertEq(items[3].active, true, 'active');
+    assertEq(items[4].spoke, proposal.PAXG_GOLD_SPOKE(), 'spoke');
+    assertEq(
+      items[4].positionManager,
+      address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY),
+      'positionManager'
+    );
+    assertEq(items[4].active, true, 'active');
   }
 }

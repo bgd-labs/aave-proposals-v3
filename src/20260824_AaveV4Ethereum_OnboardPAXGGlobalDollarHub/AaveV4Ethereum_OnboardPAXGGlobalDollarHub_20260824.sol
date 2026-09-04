@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds} from 'aave-address-book/AaveV4Ethereum.sol';
+import {AaveV4Ethereum, AaveV4EthereumHubs, AaveV4EthereumIRStrategies, AaveV4EthereumAssets, AaveV4EthereumSpokes, AaveV4EthereumSpokePriceFeeds, AaveV4EthereumPositionManagers} from 'aave-address-book/AaveV4Ethereum.sol';
 import {AaveV4PayloadEthereum} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadEthereum.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
@@ -197,6 +197,48 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
         assets: subAssets
       });
     }
+    return items;
+  }
+
+  function spokePositionManagerUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.PositionManagerUpdate[] memory)
+  {
+    IConfigEngine.PositionManagerUpdate[] memory items = new IConfigEngine.PositionManagerUpdate[](
+      5
+    );
+    items[0] = IConfigEngine.PositionManagerUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: PAXG_GOLD_SPOKE,
+      positionManager: address(AaveV4EthereumPositionManagers.GIVER_POSITION_MANAGER),
+      active: true
+    });
+    items[1] = IConfigEngine.PositionManagerUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: PAXG_GOLD_SPOKE,
+      positionManager: address(AaveV4EthereumPositionManagers.TAKER_POSITION_MANAGER),
+      active: true
+    });
+    items[2] = IConfigEngine.PositionManagerUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: PAXG_GOLD_SPOKE,
+      positionManager: address(AaveV4EthereumPositionManagers.CONFIG_POSITION_MANAGER),
+      active: true
+    });
+    items[3] = IConfigEngine.PositionManagerUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: PAXG_GOLD_SPOKE,
+      positionManager: address(AaveV4EthereumPositionManagers.NATIVE_TOKEN_GATEWAY),
+      active: true
+    });
+    items[4] = IConfigEngine.PositionManagerUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: PAXG_GOLD_SPOKE,
+      positionManager: address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY),
+      active: true
+    });
     return items;
   }
 }
