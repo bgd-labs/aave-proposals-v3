@@ -207,7 +207,7 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
     returns (IConfigEngine.PositionManagerUpdate[] memory)
   {
     IConfigEngine.PositionManagerUpdate[] memory items = new IConfigEngine.PositionManagerUpdate[](
-      5
+      4
     );
     items[0] = IConfigEngine.PositionManagerUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
@@ -228,12 +228,6 @@ contract AaveV4Ethereum_OnboardPAXGGlobalDollarHub_20260824 is AaveV4PayloadEthe
       active: true
     });
     items[3] = IConfigEngine.PositionManagerUpdate({
-      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
-      spoke: PAXG_GOLD_SPOKE,
-      positionManager: address(AaveV4EthereumPositionManagers.NATIVE_TOKEN_GATEWAY),
-      active: true
-    });
-    items[4] = IConfigEngine.PositionManagerUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
       spoke: PAXG_GOLD_SPOKE,
       positionManager: address(AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY),

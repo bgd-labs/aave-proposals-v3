@@ -168,12 +168,6 @@ export const config: ConfigFile = {
             {
               spokeLib: 'PAXG_GOLD_SPOKE',
               spoke: 'PAXG_GOLD_SPOKE',
-              positionManager: 'AaveV4EthereumPositionManagers.NATIVE_TOKEN_GATEWAY',
-              active: true,
-            },
-            {
-              spokeLib: 'PAXG_GOLD_SPOKE',
-              spoke: 'PAXG_GOLD_SPOKE',
               positionManager: 'AaveV4EthereumPositionManagers.SIGNATURE_GATEWAY',
               active: true,
             },
