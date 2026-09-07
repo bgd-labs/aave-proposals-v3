@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-safety-module-august-2
 
 ## Simple Summary
 
-This AIP tops up the AAVE allowance funding stkAAVE rewards so that it covers everything stakers have already earned plus 90 days of future emissions at the unchanged rate of 150 AAVE per day, and resizes the allowances of the three sunset Safety Module tokens (stkABPT v1, stkGHO, stkAAVEwstETHBPTv2) so that each one matches its residual claimable rewards. No emission rate, cooldown or slashing parameter is modified.
+This AIP tops up the AAVE allowance funding stkAAVE rewards so that it covers everything stakers have already earned plus 90 days of future emissions at the unchanged rate of 150 AAVE per day, and resizes the allowances of the three sunset Safety Module tokens (stkABPT v1, stkGHO, stkAAVEwstETHBPTv2) so that each one matches its residual claimable rewards. These modules have been updated to have no emissions, so the values are absolute. No emission rate, cooldown or slashing parameter is modified.
 
 ## Motivation
 

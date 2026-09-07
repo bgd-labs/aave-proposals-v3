@@ -23,9 +23,9 @@ contract AaveV3Ethereum_SafetyModuleAllowanceUpdate_20260901 is IProposalGeneric
   uint256 public constant SNAPSHOT_TIMESTAMP = 1_787_791_523;
   uint256 public constant FORWARD_EMISSIONS_PERIOD = 90 days;
 
-  uint256 public constant STK_ABPT_V1_NEW_ALLOWANCE = 1_250 ether;
-  uint256 public constant STK_GHO_NEW_ALLOWANCE = 1_200 ether;
-  uint256 public constant STK_AAVE_WSTETH_BPTV2_NEW_ALLOWANCE = 2_500 ether;
+  uint256 public constant STK_ABPT_V1_ABSOLUTE_ALLOWANCE = 1_250 ether;
+  uint256 public constant STK_GHO_ABSOLUTE_ALLOWANCE = 1_200 ether;
+  uint256 public constant STK_AAVE_WSTETH_BPTV2_ABSOLUTE_ALLOWANCE = 2_500 ether;
 
   function execute() external override {
     (uint128 emissionPerSecond, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
@@ -41,9 +41,9 @@ contract AaveV3Ethereum_SafetyModuleAllowanceUpdate_20260901 is IProposalGeneric
       (block.timestamp - SNAPSHOT_TIMESTAMP + FORWARD_EMISSIONS_PERIOD);
 
     _setAllowance(AaveSafetyModule.STK_AAVE, newStkAaveAllowance);
-    _setAllowance(AaveSafetyModule.STK_ABPT, STK_ABPT_V1_NEW_ALLOWANCE);
-    _setAllowance(AaveSafetyModule.STK_GHO, STK_GHO_NEW_ALLOWANCE);
-    _setAllowance(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2, STK_AAVE_WSTETH_BPTV2_NEW_ALLOWANCE);
+    _setAllowance(AaveSafetyModule.STK_ABPT, STK_ABPT_V1_ABSOLUTE_ALLOWANCE);
+    _setAllowance(AaveSafetyModule.STK_GHO, STK_GHO_ABSOLUTE_ALLOWANCE);
+    _setAllowance(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2, STK_AAVE_WSTETH_BPTV2_ABSOLUTE_ALLOWANCE);
   }
 
   function _setAllowance(address module, uint256 amount) internal {
