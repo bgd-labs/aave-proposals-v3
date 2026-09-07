@@ -52,6 +52,11 @@ contract AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821_Test is ProtocolV3Te
       false,
       'loop tool contract should not be a flash borrower before execution'
     );
+    assertEq(
+      AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.MARGIN_TRADING()),
+      false,
+      'margin trading contract should not be a flash borrower before execution'
+    );
 
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(
@@ -63,6 +68,11 @@ contract AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821_Test is ProtocolV3Te
       AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.LOOP_TOOL()),
       true,
       'loop tool contract should be whitelisted as flash borrower'
+    );
+    assertEq(
+      AaveV3XLayer.ACL_MANAGER.isFlashBorrower(proposal.MARGIN_TRADING()),
+      true,
+      'margin trading contract should be whitelisted as flash borrower'
     );
   }
 }

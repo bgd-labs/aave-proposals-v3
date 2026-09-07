@@ -3,12 +3,12 @@ export const config: ConfigFile = {
   rootOptions: {
     configFile: 'flashborrower-config.ts',
     markets: ['AaveV3XLayer'],
-    title: 'Add X Layer Loop Tool to FlashBorrowers',
+    title: 'Add X Layer Loop Tool & Margin Trading to FlashBorrowers',
     shortName: 'WhitelistXLayerFlashBorrower',
     date: '20260821',
     author: '@TokenLogic',
     discussion:
-      'https://governance.aave.com/t/direct-to-aip-add-x-layer-loop-tool-to-flashborrowers/25551',
+      'https://governance.aave.com/t/direct-to-aip-add-x-layer-loop-tool-margin-trading-to-flashborrowers/25551',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },
