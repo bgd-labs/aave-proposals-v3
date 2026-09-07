@@ -16,7 +16,7 @@ contract AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821_Test is ProtocolV3Te
   AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 68557900);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 70027000);
     proposal = new AaveV3XLayer_WhitelistXLayerFlashBorrower_20260821();
   }
 

@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    configFile: 'flashborrower-config.ts',
+    configFile: 'src/20260821_AaveV3XLayer_WhitelistXLayerFlashBorrower/config.ts',
     markets: ['AaveV3XLayer'],
     title: 'Add X Layer Loop Tool & Margin Trading to FlashBorrowers',
     shortName: 'WhitelistXLayerFlashBorrower',
@@ -15,7 +15,7 @@ export const config: ConfigFile = {
   marketOptions: {
     AaveV3XLayer: {
       configs: {FLASH_BORROWER: {address: '0xAF1Fe8819F8e953391447A3fD3f27Db5b13b9f4d'}},
-      cache: {blockNumber: 68557900},
+      cache: {blockNumber: 70027000},
     },
   },
 };
