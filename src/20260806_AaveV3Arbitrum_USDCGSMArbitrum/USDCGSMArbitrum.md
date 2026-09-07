@@ -29,8 +29,8 @@ New Oracle Swap Freezer address: [0x4daF7FCe9EfcA48e9274b35b5A7B4639b0DdFCCa](ht
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/f1d30da5b8d69b740a920bd398695413349a7a96/src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/f1d30da5b8d69b740a920bd398695413349a7a96/src/20260806_AaveV3Arbitrum_USDCGSMArbitrum/AaveV3Arbitrum_USDCGSMArbitrum_20260806.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf24321514fb593af9e5082d26a1358819ec0f648db8fdb5c2b083f53ef785793)
 - [Discussion](https://governance.aave.com/t/arfc-launch-remotegsm-on-arbitrum/24986/5)
 
