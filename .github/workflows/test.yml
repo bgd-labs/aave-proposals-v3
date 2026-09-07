@@ -36,6 +36,8 @@ jobs:
       # we simply use foundry zk for all jobs in this repo
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+        with:
+          FOUNDRY_VERSION: "v1.7.1"
 
       - name: Run Forge tests
         id: test
@@ -66,6 +68,8 @@ jobs:
 
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+        with:
+          FOUNDRY_VERSION: "v1.7.1"
 
       # the snapshot specs only diff strings, so a payload that does not compile passes
       # them; this builds the generator fixtures with forge
@@ -83,6 +87,8 @@ jobs:
 
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+        with:
+          FOUNDRY_VERSION: "v1.7.1"
 
       - name: Run tests
         run: pnpm test
