@@ -40,8 +40,8 @@ The migration flow in the Aave UI will be switched to the updated StkGhoMigrator
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/e222ae41d0a97e840ab7ec122934a5a08cf0957f/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/e222ae41d0a97e840ab7ec122934a5a08cf0957f/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol)
 - [Diffs](https://contract-diff.swiss-knife.xyz/?contractOld=0xC836143e39201698e7d543bCf21AfF3415aE4697&contractNew=0x4C728397b9d5C8071d46229DF8823Ea2782124fb&chainIdOld=1&chainIdNew=1)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/139)
 
