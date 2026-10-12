@@ -40,8 +40,8 @@ The migration flow in the Aave UI will be switched to the updated StkGhoMigrator
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/4526b5ef1cd8d201622fb89f16678bcd176acdcb/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/4526b5ef1cd8d201622fb89f16678bcd176acdcb/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261008_AaveV3Ethereum_StkGhoMigratorUpdate/AaveV3Ethereum_StkGhoMigratorUpdate_20261008.t.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/139)
 
 ## Disclaimer
