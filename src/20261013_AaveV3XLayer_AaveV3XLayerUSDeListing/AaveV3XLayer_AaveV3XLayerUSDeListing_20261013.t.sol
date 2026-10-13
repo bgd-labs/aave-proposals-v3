@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3XLayer, AaveV3XLayerAssets, AaveV3XLayerEModes} from 'aave-address-book/AaveV3XLayer.sol';
-import {GovernanceV3XLayer} from 'aave-address-book/GovernanceV3XLayer.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
@@ -27,7 +26,6 @@ contract AaveV3XLayer_AaveV3XLayerUSDeListing_20261013_Test is ProtocolV3TestBas
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('xlayer'), 73119417);
     proposal = new AaveV3XLayer_AaveV3XLayerUSDeListing_20261013();
-    deal(proposal.USDe(), GovernanceV3XLayer.EXECUTOR_LVL_1, proposal.USDe_SEED_AMOUNT());
   }
 
   /**
