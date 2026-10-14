@@ -163,69 +163,56 @@ contract AaveV3XLayer_AaveV3XLayerUSDeListing_20261013_Test is ProtocolV3TestBas
     );
   }
 
-  function test_usdeInExistingEModes() public {
-    uint256 before_ = AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(
-      AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC
-    );
-    GovV3Helpers.executePayload(vm, address(proposal));
-    uint256 usdeId = AaveV3XLayer.POOL.getReserveData(proposal.USDe()).id;
-
+  function test_usdeEModesPreserveExistingConfiguration() public {
     uint8[4] memory joined = [
       AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC,
       AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC,
       AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC,
       AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC
     ];
+    EModeSnapshot[4] memory before_;
     for (uint256 i = 0; i < joined.length; i++) {
-      assertEq(
-        (AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(joined[i]) >> usdeId) & 1,
-        1,
-        'USDe should be borrowable'
-      );
-      assertEq(
-        (AaveV3XLayer.POOL.getEModeCategoryCollateralBitmap(joined[i]) >> usdeId) & 1,
-        0,
-        'USDe should not be collateral'
-      );
+      before_[i] = _snapshotEMode(joined[i]);
     }
 
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address[] memory usde = new address[](1);
+    usde[0] = proposal.USDe();
+    uint128 usdeBitmap = _toBitmap(usde);
+
+    for (uint256 i = 0; i < joined.length; i++) {
+      _assertEModeParamsAndCollateralUnchanged(before_[i]);
+      assertEq(
+        AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(joined[i]),
+        before_[i].borrowableBitmap | usdeBitmap,
+        'USDe should be the only borrowable added'
+      );
+    }
+  }
+
+  function test_otherEModesUnaffectedByUSDeListing() public {
     uint8[4] memory untouched = [
       AaveV3XLayerEModes.xBETH__xETH,
       AaveV3XLayerEModes.xOKSOL__xSOL,
       AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC,
       AaveV3XLayerEModes.PT_USDG_29OCT2026__USDG
     ];
+    EModeSnapshot[4] memory before_;
     for (uint256 i = 0; i < untouched.length; i++) {
+      before_[i] = _snapshotEMode(untouched[i]);
+    }
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    for (uint256 i = 0; i < untouched.length; i++) {
+      _assertEModeParamsAndCollateralUnchanged(before_[i]);
       assertEq(
-        (AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(untouched[i]) >> usdeId) & 1,
-        0,
-        'USDe should not be borrowable'
-      );
-      assertEq(
-        (AaveV3XLayer.POOL.getEModeCategoryCollateralBitmap(untouched[i]) >> usdeId) & 1,
-        0,
-        'USDe should not be collateral'
+        AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(untouched[i]),
+        before_[i].borrowableBitmap,
+        'borrowable bitmap should not change'
       );
     }
-    assertEq(
-      AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(
-        AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC
-      ),
-      before_,
-      'eMode 7 borrowable bitmap should not change'
-    );
-    assertEq(
-      AaveV3XLayer.POOL.getEModeCategoryLabel(AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC),
-      'xBTC__Stablecoins',
-      'existing labels should not change'
-    );
-    assertEq(
-      AaveV3XLayer.POOL.getEModeCategoryLabel(
-        AaveV3XLayerEModes.PT_USDG_29OCT2026__USDT_USDG_GHO_USDC
-      ),
-      'PT_USDG__Stablecoins',
-      'existing labels should not change'
-    );
   }
 
   function test_eMode_USDe__Stablecoins_supplyAndBorrow() public {
@@ -254,6 +241,36 @@ contract AaveV3XLayer_AaveV3XLayerUSDeListing_20261013_Test is ProtocolV3TestBas
     AaveV3XLayer.POOL.borrow(AaveV3XLayerAssets.USDT_UNDERLYING, 1, 2, 0, user);
 
     vm.stopPrank();
+  }
+
+  struct EModeSnapshot {
+    uint8 id;
+    string label;
+    DataTypes.CollateralConfig collateralConfig;
+    bool isolated;
+    uint128 collateralBitmap;
+    uint128 borrowableBitmap;
+  }
+
+  function _snapshotEMode(uint8 id) internal view returns (EModeSnapshot memory snap) {
+    snap.id = id;
+    snap.label = AaveV3XLayer.POOL.getEModeCategoryLabel(id);
+    snap.collateralConfig = AaveV3XLayer.POOL.getEModeCategoryCollateralConfig(id);
+    snap.isolated = AaveV3XLayer.POOL.getIsEModeCategoryIsolated(id);
+    snap.collateralBitmap = AaveV3XLayer.POOL.getEModeCategoryCollateralBitmap(id);
+    snap.borrowableBitmap = AaveV3XLayer.POOL.getEModeCategoryBorrowableBitmap(id);
+  }
+
+  function _assertEModeParamsAndCollateralUnchanged(EModeSnapshot memory snap) internal view {
+    assertEq(AaveV3XLayer.POOL.getEModeCategoryLabel(snap.id), snap.label);
+    _assertEModeCollateralConfig({
+      id: snap.id,
+      ltv: snap.collateralConfig.ltv,
+      liquidationThreshold: snap.collateralConfig.liquidationThreshold,
+      liquidationBonus: snap.collateralConfig.liquidationBonus,
+      isolated: snap.isolated
+    });
+    assertEq(AaveV3XLayer.POOL.getEModeCategoryCollateralBitmap(snap.id), snap.collateralBitmap);
   }
 
   function _findEModeCategoryId(string memory label) internal view returns (uint8) {
