@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-asset-listing-usde-x-l
 
 ## Simple Summary
 
-This publication proposes to onboard USDe as a supported asset on the Aave V3 X Layer Instance.
+This ARFC proposes to onboard USDe as a supported asset on the Aave V3 X Layer Instance.
 
 ## Motivation
 
@@ -24,21 +24,21 @@ Onboarding USDe to Aave V3 X Layer would:
 - Increase the available stablecoin borrowing liquidity for the existing xBTC, xETH, xSOL, and WOKB E-Mode categories.
 - Expand the range of cross-margin and stablecoin strategies available to users on X Layer.
 
-In line with the [LlamaRisk recommendation](https://governance.aave.com/t/direct-to-aip-asset-listing-usde-x-layer/25688/4), USDe is not enabled as collateral in the general market. It can be used as collateral within the new USDe Stablecoin E-Mode.
+Per LlamaRisk's recommendation, USDe is not enabled as collateral in the general market. Users can use it as collateral within the new USDe Stablecoin E-Mode.
 
 ## Specification
 
 USDe Contract Address
 
-| **Asset** | **Address**                                                                                                                      |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| USDe      | [`0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34`](https://www.oklink.com/xlayer/address/0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34) |
+| **Asset** | **Address**                                  |
+| --------- | -------------------------------------------- |
+| USDe      | `0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34` |
 
 The address above represents Ethena's USDe deployment on X Layer.
 
 ### Proposed Market Configuration
 
-The parameters below follow the [recommendation of LlamaRisk](https://governance.aave.com/t/direct-to-aip-asset-listing-usde-x-layer/25688/4).
+We propose initially configuring USDe with the following parameters, subject to final recommendations from Aave Risk Service Providers.
 
 | **Parameter**            | **Value**     |
 | ------------------------ | ------------- |
@@ -51,24 +51,25 @@ The parameters below follow the [recommendation of LlamaRisk](https://governance
 | Debt Ceiling             | -             |
 | LTV                      | 0.00%         |
 | LT                       | 0.00%         |
-| Liquidation Bonus        | 0.00%         |
+| Liquidation Bonus        | 0.0%          |
 | Liquidation Protocol Fee | 10%           |
 | Variable Base            | 6.30%         |
 | Variable Slope 1         | 0.25%         |
 | Variable Slope 2         | 45.00%        |
 | Uoptimal                 | 85.00%        |
 | Reserve Factor           | 25%           |
-| Stable Borrowing         | Disabled      |
 | Flashloanable            | Yes           |
 | Siloed Borrowing         | No            |
 | Borrowable in Isolation  | No            |
 | eModes                   | 1, 2, 3, 4, 9 |
 
-USDe is not enabled as collateral outside E-Mode.
+The proposed collateral parameters do not allow USDe to be enabled as collateral outside E-Mode.
+
+Final onboarding parameters remain subject to review and recommendations from Aave's Risk Service Providers.
 
 ## E-Mode Configuration
 
-We propose adding USDe as a borrowable asset to the four existing stablecoin borrowing E-Mode categories on X Layer, and creating a new USDe Stablecoin E-Mode.
+We propose adding USDe as a borrowable asset to the four existing stablecoin borrowing E-Mode categories on X Layer.
 
 **eMode #1**
 
@@ -114,37 +115,42 @@ We propose adding USDe as a borrowable asset to the four existing stablecoin bor
 | Liquidation Threshold | 55.00%    | \-        | \-        | \-        | \-        | \-        |
 | Liquidation Bonus     | 10.00%    | \-        | \-        | \-        | \-        | \-        |
 
-**eMode #9 (new)**
+**eMode #9**
 
 | **Parameter**         | **Value** | **Value** | **Value** | **Value** | **Value** |
 | --------------------- | --------- | --------- | --------- | --------- | --------- |
 | Asset                 | USDe      | USDT0     | USDG      | USDC      | GHO       |
 | Collateral            | Yes       | No        | No        | No        | No        |
 | Borrowable            | No        | Yes       | Yes       | Yes       | Yes       |
-| Isolated              | No        | \-        | \-        | \-        | \-        |
 | Max LTV               | 91.00%    | \-        | \-        | \-        | \-        |
 | Liquidation Threshold | 93.00%    | \-        | \-        | \-        | \-        |
 | Liquidation Bonus     | 2.00%     | \-        | \-        | \-        | \-        |
 
-eMode #1 to #4 are existing X Layer E-Mode categories. USDT0, USDG, USDC and GHO are currently configured as borrowable stablecoins within each category, and this proposal extends the same functionality to USDe. eMode #9 is a new category with USDe as its only collateral.
+These are the four existing X Layer E-Mode configurations. USDT0, USDG, USDC and GHO are currently configured as borrowable stablecoins within each category. This proposal would extend the same functionality to USDe.
 
 ## Oracle
 
-In line with the [LlamaRisk recommendation](https://governance.aave.com/t/direct-to-aip-asset-listing-usde-x-layer/25688/4), USDe will be priced using the existing Capped USDT/USD adapter on X Layer, consistent with the approach used for USDe across Aave instances. The adapter is already used for the USDT0 reserve on this instance.
+A Chainlink **USDT/USD Price Feed** is available on X Layer Mainnet.
 
-| **Parameter** | **Value**                                                                                                                        |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Price Feed    | Capped USDT / USD                                                                                                                |
-| Adapter       | [`0x7ec7E5497EAf312FE82F8307D05eb0E5f0f157D3`](https://www.oklink.com/xlayer/address/0x7ec7e5497eaf312fe82f8307d05eb0e5f0f157d3) |
-| Price Cap     | 1.04 USD                                                                                                                         |
-| Network       | X Layer Mainnet                                                                                                                  |
+Consistent with the oracle architecture used for USDe across Aave markets, we propose pricing USDe using the Chainlink USDT/USD reference feed together with a Stable Price Cap Adapter.
+
+| **ParameterValue**    |                                     |
+| --------------------- | ----------------------------------- |
+| Reference Feed        | USDT / USD                          |
+| Network               | X Layer Mainnet                     |
+| Chainlink Product     | `USDT/USD-RefPrice-DF-XLayer-001`   |
+| Pricing               | USDT/USD + Stable Price Cap Adapter |
+| Upper Price Deviation | 4%                                  |
+
+The Stable Price Cap Adapter would cap upward price deviation at 4%, consistent with the configuration used for USDe and other stablecoin assets across Aave markets.
+
+The final oracle contract, adapter deployment, and configuration remain subject to confirmation by the relevant Aave Risk and Technical Service Providers.
 
 ## Next Steps
 
 1. Gather feedback from the community.
-2. Confirm that at least $5M of USDe DEX liquidity is available on X Layer, as LlamaRisk requires before launch.
-3. Deposit at least 100 USDe into the Aave X Layer Short Executor to seed the reserve.
-4. Escalate this proposal to the AIP Voting stage.
+2. Using the Direct-to-AIP process, incorporate feedback from the Risk Service Provider.
+3. Escalate this proposal to the AIP Voting stage.
 
 ## References
 
