@@ -98,8 +98,8 @@
 | index | event |
 | --- | --- |
 | 1 | Initialized(underlyingAsset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34, pool: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, treasury: 0x3E9CfB4FDe8180C48b823C12DD2c4B841843f92E, incentivesController: 0x5404934c8F472818135176C80095283d78EB32D6, aTokenDecimals: 18, aTokenName: Aave XLayer USDe, aTokenSymbol: aXlrUSDe, params: 0x) |
-| 31 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000,000,000,000,000 [100000000000000000000, 0 decimals]) |
-| 32 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000,000,000,000,000 [100000000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
+| 27 | Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000,000,000,000,000 [100000000000000000000, 0 decimals]) |
+| 28 | Mint(caller: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, value: 100,000,000,000,000,000,000 [100000000000000000000, 0 decimals], balanceIncrease: 0, index: 1 [1000000000000000000000000000, 27 decimals]) |
 
 #### 0x4b9B45801E51fDf74E081897ce2eF141986122Dd
 
@@ -125,48 +125,44 @@
 | 9 | ReserveFactorChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), oldReserveFactor: 0, newReserveFactor: 2500) |
 | 11 | ReserveFlashLoaning(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), enabled: true) |
 | 12 | LiquidationProtocolFeeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), oldFee: 0, newFee: 1000) |
-| 13 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 1, collateral: false) |
-| 14 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 1, borrowable: true) |
-| 15 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 2, collateral: false) |
-| 16 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 2, borrowable: true) |
-| 17 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 3, collateral: false) |
-| 18 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 3, borrowable: true) |
-| 19 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 4, collateral: false) |
-| 20 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 4, borrowable: true) |
-| 21 | EModeCategoryAdded(categoryId: 9, ltv: 9100, liquidationThreshold: 9300, liquidationBonus: 10200, oracle: 0x0000000000000000000000000000000000000000, label: USDe__Stablecoins) |
-| 22 | EModeCategoryIsolationChanged(categoryId: 9, isolated: false) |
-| 23 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 9, collateral: true) |
-| 24 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 9, borrowable: true) |
-| 25 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 9, borrowable: true) |
-| 26 | AssetBorrowableInEModeChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), categoryId: 9, borrowable: true) |
-| 27 | AssetBorrowableInEModeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), categoryId: 9, borrowable: true) |
+| 13 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 1, borrowable: true) |
+| 14 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 2, borrowable: true) |
+| 15 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 3, borrowable: true) |
+| 16 | AssetBorrowableInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 4, borrowable: true) |
+| 17 | EModeCategoryAdded(categoryId: 9, ltv: 9100, liquidationThreshold: 9300, liquidationBonus: 10200, oracle: 0x0000000000000000000000000000000000000000, label: USDe__Stablecoins) |
+| 18 | EModeCategoryIsolationChanged(categoryId: 9, isolated: false) |
+| 19 | AssetCollateralInEModeChanged(asset: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), categoryId: 9, collateral: true) |
+| 20 | AssetBorrowableInEModeChanged(asset: 0x779Ded0c9e1022225f8E0630b35a9b54bE713736 (symbol: USD₮0), categoryId: 9, borrowable: true) |
+| 21 | AssetBorrowableInEModeChanged(asset: 0x4ae46a509F6b1D9056937BA4500cb143933D2dc8 (symbol: USDG), categoryId: 9, borrowable: true) |
+| 22 | AssetBorrowableInEModeChanged(asset: 0xB6CEceAB302E2E4948951eE7843FC24E92933061 (symbol: USDC), categoryId: 9, borrowable: true) |
+| 23 | AssetBorrowableInEModeChanged(asset: 0xDe6539018B095353A40753Dc54C91C68c9487D4E (symbol: GHO), categoryId: 9, borrowable: true) |
 
 #### 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116 (AaveV3XLayer.POOL)
 
 | index | event |
 | --- | --- |
 | 10 | ReserveDataUpdated(reserve: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 63000000000000000000000000, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 29 | ReserveDataUpdated(reserve: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 63000000000000000000000000, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
-| 33 | Supply(reserve: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 100 [100000000000000000000, 18 decimals]) |
+| 25 | ReserveDataUpdated(reserve: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), liquidityRate: 0, stableBorrowRate: 0, variableBorrowRate: 63000000000000000000000000, liquidityIndex: 1 [1000000000000000000000000000, 27 decimals], variableBorrowIndex: 1 [1000000000000000000000000000, 27 decimals]) |
+| 29 | Supply(reserve: 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34 (symbol: USDe), onBehalfOf: 0xF1910d5abaedd330d2C235E6608D519B660097a6, referralCode: 0, user: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, amount: 100 [100000000000000000000, 18 decimals]) |
 
 #### 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34
 
 | index | event |
 | --- | --- |
-| 28 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 100 [100000000000000000000, 18 decimals]) |
-| 30 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xc6f45a13d8307a6a35a147a31DdA4ce370ee33B4, value: 100 [100000000000000000000, 18 decimals]) |
+| 24 | Approval(owner: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, spender: 0xE3F3Caefdd7180F884c01E57f65Df979Af84f116, value: 100 [100000000000000000000, 18 decimals]) |
+| 26 | Transfer(from: 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19, to: 0xc6f45a13d8307a6a35a147a31DdA4ce370ee33B4, value: 100 [100000000000000000000, 18 decimals]) |
 
 #### 0xE2E8Badc5d50f8a6188577B89f50701cDE2D4e19 (AaveV3XLayer.ACL_ADMIN, GovernanceV3XLayer.EXECUTOR_LVL_1)
 
 | index | event |
 | --- | --- |
-| 34 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1791916998, withDelegatecall: true, resultData: 0x) |
+| 30 | ExecutedAction(target: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, value: 0, signature: execute(), data: 0x, executionTime: 1791916998, withDelegatecall: true, resultData: 0x) |
 
 #### 0x80e11cB895a23C901a990239E5534054C66476B5 (GovernanceV3XLayer.PAYLOADS_CONTROLLER)
 
 | index | event |
 | --- | --- |
-| 35 | PayloadExecuted(payloadId: 14) |
+| 31 | PayloadExecuted(payloadId: 14) |
 
 ## Raw storage changes
 
@@ -245,13 +241,9 @@
 | 0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce027 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000c6f45a13d8307a6a35a147a31dda4ce370ee33b4 |
 | 0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce029 | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x0000000000000000000000004b9b45801e51fdf74e081897ce2ef141986122dd |
 | 0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce02b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x00000000000000056bc75e2d6310000000000000000000000000000000000000 |
-| 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354c | 0x00000000000000000000000000000000000000000000000000082af8157c1388 | 0x00000000000000000000000000000000000000000000000000082af8157c1388 |
 | 0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354e | 0x0000000000000000000000000000000000000000000000000000000000000503 | 0x0000000000000000000000000000000000000000000000000000000000000d03 |
-| 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b2 | 0x000000000000000000000000000000000000000000000000001029681f401e78 | 0x000000000000000000000000000000000000000000000000001029681f401e78 |
 | 0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4 | 0x0000000000000000000000000000000000000000000000000000000000000503 | 0x0000000000000000000000000000000000000000000000000000000000000d03 |
-| 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3155 | 0x000000000000000000000000000000000000000000000000002029fe1b581964 | 0x000000000000000000000000000000000000000000000000002029fe1b581964 |
 | 0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157 | 0x0000000000000000000000000000000000000000000000000000000000000503 | 0x0000000000000000000000000000000000000000000000000000000000000d03 |
-| 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb0 | 0x000000000000000000000000000000000000000000000000000429681fa41e78 | 0x000000000000000000000000000000000000000000000000000429681fa41e78 |
 | 0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2 | 0x0000000000000000000000000000000000000000000000000000000000000503 | 0x0000000000000000000000000000000000000000000000000000000000000d03 |
 | 0xe6576186fab02514991562c0b55059c5b708dacefbb0b209be6f33d8dcdcb49b | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x000000000000000000000000000000000000000000000000080027d82454238c |
 | 0xe6576186fab02514991562c0b55059c5b708dacefbb0b209be6f33d8dcdcb49c | 0x0000000000000000000000000000000000000000000000000000000000000000 | 0x555344655f5f537461626c65636f696e73000000000000000000000000000022 |

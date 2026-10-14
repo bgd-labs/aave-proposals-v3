@@ -98,29 +98,29 @@ contract AaveV3XLayer_AaveV3XLayerUSDeListing_20261013 is AaveV3PayloadXLayer {
       asset: USDe,
       eModeCategory: AaveV3XLayerEModes.xBTC__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED,
-      ltvzero: EngineFlags.DISABLED
+      collateral: EngineFlags.KEEP_CURRENT,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDe,
       eModeCategory: AaveV3XLayerEModes.xETH__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED,
-      ltvzero: EngineFlags.DISABLED
+      collateral: EngineFlags.KEEP_CURRENT,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDe,
       eModeCategory: AaveV3XLayerEModes.xSOL__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED,
-      ltvzero: EngineFlags.DISABLED
+      collateral: EngineFlags.KEEP_CURRENT,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: USDe,
       eModeCategory: AaveV3XLayerEModes.WOKB__USDT_USDG_GHO_USDC,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED,
-      ltvzero: EngineFlags.DISABLED
+      collateral: EngineFlags.KEEP_CURRENT,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
 
     return assetEModeUpdates;
