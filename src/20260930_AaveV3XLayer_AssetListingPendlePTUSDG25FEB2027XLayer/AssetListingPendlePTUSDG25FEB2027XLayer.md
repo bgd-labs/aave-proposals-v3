@@ -73,8 +73,8 @@ The price feed applies a linear discount, decreasing to zero at maturity, on top
 
 ## References
 
-- Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930.sol)
-- Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930.t.sol)
+- Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/4b4f49ac6d841a9a0e93f9ce3a9073bf392b2fb7/src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930.sol)
+- Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/4b4f49ac6d841a9a0e93f9ce3a9073bf392b2fb7/src/20260930_AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer/AaveV3XLayer_AssetListingPendlePTUSDG25FEB2027XLayer_20260930.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-pt-usdg-25feb2027-on-x-layer/25733)
 
