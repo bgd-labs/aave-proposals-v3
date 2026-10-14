@@ -20,12 +20,18 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is
   IHub internal constant SENTORA_HUB = AaveV4EthereumSentoraCuratedHubs.SENTORA_HUB;
   address internal constant SENTORA_EXECUTOR =
     AaveV4EthereumSentoraCurated.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR;
+  address internal constant SENTORA_PAYLOADS_CONTROLLER =
+    AaveV4EthereumSentoraCurated.PERMISSIONED_PAYLOADS_CONTROLLER;
+
+  uint256 internal constant ASSET_COUNT = 8;
+  /// @dev 14 reserves plus the TreasurySpoke of each of the 8 assets.
+  uint256 internal constant SPOKE_PAIR_COUNT = 22;
 
   AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 26155605);
-    vm.skip(address(SENTORA_HUB).code.length == 0);
+    vm.skip(address(SENTORA_HUB).code.length == 0 || SENTORA_PAYLOADS_CONTROLLER.code.length == 0);
     proposal = new AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009();
   }
 
@@ -65,39 +71,42 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is
     _assertAllHalted(false);
   }
 
-  /// @dev Executes through the Sentora PermissionedPayloadsController instead of the Aave one.
+  /// @dev Executes through the Sentora PermissionedPayloadsController instead of the Aave one. The
+  /// base storage check only walks the Aave controller's executors, so the Sentora one is checked
+  /// here.
   function _executePayloadWithRecording(
     address payload
   ) internal override returns (string memory rawDiff, string memory logsJson) {
+    uint256 snapshotId = vm.snapshotState();
+    GovV3Helpers.executePayload(vm, payload, SENTORA_PAYLOADS_CONTROLLER);
+    _assertPayloadGasWithinLimit(vm.lastCallGas().gasTotalUsed);
+    vm.revertToState(snapshotId);
+
     vm.startStateDiffRecording();
     vm.recordLogs();
-    GovV3Helpers.executePayload(
-      vm,
-      payload,
-      AaveV4EthereumSentoraCurated.PERMISSIONED_PAYLOADS_CONTROLLER
-    );
+    GovV3Helpers.executePayload(vm, payload, SENTORA_PAYLOADS_CONTROLLER);
     rawDiff = vm.getStateDiffJson();
     logsJson = vm.getRecordedLogsJson();
+    _validateNoExecutorStorageChange(rawDiff, SENTORA_EXECUTOR);
   }
 
   function _executePayload() internal {
-    GovV3Helpers.executePayload(
-      vm,
-      address(proposal),
-      AaveV4EthereumSentoraCurated.PERMISSIONED_PAYLOADS_CONTROLLER
-    );
+    GovV3Helpers.executePayload(vm, address(proposal), SENTORA_PAYLOADS_CONTROLLER);
   }
 
   function _assertAllHalted(bool halted) internal view {
     uint256 assetCount = SENTORA_HUB.getAssetCount();
-    assertGt(assetCount, 0, 'no assets');
+    assertEq(assetCount, ASSET_COUNT, 'asset count');
+    uint256 pairCount;
     for (uint256 assetId; assetId < assetCount; ++assetId) {
       uint256 spokeCount = SENTORA_HUB.getSpokeCount(assetId);
       for (uint256 i; i < spokeCount; ++i) {
         address spoke = SENTORA_HUB.getSpokeAddress(assetId, i);
         assertEq(SENTORA_HUB.getSpokeConfig(assetId, spoke).halted, halted, 'halted');
+        ++pairCount;
       }
     }
+    assertEq(pairCount, SPOKE_PAIR_COUNT, 'spoke pair count');
   }
 
   function _ownedByExecutor() internal pure returns (address[] memory owned) {
