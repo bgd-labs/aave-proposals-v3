@@ -2,7 +2,7 @@
 title: "Aave V4 Sentora Market Activation"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-sentora-externally-curated-hub-spoke-framework-on-aave-v4/25723"
-snapshot: "TODO"
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x682f73c809e03d25008b9c4898f4e25c047806683f4d1b0d7635ba8ed50276aa"
 ---
 
 ## Simple Summary
@@ -11,7 +11,11 @@ This payload activates the Sentora curated market on Aave V4 Ethereum: one Hub (
 
 ## Motivation
 
-TODO
+The [ARFC](https://governance.aave.com/t/arfc-sentora-externally-curated-hub-spoke-framework-on-aave-v4/25723), approved on Snapshot, sets up a framework for Sentora to operate externally curated Hub and Spoke instances on Aave V4 and authorises the first one on Ethereum. Sentora curates the instance: it selects collateral and sets risk parameters, interest rate curves and oracles. These are outside the risk management mandate of the Aave DAO and its service providers. The Aave DAO receives 50% of the instance revenue.
+
+RLUSD, PYUSD and OUSD are the only borrowable assets. USDe, PRIME, mWIN, PST and kBTC are collateral only. The RLUSD Yield and OUSD Yield Spokes lend RLUSD and OUSD against yield-bearing collateral, and the Bluechip Spoke lends RLUSD, PYUSD and OUSD against kBTC.
+
+The market is deployed and configured with every asset-spoke pair halted. This payload hands the position managers and gateways to the Sentora Executor and opens the market.
 
 ## Specification
 
@@ -26,7 +30,7 @@ The TreasurySpoke ownership is accepted separately by the Sentora Fee Admin.
 
 - Implementation: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol)
 - Tests: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol)
-- Snapshot: TODO
+- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x682f73c809e03d25008b9c4898f4e25c047806683f4d1b0d7635ba8ed50276aa)
 - [Discussion](https://governance.aave.com/t/arfc-sentora-externally-curated-hub-spoke-framework-on-aave-v4/25723)
 
 ## Copyright

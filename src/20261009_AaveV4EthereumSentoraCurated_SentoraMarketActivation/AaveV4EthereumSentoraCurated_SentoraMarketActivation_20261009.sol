@@ -12,7 +12,7 @@ import {AaveV4EthereumSentoraCurated, AaveV4EthereumSentoraCuratedHubs, AaveV4Et
  * @author Aave Labs
  * @notice Executed by the Sentora Executor through the Sentora PermissionedPayloadsController. Accepts
  * the ownerships handed over at deploy, then unhalts every asset-spoke pair the configuration halted.
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x682f73c809e03d25008b9c4898f4e25c047806683f4d1b0d7635ba8ed50276aa
  * - Discussion: https://governance.aave.com/t/arfc-sentora-externally-curated-hub-spoke-framework-on-aave-v4/25723
  */
 contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009 is IProposalGenericExecutor {
