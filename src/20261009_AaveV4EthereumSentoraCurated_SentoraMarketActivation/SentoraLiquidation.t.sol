@@ -9,6 +9,7 @@ import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {PercentageMath} from 'aave-v4/libraries/math/PercentageMath.sol';
 import {AaveV4EthereumSentoraCuratedAssets as Assets} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
+import {IMidasAccessControl} from './SentoraInterfaces.sol';
 
 /// @dev Liquidations on RLUSD Yield against RLUSD debt, with the collateral price mocked down.
 /// Expected amounts replay the Spoke's LiquidationLogic arithmetic on the pre-liquidation state;
@@ -151,6 +152,50 @@ contract SentoraLiquidation_Test is SentoraTestBase {
       1e18,
       'healthy after liquidation'
     );
+  }
+
+  /// @dev mWIN collateral only reaches a liquidator holding the Midas greenlist role; anyone else
+  /// can still liquidate by taking the collateral as supplied shares.
+  function test_liquidation_mWinToNonGreenlistedLiquidator() public {
+    uint256 collateralId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
+    uint256 collateralAssetId = HUB.getAssetId(Assets.mWIN_UNDERLYING);
+    _supplyCollateralAs(RLUSD_YIELD, collateralId, borrower, 1e18);
+    _borrowAs(RLUSD_YIELD, debtId, borrower, 100_000e18);
+    _mockSourcePrice(RLUSD_YIELD, collateralId, 110_000e8);
+    State memory s = _state(collateralId, collateralAssetId);
+    assertLt(s.healthFactor, 1e18, 'liquidatable');
+
+    address outsider = makeAddr('outsider');
+    assertFalse(
+      IMidasAccessControl(_mWin().accessControl()).hasRole(
+        _mWin().M_WIN_GREENLISTED_ROLE(),
+        outsider
+      ),
+      'outsider greenlisted'
+    );
+    deal(Assets.RLUSD_UNDERLYING, outsider, 200_000e18);
+    vm.startPrank(outsider);
+    IERC20(Assets.RLUSD_UNDERLYING).approve(address(RLUSD_YIELD), 200_000e18);
+    vm.expectRevert(bytes('WMAC: hasnt role'));
+    RLUSD_YIELD.liquidationCall(collateralId, debtId, borrower, type(uint256).max, false);
+
+    RLUSD_YIELD.liquidationCall(collateralId, debtId, borrower, type(uint256).max, true);
+    vm.stopPrank();
+
+    uint256 seized = s.collateralShares - RLUSD_YIELD.getUserSuppliedShares(collateralId, borrower);
+    uint256 feeShares = _feeShares(seized, 7_50, s.bonus);
+    assertGt(seized, 0, 'collateral seized');
+    assertEq(
+      RLUSD_YIELD.getUserSuppliedShares(collateralId, outsider),
+      seized - feeShares,
+      'shares to liquidator'
+    );
+    assertEq(
+      HUB.getSpokeAddedShares(collateralAssetId, address(TREASURY_SPOKE)) - s.treasuryShares,
+      feeShares,
+      'protocol fee to treasury'
+    );
+    assertEq(IERC20(Assets.mWIN_UNDERLYING).balanceOf(outsider), 0, 'no mWIN transferred');
   }
 
   function test_liquidation_revertsWhenHealthy() public {

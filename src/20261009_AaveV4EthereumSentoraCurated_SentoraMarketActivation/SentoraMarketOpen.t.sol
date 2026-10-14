@@ -7,11 +7,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV4EthereumSentoraCuratedAssets as Assets, AaveV4EthereumSentoraCuratedPositionManagers} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
-import {IMidasToken} from './SentoraInterfaces.sol';
-
-interface IMidasAccessControl {
-  function hasRole(bytes32 role, address account) external view returns (bool);
-}
+import {IMidasToken, IMidasAccessControl} from './SentoraInterfaces.sol';
 
 /// @dev The market once the activation payload has unhalted it: parameters against the ARFC, and
 /// every reserve exercised by a user.
@@ -64,10 +60,18 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       assertEq(config.borrowable, spec.borrowable, 'borrowable');
       assertFalse(config.paused, 'paused');
       assertFalse(config.frozen, 'frozen');
+      // ARFC silent (D17): every reserve lets liquidators receive shares, as on chain
+      assertTrue(config.receiveSharesEnabled, 'receive shares');
 
       IHub.SpokeConfig memory spokeConfig = HUB.getSpokeConfig(assetId, address(spec.spoke));
       assertEq(spokeConfig.addCap, spec.addCap, 'add cap');
       assertEq(spokeConfig.drawCap, spec.drawCap, 'draw cap');
+      // ARFC silent (D17): borrowables carry no premium ceiling (uint24 max), as on chain
+      assertEq(
+        spokeConfig.riskPremiumThreshold,
+        spec.borrowable ? type(uint24).max : 0,
+        'risk premium threshold'
+      );
       assertTrue(spokeConfig.active, 'active');
       assertFalse(spokeConfig.halted, 'halted');
     }
@@ -113,6 +117,7 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       uint256 amount = _units(spoke, reserveId, specs[i].addCap) / 100;
 
       _supplyCollateralAs(spoke, reserveId, lender, amount);
+      uint256 kept = IERC20(specs[i].underlying).balanceOf(lender);
       assertEq(spoke.getUserSuppliedAssets(reserveId, lender), amount, 'supplied');
       (bool usingAsCollateral, ) = spoke.getUserReserveStatus(reserveId, lender);
       assertTrue(usingAsCollateral, 'collateral');
@@ -125,7 +130,7 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       vm.prank(lender);
       spoke.withdraw(reserveId, type(uint256).max, lender);
       assertEq(spoke.getUserSuppliedAssets(reserveId, lender), 0, 'withdrawn');
-      assertEq(IERC20(specs[i].underlying).balanceOf(lender), amount, 'balance');
+      assertEq(IERC20(specs[i].underlying).balanceOf(lender), kept + amount, 'balance');
       vm.revertToState(snapshot);
     }
   }
@@ -219,32 +224,47 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
     }
   }
 
-  /// @dev Pins the on-chain mWIN restrictions the other tests stub out: the Hub holds neither the
-  /// Midas greenlist role nor the min-balance exemption, so a deposit from a greenlisted holder
-  /// still reverts in the token.
+  /// @dev Pins the on-chain mWIN restrictions other tests resolve by simulating Midas onboarding:
+  /// the Hub holds neither the Midas greenlist role nor the min-balance exemption, so a deposit from
+  /// a greenlisted holder still reverts in the token.
   function test_mWinTransferRestrictions() public activated {
     IMidasToken mWin = IMidasToken(Assets.mWIN_UNDERLYING);
     IMidasAccessControl accessControl = IMidasAccessControl(mWin.accessControl());
     bytes32 greenlisted = mWin.M_WIN_GREENLISTED_ROLE();
+    bytes32 minBalanceExempt = mWin.M_WIN_MIN_BALANCE_EXEMPT_ROLE();
     assertFalse(accessControl.hasRole(greenlisted, address(HUB)), 'hub greenlisted');
-    assertFalse(
-      accessControl.hasRole(M_WIN_MIN_BALANCE_EXEMPT_ROLE, address(HUB)),
-      'hub min balance exempt'
-    );
+    assertFalse(accessControl.hasRole(minBalanceExempt, address(HUB)), 'hub min balance exempt');
+    assertEq(accessControl.getRoleAdmin(greenlisted), bytes32(0), 'greenlist admin role');
+    assertEq(accessControl.getRoleAdmin(minBalanceExempt), bytes32(0), 'exempt admin role');
+    assertTrue(accessControl.hasRole(bytes32(0), MIDAS_ADMIN), 'midas admin');
 
     uint256 reserveId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
     uint256 amount = 1e18;
     deal(Assets.mWIN_UNDERLYING, lender, amount);
-    vm.mockCall(
-      address(accessControl),
-      abi.encodeCall(IMidasAccessControl.hasRole, (greenlisted, lender)),
-      abi.encode(true)
-    );
+    _midasGrant(greenlisted, lender);
     vm.startPrank(lender);
     IERC20(Assets.mWIN_UNDERLYING).approve(address(RLUSD_YIELD), amount);
     vm.expectRevert(bytes('WMAC: hasnt role'));
     RLUSD_YIELD.supply(reserveId, amount, lender);
     vm.stopPrank();
+  }
+
+  /// @dev Once the Hub is onboarded, a greenlisted holder still cannot receive mWIN into a balance
+  /// under the Midas minimum of 1 mWIN.
+  function test_mWinMinBalanceOnWithdraw() public activated {
+    _midasOnboardHub();
+    uint256 reserveId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
+    deal(Assets.mWIN_UNDERLYING, lender, 2e18);
+    _midasGrant(_mWin().M_WIN_GREENLISTED_ROLE(), lender);
+    vm.startPrank(lender);
+    IERC20(Assets.mWIN_UNDERLYING).approve(address(RLUSD_YIELD), 2e18);
+    RLUSD_YIELD.supply(reserveId, 2e18, lender);
+
+    vm.expectRevert(bytes('MTMB: min balance not met'));
+    RLUSD_YIELD.withdraw(reserveId, M_WIN_MIN_BALANCE - 1, lender);
+    RLUSD_YIELD.withdraw(reserveId, M_WIN_MIN_BALANCE, lender);
+    vm.stopPrank();
+    assertEq(IERC20(Assets.mWIN_UNDERLYING).balanceOf(lender), M_WIN_MIN_BALANCE, 'withdrawn');
   }
 
   /// @dev ARFC "Spoke Parameters" and "Add & Draw Caps" tables; borrowables carry no collateral

@@ -40,4 +40,14 @@ interface IMidasToken {
   function accessControl() external view returns (address);
 
   function M_WIN_GREENLISTED_ROLE() external view returns (bytes32);
+
+  function M_WIN_MIN_BALANCE_EXEMPT_ROLE() external view returns (bytes32);
+}
+
+interface IMidasAccessControl {
+  function hasRole(bytes32 role, address account) external view returns (bool);
+
+  function getRoleAdmin(bytes32 role) external view returns (bytes32);
+
+  function grantRole(bytes32 role, address account) external;
 }

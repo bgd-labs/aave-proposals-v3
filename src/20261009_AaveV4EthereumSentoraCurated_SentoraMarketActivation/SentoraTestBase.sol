@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {VmSafe} from 'forge-std/Vm.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IPayloadsControllerCore} from 'aave-address-book/GovernanceV3.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -12,16 +13,15 @@ import {ProtocolV4TestBaseEthereumSentoraCurated} from 'aave-helpers/src/v4-prot
 import {IOwnable2Step} from 'src/interfaces/IOwnable2Step.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009} from './AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol';
-import {IReduceRiskStewardWrapper, IMidasToken} from './SentoraInterfaces.sol';
-import {MidasAccessControlMock} from './SentoraTestPayloads.sol';
+import {IReduceRiskStewardWrapper, IMidasToken, IMidasAccessControl} from './SentoraInterfaces.sol';
 
 /**
  * @dev Shared fork setup for the Sentora market activation tests: forks after the on-chain relinquish
- *      (block 26192973) and the Security Council's RiskSteward `acceptOwnership`, the state the
- *      activation payload will find.
+ *      (block 26192973), the Security Council's RiskSteward `acceptOwnership` and the activation
+ *      payload deploy (block 26193260), the state the payload will find when created.
  */
 abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
-  uint256 internal constant FORK_BLOCK = 26193000;
+  uint256 internal constant FORK_BLOCK = 26193270;
 
   IHub internal constant HUB = AaveV4EthereumSentoraCuratedHubs.SENTORA_HUB;
   ISpoke internal constant RLUSD_YIELD = AaveV4EthereumSentoraCuratedSpokes.RLUSD_YIELD_SPOKE;
@@ -63,8 +63,15 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
   uint40 internal constant PPC_GRACE_PERIOD = 7 days;
   uint40 internal constant PPC_EXPIRATION_DELAY = 35 days;
 
-  bytes32 internal constant M_WIN_MIN_BALANCE_EXEMPT_ROLE =
-    keccak256('M_WIN_MIN_BALANCE_EXEMPT_ROLE');
+  /// @dev The activation payload deployed on mainnet (CREATE2 salt v1); its runtime code equals
+  /// this folder's source.
+  address internal constant DEPLOYED_PAYLOAD = 0x888dAbE1Bc1Eb6DFaBc4BB398c4886CdA5D84bD0;
+  /// @dev Holds DEFAULT_ADMIN_ROLE, the admin of the mWIN greenlist and min-balance exempt roles, on
+  /// the Midas access control at FORK_BLOCK; it granted the existing mWIN greenlist entries.
+  address internal constant MIDAS_ADMIN = 0xd4195CF4df289a4748C1A7B6dDBE770e27bA1227;
+  /// @dev Not exposed by the token; measured at FORK_BLOCK as the smallest balance a non-exempt
+  /// greenlisted account can receive into.
+  uint256 internal constant M_WIN_MIN_BALANCE = 1e18;
 
   uint256 internal constant ASSET_COUNT = 8;
   /// @dev 14 reserves plus the TreasurySpoke of each of the 8 assets.
@@ -74,13 +81,12 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
 
   function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
-    vm.skip(
-      address(HUB).code.length == 0 ||
-        PPC.code.length == 0 ||
-        address(RISK_STEWARD).code.length == 0 ||
-        address(WRAPPER).code.length == 0
-    );
-    proposal = new AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009();
+    assertGt(address(HUB).code.length, 0, 'hub code');
+    assertGt(PPC.code.length, 0, 'payloads controller code');
+    assertGt(address(RISK_STEWARD).code.length, 0, 'risk steward code');
+    assertGt(address(WRAPPER).code.length, 0, 'wrapper code');
+    assertGt(DEPLOYED_PAYLOAD.code.length, 0, 'payload code');
+    proposal = AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009(DEPLOYED_PAYLOAD);
   }
 
   modifier activated() {
@@ -203,22 +209,39 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
   }
 
   /// @dev mWIN only moves between holders of its Midas greenlist role, and a holder outside the
-  /// min-balance exempt role must keep a minimum balance. At FORK_BLOCK the Hub holds neither role
-  /// (see `SentoraMarketOpen.test_mWinTransferRestrictions`). Flows that move mWIN swap the Midas
-  /// access control for one granting both roles to every account; code is swapped rather than
-  /// calls mocked because the e2e helpers clear mocked calls mid-flow.
+  /// min-balance exempt role must end every transfer it receives with at least 1 mWIN. At
+  /// FORK_BLOCK the Hub holds neither role (see `SentoraMarketOpen.test_mWinTransferRestrictions`).
+  /// Tests simulate the Midas onboarding: once mWIN is dealt, the Hub gets both roles, and every
+  /// account a test funds is a greenlisted mWIN holder keeping the minimum outside the market.
   function deal2(address asset, address user, uint256 amount) internal virtual override {
-    if (asset == AaveV4EthereumSentoraCuratedAssets.mWIN_UNDERLYING) _grantMWinTransferRoles();
-    super.deal2(asset, user, amount);
+    address mWin = AaveV4EthereumSentoraCuratedAssets.mWIN_UNDERLYING;
+    if (asset == mWin) _midasOnboardHub();
+    _midasGrant(_mWin().M_WIN_GREENLISTED_ROLE(), user);
+    if (asset == mWin) {
+      super.deal2(asset, user, amount + M_WIN_MIN_BALANCE);
+    } else {
+      super.deal2(asset, user, amount);
+      if (IERC20(mWin).balanceOf(user) < M_WIN_MIN_BALANCE) deal(mWin, user, M_WIN_MIN_BALANCE);
+    }
   }
 
-  function _grantMWinTransferRoles() internal {
-    IMidasToken mWin = IMidasToken(AaveV4EthereumSentoraCuratedAssets.mWIN_UNDERLYING);
-    MidasAccessControlMock mock = new MidasAccessControlMock(
-      mWin.M_WIN_GREENLISTED_ROLE(),
-      M_WIN_MIN_BALANCE_EXEMPT_ROLE
-    );
-    vm.etch(mWin.accessControl(), address(mock).code);
+  function _midasOnboardHub() internal {
+    _midasGrant(_mWin().M_WIN_GREENLISTED_ROLE(), address(HUB));
+    _midasGrant(_mWin().M_WIN_MIN_BALANCE_EXEMPT_ROLE(), address(HUB));
+  }
+
+  function _midasGrant(bytes32 role, address account) internal {
+    IMidasAccessControl accessControl = IMidasAccessControl(_mWin().accessControl());
+    if (accessControl.hasRole(role, account)) return;
+    (VmSafe.CallerMode mode, address sender, ) = vm.readCallers();
+    if (mode != VmSafe.CallerMode.None) vm.stopPrank();
+    vm.prank(MIDAS_ADMIN);
+    accessControl.grantRole(role, account);
+    if (mode != VmSafe.CallerMode.None) vm.startPrank(sender);
+  }
+
+  function _mWin() internal pure returns (IMidasToken) {
+    return IMidasToken(AaveV4EthereumSentoraCuratedAssets.mWIN_UNDERLYING);
   }
 
   function _expectUnauthorized(address caller) internal {

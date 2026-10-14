@@ -5,22 +5,6 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {ISpoke} from 'aave-address-book/AaveV4.sol';
 import {AaveV4EthereumSentoraCurated, AaveV4EthereumSentoraCuratedHubs, AaveV4EthereumSentoraCuratedSpokes, AaveV4EthereumSentoraCuratedAssets} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 
-/// @dev Stand-in for the Midas access control that grants `roleA` and `roleB` to every account and
-/// no other role.
-contract MidasAccessControlMock {
-  bytes32 internal immutable ROLE_A;
-  bytes32 internal immutable ROLE_B;
-
-  constructor(bytes32 roleA, bytes32 roleB) {
-    ROLE_A = roleA;
-    ROLE_B = roleB;
-  }
-
-  function hasRole(bytes32 role, address) external view returns (bool) {
-    return role == ROLE_A || role == ROLE_B;
-  }
-}
-
 /// @dev Risk-increasing Sentora payload: raises the RLUSD Yield RLUSD caps and adds a higher USDe
 /// collateral factor on RLUSD Yield, through roles 1000 the Executor holds.
 contract SentoraRiskIncreasePayload is IProposalGenericExecutor {
