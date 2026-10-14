@@ -5,16 +5,21 @@ import {IHubConfigurator, ISpokeConfigurator} from 'aave-address-book/AaveV4.sol
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IOwnable2Step} from 'src/interfaces/IOwnable2Step.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
-import {SentoraHandover} from './SentoraHandover.sol';
 
 interface IRescuable {
   function rescueGuardian() external view returns (address);
 }
 
-/// @dev End state of roles and ownerships once the relinquish and the activation payload have run.
+/// @dev End state of roles and ownerships once the Fee Admin acceptance and the activation payload
+/// have run.
 contract SentoraAccessControl_Test is SentoraTestBase {
+  /// @dev TreasurySpoke ProxyAdmin, created by the market deploy and moved to the Security Council
+  /// by the relinquish.
+  address internal constant TREASURY_SPOKE_PROXY_ADMIN = 0xB73edB24752457229f15B598A9bB4F53384Add3c;
+
   function setUp() public override {
     super.setUp();
+    _acceptTreasurySpokeOwnership();
     _activate();
   }
 
@@ -133,7 +138,7 @@ contract SentoraAccessControl_Test is SentoraTestBase {
     }
     assertEq(
       _proxyAdmin(address(TREASURY_SPOKE)),
-      SentoraHandover.TREASURY_SPOKE_PROXY_ADMIN,
+      TREASURY_SPOKE_PROXY_ADMIN,
       'treasury proxy admin'
     );
   }

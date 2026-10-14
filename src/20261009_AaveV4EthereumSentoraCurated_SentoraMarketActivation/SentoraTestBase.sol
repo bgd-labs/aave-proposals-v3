@@ -12,17 +12,16 @@ import {ProtocolV4TestBaseEthereumSentoraCurated} from 'aave-helpers/src/v4-prot
 import {IOwnable2Step} from 'src/interfaces/IOwnable2Step.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009} from './AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol';
-import {SentoraHandover} from './SentoraHandover.sol';
 import {IReduceRiskStewardWrapper, IMidasToken} from './SentoraInterfaces.sol';
 import {MidasAccessControlMock} from './SentoraTestPayloads.sol';
 
 /**
- * @dev Shared fork setup for the Sentora market activation tests: forks after the Risk Steward
- *      deploy, replays the deployer's relinquish calls and the two off-payload acceptances, so every
- *      test starts from the state the activation payload will find on chain.
+ * @dev Shared fork setup for the Sentora market activation tests: forks after the on-chain relinquish
+ *      (block 26192973) and the Security Council's RiskSteward `acceptOwnership`, the state the
+ *      activation payload will find.
  */
 abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
-  uint256 internal constant FORK_BLOCK = 26192652;
+  uint256 internal constant FORK_BLOCK = 26193000;
 
   IHub internal constant HUB = AaveV4EthereumSentoraCuratedHubs.SENTORA_HUB;
   ISpoke internal constant RLUSD_YIELD = AaveV4EthereumSentoraCuratedSpokes.RLUSD_YIELD_SPOKE;
@@ -47,7 +46,9 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
   address internal constant EMERGENCY_ADMIN = AaveV4EthereumSentoraCurated.SENTORA_EMERGENCY_ADMIN;
   address internal constant OPERATOR = AaveV4EthereumSentoraCurated.SENTORA_OPERATOR;
   address internal constant FEE_ADMIN = AaveV4EthereumSentoraCurated.SENTORA_FEE_ADMIN;
-  address internal constant DEPLOYER = SentoraHandover.DEPLOYER;
+  /// @dev Deployed and configured the market (aave-v4 Sentora deploy report); holds nothing after the
+  /// relinquish but the pending Ownable2Step transfers.
+  address internal constant DEPLOYER = 0x043a48d1Bd61c59f67C09215D5Eae6b743Fe533d;
 
   uint64 internal constant ADMIN_ROLE = 0;
   uint64 internal constant HUB_CONFIGURATOR_ROLE = 101;
@@ -79,7 +80,6 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
         address(RISK_STEWARD).code.length == 0 ||
         address(WRAPPER).code.length == 0
     );
-    _handOver();
     proposal = new AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009();
   }
 
@@ -88,17 +88,9 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
     _;
   }
 
-  function _handOver() internal {
-    SentoraHandover.Call[] memory calls = SentoraHandover.calls();
-    vm.startPrank(DEPLOYER);
-    for (uint256 i; i < calls.length; ++i) {
-      (bool success, ) = calls[i].target.call(calls[i].data);
-      assertTrue(success, string.concat('handover call ', vm.toString(i)));
-    }
-    vm.stopPrank();
-
-    vm.prank(SECURITY_COUNCIL);
-    IOwnable2Step(address(RISK_STEWARD)).acceptOwnership();
+  /// @dev The Fee Admin's TreasurySpoke `acceptOwnership` is its own step outside the activation
+  /// payload; flows that need the Fee Admin as owner run it first.
+  function _acceptTreasurySpokeOwnership() internal {
     vm.prank(FEE_ADMIN);
     IOwnable2Step(address(TREASURY_SPOKE)).acceptOwnership();
   }

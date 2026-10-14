@@ -2,12 +2,14 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {IPayloadsControllerCore} from 'aave-address-book/GovernanceV3.sol';
+import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IOwnable2Step} from 'src/interfaces/IOwnable2Step.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
 
 /**
- * @dev Test for AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009. `SentoraTestBase` replays
- *      the deployer's relinquish before each test.
+ * @dev Test for AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009, forked after the
+ *      on-chain relinquish.
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol -vv
  */
 contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is SentoraTestBase {
@@ -25,8 +27,27 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is S
   function test_preconditions() public view {
     address[] memory owned = _ownedByExecutor();
     for (uint256 i; i < owned.length; ++i) {
+      assertEq(IOwnable(owned[i]).owner(), DEPLOYER, 'owner');
       assertEq(IOwnable2Step(owned[i]).pendingOwner(), EXECUTOR, 'pending owner');
     }
+    assertEq(IOwnable(address(TREASURY_SPOKE)).owner(), DEPLOYER, 'treasury owner');
+    assertEq(
+      IOwnable2Step(address(TREASURY_SPOKE)).pendingOwner(),
+      FEE_ADMIN,
+      'treasury pending owner'
+    );
+    assertEq(RISK_STEWARD.owner(), SECURITY_COUNCIL, 'steward owner');
+    assertEq(RISK_STEWARD.pendingOwner(), address(0), 'steward pending owner');
+
+    _assertRole(ADMIN_ROLE, SECURITY_COUNCIL, address(0));
+    _assertRole(HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, address(0));
+    _assertRole(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, address(0));
+    _assertRole(SENTORA_RISK_ROLE, EXECUTOR, address(RISK_STEWARD));
+    _assertRole(SENTORA_EMERGENCY_ROLE, EMERGENCY_ADMIN, SECURITY_COUNCIL);
+    (bool deployerIsAdmin, ) = ACCESS_MANAGER.hasRole(ADMIN_ROLE, DEPLOYER);
+    assertFalse(deployerIsAdmin, 'deployer admin');
+
+    assertEq(IPayloadsControllerCore(PPC).getPayloadsCount(), 0, 'no payload yet');
     _assertAllHalted(true);
   }
 
@@ -59,6 +80,16 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is S
     rawDiff = vm.getStateDiffJson();
     logsJson = vm.getRecordedLogsJson();
     _validateNoExecutorStorageChange(rawDiff, EXECUTOR);
+  }
+
+  function _assertRole(uint64 role, address first, address second) internal view {
+    (bool isFirst, ) = ACCESS_MANAGER.hasRole(role, first);
+    assertTrue(isFirst, 'member');
+    if (second != address(0)) {
+      (bool isSecond, ) = ACCESS_MANAGER.hasRole(role, second);
+      assertTrue(isSecond, 'member');
+    }
+    assertEq(ACCESS_MANAGER.getRoleMemberCount(role), second == address(0) ? 1 : 2, 'members');
   }
 
   function _assertAllHalted(bool halted) internal view {
