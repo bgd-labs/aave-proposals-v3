@@ -3,14 +3,15 @@ pragma solidity ^0.8.0;
 
 import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV4EthereumSentoraCurated} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 
 /**
  * @title SentoraPreLaunchCouncilCalls
  * @notice The V4 Security Council Safe transactions that run the pre-launch config payload: grant
- * the Council Executor roles 200, 400, 1000 and 1001 without execution delay, then have it
- * delegatecall the payload.
+ * the Council Executor roles 200, 400, 1000 and 1001 without execution delay, have it delegatecall
+ * the payload, then grant Executor Lvl1 the AccessManager admin role 0 without execution delay.
  */
 library SentoraPreLaunchCouncilCalls {
   struct Call {
@@ -21,6 +22,9 @@ library SentoraPreLaunchCouncilCalls {
   /// @dev Safe MultiSendCallOnly v1.4.1 canonical deployment.
   address internal constant MULTI_SEND_CALL_ONLY = 0x9641d764fc13c8B624c04430C7356C1C7C8102e2;
 
+  /// @dev AccessManager `ADMIN_ROLE`.
+  uint64 internal constant ADMIN_ROLE = 0;
+
   function roles() internal pure returns (uint64[4] memory) {
     return [uint64(200), 400, 1000, 1001];
   }
@@ -29,7 +33,7 @@ library SentoraPreLaunchCouncilCalls {
     address accessManager = address(AaveV4EthereumSentoraCurated.ACCESS_MANAGER);
     address executor = MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR;
     uint64[4] memory roleIds = roles();
-    list = new Call[](5);
+    list = new Call[](6);
     for (uint256 i; i < roleIds.length; ++i) {
       list[i] = Call({
         to: accessManager,
@@ -39,6 +43,13 @@ library SentoraPreLaunchCouncilCalls {
     list[4] = Call({
       to: executor,
       data: abi.encodeCall(IExecutor.executeTransaction, (payload, 0, 'execute()', '', true))
+    });
+    list[5] = Call({
+      to: accessManager,
+      data: abi.encodeCall(
+        IAccessManager.grantRole,
+        (ADMIN_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1, 0)
+      )
     });
   }
 
