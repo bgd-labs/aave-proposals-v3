@@ -4,11 +4,13 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV4AvalancheSpokes, AaveV4AvalancheHubs, AaveV4Avalanche, AaveV4AvalancheAssets, AaveV4AvalanchePositionManagers, AaveV4AvalancheIRStrategies, AaveV4AvalancheSpokePriceFeeds} from 'aave-address-book/AaveV4Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
+import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {IAaveOracle} from 'aave-v4/spoke/interfaces/IAaveOracle.sol';
+import {IPositionManagerBase} from 'aave-v4/position-manager/interfaces/IPositionManagerBase.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
 import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
@@ -117,8 +119,13 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
   function test_ethenaEcosystemSpokeProxyAdminOwner() public view {
     assertEq(
       _proxyAdminOwner(proposal.ETHENA_ECOSYSTEM_SPOKE()),
-      0x187AAE17d4931310B3fc75743e7F16Bdc9eD77e9,
+      MiscAvalanche.V4_SECURITY_COUNCIL,
       'Ethena Ecosystem Spoke proxy admin owner mismatch'
+    );
+    assertEq(
+      _proxyAdminOwner(proposal.ETHENA_ECOSYSTEM_SPOKE()),
+      _proxyAdminOwner(address(AaveV4AvalancheSpokes.MAIN_SPOKE)),
+      'Ethena Ecosystem Spoke proxy admin owner diverges from Main Spoke'
     );
   }
 
@@ -319,9 +326,52 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
     );
   }
 
+  function test_reservePrices_ETHENA_ECOSYSTEM_SPOKE() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke spoke = ISpoke(proposal.ETHENA_ECOSYSTEM_SPOKE());
+    IHub hub = IHub(address(AaveV4AvalancheHubs.CORE_HUB));
+    uint256[] memory reserveIds = new uint256[](3);
+    reserveIds[0] = spoke.getReserveId(address(hub), hub.getAssetId(proposal.USDE()));
+    reserveIds[1] = spoke.getReserveId(
+      address(hub),
+      hub.getAssetId(address(AaveV4AvalancheAssets.USDt_UNDERLYING))
+    );
+    reserveIds[2] = spoke.getReserveId(
+      address(hub),
+      hub.getAssetId(address(AaveV4AvalancheAssets.USDC_UNDERLYING))
+    );
+    uint256[] memory prices = IAaveOracle(spoke.ORACLE()).getReservesPrices(reserveIds);
+    assertApproxEqAbs(prices[0], 1e8, 0.02e8, 'USDE price out of range');
+    assertApproxEqAbs(prices[1], 1e8, 0.02e8, 'USDt price out of range');
+    assertApproxEqAbs(prices[2], 1e8, 0.02e8, 'USDC price out of range');
+  }
+
   function test_e2e_ETHENA_ECOSYSTEM_SPOKE() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     e2eTestSpoke(ISpoke(proposal.ETHENA_ECOSYSTEM_SPOKE()));
+  }
+
+  /// @dev The Security Council registers the spoke on the position managers outside this payload.
+  function test_e2ePositionManagers_ETHENA_ECOSYSTEM_SPOKE() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    address spoke = proposal.ETHENA_ECOSYSTEM_SPOKE();
+    address[] memory positionManagers = new address[](4);
+    positionManagers[0] = address(AaveV4AvalanchePositionManagers.GIVER_POSITION_MANAGER);
+    positionManagers[1] = address(AaveV4AvalanchePositionManagers.TAKER_POSITION_MANAGER);
+    positionManagers[2] = address(AaveV4AvalanchePositionManagers.CONFIG_POSITION_MANAGER);
+    positionManagers[3] = address(AaveV4AvalanchePositionManagers.SIGNATURE_GATEWAY);
+
+    vm.startPrank(MiscAvalanche.V4_SECURITY_COUNCIL);
+    for (uint256 i; i < positionManagers.length; ++i) {
+      assertFalse(
+        IPositionManagerBase(positionManagers[i]).isSpokeRegistered(spoke),
+        'spoke already registered'
+      );
+      IPositionManagerBase(positionManagers[i]).registerSpoke(spoke, true);
+    }
+    vm.stopPrank();
+
+    e2eTestPositionManagers(ISpoke(spoke));
   }
 
   function test_spokeLiquidationConfigUpdate_ETHENA_ECOSYSTEM_SPOKE() public {
