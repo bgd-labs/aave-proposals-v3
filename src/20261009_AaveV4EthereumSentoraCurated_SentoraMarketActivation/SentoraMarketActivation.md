@@ -34,10 +34,10 @@ At Sentora's request, a second payload, `AaveV4EthereumSentoraCurated_SentoraPre
 2. Sets the add and draw caps of PST and PRIME to 0 on RLUSD Yield and OUSD Yield. Their TreasurySpoke pairs are unchanged.
 3. Sets the liquidation config:
 
-| Spoke | Target health factor | Health factor for max bonus | Liquidation bonus factor |
-| --- | --- | --- | --- |
-| RLUSD Yield, OUSD Yield | 1.047 | 0.99 | 100% |
-| Bluechip | 1.143 | 0.99 | 100% |
+| Spoke                   | Target health factor | Health factor for max bonus | Liquidation bonus factor |
+| ----------------------- | -------------------- | --------------------------- | ------------------------ |
+| RLUSD Yield, OUSD Yield | 1.047                | 0.99                        | 100%                     |
+| Bluechip                | 1.143                | 0.99                        | 100%                     |
 
 The deploy script `SentoraPreLaunchConfig_20261016.s.sol` prints the six Council Safe transactions and the same batch for MultiSendCallOnly `0x9641d764fc13c8B624c04430C7356C1C7C8102e2`.
 

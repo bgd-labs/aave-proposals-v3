@@ -81,10 +81,7 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806 is IProposalGenericExecutor {
     IGhoReserve(GhoArbitrum.GHO_RESERVE).removeEntity(OLD_GSM_USDC);
 
     // Revoke Roles
-    IGsm(OLD_GSM_USDC).revokeRole(
-      SWAP_FREEZER_ROLE,
-      OLD_GSM_USDC_ORACLE_SWAP_FREEZER
-    );
+    IGsm(OLD_GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, OLD_GSM_USDC_ORACLE_SWAP_FREEZER);
 
     IGsm(OLD_GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     IGsm(OLD_GSM_USDC).revokeRole(LIQUIDATOR_ROLE, GovernanceV3Arbitrum.EXECUTOR_LVL_1);

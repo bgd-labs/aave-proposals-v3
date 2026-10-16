@@ -152,7 +152,8 @@ contract SentoraRevenue_Test is SentoraTestBase {
   function _aggregatedOwedRay() internal view returns (uint256) {
     assertEq(HUB.getAssetDeficitRay(rlusdAssetId), 0, 'no deficit');
     return
-      HUB.getAssetDrawnShares(rlusdAssetId) * HUB.getAssetDrawnIndex(rlusdAssetId) +
+      HUB.getAssetDrawnShares(rlusdAssetId) *
+      HUB.getAssetDrawnIndex(rlusdAssetId) +
       HUB.getAssetPremiumRay(rlusdAssetId);
   }
 }

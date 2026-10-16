@@ -59,12 +59,10 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
 
   function test_rolesAreTheSame() public view {
     assertTrue(
-      IGsm(OLD_GSM_USDC).LIQUIDATOR_ROLE() ==
-        IGsm(proposal.NEW_GSM_USDC()).LIQUIDATOR_ROLE()
+      IGsm(OLD_GSM_USDC).LIQUIDATOR_ROLE() == IGsm(proposal.NEW_GSM_USDC()).LIQUIDATOR_ROLE()
     );
     assertTrue(
-      IGsm(OLD_GSM_USDC).SWAP_FREEZER_ROLE() ==
-        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE()
+      IGsm(OLD_GSM_USDC).SWAP_FREEZER_ROLE() == IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE()
     );
   }
 
@@ -127,24 +125,15 @@ contract AaveV3Arbitrum_USDCGSMArbitrum_20260806_Test is ProtocolV3TestBase {
     assertEq(IGsm(OLD_GSM_USDC).getAvailableUnderlyingExposure(), 0, 'wrong exposure cap');
 
     assertFalse(
-      IGsm(OLD_GSM_USDC).hasRole(
-        proposal.SWAP_FREEZER_ROLE(),
-        OLD_GSM_USDC_ORACLE_SWAP_FREEZER
-      )
+      IGsm(OLD_GSM_USDC).hasRole(proposal.SWAP_FREEZER_ROLE(), OLD_GSM_USDC_ORACLE_SWAP_FREEZER)
     );
 
     assertFalse(
-      IGsm(OLD_GSM_USDC).hasRole(
-        proposal.SWAP_FREEZER_ROLE(),
-        GovernanceV3Arbitrum.EXECUTOR_LVL_1
-      )
+      IGsm(OLD_GSM_USDC).hasRole(proposal.SWAP_FREEZER_ROLE(), GovernanceV3Arbitrum.EXECUTOR_LVL_1)
     );
 
     assertFalse(
-      IGsm(OLD_GSM_USDC).hasRole(
-        proposal.LIQUIDATOR_ROLE(),
-        GovernanceV3Arbitrum.EXECUTOR_LVL_1
-      )
+      IGsm(OLD_GSM_USDC).hasRole(proposal.LIQUIDATOR_ROLE(), GovernanceV3Arbitrum.EXECUTOR_LVL_1)
     );
 
     assertFalse(

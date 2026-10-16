@@ -106,7 +106,7 @@ contract SentoraOracles_Test is SentoraTestBase {
         adapter.getSnapshotRatio() +
           (adapter.getMaxRatioGrowthPerSecondScaled() *
             (block.timestamp - adapter.getSnapshotTimestamp())) /
-            SCALING_FACTOR
+          SCALING_FACTOR
       );
       assertFalse(adapter.isCapped(), 'not capped at fork');
       assertLt(adapter.getRatio(), maxRatio, 'ratio under cap');
