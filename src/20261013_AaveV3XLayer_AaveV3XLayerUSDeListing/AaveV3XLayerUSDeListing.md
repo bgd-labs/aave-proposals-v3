@@ -154,8 +154,8 @@ The final oracle contract, adapter deployment, and configuration remain subject 
 
 ## References
 
-- Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261013_AaveV3XLayer_AaveV3XLayerUSDeListing/AaveV3XLayer_AaveV3XLayerUSDeListing_20261013.sol)
-- Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261013_AaveV3XLayer_AaveV3XLayerUSDeListing/AaveV3XLayer_AaveV3XLayerUSDeListing_20261013.t.sol)
+- Implementation: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/5c8df860e31ae70714d681e8e197486c2a6ecfd1/src/20261013_AaveV3XLayer_AaveV3XLayerUSDeListing/AaveV3XLayer_AaveV3XLayerUSDeListing_20261013.sol)
+- Tests: [AaveV3XLayer](https://github.com/aave-dao/aave-proposals-v3/blob/5c8df860e31ae70714d681e8e197486c2a6ecfd1/src/20261013_AaveV3XLayer_AaveV3XLayerUSDeListing/AaveV3XLayer_AaveV3XLayerUSDeListing_20261013.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-asset-listing-usde-x-layer/25688)
 
 ## Copyright
