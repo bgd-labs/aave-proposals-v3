@@ -7,6 +7,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV4EthereumSentoraCuratedAssets as Assets, AaveV4EthereumSentoraCuratedPositionManagers} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
+import {IMidasToken, IMidasAccessControl} from './SentoraInterfaces.sol';
 
 /// @dev The market once the activation payload has unhalted it: parameters against the ARFC, and
 /// every reserve exercised by a user.
@@ -25,6 +26,10 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
 
   INativeTokenGateway internal constant NATIVE_GATEWAY =
     AaveV4EthereumSentoraCuratedPositionManagers.NATIVE_TOKEN_GATEWAY;
+
+  /// @dev Holds DEFAULT_ADMIN_ROLE, the admin of the mWIN greenlist and min-balance exempt roles, on
+  /// the Midas access control; it granted the existing mWIN greenlist entries.
+  address internal constant MIDAS_ADMIN = 0xd4195CF4df289a4748C1A7B6dDBE770e27bA1227;
 
   address internal lender = makeAddr('lender');
   address internal borrower = makeAddr('borrower');
@@ -243,6 +248,8 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
     }
   }
 
+  /// @dev Midas onboarding of the Hub and the lender is simulated so the mWIN transfer clears the
+  /// token's greenlist and the Hub's inactive check is reached once the Spoke pause is lifted.
   function test_mWinClosed() public activated {
     uint256 assetId = HUB.getAssetId(Assets.mWIN_UNDERLYING);
     uint256 spokeCount = HUB.getSpokeCount(assetId);
@@ -253,6 +260,15 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       assertEq(config.addCap, 0, 'add cap');
       assertEq(config.drawCap, 0, 'draw cap');
     }
+
+    IMidasToken mWin = IMidasToken(Assets.mWIN_UNDERLYING);
+    IMidasAccessControl midas = IMidasAccessControl(mWin.accessControl());
+    bytes32 greenlisted = mWin.M_WIN_GREENLISTED_ROLE();
+    vm.startPrank(MIDAS_ADMIN);
+    midas.grantRole(greenlisted, address(HUB));
+    midas.grantRole(mWin.M_WIN_MIN_BALANCE_EXEMPT_ROLE(), address(HUB));
+    midas.grantRole(greenlisted, lender);
+    vm.stopPrank();
 
     ISpoke[2] memory spokes = [RLUSD_YIELD, OUSD_YIELD];
     for (uint256 i; i < spokes.length; ++i) {
@@ -265,7 +281,17 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       spokes[i].supply(reserveId, 1e18, lender);
       vm.expectRevert(ISpoke.ReservePaused.selector);
       spokes[i].setUsingAsCollateral(reserveId, true, lender);
+      vm.expectRevert(ISpoke.ReservePaused.selector);
+      spokes[i].withdraw(reserveId, 1e18, lender);
+      vm.expectRevert(ISpoke.ReservePaused.selector);
+      spokes[i].borrow(reserveId, 1e18, lender);
       vm.stopPrank();
+
+      vm.prank(COUNCIL_EXECUTOR);
+      SPOKE_CONFIGURATOR.updatePaused(address(spokes[i]), reserveId, false);
+      vm.prank(lender);
+      vm.expectRevert(IHub.SpokeNotActive.selector);
+      spokes[i].supply(reserveId, 1e18, lender);
     }
   }
 
