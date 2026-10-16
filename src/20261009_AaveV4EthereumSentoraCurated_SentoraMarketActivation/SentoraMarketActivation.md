@@ -26,10 +26,26 @@ The payload is executed by the Sentora Executor through the Sentora Permissioned
 
 The TreasurySpoke ownership is accepted separately by the Sentora Fee Admin.
 
+## Pre-launch config
+
+At Sentora's request, a second payload, `AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016`, runs before the activation payload. The V4 Protocol Council executes it: the Council Safe grants its Executor `0x14339e2178A954d5FB839D5Ff31644fE0F25F517` roles 200, 400, 1000 and 1001 without execution delay, then the Executor delegatecalls the payload. The Executor keeps those roles afterwards. The payload:
+
+1. Closes mWIN: `deactivateAsset` and `resetAssetCaps` on every mWIN pair, the TreasurySpoke included, and `pauseReserve` on the mWIN reserve of RLUSD Yield and OUSD Yield.
+2. Sets the add and draw caps of PST and PRIME to 0 on RLUSD Yield and OUSD Yield. Their TreasurySpoke pairs are unchanged.
+3. Sets the liquidation config:
+
+| Spoke | Target health factor | Health factor for max bonus | Liquidation bonus factor |
+| --- | --- | --- | --- |
+| RLUSD Yield, OUSD Yield | 1.047 | 0.99 | 100% |
+| Bluechip | 1.143 | 0.99 | 100% |
+
+The deploy script `SentoraPreLaunchConfig_20261016.s.sol` prints the five Council Safe transactions and the same batch for MultiSendCallOnly `0x9641d764fc13c8B624c04430C7356C1C7C8102e2`.
+
 ## References
 
 - Implementation: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol)
 - Tests: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol)
+- Pre-launch config: [implementation](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.sol), [tests](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x682f73c809e03d25008b9c4898f4e25c047806683f4d1b0d7635ba8ed50276aa)
 - [Discussion](https://governance.aave.com/t/arfc-sentora-externally-curated-hub-spoke-framework-on-aave-v4/25723)
 
