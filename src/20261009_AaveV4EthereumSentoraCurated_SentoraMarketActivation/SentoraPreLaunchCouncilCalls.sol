@@ -8,7 +8,7 @@ import {AaveV4EthereumSentoraCurated} from 'aave-address-book/AaveV4EthereumSent
 
 /**
  * @title SentoraPreLaunchCouncilCalls
- * @notice The V4 Protocol Council Safe transactions that run the pre-launch config payload: grant
+ * @notice The V4 Security Council Safe transactions that run the pre-launch config payload: grant
  * the Council Executor roles 200, 400, 1000 and 1001 without execution delay, then have it
  * delegatecall the payload.
  */

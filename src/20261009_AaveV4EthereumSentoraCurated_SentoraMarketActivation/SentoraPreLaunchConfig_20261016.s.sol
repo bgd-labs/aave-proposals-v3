@@ -10,7 +10,7 @@ import {AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016} from './Aa
 import {SentoraPreLaunchCouncilCalls} from './SentoraPreLaunchCouncilCalls.sol';
 
 /**
- * @dev Deploy Ethereum, then print the V4 Protocol Council Safe transactions that execute it
+ * @dev Deploy Ethereum, then print the V4 Security Council Safe transactions that execute it
  * deploy-command: make deploy-ledger contract=src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/SentoraPreLaunchConfig_20261016.s.sol:DeployEthereum chain=mainnet
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/SentoraPreLaunchConfig_20261016.s.sol/1/run-latest.json
  */

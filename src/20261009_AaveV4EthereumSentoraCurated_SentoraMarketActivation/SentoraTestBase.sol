@@ -20,7 +20,7 @@ import {IReduceRiskStewardWrapper} from './SentoraInterfaces.sol';
 /**
  * @dev Shared fork setup for the Sentora market activation tests. Forks after the on-chain relinquish
  *      and the activation payload deploy, then runs the pre-launch config payload the way the V4
- *      Protocol Council will (role grants, then its Executor), so every test starts from the state
+ *      Security Council will (role grants, then its Executor), so every test starts from the state
  *      the activation payload will find.
  */
 abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {

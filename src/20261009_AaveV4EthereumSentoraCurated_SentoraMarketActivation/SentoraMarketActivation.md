@@ -28,7 +28,7 @@ The TreasurySpoke ownership is accepted separately by the Sentora Fee Admin.
 
 ## Pre-launch config
 
-At Sentora's request, a second payload, `AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016`, runs before the activation payload. The V4 Protocol Council executes it: the Council Safe grants its Executor `0x14339e2178A954d5FB839D5Ff31644fE0F25F517` roles 200, 400, 1000 and 1001 without execution delay, then the Executor delegatecalls the payload. The Executor keeps those roles afterwards. The payload:
+At Sentora's request, a second payload, `AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016`, runs before the activation payload. The V4 Security Council executes it: the Council Safe grants its Executor `0x14339e2178A954d5FB839D5Ff31644fE0F25F517` roles 200, 400, 1000 and 1001 without execution delay, then the Executor delegatecalls the payload. The Executor keeps those roles afterwards. The payload:
 
 1. Closes mWIN: `deactivateAsset` and `resetAssetCaps` on every mWIN pair, the TreasurySpoke included, and `pauseReserve` on the mWIN reserve of RLUSD Yield and OUSD Yield.
 2. Sets the add and draw caps of PST and PRIME to 0 on RLUSD Yield and OUSD Yield. Their TreasurySpoke pairs are unchanged.

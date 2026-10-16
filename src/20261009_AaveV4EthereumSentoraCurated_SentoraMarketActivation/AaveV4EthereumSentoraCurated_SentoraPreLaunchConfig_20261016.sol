@@ -10,7 +10,7 @@ import {AaveV4EthereumSentoraCurated, AaveV4EthereumSentoraCuratedHubs, AaveV4Et
  * @author Aave Labs
  * @notice Applies Sentora's pre-launch changes to the Sentora market: closes mWIN, sets the PST and
  * PRIME caps on RLUSD Yield and OUSD Yield to 0, and sets the liquidation config of the three Spokes.
- * @dev Executed by the V4 Protocol Council through its Executor via delegatecall, once the Council
+ * @dev Executed by the V4 Security Council through its Executor via delegatecall, once the Council
  * has granted the Executor roles 200, 400, 1000 and 1001, and before the activation payload.
  */
 contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016 is IProposalGenericExecutor {

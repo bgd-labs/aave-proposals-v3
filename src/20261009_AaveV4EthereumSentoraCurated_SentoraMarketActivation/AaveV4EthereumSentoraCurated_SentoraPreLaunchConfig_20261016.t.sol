@@ -22,7 +22,7 @@ contract DelegateCaller {
 
 /**
  * @dev Test for AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016, run the way the V4
- *      Protocol Council will: role grants from the Council Safe, then its Executor delegatecalls the
+ *      Security Council will: role grants from the Council Safe, then its Executor delegatecalls the
  *      payload. Expected values come from STATE.md "Pre-launch config update".
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.t.sol -vv
  */
