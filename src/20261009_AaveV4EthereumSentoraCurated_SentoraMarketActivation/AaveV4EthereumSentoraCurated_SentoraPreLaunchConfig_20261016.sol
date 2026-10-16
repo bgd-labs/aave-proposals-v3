@@ -13,8 +13,8 @@ import {AaveV4EthereumSentoraCurated, AaveV4EthereumSentoraCuratedHubs, AaveV4Et
 contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016 is IProposalGenericExecutor {
   function execute() external override {
     _closeMWin();
-    _zeroCaps(AaveV4EthereumSentoraCuratedAssets.PST_UNDERLYING);
-    _zeroCaps(AaveV4EthereumSentoraCuratedAssets.PRIME_UNDERLYING);
+    _resetReserveCaps(AaveV4EthereumSentoraCuratedAssets.PST_UNDERLYING);
+    _resetReserveCaps(AaveV4EthereumSentoraCuratedAssets.PRIME_UNDERLYING);
     _updateLiquidationConfigs();
   }
 
@@ -47,7 +47,7 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016 is IPropos
     );
   }
 
-  function _zeroCaps(address underlying) internal {
+  function _resetReserveCaps(address underlying) internal {
     uint256 assetId = AaveV4EthereumSentoraCuratedHubs.SENTORA_HUB.getAssetId(underlying);
     AaveV4EthereumSentoraCurated.HUB_CONFIGURATOR.updateSpokeCaps(
       address(AaveV4EthereumSentoraCuratedHubs.SENTORA_HUB),
