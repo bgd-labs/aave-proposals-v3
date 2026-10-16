@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {VmSafe} from 'forge-std/Vm.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IPayloadsControllerCore} from 'aave-address-book/GovernanceV3.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -13,15 +12,19 @@ import {ProtocolV4TestBaseEthereumSentoraCurated} from 'aave-helpers/src/v4-prot
 import {IOwnable2Step} from 'src/interfaces/IOwnable2Step.sol';
 import {IRiskStewardV4} from 'src/interfaces/IRiskStewardV4.sol';
 import {AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009} from './AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol';
-import {IReduceRiskStewardWrapper, IMidasToken, IMidasAccessControl} from './SentoraInterfaces.sol';
+import {AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016} from './AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.sol';
+import {SentoraPreLaunchCouncilCalls} from './SentoraPreLaunchCouncilCalls.sol';
+import {SentoraCallsPayload} from './SentoraTestPayloads.sol';
+import {IReduceRiskStewardWrapper} from './SentoraInterfaces.sol';
 
 /**
- * @dev Shared fork setup for the Sentora market activation tests: forks after the on-chain relinquish
- *      (block 26192973), the Security Council's RiskSteward `acceptOwnership` and the activation
- *      payload deploy (block 26193260), the state the payload will find when created.
+ * @dev Shared fork setup for the Sentora market activation tests. Forks after the on-chain relinquish
+ *      and the activation payload deploy, then runs the pre-launch config payload the way the V4
+ *      Protocol Council will (role grants, then its Executor), so every test starts from the state
+ *      the activation payload will find.
  */
 abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
-  uint256 internal constant FORK_BLOCK = 26193270;
+  uint256 internal constant FORK_BLOCK = 26203500;
 
   IHub internal constant HUB = AaveV4EthereumSentoraCuratedHubs.SENTORA_HUB;
   ISpoke internal constant RLUSD_YIELD = AaveV4EthereumSentoraCuratedSpokes.RLUSD_YIELD_SPOKE;
@@ -43,6 +46,7 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
   address internal constant EXECUTOR =
     AaveV4EthereumSentoraCurated.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR;
   address internal constant SECURITY_COUNCIL = MiscEthereum.V4_SECURITY_COUNCIL;
+  address internal constant COUNCIL_EXECUTOR = MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR;
   address internal constant EMERGENCY_ADMIN = AaveV4EthereumSentoraCurated.SENTORA_EMERGENCY_ADMIN;
   address internal constant OPERATOR = AaveV4EthereumSentoraCurated.SENTORA_OPERATOR;
   address internal constant FEE_ADMIN = AaveV4EthereumSentoraCurated.SENTORA_FEE_ADMIN;
@@ -66,20 +70,20 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
   /// @dev The activation payload deployed on mainnet (CREATE2 salt v1); its runtime code equals
   /// this folder's source.
   address internal constant DEPLOYED_PAYLOAD = 0x888dAbE1Bc1Eb6DFaBc4BB398c4886CdA5D84bD0;
-  /// @dev Holds DEFAULT_ADMIN_ROLE, the admin of the mWIN greenlist and min-balance exempt roles, on
-  /// the Midas access control at FORK_BLOCK; it granted the existing mWIN greenlist entries.
-  address internal constant MIDAS_ADMIN = 0xd4195CF4df289a4748C1A7B6dDBE770e27bA1227;
-  /// @dev Not exposed by the token; measured at FORK_BLOCK as the smallest balance a non-exempt
-  /// greenlisted account can receive into.
-  uint256 internal constant M_WIN_MIN_BALANCE = 1e18;
 
   uint256 internal constant ASSET_COUNT = 8;
   /// @dev 14 reserves plus the TreasurySpoke of each of the 8 assets.
   uint256 internal constant SPOKE_PAIR_COUNT = 22;
 
   AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009 internal proposal;
+  address internal preLaunchConfig;
 
   function setUp() public virtual {
+    _fork();
+    _applyPreLaunchConfig();
+  }
+
+  function _fork() internal {
     vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
     assertGt(address(HUB).code.length, 0, 'hub code');
     assertGt(PPC.code.length, 0, 'payloads controller code');
@@ -87,6 +91,59 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
     assertGt(address(WRAPPER).code.length, 0, 'wrapper code');
     assertGt(DEPLOYED_PAYLOAD.code.length, 0, 'payload code');
     proposal = AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009(DEPLOYED_PAYLOAD);
+    preLaunchConfig = GovV3Helpers.deployDeterministic(
+      type(AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016).creationCode
+    );
+  }
+
+  /// @dev Sends the Council Safe transactions the deploy script prints, one by one.
+  function _applyPreLaunchConfig() internal {
+    SentoraPreLaunchCouncilCalls.Call[] memory calls = SentoraPreLaunchCouncilCalls.calls(
+      preLaunchConfig
+    );
+    for (uint256 i; i < calls.length; ++i) {
+      vm.prank(SECURITY_COUNCIL);
+      (bool success, ) = calls[i].to.call(calls[i].data);
+      assertTrue(success, string.concat('council call ', vm.toString(i)));
+    }
+  }
+
+  /// @dev Raises the PST and PRIME caps back to the ARFC values through a Sentora Executor payload
+  /// on the PPC, so flows that need those reserves can still use them after the pre-launch config.
+  function _raisePstPrimeCapsThroughSentora() internal {
+    SentoraCallsPayload.Call[] memory calls = new SentoraCallsPayload.Call[](4);
+    calls[0] = _capsCall(
+      AaveV4EthereumSentoraCuratedAssets.PRIME_UNDERLYING,
+      RLUSD_YIELD,
+      15_000_000
+    );
+    calls[1] = _capsCall(
+      AaveV4EthereumSentoraCuratedAssets.PRIME_UNDERLYING,
+      OUSD_YIELD,
+      1_500_000
+    );
+    calls[2] = _capsCall(
+      AaveV4EthereumSentoraCuratedAssets.PST_UNDERLYING,
+      RLUSD_YIELD,
+      20_000_000
+    );
+    calls[3] = _capsCall(AaveV4EthereumSentoraCuratedAssets.PST_UNDERLYING, OUSD_YIELD, 2_000_000);
+    _executeAfterDelay(_createPayload(address(new SentoraCallsPayload(calls))));
+  }
+
+  function _capsCall(
+    address underlying,
+    ISpoke spoke,
+    uint256 addCap
+  ) internal view returns (SentoraCallsPayload.Call memory) {
+    return
+      SentoraCallsPayload.Call({
+        target: address(HUB_CONFIGURATOR),
+        data: abi.encodeCall(
+          IHubConfigurator.updateSpokeCaps,
+          (address(HUB), HUB.getAssetId(underlying), address(spoke), addCap, 0)
+        )
+      });
   }
 
   modifier activated() {
@@ -206,42 +263,6 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
 
   function _source(ISpoke spoke, uint256 reserveId) internal view returns (address) {
     return IAaveOracle(spoke.ORACLE()).getReserveSource(reserveId);
-  }
-
-  /// @dev mWIN only moves between holders of its Midas greenlist role, and a holder outside the
-  /// min-balance exempt role must end every transfer it receives with at least 1 mWIN. At
-  /// FORK_BLOCK the Hub holds neither role (see `SentoraMarketOpen.test_mWinTransferRestrictions`).
-  /// Tests simulate the Midas onboarding: once mWIN is dealt, the Hub gets both roles, and every
-  /// account a test funds is a greenlisted mWIN holder keeping the minimum outside the market.
-  function deal2(address asset, address user, uint256 amount) internal virtual override {
-    address mWin = AaveV4EthereumSentoraCuratedAssets.mWIN_UNDERLYING;
-    if (asset == mWin) _midasOnboardHub();
-    _midasGrant(_mWin().M_WIN_GREENLISTED_ROLE(), user);
-    if (asset == mWin) {
-      super.deal2(asset, user, amount + M_WIN_MIN_BALANCE);
-    } else {
-      super.deal2(asset, user, amount);
-      if (IERC20(mWin).balanceOf(user) < M_WIN_MIN_BALANCE) deal(mWin, user, M_WIN_MIN_BALANCE);
-    }
-  }
-
-  function _midasOnboardHub() internal {
-    _midasGrant(_mWin().M_WIN_GREENLISTED_ROLE(), address(HUB));
-    _midasGrant(_mWin().M_WIN_MIN_BALANCE_EXEMPT_ROLE(), address(HUB));
-  }
-
-  function _midasGrant(bytes32 role, address account) internal {
-    IMidasAccessControl accessControl = IMidasAccessControl(_mWin().accessControl());
-    if (accessControl.hasRole(role, account)) return;
-    (VmSafe.CallerMode mode, address sender, ) = vm.readCallers();
-    if (mode != VmSafe.CallerMode.None) vm.stopPrank();
-    vm.prank(MIDAS_ADMIN);
-    accessControl.grantRole(role, account);
-    if (mode != VmSafe.CallerMode.None) vm.startPrank(sender);
-  }
-
-  function _mWin() internal pure returns (IMidasToken) {
-    return IMidasToken(AaveV4EthereumSentoraCuratedAssets.mWIN_UNDERLYING);
   }
 
   function _expectUnauthorized(address caller) internal {

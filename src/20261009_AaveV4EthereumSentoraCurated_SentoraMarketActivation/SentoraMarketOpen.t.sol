@@ -7,7 +7,6 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV4EthereumSentoraCuratedAssets as Assets, AaveV4EthereumSentoraCuratedPositionManagers} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
-import {IMidasToken, IMidasAccessControl} from './SentoraInterfaces.sol';
 
 /// @dev The market once the activation payload has unhalted it: parameters against the ARFC, and
 /// every reserve exercised by a user.
@@ -58,21 +57,22 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       assertEq(dynamicConfig.liquidationFee, spec.liquidationFee, 'liquidation fee');
       assertEq(config.collateralRisk, spec.collateralRisk, 'collateral risk');
       assertEq(config.borrowable, spec.borrowable, 'borrowable');
-      assertFalse(config.paused, 'paused');
+      (uint256 addCap, uint256 drawCap, bool active, bool paused) = _launchState(spec);
+      assertEq(config.paused, paused, 'paused');
       assertFalse(config.frozen, 'frozen');
       // ARFC silent (D17): every reserve lets liquidators receive shares, as on chain
       assertTrue(config.receiveSharesEnabled, 'receive shares');
 
       IHub.SpokeConfig memory spokeConfig = HUB.getSpokeConfig(assetId, address(spec.spoke));
-      assertEq(spokeConfig.addCap, spec.addCap, 'add cap');
-      assertEq(spokeConfig.drawCap, spec.drawCap, 'draw cap');
+      assertEq(spokeConfig.addCap, addCap, 'add cap');
+      assertEq(spokeConfig.drawCap, drawCap, 'draw cap');
       // ARFC silent (D17): borrowables carry no premium ceiling (uint24 max), as on chain
       assertEq(
         spokeConfig.riskPremiumThreshold,
         spec.borrowable ? type(uint24).max : 0,
         'risk premium threshold'
       );
-      assertTrue(spokeConfig.active, 'active');
+      assertEq(spokeConfig.active, active, 'active');
       assertFalse(spokeConfig.halted, 'halted');
     }
 
@@ -93,24 +93,43 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
       assertEq(rates.rateGrowthAfterOptimal, borrowable ? 12_00 : 0, 'slope 2');
 
       IHub.SpokeConfig memory treasury = HUB.getSpokeConfig(assetId, address(TREASURY_SPOKE));
-      assertEq(treasury.addCap, HUB.MAX_ALLOWED_SPOKE_CAP(), 'treasury add cap');
+      bool mWin = underlying == Assets.mWIN_UNDERLYING;
+      assertEq(treasury.addCap, mWin ? 0 : HUB.MAX_ALLOWED_SPOKE_CAP(), 'treasury add cap');
       assertEq(treasury.drawCap, 0, 'treasury draw cap');
+      assertEq(treasury.active, !mWin, 'treasury active');
       assertFalse(treasury.halted, 'treasury halted');
     }
 
-    ISpoke[] memory spokes = _spokes();
-    for (uint256 i; i < spokes.length; ++i) {
-      ISpoke.LiquidationConfig memory liquidation = spokes[i].getLiquidationConfig();
-      assertEq(liquidation.targetHealthFactor, 1.24e18, 'target health factor');
-      assertEq(liquidation.healthFactorForMaxBonus, 0.9e18, 'health factor for max bonus');
-      assertEq(liquidation.liquidationBonusFactor, 90_00, 'liquidation bonus factor');
+    // STATE.md pre-launch config (D15)
+    _assertLiquidationConfig(RLUSD_YIELD, 1.047e18);
+    _assertLiquidationConfig(OUSD_YIELD, 1.047e18);
+    _assertLiquidationConfig(BLUECHIP, 1.143e18);
+  }
+
+  function _assertLiquidationConfig(ISpoke spoke, uint256 targetHealthFactor) internal view {
+    ISpoke.LiquidationConfig memory liquidation = spoke.getLiquidationConfig();
+    assertEq(liquidation.targetHealthFactor, targetHealthFactor, 'target health factor');
+    assertEq(liquidation.healthFactorForMaxBonus, 0.99e18, 'health factor for max bonus');
+    assertEq(liquidation.liquidationBonusFactor, 100_00, 'liquidation bonus factor');
+  }
+
+  /// @dev STATE.md pre-launch config: mWIN is closed (D18) and PST and PRIME launch with 0 caps
+  /// (D19); every other pair keeps its ARFC caps.
+  function _launchState(
+    ReserveSpec memory spec
+  ) internal pure returns (uint256 addCap, uint256 drawCap, bool active, bool paused) {
+    if (spec.underlying == Assets.mWIN_UNDERLYING) return (0, 0, false, true);
+    if (spec.underlying == Assets.PST_UNDERLYING || spec.underlying == Assets.PRIME_UNDERLYING) {
+      return (0, 0, true, false);
     }
+    return (spec.addCap, spec.drawCap, true, false);
   }
 
   function test_collateralsSupplyAndWithdraw() public activated {
+    _raisePstPrimeCapsThroughSentora();
     ReserveSpec[] memory specs = _specs();
     for (uint256 i; i < specs.length; ++i) {
-      if (specs[i].borrowable) continue;
+      if (specs[i].borrowable || specs[i].underlying == Assets.mWIN_UNDERLYING) continue;
       uint256 snapshot = vm.snapshotState();
       ISpoke spoke = specs[i].spoke;
       uint256 reserveId = _reserveId(spoke, specs[i].underlying);
@@ -224,47 +243,47 @@ contract SentoraMarketOpen_Test is SentoraTestBase {
     }
   }
 
-  /// @dev Pins the on-chain mWIN restrictions other tests resolve by simulating Midas onboarding:
-  /// the Hub holds neither the Midas greenlist role nor the min-balance exemption, so a deposit from
-  /// a greenlisted holder still reverts in the token.
-  function test_mWinTransferRestrictions() public activated {
-    IMidasToken mWin = IMidasToken(Assets.mWIN_UNDERLYING);
-    IMidasAccessControl accessControl = IMidasAccessControl(mWin.accessControl());
-    bytes32 greenlisted = mWin.M_WIN_GREENLISTED_ROLE();
-    bytes32 minBalanceExempt = mWin.M_WIN_MIN_BALANCE_EXEMPT_ROLE();
-    assertFalse(accessControl.hasRole(greenlisted, address(HUB)), 'hub greenlisted');
-    assertFalse(accessControl.hasRole(minBalanceExempt, address(HUB)), 'hub min balance exempt');
-    assertEq(accessControl.getRoleAdmin(greenlisted), bytes32(0), 'greenlist admin role');
-    assertEq(accessControl.getRoleAdmin(minBalanceExempt), bytes32(0), 'exempt admin role');
-    assertTrue(accessControl.hasRole(bytes32(0), MIDAS_ADMIN), 'midas admin');
+  function test_mWinClosed() public activated {
+    uint256 assetId = HUB.getAssetId(Assets.mWIN_UNDERLYING);
+    uint256 spokeCount = HUB.getSpokeCount(assetId);
+    assertEq(spokeCount, 3, 'mWIN pairs');
+    for (uint256 i; i < spokeCount; ++i) {
+      IHub.SpokeConfig memory config = HUB.getSpokeConfig(assetId, HUB.getSpokeAddress(assetId, i));
+      assertFalse(config.active, 'active');
+      assertEq(config.addCap, 0, 'add cap');
+      assertEq(config.drawCap, 0, 'draw cap');
+    }
 
-    uint256 reserveId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
-    uint256 amount = 1e18;
-    deal(Assets.mWIN_UNDERLYING, lender, amount);
-    _midasGrant(greenlisted, lender);
-    vm.startPrank(lender);
-    IERC20(Assets.mWIN_UNDERLYING).approve(address(RLUSD_YIELD), amount);
-    vm.expectRevert(bytes('WMAC: hasnt role'));
-    RLUSD_YIELD.supply(reserveId, amount, lender);
-    vm.stopPrank();
+    ISpoke[2] memory spokes = [RLUSD_YIELD, OUSD_YIELD];
+    for (uint256 i; i < spokes.length; ++i) {
+      uint256 reserveId = _reserveId(spokes[i], Assets.mWIN_UNDERLYING);
+      assertTrue(spokes[i].getReserveConfig(reserveId).paused, 'paused');
+      deal(Assets.mWIN_UNDERLYING, lender, 1e18);
+      vm.startPrank(lender);
+      IERC20(Assets.mWIN_UNDERLYING).approve(address(spokes[i]), 1e18);
+      vm.expectRevert(ISpoke.ReservePaused.selector);
+      spokes[i].supply(reserveId, 1e18, lender);
+      vm.expectRevert(ISpoke.ReservePaused.selector);
+      spokes[i].setUsingAsCollateral(reserveId, true, lender);
+      vm.stopPrank();
+    }
   }
 
-  /// @dev Once the Hub is onboarded, a greenlisted holder still cannot receive mWIN into a balance
-  /// under the Midas minimum of 1 mWIN.
-  function test_mWinMinBalanceOnWithdraw() public activated {
-    _midasOnboardHub();
-    uint256 reserveId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
-    deal(Assets.mWIN_UNDERLYING, lender, 2e18);
-    _midasGrant(_mWin().M_WIN_GREENLISTED_ROLE(), lender);
-    vm.startPrank(lender);
-    IERC20(Assets.mWIN_UNDERLYING).approve(address(RLUSD_YIELD), 2e18);
-    RLUSD_YIELD.supply(reserveId, 2e18, lender);
-
-    vm.expectRevert(bytes('MTMB: min balance not met'));
-    RLUSD_YIELD.withdraw(reserveId, M_WIN_MIN_BALANCE - 1, lender);
-    RLUSD_YIELD.withdraw(reserveId, M_WIN_MIN_BALANCE, lender);
-    vm.stopPrank();
-    assertEq(IERC20(Assets.mWIN_UNDERLYING).balanceOf(lender), M_WIN_MIN_BALANCE, 'withdrawn');
+  function test_pstPrimeCapsClosed() public activated {
+    address[2] memory underlyings = [Assets.PST_UNDERLYING, Assets.PRIME_UNDERLYING];
+    ISpoke[2] memory spokes = [RLUSD_YIELD, OUSD_YIELD];
+    for (uint256 u; u < underlyings.length; ++u) {
+      for (uint256 i; i < spokes.length; ++i) {
+        uint256 reserveId = _reserveId(spokes[i], underlyings[u]);
+        uint256 amount = _units(spokes[i], reserveId, 1);
+        deal2(underlyings[u], lender, amount);
+        vm.startPrank(lender);
+        IERC20(underlyings[u]).approve(address(spokes[i]), amount);
+        vm.expectRevert(abi.encodeWithSelector(IHub.AddCapExceeded.selector, 0));
+        spokes[i].supply(reserveId, amount, lender);
+        vm.stopPrank();
+      }
+    }
   }
 
   /// @dev ARFC "Spoke Parameters" and "Add & Draw Caps" tables; borrowables carry no collateral

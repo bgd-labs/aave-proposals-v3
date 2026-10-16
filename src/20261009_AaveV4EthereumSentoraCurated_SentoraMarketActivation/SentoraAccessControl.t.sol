@@ -27,10 +27,14 @@ contract SentoraAccessControl_Test is SentoraTestBase {
     _assertMembers(ADMIN_ROLE, _list(SECURITY_COUNCIL));
     _assertMembers(HUB_CONFIGURATOR_ROLE, _list(address(HUB_CONFIGURATOR)));
     _assertMembers(SPOKE_CONFIGURATOR_ROLE, _list(address(SPOKE_CONFIGURATOR)));
-    _assertMembers(HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, _list(EXECUTOR));
-    _assertMembers(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, _list(EXECUTOR));
-    _assertMembers(SENTORA_RISK_ROLE, _list(EXECUTOR, address(RISK_STEWARD)));
-    _assertMembers(SENTORA_EMERGENCY_ROLE, _list(EMERGENCY_ADMIN, SECURITY_COUNCIL));
+    // the Council Executor keeps the roles it ran the pre-launch config with
+    _assertMembers(HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, _list(EXECUTOR, COUNCIL_EXECUTOR));
+    _assertMembers(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, _list(EXECUTOR, COUNCIL_EXECUTOR));
+    _assertMembers(SENTORA_RISK_ROLE, _list(EXECUTOR, address(RISK_STEWARD), COUNCIL_EXECUTOR));
+    _assertMembers(
+      SENTORA_EMERGENCY_ROLE,
+      _list(EMERGENCY_ADMIN, SECURITY_COUNCIL, COUNCIL_EXECUTOR)
+    );
   }
 
   function test_otherRolesEmpty() public view {
@@ -218,6 +222,13 @@ contract SentoraAccessControl_Test is SentoraTestBase {
     list = new address[](2);
     list[0] = a;
     list[1] = b;
+  }
+
+  function _list(address a, address b, address c) internal pure returns (address[] memory list) {
+    list = new address[](3);
+    list[0] = a;
+    list[1] = b;
+    list[2] = c;
   }
 
   function _hubRiskSelectors() internal pure returns (bytes4[] memory s) {

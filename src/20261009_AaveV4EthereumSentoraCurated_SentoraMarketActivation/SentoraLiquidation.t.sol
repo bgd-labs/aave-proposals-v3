@@ -9,7 +9,6 @@ import {WadRayMath} from 'aave-v4/libraries/math/WadRayMath.sol';
 import {PercentageMath} from 'aave-v4/libraries/math/PercentageMath.sol';
 import {AaveV4EthereumSentoraCuratedAssets as Assets} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
-import {IMidasAccessControl} from './SentoraInterfaces.sol';
 
 /// @dev Liquidations on RLUSD Yield against RLUSD debt, with the collateral price mocked down.
 /// Expected amounts replay the Spoke's LiquidationLogic arithmetic on the pre-liquidation state;
@@ -46,7 +45,7 @@ contract SentoraLiquidation_Test is SentoraTestBase {
     _supplyAs(RLUSD_YIELD, debtId, makeAddr('lender'), 1_000_000e18);
   }
 
-  /// @dev Below the 0.90 health factor for max bonus the USDe bonus is the full 103.50%, and
+  /// @dev Below the 0.99 health factor for max bonus the USDe bonus is the full 103.50%, and
   /// 103.50% x 91.50% > 100% means the collateral cannot cover the debt plus bonus: all collateral
   /// is seized and the remaining debt is reported as deficit.
   function test_liquidation_usdeMaxBonus() public {
@@ -57,7 +56,7 @@ contract SentoraLiquidation_Test is SentoraTestBase {
     _mockSourcePrice(RLUSD_YIELD, collateralId, 0.85e8);
 
     State memory s = _state(collateralId, collateralAssetId);
-    assertLe(s.healthFactor, 0.9e18, 'max bonus zone');
+    assertLe(s.healthFactor, 0.99e18, 'max bonus zone');
     assertEq(s.bonus, 103_50, 'max liquidation bonus');
 
     uint256 debtRay = Math.mulDiv(
@@ -97,9 +96,11 @@ contract SentoraLiquidation_Test is SentoraTestBase {
     );
   }
 
-  /// @dev Between 0.90 and 1.00 the PST bonus interpolates from 104.50% (90% bonus factor of the
-  /// 5.00% max) to 105.00%; the liquidation stops at the 1.24 target health factor.
-  function test_liquidation_pstInterpolatedBonus() public {
+  /// @dev PST launches with 0 caps, so a Sentora payload raises them first. With a 100% liquidation
+  /// bonus factor the bonus is the 105.00% max at any health factor below 1, and the liquidation
+  /// stops at the 1.047 target health factor.
+  function test_liquidation_pstPartial() public {
+    _raisePstPrimeCapsThroughSentora();
     uint256 collateralId = _reserveId(RLUSD_YIELD, Assets.PST_UNDERLYING);
     uint256 collateralAssetId = HUB.getAssetId(Assets.PST_UNDERLYING);
     _supplyCollateralAs(RLUSD_YIELD, collateralId, borrower, 100_000e6);
@@ -107,15 +108,10 @@ contract SentoraLiquidation_Test is SentoraTestBase {
     _mockSourcePrice(RLUSD_YIELD, collateralId, 0.977e8);
 
     State memory s = _state(collateralId, collateralAssetId);
-    assertGt(s.healthFactor, 0.9e18, 'above max bonus zone');
     assertLt(s.healthFactor, 1e18, 'liquidatable');
-    uint256 minBonus = (105_00 - PERCENTAGE_FACTOR).percentMulDown(90_00) + PERCENTAGE_FACTOR;
-    assertEq(minBonus, 104_50, 'min bonus');
-    assertEq(
-      s.bonus,
-      minBonus + (105_00 - minBonus).mulDivDown(1e18 - s.healthFactor, 1e18 - 0.9e18),
-      'interpolated bonus'
-    );
+    uint256 minBonus = (105_00 - PERCENTAGE_FACTOR).percentMulDown(100_00) + PERCENTAGE_FACTOR;
+    assertEq(minBonus, 105_00, 'min bonus is the max bonus');
+    assertEq(s.bonus, 105_00, 'bonus');
 
     uint256 paid = _liquidate(collateralId);
 
@@ -152,50 +148,6 @@ contract SentoraLiquidation_Test is SentoraTestBase {
       1e18,
       'healthy after liquidation'
     );
-  }
-
-  /// @dev mWIN collateral only reaches a liquidator holding the Midas greenlist role; anyone else
-  /// can still liquidate by taking the collateral as supplied shares.
-  function test_liquidation_mWinToNonGreenlistedLiquidator() public {
-    uint256 collateralId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
-    uint256 collateralAssetId = HUB.getAssetId(Assets.mWIN_UNDERLYING);
-    _supplyCollateralAs(RLUSD_YIELD, collateralId, borrower, 1e18);
-    _borrowAs(RLUSD_YIELD, debtId, borrower, 100_000e18);
-    _mockSourcePrice(RLUSD_YIELD, collateralId, 110_000e8);
-    State memory s = _state(collateralId, collateralAssetId);
-    assertLt(s.healthFactor, 1e18, 'liquidatable');
-
-    address outsider = makeAddr('outsider');
-    assertFalse(
-      IMidasAccessControl(_mWin().accessControl()).hasRole(
-        _mWin().M_WIN_GREENLISTED_ROLE(),
-        outsider
-      ),
-      'outsider greenlisted'
-    );
-    deal(Assets.RLUSD_UNDERLYING, outsider, 200_000e18);
-    vm.startPrank(outsider);
-    IERC20(Assets.RLUSD_UNDERLYING).approve(address(RLUSD_YIELD), 200_000e18);
-    vm.expectRevert(bytes('WMAC: hasnt role'));
-    RLUSD_YIELD.liquidationCall(collateralId, debtId, borrower, type(uint256).max, false);
-
-    RLUSD_YIELD.liquidationCall(collateralId, debtId, borrower, type(uint256).max, true);
-    vm.stopPrank();
-
-    uint256 seized = s.collateralShares - RLUSD_YIELD.getUserSuppliedShares(collateralId, borrower);
-    uint256 feeShares = _feeShares(seized, 7_50, s.bonus);
-    assertGt(seized, 0, 'collateral seized');
-    assertEq(
-      RLUSD_YIELD.getUserSuppliedShares(collateralId, outsider),
-      seized - feeShares,
-      'shares to liquidator'
-    );
-    assertEq(
-      HUB.getSpokeAddedShares(collateralAssetId, address(TREASURY_SPOKE)) - s.treasuryShares,
-      feeShares,
-      'protocol fee to treasury'
-    );
-    assertEq(IERC20(Assets.mWIN_UNDERLYING).balanceOf(outsider), 0, 'no mWIN transferred');
   }
 
   function test_liquidation_revertsWhenHealthy() public {

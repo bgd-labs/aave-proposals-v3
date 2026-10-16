@@ -24,6 +24,7 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is S
     });
   }
 
+  /// @dev State the activation payload finds: after the relinquish and the pre-launch config.
   function test_preconditions() public view {
     address[] memory owned = _ownedByExecutor();
     for (uint256 i; i < owned.length; ++i) {
@@ -39,11 +40,11 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is S
     assertEq(RISK_STEWARD.owner(), SECURITY_COUNCIL, 'steward owner');
     assertEq(RISK_STEWARD.pendingOwner(), address(0), 'steward pending owner');
 
-    _assertRole(ADMIN_ROLE, SECURITY_COUNCIL, address(0));
-    _assertRole(HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, address(0));
-    _assertRole(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, address(0));
-    _assertRole(SENTORA_RISK_ROLE, EXECUTOR, address(RISK_STEWARD));
-    _assertRole(SENTORA_EMERGENCY_ROLE, EMERGENCY_ADMIN, SECURITY_COUNCIL);
+    _assertRole(ADMIN_ROLE, SECURITY_COUNCIL, address(0), address(0));
+    _assertRole(HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, COUNCIL_EXECUTOR, address(0));
+    _assertRole(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, COUNCIL_EXECUTOR, address(0));
+    _assertRole(SENTORA_RISK_ROLE, EXECUTOR, address(RISK_STEWARD), COUNCIL_EXECUTOR);
+    _assertRole(SENTORA_EMERGENCY_ROLE, EMERGENCY_ADMIN, SECURITY_COUNCIL, COUNCIL_EXECUTOR);
     (bool deployerIsAdmin, ) = ACCESS_MANAGER.hasRole(ADMIN_ROLE, DEPLOYER);
     assertFalse(deployerIsAdmin, 'deployer admin');
 
@@ -82,14 +83,16 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is S
     _validateNoExecutorStorageChange(rawDiff, EXECUTOR);
   }
 
-  function _assertRole(uint64 role, address first, address second) internal view {
-    (bool isFirst, ) = ACCESS_MANAGER.hasRole(role, first);
-    assertTrue(isFirst, 'member');
-    if (second != address(0)) {
-      (bool isSecond, ) = ACCESS_MANAGER.hasRole(role, second);
-      assertTrue(isSecond, 'member');
+  function _assertRole(uint64 role, address a, address b, address c) internal view {
+    address[3] memory members = [a, b, c];
+    uint256 count;
+    for (uint256 i; i < members.length; ++i) {
+      if (members[i] == address(0)) continue;
+      (bool isMember, ) = ACCESS_MANAGER.hasRole(role, members[i]);
+      assertTrue(isMember, 'member');
+      ++count;
     }
-    assertEq(ACCESS_MANAGER.getRoleMemberCount(role), second == address(0) ? 1 : 2, 'members');
+    assertEq(ACCESS_MANAGER.getRoleMemberCount(role), count, 'members');
   }
 
   function _assertAllHalted(bool halted) internal view {

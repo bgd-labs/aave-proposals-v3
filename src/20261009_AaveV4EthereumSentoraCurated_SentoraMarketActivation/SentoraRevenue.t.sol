@@ -94,7 +94,7 @@ contract SentoraRevenue_Test is SentoraTestBase {
     _mockSourcePrice(RLUSD_YIELD, usdeId, 0.85e8);
     uint256 usdeAssetId = HUB.getAssetId(Assets.USDe_UNDERLYING);
     uint256 seized = RLUSD_YIELD.getUserSuppliedShares(usdeId, borrower);
-    // below 0.90 health factor the full USDe position goes at the 103.50% max bonus, 3.50% fee
+    // below the 0.99 health factor for max bonus the full USDe position goes at the 103.50% max bonus, 3.50% fee
     uint256 feeShares = seized.mulDivUp(3_50 * (103_50 - 100_00), 103_50 * 100_00);
 
     address liquidator = makeAddr('liquidator');

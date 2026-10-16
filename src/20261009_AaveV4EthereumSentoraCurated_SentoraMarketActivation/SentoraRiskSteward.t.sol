@@ -21,6 +21,7 @@ contract SentoraRiskSteward_Test is SentoraTestBase {
   function setUp() public override {
     super.setUp();
     _activate();
+    _raisePstPrimeCapsThroughSentora();
   }
 
   function test_stewardConfig() public view {
@@ -66,10 +67,16 @@ contract SentoraRiskSteward_Test is SentoraTestBase {
     assertEq(IRiskStewardV4.setConfig.selector, bytes4(0xddc81878));
   }
 
+  /// @dev mWIN pairs are closed at 0 caps, so there is nothing left to reduce on them.
   function test_reduceCaps_everyPair() public {
     Pair[] memory pairs = _pairs();
     for (uint256 i; i < pairs.length; ++i) {
       IHub.SpokeConfig memory current = _spokeConfig(pairs[i]);
+      if (pairs[i].underlying == Assets.mWIN_UNDERLYING) {
+        assertEq(current.addCap, 0, 'mWIN add cap');
+        _expectReduceCapsRevert(pairs[i], 0, EngineFlags.KEEP_CURRENT);
+        continue;
+      }
       uint256 drawCap = current.drawCap == 0 ? EngineFlags.KEEP_CURRENT : current.drawCap / 2;
       _reduceCaps(pairs[i], current.addCap / 2, drawCap);
 

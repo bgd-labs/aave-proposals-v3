@@ -235,8 +235,10 @@ contract SentoraEmergency_Test is SentoraTestBase {
     uint256 rlusdSpokes = HUB.getSpokeCount(RLUSD_ASSET_ID);
     uint256 rlusdYieldCount = RLUSD_YIELD.getReserveCount();
     uint256 ousdYieldCount = OUSD_YIELD.getReserveCount();
+    // mWIN was paused by the pre-launch config, so the undo leaves it paused
+    uint256 mWinId = _reserveId(RLUSD_YIELD, Assets.mWIN_UNDERLYING);
     SentoraCallsPayload.Call[] memory calls = new SentoraCallsPayload.Call[](
-      rlusdSpokes + bluechipCount + rlusdYieldCount + ousdYieldCount
+      rlusdSpokes + bluechipCount + rlusdYieldCount - 1 + ousdYieldCount
     );
     uint256 n;
     for (uint256 i; i < rlusdSpokes; ++i) {
@@ -264,6 +266,7 @@ contract SentoraEmergency_Test is SentoraTestBase {
       );
     }
     for (uint256 reserveId; reserveId < rlusdYieldCount; ++reserveId) {
+      if (reserveId == mWinId) continue;
       calls[n++] = _call(
         address(SPOKE_CONFIGURATOR),
         abi.encodeCall(ISpokeConfigurator.updatePaused, (address(RLUSD_YIELD), reserveId, false))
@@ -300,7 +303,7 @@ contract SentoraEmergency_Test is SentoraTestBase {
       assertEq(config.drawCap, bluechipCaps[reserveId].drawCap, 'draw cap restored');
     }
     for (uint256 reserveId; reserveId < rlusdYieldCount; ++reserveId) {
-      assertFalse(RLUSD_YIELD.getReserveConfig(reserveId).paused, 'unpaused');
+      assertEq(RLUSD_YIELD.getReserveConfig(reserveId).paused, reserveId == mWinId, 'unpaused');
     }
     for (uint256 reserveId; reserveId < ousdYieldCount; ++reserveId) {
       assertFalse(OUSD_YIELD.getReserveConfig(reserveId).frozen, 'unfrozen');
