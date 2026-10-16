@@ -40,7 +40,7 @@ contract AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009_Test is S
     assertEq(RISK_STEWARD.owner(), SECURITY_COUNCIL, 'steward owner');
     assertEq(RISK_STEWARD.pendingOwner(), address(0), 'steward pending owner');
 
-    _assertRole(ADMIN_ROLE, SECURITY_COUNCIL, address(0), address(0));
+    _assertRole(ADMIN_ROLE, SECURITY_COUNCIL, EXECUTOR_LVL_1, address(0));
     _assertRole(HUB_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, COUNCIL_EXECUTOR, address(0));
     _assertRole(SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE, EXECUTOR, COUNCIL_EXECUTOR, address(0));
     _assertRole(SENTORA_RISK_ROLE, EXECUTOR, address(RISK_STEWARD), COUNCIL_EXECUTOR);

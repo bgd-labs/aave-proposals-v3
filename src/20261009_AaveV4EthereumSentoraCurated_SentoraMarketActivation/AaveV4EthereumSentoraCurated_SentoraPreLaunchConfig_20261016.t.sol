@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IHub, ISpoke} from 'aave-address-book/AaveV4.sol';
 import {IExecutor} from 'aave-address-book/governance-v3/IExecutor.sol';
+import {IAccessManager} from 'aave-v4/dependencies/openzeppelin/IAccessManager.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {AaveV4EthereumSentoraCuratedAssets as Assets} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
 import {SentoraTestBase} from './SentoraTestBase.sol';
@@ -60,6 +61,8 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016_Test is Se
       (bool isMember, ) = ACCESS_MANAGER.hasRole(roles[i], COUNCIL_EXECUTOR);
       assertFalse(isMember, 'role before grant');
     }
+    (bool isAdmin, ) = ACCESS_MANAGER.hasRole(ADMIN_ROLE, EXECUTOR_LVL_1);
+    assertFalse(isAdmin, 'lvl1 admin before grant');
   }
 
   function test_revertsBeforeRolesGranted() public {
@@ -73,7 +76,7 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016_Test is Se
       preLaunchConfig
     );
     uint64[4] memory roles = SentoraPreLaunchCouncilCalls.roles();
-    assertEq(calls.length, 5, 'calls');
+    assertEq(calls.length, 6, 'calls');
     for (uint256 i; i < roles.length; ++i) {
       assertEq(calls[i].to, address(ACCESS_MANAGER), 'grant target');
       assertEq(
@@ -95,6 +98,38 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016_Test is Se
       ),
       'execute calldata'
     );
+    assertEq(calls[5].to, address(ACCESS_MANAGER), 'admin grant target');
+    assertEq(bytes4(calls[5].data), IAccessManager.grantRole.selector, 'admin grant selector');
+    assertEq(
+      calls[5].data,
+      abi.encodeWithSignature('grantRole(uint64,address,uint32)', 0, EXECUTOR_LVL_1, 0),
+      'admin grant calldata'
+    );
+  }
+
+  /// @dev Unpacks the MultiSendCallOnly batch: each entry is a CALL with value 0 carrying the
+  /// Council call at the same index.
+  function test_multiSendBatch() public view {
+    SentoraPreLaunchCouncilCalls.Call[] memory calls = SentoraPreLaunchCouncilCalls.calls(
+      preLaunchConfig
+    );
+    bytes memory batch = SentoraPreLaunchCouncilCalls.multiSend(preLaunchConfig);
+    assertEq(bytes4(batch), bytes4(keccak256('multiSend(bytes)')), 'multiSend selector');
+    bytes memory transactions = abi.decode(_slice(batch, 4, batch.length - 4), (bytes));
+
+    uint256 offset;
+    uint256 n;
+    while (offset < transactions.length) {
+      assertEq(uint8(transactions[offset]), 0, 'operation');
+      assertEq(address(bytes20(_slice(transactions, offset + 1, 20))), calls[n].to, 'to');
+      assertEq(uint256(bytes32(_slice(transactions, offset + 21, 32))), 0, 'value');
+      uint256 dataLength = uint256(bytes32(_slice(transactions, offset + 53, 32)));
+      assertEq(_slice(transactions, offset + 85, dataLength), calls[n].data, 'data');
+      offset += 85 + dataLength;
+      ++n;
+    }
+    assertEq(offset, transactions.length, 'batch length');
+    assertEq(n, 6, 'batch calls');
   }
 
   function test_preLaunchConfig() public {
@@ -103,7 +138,7 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016_Test is Se
     _assertConfigApplied(before);
   }
 
-  /// @dev Same five calls as one Safe batch through MultiSendCallOnly v1.4.1, which runs each as a
+  /// @dev Same six calls as one Safe batch through MultiSendCallOnly v1.4.1, which runs each as a
   /// CALL from the Safe.
   function test_preLaunchConfigThroughMultiSendCallOnly() public {
     assertGt(SentoraPreLaunchCouncilCalls.MULTI_SEND_CALL_ONLY.code.length, 0, 'multisend code');
@@ -192,8 +227,18 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016_Test is Se
       assertTrue(isMember, 'executor role');
       assertEq(executionDelay, 0, 'execution delay');
     }
+    (bool isAdmin, uint32 adminDelay) = ACCESS_MANAGER.hasRole(ADMIN_ROLE, EXECUTOR_LVL_1);
+    assertTrue(isAdmin, 'lvl1 admin');
+    assertEq(adminDelay, 0, 'lvl1 admin execution delay');
+    (bool councilIsAdmin, ) = ACCESS_MANAGER.hasRole(ADMIN_ROLE, SECURITY_COUNCIL);
+    assertTrue(councilIsAdmin, 'council admin');
+    for (uint256 i; i < granted.length; ++i) {
+      (bool isMember, ) = ACCESS_MANAGER.hasRole(granted[i], EXECUTOR_LVL_1);
+      assertFalse(isMember, 'lvl1 role');
+    }
     for (uint256 i; i < current.roles.length; ++i) {
-      bool isGranted = current.roles[i] == granted[0] ||
+      bool isGranted = current.roles[i] == ADMIN_ROLE ||
+        current.roles[i] == granted[0] ||
         current.roles[i] == granted[1] ||
         current.roles[i] == granted[2] ||
         current.roles[i] == granted[3];
@@ -203,6 +248,15 @@ contract AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016_Test is Se
         'role member count'
       );
     }
+  }
+
+  function _slice(
+    bytes memory data,
+    uint256 start,
+    uint256 length
+  ) internal pure returns (bytes memory slice) {
+    slice = new bytes(length);
+    for (uint256 i; i < length; ++i) slice[i] = data[start + i];
   }
 
   function _assertSpokeConfig(

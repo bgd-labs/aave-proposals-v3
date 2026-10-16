@@ -5,6 +5,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IPayloadsControllerCore} from 'aave-address-book/GovernanceV3.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IHub, ISpoke, IAaveOracle, IHubConfigurator, ISpokeConfigurator, ITreasurySpoke, IAccessManagerEnumerable} from 'aave-address-book/AaveV4.sol';
 import {IPriceFeed} from 'aave-v4/spoke/interfaces/IPriceFeed.sol';
 import {AaveV4EthereumSentoraCurated, AaveV4EthereumSentoraCuratedHubs, AaveV4EthereumSentoraCuratedSpokes, AaveV4EthereumSentoraCuratedPositionManagers, AaveV4EthereumSentoraCuratedAssets} from 'aave-address-book/AaveV4EthereumSentoraCurated.sol';
@@ -47,6 +48,7 @@ abstract contract SentoraTestBase is ProtocolV4TestBaseEthereumSentoraCurated {
     AaveV4EthereumSentoraCurated.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR;
   address internal constant SECURITY_COUNCIL = MiscEthereum.V4_SECURITY_COUNCIL;
   address internal constant COUNCIL_EXECUTOR = MiscEthereum.V4_SECURITY_COUNCIL_EXECUTOR;
+  address internal constant EXECUTOR_LVL_1 = GovernanceV3Ethereum.EXECUTOR_LVL_1;
   address internal constant EMERGENCY_ADMIN = AaveV4EthereumSentoraCurated.SENTORA_EMERGENCY_ADMIN;
   address internal constant OPERATOR = AaveV4EthereumSentoraCurated.SENTORA_OPERATOR;
   address internal constant FEE_ADMIN = AaveV4EthereumSentoraCurated.SENTORA_FEE_ADMIN;

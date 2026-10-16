@@ -24,7 +24,7 @@ contract SentoraAccessControl_Test is SentoraTestBase {
   }
 
   function test_roleMembers() public view {
-    _assertMembers(ADMIN_ROLE, _list(SECURITY_COUNCIL));
+    _assertMembers(ADMIN_ROLE, _list(SECURITY_COUNCIL, EXECUTOR_LVL_1));
     _assertMembers(HUB_CONFIGURATOR_ROLE, _list(address(HUB_CONFIGURATOR)));
     _assertMembers(SPOKE_CONFIGURATOR_ROLE, _list(address(SPOKE_CONFIGURATOR)));
     // the Council Executor keeps the roles it ran the pre-launch config with
