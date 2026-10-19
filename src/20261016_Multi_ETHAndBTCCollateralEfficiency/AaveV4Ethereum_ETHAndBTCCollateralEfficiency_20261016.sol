@@ -20,7 +20,7 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016 is AaveV4PayloadE
     returns (IConfigEngine.DynamicReserveConfigUpdate[] memory)
   {
     IConfigEngine.DynamicReserveConfigUpdate[]
-      memory items = new IConfigEngine.DynamicReserveConfigUpdate[](5);
+      memory items = new IConfigEngine.DynamicReserveConfigUpdate[](7);
     items[0] = IConfigEngine.DynamicReserveConfigUpdate({
       spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
       spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
@@ -68,6 +68,26 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016 is AaveV4PayloadE
       underlying: AaveV4EthereumAssets.cbBTC_UNDERLYING,
       dynamicConfigKey: 0,
       collateralFactor: 85_00,
+      maxLiquidationBonus: EngineFlags.KEEP_CURRENT,
+      liquidationFee: EngineFlags.KEEP_CURRENT
+    });
+    items[5] = IConfigEngine.DynamicReserveConfigUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.wstETH_UNDERLYING,
+      dynamicConfigKey: 0,
+      collateralFactor: 82_00,
+      maxLiquidationBonus: EngineFlags.KEEP_CURRENT,
+      liquidationFee: EngineFlags.KEEP_CURRENT
+    });
+    items[6] = IConfigEngine.DynamicReserveConfigUpdate({
+      spokeConfigurator: AaveV4Ethereum.SPOKE_CONFIGURATOR,
+      spoke: address(AaveV4EthereumSpokes.MAIN_SPOKE),
+      hub: address(AaveV4EthereumHubs.CORE_HUB),
+      underlying: AaveV4EthereumAssets.weETH_UNDERLYING,
+      dynamicConfigKey: 0,
+      collateralFactor: 81_00,
       maxLiquidationBonus: EngineFlags.KEEP_CURRENT,
       liquidationFee: EngineFlags.KEEP_CURRENT
     });

@@ -155,6 +155,54 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
     );
   }
 
+  function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_wstETH_0() public {
+    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.wstETH_UNDERLYING);
+    uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+    ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      uint32(0)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    assertEq(uint256(dyn.collateralFactor), uint256(82_00), 'collateralFactor mismatch');
+    assertEq(
+      uint256(dyn.maxLiquidationBonus),
+      uint256(beforeDyn.maxLiquidationBonus),
+      'maxLiquidationBonus unchanged'
+    );
+    assertEq(
+      uint256(dyn.liquidationFee),
+      uint256(beforeDyn.liquidationFee),
+      'liquidationFee unchanged'
+    );
+  }
+
+  function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_weETH_0() public {
+    ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
+    IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.weETH_UNDERLYING);
+    uint256 reserveId = spoke.getReserveId(address(hub), assetId);
+    ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      uint32(0)
+    );
+    GovV3Helpers.executePayload(vm, address(proposal));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    assertEq(uint256(dyn.collateralFactor), uint256(81_00), 'collateralFactor mismatch');
+    assertEq(
+      uint256(dyn.maxLiquidationBonus),
+      uint256(beforeDyn.maxLiquidationBonus),
+      'maxLiquidationBonus unchanged'
+    );
+    assertEq(
+      uint256(dyn.liquidationFee),
+      uint256(beforeDyn.liquidationFee),
+      'liquidationFee unchanged'
+    );
+  }
+
   function test_preProposalDynamicConfigs() public view {
     ISpoke spoke = AaveV4EthereumSpokes.MAIN_SPOKE;
     IHub hub = AaveV4EthereumHubs.CORE_HUB;
@@ -175,6 +223,10 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       assertEq(config.collateralFactor, factors[i]);
       assertEq(config.maxLiquidationBonus, bonuses[i]);
       assertEq(config.liquidationFee, 10_00);
+      if (keys[i] == 2) {
+        assertEq(abi.encode(spoke.getDynamicReserveConfig(reserveId, 0)), abi.encode(config));
+        assertEq(spoke.getDynamicReserveConfig(reserveId, 1).collateralFactor, 0);
+      }
     }
   }
 
@@ -191,7 +243,9 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       for (uint32 key; key <= reserve.dynamicConfigKey; ++key) {
         ISpoke.DynamicReserveConfig memory config = spoke.getDynamicReserveConfig(i, key);
         uint16 factor = _expectedCollateralFactor(reserve.underlying);
-        if (key == reserve.dynamicConfigKey && factor != 0) config.collateralFactor = factor;
+        if ((key == 0 || key == reserve.dynamicConfigKey) && factor != 0) {
+          config.collateralFactor = factor;
+        }
         expectedConfigs[i][key] = keccak256(abi.encode(config));
       }
     }
@@ -210,15 +264,18 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
     }
   }
 
-  function test_existingPositionRefreshesToLatestConfig_wstETH() public {
-    _testExistingPositionRefresh(AaveV4EthereumAssets.wstETH_UNDERLYING, 82_00);
+  function test_existingPositionUsesUpdatedLegacyConfig_wstETH() public {
+    _testExistingPositionUsesUpdatedLegacyConfig(AaveV4EthereumAssets.wstETH_UNDERLYING, 82_00);
   }
 
-  function test_existingPositionRefreshesToLatestConfig_weETH() public {
-    _testExistingPositionRefresh(AaveV4EthereumAssets.weETH_UNDERLYING, 81_00);
+  function test_existingPositionUsesUpdatedLegacyConfig_weETH() public {
+    _testExistingPositionUsesUpdatedLegacyConfig(AaveV4EthereumAssets.weETH_UNDERLYING, 81_00);
   }
 
-  function _testExistingPositionRefresh(address underlying, uint16 expectedFactor) internal {
+  function _testExistingPositionUsesUpdatedLegacyConfig(
+    address underlying,
+    uint16 expectedFactor
+  ) internal {
     ISpoke spoke = AaveV4EthereumSpokes.MAIN_SPOKE;
     IHub hub = AaveV4EthereumHubs.CORE_HUB;
     uint256 reserveId = spoke.getReserveId(address(hub), hub.getAssetId(underlying));
@@ -259,8 +316,10 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
 
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(spoke.getUserPosition(reserveId, user).dynamicConfigKey, 0);
-    assertEq(spoke.getUserAccountData(user).healthFactor, healthFactorBefore);
-    assertEq(spoke.getDynamicReserveConfig(reserveId, 0).collateralFactor, 80_00);
+    assertGt(spoke.getUserAccountData(user).healthFactor, healthFactorBefore);
+    assertEq(abi.encode(spoke.getUserPosition(reserveId, user)), abi.encode(beforePosition));
+    assertEq(spoke.getUserAccountData(user).avgCollateralFactor, uint256(expectedFactor) * 1e14);
+    assertEq(spoke.getDynamicReserveConfig(reserveId, 0).collateralFactor, expectedFactor);
     assertEq(spoke.getDynamicReserveConfig(reserveId, 1).collateralFactor, 0);
     assertEq(spoke.getDynamicReserveConfig(reserveId, 2).collateralFactor, expectedFactor);
 

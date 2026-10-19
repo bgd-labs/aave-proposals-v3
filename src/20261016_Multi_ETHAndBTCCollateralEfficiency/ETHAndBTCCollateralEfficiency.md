@@ -190,7 +190,7 @@ For the CF changes, we recommend performing a configuration update instead of de
 
 ## Implementation details
 
-The payload updates dynamic configuration key 0 for WETH, WBTC, and cbBTC, and key 2 for wstETH and weETH. Earlier wstETH and weETH configurations remain unchanged. Positions using an earlier configuration adopt the current key when borrowing more.
+The payload updates dynamic configuration key 0 for WETH, WBTC, and cbBTC, and keys 0 and 2 for wstETH and weETH. Key 1 remains unchanged at a 0% collateral factor for wstETH and weETH. Positions using key 0 receive the increased collateral factor without needing to refresh their configuration.
 
 ## References
 
