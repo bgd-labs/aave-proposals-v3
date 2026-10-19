@@ -19,6 +19,10 @@ import {AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016} from './AaveV4Eth
 contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV4TestBaseEthereum {
   using stdStorage for StdStorage;
 
+  uint32 internal constant LEGACY_CONFIG_KEY = 0;
+  uint32 internal constant DISABLED_CONFIG_KEY = 1;
+  uint32 internal constant LATEST_CONFIG_KEY = 2;
+
   AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016 internal proposal;
   StdStorage private legacyPositionStorage;
 
@@ -36,16 +40,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_WETH_0() public {
+    uint32 dynamicConfigKey = 0;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WETH_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(0)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(84_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -60,16 +68,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_wstETH_2() public {
+    uint32 dynamicConfigKey = 2;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.wstETH_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(2)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(2));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(82_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -84,16 +96,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_weETH_2() public {
+    uint32 dynamicConfigKey = 2;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.weETH_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(2)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(2));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(81_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -108,16 +124,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_WBTC_0() public {
+    uint32 dynamicConfigKey = 0;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.WBTC_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(0)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(85_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -132,16 +152,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_cbBTC_0() public {
+    uint32 dynamicConfigKey = 0;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.cbBTC_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(0)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(85_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -156,16 +180,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_wstETH_0() public {
+    uint32 dynamicConfigKey = 0;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.wstETH_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(0)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(82_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -180,16 +208,20 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   function test_spokeDynamicReserveConfigUpdate_MAIN_SPOKE_weETH_0() public {
+    uint32 dynamicConfigKey = 0;
     ISpoke spoke = ISpoke(address(AaveV4EthereumSpokes.MAIN_SPOKE));
     IHub hub = IHub(address(AaveV4EthereumHubs.CORE_HUB));
     uint256 assetId = hub.getAssetId(AaveV4EthereumAssets.weETH_UNDERLYING);
     uint256 reserveId = spoke.getReserveId(address(hub), assetId);
     ISpoke.DynamicReserveConfig memory beforeDyn = spoke.getDynamicReserveConfig(
       reserveId,
-      uint32(0)
+      dynamicConfigKey
     );
     GovV3Helpers.executePayload(vm, address(proposal));
-    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(reserveId, uint32(0));
+    ISpoke.DynamicReserveConfig memory dyn = spoke.getDynamicReserveConfig(
+      reserveId,
+      dynamicConfigKey
+    );
     assertEq(uint256(dyn.collateralFactor), uint256(81_00), 'collateralFactor mismatch');
     assertEq(
       uint256(dyn.maxLiquidationBonus),
@@ -214,7 +246,13 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       AaveV4EthereumAssets.cbBTC_UNDERLYING
     ];
     uint16[5] memory factors = [uint16(83_00), 80_00, 80_00, 78_00, 78_00];
-    uint32[5] memory keys = [uint32(0), 2, 2, 0, 0];
+    uint32[5] memory keys = [
+      LEGACY_CONFIG_KEY,
+      LATEST_CONFIG_KEY,
+      LATEST_CONFIG_KEY,
+      LEGACY_CONFIG_KEY,
+      LEGACY_CONFIG_KEY
+    ];
     uint32[5] memory bonuses = [uint32(105_55), 106_66, 107_77, 105_55, 105_55];
     for (uint256 i; i < assets.length; ++i) {
       uint256 reserveId = spoke.getReserveId(address(hub), hub.getAssetId(assets[i]));
@@ -224,8 +262,11 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       assertEq(config.maxLiquidationBonus, bonuses[i]);
       assertEq(config.liquidationFee, 10_00);
       if (keys[i] == 2) {
-        assertEq(abi.encode(spoke.getDynamicReserveConfig(reserveId, 0)), abi.encode(config));
-        assertEq(spoke.getDynamicReserveConfig(reserveId, 1).collateralFactor, 0);
+        assertEq(
+          abi.encode(spoke.getDynamicReserveConfig(reserveId, LEGACY_CONFIG_KEY)),
+          abi.encode(config)
+        );
+        assertEq(spoke.getDynamicReserveConfig(reserveId, DISABLED_CONFIG_KEY).collateralFactor, 0);
       }
     }
   }
@@ -243,7 +284,7 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       for (uint32 key; key <= reserve.dynamicConfigKey; ++key) {
         ISpoke.DynamicReserveConfig memory config = spoke.getDynamicReserveConfig(i, key);
         uint16 factor = _expectedCollateralFactor(reserve.underlying);
-        if ((key == 0 || key == reserve.dynamicConfigKey) && factor != 0) {
+        if ((key == LEGACY_CONFIG_KEY || key == reserve.dynamicConfigKey) && factor != 0) {
           config.collateralFactor = factor;
         }
         expectedConfigs[i][key] = keccak256(abi.encode(config));
@@ -300,14 +341,14 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
     spoke.borrow(debtReserveId, initialBorrow, user);
     vm.stopPrank();
 
-    assertEq(spoke.getReserve(reserveId).dynamicConfigKey, 2);
+    assertEq(spoke.getReserve(reserveId).dynamicConfigKey, LATEST_CONFIG_KEY);
     assertEq(
-      abi.encode(spoke.getDynamicReserveConfig(reserveId, 0)),
-      abi.encode(spoke.getDynamicReserveConfig(reserveId, 2))
+      abi.encode(spoke.getDynamicReserveConfig(reserveId, LEGACY_CONFIG_KEY)),
+      abi.encode(spoke.getDynamicReserveConfig(reserveId, LATEST_CONFIG_KEY))
     );
     ISpoke.UserPosition memory beforePosition = spoke.getUserPosition(reserveId, user);
     _restoreLegacyConfigKey(spoke, reserveId, user);
-    beforePosition.dynamicConfigKey = 0;
+    beforePosition.dynamicConfigKey = LEGACY_CONFIG_KEY;
     assertEq(abi.encode(spoke.getUserPosition(reserveId, user)), abi.encode(beforePosition));
     uint256 healthFactorBefore = spoke.getUserAccountData(user).healthFactor;
     vm.prank(user);
@@ -315,17 +356,23 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
     spoke.borrow(debtReserveId, additionalBorrow, user);
 
     GovV3Helpers.executePayload(vm, address(proposal));
-    assertEq(spoke.getUserPosition(reserveId, user).dynamicConfigKey, 0);
+    assertEq(spoke.getUserPosition(reserveId, user).dynamicConfigKey, LEGACY_CONFIG_KEY);
     assertGt(spoke.getUserAccountData(user).healthFactor, healthFactorBefore);
     assertEq(abi.encode(spoke.getUserPosition(reserveId, user)), abi.encode(beforePosition));
     assertEq(spoke.getUserAccountData(user).avgCollateralFactor, uint256(expectedFactor) * 1e14);
-    assertEq(spoke.getDynamicReserveConfig(reserveId, 0).collateralFactor, expectedFactor);
-    assertEq(spoke.getDynamicReserveConfig(reserveId, 1).collateralFactor, 0);
-    assertEq(spoke.getDynamicReserveConfig(reserveId, 2).collateralFactor, expectedFactor);
+    assertEq(
+      spoke.getDynamicReserveConfig(reserveId, LEGACY_CONFIG_KEY).collateralFactor,
+      expectedFactor
+    );
+    assertEq(spoke.getDynamicReserveConfig(reserveId, DISABLED_CONFIG_KEY).collateralFactor, 0);
+    assertEq(
+      spoke.getDynamicReserveConfig(reserveId, LATEST_CONFIG_KEY).collateralFactor,
+      expectedFactor
+    );
 
     vm.prank(user);
     spoke.borrow(debtReserveId, additionalBorrow, user);
-    assertEq(spoke.getUserPosition(reserveId, user).dynamicConfigKey, 2);
+    assertEq(spoke.getUserPosition(reserveId, user).dynamicConfigKey, LATEST_CONFIG_KEY);
     assertEq(spoke.getUserPosition(reserveId, user).suppliedShares, beforePosition.suppliedShares);
     assertEq(spoke.getUserAccountData(user).avgCollateralFactor, uint256(expectedFactor) * 1e14);
     assertGe(spoke.getUserAccountData(user).healthFactor, 1e18);
@@ -344,7 +391,7 @@ contract AaveV4Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       .with_key(user)
       .depth(4)
       .enable_packed_slots()
-      .checked_write(uint256(0));
+      .checked_write(uint256(LEGACY_CONFIG_KEY));
   }
 
   function _expectedCollateralFactor(address underlying) internal pure returns (uint16) {
