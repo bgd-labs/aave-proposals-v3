@@ -36,39 +36,13 @@ contract AaveV3Base_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV3Tes
   }
 
   /**
-   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   * @dev checks whether reserve configurations stay unchanged as expected
    */
   function test_reserveConfigChanges() public {
     address[] memory updatedAssets = new address[](2);
     updatedAssets[0] = AaveV3BaseAssets.WETH_UNDERLYING;
     updatedAssets[1] = AaveV3BaseAssets.cbBTC_UNDERLYING;
     reserveConfigChangesTest(AaveV3Base.POOL, address(proposal), updatedAssets);
-  }
-
-  function _expectedCollateralChanges()
-    internal
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate;
-    collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](2);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3BaseAssets.WETH_UNDERLYING,
-      ltv: 81_00,
-      liqThreshold: 84_00,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3BaseAssets.cbBTC_UNDERLYING,
-      ltv: 81_00,
-      liqThreshold: 84_00,
-      liqBonus: 6_00,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    return collateralUpdate;
   }
 
   function test_eModeUpdatesConfiguration() public {
@@ -109,17 +83,43 @@ contract AaveV3Base_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV3Tes
   function test_preProposalCollateralConfig() public view {
     ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Base.POOL);
     ReserveConfig memory WETHConfig = _findReserveConfig(configs, AaveV3BaseAssets.WETH_UNDERLYING);
-    assertEq(WETHConfig.ltv, 8000);
-    assertEq(WETHConfig.liquidationThreshold, 8300);
-    assertEq(WETHConfig.liquidationBonus, 10500);
-    assertEq(WETHConfig.liquidationProtocolFee, 1000);
+    assertEq(WETHConfig.ltv, 80_00);
+    assertEq(WETHConfig.liquidationThreshold, 83_00);
+    assertEq(WETHConfig.liquidationBonus, 105_00);
+    assertEq(WETHConfig.liquidationProtocolFee, 10_00);
     ReserveConfig memory cbBTCConfig = _findReserveConfig(
       configs,
       AaveV3BaseAssets.cbBTC_UNDERLYING
     );
-    assertEq(cbBTCConfig.ltv, 7300);
-    assertEq(cbBTCConfig.liquidationThreshold, 7800);
-    assertEq(cbBTCConfig.liquidationBonus, 10750);
-    assertEq(cbBTCConfig.liquidationProtocolFee, 1000);
+    assertEq(cbBTCConfig.ltv, 73_00);
+    assertEq(cbBTCConfig.liquidationThreshold, 78_00);
+    assertEq(cbBTCConfig.liquidationBonus, 107_50);
+    assertEq(cbBTCConfig.liquidationProtocolFee, 10_00);
+  }
+
+  function _expectedCollateralChanges()
+    internal
+    pure
+    override
+    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate;
+    collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](2);
+
+    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3BaseAssets.WETH_UNDERLYING,
+      ltv: 81_00,
+      liqThreshold: 84_00,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3BaseAssets.cbBTC_UNDERLYING,
+      ltv: 81_00,
+      liqThreshold: 84_00,
+      liqBonus: 6_00,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+    return collateralUpdate;
   }
 }

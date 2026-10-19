@@ -34,7 +34,7 @@ contract AaveV3Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   /**
-   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   * @dev checks whether reserve configurations stay unchanged as expected
    */
   function test_reserveConfigChanges() public {
     address[] memory updatedAssets = new address[](5);
@@ -44,6 +44,50 @@ contract AaveV3Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
     updatedAssets[3] = AaveV3EthereumAssets.wstETH_UNDERLYING;
     updatedAssets[4] = AaveV3EthereumAssets.weETH_UNDERLYING;
     reserveConfigChangesTest(AaveV3Ethereum.POOL, address(proposal), updatedAssets);
+  }
+
+  function test_preProposalCollateralConfig() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Ethereum.POOL);
+    ReserveConfig memory WETHConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.WETH_UNDERLYING
+    );
+    assertEq(WETHConfig.ltv, 80_50);
+    assertEq(WETHConfig.liquidationThreshold, 83_00);
+    assertEq(WETHConfig.liquidationBonus, 105_00);
+    assertEq(WETHConfig.liquidationProtocolFee, 10_00);
+    ReserveConfig memory WBTCConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.WBTC_UNDERLYING
+    );
+    assertEq(WBTCConfig.ltv, 73_00);
+    assertEq(WBTCConfig.liquidationThreshold, 78_00);
+    assertEq(WBTCConfig.liquidationBonus, 105_00);
+    assertEq(WBTCConfig.liquidationProtocolFee, 10_00);
+    ReserveConfig memory cbBTCConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.cbBTC_UNDERLYING
+    );
+    assertEq(cbBTCConfig.ltv, 73_00);
+    assertEq(cbBTCConfig.liquidationThreshold, 78_00);
+    assertEq(cbBTCConfig.liquidationBonus, 107_50);
+    assertEq(cbBTCConfig.liquidationProtocolFee, 10_00);
+    ReserveConfig memory wstETHConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.wstETH_UNDERLYING
+    );
+    assertEq(wstETHConfig.ltv, 78_50);
+    assertEq(wstETHConfig.liquidationThreshold, 81_00);
+    assertEq(wstETHConfig.liquidationBonus, 106_00);
+    assertEq(wstETHConfig.liquidationProtocolFee, 10_00);
+    ReserveConfig memory weETHConfig = _findReserveConfig(
+      configs,
+      AaveV3EthereumAssets.weETH_UNDERLYING
+    );
+    assertEq(weETHConfig.ltv, 77_50);
+    assertEq(weETHConfig.liquidationThreshold, 80_00);
+    assertEq(weETHConfig.liquidationBonus, 107_00);
+    assertEq(weETHConfig.liquidationProtocolFee, 10_00);
   }
 
   function _expectedCollateralChanges()
@@ -91,49 +135,5 @@ contract AaveV3Ethereum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
     return collateralUpdate;
-  }
-
-  function test_preProposalCollateralConfig() public view {
-    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Ethereum.POOL);
-    ReserveConfig memory WETHConfig = _findReserveConfig(
-      configs,
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
-    assertEq(WETHConfig.ltv, 8050);
-    assertEq(WETHConfig.liquidationThreshold, 8300);
-    assertEq(WETHConfig.liquidationBonus, 10500);
-    assertEq(WETHConfig.liquidationProtocolFee, 1000);
-    ReserveConfig memory WBTCConfig = _findReserveConfig(
-      configs,
-      AaveV3EthereumAssets.WBTC_UNDERLYING
-    );
-    assertEq(WBTCConfig.ltv, 7300);
-    assertEq(WBTCConfig.liquidationThreshold, 7800);
-    assertEq(WBTCConfig.liquidationBonus, 10500);
-    assertEq(WBTCConfig.liquidationProtocolFee, 1000);
-    ReserveConfig memory cbBTCConfig = _findReserveConfig(
-      configs,
-      AaveV3EthereumAssets.cbBTC_UNDERLYING
-    );
-    assertEq(cbBTCConfig.ltv, 7300);
-    assertEq(cbBTCConfig.liquidationThreshold, 7800);
-    assertEq(cbBTCConfig.liquidationBonus, 10750);
-    assertEq(cbBTCConfig.liquidationProtocolFee, 1000);
-    ReserveConfig memory wstETHConfig = _findReserveConfig(
-      configs,
-      AaveV3EthereumAssets.wstETH_UNDERLYING
-    );
-    assertEq(wstETHConfig.ltv, 7850);
-    assertEq(wstETHConfig.liquidationThreshold, 8100);
-    assertEq(wstETHConfig.liquidationBonus, 10600);
-    assertEq(wstETHConfig.liquidationProtocolFee, 1000);
-    ReserveConfig memory weETHConfig = _findReserveConfig(
-      configs,
-      AaveV3EthereumAssets.weETH_UNDERLYING
-    );
-    assertEq(weETHConfig.ltv, 7750);
-    assertEq(weETHConfig.liquidationThreshold, 8000);
-    assertEq(weETHConfig.liquidationBonus, 10700);
-    assertEq(weETHConfig.liquidationProtocolFee, 1000);
   }
 }

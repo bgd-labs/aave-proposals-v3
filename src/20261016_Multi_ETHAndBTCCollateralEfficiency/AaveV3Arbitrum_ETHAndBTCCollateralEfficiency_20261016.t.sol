@@ -34,13 +34,33 @@ contract AaveV3Arbitrum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
   }
 
   /**
-   * @dev checks whether reserve configurations changed or stayed unchanged as expected
+   * @dev checks whether reserve configurations stay unchanged as expected
    */
   function test_reserveConfigChanges() public {
     address[] memory updatedAssets = new address[](2);
     updatedAssets[0] = AaveV3ArbitrumAssets.WETH_UNDERLYING;
     updatedAssets[1] = AaveV3ArbitrumAssets.WBTC_UNDERLYING;
     reserveConfigChangesTest(AaveV3Arbitrum.POOL, address(proposal), updatedAssets);
+  }
+
+  function test_preProposalCollateralConfig() public view {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Arbitrum.POOL);
+    ReserveConfig memory WETHConfig = _findReserveConfig(
+      configs,
+      AaveV3ArbitrumAssets.WETH_UNDERLYING
+    );
+    assertEq(WETHConfig.ltv, 80_00);
+    assertEq(WETHConfig.liquidationThreshold, 84_00);
+    assertEq(WETHConfig.liquidationBonus, 105_00);
+    assertEq(WETHConfig.liquidationProtocolFee, 10_00);
+    ReserveConfig memory WBTCConfig = _findReserveConfig(
+      configs,
+      AaveV3ArbitrumAssets.WBTC_UNDERLYING
+    );
+    assertEq(WBTCConfig.ltv, 73_00);
+    assertEq(WBTCConfig.liquidationThreshold, 78_00);
+    assertEq(WBTCConfig.liquidationBonus, 107_00);
+    assertEq(WBTCConfig.liquidationProtocolFee, 10_00);
   }
 
   function _expectedCollateralChanges()
@@ -67,25 +87,5 @@ contract AaveV3Arbitrum_ETHAndBTCCollateralEfficiency_20261016_Test is ProtocolV
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
     return collateralUpdate;
-  }
-
-  function test_preProposalCollateralConfig() public view {
-    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Arbitrum.POOL);
-    ReserveConfig memory WETHConfig = _findReserveConfig(
-      configs,
-      AaveV3ArbitrumAssets.WETH_UNDERLYING
-    );
-    assertEq(WETHConfig.ltv, 8000);
-    assertEq(WETHConfig.liquidationThreshold, 8400);
-    assertEq(WETHConfig.liquidationBonus, 10500);
-    assertEq(WETHConfig.liquidationProtocolFee, 1000);
-    ReserveConfig memory WBTCConfig = _findReserveConfig(
-      configs,
-      AaveV3ArbitrumAssets.WBTC_UNDERLYING
-    );
-    assertEq(WBTCConfig.ltv, 7300);
-    assertEq(WBTCConfig.liquidationThreshold, 7800);
-    assertEq(WBTCConfig.liquidationBonus, 10700);
-    assertEq(WBTCConfig.liquidationProtocolFee, 1000);
   }
 }
