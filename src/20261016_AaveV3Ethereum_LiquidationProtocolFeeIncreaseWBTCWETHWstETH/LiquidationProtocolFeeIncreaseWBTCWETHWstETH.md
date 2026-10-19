@@ -106,8 +106,8 @@ Following implementation, LlamaRisk will monitor liquidation execution, SVR reca
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261016_AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH/AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH_20261016.sol)
-- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261016_AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH/AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH_20261016.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/65bab1375f39ceb0f385247d69d9f29e94fab05c/src/20261016_AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH/AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH_20261016.sol)
+- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/65bab1375f39ceb0f385247d69d9f29e94fab05c/src/20261016_AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH/AaveV3Ethereum_LiquidationProtocolFeeIncreaseWBTCWETHWstETH_20261016.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xbc1c59336255d276088fa85f95ef7122d9d8a56940299093f3246b7db897b6a6)
 - [Discussion](https://governance.aave.com/t/arfc-liquidation-protocol-fee-increase-for-wbtc-weth-and-wsteth-on-aave-v3-ethereum-core/25470)
 
