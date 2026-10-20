@@ -36,12 +36,20 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261019_Test is ProtocolV4TestBaseA
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    ISpoke[] memory addressBookSpokes = _getSpokes();
-    ISpoke[] memory spokes = new ISpoke[](addressBookSpokes.length + 1);
-    for (uint256 i; i < addressBookSpokes.length; ++i) {
-      spokes[i] = addressBookSpokes[i];
+    ISpoke[] memory spokes = _getSpokes();
+    address ethenaEcosystemSpoke = proposal.ETHENA_ECOSYSTEM_SPOKE();
+    bool listed;
+    for (uint256 i; i < spokes.length; ++i) {
+      if (address(spokes[i]) == ethenaEcosystemSpoke) listed = true;
     }
-    spokes[addressBookSpokes.length] = ISpoke(proposal.ETHENA_ECOSYSTEM_SPOKE());
+    if (!listed) {
+      ISpoke[] memory extended = new ISpoke[](spokes.length + 1);
+      for (uint256 i; i < spokes.length; ++i) {
+        extended[i] = spokes[i];
+      }
+      extended[spokes.length] = ISpoke(ethenaEcosystemSpoke);
+      spokes = extended;
+    }
     defaultTest(
       'AaveV4Avalanche_OnboardUSDeCoreHub_20261019',
       spokes,
