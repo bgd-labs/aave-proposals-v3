@@ -40,7 +40,9 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261019_Test is ProtocolV4TestBaseA
     address ethenaEcosystemSpoke = proposal.ETHENA_ECOSYSTEM_SPOKE();
     bool listed;
     for (uint256 i; i < spokes.length; ++i) {
-      if (address(spokes[i]) == ethenaEcosystemSpoke) listed = true;
+      if (address(spokes[i]) == ethenaEcosystemSpoke) {
+      listed = true;
+      }
     }
     if (!listed) {
       ISpoke[] memory extended = new ISpoke[](spokes.length + 1);
