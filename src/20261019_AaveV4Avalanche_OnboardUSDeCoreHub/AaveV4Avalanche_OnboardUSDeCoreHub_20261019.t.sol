@@ -41,7 +41,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261019_Test is ProtocolV4TestBaseA
     bool listed;
     for (uint256 i; i < spokes.length; ++i) {
       if (address(spokes[i]) == ethenaEcosystemSpoke) {
-      listed = true;
+        listed = true;
       }
     }
     if (!listed) {
