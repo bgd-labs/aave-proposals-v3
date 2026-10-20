@@ -26,7 +26,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261019 is AaveV4PayloadAvalanche {
   // https://snowscan.xyz/address/0xaf22446124e566e54845f65b722E4dCbf12b650A
   address public constant ETHENA_ECOSYSTEM_SPOKE = 0xaf22446124e566e54845f65b722E4dCbf12b650A;
 
-  // the executor needs the spoke configurator domain admin role to configure the new spoke
+  // the executor needs the spoke configurator domain admin role to configure the new spoke. The role won't be revoked after execution to allow for future spoke configurations.
   function accessManagerRoleMemberships()
     public
     pure
