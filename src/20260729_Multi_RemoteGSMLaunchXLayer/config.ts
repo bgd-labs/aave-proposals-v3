@@ -18,8 +18,7 @@ export const config: ConfigFile = {
     date: '20260729',
     author: 'TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-launch-gho-on-x-layer/23178',
-    snapshot:
-      'https://snapshot.org/#/s:aavedao.eth/proposal/0xed5edc3f33a3b5d845452df717c18a3eb105a2eae8ab8be34cbf0832dfe8a20a',
+    snapshot: 'TODO',
     votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
