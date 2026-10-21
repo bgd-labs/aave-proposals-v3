@@ -42,27 +42,27 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 is IProposalGenericEx
   // https://www.oklink.com/x-layer/evm/address/0x1ECD8281BB799Ef055A379c27846B683cbeB6752
   address public constant GSM_REGISTRY = address(0x1ECD8281BB799Ef055A379c27846B683cbeB6752);
 
-  // GSM USDG (stataUSDG)
-  // https://www.oklink.com/x-layer/evm/address/0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787
-  address public constant GSM_USDG = address(0xAcB3d2f60CAA4966dE003E22936033FFBE7f6787);
+  // GSM USDC (stataUSDC)
+  // https://www.oklink.com/x-layer/evm/address/0xAf63FE2f77EE9eCdBDD7C792f0620800211A3369
+  address public constant GSM_USDC = address(0xAf63FE2f77EE9eCdBDD7C792f0620800211A3369);
 
-  // https://www.oklink.com/x-layer/evm/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
-  address public constant USDG_ORACLE_SWAP_FREEZER =
-    address(0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2);
+  // https://www.oklink.com/x-layer/evm/address/0xA083665931f5126657E8f77df5B52a3ceE8cF50e
+  address public constant USDC_ORACLE_SWAP_FREEZER =
+    address(0xA083665931f5126657E8f77df5B52a3ceE8cF50e);
 
-  // https://www.oklink.com/x-layer/evm/address/0xab1c66208266bbF5b2809ce1deDd3e5149eb4C94
-  address public constant GSM_USDG_FEE_STRATEGY =
-    address(0xab1c66208266bbF5b2809ce1deDd3e5149eb4C94);
+  // https://www.oklink.com/x-layer/evm/address/0x440A27d09C983261a440c0f64241e02421de9D2c
+  address public constant GSM_USDC_FEE_STRATEGY =
+    address(0x440A27d09C983261a440c0f64241e02421de9D2c);
 
   function execute() external {
     GHO_RESERVE.grantRole(GHO_RESERVE.LIMIT_MANAGER_ROLE(), GhoXLayer.RISK_COUNCIL);
 
     _wireGsm(
-      IGsm(GSM_USDG),
-      RemoteGSMLaunchXLayerSetup.GSM_USDG_RESERVE_LIMIT,
-      USDG_ORACLE_SWAP_FREEZER,
-      RemoteGSMLaunchXLayerSetup.GSM_USDG_INITIAL_EXPOSURE_CAP,
-      GSM_USDG_FEE_STRATEGY
+      IGsm(GSM_USDC),
+      RemoteGSMLaunchXLayerSetup.GSM_USDC_RESERVE_LIMIT,
+      USDC_ORACLE_SWAP_FREEZER,
+      RemoteGSMLaunchXLayerSetup.GSM_USDC_INITIAL_EXPOSURE_CAP,
+      GSM_USDC_FEE_STRATEGY
     );
 
     AaveV3XLayer.COLLECTOR.transfer(

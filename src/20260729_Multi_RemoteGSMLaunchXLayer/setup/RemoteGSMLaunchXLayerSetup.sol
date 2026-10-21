@@ -31,12 +31,12 @@ library RemoteGSMLaunchXLayerSetup {
   // Expected GHO facilitator bucket capacity after payloads are executed
   uint128 public constant EXPECTED_BUCKET_CAPACITY = 225_000_000 ether;
 
-  // GSM USDG (GSM is configured to use stataUSDG; naming USDG across the proposal for simplicity)
+  // GSM USDC (GSM is configured to use stataUSDC; naming USDC across the proposal for simplicity)
   // Maximum GHO amount that can be withdrawn by GSM (can be changed by steward later)
-  uint128 public constant GSM_USDG_RESERVE_LIMIT = 25_000_000 ether; // 25M, 18 decimals
+  uint128 public constant GSM_USDC_RESERVE_LIMIT = 25_000_000 ether; // 25M, 18 decimals
 
   // 20M underlying (6 decimals).
-  uint128 public constant GSM_USDG_INITIAL_EXPOSURE_CAP = 20_000_000e6; // 20M, 6 decimals
+  uint128 public constant GSM_USDC_INITIAL_EXPOSURE_CAP = 20_000_000e6; // 20M, 6 decimals
 
   /**
    * @notice Restores the inbound and outbound CCIP rate-limit config of a single GHO lane to the

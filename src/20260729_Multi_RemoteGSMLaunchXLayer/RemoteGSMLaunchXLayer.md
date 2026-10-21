@@ -7,11 +7,11 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xed5edc3f33a3b5d845452
 
 ## Simple Summary
 
-Launch a GHO GSM on XLayer (USDG) using the RemoteGSM architecture. The proposal mints 25M GHO via a dedicated `GhoDirectFacilitator` on Ethereum, bridges it to XLayer over CCIP to seed the local `GhoReserve`, and wires up the XLayer USDG GSM.
+Launch a GHO GSM on XLayer (USDC) using the RemoteGSM architecture. The proposal mints 25M GHO via a dedicated `GhoDirectFacilitator` on Ethereum, bridges it to XLayer over CCIP to seed the local `GhoReserve`, and wires up the XLayer USDC GSM.
 
 ## Motivation
 
-The RemoteGSM upgrade refactors GHO's stability mechanism into a three-layer design (`GhoDirectFacilitator` → `GhoReserve` → `GSM`), removing the prior requirement that each GSM be its own GHO facilitator and unlocking GSM deployment on L2s, where GHO cannot be minted directly. Deploying a USDG GSM on XLayer extends GHO's stability surface to a new network while keeping mint and bridge control under DAO governance.
+The RemoteGSM upgrade refactors GHO's stability mechanism into a three-layer design (`GhoDirectFacilitator` → `GhoReserve` → `GSM`), removing the prior requirement that each GSM be its own GHO facilitator and unlocking GSM deployment on L2s, where GHO cannot be minted directly. Deploying a USDC GSM on XLayer extends GHO's stability surface to a new network while keeping mint and bridge control under DAO governance.
 
 ## Specification
 
@@ -31,7 +31,7 @@ On XLayer:
 - On receipt, the `Collector` forwards the 25M GHO to the `GhoReserve`.
 - After bridging, restore the XLayer ↔ Ethereum lane rate-limit config to its prior value.
 
-### Wire up XLayer GSM (USDG)
+### Wire up XLayer GSM (USDC)
 
 For the GSM:
 

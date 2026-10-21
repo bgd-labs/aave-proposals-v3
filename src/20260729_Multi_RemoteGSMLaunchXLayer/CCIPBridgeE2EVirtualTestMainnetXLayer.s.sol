@@ -25,6 +25,8 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
   uint256 internal ghoBefore;
 
   function run() external {
+    // TODO: recreate the XLayer Virtual Testnet (and delete ./snapshot) so it forks after the
+    // USDC GSM deployment (0xAf63FE2f77EE9eCdBDD7C792f0620800211A3369); the current one predates it.
     // Snapshot so Virtual Testnet does not drift
     string[] memory aliases = new string[](2);
     aliases[0] = MAINNET;
@@ -83,7 +85,7 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
 
     _executePayloadOn(xlayer, xlayerPart2);
 
-    // Assert Part 2 landed the bridged GHO in the reserve and configured the USDG GSM.
+    // Assert Part 2 landed the bridged GHO in the reserve and configured the USDC GSM.
     _refork(XLAYER);
     _assertXLayerPart2(AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2(xlayerPart2));
   }
@@ -91,7 +93,7 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
   /// @dev End-state checks for XLayer Part 2, read from the payload's own constants so the
   /// expected addresses can't drift from what was executed.
   function _assertXLayerPart2(AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 payload) internal {
-    address gsm = payload.GSM_USDG();
+    address gsm = payload.GSM_USDC();
     IGhoReserve reserve = payload.GHO_RESERVE();
 
     // Bridged GHO reached the reserve (Collector -> GhoReserve forward in Part 2).
@@ -102,17 +104,17 @@ contract CCIPBridgeE2EVirtualTestMainnetXLayer is TenderlyVirtualTestnetBase {
     );
     // GSM enrolled with its reserve draw limit.
     require(
-      reserve.getLimit(gsm) == RemoteGSMLaunchXLayerSetup.GSM_USDG_RESERVE_LIMIT,
+      reserve.getLimit(gsm) == RemoteGSMLaunchXLayerSetup.GSM_USDC_RESERVE_LIMIT,
       'XLayer Part2: wrong GSM reserve limit'
     );
     // GSM wired to the reserve and configured with cap + fee strategy.
     require(IGsm(gsm).getGhoReserve() == address(reserve), 'XLayer Part2: GSM reserve not set');
     require(
-      IGsm(gsm).getExposureCap() == RemoteGSMLaunchXLayerSetup.GSM_USDG_INITIAL_EXPOSURE_CAP,
+      IGsm(gsm).getExposureCap() == RemoteGSMLaunchXLayerSetup.GSM_USDC_INITIAL_EXPOSURE_CAP,
       'XLayer Part2: wrong GSM exposure cap'
     );
     require(
-      IGsm(gsm).getFeeStrategy() == payload.GSM_USDG_FEE_STRATEGY(),
+      IGsm(gsm).getFeeStrategy() == payload.GSM_USDC_FEE_STRATEGY(),
       'XLayer Part2: fee strategy not set'
     );
     // GSM registered in the registry.

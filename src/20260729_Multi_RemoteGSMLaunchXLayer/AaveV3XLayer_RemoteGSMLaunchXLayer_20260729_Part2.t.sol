@@ -44,10 +44,10 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   uint256 internal constant EXISTING_ETH_INBOUND_RATE_LIMITER_CAPACITY =
     RemoteGSMLaunchXLayerSetup.DEFAULT_RATE_LIMITER_CAPACITY;
 
-  // The USDG GSM is deployed (outside governance) with a default 20M exposure cap; the payload sets
-  // it to GSM_USDG_INITIAL_EXPOSURE_CAP (currently the same value). Pinned as pre-state so the post checks can't
+  // The USDC GSM is deployed (outside governance) with a default 20M exposure cap; the payload sets
+  // it to GSM_USDC_INITIAL_EXPOSURE_CAP (currently the same value). Pinned as pre-state so the post checks can't
   // pass vacuously against a GSM redeployed already-configured (which would let a dropped payload line slip through).
-  uint128 internal constant GSM_USDG_DEPLOY_EXPOSURE_CAP = 20_000_000e6;
+  uint128 internal constant GSM_USDC_DEPLOY_EXPOSURE_CAP = 20_000_000e6;
 
   // Ethereum -> XLayer CCIP OffRamp on the XLayer router. `test_ccipOffRampIsRegistered` re-checks
   // that it is a registered OffRamp at the pinned block.
@@ -56,9 +56,9 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   // https://www.oklink.com/x-layer/evm/address/0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e
   address internal constant CCIP_ETH_OFFRAMP = address(0x77FDbd20ED582794b1d9F1a8a94e4a60494D677e);
 
-  // XLayer USDG stata token is not in AaveV3XLayerAssets yet.
-  // https://www.oklink.com/x-layer/evm/address/0x97e7620A3229b3daC7049C537B0E29DA2D1021E1
-  address internal constant USDG_STATA_TOKEN = address(0x97e7620A3229b3daC7049C537B0E29DA2D1021E1);
+  // XLayer USDC stata token is not in AaveV3XLayerAssets yet.
+  // https://www.oklink.com/x-layer/evm/address/0xEB809A8F20C210C6aaF0015926ab8d89F1742681
+  address internal constant USDC_STATA_TOKEN = address(0xEB809A8F20C210C6aaF0015926ab8d89F1742681);
 
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1 internal part1;
   AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2 internal proposal;
@@ -70,7 +70,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   uint128 internal ccipPoolFacilitatorBucketLevelBeforeCcipDelivery;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 67674936);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 73842677);
     part1 = new AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part1();
     proposal = new AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2();
 
@@ -129,7 +129,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     executePayload(vm, address(proposal));
 
     assertEq(registry.getGsmListLength(), 1);
-    assertEq(registry.getGsmAtIndex(0), proposal.GSM_USDG());
+    assertEq(registry.getGsmAtIndex(0), proposal.GSM_USDC());
   }
 
   function test_ccipOffRampIsRegistered() public view {
@@ -172,7 +172,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     // limiter without Part 1: 25M exceeds the existing capacity, so the funds cannot arrive if
     // Part 1 is skipped. (Whether the funds are actually bridged depends on the Ethereum payloads;
     // this only asserts XLayer cannot receive them until Part 1 runs.)
-    vm.createSelectFork(vm.rpcUrl('xlayer'), 67674936);
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 73842677);
 
     vm.expectRevert(
       abi.encodeWithSelector(
@@ -297,19 +297,19 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     executePayload(vm, address(proposal));
 
     assertTrue(
-      IGhoReserve(address(proposal.GHO_RESERVE())).isEntity(proposal.GSM_USDG()),
-      'USDG GSM not registered as entity'
+      IGhoReserve(address(proposal.GHO_RESERVE())).isEntity(proposal.GSM_USDC()),
+      'USDC GSM not registered as entity'
     );
   }
 
-  function test_checkGsmConfig_USDG() public {
-    IGsm gsm = IGsm(proposal.GSM_USDG());
+  function test_checkGsmConfig_USDC() public {
+    IGsm gsm = IGsm(proposal.GSM_USDC());
     IGhoReserve reserve = IGhoReserve(address(proposal.GHO_RESERVE()));
 
     // Pre-state: the payload must move each of these.
     assertEq(
       gsm.getExposureCap(),
-      GSM_USDG_DEPLOY_EXPOSURE_CAP,
+      GSM_USDC_DEPLOY_EXPOSURE_CAP,
       'pre: exposure cap should be the deploy default'
     );
     assertEq(gsm.getFeeStrategy(), address(0), 'pre: fee strategy should be unset');
@@ -320,16 +320,16 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     uint256 limit = reserve.getLimit(address(gsm));
     assertEq(
       limit,
-      RemoteGSMLaunchXLayerSetup.GSM_USDG_RESERVE_LIMIT,
-      'USDG GSM reserve limit not set'
+      RemoteGSMLaunchXLayerSetup.GSM_USDC_RESERVE_LIMIT,
+      'USDC GSM reserve limit not set'
     );
 
-    assertEq(gsm.getGhoReserve(), address(reserve), 'USDG GSM reserve address wrong');
+    assertEq(gsm.getGhoReserve(), address(reserve), 'USDC GSM reserve address wrong');
 
     GsmConfig memory gsmConfig = GsmConfig({
       sellFee: 0, // 0%
       buyFee: 0.001e4, // 0.1%
-      exposureCap: RemoteGSMLaunchXLayerSetup.GSM_USDG_INITIAL_EXPOSURE_CAP,
+      exposureCap: RemoteGSMLaunchXLayerSetup.GSM_USDC_INITIAL_EXPOSURE_CAP,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -337,26 +337,26 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
       freezeUpperBound: 1.01e8,
       unfreezeLowerBound: 0.995e8,
       unfreezeUpperBound: 1.005e8,
-      feeStrategy: proposal.GSM_USDG_FEE_STRATEGY()
+      feeStrategy: proposal.GSM_USDC_FEE_STRATEGY()
     });
     _checkGsmConfig(
       gsm,
-      USDG_STATA_TOKEN,
-      IOracleSwapFreezer(proposal.USDG_ORACLE_SWAP_FREEZER()),
+      USDC_STATA_TOKEN,
+      IOracleSwapFreezer(proposal.USDC_ORACLE_SWAP_FREEZER()),
       gsmConfig
     );
   }
 
-  function test_oracleSwapFreezer_USDG() public {
+  function test_oracleSwapFreezer_USDC() public {
     _testOracleSwapFreezer(
-      IGsm(proposal.GSM_USDG()),
-      IOracleSwapFreezer(proposal.USDG_ORACLE_SWAP_FREEZER()),
-      AaveV3XLayerAssets.USDG_UNDERLYING
+      IGsm(proposal.GSM_USDC()),
+      IOracleSwapFreezer(proposal.USDC_ORACLE_SWAP_FREEZER()),
+      AaveV3XLayerAssets.USDC_UNDERLYING
     );
   }
 
-  function test_checkRoles_USDG() public {
-    IGsm gsm = IGsm(proposal.GSM_USDG());
+  function test_checkRoles_USDC() public {
+    IGsm gsm = IGsm(proposal.GSM_USDC());
 
     // Pre-state: the payload grants these four roles. Assert they are ungranted beforehand so the
     // post-state role checks cannot pass vacuously against a pre-authorized redeploy with a
@@ -368,16 +368,16 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
     _checkRolesConfig(gsm);
   }
 
-  function test_gsmIsOperational_USDG() public {
-    _testGsmIsOperational(IGsm(proposal.GSM_USDG()), USDG_STATA_TOKEN);
+  function test_gsmIsOperational_USDC() public {
+    _testGsmIsOperational(IGsm(proposal.GSM_USDC()), USDC_STATA_TOKEN);
   }
 
-  function test_ghoGsmSteward_updateExposureCap_USDG() public {
-    _testUpdateExposureCap(IGsm(proposal.GSM_USDG()));
+  function test_ghoGsmSteward_updateExposureCap_USDC() public {
+    _testUpdateExposureCap(IGsm(proposal.GSM_USDC()));
   }
 
-  function test_ghoGsmSteward_updateGsmBuySellFees_USDG() public {
-    _testUpdateBuySellFees(IGsm(proposal.GSM_USDG()));
+  function test_ghoGsmSteward_updateGsmBuySellFees_USDC() public {
+    _testUpdateBuySellFees(IGsm(proposal.GSM_USDC()));
   }
 
   /**
@@ -625,7 +625,7 @@ contract AaveV3XLayer_RemoteGSMLaunchXLayer_20260729_Part2_Test is ProtocolV3Tes
   function _assertPayloadGrantedRolesUngranted(IGsm gsm) internal view {
     bytes32 swapFreezerRole = gsm.SWAP_FREEZER_ROLE();
     assertFalse(
-      gsm.hasRole(swapFreezerRole, proposal.USDG_ORACLE_SWAP_FREEZER()),
+      gsm.hasRole(swapFreezerRole, proposal.USDC_ORACLE_SWAP_FREEZER()),
       'pre: swap freezer role should not be granted to the oracle swap freezer'
     );
     assertFalse(
