@@ -94,6 +94,6 @@ This proposal was prepared by Aave Labs in its capacity as a contributor to the 
 
 ## References
 
-- Implementation: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.sol)
-- Tests: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.t.sol)
+- Implementation: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/6a464d0534469432527aa90fad331767db42c36a/src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.sol)
+- Tests: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/6a464d0534469432527aa90fad331767db42c36a/src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-to-aave-v4-core-instance-on-avalanche/25576)
