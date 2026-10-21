@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV4Avalanche, AaveV4AvalancheHubs, AaveV4AvalancheAssets, AaveV4AvalanchePositionManagers, AaveV4AvalancheIRStrategies, AaveV4AvalancheSpokePriceFeeds} from 'aave-address-book/AaveV4Avalanche.sol';
+import {AaveV4Avalanche, AaveV4AvalancheHubs, AaveV4AvalancheIRStrategies, AaveV4AvalancheAssets, AaveV4AvalanchePositionManagers, AaveV4AvalancheSpokePriceFeeds, AaveV4AvalancheSpokes} from 'aave-address-book/AaveV4Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {Roles} from 'aave-v4/deployments/utils/libraries/Roles.sol';
 import {AaveV4PayloadAvalanche} from 'aave-helpers/src/v4-config-engine/AaveV4PayloadAvalanche.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
+import {EngineFlags} from 'aave-v4/config-engine/libraries/EngineFlags.sol';
 import {IHub} from 'aave-v4/hub/interfaces/IHub.sol';
 import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
+import {IAssetInterestRateStrategy} from 'aave-v4/hub/interfaces/IAssetInterestRateStrategy.sol';
 import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
 import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
 
@@ -17,14 +19,14 @@ import {V4RoleWiring} from 'aave-helpers/src/v4-config-engine/V4RoleWiring.sol';
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-usde-to-aave-v4-core-instance-on-avalanche/25576
  */
-contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013 is AaveV4PayloadAvalanche {
+contract AaveV4Avalanche_OnboardUSDeCoreHub_20261019 is AaveV4PayloadAvalanche {
   // https://snowscan.xyz/address/0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34
   address public constant USDE = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
 
   // https://snowscan.xyz/address/0xaf22446124e566e54845f65b722E4dCbf12b650A
   address public constant ETHENA_ECOSYSTEM_SPOKE = 0xaf22446124e566e54845f65b722E4dCbf12b650A;
 
-  // the executor needs the spoke configurator domain admin role to configure the new spoke
+  // the executor needs the spoke configurator domain admin role to configure the new spoke. The role won't be revoked after execution to allow for future spoke configurations.
   function accessManagerRoleMemberships()
     public
     pure
@@ -81,7 +83,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013 is AaveV4PayloadAvalanche {
       underlying: USDE,
       priceSource: AaveV4AvalancheSpokePriceFeeds.MAIN_SPOKE_USDt_PRICE_FEED,
       config: ISpoke.ReserveConfig({
-        collateralRisk: uint24(0),
+        collateralRisk: uint24(16_50),
         paused: false,
         frozen: false,
         borrowable: false,
@@ -166,7 +168,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013 is AaveV4PayloadAvalanche {
       subAssets[0] = IConfigEngine.SpokeAssetConfig({
         underlying: USDE,
         config: IHub.SpokeConfig({
-          addCap: 5_000_000,
+          addCap: 60_000_000,
           drawCap: 0,
           riskPremiumThreshold: 0,
           active: true,
@@ -177,8 +179,8 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013 is AaveV4PayloadAvalanche {
         underlying: AaveV4AvalancheAssets.USDt_UNDERLYING,
         config: IHub.SpokeConfig({
           addCap: 0,
-          drawCap: 2_500_000,
-          riskPremiumThreshold: 0,
+          drawCap: 50_000_000,
+          riskPremiumThreshold: 1_100_00,
           active: true,
           halted: false
         })
@@ -187,8 +189,8 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013 is AaveV4PayloadAvalanche {
         underlying: AaveV4AvalancheAssets.USDC_UNDERLYING,
         config: IHub.SpokeConfig({
           addCap: 0,
-          drawCap: 2_500_000,
-          riskPremiumThreshold: 0,
+          drawCap: 3_000_000,
+          riskPremiumThreshold: 1_100_00,
           active: true,
           halted: false
         })
@@ -235,6 +237,67 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013 is AaveV4PayloadAvalanche {
       spoke: ETHENA_ECOSYSTEM_SPOKE,
       positionManager: address(AaveV4AvalanchePositionManagers.SIGNATURE_GATEWAY),
       active: true
+    });
+    return items;
+  }
+
+  function hubAssetConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.AssetConfigUpdate[] memory)
+  {
+    IConfigEngine.AssetConfigUpdate[] memory items = new IConfigEngine.AssetConfigUpdate[](2);
+    items[0] = IConfigEngine.AssetConfigUpdate({
+      hubConfigurator: AaveV4Avalanche.HUB_CONFIGURATOR,
+      hub: address(AaveV4AvalancheHubs.CORE_HUB),
+      underlying: AaveV4AvalancheAssets.USDt_UNDERLYING,
+      liquidityFee: EngineFlags.KEEP_CURRENT,
+      feeReceiver: EngineFlags.KEEP_CURRENT_ADDRESS,
+      irStrategy: EngineFlags.KEEP_CURRENT_ADDRESS,
+      irData: IAssetInterestRateStrategy.InterestRateData({
+        optimalUsageRatio: uint16(94_00),
+        baseDrawnRate: EngineFlags.KEEP_CURRENT_UINT32,
+        rateGrowthBeforeOptimal: uint32(4_90),
+        rateGrowthAfterOptimal: uint32(20_00)
+      }),
+      reinvestmentController: EngineFlags.KEEP_CURRENT_ADDRESS
+    });
+    items[1] = IConfigEngine.AssetConfigUpdate({
+      hubConfigurator: AaveV4Avalanche.HUB_CONFIGURATOR,
+      hub: address(AaveV4AvalancheHubs.CORE_HUB),
+      underlying: AaveV4AvalancheAssets.USDC_UNDERLYING,
+      liquidityFee: EngineFlags.KEEP_CURRENT,
+      feeReceiver: EngineFlags.KEEP_CURRENT_ADDRESS,
+      irStrategy: EngineFlags.KEEP_CURRENT_ADDRESS,
+      irData: IAssetInterestRateStrategy.InterestRateData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT_UINT16,
+        baseDrawnRate: EngineFlags.KEEP_CURRENT_UINT32,
+        rateGrowthBeforeOptimal: uint32(4_50),
+        rateGrowthAfterOptimal: uint32(20_00)
+      }),
+      reinvestmentController: EngineFlags.KEEP_CURRENT_ADDRESS
+    });
+    return items;
+  }
+
+  function hubSpokeConfigUpdates()
+    public
+    pure
+    override
+    returns (IConfigEngine.SpokeConfigUpdate[] memory)
+  {
+    IConfigEngine.SpokeConfigUpdate[] memory items = new IConfigEngine.SpokeConfigUpdate[](1);
+    items[0] = IConfigEngine.SpokeConfigUpdate({
+      hubConfigurator: AaveV4Avalanche.HUB_CONFIGURATOR,
+      hub: address(AaveV4AvalancheHubs.CORE_HUB),
+      underlying: AaveV4AvalancheAssets.USDt_UNDERLYING,
+      spoke: address(AaveV4AvalancheSpokes.MAIN_SPOKE),
+      addCap: 60_000_000,
+      drawCap: EngineFlags.KEEP_CURRENT,
+      riskPremiumThreshold: EngineFlags.KEEP_CURRENT,
+      active: EngineFlags.KEEP_CURRENT,
+      halted: EngineFlags.KEEP_CURRENT
     });
     return items;
   }

@@ -5,18 +5,18 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, AvalancheScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV4Avalanche_OnboardUSDeCoreHub_20261013} from './AaveV4Avalanche_OnboardUSDeCoreHub_20261013.sol';
+import {AaveV4Avalanche_OnboardUSDeCoreHub_20261019} from './AaveV4Avalanche_OnboardUSDeCoreHub_20261019.sol';
 
 /**
  * @dev Deploy Avalanche
- * deploy-command: make deploy-ledger contract=src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/OnboardUSDeCoreHub_20261013.s.sol:DeployAvalanche chain=avalanche
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardUSDeCoreHub_20261013.s.sol/43114/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/OnboardUSDeCoreHub_20261019.s.sol:DeployAvalanche chain=avalanche
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardUSDeCoreHub_20261019.s.sol/43114/run-latest.json
  */
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV4Avalanche_OnboardUSDeCoreHub_20261013).creationCode
+      type(AaveV4Avalanche_OnboardUSDeCoreHub_20261019).creationCode
     );
 
     // compose action
@@ -31,7 +31,7 @@ contract DeployAvalanche is AvalancheScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/OnboardUSDeCoreHub_20261013.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/OnboardUSDeCoreHub_20261019.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -43,7 +43,7 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsAvalanche[0] = GovV3Helpers.buildAction(
-        type(AaveV4Avalanche_OnboardUSDeCoreHub_20261013).creationCode
+        type(AaveV4Avalanche_OnboardUSDeCoreHub_20261019).creationCode
       );
       payloads[0] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }
@@ -56,7 +56,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/OnboardUSDeCoreHub.md'
+        'src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/OnboardUSDeCoreHub.md'
       )
     );
   }

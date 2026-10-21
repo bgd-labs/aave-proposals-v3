@@ -2,12 +2,12 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave Labs',
-    configFile: 'src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/config.ts',
+    configFile: 'src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/config.ts',
     force: true,
     markets: ['AaveV4Avalanche'],
     title: 'Onboard USDe to Aave V4 Core Instance on Avalanche',
     shortName: 'OnboardUSDeCoreHub',
-    date: '20261013',
+    date: '20261019',
     discussion:
       'https://governance.aave.com/t/direct-to-aip-onboard-usde-to-aave-v4-core-instance-on-avalanche/25576',
     snapshot: 'direct-to-aip',
@@ -38,7 +38,7 @@ export const config: ConfigFile = {
               underlying: 'USDE',
               priceSource: '0x5b7810a910B4a878AaA4800a824E5E5796838009',
               config: {
-                collateralRisk: '0',
+                collateralRisk: '16.5',
                 paused: false,
                 frozen: false,
                 borrowable: false,
@@ -107,7 +107,7 @@ export const config: ConfigFile = {
               assets: [
                 {
                   underlying: 'USDE',
-                  addCap: '5000000',
+                  addCap: '60000000',
                   drawCap: '0',
                   riskPremiumThreshold: '0',
                   active: true,
@@ -116,16 +116,16 @@ export const config: ConfigFile = {
                 {
                   underlying: 'AaveV4AvalancheAssets.USDt_UNDERLYING',
                   addCap: '0',
-                  drawCap: '2500000',
-                  riskPremiumThreshold: '0',
+                  drawCap: '50000000',
+                  riskPremiumThreshold: '1100',
                   active: true,
                   halted: false,
                 },
                 {
                   underlying: 'AaveV4AvalancheAssets.USDC_UNDERLYING',
                   addCap: '0',
-                  drawCap: '2500000',
-                  riskPremiumThreshold: '0',
+                  drawCap: '3000000',
+                  riskPremiumThreshold: '1100',
                   active: true,
                   halted: false,
                 },
@@ -159,8 +159,53 @@ export const config: ConfigFile = {
             },
           ],
         },
+        V4_HUB_ASSET_CONFIG_UPDATE: [
+          {
+            hubLib: 'AaveV4AvalancheHubs.CORE_HUB',
+            hub: 'CORE_HUB',
+            underlying: 'AaveV4AvalancheAssets.USDt_UNDERLYING',
+            liquidityFee: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            feeReceiver: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+            irStrategy: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+            irData: {
+              optimalUsageRatio: {kind: 'literal', value: '94'},
+              baseDrawnRate: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT32'},
+              rateGrowthBeforeOptimal: {kind: 'literal', value: '4.9'},
+              rateGrowthAfterOptimal: {kind: 'literal', value: '20'},
+            },
+            reinvestmentController: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+          },
+          {
+            hubLib: 'AaveV4AvalancheHubs.CORE_HUB',
+            hub: 'CORE_HUB',
+            underlying: 'AaveV4AvalancheAssets.USDC_UNDERLYING',
+            liquidityFee: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            feeReceiver: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+            irStrategy: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+            irData: {
+              optimalUsageRatio: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT16'},
+              baseDrawnRate: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_UINT32'},
+              rateGrowthBeforeOptimal: {kind: 'literal', value: '4.5'},
+              rateGrowthAfterOptimal: {kind: 'literal', value: '20'},
+            },
+            reinvestmentController: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT_ADDRESS'},
+          },
+        ],
+        V4_HUB_SPOKE_CONFIG_UPDATE: [
+          {
+            hubLib: 'AaveV4AvalancheHubs.CORE_HUB',
+            hub: 'CORE_HUB',
+            underlying: 'AaveV4AvalancheAssets.USDt_UNDERLYING',
+            spoke: 'AaveV4AvalancheSpokes.MAIN_SPOKE',
+            addCap: {kind: 'literal', value: '60000000'},
+            drawCap: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            riskPremiumThreshold: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            active: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+            halted: {kind: 'keepCurrent', sentinel: 'KEEP_CURRENT'},
+          },
+        ],
       },
-      cache: {blockNumber: 97445417},
+      cache: {blockNumber: 97969387},
       labels: {
         '0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34': {
           label: 'USDE',

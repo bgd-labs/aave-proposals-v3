@@ -1,13 +1,13 @@
 ---
-title: "[Direct to AIP] Onboard USDe to Aave V4 Core Instance on Avalanche"
+title: "Onboard USDe to Aave V4 Core Instance on Avalanche"
 author: "@AaveLabs"
-date: "2026-10-14"
+date: "2026-10-19"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-usde-to-aave-v4-core-instance-on-avalanche/25576"
 ---
 
 ## Simple Summary
 
-This proposal onboards USDe to the Aave V4 Core Instance on Avalanche. It configures the new Ethena Ecosystem Spoke, where USDe is collateral only and USDt and USDC are borrowable, and grants the Governance Level 1 Executor the role required to configure spokes.
+This proposal onboards USDe to the Aave V4 Core Instance on Avalanche. It configures the new Ethena Ecosystem Spoke, where USDe is collateral only and USDt and USDC are borrowable, grants the Governance Level 1 Executor the role required to configure spokes, raises the USDt add cap on the Main Spoke, and updates the USDt and USDC interest rate parameters on the Core Hub.
 
 ## Motivation
 
@@ -35,9 +35,9 @@ This proposal grants the `SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE` on the Aave V4 A
 
 | Hub  | Spoke                  | Reserve | Collateral Factor | Max Liquidation Bonus | Borrowable | Collateral Risk | Liquidation Fee | Risk Premium Threshold | Receive Shares |
 | ---- | ---------------------- | ------- | ----------------: | --------------------: | ---------- | --------------: | --------------: | ---------------------: | -------------- |
-| Core | Ethena Ecosystem Spoke | USDe    |            93.00% |                 2.00% | FALSE      |               0 |          10.00% |                      0 | TRUE           |
-| Core | Ethena Ecosystem Spoke | USDt    |             0.00% |                     - | TRUE       |               - |               - |                      - | TRUE           |
-| Core | Ethena Ecosystem Spoke | USDC    |             0.00% |                     - | TRUE       |               - |               - |                      - | TRUE           |
+| Core | Ethena Ecosystem Spoke | USDe    |            93.00% |                 2.00% | FALSE      |          16.50% |          10.00% |                      0 | TRUE           |
+| Core | Ethena Ecosystem Spoke | USDt    |             0.00% |                     - | TRUE       |               - |               - |                  1100% | TRUE           |
+| Core | Ethena Ecosystem Spoke | USDC    |             0.00% |                     - | TRUE       |               - |               - |                  1100% | TRUE           |
 
 **Dynamic liquidation configuration**
 
@@ -49,11 +49,24 @@ This proposal grants the `SPOKE_CONFIGURATOR_DOMAIN_ADMIN_ROLE` on the Aave V4 A
 
 **Caps**
 
-| Hub  | Spoke                  | Reserve |   Add Cap |  Draw Cap |
-| ---- | ---------------------- | ------- | --------: | --------: |
-| Core | Ethena Ecosystem Spoke | USDe    | 5,000,000 |         0 |
-| Core | Ethena Ecosystem Spoke | USDt    |         0 | 2,500,000 |
-| Core | Ethena Ecosystem Spoke | USDC    |         0 | 2,500,000 |
+| Hub  | Spoke                  | Reserve |    Add Cap |   Draw Cap |
+| ---- | ---------------------- | ------- | ---------: | ---------: |
+| Core | Ethena Ecosystem Spoke | USDe    | 60,000,000 |          0 |
+| Core | Ethena Ecosystem Spoke | USDt    |          0 | 50,000,000 |
+| Core | Ethena Ecosystem Spoke | USDC    |          0 |  3,000,000 |
+
+**Main Spoke cap update**
+
+| Hub  | Spoke | Reserve |    Add Cap |
+| ---- | ----- | ------- | ---------: |
+| Core | Main  | USDt    | 60,000,000 |
+
+**Interest Rate Strategy**
+
+| Hub  | Reserve | Rate Growth Before Optimal | Rate Growth After Optimal | Optimal Usage Ratio |
+| ---- | ------- | -------------------------: | ------------------------: | ------------------: |
+| Core | USDt    |                      4.90% |                    20.00% |              94.00% |
+| Core | USDC    |                      4.50% |                    20.00% |                   - |
 
 **Oracle configuration**
 
@@ -81,6 +94,6 @@ This proposal was prepared by Aave Labs in its capacity as a contributor to the 
 
 ## References
 
-- Implementation: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/c06d328676760112e3c0c24a1e104341476da09b/src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261013.sol)
-- Tests: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/c06d328676760112e3c0c24a1e104341476da09b/src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261013.t.sol)
+- Implementation: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.sol)
+- Tests: [AaveV4Avalanche](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-to-aave-v4-core-instance-on-avalanche/25576)

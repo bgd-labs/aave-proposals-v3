@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV4AvalancheSpokes, AaveV4AvalancheHubs, AaveV4Avalanche, AaveV4AvalancheAssets, AaveV4AvalanchePositionManagers, AaveV4AvalancheIRStrategies, AaveV4AvalancheSpokePriceFeeds} from 'aave-address-book/AaveV4Avalanche.sol';
+import {AaveV4AvalancheSpokes, AaveV4AvalancheHubs, AaveV4Avalanche, AaveV4AvalancheIRStrategies, AaveV4AvalancheAssets, AaveV4AvalanchePositionManagers, AaveV4AvalancheSpokePriceFeeds} from 'aave-address-book/AaveV4Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {IAaveV4ConfigEngine as IConfigEngine} from 'aave-address-book/AaveV4.sol';
@@ -17,18 +17,18 @@ import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/exten
 
 import 'forge-std/Test.sol';
 import {ProtocolV4TestBaseAvalanche} from 'aave-helpers/src/v4-protocol-test/ProtocolV4TestBaseAvalanche.sol';
-import {AaveV4Avalanche_OnboardUSDeCoreHub_20261013} from './AaveV4Avalanche_OnboardUSDeCoreHub_20261013.sol';
+import {AaveV4Avalanche_OnboardUSDeCoreHub_20261019} from './AaveV4Avalanche_OnboardUSDeCoreHub_20261019.sol';
 
 /**
- * @dev Test for AaveV4Avalanche_OnboardUSDeCoreHub_20261013
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261013_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261013.t.sol -vv
+ * @dev Test for AaveV4Avalanche_OnboardUSDeCoreHub_20261019
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20261019_AaveV4Avalanche_OnboardUSDeCoreHub/AaveV4Avalanche_OnboardUSDeCoreHub_20261019.t.sol -vv
  */
-contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseAvalanche {
-  AaveV4Avalanche_OnboardUSDeCoreHub_20261013 internal proposal;
+contract AaveV4Avalanche_OnboardUSDeCoreHub_20261019_Test is ProtocolV4TestBaseAvalanche {
+  AaveV4Avalanche_OnboardUSDeCoreHub_20261019 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 97445417);
-    proposal = new AaveV4Avalanche_OnboardUSDeCoreHub_20261013();
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 97969387);
+    proposal = new AaveV4Avalanche_OnboardUSDeCoreHub_20261019();
   }
 
   /**
@@ -36,14 +36,24 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
    * forge-config: default.isolate = true
    */
   function test_defaultProposalExecution() public {
-    ISpoke[] memory addressBookSpokes = _getSpokes();
-    ISpoke[] memory spokes = new ISpoke[](addressBookSpokes.length + 1);
-    for (uint256 i; i < addressBookSpokes.length; ++i) {
-      spokes[i] = addressBookSpokes[i];
+    ISpoke[] memory spokes = _getSpokes();
+    address ethenaEcosystemSpoke = proposal.ETHENA_ECOSYSTEM_SPOKE();
+    bool listed;
+    for (uint256 i; i < spokes.length; ++i) {
+      if (address(spokes[i]) == ethenaEcosystemSpoke) {
+        listed = true;
+      }
     }
-    spokes[addressBookSpokes.length] = ISpoke(proposal.ETHENA_ECOSYSTEM_SPOKE());
+    if (!listed) {
+      ISpoke[] memory extended = new ISpoke[](spokes.length + 1);
+      for (uint256 i; i < spokes.length; ++i) {
+        extended[i] = spokes[i];
+      }
+      extended[spokes.length] = ISpoke(ethenaEcosystemSpoke);
+      spokes = extended;
+    }
     defaultTest(
-      'AaveV4Avalanche_OnboardUSDeCoreHub_20261013',
+      'AaveV4Avalanche_OnboardUSDeCoreHub_20261019',
       spokes,
       _getTokenizationSpokes(),
       address(proposal)
@@ -104,6 +114,54 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
       GovernanceV3Avalanche.EXECUTOR_LVL_1
     );
     assertFalse(isMember, 'executor already holds spoke configurator domain admin role');
+
+    uint256 usdtId = hub.getAssetId(address(AaveV4AvalancheAssets.USDt_UNDERLYING));
+    uint256 usdcId = hub.getAssetId(address(AaveV4AvalancheAssets.USDC_UNDERLYING));
+    IHub.SpokeConfig memory mainUsdt = hub.getSpokeConfig(
+      usdtId,
+      address(AaveV4AvalancheSpokes.MAIN_SPOKE)
+    );
+    assertEq(uint256(mainUsdt.addCap), uint256(20_000_000), 'Main Spoke USDt addCap pre-state');
+    assertEq(uint256(mainUsdt.drawCap), uint256(5_000_000), 'Main Spoke USDt drawCap pre-state');
+    assertEq(
+      uint256(mainUsdt.riskPremiumThreshold),
+      uint256(0),
+      'Main Spoke USDt riskPremiumThreshold pre-state'
+    );
+    assertEq(mainUsdt.active, true, 'Main Spoke USDt active pre-state');
+    assertEq(mainUsdt.halted, false, 'Main Spoke USDt halted pre-state');
+
+    IAssetInterestRateStrategy.InterestRateData memory usdtIr = IAssetInterestRateStrategy(
+      address(AaveV4AvalancheIRStrategies.CORE_USDt_IR_STRATEGY)
+    ).getInterestRateData(usdtId);
+    assertEq(uint256(usdtIr.optimalUsageRatio), uint256(90_00), 'USDt optimalUsageRatio pre-state');
+    assertEq(uint256(usdtIr.baseDrawnRate), uint256(0), 'USDt baseDrawnRate pre-state');
+    assertEq(
+      uint256(usdtIr.rateGrowthBeforeOptimal),
+      uint256(4_00),
+      'USDt rateGrowthBeforeOptimal pre-state'
+    );
+    assertEq(
+      uint256(usdtIr.rateGrowthAfterOptimal),
+      uint256(10_00),
+      'USDt rateGrowthAfterOptimal pre-state'
+    );
+
+    IAssetInterestRateStrategy.InterestRateData memory usdcIr = IAssetInterestRateStrategy(
+      address(AaveV4AvalancheIRStrategies.CORE_USDC_IR_STRATEGY)
+    ).getInterestRateData(usdcId);
+    assertEq(uint256(usdcIr.optimalUsageRatio), uint256(90_00), 'USDC optimalUsageRatio pre-state');
+    assertEq(uint256(usdcIr.baseDrawnRate), uint256(0), 'USDC baseDrawnRate pre-state');
+    assertEq(
+      uint256(usdcIr.rateGrowthBeforeOptimal),
+      uint256(4_00),
+      'USDC rateGrowthBeforeOptimal pre-state'
+    );
+    assertEq(
+      uint256(usdcIr.rateGrowthAfterOptimal),
+      uint256(10_00),
+      'USDC rateGrowthAfterOptimal pre-state'
+    );
   }
 
   function test_executorSpokeConfiguratorDomainAdminRole() public {
@@ -204,7 +262,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
       IERC20Metadata(proposal.USDE()).decimals(),
       'decimals mismatch'
     );
-    assertEq(uint256(cfg.collateralRisk), uint256(0), 'collateralRisk mismatch');
+    assertEq(uint256(cfg.collateralRisk), uint256(16_50), 'collateralRisk mismatch');
     assertEq(cfg.paused, false, 'paused mismatch');
     assertEq(cfg.frozen, false, 'frozen mismatch');
     assertEq(cfg.borrowable, false, 'borrowable mismatch');
@@ -397,7 +455,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
     uint256 assetId = hub.getAssetId(proposal.USDE());
     assertTrue(hub.isSpokeListed(assetId, proposal.ETHENA_ECOSYSTEM_SPOKE()), 'spoke not listed');
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.ETHENA_ECOSYSTEM_SPOKE());
-    assertEq(uint256(cfg.addCap), uint256(5_000_000), 'addCap mismatch');
+    assertEq(uint256(cfg.addCap), uint256(60_000_000), 'addCap mismatch');
     assertEq(uint256(cfg.drawCap), uint256(0), 'drawCap mismatch');
     assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
@@ -411,8 +469,8 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
     assertTrue(hub.isSpokeListed(assetId, proposal.ETHENA_ECOSYSTEM_SPOKE()), 'spoke not listed');
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.ETHENA_ECOSYSTEM_SPOKE());
     assertEq(uint256(cfg.addCap), uint256(0), 'addCap mismatch');
-    assertEq(uint256(cfg.drawCap), uint256(2_500_000), 'drawCap mismatch');
-    assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(50_000_000), 'drawCap mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(1_100_00), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
     assertEq(cfg.halted, false, 'halted mismatch');
   }
@@ -424,8 +482,8 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
     assertTrue(hub.isSpokeListed(assetId, proposal.ETHENA_ECOSYSTEM_SPOKE()), 'spoke not listed');
     IHub.SpokeConfig memory cfg = hub.getSpokeConfig(assetId, proposal.ETHENA_ECOSYSTEM_SPOKE());
     assertEq(uint256(cfg.addCap), uint256(0), 'addCap mismatch');
-    assertEq(uint256(cfg.drawCap), uint256(2_500_000), 'drawCap mismatch');
-    assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(3_000_000), 'drawCap mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(1_100_00), 'riskPremiumThreshold mismatch');
     assertEq(cfg.active, true, 'active mismatch');
     assertEq(cfg.halted, false, 'halted mismatch');
   }
@@ -474,6 +532,81 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
     );
   }
 
+  function test_hubAssetConfigUpdate_CORE_HUB_USDt() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4AvalancheHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(address(AaveV4AvalancheAssets.USDt_UNDERLYING));
+    IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
+    assertEq(uint256(cfg.liquidityFee), uint256(10_00), 'liquidityFee mismatch');
+    assertEq(cfg.feeReceiver, address(AaveV4Avalanche.TREASURY_SPOKE), 'feeReceiver mismatch');
+    assertEq(
+      cfg.irStrategy,
+      address(AaveV4AvalancheIRStrategies.CORE_USDt_IR_STRATEGY),
+      'irStrategy mismatch'
+    );
+    assertEq(cfg.reinvestmentController, address(0), 'reinvestmentController mismatch');
+    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
+      cfg.irStrategy
+    ).getInterestRateData(assetId);
+    assertEq(uint256(irData.optimalUsageRatio), uint256(94_00), 'optimalUsageRatio mismatch');
+    assertEq(uint256(irData.baseDrawnRate), uint256(0), 'baseDrawnRate mismatch');
+    assertEq(
+      uint256(irData.rateGrowthBeforeOptimal),
+      uint256(4_90),
+      'rateGrowthBeforeOptimal mismatch'
+    );
+    assertEq(
+      uint256(irData.rateGrowthAfterOptimal),
+      uint256(20_00),
+      'rateGrowthAfterOptimal mismatch'
+    );
+  }
+
+  function test_hubAssetConfigUpdate_CORE_HUB_USDC() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4AvalancheHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(address(AaveV4AvalancheAssets.USDC_UNDERLYING));
+    IHub.AssetConfig memory cfg = hub.getAssetConfig(assetId);
+    assertEq(uint256(cfg.liquidityFee), uint256(10_00), 'liquidityFee mismatch');
+    assertEq(cfg.feeReceiver, address(AaveV4Avalanche.TREASURY_SPOKE), 'feeReceiver mismatch');
+    assertEq(
+      cfg.irStrategy,
+      address(AaveV4AvalancheIRStrategies.CORE_USDC_IR_STRATEGY),
+      'irStrategy mismatch'
+    );
+    assertEq(cfg.reinvestmentController, address(0), 'reinvestmentController mismatch');
+    IAssetInterestRateStrategy.InterestRateData memory irData = IAssetInterestRateStrategy(
+      cfg.irStrategy
+    ).getInterestRateData(assetId);
+    assertEq(uint256(irData.optimalUsageRatio), uint256(90_00), 'optimalUsageRatio mismatch');
+    assertEq(uint256(irData.baseDrawnRate), uint256(0), 'baseDrawnRate mismatch');
+    assertEq(
+      uint256(irData.rateGrowthBeforeOptimal),
+      uint256(4_50),
+      'rateGrowthBeforeOptimal mismatch'
+    );
+    assertEq(
+      uint256(irData.rateGrowthAfterOptimal),
+      uint256(20_00),
+      'rateGrowthAfterOptimal mismatch'
+    );
+  }
+
+  function test_hubSpokeConfigUpdate_CORE_HUB_MAIN_SPOKE_USDt() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    IHub hub = IHub(address(AaveV4AvalancheHubs.CORE_HUB));
+    uint256 assetId = hub.getAssetId(address(AaveV4AvalancheAssets.USDt_UNDERLYING));
+    IHub.SpokeConfig memory cfg = hub.getSpokeConfig(
+      assetId,
+      address(AaveV4AvalancheSpokes.MAIN_SPOKE)
+    );
+    assertEq(uint256(cfg.addCap), uint256(60_000_000), 'addCap mismatch');
+    assertEq(uint256(cfg.drawCap), uint256(5_000_000), 'drawCap mismatch');
+    assertEq(uint256(cfg.riskPremiumThreshold), uint256(0), 'riskPremiumThreshold mismatch');
+    assertEq(cfg.active, true, 'active mismatch');
+    assertEq(cfg.halted, false, 'halted mismatch');
+  }
+
   function test_hubAssetListingsInput() public view {
     IConfigEngine.AssetListing[] memory items = proposal.hubAssetListings();
     assertEq(items.length, 1, 'length');
@@ -511,7 +644,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
       AaveV4AvalancheSpokePriceFeeds.MAIN_SPOKE_USDt_PRICE_FEED,
       'priceSource'
     );
-    assertEq(uint256(items[0].config.collateralRisk), 0, 'collateralRisk');
+    assertEq(uint256(items[0].config.collateralRisk), 16_50, 'collateralRisk');
     assertEq(items[0].config.paused, false, 'paused');
     assertEq(items[0].config.frozen, false, 'frozen');
     assertEq(items[0].config.borrowable, false, 'borrowable');
@@ -568,7 +701,7 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
     assertEq(items[0].spoke, proposal.ETHENA_ECOSYSTEM_SPOKE(), 'spoke');
     assertEq(items[0].assets.length, 3, 'assets length');
     assertEq(items[0].assets[0].underlying, proposal.USDE(), 'underlying');
-    assertEq(uint256(items[0].assets[0].config.addCap), 5_000_000, 'addCap');
+    assertEq(uint256(items[0].assets[0].config.addCap), 60_000_000, 'addCap');
     assertEq(uint256(items[0].assets[0].config.drawCap), 0, 'drawCap');
     assertEq(uint256(items[0].assets[0].config.riskPremiumThreshold), 0, 'riskPremiumThreshold');
     assertEq(items[0].assets[0].config.active, true, 'active');
@@ -579,8 +712,12 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
       'underlying'
     );
     assertEq(uint256(items[0].assets[1].config.addCap), 0, 'addCap');
-    assertEq(uint256(items[0].assets[1].config.drawCap), 2_500_000, 'drawCap');
-    assertEq(uint256(items[0].assets[1].config.riskPremiumThreshold), 0, 'riskPremiumThreshold');
+    assertEq(uint256(items[0].assets[1].config.drawCap), 50_000_000, 'drawCap');
+    assertEq(
+      uint256(items[0].assets[1].config.riskPremiumThreshold),
+      1_100_00,
+      'riskPremiumThreshold'
+    );
     assertEq(items[0].assets[1].config.active, true, 'active');
     assertEq(items[0].assets[1].config.halted, false, 'halted');
     assertEq(
@@ -589,8 +726,12 @@ contract AaveV4Avalanche_OnboardUSDeCoreHub_20261013_Test is ProtocolV4TestBaseA
       'underlying'
     );
     assertEq(uint256(items[0].assets[2].config.addCap), 0, 'addCap');
-    assertEq(uint256(items[0].assets[2].config.drawCap), 2_500_000, 'drawCap');
-    assertEq(uint256(items[0].assets[2].config.riskPremiumThreshold), 0, 'riskPremiumThreshold');
+    assertEq(uint256(items[0].assets[2].config.drawCap), 3_000_000, 'drawCap');
+    assertEq(
+      uint256(items[0].assets[2].config.riskPremiumThreshold),
+      1_100_00,
+      'riskPremiumThreshold'
+    );
     assertEq(items[0].assets[2].config.active, true, 'active');
     assertEq(items[0].assets[2].config.halted, false, 'halted');
   }
