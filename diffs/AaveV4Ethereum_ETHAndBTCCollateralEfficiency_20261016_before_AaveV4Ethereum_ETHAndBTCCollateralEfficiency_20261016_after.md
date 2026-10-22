@@ -74,12 +74,12 @@
 | index | event |
 | --- | --- |
 | 0 | UpdateDynamicReserveConfig(reserveId: 0, dynamicConfigKey: 0, config: {collateralFactor: 8400, maxLiquidationBonus: 10555, liquidationFee: 1000}) |
-| 1 | UpdateDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 2, config: {collateralFactor: 8200, maxLiquidationBonus: 10666, liquidationFee: 1000}) |
-| 2 | UpdateDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 2, config: {collateralFactor: 8100, maxLiquidationBonus: 10777, liquidationFee: 1000}) |
-| 3 | UpdateDynamicReserveConfig(reserveId: 3, dynamicConfigKey: 0, config: {collateralFactor: 8500, maxLiquidationBonus: 10555, liquidationFee: 1000}) |
-| 4 | UpdateDynamicReserveConfig(reserveId: 4, dynamicConfigKey: 0, config: {collateralFactor: 8500, maxLiquidationBonus: 10555, liquidationFee: 1000}) |
-| 5 | UpdateDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 0, config: {collateralFactor: 8200, maxLiquidationBonus: 10666, liquidationFee: 1000}) |
-| 6 | UpdateDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 0, config: {collateralFactor: 8100, maxLiquidationBonus: 10777, liquidationFee: 1000}) |
+| 1 | UpdateDynamicReserveConfig(reserveId: 3, dynamicConfigKey: 0, config: {collateralFactor: 8500, maxLiquidationBonus: 10555, liquidationFee: 1000}) |
+| 2 | UpdateDynamicReserveConfig(reserveId: 4, dynamicConfigKey: 0, config: {collateralFactor: 8500, maxLiquidationBonus: 10555, liquidationFee: 1000}) |
+| 3 | UpdateDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 0, config: {collateralFactor: 8200, maxLiquidationBonus: 10666, liquidationFee: 1000}) |
+| 4 | UpdateDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 0, config: {collateralFactor: 8100, maxLiquidationBonus: 10777, liquidationFee: 1000}) |
+| 5 | UpdateDynamicReserveConfig(reserveId: 1, dynamicConfigKey: 2, config: {collateralFactor: 8200, maxLiquidationBonus: 10666, liquidationFee: 1000}) |
+| 6 | UpdateDynamicReserveConfig(reserveId: 2, dynamicConfigKey: 2, config: {collateralFactor: 8100, maxLiquidationBonus: 10777, liquidationFee: 1000}) |
 
 #### 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A (AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumHorizon.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1)
 
