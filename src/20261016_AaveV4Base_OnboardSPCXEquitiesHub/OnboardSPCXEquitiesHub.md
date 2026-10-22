@@ -11,9 +11,9 @@ This proposal onboards SPCXc as collateral only on the existing MAG7 Spoke of th
 
 ## Motivation
 
-SPCX is a tokenized equity issued by Base, providing onchain exposure to SpaceX shares, which trade on Nasdaq under the same ticker. The Equities Hub on Base currently holds seven tokenized equities alongside USDC.
+SPCXc is a tokenized equity issued by Base, providing onchain exposure to SpaceX shares, which trade on Nasdaq under the ticker SPCX. The Equities Hub on Base currently holds seven tokenized equities alongside USDC.
 
-Onboarding SPCX would:
+Onboarding SPCXc would:
 
 - Add tokenized SpaceX equity exposure to the Aave V4 Equities Hub on Base.
 - Broaden the set of tokenized equities available on the Equities Hub.
@@ -26,7 +26,7 @@ The payload lists SPCXc on the Equities Hub and MAG7 Spoke with the parameters b
 
 | Chain | Hub          | Spoke      | Reserve | Collateral Factor | Max Liquidation Bonus | Borrowable | Collateral Risk | Liquidation Fee | Risk Premium Threshold | Receive Shares |
 | ----- | ------------ | ---------- | ------- | ----------------: | --------------------: | ---------- | --------------: | --------------: | ---------------------: | -------------- |
-| Base  | Equities Hub | MAG7 Spoke | SPCXc   |            55.00% |                 6.50% | FALSE      |       1,000 bps |          10.00% |                      0 | TRUE           |
+| Base  | Equities Hub | MAG7 Spoke | SPCXc   |            55.00% |                 6.50% | FALSE      |          10.00% |          10.00% |                      0 | TRUE           |
 
 ### Add and Draw Caps
 
