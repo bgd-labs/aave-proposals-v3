@@ -54,7 +54,7 @@ describe('testTemplate', () => {
     expect(out).toContain('forge-config: default.isolate = true');
     const e2e = out.slice(out.indexOf('function test_e2e()'));
     expect(e2e).toContain('GovV3Helpers.executePayload(vm, address(proposal))');
-    expect(e2e).toContain('e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: true})');
+    expect(e2e).toContain('e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: false})');
     expect(e2e).toContain('e2eTestAllTokenizationSpokes(_getTokenizationSpokes())');
     expect(e2e).not.toContain('forge-config: default.isolate = true');
   });
