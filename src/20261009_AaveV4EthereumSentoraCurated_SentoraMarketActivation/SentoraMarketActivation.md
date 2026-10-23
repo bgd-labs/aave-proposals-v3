@@ -43,9 +43,9 @@ The deploy script `SentoraPreLaunchConfig_20261016.s.sol` prints the six Council
 
 ## References
 
-- Implementation: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol)
-- Tests: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol)
-- Pre-launch config: [implementation](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.sol), [tests](https://github.com/aave-dao/aave-proposals-v3/blob/main/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.t.sol)
+- Implementation: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/aa5f88f34c8aca0c4e624f528804752c60b357da/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.sol)
+- Tests: [AaveV4EthereumSentoraCurated](https://github.com/aave-dao/aave-proposals-v3/blob/aa5f88f34c8aca0c4e624f528804752c60b357da/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraMarketActivation_20261009.t.sol)
+- Pre-launch config: [implementation](https://github.com/aave-dao/aave-proposals-v3/blob/aa5f88f34c8aca0c4e624f528804752c60b357da/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.sol), [tests](https://github.com/aave-dao/aave-proposals-v3/blob/aa5f88f34c8aca0c4e624f528804752c60b357da/src/20261009_AaveV4EthereumSentoraCurated_SentoraMarketActivation/AaveV4EthereumSentoraCurated_SentoraPreLaunchConfig_20261016.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x682f73c809e03d25008b9c4898f4e25c047806683f4d1b0d7635ba8ed50276aa)
 - [Discussion](https://governance.aave.com/t/arfc-sentora-externally-curated-hub-spoke-framework-on-aave-v4/25723)
 
