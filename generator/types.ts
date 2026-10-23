@@ -76,7 +76,6 @@ export const V4_MARKETS = [
   'AaveV4Base',
   'AaveV4Ethereum',
   'AaveV4Avalanche',
-  'AaveV4Base',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const MARKETS = [

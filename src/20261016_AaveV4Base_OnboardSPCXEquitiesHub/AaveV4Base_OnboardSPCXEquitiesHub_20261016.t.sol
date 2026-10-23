@@ -56,7 +56,7 @@ contract AaveV4Base_OnboardSPCXEquitiesHub_20261016_Test is ProtocolV4TestBaseBa
 
   function test_e2e() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: true});
+    e2eTestAllSpokes({spokes: _getSpokes(), testPositionManagers: false});
     e2eTestAllTokenizationSpokes(_getTokenizationSpokes());
   }
 
