@@ -26,7 +26,7 @@ The payload lists SPCXc on the Equities Hub and MAG7 Spoke with the parameters b
 
 | Chain | Hub          | Spoke      | Reserve | Collateral Factor | Max Liquidation Bonus | Borrowable | Collateral Risk | Liquidation Fee | Risk Premium Threshold | Receive Shares |
 | ----- | ------------ | ---------- | ------- | ----------------: | --------------------: | ---------- | --------------: | --------------: | ---------------------: | -------------- |
-| Base  | Equities Hub | MAG7 Spoke | SPCXc   |            55.00% |                 6.50% | FALSE      |          10.00% |          10.00% |                      0 | TRUE           |
+| Base  | Equities Hub | MAG7 Spoke | SPCXc   |            55.00% |                 6.50% | FALSE      |          10.00% |          10.00% |                  0.00% | TRUE           |
 
 ### Add and Draw Caps
 

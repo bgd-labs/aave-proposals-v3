@@ -5,7 +5,7 @@ export const config: ConfigFile = {
     configFile: 'src/20261016_AaveV4Base_OnboardSPCXEquitiesHub/config.ts',
     force: false,
     markets: ['AaveV4Base'],
-    title: 'Onboard SPCXc to the Equities Hub on Base',
+    title: 'Onboard SPCXc to the Aave V4 Equities Hub on Base',
     shortName: 'OnboardSPCXEquitiesHub',
     date: '20261016',
     author: 'Aave Labs',

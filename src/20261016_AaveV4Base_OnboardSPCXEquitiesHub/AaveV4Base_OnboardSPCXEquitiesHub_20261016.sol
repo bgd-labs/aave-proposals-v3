@@ -12,7 +12,7 @@ import {ISpoke} from 'aave-v4/spoke/interfaces/ISpoke.sol';
 import {V4EngineDefaults} from 'aave-helpers/src/v4-config-engine/V4EngineDefaults.sol';
 
 /**
- * @title Onboard SPCXc to the Equities Hub on Base
+ * @title Onboard SPCXc to the Aave V4 Equities Hub on Base
  * @author Aave Labs
  * - Snapshot: direct-to-aip
  * - Discussion: https://governance.aave.com/t/direct-to-aip-asset-listing-spcx-to-the-aave-v4-equities-hub-on-base/25850
